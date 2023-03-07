@@ -1,0 +1,16 @@
+{
+  "orgName": "minlopro-dx",
+  "edition": "Enterprise",
+  "features": ["EnableSetPasswordInApi"],
+  "country": "US",
+  "language": "EN",
+  //  "adminEmail": "", // TODO
+  "settings": {
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "mobileSettings": {
+      "enableS1EncryptedStoragePref2": false
+    }
+  }
+}
