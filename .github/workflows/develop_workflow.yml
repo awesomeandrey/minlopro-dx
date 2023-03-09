@@ -1,14 +1,24 @@
-name: Check-Only Deployment / Apex Tests Execution / Deployment
+name: DEVELOP Branch Workflow
 
 # Trigger Events
 on:
+  schedule:
+    # Runs "At 07:00 on every day-of-week from Monday through Friday"
+    - cron: '0 7 * * 1-5'
   workflow_dispatch:
+    branches:
+      - develop
   pull_request:
+    branches:
+      - develop
   push:
+    branches:
+      - develop
 
 # Jobs
 jobs:
   validate-deployment-to-org:
+    if: ${{github.event_name == 'pull_request'}}
     runs-on: ubuntu-latest
     steps:
       - name: 'Environment Info'
@@ -29,7 +39,7 @@ jobs:
           echo "${{secrets.DEVHUB_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
-      - name: 'Check-Only Deploy Source to Target Org'
+      - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
         run: |
           sfdx force:source:manifest:create --sourcepath minlopro --manifestname manifests/package.xml
           sfdx force:source:deploy \
@@ -38,28 +48,25 @@ jobs:
             --postdestructivechanges manifests/destructiveChangesPost.xml \
             --checkonly \
             --verbose \
+            --testlevel=RunLocalTests \
             --ignorewarnings
-
   deploy-source-to-org:
-    needs: validate-deployment-to-org
+    if: ${{github.event_name != 'pull_request'}}
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Source Code'
         uses: actions/checkout@v3
-
       - name: 'Install Salesforce CLI'
         run: |
           npm install sfdx-cli --location=global
           nodeInstallPath=$(npm config get prefix)
           echo "$nodeInstallPath/bin" >> $GITHUB_PATH
           sfdx --version
-
       - name: 'Authorize Target Environment via Auth URL'
         run: |
-          echo "${{secrets.DEVHUB_AUTH_URL}}" > ./org_auth_url.txt
+          echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
-
       - name: 'Deploy Source to Target Org'
         run: |
           sfdx force:source:manifest:create --sourcepath minlopro --manifestname manifests/package.xml
@@ -69,28 +76,23 @@ jobs:
             --postdestructivechanges manifests/destructiveChangesPost.xml \
             --verbose \
             --ignorewarnings
-
   run-all-apex-tests:
-    needs: [ validate-deployment-to-org, deploy-source-to-org ]
-    if: ${{false}}
+    needs: [ deploy-source-to-org ]
     runs-on: ubuntu-latest
     steps:
       - name: 'Checkout Source Code'
         uses: actions/checkout@v3
-
       - name: 'Install Salesforce CLI'
         run: |
           npm install sfdx-cli --location=global
           nodeInstallPath=$(npm config get prefix)
           echo "$nodeInstallPath/bin" >> $GITHUB_PATH
           sfdx --version
-
       - name: 'Authorize Target Environment via Auth URL'
         run: |
-          echo "${{secrets.DEVHUB_AUTH_URL}}" > ./org_auth_url.txt
+          echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
-
       - name: 'Run All Apex Tests with Coverage'
         run: |
           sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
