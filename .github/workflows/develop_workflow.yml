@@ -36,7 +36,7 @@ jobs:
           sfdx --version
       - name: 'Authorize Target Environment via Auth URL'
         run: |
-          echo "${{secrets.DEVHUB_AUTH_URL}}" > ./org_auth_url.txt
+          echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
       - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
