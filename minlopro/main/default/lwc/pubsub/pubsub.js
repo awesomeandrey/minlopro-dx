@@ -29,7 +29,7 @@ const registerListener = (eventName, callback, thisArg) => {
   // Checking that the listener has a pageRef property. We rely on that property for filtering purpose in fireEvent()
   if (!thisArg.pageRef) {
     throw new Error(
-      "pubsub listeners need a \"@wire(CurrentPageReference) pageRef\" property"
+      'pubsub listeners need a "@wire(CurrentPageReference) pageRef" property'
     );
   }
 
@@ -96,5 +96,5 @@ export {
   registerListener,
   unregisterListener,
   unregisterAllListeners,
-  fireEvent
+  fireEvent,
 };

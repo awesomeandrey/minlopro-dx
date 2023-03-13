@@ -2,21 +2,36 @@
 
 TODO - Describe the project
 
+## Prerequisites
+
+Install `node` version according to `package.json` file (_19.7.0_). It's recommended to
+use [NVM](https://tecadmin.net/install-nvm-macos-with-homebrew/) in order to manage NODE versions on
+local machine.
+
+Run `npm install` in order to load project dependencies.
+
+Look through the pre-configured GitHub Workflows/Actions located in `.github/workflows/` folder.
+
+Make sure that the changed codebase files are _prettified_ via `npm run prettier` command.
+Alternatively, you can run `npm run prettier:check` in order to identify _non-prettified_ files.
+
 ### Branches
 
-*`main`*
+_`main`_
 
 Comprises all source code in the repository.
 
-*`develop`*
+_`develop`_
 
-Used for features development. Descendant of `main` branch. This branch should always be synced up with `main` branch once the feature(s) has been developed, tested and pushed to release.
+Used for features development. Descendant of `main` branch. This branch should always be synced up with `main` branch
+once the feature(s) has been developed, tested and pushed to release.
 
 Corresponds to **QA** environment.
 
-*`release/**`*
+_`release/**`_
 
-Holds a bundle of features for specific release. Descendant of `develop` branch. Should always be synced up with `main` branch once the release features have been deployed & tested on production org.
+Holds a bundle of features for specific release. Descendant of `develop` branch. Should always be synced up with `main`
+branch once the release features have been deployed & tested on production org.
 
 Corresponds to **PROD** environment.
 
@@ -50,6 +65,7 @@ sfdx force:source:deploy \
 ```
 
 The following flags are optional:
+
 - `--checkonly` - used to validate bundle deployment
 - `--testlevel` - used to invoke Apex Tests during deployment
 

@@ -4,27 +4,27 @@ name: RELEASE Branch Workflow
 on:
   workflow_dispatch:
     branches:
-      - 'release/**'
+      - "release/**"
 
 # Jobs
 jobs:
   deploy-source-to-org:
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout Source Code'
+      - name: "Checkout Source Code"
         uses: actions/checkout@v3
-      - name: 'Install Salesforce CLI'
+      - name: "Install Salesforce CLI"
         run: |
           npm install sfdx-cli --location=global
           nodeInstallPath=$(npm config get prefix)
           echo "$nodeInstallPath/bin" >> $GITHUB_PATH
           sfdx --version
-      - name: 'Authorize Target Environment via Auth URL'
+      - name: "Authorize Target Environment via Auth URL"
         run: |
           echo "${{secrets.PROD_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
-      - name: 'Deploy Source to Target Org'
+      - name: "Deploy Source to Target Org"
         run: |
           sfdx force:source:manifest:create --sourcepath minlopro --manifestname manifests/package.xml
           sfdx force:source:deploy \
@@ -34,22 +34,22 @@ jobs:
             --verbose \
             --ignorewarnings
   run-all-apex-tests:
-    needs: [ deploy-source-to-org ]
+    needs: [deploy-source-to-org]
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout Source Code'
+      - name: "Checkout Source Code"
         uses: actions/checkout@v3
-      - name: 'Install Salesforce CLI'
+      - name: "Install Salesforce CLI"
         run: |
           npm install sfdx-cli --location=global
           nodeInstallPath=$(npm config get prefix)
           echo "$nodeInstallPath/bin" >> $GITHUB_PATH
           sfdx --version
-      - name: 'Authorize Target Environment via Auth URL'
+      - name: "Authorize Target Environment via Auth URL"
         run: |
           echo "${{secrets.PROD_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
-      - name: 'Run All Apex Tests with Coverage'
+      - name: "Run All Apex Tests with Coverage"
         run: |
           sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
