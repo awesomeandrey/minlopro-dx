@@ -4,7 +4,7 @@
   "features": ["EnableSetPasswordInApi"],
   "country": "US",
   "language": "EN",
-  //  "adminEmail": "", // TODO
+  "adminEmail": "andrii.melnichuk@customertimes.com",
   "settings": {
     "lightningExperienceSettings": {
       "enableS1DesktopEnabled": true

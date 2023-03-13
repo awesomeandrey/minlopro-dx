@@ -4,17 +4,17 @@ TODO - Describe the project
 
 ### Branches
 
-*`main`*
+_`main`_
 
 Comprises all source code in the repository.
 
-*`develop`*
+_`develop`_
 
 Used for features development. Descendant of `main` branch. This branch should always be synced up with `main` branch once the feature(s) has been developed, tested and pushed to release.
 
 Corresponds to **QA** environment.
 
-*`release/**`*
+_`release/**`_
 
 Holds a bundle of features for specific release. Descendant of `develop` branch. Should always be synced up with `main` branch once the release features have been deployed & tested on production org.
 
@@ -50,6 +50,7 @@ sfdx force:source:deploy \
 ```
 
 The following flags are optional:
+
 - `--checkonly` - used to validate bundle deployment
 - `--testlevel` - used to invoke Apex Tests during deployment
 

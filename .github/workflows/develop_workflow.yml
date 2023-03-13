@@ -4,7 +4,7 @@ name: DEVELOP Branch Workflow
 on:
   schedule:
     # Runs "At 07:00 on every day-of-week from Monday through Friday"
-    - cron: '0 7 * * 1-5'
+    - cron: "0 7 * * 1-5"
   workflow_dispatch:
     branches:
       - develop
@@ -17,29 +17,40 @@ on:
 
 # Jobs
 jobs:
-  validate-deployment-to-org:
+  prettify-codebase:
     if: ${{github.event_name == 'pull_request'}}
     runs-on: ubuntu-latest
     steps:
-      - name: 'Environment Info'
+      - name: "Checkout Source Code"
+        uses: actions/checkout@v3
+      - name: "Install Dependencies"
+        run: npm install
+      - name: "Run Prettier Check"
+        run: npm run prettier:check
+  validate-deployment-to-org:
+    if: ${{github.event_name == 'pull_request'}}
+    needs: [prettify-codebase]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Environment Info"
         run: |
           echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
           echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
           echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
-      - name: 'Checkout Source Code'
+      - name: "Checkout Source Code"
         uses: actions/checkout@v3
-      - name: 'Install Salesforce CLI'
+      - name: "Install Salesforce CLI"
         run: |
           npm install sfdx-cli --location=global
           nodeInstallPath=$(npm config get prefix)
           echo "$nodeInstallPath/bin" >> $GITHUB_PATH
           sfdx --version
-      - name: 'Authorize Target Environment via Auth URL'
+      - name: "Authorize Target Environment via Auth URL"
         run: |
           echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
-      - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
+      - name: "Check-Only Deploy Source to Target Org And Run Local Tests"
         run: |
           sfdx force:source:manifest:create --sourcepath minlopro --manifestname manifests/package.xml
           sfdx force:source:deploy \
@@ -54,20 +65,20 @@ jobs:
     if: ${{github.event_name != 'pull_request'}}
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout Source Code'
+      - name: "Checkout Source Code"
         uses: actions/checkout@v3
-      - name: 'Install Salesforce CLI'
+      - name: "Install Salesforce CLI"
         run: |
           npm install sfdx-cli --location=global
           nodeInstallPath=$(npm config get prefix)
           echo "$nodeInstallPath/bin" >> $GITHUB_PATH
           sfdx --version
-      - name: 'Authorize Target Environment via Auth URL'
+      - name: "Authorize Target Environment via Auth URL"
         run: |
           echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
-      - name: 'Deploy Source to Target Org'
+      - name: "Deploy Source to Target Org"
         run: |
           sfdx force:source:manifest:create --sourcepath minlopro --manifestname manifests/package.xml
           sfdx force:source:deploy \
@@ -77,22 +88,22 @@ jobs:
             --verbose \
             --ignorewarnings
   run-all-apex-tests:
-    needs: [ deploy-source-to-org ]
+    needs: [deploy-source-to-org]
     runs-on: ubuntu-latest
     steps:
-      - name: 'Checkout Source Code'
+      - name: "Checkout Source Code"
         uses: actions/checkout@v3
-      - name: 'Install Salesforce CLI'
+      - name: "Install Salesforce CLI"
         run: |
           npm install sfdx-cli --location=global
           nodeInstallPath=$(npm config get prefix)
           echo "$nodeInstallPath/bin" >> $GITHUB_PATH
           sfdx --version
-      - name: 'Authorize Target Environment via Auth URL'
+      - name: "Authorize Target Environment via Auth URL"
         run: |
           echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
-      - name: 'Run All Apex Tests with Coverage'
+      - name: "Run All Apex Tests with Coverage"
         run: |
           sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
