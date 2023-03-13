@@ -74,3 +74,20 @@ _Invoke All Apex Tests_
 ```
 sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
 ```
+
+ ### Scripts in `package.json`
+
+Aforementioned commands were broken down into smaller ones in `package.json` project file.
+Keep im mind that scripts that start with `sfdx:...` or `src:...` can be invoked with extra parameters passed to them.
+E.g. you can execute particular script passing in ORG alias:
+
+```
+// Authorize Org
+npm run sfdx:auth:create -- -u [AUTHORIZED_ORG_ALIAS] && npm run sfdx:auth:store
+// Validate deployment to target ORG
+npm run sfdx:manifest && npm run src:deploy:check -- -u [AUTHORIZED_ORG_ALIAS]
+// Run deployment to target ORG
+npm run sfdx:manifest && npm run src:deploy:full -- -u [AUTHORIZED_ORG_ALIAS]
+```
+
+Please, refer to [SFDX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm) for more information.

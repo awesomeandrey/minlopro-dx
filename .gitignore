@@ -6,7 +6,7 @@
 node_modules/
 IlluminatedCloud/
 coverage/
-orgs-access-settings/
+sfdx-auth/
 logs/
 
 # Logs
@@ -19,7 +19,7 @@ yarn-error.log*
 manifests/package.xml
 
 # Custom file exclusions
-minlopro/main/default/profilePasswordPolicies
-minlopro/main/default/profiles
-minlopro/main/default/profileSessionSettings
-minlopro/main/default/lwc/playground/
+**/profilePasswordPolicies
+**/profiles
+**/profileSessionSettings
+**/lwc/playground/
