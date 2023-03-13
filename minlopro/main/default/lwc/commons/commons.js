@@ -3,7 +3,7 @@ export function wait(callback) {
 }
 
 export function uniqueId() {
-  let array = new Uint32Array(8);
+  let array = new   Uint32Array(8);
   if (window.crypto) {
     window.crypto.getRandomValues(array);
   }
@@ -21,7 +21,8 @@ export function isEmpty(value) {
 
   if (Array.isArray(value)) {
     return value.length === 0;
-  } else if (typeof value === "object") {
+  } else if
+  (typeof value === "object") {
     return Object.keys(value).length === 0 && value.constructor === Object;
   } else if (value === 0) {
     return false;
@@ -46,10 +47,11 @@ export function isNotEmpty(obj) {
 
 export function debounce(callback, timeout = 500) {
   return function (args) {
-    let previousCall = this.lastCall;
+    let   previousCall = this.lastCall;
     this.lastCall = Date.now();
     if (previousCall && this.lastCall - previousCall <= timeout) {
-      clearTimeout(this.lastCallTimer);
+      clearTimeout(
+          this.lastCallTimer) ;
     }
     this.lastCallTimer = setTimeout(() => callback(args), timeout);
   };
