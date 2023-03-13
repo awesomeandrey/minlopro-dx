@@ -7,14 +7,16 @@
   },
   "description": "Minlopro DX",
   "scripts": {
-    "lint": "eslint **/{aura,lwc}/**",
-    "test": "npm run test:unit",
-    "test:unit": "sfdx-lwc-jest",
-    "test:unit:watch": "sfdx-lwc-jest --watch",
-    "test:unit:debug": "sfdx-lwc-jest --debug",
-    "test:unit:coverage": "sfdx-lwc-jest --coverage",
     "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-    "prettier:check": "prettier --check \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\""
+    "prettier:check": "prettier --check \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+    "sfdx:apex:tests": "sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage",
+    "sfdx:auth:create": "sfdx force:org:display --verbose --json > sfdx-auth/dev-org.json",
+    "sfdx:auth:store": "sfdx auth:sfdxurl:store -f sfdx-auth/dev-org.json",
+    "sfdx:manifest": "sfdx force:source:manifest:create --sourcepath src --manifestname manifests/package.xml",
+    "src:deploy:full": "sfdx force:source:deploy -x manifests/package.xml --predestructivechanges manifests/destructiveChangesPre.xml --postdestructivechanges manifests/destructiveChangesPost.xml --verbose --ignorewarnings",
+    "src:deploy:check": "npm run src:deploy:full -- --checkonly",
+    "src:push": "sfdx force:source:push",
+    "src:pull": "sfdx force:source:pull"
   },
   "devDependencies": {
     "@lwc/eslint-plugin-lwc": "^1.1.2",

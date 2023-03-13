@@ -1,12 +1,19 @@
 {
   "packageDirectories": [
     {
-      "path": "minlopro",
+      "path": "src/fflib"
+    },
+    {
+      "path": "src/lwc-utilities"
+    },
+    {
+      "path": "src/minlopro",
       "default": true
     }
   ],
+  "pushPackageDirectoriesSequentially": true,
   "name": "minlopro-dx",
   "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sfdcLoginUrl": "https://test.salesforce.com",
   "sourceApiVersion": "55.0"
 }

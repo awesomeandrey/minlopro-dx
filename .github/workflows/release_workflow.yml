@@ -11,6 +11,9 @@ jobs:
   deploy-source-to-org:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19.7.0
       - name: "Checkout Source Code"
         uses: actions/checkout@v3
       - name: "Install Salesforce CLI"
@@ -26,17 +29,15 @@ jobs:
           sfdx force:org:display --verbose
       - name: "Deploy Source to Target Org"
         run: |
-          sfdx force:source:manifest:create --sourcepath minlopro --manifestname manifests/package.xml
-          sfdx force:source:deploy \
-            -x manifests/package.xml \
-            --predestructivechanges manifests/destructiveChangesPre.xml \
-            --postdestructivechanges manifests/destructiveChangesPost.xml \
-            --verbose \
-            --ignorewarnings
+          npm run sfdx:manifest
+          npm run src:deploy:full
   run-all-apex-tests:
-    needs: [deploy-source-to-org]
+    needs: [ deploy-source-to-org ]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19.7.0
       - name: "Checkout Source Code"
         uses: actions/checkout@v3
       - name: "Install Salesforce CLI"
@@ -51,5 +52,4 @@ jobs:
           sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
           sfdx force:org:display --verbose
       - name: "Run All Apex Tests with Coverage"
-        run: |
-          sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
+        run: npm run sfdx:apex:tests
