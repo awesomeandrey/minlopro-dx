@@ -25,266 +25,250 @@
  */
 @IsTest
 public class fflib_ApexMocksUtilsTest {
-  public static Schema.FieldSet findAnyFieldSet() {
-    for (Schema.SObjectType objectType : Schema.getGlobalDescribe().values()) {
-      for (
-        Schema.FieldSet fs : objectType.getDescribe()
-          .FieldSets.getMap()
-          .values()
-      ) {
-        return fs;
-      }
+    public static Schema.FieldSet findAnyFieldSet() {
+        for (Schema.SObjectType objectType : Schema.getGlobalDescribe().values()) {
+            for (Schema.FieldSet fs : objectType.getDescribe().FieldSets.getMap().values()) {
+                return fs;
+            }
+        }
+
+        return null;
     }
 
-    return null;
-  }
+    @IsTest
+    private static void makeRelationship_returnsObjectsWithRelationFieldSet() {
+        //Given
+        Account acc = new Account(
+            Id = fflib_IDGenerator.generate(Account.SObjectType),
+            Name = 'AccName',
+            NumberOfEmployees = 7
+        );
 
-  @IsTest
-  private static void makeRelationship_returnsObjectsWithRelationFieldSet() {
-    //Given
-    Account acc = new Account(
-      Id = fflib_IDGenerator.generate(Account.SObjectType),
-      Name = 'AccName',
-      NumberOfEmployees = 7
-    );
+        Contact contact1 = new Contact(
+            Id = fflib_IDGenerator.generate(Contact.SObjectType),
+            DoNotCall = true
+        );
 
-    Contact contact1 = new Contact(
-      Id = fflib_IDGenerator.generate(Contact.SObjectType),
-      DoNotCall = true
-    );
+        Contact contact2 = new Contact(
+            Id = fflib_IDGenerator.generate(Contact.SObjectType),
+            DoNotCall = false
+        );
 
-    Contact contact2 = new Contact(
-      Id = fflib_IDGenerator.generate(Contact.SObjectType),
-      DoNotCall = false
-    );
+        //When
+        Account accWithRelationships = ((List<Account>) fflib_ApexMocksUtils.makeRelationship(
+            List<Account>.class,
+            new List<Account>{ acc },
+            Contact.AccountId,
+            new List<List<Contact>>{ new List<Contact>{ contact1, contact2 } }
+        ))[0];
 
-    //When
-    Account accWithRelationships = ((List<Account>) fflib_ApexMocksUtils.makeRelationship(
-      List<Account>.class,
-      new List<Account>{ acc },
-      Contact.AccountId,
-      new List<List<Contact>>{ new List<Contact>{ contact1, contact2 } }
-    ))[0];
+        //Then
+        System.Assert.areEqual(acc.Id, accWithRelationships.Id);
+        System.Assert.areEqual(acc.Name, accWithRelationships.Name);
+        System.Assert.areEqual(acc.NumberOfEmployees, accWithRelationships.NumberOfEmployees);
 
-    //Then
-    System.Assert.areEqual(acc.Id, accWithRelationships.Id);
-    System.Assert.areEqual(acc.Name, accWithRelationships.Name);
-    System.Assert.areEqual(
-      acc.NumberOfEmployees,
-      accWithRelationships.NumberOfEmployees
-    );
+        //Assert relationship fields
+        List<Contact> contacts = accWithRelationships.Contacts;
+        System.Assert.areNotEqual(null, contacts);
+        System.Assert.areEqual(2, contacts.size());
 
-    //Assert relationship fields
-    List<Contact> contacts = accWithRelationships.Contacts;
-    System.Assert.areNotEqual(null, contacts);
-    System.Assert.areEqual(2, contacts.size());
+        System.Assert.areEqual(contact1.Id, contacts[0].Id);
+        System.Assert.areEqual(contact1.DoNotCall, contacts[0].DoNotCall);
 
-    System.Assert.areEqual(contact1.Id, contacts[0].Id);
-    System.Assert.areEqual(contact1.DoNotCall, contacts[0].DoNotCall);
-
-    System.Assert.areEqual(contact2.Id, contacts[1].Id);
-    System.Assert.areEqual(contact2.DoNotCall, contacts[1].DoNotCall);
-  }
-
-  @IsTest
-  private static void makeRelationship_GenericOverload_ReturnsObjectsWithRelationFieldSet() {
-    //Given
-    SObject acc = Schema.getGlobalDescribe().get('Account').newSObject();
-    acc.put('Id', fflib_IDGenerator.generate(acc.getSObjectType()));
-    acc.put('Name', 'AccName');
-    acc.put('NumberOfEmployees', 7);
-
-    SObject contact1 = Schema.getGlobalDescribe().get('Contact').newSObject();
-    contact1.put('Id', fflib_IDGenerator.generate(contact1.getSObjectType()));
-    contact1.put('DoNotCall', true);
-
-    SObject contact2 = Schema.getGlobalDescribe().get('Contact').newSObject();
-    contact2.put('Id', fflib_IDGenerator.generate(contact2.getSObjectType()));
-    contact2.put('DoNotCall', false);
-
-    //When
-    SObject accWithRelationships = ((List<SObject>) fflib_ApexMocksUtils.makeRelationship(
-      'Account',
-      'Contact',
-      new List<SObject>{ acc },
-      'AccountId',
-      new List<List<SObject>>{ new List<SObject>{ contact1, contact2 } }
-    ))[0];
-
-    //Then
-    System.Assert.areEqual(acc.Id, accWithRelationships.Id);
-    System.Assert.areEqual(acc.get('Name'), accWithRelationships.get('Name'));
-    System.Assert.areEqual(
-      acc.get('NumberOfEmployees'),
-      accWithRelationships.get('NumberOfEmployees')
-    );
-
-    //Assert relationship fields
-    List<SObject> contacts = accWithRelationships.getSObjects('Contacts');
-    System.Assert.areNotEqual(null, contacts);
-    System.Assert.areEqual(2, contacts.size());
-
-    System.Assert.areEqual(contact1.Id, contacts[0].Id);
-    System.Assert.areEqual(
-      (Boolean) contact1.get('DoNotCall'),
-      (Boolean) contacts[0].get('DoNotCall')
-    );
-
-    System.Assert.areEqual(contact2.Id, contacts[1].Id);
-    System.Assert.areEqual(
-      (Boolean) contact2.get('DoNotCall'),
-      (Boolean) contacts[1].get('DoNotCall')
-    );
-  }
-
-  @IsTest
-  private static void makeRelationship_GenericOverload_ThrowsErrorOnInvalidParentType() {
-    // Setup parent object
-    SObject acc = Schema.getGlobalDescribe().get('Account').newSObject();
-    acc.put('Id', fflib_IDGenerator.generate(acc.getSObjectType()));
-
-    // Setup child object
-    SObject cont = Schema.getGlobalDescribe().get('Contact').newSObject();
-    cont.put('Id', fflib_IDGenerator.generate(cont.getSObjectType()));
-
-    String errorMessage = '';
-    try {
-      // Call method under test
-      SObject accWithRelationships = ((List<SObject>) fflib_ApexMocksUtils.makeRelationship(
-        'MyInvalidParentType',
-        'Contact',
-        new List<SObject>{ acc },
-        'AccountId',
-        new List<List<SObject>>{ new List<SObject>{ cont } }
-      ))[0];
-    } catch (Exception exc) {
-      errorMessage = exc.getMessage();
+        System.Assert.areEqual(contact2.Id, contacts[1].Id);
+        System.Assert.areEqual(contact2.DoNotCall, contacts[1].DoNotCall);
     }
-    System.Assert.areEqual(
-      'SObject type not found: MyInvalidParentType',
-      errorMessage
-    );
-  }
 
-  @IsTest
-  private static void makeRelationship_GenericOverload_ThrowsErrorOnInvalidChildType() {
-    // Setup parent object
-    SObject acc = Schema.getGlobalDescribe().get('Account').newSObject();
-    acc.put('Id', fflib_IDGenerator.generate(acc.getSObjectType()));
+    @IsTest
+    private static void makeRelationship_GenericOverload_ReturnsObjectsWithRelationFieldSet() {
+        //Given
+        SObject acc = Schema.getGlobalDescribe().get('Account').newSObject();
+        acc.put('Id', fflib_IDGenerator.generate(acc.getSObjectType()));
+        acc.put('Name', 'AccName');
+        acc.put('NumberOfEmployees', 7);
 
-    // Setup child object
-    SObject cont = Schema.getGlobalDescribe().get('Contact').newSObject();
-    cont.put('Id', fflib_IDGenerator.generate(cont.getSObjectType()));
+        SObject contact1 = Schema.getGlobalDescribe().get('Contact').newSObject();
+        contact1.put('Id', fflib_IDGenerator.generate(contact1.getSObjectType()));
+        contact1.put('DoNotCall', true);
 
-    String errorMessage = '';
-    try {
-      // Call method under test
-      SObject accWithRelationships = ((List<SObject>) fflib_ApexMocksUtils.makeRelationship(
-        'Account',
-        'MyInvalidChildType',
-        new List<SObject>{ acc },
-        'AccountId',
-        new List<List<SObject>>{ new List<SObject>{ cont } }
-      ))[0];
-    } catch (Exception exc) {
-      errorMessage = exc.getMessage();
+        SObject contact2 = Schema.getGlobalDescribe().get('Contact').newSObject();
+        contact2.put('Id', fflib_IDGenerator.generate(contact2.getSObjectType()));
+        contact2.put('DoNotCall', false);
+
+        //When
+        SObject accWithRelationships = ((List<SObject>) fflib_ApexMocksUtils.makeRelationship(
+            'Account',
+            'Contact',
+            new List<SObject>{ acc },
+            'AccountId',
+            new List<List<SObject>>{ new List<SObject>{ contact1, contact2 } }
+        ))[0];
+
+        //Then
+        System.Assert.areEqual(acc.Id, accWithRelationships.Id);
+        System.Assert.areEqual(acc.get('Name'), accWithRelationships.get('Name'));
+        System.Assert.areEqual(
+            acc.get('NumberOfEmployees'),
+            accWithRelationships.get('NumberOfEmployees')
+        );
+
+        //Assert relationship fields
+        List<SObject> contacts = accWithRelationships.getSObjects('Contacts');
+        System.Assert.areNotEqual(null, contacts);
+        System.Assert.areEqual(2, contacts.size());
+
+        System.Assert.areEqual(contact1.Id, contacts[0].Id);
+        System.Assert.areEqual(
+            (Boolean) contact1.get('DoNotCall'),
+            (Boolean) contacts[0].get('DoNotCall')
+        );
+
+        System.Assert.areEqual(contact2.Id, contacts[1].Id);
+        System.Assert.areEqual(
+            (Boolean) contact2.get('DoNotCall'),
+            (Boolean) contacts[1].get('DoNotCall')
+        );
     }
-    System.Assert.areEqual(
-      'SObject type not found: MyInvalidChildType',
-      errorMessage
-    );
-  }
 
-  @IsTest
-  private static void makeRelationship_GenericOverload_ThrowsErrorOnInvalidFieldName() {
-    // Setup parent object
-    SObject acc = Schema.getGlobalDescribe().get('Account').newSObject();
-    acc.put('Id', fflib_IDGenerator.generate(acc.getSObjectType()));
+    @IsTest
+    private static void makeRelationship_GenericOverload_ThrowsErrorOnInvalidParentType() {
+        // Setup parent object
+        SObject acc = Schema.getGlobalDescribe().get('Account').newSObject();
+        acc.put('Id', fflib_IDGenerator.generate(acc.getSObjectType()));
 
-    // Setup child object
-    SObject cont = Schema.getGlobalDescribe().get('Contact').newSObject();
-    cont.put('Id', fflib_IDGenerator.generate(cont.getSObjectType()));
+        // Setup child object
+        SObject cont = Schema.getGlobalDescribe().get('Contact').newSObject();
+        cont.put('Id', fflib_IDGenerator.generate(cont.getSObjectType()));
 
-    String errorMessage = '';
-    try {
-      // Call method under test
-      SObject accWithRelationships = ((List<SObject>) fflib_ApexMocksUtils.makeRelationship(
-        'Account',
-        'Contact',
-        new List<SObject>{ acc },
-        'MyInvalidField',
-        new List<List<SObject>>{ new List<SObject>{ cont } }
-      ))[0];
-    } catch (Exception exc) {
-      errorMessage = exc.getMessage();
+        String errorMessage = '';
+        try {
+            // Call method under test
+            SObject accWithRelationships = ((List<SObject>) fflib_ApexMocksUtils.makeRelationship(
+                'MyInvalidParentType',
+                'Contact',
+                new List<SObject>{ acc },
+                'AccountId',
+                new List<List<SObject>>{ new List<SObject>{ cont } }
+            ))[0];
+        } catch (Exception exc) {
+            errorMessage = exc.getMessage();
+        }
+        System.Assert.areEqual('SObject type not found: MyInvalidParentType', errorMessage);
     }
-    System.Assert.areEqual(
-      'SObject field not found: MyInvalidField',
-      errorMessage
-    );
-  }
 
-  @IsTest
-  static void setReadOnlyFields_CreatedByIdSetToCurrentUserId_IdFieldSetSuccessfully() {
-    Account acc = new Account();
-    Id userId = fflib_IDGenerator.generate((new User()).getSObjectType());
+    @IsTest
+    private static void makeRelationship_GenericOverload_ThrowsErrorOnInvalidChildType() {
+        // Setup parent object
+        SObject acc = Schema.getGlobalDescribe().get('Account').newSObject();
+        acc.put('Id', fflib_IDGenerator.generate(acc.getSObjectType()));
 
-    Test.startTest();
-    acc = (Account) fflib_ApexMocksUtils.setReadOnlyFields(
-      acc,
-      Account.class,
-      new Map<SObjectField, Object>{ Account.CreatedById => userId }
-    );
-    Test.stopTest();
+        // Setup child object
+        SObject cont = Schema.getGlobalDescribe().get('Contact').newSObject();
+        cont.put('Id', fflib_IDGenerator.generate(cont.getSObjectType()));
 
-    System.Assert.areEqual(userId, acc.CreatedById);
-  }
+        String errorMessage = '';
+        try {
+            // Call method under test
+            SObject accWithRelationships = ((List<SObject>) fflib_ApexMocksUtils.makeRelationship(
+                'Account',
+                'MyInvalidChildType',
+                new List<SObject>{ acc },
+                'AccountId',
+                new List<List<SObject>>{ new List<SObject>{ cont } }
+            ))[0];
+        } catch (Exception exc) {
+            errorMessage = exc.getMessage();
+        }
+        System.Assert.areEqual('SObject type not found: MyInvalidChildType', errorMessage);
+    }
 
-  @IsTest
-  static void setReadOnlyFields_LastReferencedDateSetOnAccount_DateTimeFieldSetSuccessfully() {
-    Account acc = new Account();
-    DateTime lastRefDate = DateTime.newInstanceGmt(2020, 1, 7, 23, 30, 0);
+    @IsTest
+    private static void makeRelationship_GenericOverload_ThrowsErrorOnInvalidFieldName() {
+        // Setup parent object
+        SObject acc = Schema.getGlobalDescribe().get('Account').newSObject();
+        acc.put('Id', fflib_IDGenerator.generate(acc.getSObjectType()));
 
-    Test.startTest();
-    acc = (Account) fflib_ApexMocksUtils.setReadOnlyFields(
-      acc,
-      Account.class,
-      new Map<SObjectField, Object>{ Account.LastReferencedDate => lastRefDate }
-    );
-    Test.stopTest();
+        // Setup child object
+        SObject cont = Schema.getGlobalDescribe().get('Contact').newSObject();
+        cont.put('Id', fflib_IDGenerator.generate(cont.getSObjectType()));
 
-    System.Assert.areEqual(lastRefDate, acc.LastReferencedDate);
-  }
+        String errorMessage = '';
+        try {
+            // Call method under test
+            SObject accWithRelationships = ((List<SObject>) fflib_ApexMocksUtils.makeRelationship(
+                'Account',
+                'Contact',
+                new List<SObject>{ acc },
+                'MyInvalidField',
+                new List<List<SObject>>{ new List<SObject>{ cont } }
+            ))[0];
+        } catch (Exception exc) {
+            errorMessage = exc.getMessage();
+        }
+        System.Assert.areEqual('SObject field not found: MyInvalidField', errorMessage);
+    }
 
-  @IsTest
-  static void setReadOnlyFields_IsDeletedSetOnAccount_BooleanFieldSetSuccessfully() {
-    Account acc = new Account();
-    Boolean isDeleted = true;
+    @IsTest
+    static void setReadOnlyFields_CreatedByIdSetToCurrentUserId_IdFieldSetSuccessfully() {
+        Account acc = new Account();
+        Id userId = fflib_IDGenerator.generate((new User()).getSObjectType());
 
-    Test.startTest();
-    acc = (Account) fflib_ApexMocksUtils.setReadOnlyFields(
-      acc,
-      Account.class,
-      new Map<SObjectField, Object>{ Account.IsDeleted => isDeleted }
-    );
-    Test.stopTest();
+        Test.startTest();
+        acc = (Account) fflib_ApexMocksUtils.setReadOnlyFields(
+            acc,
+            Account.class,
+            new Map<SObjectField, Object>{ Account.CreatedById => userId }
+        );
+        Test.stopTest();
 
-    System.Assert.areEqual(isDeleted, acc.IsDeleted);
-  }
+        System.Assert.areEqual(userId, acc.CreatedById);
+    }
 
-  @IsTest
-  static void setReadOnlyFields_PolymorphicRelationJoin_FieldSetSuccessfully() {
-    Account acc = new Account(Name = 'TestAccount');
-    Task t = new Task();
+    @IsTest
+    static void setReadOnlyFields_LastReferencedDateSetOnAccount_DateTimeFieldSetSuccessfully() {
+        Account acc = new Account();
+        DateTime lastRefDate = DateTime.newInstanceGmt(2020, 1, 7, 23, 30, 0);
 
-    Test.startTest();
-    t = (Task) fflib_ApexMocksUtils.setReadOnlyFields(
-      t,
-      Task.class,
-      new Map<String, Object>{ 'What' => acc }
-    );
-    Test.stopTest();
+        Test.startTest();
+        acc = (Account) fflib_ApexMocksUtils.setReadOnlyFields(
+            acc,
+            Account.class,
+            new Map<SObjectField, Object>{ Account.LastReferencedDate => lastRefDate }
+        );
+        Test.stopTest();
 
-    System.Assert.areEqual(acc.Name, t.What.Name);
-  }
+        System.Assert.areEqual(lastRefDate, acc.LastReferencedDate);
+    }
+
+    @IsTest
+    static void setReadOnlyFields_IsDeletedSetOnAccount_BooleanFieldSetSuccessfully() {
+        Account acc = new Account();
+        Boolean isDeleted = true;
+
+        Test.startTest();
+        acc = (Account) fflib_ApexMocksUtils.setReadOnlyFields(
+            acc,
+            Account.class,
+            new Map<SObjectField, Object>{ Account.IsDeleted => isDeleted }
+        );
+        Test.stopTest();
+
+        System.Assert.areEqual(isDeleted, acc.IsDeleted);
+    }
+
+    @IsTest
+    static void setReadOnlyFields_PolymorphicRelationJoin_FieldSetSuccessfully() {
+        Account acc = new Account(Name = 'TestAccount');
+        Task t = new Task();
+
+        Test.startTest();
+        t = (Task) fflib_ApexMocksUtils.setReadOnlyFields(
+            t,
+            Task.class,
+            new Map<String, Object>{ 'What' => acc }
+        );
+        Test.stopTest();
+
+        System.Assert.areEqual(acc.Name, t.What.Name);
+    }
 }

@@ -25,13 +25,13 @@
  **/
 
 public interface fflib_ISObjectDomain extends fflib_IDomain {
-  /**
-   * Returns the SObjectType this Domain class represents
-   **/
-  Schema.SObjectType sObjectType();
+    /**
+     * Returns the SObjectType this Domain class represents
+     **/
+    Schema.SObjectType sObjectType();
 
-  /**
-   * Alternative to the Records property, provided to support mocking of Domain classes
-   **/
-  List<SObject> getRecords();
+    /**
+     * Alternative to the Records property, provided to support mocking of Domain classes
+     **/
+    List<SObject> getRecords();
 }

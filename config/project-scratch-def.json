@@ -1,13 +1,24 @@
 {
   "orgName": "minlopro-dx",
-  "edition": "Enterprise",
-  "features": ["EnableSetPasswordInApi"],
   "country": "US",
-  "language": "EN",
+  "username": "admin-dx@minlopro.com",
   "adminEmail": "andrii.melnichuk@customertimes.com",
+  "edition": "Enterprise",
+  "description": "Minlopro DX Scratch Org",
+  "hasSampleData": true,
+  "language": "en_US",
+  "features": [
+    "EnableSetPasswordInApi",
+    "DebugApex",
+    "AuthorApex",
+    "API",
+    "StreamingAPI",
+    "StateAndCountryPicklist"
+  ],
   "settings": {
     "lightningExperienceSettings": {
-      "enableS1DesktopEnabled": true
+      "enableS1DesktopEnabled": true,
+      "enableUsersAreLightningOnly": false
     },
     "mobileSettings": {
       "enableS1EncryptedStoragePref2": false

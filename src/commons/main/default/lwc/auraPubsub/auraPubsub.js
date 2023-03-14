@@ -8,39 +8,34 @@
  * The pubsub approach is used to provide a communication mechanism between sibling components assembled in a flexipage (App Builder) where traditional parent/child communication patterns are not available.
  * Do NOT use this utility for parent/child communication.
  */
-import { LightningElement, api, wire } from "lwc";
-import { CurrentPageReference } from "lightning/navigation";
-import {
-  registerListener,
-  unregisterListener,
-  unregisterAllListeners,
-  fireEvent,
-} from "c/pubsub";
+import { LightningElement, api, wire } from 'lwc'
+import { CurrentPageReference } from 'lightning/navigation'
+import { registerListener, unregisterListener, unregisterAllListeners, fireEvent } from 'c/pubsub'
 
 export default class AuraPubsub extends LightningElement {
-  @wire(CurrentPageReference) pageRef;
+    @wire(CurrentPageReference) pageRef
 
-  connectedCallback() {
-    this.dispatchEvent(new CustomEvent("ready"));
-  }
+    connectedCallback() {
+        this.dispatchEvent(new CustomEvent('ready'))
+    }
 
-  @api
-  registerListener(eventName, callback) {
-    registerListener(eventName, callback, this);
-  }
+    @api
+    registerListener(eventName, callback) {
+        registerListener(eventName, callback, this)
+    }
 
-  @api
-  unregisterListener(eventName, callback) {
-    unregisterListener(eventName, callback, this);
-  }
+    @api
+    unregisterListener(eventName, callback) {
+        unregisterListener(eventName, callback, this)
+    }
 
-  @api
-  unregisterAllListeners() {
-    unregisterAllListeners(this);
-  }
+    @api
+    unregisterAllListeners() {
+        unregisterAllListeners(this)
+    }
 
-  @api
-  fireEvent(eventName, data) {
-    fireEvent(this.pageRef, eventName, data);
-  }
+    @api
+    fireEvent(eventName, data) {
+        fireEvent(this.pageRef, eventName, data)
+    }
 }
