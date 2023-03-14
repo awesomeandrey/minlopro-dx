@@ -86,7 +86,7 @@ E.g. you can execute particular script passing in ORG alias:
 npm run sfdx:auth:create -- -u [AUTHORIZED_ORG_ALIAS] && npm run sfdx:auth:store
 // Validate deployment to target ORG
 npm run sfdx:manifest && npm run src:deploy:check -- -u [AUTHORIZED_ORG_ALIAS]
-// Run deployment to target ORG
+// Run deployment to target ORG that has source tracking enabled (such as sandboxes and scratch orgs)
 npm run sfdx:manifest && npm run src:deploy:full -- -u [AUTHORIZED_ORG_ALIAS] --tracksource --forceoverwrite
 ```
 
