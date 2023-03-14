@@ -87,7 +87,7 @@ npm run sfdx:auth:create -- -u [AUTHORIZED_ORG_ALIAS] && npm run sfdx:auth:store
 // Validate deployment to target ORG
 npm run sfdx:manifest && npm run src:deploy:check -- -u [AUTHORIZED_ORG_ALIAS]
 // Run deployment to target ORG
-npm run sfdx:manifest && npm run src:deploy:full -- -u [AUTHORIZED_ORG_ALIAS]
+npm run sfdx:manifest && npm run src:deploy:full -- -u [AUTHORIZED_ORG_ALIAS] --tracksource --forceoverwrite
 ```
 
 Please, refer to [SFDX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm) for more information.

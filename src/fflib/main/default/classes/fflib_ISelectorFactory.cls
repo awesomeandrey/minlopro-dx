@@ -24,10 +24,10 @@
  *  ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  **/
 public interface fflib_ISelectorFactory {
-  fflib_ISObjectSelector newInstance(SObjectType sObjectType);
-  List<SObject> selectById(Set<Id> recordIds);
-  List<SObject> selectByRelationship(
-    List<SObject> relatedRecords,
-    SObjectField relationshipField
-  );
+    fflib_ISObjectSelector newInstance(SObjectType sObjectType);
+    List<SObject> selectById(Set<Id> recordIds);
+    List<SObject> selectByRelationship(
+        List<SObject> relatedRecords,
+        SObjectField relationshipField
+    );
 }

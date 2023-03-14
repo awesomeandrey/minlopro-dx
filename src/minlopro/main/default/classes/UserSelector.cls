@@ -1,0 +1,17 @@
+public inherited sharing class UserSelector extends fflib_SObjectSelector {
+    private Repository repository = (Repository) Application.Service.newInstance(Repository.class);
+
+    public SObjectType getSObjectType() {
+        return User.SObjectType;
+    }
+
+    public List<SObjectField> getSObjectFieldList() {
+        return new List<SObjectField>{ User.Id, User.Name };
+    }
+
+    public override List<SObject> selectSObjectsById(Set<Id> userIds) {
+        fflib_QueryFactory queryFactory = this.newQueryFactory(false, true, true)
+            .setCondition('Id IN :userIds');
+        return this.repository.query(queryFactory.toSOQL());
+    }
+}

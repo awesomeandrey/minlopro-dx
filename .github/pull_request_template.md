@@ -1,20 +1,25 @@
 # Description
 
-Include a summary of the change and which issue being fixed by this PR.
+✏️ _Include a summary of the change and which issue is being fixed by this PR._
 
-Jira Ticket: TODO
+**Ticket**: ✏️ _TODO_
 
-## Type of change: (remove redundant PR lines)
+## Type Of Change
 
-- New feature (non-breaking change which adds functionality)
-- Bug fix (non-breaking change which fixes an issue)
+- ✏️ New Feature
+- ✏️ Bug Fix
 
-## Details
+## Details 🔎
 
-Provide a detailed description about the approach you used to implement feature/bugfix.
+Describe how the feature was implemented / bug was fixed.
 
-## How Has This Been Tested?
+## Verification Steps 🕵️‍♂️
 
-Describe the manual tests that you ran to verify your changes.
-Provide instructions so we can reproduce.
-List any relevant details for your test configuration.
+- Describe the manual steps that the QA should walk through in order to verify your changes
+- Provide instructions so we can reproduce
+- List any relevant details for your test configuration.
+
+## Apex Tests Coverage 🛠
+
+Include screenshot of Apex Tests report (use `npm run sfdx:apex:tests` command in order to launch all Apex Tests in the
+dev org).

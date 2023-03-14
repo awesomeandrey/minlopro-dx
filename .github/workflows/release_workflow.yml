@@ -30,7 +30,7 @@ jobs:
       - name: "Deploy Source to Target Org"
         run: |
           npm run sfdx:manifest
-          npm run src:deploy:full
+          npm run src:deploy:full -- --forceoverwrite
   run-all-apex-tests:
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-latest
