@@ -30,7 +30,14 @@ private class UserSelectorTest {
         fflib_ApexMocks mocks = new fflib_ApexMocks();
         Repository repositoryMock = (Repository) mocks.mock(Repository.class);
         mocks.startStubbing();
-        mocks.when(repositoryMock.query(fflib_Match.anyString())).thenReturn(mockedUsers);
+        mocks.when(
+                repositoryMock.queryWithBinds(
+                    fflib_Match.anyString(),
+                    (Map<String, Object>) fflib_Match.anyObject(),
+                    (System.AccessLevel) fflib_Match.anyObject()
+                )
+            )
+            .thenReturn(mockedUsers);
         mocks.stopStubbing();
         Application.Service.setMock(Repository.class, repositoryMock);
         // Test

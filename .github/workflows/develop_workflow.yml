@@ -17,7 +17,8 @@ on:
 
 # Jobs
 jobs:
-  prettier-check:
+  # Event = 'Pull Request'
+  run-prettier:
     if: ${{github.event_name == 'pull_request'}}
     runs-on: ubuntu-latest
     steps:
@@ -30,8 +31,21 @@ jobs:
         run: npm install
       - name: "Run Prettier Check"
         run: npm run prettier:check
+  run-jest-tests:
+    needs: [ run-prettier ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19.7.0
+      - name: "Checkout Source Code"
+        uses: actions/checkout@v3
+      - name: "Install Dependencies"
+        run: npm install
+      - name: "Run Jest Tests with Coverage"
+        run: npm run test:unit:coverage
   validate-deployment-to-org:
-    needs: [ prettier-check ]
+    needs: [ run-prettier, run-jest-tests ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-node@v3
@@ -59,6 +73,8 @@ jobs:
         run: |
           npm run sfdx:manifest
           npm run src:deploy:check -- --testlevel=RunLocalTests
+
+  # Event <> 'Pull Request'
   deploy-source-to-org:
     if: ${{github.event_name != 'pull_request'}}
     runs-on: ubuntu-latest
@@ -83,7 +99,7 @@ jobs:
         run: |
           npm run sfdx:manifest
           npm run src:deploy:full
-  run-all-apex-tests:
+  run-apex-tests:
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-latest
     steps:

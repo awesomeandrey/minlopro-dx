@@ -1,5 +1,7 @@
 public inherited sharing class UserSelector extends fflib_SObjectSelector {
-    private Repository repository = (Repository) Application.Service.newInstance(Repository.class);
+    private final Repository repository = (Repository) Application.Service.newInstance(
+        Repository.class
+    );
 
     public SObjectType getSObjectType() {
         return User.SObjectType;
@@ -10,8 +12,12 @@ public inherited sharing class UserSelector extends fflib_SObjectSelector {
     }
 
     public override List<SObject> selectSObjectsById(Set<Id> userIds) {
-        fflib_QueryFactory queryFactory = this.newQueryFactory(false, true, true)
-            .setCondition('Id IN :userIds');
-        return this.repository.query(queryFactory.toSOQL());
+        fflib_QueryFactory queryFactory = this.newQueryFactory(false, true, true);
+        queryFactory.setCondition('Id IN :userIds');
+        return this.repository.queryWithBinds(
+            queryFactory.toSOQL(),
+            new Map<String, Object>{ 'userIds' => userIds },
+            System.AccessLevel.SYSTEM_MODE
+        );
     }
 }

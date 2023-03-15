@@ -1,4 +1,8 @@
+# Salesforce medatada & components
 **/profilePasswordPolicies
 **/profiles
 **/profileSessionSettings
 **/settings/Security.settings-meta.xml
+
+# LWC Jest tests
+**/__tests__/**

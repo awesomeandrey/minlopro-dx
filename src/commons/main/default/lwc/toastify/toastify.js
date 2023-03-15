@@ -1,17 +1,17 @@
-import { ShowToastEvent } from 'lightning/platformShowToastEvent'
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 // Custom Labels;
-import infoMsg from '@salesforce/label/c.Global_Msg_Info'
-import errorMsg from '@salesforce/label/c.Global_Msg_Error'
-import successMsg from '@salesforce/label/c.Global_Msg_Success'
-import warningMsg from '@salesforce/label/c.Global_Msg_Warning'
+import successMsg from '@salesforce/label/c.Global_Msg_Success';
+import errorMsg from '@salesforce/label/c.Global_Msg_Error';
+import warningMsg from '@salesforce/label/c.Global_Msg_Warning';
+import infoMsg from '@salesforce/label/c.Global_Msg_Info';
 
 const Variant = {
     INFO: 'info',
     SUCCESS: 'success',
     WARNING: 'warning',
     ERROR: 'error',
-}
+};
 
 /**
  * The component can be used for showing toasts of 4 variants ('success', 'info', 'warning' and 'error')
@@ -23,19 +23,19 @@ const Variant = {
  */
 
 function success({ message, mode, title }) {
-    showToast(!title ? successMsg : title, message, Variant.SUCCESS, mode)
+    showToast(!title ? successMsg : title, message, Variant.SUCCESS, mode);
 }
 
 function info({ message, mode, title }) {
-    showToast(!title ? infoMsg : title, message, Variant.INFO, mode)
+    showToast(!title ? infoMsg : title, message, Variant.INFO, mode);
 }
 
 function warning({ message, mode, title }) {
-    showToast(!title ? warningMsg : title, message, Variant.WARNING, mode)
+    showToast(!title ? warningMsg : title, message, Variant.WARNING, mode);
 }
 
 function error({ message, mode, title }) {
-    showToast(!title ? errorMsg : title, message, Variant.ERROR, mode)
+    showToast(!title ? errorMsg : title, message, Variant.ERROR, mode);
 }
 
 function showToast(title, message, variant, mode) {
@@ -44,28 +44,15 @@ function showToast(title, message, variant, mode) {
         message,
         variant,
         mode,
-    })
-    dispatchEvent(event)
-}
-
-function show(variant, payload) {
-    if (!variant) {
-        return
-    }
-    if (variant === Variant.SUCCESS) {
-        success(payload)
-    } else if (variant === Variant.INFO) {
-        info(payload)
-    } else if (variant === Variant.WARNING) {
-        warning(payload)
-    } else if (variant === Variant.ERROR) {
-        error(payload)
-    }
+    });
+    // 'dispatchEvent' function is invoked against 'window' object!
+    dispatchEvent(event);
 }
 
 export default {
+    Variant,
     success,
     info,
     warning,
     error,
-}
+};
