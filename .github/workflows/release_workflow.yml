@@ -31,7 +31,7 @@ jobs:
         run: |
           npm run sfdx:manifest
           npm run src:deploy:full
-  run-all-apex-tests:
+  run-apex-tests:
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-latest
     steps:
