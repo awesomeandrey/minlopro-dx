@@ -80,10 +80,7 @@ public class fflib_MatcherDefinitionsTest {
     @IsTest
     private static void whenConstructingCombinedWithNullInternalMatchersShouldThrowException() {
         try {
-            fflib_IMatcher matcher = new fflib_MatcherDefinitions.Combined(
-                fflib_MatcherDefinitions.Connective.ALL,
-                null
-            );
+            fflib_IMatcher matcher = new fflib_MatcherDefinitions.Combined(fflib_MatcherDefinitions.Connective.ALL, null);
             System.Assert.fail('Expecting exception');
         } catch (fflib_ApexMocks.ApexMocksException e) {
             System.Assert.areEqual('Invalid inner matchers: null', e.getMessage());
@@ -105,10 +102,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenCombinedMatchesWithAllExpressionShouldReturnCorrectResults() {
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.Combined(
-            fflib_MatcherDefinitions.Connective.ALL,
-            INTERNAL_MATCHERS
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.Combined(fflib_MatcherDefinitions.Connective.ALL, INTERNAL_MATCHERS);
         System.Assert.isFalse(matcher.matches(null));
         System.Assert.isFalse(matcher.matches('ted'));
         System.Assert.isFalse(matcher.matches('bob'));
@@ -118,10 +112,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenCombinedMatchesWithAtLeastOneExpressionShouldReturnCorrectResults() {
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.Combined(
-            fflib_MatcherDefinitions.Connective.AT_LEAST_ONE,
-            INTERNAL_MATCHERS
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.Combined(fflib_MatcherDefinitions.Connective.AT_LEAST_ONE, INTERNAL_MATCHERS);
         System.Assert.isFalse(matcher.matches(null));
         System.Assert.isFalse(matcher.matches('ted'));
         System.Assert.isTrue(matcher.matches('bob'));
@@ -131,10 +122,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenCombinedMatchesWithNoneExpressionShouldReturnCorrectResults() {
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.Combined(
-            fflib_MatcherDefinitions.Connective.NONE,
-            INTERNAL_MATCHERS
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.Combined(fflib_MatcherDefinitions.Connective.NONE, INTERNAL_MATCHERS);
         System.Assert.isTrue(matcher.matches(null));
         System.Assert.isTrue(matcher.matches('ted'));
         System.Assert.isFalse(matcher.matches('bob'));
@@ -152,27 +140,15 @@ public class fflib_MatcherDefinitionsTest {
 
         System.Assert.areEqual(
             '[any of: "one", "two", "three"]',
-            '' +
-            new fflib_MatcherDefinitions.Combined(
-                fflib_MatcherDefinitions.Connective.AT_LEAST_ONE,
-                innerMatchers
-            )
+            '' + new fflib_MatcherDefinitions.Combined(fflib_MatcherDefinitions.Connective.AT_LEAST_ONE, innerMatchers)
         );
         System.Assert.areEqual(
             '[all of: "one", "two", "three"]',
-            '' +
-            new fflib_MatcherDefinitions.Combined(
-                fflib_MatcherDefinitions.Connective.ALL,
-                innerMatchers
-            )
+            '' + new fflib_MatcherDefinitions.Combined(fflib_MatcherDefinitions.Connective.ALL, innerMatchers)
         );
         System.Assert.areEqual(
             '[none of: "one", "two", "three"]',
-            '' +
-            new fflib_MatcherDefinitions.Combined(
-                fflib_MatcherDefinitions.Connective.NONE,
-                innerMatchers
-            )
+            '' + new fflib_MatcherDefinitions.Combined(fflib_MatcherDefinitions.Connective.NONE, innerMatchers)
         );
     }
 
@@ -225,10 +201,7 @@ public class fflib_MatcherDefinitionsTest {
     @IsTest
     private static void whenRefEqToStringReturnsExpectedString() {
         List<String> s1 = new List<String>{ 'bob', 'tom' };
-        System.Assert.areEqual(
-            '[reference equals ' + JSON.serialize(s1, false) + ']',
-            '' + new fflib_MatcherDefinitions.RefEq(s1)
-        );
+        System.Assert.areEqual('[reference equals ' + JSON.serialize(s1, false) + ']', '' + new fflib_MatcherDefinitions.RefEq(s1));
     }
 
     @IsTest
@@ -429,10 +402,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenAnySObjectFieldToStringReturnsExpectedString() {
-        System.Assert.areEqual(
-            '[any SObjectField]',
-            '' + new fflib_MatcherDefinitions.AnySObjectField()
-        );
+        System.Assert.areEqual('[any SObjectField]', '' + new fflib_MatcherDefinitions.AnySObjectField());
     }
 
     @IsTest
@@ -445,10 +415,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenAnySObjectTypeToStringReturnsExpectedString() {
-        System.Assert.areEqual(
-            '[any SObjectType]',
-            '' + new fflib_MatcherDefinitions.AnySObjectType()
-        );
+        System.Assert.areEqual('[any SObjectType]', '' + new fflib_MatcherDefinitions.AnySObjectType());
     }
 
     @IsTest
@@ -625,12 +592,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenDatetimeBetweenMatchesWithInclusiveFromWithoutInclusiveToShouldReturnCorrectResults() {
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.DatetimeBetween(
-            NOW.addSeconds(-1),
-            true,
-            NOW.addSeconds(1),
-            false
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.DatetimeBetween(NOW.addSeconds(-1), true, NOW.addSeconds(1), false);
         System.Assert.isFalse(matcher.matches(null));
         System.Assert.isFalse(matcher.matches('bob'));
         System.Assert.isFalse(matcher.matches(NOW.addSeconds(-2)));
@@ -641,12 +603,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenDatetimeBetweenMatchesWithInclusiveToWithoutInclusiveFromShouldReturnCorrectResults() {
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.DatetimeBetween(
-            NOW.addSeconds(-1),
-            false,
-            NOW.addSeconds(1),
-            true
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.DatetimeBetween(NOW.addSeconds(-1), false, NOW.addSeconds(1), true);
         System.Assert.isFalse(matcher.matches(null));
         System.Assert.isFalse(matcher.matches('bob'));
         System.Assert.isFalse(matcher.matches(NOW.addSeconds(2)));
@@ -660,21 +617,13 @@ public class fflib_MatcherDefinitionsTest {
         // Given
         DateTime fromDate = DateTime.newInstanceGmt(2019, 1, 1, 12, 0, 0);
         DateTime toDate = DateTime.newInstanceGmt(2019, 1, 3, 12, 0, 0);
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.DatetimeBetween(
-            fromDate,
-            true,
-            toDate,
-            true
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.DatetimeBetween(fromDate, true, toDate, true);
 
         // When
         String actual = '' + matcher;
 
         // Then
-        System.Assert.areEqual(
-            '[on or after "2019-01-01T12:00:00.000Z" and on or before "2019-01-03T12:00:00.000Z"]',
-            actual
-        );
+        System.Assert.areEqual('[on or after "2019-01-01T12:00:00.000Z" and on or before "2019-01-03T12:00:00.000Z"]', actual);
     }
 
     @IsTest
@@ -682,21 +631,13 @@ public class fflib_MatcherDefinitionsTest {
         // Given
         DateTime fromDate = DateTime.newInstanceGmt(2019, 1, 1, 12, 0, 0);
         DateTime toDate = DateTime.newInstanceGmt(2019, 1, 3, 12, 0, 0);
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.DatetimeBetween(
-            fromDate,
-            false,
-            toDate,
-            false
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.DatetimeBetween(fromDate, false, toDate, false);
 
         // When
         String actual = '' + matcher;
 
         // Then
-        System.Assert.areEqual(
-            '[after "2019-01-01T12:00:00.000Z" and before "2019-01-03T12:00:00.000Z"]',
-            actual
-        );
+        System.Assert.areEqual('[after "2019-01-01T12:00:00.000Z" and before "2019-01-03T12:00:00.000Z"]', actual);
     }
 
     @IsTest
@@ -744,30 +685,10 @@ public class fflib_MatcherDefinitionsTest {
         Integer lower = 5;
         Integer upper = 10;
 
-        fflib_IMatcher exLowerExUpper = new fflib_MatcherDefinitions.DecimalBetween(
-            lower,
-            false,
-            upper,
-            false
-        );
-        fflib_IMatcher exLowerInUpper = new fflib_MatcherDefinitions.DecimalBetween(
-            lower,
-            false,
-            upper,
-            true
-        );
-        fflib_IMatcher inLowerExUpper = new fflib_MatcherDefinitions.DecimalBetween(
-            lower,
-            true,
-            upper,
-            false
-        );
-        fflib_IMatcher inLowerInUpper = new fflib_MatcherDefinitions.DecimalBetween(
-            lower,
-            true,
-            upper,
-            true
-        );
+        fflib_IMatcher exLowerExUpper = new fflib_MatcherDefinitions.DecimalBetween(lower, false, upper, false);
+        fflib_IMatcher exLowerInUpper = new fflib_MatcherDefinitions.DecimalBetween(lower, false, upper, true);
+        fflib_IMatcher inLowerExUpper = new fflib_MatcherDefinitions.DecimalBetween(lower, true, upper, false);
+        fflib_IMatcher inLowerInUpper = new fflib_MatcherDefinitions.DecimalBetween(lower, true, upper, true);
 
         //Exclusive lower, exclusive upper
         System.Assert.isFalse(exLowerExUpper.matches(lower - 1));
@@ -881,14 +802,8 @@ public class fflib_MatcherDefinitionsTest {
     private static void whenDecimalLessThanToStringReturnsExpectedString() {
         Integer toMatch = 5;
 
-        System.Assert.areEqual(
-            '[less than or equal to ' + toMatch + ']',
-            '' + new fflib_MatcherDefinitions.DecimalLessThan(toMatch, true)
-        );
-        System.Assert.areEqual(
-            '[less than ' + toMatch + ']',
-            '' + new fflib_MatcherDefinitions.DecimalLessThan(toMatch, false)
-        );
+        System.Assert.areEqual('[less than or equal to ' + toMatch + ']', '' + new fflib_MatcherDefinitions.DecimalLessThan(toMatch, true));
+        System.Assert.areEqual('[less than ' + toMatch + ']', '' + new fflib_MatcherDefinitions.DecimalLessThan(toMatch, false));
     }
 
     @IsTest
@@ -941,10 +856,7 @@ public class fflib_MatcherDefinitionsTest {
             '[greater than or equal to ' + toMatch + ']',
             '' + new fflib_MatcherDefinitions.DecimalMoreThan(toMatch, true)
         );
-        System.Assert.areEqual(
-            '[greater than ' + toMatch + ']',
-            '' + new fflib_MatcherDefinitions.DecimalMoreThan(toMatch, false)
-        );
+        System.Assert.areEqual('[greater than ' + toMatch + ']', '' + new fflib_MatcherDefinitions.DecimalMoreThan(toMatch, false));
     }
 
     @IsTest
@@ -983,9 +895,7 @@ public class fflib_MatcherDefinitionsTest {
         if (anyFieldSet == null) {
             return;
         }
-        Set<Schema.FieldSetMember> fieldSetMembers = new Set<Schema.FieldSetMember>(
-            (anyFieldSet).getFields()
-        );
+        Set<Schema.FieldSetMember> fieldSetMembers = new Set<Schema.FieldSetMember>((anyFieldSet).getFields());
 
         System.Assert.areEqual(
             '[FieldSet with fields ' + JSON.serialize(fieldSetMembers, false) + ']',
@@ -1026,17 +936,12 @@ public class fflib_MatcherDefinitionsTest {
         System.Assert.isFalse(new fflib_MatcherDefinitions.ListContains('fred').matches(empty));
         System.Assert.isFalse(new fflib_MatcherDefinitions.ListContains('jack').matches(names));
         System.Assert.isTrue(new fflib_MatcherDefinitions.ListContains('fred').matches(names));
-        System.Assert.isFalse(
-            new fflib_MatcherDefinitions.ListContains('fred').matches('NotAList')
-        );
+        System.Assert.isFalse(new fflib_MatcherDefinitions.ListContains('fred').matches('NotAList'));
     }
 
     @IsTest
     private static void whenListContainsToStringReturnsExpectedString() {
-        System.Assert.areEqual(
-            '[list containing "hello"]',
-            '' + new fflib_MatcherDefinitions.ListContains('hello')
-        );
+        System.Assert.areEqual('[list containing "hello"]', '' + new fflib_MatcherDefinitions.ListContains('hello'));
     }
 
     @IsTest
@@ -1081,10 +986,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenSObjectOfTypeToStringReturnsExpectedString() {
-        System.Assert.areEqual(
-            '[SObject of type Account]',
-            '' + new fflib_MatcherDefinitions.SObjectOfType(ACCOUNT_OBJECT_TYPE)
-        );
+        System.Assert.areEqual('[SObject of type Account]', '' + new fflib_MatcherDefinitions.SObjectOfType(ACCOUNT_OBJECT_TYPE));
     }
 
     @IsTest
@@ -1119,9 +1021,7 @@ public class fflib_MatcherDefinitionsTest {
             nameField => ACCOUNT_RECORD.get('Name')
         };
 
-        Map<Schema.SObjectField, Object> notQueriedFieldValues = new Map<Schema.SObjectField, Object>{
-            createdDateField => System.now()
-        };
+        Map<Schema.SObjectField, Object> notQueriedFieldValues = new Map<Schema.SObjectField, Object>{ createdDateField => System.now() };
 
         fflib_IMatcher matcher = new fflib_MatcherDefinitions.SObjectWith(queriedFieldValues);
 
@@ -1132,16 +1032,12 @@ public class fflib_MatcherDefinitionsTest {
 
         System.Assert.isTrue(matcher.matches(ACCOUNT_RECORD));
 
-        System.Assert.isFalse(
-            new fflib_MatcherDefinitions.SObjectWith(notQueriedFieldValues).matches(ACCOUNT_RECORD)
-        );
+        System.Assert.isFalse(new fflib_MatcherDefinitions.SObjectWith(notQueriedFieldValues).matches(ACCOUNT_RECORD));
     }
 
     @IsTest
     private static void whenSObjectWithToStringReturnsExpectedString() {
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.SObjectWith(
-            new Map<Schema.SObjectField, Object>{ Account.Name => 'Test' }
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.SObjectWith(new Map<Schema.SObjectField, Object>{ Account.Name => 'Test' });
         System.Assert.areEqual('[SObject with fields {"Name":"Test"}]', '' + matcher);
     }
 
@@ -1153,25 +1049,13 @@ public class fflib_MatcherDefinitionsTest {
         Schema.SObjectField createdDateField = fields.get('CreatedDate');
 
         list<Map<Schema.SObjectField, Object>> queriedFieldValues = new List<Map<Schema.SObjectField, Object>>{
-            new Map<Schema.SObjectField, Object>{
-                idField => GROUP_RECORDS[0].Id,
-                nameField => GROUP_RECORDS[0].get('Name')
-            },
-            new Map<Schema.SObjectField, Object>{
-                idField => GROUP_RECORDS[1].Id,
-                nameField => GROUP_RECORDS[1].get('Name')
-            }
+            new Map<Schema.SObjectField, Object>{ idField => GROUP_RECORDS[0].Id, nameField => GROUP_RECORDS[0].get('Name') },
+            new Map<Schema.SObjectField, Object>{ idField => GROUP_RECORDS[1].Id, nameField => GROUP_RECORDS[1].get('Name') }
         };
 
         list<Map<Schema.SObjectField, Object>> failingFieldValues = new List<Map<Schema.SObjectField, Object>>{
-            new Map<Schema.SObjectField, Object>{
-                idField => GROUP_RECORDS[0].Id,
-                nameField => GROUP_RECORDS[0].get('Name')
-            },
-            new Map<Schema.SObjectField, Object>{
-                idField => GROUP_RECORDS[1].Id,
-                nameField => GROUP_RECORDS[1].get('Name') + 'test'
-            }
+            new Map<Schema.SObjectField, Object>{ idField => GROUP_RECORDS[0].Id, nameField => GROUP_RECORDS[0].get('Name') },
+            new Map<Schema.SObjectField, Object>{ idField => GROUP_RECORDS[1].Id, nameField => GROUP_RECORDS[1].get('Name') + 'test' }
         };
 
         list<Map<Schema.SObjectField, Object>> notQueriedFieldValues = new List<Map<Schema.SObjectField, Object>>{
@@ -1183,36 +1067,22 @@ public class fflib_MatcherDefinitionsTest {
 
         System.Assert.isFalse(matcher.matches(null));
         System.Assert.isFalse(
-            matcher.matches(
-                new List<SObject>{
-                    OPPORTUNITY_OBJECT_TYPE.newSObject(),
-                    OPPORTUNITY_OBJECT_TYPE.newSObject()
-                }
-            )
+            matcher.matches(new List<SObject>{ OPPORTUNITY_OBJECT_TYPE.newSObject(), OPPORTUNITY_OBJECT_TYPE.newSObject() })
         );
         System.Assert.isFalse(
-            matcher.matches(
-                new List<SObject>{ GROUP_OBJECT_TYPE.newSObject(), GROUP_OBJECT_TYPE.newSObject() }
-            ),
+            matcher.matches(new List<SObject>{ GROUP_OBJECT_TYPE.newSObject(), GROUP_OBJECT_TYPE.newSObject() }),
             'sObjectsWith arity agrees but arg doesn\'t'
         );
         System.Assert.isFalse(matcher.matches('NotAListofSObject'));
 
-        System.Assert.isTrue(
-            matcher.matches(GROUP_RECORDS),
-            'toMatch and args have same arity and in same order'
-        );
+        System.Assert.isTrue(matcher.matches(GROUP_RECORDS), 'toMatch and args have same arity and in same order');
         System.Assert.isTrue(
             !matcher.matches(new List<SObject>{ GROUP_RECORDS[1], GROUP_RECORDS[0] }),
             'sObjectsWith toMatch and args have same arity but args are in different order than toMatch'
         );
 
-        System.Assert.isFalse(
-            new fflib_MatcherDefinitions.SObjectsWith(notQueriedFieldValues).matches(GROUP_RECORDS)
-        );
-        System.Assert.isFalse(
-            new fflib_MatcherDefinitions.SObjectsWith(failingFieldValues).matches(GROUP_RECORDS)
-        );
+        System.Assert.isFalse(new fflib_MatcherDefinitions.SObjectsWith(notQueriedFieldValues).matches(GROUP_RECORDS));
+        System.Assert.isFalse(new fflib_MatcherDefinitions.SObjectsWith(failingFieldValues).matches(GROUP_RECORDS));
     }
 
     @IsTest
@@ -1223,14 +1093,8 @@ public class fflib_MatcherDefinitionsTest {
         Schema.SObjectField createdDateField = fields.get('CreatedDate');
 
         list<Map<Schema.SObjectField, Object>> queriedFieldValues = new List<Map<Schema.SObjectField, Object>>{
-            new Map<Schema.SObjectField, Object>{
-                idField => GROUP_RECORDS[0].Id,
-                nameField => GROUP_RECORDS[0].get('Name')
-            },
-            new Map<Schema.SObjectField, Object>{
-                idField => GROUP_RECORDS[1].Id,
-                nameField => GROUP_RECORDS[1].get('Name')
-            }
+            new Map<Schema.SObjectField, Object>{ idField => GROUP_RECORDS[0].Id, nameField => GROUP_RECORDS[0].get('Name') },
+            new Map<Schema.SObjectField, Object>{ idField => GROUP_RECORDS[1].Id, nameField => GROUP_RECORDS[1].get('Name') }
         };
 
         list<Map<Schema.SObjectField, Object>> notQueriedFieldValues = new List<Map<Schema.SObjectField, Object>>{
@@ -1238,41 +1102,25 @@ public class fflib_MatcherDefinitionsTest {
             new Map<Schema.SObjectField, Object>{ createdDateField => System.now() }
         };
 
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.SObjectsWith(
-            queriedFieldValues,
-            false
-        ); // any order
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.SObjectsWith(queriedFieldValues, false); // any order
 
         System.Assert.isFalse(matcher.matches(null));
         System.Assert.isFalse(
-            matcher.matches(
-                new List<SObject>{
-                    OPPORTUNITY_OBJECT_TYPE.newSObject(),
-                    OPPORTUNITY_OBJECT_TYPE.newSObject()
-                }
-            )
+            matcher.matches(new List<SObject>{ OPPORTUNITY_OBJECT_TYPE.newSObject(), OPPORTUNITY_OBJECT_TYPE.newSObject() })
         );
         System.Assert.isFalse(
-            matcher.matches(
-                new List<SObject>{ GROUP_OBJECT_TYPE.newSObject(), GROUP_OBJECT_TYPE.newSObject() }
-            ),
+            matcher.matches(new List<SObject>{ GROUP_OBJECT_TYPE.newSObject(), GROUP_OBJECT_TYPE.newSObject() }),
             'sObjectsWith arity agrees but arg doesn\'t match matcher'
         );
         System.Assert.isFalse(matcher.matches('NotAListofSObject'));
 
-        System.Assert.isTrue(
-            matcher.matches(GROUP_RECORDS),
-            'toMatch and args have same arity and in same order. Match should be OK'
-        );
+        System.Assert.isTrue(matcher.matches(GROUP_RECORDS), 'toMatch and args have same arity and in same order. Match should be OK');
         System.Assert.isTrue(
             matcher.matches(new List<SObject>{ GROUP_RECORDS[1], GROUP_RECORDS[0] }),
             'sObjectsWith toMatch and args have same arity but args are in diff order than matcher. Should be OK'
         );
 
-        System.Assert.isFalse(
-            new fflib_MatcherDefinitions.SObjectsWith(notQueriedFieldValues, false)
-                .matches(GROUP_RECORDS)
-        );
+        System.Assert.isFalse(new fflib_MatcherDefinitions.SObjectsWith(notQueriedFieldValues, false).matches(GROUP_RECORDS));
     }
 
     @IsTest
@@ -1281,10 +1129,7 @@ public class fflib_MatcherDefinitionsTest {
             new Map<Schema.SObjectField, Object>{ Account.Name => 'Test' }
         };
 
-        System.Assert.areEqual(
-            '[ordered SObjects with [{"Name":"Test"}]]',
-            '' + new fflib_MatcherDefinitions.SObjectsWith(toMatch, true)
-        );
+        System.Assert.areEqual('[ordered SObjects with [{"Name":"Test"}]]', '' + new fflib_MatcherDefinitions.SObjectsWith(toMatch, true));
         System.Assert.areEqual(
             '[unordered SObjects with [{"Name":"Test"}]]',
             '' + new fflib_MatcherDefinitions.SObjectsWith(toMatch, false)
@@ -1296,8 +1141,7 @@ public class fflib_MatcherDefinitionsTest {
         List<Map<Schema.SObjectField, Object>> toMatch = new List<Map<Schema.SObjectField, Object>>{
             new Map<Schema.SObjectField, Object>{ Account.Name => 'Test' }
         };
-        Boolean matchResult = new fflib_MatcherDefinitions.SObjectsWith(toMatch)
-            .matches(new List<SObject>{});
+        Boolean matchResult = new fflib_MatcherDefinitions.SObjectsWith(toMatch).matches(new List<SObject>{});
         System.Assert.areEqual(matchResult, false);
     }
 
@@ -1307,10 +1151,7 @@ public class fflib_MatcherDefinitionsTest {
             new fflib_MatcherDefinitions.SObjectsWith(null);
             System.Assert.fail('Expected exception');
         } catch (fflib_ApexMocks.ApexMocksException e) {
-            System.Assert.areEqual(
-                'Arg cannot be null/empty/other than list of map<Schema.SobjectField,Object>: null',
-                e.getMessage()
-            );
+            System.Assert.areEqual('Arg cannot be null/empty/other than list of map<Schema.SobjectField,Object>: null', e.getMessage());
         }
     }
 
@@ -1339,10 +1180,7 @@ public class fflib_MatcherDefinitionsTest {
     @IsTest
     private static void whenSObjectWithIdToStringReturnsExpectedString() {
         Id recordId = '001000000000001AAA';
-        System.Assert.areEqual(
-            '[SObject with Id "001000000000001AAA"]',
-            '' + new fflib_MatcherDefinitions.SObjectWithId(recordId)
-        );
+        System.Assert.areEqual('[SObject with Id "001000000000001AAA"]', '' + new fflib_MatcherDefinitions.SObjectWithId(recordId));
     }
 
     @IsTest
@@ -1357,9 +1195,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenSObjectWithNameMatchesShouldReturnCorrectResults() {
-        fflib_IMatcher matcher = new fflib_MatcherDefinitions.SObjectWithName(
-            (String) ACCOUNT_RECORD.get('Name')
-        );
+        fflib_IMatcher matcher = new fflib_MatcherDefinitions.SObjectWithName((String) ACCOUNT_RECORD.get('Name'));
 
         System.Assert.isFalse(matcher.matches(null));
         System.Assert.isFalse(matcher.matches(OPPORTUNITY_OBJECT_TYPE.newSObject()));
@@ -1371,10 +1207,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenSObjectWithNameToStringReturnsExpectedString() {
-        System.Assert.areEqual(
-            '[SObject with Name "Test"]',
-            '' + new fflib_MatcherDefinitions.SObjectWithName('Test')
-        );
+        System.Assert.areEqual('[SObject with Name "Test"]', '' + new fflib_MatcherDefinitions.SObjectWithName('Test'));
     }
 
     @IsTest
@@ -1400,10 +1233,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenStringContainsToStringReturnsExpectedStrings() {
-        System.Assert.areEqual(
-            '[contains "hello"]',
-            '' + new fflib_MatcherDefinitions.StringContains('hello')
-        );
+        System.Assert.areEqual('[contains "hello"]', '' + new fflib_MatcherDefinitions.StringContains('hello'));
     }
 
     @IsTest
@@ -1429,10 +1259,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenStringEndsWithToStringReturnsExpectedStrings() {
-        System.Assert.areEqual(
-            '[ends with "hello"]',
-            '' + new fflib_MatcherDefinitions.StringEndsWith('hello')
-        );
+        System.Assert.areEqual('[ends with "hello"]', '' + new fflib_MatcherDefinitions.StringEndsWith('hello'));
     }
 
     @IsTest
@@ -1460,10 +1287,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenStringIsNotBlankToStringReturnsExpectedStrings() {
-        System.Assert.areEqual(
-            '[non-blank String]',
-            '' + new fflib_MatcherDefinitions.StringIsNotBlank()
-        );
+        System.Assert.areEqual('[non-blank String]', '' + new fflib_MatcherDefinitions.StringIsNotBlank());
     }
 
     @IsTest
@@ -1481,10 +1305,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenStringMatchesToStringReturnsExpectedStrings() {
-        System.Assert.areEqual(
-            '[matches regex "hello"]',
-            '' + new fflib_MatcherDefinitions.StringMatches('hello')
-        );
+        System.Assert.areEqual('[matches regex "hello"]', '' + new fflib_MatcherDefinitions.StringMatches('hello'));
     }
 
     @IsTest
@@ -1510,10 +1331,7 @@ public class fflib_MatcherDefinitionsTest {
 
     @IsTest
     private static void whenStringStartsWithToStringReturnsExpectedStrings() {
-        System.Assert.areEqual(
-            '[starts with "hello"]',
-            '' + new fflib_MatcherDefinitions.StringStartsWith('hello')
-        );
+        System.Assert.areEqual('[starts with "hello"]', '' + new fflib_MatcherDefinitions.StringStartsWith('hello'));
     }
 
     @IsTest

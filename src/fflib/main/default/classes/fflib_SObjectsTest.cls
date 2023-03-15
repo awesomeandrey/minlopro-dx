@@ -34,10 +34,7 @@ private class fflib_SObjectsTest {
 
         domain.clearShippingCountry();
 
-        System.assert(
-            domain.selectByShippingCountry('Holland').isEmpty(),
-            'Field should have been nullified'
-        );
+        System.assert(domain.selectByShippingCountry('Holland').isEmpty(), 'Field should have been nullified');
     }
 
     @IsTest
@@ -66,15 +63,9 @@ private class fflib_SObjectsTest {
         );
 
         Set<Id> recordIds = new Set<Id>{ idA, idB, idC };
-        System.assert(
-            domain.getRecordIds().equals(recordIds),
-            'The domain should return all the record Ids'
-        );
+        System.assert(domain.getRecordIds().equals(recordIds), 'The domain should return all the record Ids');
 
-        System.assert(
-            domain.getIdFieldValues(Schema.Account.Id).equals(recordIds),
-            'The domain should return all the record Ids'
-        );
+        System.assert(domain.getIdFieldValues(Schema.Account.Id).equals(recordIds), 'The domain should return all the record Ids');
     }
 
     @IsTest
@@ -149,10 +140,7 @@ private class fflib_SObjectsTest {
 
         System.assertEquals(1, fflib_SObjects.Errors.getAll().size());
         System.assertEquals(errorMessage, fflib_SObjects.Errors.getAll()[0].message);
-        System.assertEquals(
-            Account.Name,
-            ((fflib_SObjects.FieldError) fflib_SObjects.Errors.getAll()[0]).field
-        );
+        System.assertEquals(Account.Name, ((fflib_SObjects.FieldError) fflib_SObjects.Errors.getAll()[0]).field);
     }
 
     @IsTest
@@ -164,10 +152,7 @@ private class fflib_SObjectsTest {
         System.assertEquals(2, fflib_SObjects.Errors.getAll().size());
         System.assertEquals('Error', fflib_SObjects.Errors.getAll()[0].message);
         System.assertEquals('Error', fflib_SObjects.Errors.getAll()[1].message);
-        System.assertEquals(
-            Opportunity.Type,
-            ((fflib_SObjects.FieldError) fflib_SObjects.Errors.getAll()[1]).field
-        );
+        System.assertEquals(Opportunity.Type, ((fflib_SObjects.FieldError) fflib_SObjects.Errors.getAll()[1]).field);
         fflib_SObjects.Errors.clearAll();
         System.assertEquals(0, fflib_SObjects.Errors.getAll().size());
     }
@@ -193,10 +178,7 @@ private class fflib_SObjectsTest {
         }
 
         public List<Account> selectByShippingCountry(String country) {
-            return (List<Account>) getRecordsByFieldValues(
-                Schema.Account.ShippingCountry,
-                new Set<Object>{ country }
-            );
+            return (List<Account>) getRecordsByFieldValues(Schema.Account.ShippingCountry, new Set<Object>{ country });
         }
 
         public List<Account> selectByRating(String rating) {
@@ -208,9 +190,7 @@ private class fflib_SObjectsTest {
         }
 
         public List<Account> selectWithShippingCountry() {
-            return (List<Account>) getRecordsWithNotBlankFieldValues(
-                Schema.Account.ShippingCountry
-            );
+            return (List<Account>) getRecordsWithNotBlankFieldValues(Schema.Account.ShippingCountry);
         }
 
         public List<Account> selectWithEmptyRecord() {
@@ -230,11 +210,7 @@ private class fflib_SObjectsTest {
         }
 
         public void setRatingByShippingCountry(Map<Object, Object> ratingByCountry) {
-            setFieldValueByMap(
-                Schema.Account.ShippingCountry,
-                Schema.Account.Rating,
-                ratingByCountry
-            );
+            setFieldValueByMap(Schema.Account.ShippingCountry, Schema.Account.Rating, ratingByCountry);
         }
 
         public void addNameError(String message) {

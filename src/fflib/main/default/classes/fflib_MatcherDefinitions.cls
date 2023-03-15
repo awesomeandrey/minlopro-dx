@@ -87,9 +87,7 @@ public with sharing class fflib_MatcherDefinitions {
 
         private Connective validate(Connective connectiveExpression) {
             if (connectiveExpression == null) {
-                throw new fflib_ApexMocks.ApexMocksException(
-                    'Invalid connective expression: ' + connectiveExpression
-                );
+                throw new fflib_ApexMocks.ApexMocksException('Invalid connective expression: ' + connectiveExpression);
             }
 
             return connectiveExpression;
@@ -97,9 +95,7 @@ public with sharing class fflib_MatcherDefinitions {
 
         private List<fflib_IMatcher> validate(List<fflib_IMatcher> innerMatchers) {
             if (innerMatchers == null || innerMatchers.isEmpty()) {
-                throw new fflib_ApexMocks.ApexMocksException(
-                    'Invalid inner matchers: ' + innerMatchers
-                );
+                throw new fflib_ApexMocks.ApexMocksException('Invalid inner matchers: ' + innerMatchers);
             }
 
             return innerMatchers;
@@ -402,9 +398,7 @@ public with sharing class fflib_MatcherDefinitions {
         public Boolean matches(Object arg) {
             if (arg instanceof Datetime) {
                 Datetime datetimeToCompare = (Datetime) arg;
-                return inclusive
-                    ? fromDatetime <= datetimeToCompare
-                    : fromDatetime < datetimeToCompare;
+                return inclusive ? fromDatetime <= datetimeToCompare : fromDatetime < datetimeToCompare;
             }
 
             return false;
@@ -472,12 +466,7 @@ public with sharing class fflib_MatcherDefinitions {
          * @param inclusiveTo Whether or not dates equal to the toDatetime should be considered a match
          * @return fflib_MatcherDefinitions.DatetimeBetween A new DatetimeBetween instance
          */
-        public DatetimeBetween(
-            Datetime fromDatetime,
-            Boolean inclusiveFrom,
-            Datetime toDatetime,
-            Boolean inclusiveTo
-        ) {
+        public DatetimeBetween(Datetime fromDatetime, Boolean inclusiveFrom, Datetime toDatetime, Boolean inclusiveTo) {
             this.fromDatetime = (Datetime) validateNotNull(fromDatetime);
             this.inclusiveFrom = (Boolean) validateNotNull(inclusiveFrom);
             this.toDatetime = (Datetime) validateNotNull(toDatetime);
@@ -488,9 +477,7 @@ public with sharing class fflib_MatcherDefinitions {
             if (arg instanceof Datetime) {
                 Datetime datetimeToCompare = (Datetime) arg;
                 if (
-                    (inclusiveFrom
-                        ? datetimeToCompare >= fromDatetime
-                        : datetimeToCompare > fromDatetime) &&
+                    (inclusiveFrom ? datetimeToCompare >= fromDatetime : datetimeToCompare > fromDatetime) &&
                     (inclusiveTo ? datetimeToCompare <= toDatetime : datetimeToCompare < toDatetime)
                 ) {
                     return true;
@@ -534,12 +521,7 @@ public with sharing class fflib_MatcherDefinitions {
          * @param inclusiveUpper Whether or not numbers equal to upper should be considered a match
          * @return fflib_MatcherDefinitions.DecimalBetween A new DecimalBetween instance
          */
-        public DecimalBetween(
-            Decimal lower,
-            Boolean inclusiveLower,
-            Decimal upper,
-            Boolean inclusiveUpper
-        ) {
+        public DecimalBetween(Decimal lower, Boolean inclusiveLower, Decimal upper, Boolean inclusiveUpper) {
             this.lower = (Decimal) validateNotNull(lower);
             this.inclusiveLower = (Boolean) validateNotNull(inclusiveLower);
             this.upper = (Decimal) validateNotNull(upper);
@@ -550,10 +532,7 @@ public with sharing class fflib_MatcherDefinitions {
             if (arg != null && arg instanceof Decimal) {
                 Decimal longArg = (Decimal) arg;
 
-                if (
-                    (inclusiveLower ? longArg >= lower : longArg > lower) &&
-                    (inclusiveUpper ? longArg <= upper : longArg < upper)
-                ) {
+                if ((inclusiveLower ? longArg >= lower : longArg > lower) && (inclusiveUpper ? longArg <= upper : longArg < upper)) {
                     return true;
                 }
             }
@@ -666,9 +645,7 @@ public with sharing class fflib_MatcherDefinitions {
         }
 
         public FieldSetEquivalentTo(Schema.FieldSet toMatch) {
-            this.toMatch = new Set<Schema.FieldSetMember>(
-                ((Schema.FieldSet) validateNotNull(toMatch)).getFields()
-            );
+            this.toMatch = new Set<Schema.FieldSetMember>(((Schema.FieldSet) validateNotNull(toMatch)).getFields());
         }
 
         public Boolean matches(Object arg) {
@@ -947,13 +924,10 @@ public with sharing class fflib_MatcherDefinitions {
             return false;
         }
 
-        private list<Map<Schema.SObjectField, Object>> validate(
-            list<Map<Schema.SObjectField, Object>> arg
-        ) {
+        private list<Map<Schema.SObjectField, Object>> validate(list<Map<Schema.SObjectField, Object>> arg) {
             if (arg == null || arg.isEmpty()) {
                 throw new fflib_ApexMocks.ApexMocksException(
-                    'Arg cannot be null/empty/other than list of map<Schema.SobjectField,Object>: ' +
-                    arg
+                    'Arg cannot be null/empty/other than list of map<Schema.SobjectField,Object>: ' + arg
                 );
             }
 
@@ -962,13 +936,9 @@ public with sharing class fflib_MatcherDefinitions {
 
         public override String toString() {
             if (matchInOrder) {
-                return '[ordered SObjects with ' +
-                    fflib_MatcherDefinitions.stringify(toMatch) +
-                    ']';
+                return '[ordered SObjects with ' + fflib_MatcherDefinitions.stringify(toMatch) + ']';
             } else {
-                return '[unordered SObjects with ' +
-                    fflib_MatcherDefinitions.stringify(toMatch) +
-                    ']';
+                return '[unordered SObjects with ' + fflib_MatcherDefinitions.stringify(toMatch) + ']';
             }
         }
     }
@@ -1155,9 +1125,7 @@ public with sharing class fflib_MatcherDefinitions {
         }
 
         public Boolean matches(Object arg) {
-            return arg != null && arg instanceof String
-                ? pat.matcher((String) arg).matches()
-                : false;
+            return arg != null && arg instanceof String ? pat.matcher((String) arg).matches() : false;
         }
 
         public override String toString() {
@@ -1181,9 +1149,7 @@ public with sharing class fflib_MatcherDefinitions {
         }
 
         public Boolean matches(Object arg) {
-            return arg != null && arg instanceof String
-                ? ((String) arg).startsWith(toMatch)
-                : false;
+            return arg != null && arg instanceof String ? ((String) arg).startsWith(toMatch) : false;
         }
 
         public override String toString() {

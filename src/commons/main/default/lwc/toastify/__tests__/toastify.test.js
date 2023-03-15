@@ -4,28 +4,28 @@ import $Toastify from 'c/toastify';
 // Mock hardcoded Custom Labels with prefix;
 const CL_PREFIX = 'MOCKED';
 jest.mock(
-    '@salesforce/label/c.Global_Msg_Success',
+    '@salesforce/label/c.Commons_Msg_Success',
     () => {
         return { default: `${CL_PREFIX}-Success` };
     },
     { virtual: true }
 );
 jest.mock(
-    '@salesforce/label/c.Global_Msg_Error',
+    '@salesforce/label/c.Commons_Msg_Error',
     () => {
         return { default: `${CL_PREFIX}-Error` };
     },
     { virtual: true }
 );
 jest.mock(
-    '@salesforce/label/c.Global_Msg_Warning',
+    '@salesforce/label/c.Commons_Msg_Warning',
     () => {
         return { default: `${CL_PREFIX}-Warning` };
     },
     { virtual: true }
 );
 jest.mock(
-    '@salesforce/label/c.Global_Msg_Info',
+    '@salesforce/label/c.Commons_Msg_Info',
     () => {
         return { default: `${CL_PREFIX}-Info` };
     },

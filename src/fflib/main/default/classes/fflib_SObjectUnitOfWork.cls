@@ -282,11 +282,7 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
      * @param relatedToParentField A SObjectField reference to the child field that associates the child record with its parent
      * @param relatedToParentRecord A SObject instance of the parent record (should also be registered as new separately)
      **/
-    public void registerNew(
-        SObject record,
-        Schema.SObjectField relatedToParentField,
-        SObject relatedToParentRecord
-    ) {
+    public void registerNew(SObject record, Schema.SObjectField relatedToParentField, SObject relatedToParentRecord) {
         if (record.Id != null)
             throw new UnitOfWorkException('Only new records can be registered as new');
         String sObjectType = record.getSObjectType().getDescribe().getName();
@@ -307,11 +303,7 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
      * @param relatedToField A SObjectField reference to the lookup field that relates the two records together
      * @param relatedTo A SObject instance (yet to be committed to the database)
      */
-    public void registerRelationship(
-        SObject record,
-        Schema.SObjectField relatedToField,
-        SObject relatedTo
-    ) {
+    public void registerRelationship(SObject record, Schema.SObjectField relatedToField, SObject relatedTo) {
         String sObjectType = record.getSObjectType().getDescribe().getName();
 
         assertForNonEventSObjectType(sObjectType);
@@ -355,10 +347,7 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
         String sObjectType = record.getSObjectType().getDescribe().getName();
         if (!m_newListByType.containsKey(sObjectType))
             throw new UnitOfWorkException(
-                String.format(
-                    'SObject type {0} is not supported by this unit of work',
-                    new List<String>{ sObjectType }
-                )
+                String.format('SObject type {0} is not supported by this unit of work', new List<String>{ sObjectType })
             );
         m_relationships.get(sObjectType).add(record, relatedToField, externalIdField, externalId);
     }
@@ -422,11 +411,7 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
      * @param relatedToParentField A SObjectField reference to the child field that associates the child record with its parent
      * @param relatedToParentRecord A SObject instance of the parent record (should also be registered as new separately)
      **/
-    public void registerDirty(
-        SObject record,
-        Schema.SObjectField relatedToParentField,
-        SObject relatedToParentRecord
-    ) {
+    public void registerDirty(SObject record, Schema.SObjectField relatedToParentField, SObject relatedToParentRecord) {
         registerDirty(record);
         if (relatedToParentRecord != null && relatedToParentField != null)
             registerRelationship(record, relatedToParentField, relatedToParentRecord);
@@ -668,19 +653,14 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
     private void deleteDmlByType() {
         Integer objectIdx = m_sObjectTypes.size() - 1;
         while (objectIdx >= 0) {
-            m_dml.dmlDelete(
-                m_deletedMapByType.get(m_sObjectTypes[objectIdx--].getDescribe().getName()).values()
-            );
+            m_dml.dmlDelete(m_deletedMapByType.get(m_sObjectTypes[objectIdx--].getDescribe().getName()).values());
         }
     }
 
     private void emptyRecycleBinByType() {
         Integer objectIdx = m_sObjectTypes.size() - 1;
         while (objectIdx >= 0) {
-            m_dml.emptyRecycleBin(
-                m_emptyRecycleBinMapByType.get(m_sObjectTypes[objectIdx--].getDescribe().getName())
-                    .values()
-            );
+            m_dml.emptyRecycleBin(m_emptyRecycleBinMapByType.get(m_sObjectTypes[objectIdx--].getDescribe().getName()).values());
         }
     }
 
@@ -697,17 +677,13 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
 
     private void publishAfterSuccessEvents() {
         for (Schema.SObjectType sObjectType : m_sObjectTypes) {
-            m_dml.eventPublish(
-                m_publishAfterSuccessListByType.get(sObjectType.getDescribe().getName())
-            );
+            m_dml.eventPublish(m_publishAfterSuccessListByType.get(sObjectType.getDescribe().getName()));
         }
     }
 
     private void publishAfterFailureEvents() {
         for (Schema.SObjectType sObjectType : m_sObjectTypes) {
-            m_dml.eventPublish(
-                m_publishAfterFailureListByType.get(sObjectType.getDescribe().getName())
-            );
+            m_dml.eventPublish(m_publishAfterFailureListByType.get(sObjectType.getDescribe().getName()));
         }
     }
 
@@ -728,10 +704,7 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
     private void assertForEventSObjectType(String sObjectType) {
         if (sObjectType.length() > 3 && sObjectType.right(3) != '__e') {
             throw new UnitOfWorkException(
-                String.format(
-                    'SObject type {0} is invalid for publishing within this unit of work',
-                    new List<String>{ sObjectType }
-                )
+                String.format('SObject type {0} is invalid for publishing within this unit of work', new List<String>{ sObjectType })
             );
         }
     }
@@ -740,10 +713,7 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
     private void assertForSupportedSObjectType(Map<String, Object> theMap, String sObjectType) {
         if (!theMap.containsKey(sObjectType)) {
             throw new UnitOfWorkException(
-                String.format(
-                    'SObject type {0} is not supported by this unit of work',
-                    new List<String>{ sObjectType }
-                )
+                String.format('SObject type {0} is not supported by this unit of work', new List<String>{ sObjectType })
             );
         }
     }
@@ -759,21 +729,14 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
             }
         }
 
-        public void add(
-            SObject record,
-            Schema.SObjectField relatedToField,
-            Schema.SObjectField externalIdField,
-            Object externalId
-        ) {
+        public void add(SObject record, Schema.SObjectField relatedToField, Schema.SObjectField externalIdField, Object externalId) {
             if (relatedToField == null) {
                 throw new UnitOfWorkException('Invalid argument: relatedToField.');
             }
 
             String relationshipName = relatedToField.getDescribe().getRelationshipName();
             if (String.isBlank(relationshipName)) {
-                throw new UnitOfWorkException(
-                    'Invalid argument: relatedToField. Field supplied is not a relationship field.'
-                );
+                throw new UnitOfWorkException('Invalid argument: relatedToField. Field supplied is not a relationship field.');
             }
 
             List<Schema.SObjectType> relatedObjects = relatedToField.getDescribe().getReferenceTo();

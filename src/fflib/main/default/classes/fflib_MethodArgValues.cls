@@ -46,9 +46,7 @@ public with sharing class fflib_MethodArgValues {
             return true;
         }
 
-        fflib_MethodArgValues that = other instanceof fflib_MethodArgValues
-            ? (fflib_MethodArgValues) other
-            : null;
+        fflib_MethodArgValues that = other instanceof fflib_MethodArgValues ? (fflib_MethodArgValues) other : null;
         return that != null && this.argValues == that.argValues;
     }
 

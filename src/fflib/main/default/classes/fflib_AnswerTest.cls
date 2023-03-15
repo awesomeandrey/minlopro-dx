@@ -16,8 +16,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.ExceptionForAnswer());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.ExceptionForAnswer());
         mocks.stopStubbing();
 
         // When
@@ -27,11 +26,7 @@ private class fflib_AnswerTest {
         } catch (fflib_ApexMocks.ApexMocksException ansExpt) {
             String expectedMessage = 'an error occurs on the execution of the answer';
             // Then
-            System.Assert.areEqual(
-                expectedMessage,
-                ansExpt.getMessage(),
-                'the message from the answer is not as expected'
-            );
+            System.Assert.areEqual(expectedMessage, ansExpt.getMessage(), 'the message from the answer is not as expected');
         }
     }
 
@@ -42,8 +37,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.BasicAnswer());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.BasicAnswer());
         mocks.stopStubbing();
 
         // When
@@ -52,11 +46,7 @@ private class fflib_AnswerTest {
         // Then
 
         Object methodCalled = actualInvocation.getMethod();
-        System.Assert.isInstanceOfType(
-            methodCalled,
-            fflib_QualifiedMethod.class,
-            'the object returned is not a method as expected'
-        );
+        System.Assert.isInstanceOfType(methodCalled, fflib_QualifiedMethod.class, 'the object returned is not a method as expected');
 
         String expectedMethodSignature = fflib_MyList.getStubClassName() + '.get2(Integer, String)';
         System.Assert.areEqual(
@@ -74,8 +64,7 @@ private class fflib_AnswerTest {
 
         mocks.startStubbing();
         mocks.when(mockList.get(3)).thenReturn('ted');
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.BasicAnswer());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.BasicAnswer());
         mocks.stopStubbing();
 
         // When
@@ -85,11 +74,7 @@ private class fflib_AnswerTest {
 
         // Then
         Object methodCalled = actualInvocation.getMethod();
-        System.Assert.isInstanceOfType(
-            methodCalled,
-            fflib_QualifiedMethod.class,
-            'the object returned is not a method as expected'
-        );
+        System.Assert.isInstanceOfType(methodCalled, fflib_QualifiedMethod.class, 'the object returned is not a method as expected');
 
         String expectedMethodSignature = fflib_MyList.getStubClassName() + '.get2(Integer, String)';
         System.Assert.areEqual(
@@ -98,11 +83,7 @@ private class fflib_AnswerTest {
             ' the method is no the one expected'
         );
 
-        System.Assert.areEqual(
-            'ted',
-            noAnswered,
-            'the get method should have returned the stubbed string'
-        );
+        System.Assert.areEqual('ted', noAnswered, 'the get method should have returned the stubbed string');
     }
 
     @IsTest
@@ -113,8 +94,7 @@ private class fflib_AnswerTest {
 
         mocks.startStubbing();
         mocks.when(mockList.get(3)).thenAnswer(new fflib_AnswerTest.FirstAnswer());
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.SecondAnswer());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.SecondAnswer());
         mocks.stopStubbing();
 
         // When
@@ -122,16 +102,8 @@ private class fflib_AnswerTest {
         String answer1 = mockList.get(3);
         String answer2 = mockList.get2(0, 'Hi hi Hello Hi hi');
 
-        System.Assert.areEqual(
-            'this is the first answer',
-            answer1,
-            'the answer wasnt the one expected'
-        );
-        System.Assert.areEqual(
-            'and this is the second one',
-            answer2,
-            'the answer wasnt the one expected'
-        );
+        System.Assert.areEqual('this is the first answer', answer1, 'the answer wasnt the one expected');
+        System.Assert.areEqual('and this is the second one', answer2, 'the answer wasnt the one expected');
     }
 
     @IsTest
@@ -141,8 +113,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.BasicAnswer());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.BasicAnswer());
         mocks.stopStubbing();
 
         // When
@@ -154,11 +125,7 @@ private class fflib_AnswerTest {
             fflib_MyList.IList.class,
             'the object returned is not a mock instance as expected'
         );
-        System.Assert.areEqual(
-            mockList,
-            actualInvocation.getMock(),
-            'the mock returned should be the mockList used in the stubbing'
-        );
+        System.Assert.areEqual(mockList, actualInvocation.getMock(), 'the mock returned should be the mockList used in the stubbing');
     }
 
     @IsTest
@@ -168,8 +135,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.ProcessArgumentAnswer());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.ProcessArgumentAnswer());
         mocks.stopStubbing();
 
         // When
@@ -186,8 +152,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.ProcessArgumentAnswer());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.ProcessArgumentAnswer());
         mocks.stopStubbing();
 
         // When
@@ -226,8 +191,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.ExceptionForArgumentsOutOfBound());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.ExceptionForArgumentsOutOfBound());
         mocks.stopStubbing();
 
         // When
@@ -241,8 +205,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi'))
-            .thenAnswer(new fflib_AnswerTest.ExceptionForNegativeArgumentIndex());
+        mocks.when(mockList.get2(0, 'Hi hi Hello Hi hi')).thenAnswer(new fflib_AnswerTest.ExceptionForNegativeArgumentIndex());
         mocks.stopStubbing();
 
         // When
@@ -256,8 +219,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        mocks.when(mockList.isEmpty())
-            .thenAnswer(new fflib_AnswerTest.ArgumentListEmptyForMethodWithNoArgument());
+        mocks.when(mockList.isEmpty()).thenAnswer(new fflib_AnswerTest.ArgumentListEmptyForMethodWithNoArgument());
         mocks.stopStubbing();
 
         // When
@@ -271,8 +233,7 @@ private class fflib_AnswerTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        ((fflib_MyList) mocks.doAnswer(new fflib_AnswerTest.BasicAnswer(), mockList))
-            .addMore('Hi hi Hello Hi hi');
+        ((fflib_MyList) mocks.doAnswer(new fflib_AnswerTest.BasicAnswer(), mockList)).addMore('Hi hi Hello Hi hi');
         mocks.stopStubbing();
 
         // When
@@ -280,11 +241,7 @@ private class fflib_AnswerTest {
 
         // Then
         Object methodCalled = actualInvocation.getMethod();
-        System.Assert.isInstanceOfType(
-            methodCalled,
-            fflib_QualifiedMethod.class,
-            'the object returned is not a method as expected'
-        );
+        System.Assert.isInstanceOfType(methodCalled, fflib_QualifiedMethod.class, 'the object returned is not a method as expected');
 
         String expectedMethodSignature = fflib_MyList.getStubClassName() + '.addMore(String)';
         System.Assert.areEqual(
@@ -302,10 +259,8 @@ private class fflib_AnswerTest {
 
         mocks.startStubbing();
         ((fflib_MyList) mocks.doAnswer(new fflib_AnswerTest.FirstAnswer(), mockList)).get(3);
-        ((fflib_MyList) mocks.doAnswer(new fflib_AnswerTest.BasicAnswer(), mockList))
-            .addMore('Hi hi Hello Hi hi');
-        ((fflib_MyList) mocks.doAnswer(new fflib_AnswerTest.SecondAnswer(), mockList))
-            .get2(4, 'Hi hi Hello Hi hi');
+        ((fflib_MyList) mocks.doAnswer(new fflib_AnswerTest.BasicAnswer(), mockList)).addMore('Hi hi Hello Hi hi');
+        ((fflib_MyList) mocks.doAnswer(new fflib_AnswerTest.SecondAnswer(), mockList)).get2(4, 'Hi hi Hello Hi hi');
         mocks.stopStubbing();
 
         // When
@@ -315,11 +270,7 @@ private class fflib_AnswerTest {
 
         // Then
         Object methodCalled = actualInvocation.getMethod();
-        System.Assert.isInstanceOfType(
-            methodCalled,
-            fflib_QualifiedMethod.class,
-            'the object returned is not a method as expected'
-        );
+        System.Assert.isInstanceOfType(methodCalled, fflib_QualifiedMethod.class, 'the object returned is not a method as expected');
 
         String expectedMethodSignature = fflib_MyList.getStubClassName() + '.addMore(String)';
         System.Assert.areEqual(
@@ -328,16 +279,8 @@ private class fflib_AnswerTest {
             'the last method called should be the addMore, so should be the last to set the actualInvocation variable.'
         );
 
-        System.Assert.areEqual(
-            'this is the first answer',
-            answer1,
-            'the answer was not the one expected'
-        );
-        System.Assert.areEqual(
-            'and this is the second one',
-            answer2,
-            'the answer was not the one expected'
-        );
+        System.Assert.areEqual('this is the first answer', answer1, 'the answer was not the one expected');
+        System.Assert.areEqual('and this is the second one', answer2, 'the answer was not the one expected');
     }
 
     @IsTest
@@ -349,16 +292,8 @@ private class fflib_AnswerTest {
         fflib_AnswerTest.FirstAnswer answer1 = new fflib_AnswerTest.FirstAnswer();
         fflib_AnswerTest.SecondAnswer answer2 = new fflib_AnswerTest.SecondAnswer();
 
-        System.Assert.areEqual(
-            null,
-            answer1.getMessage(),
-            'the answer message should be null at this stage'
-        );
-        System.Assert.areEqual(
-            null,
-            answer2.getMessage(),
-            'the answer message should be null at this stage'
-        );
+        System.Assert.areEqual(null, answer1.getMessage(), 'the answer message should be null at this stage');
+        System.Assert.areEqual(null, answer2.getMessage(), 'the answer message should be null at this stage');
 
         mocks.startStubbing();
         ((fflib_MyList) mocks.doAnswer(answer1, mockList)).addMore('Hi hi Hello Hi hi');
@@ -370,16 +305,8 @@ private class fflib_AnswerTest {
         mockList.add('Hello');
 
         // Then
-        System.Assert.areEqual(
-            'this is the first answer',
-            answer1.getMessage(),
-            'the answer was not the one expected'
-        );
-        System.Assert.areEqual(
-            'and this is the second one',
-            answer2.getMessage(),
-            'the answer was not the one expected'
-        );
+        System.Assert.areEqual('this is the first answer', answer1.getMessage(), 'the answer was not the one expected');
+        System.Assert.areEqual('and this is the second one', answer2.getMessage(), 'the answer was not the one expected');
     }
 
     //Answers
@@ -395,9 +322,7 @@ private class fflib_AnswerTest {
         public Object answer(fflib_InvocationOnMock invocation) {
             actualInvocation = invocation;
 
-            throw new fflib_ApexMocks.ApexMocksException(
-                'an error occurs on the execution of the answer'
-            );
+            throw new fflib_ApexMocks.ApexMocksException('an error occurs on the execution of the answer');
         }
     }
 
@@ -407,17 +332,11 @@ private class fflib_AnswerTest {
 
             try {
                 Object noExistingObj = invocation.getArgument(2);
-                System.Assert.fail(
-                    'an exception was expected because the argument in the method are only 2'
-                );
+                System.Assert.fail('an exception was expected because the argument in the method are only 2');
             } catch (fflib_ApexMocks.ApexMocksException exp) {
                 String expectedMessage = 'Invalid index, must be greater or equal to zero and less of 2.';
                 String actualMessage = exp.getMessage();
-                System.Assert.areEqual(
-                    expectedMessage,
-                    actualMessage,
-                    'the message return by the exception is not as expected'
-                );
+                System.Assert.areEqual(expectedMessage, actualMessage, 'the message return by the exception is not as expected');
             }
             return null;
         }
@@ -429,17 +348,11 @@ private class fflib_AnswerTest {
 
             try {
                 Object noExistingObj = invocation.getArgument(-1);
-                System.Assert.fail(
-                    'an exception was expected because the argument index cannot be negative'
-                );
+                System.Assert.fail('an exception was expected because the argument index cannot be negative');
             } catch (fflib_ApexMocks.ApexMocksException exp) {
                 String expectedMessage = 'Invalid index, must be greater or equal to zero and less of 2.';
                 String actualMessage = exp.getMessage();
-                System.Assert.areEqual(
-                    expectedMessage,
-                    actualMessage,
-                    'the message return by the exception is not as expected'
-                );
+                System.Assert.areEqual(expectedMessage, actualMessage, 'the message return by the exception is not as expected');
             }
             return null;
         }
@@ -451,11 +364,7 @@ private class fflib_AnswerTest {
 
             List<Object> emptyList = invocation.getArguments();
 
-            System.Assert.areEqual(
-                0,
-                emptyList.size(),
-                'the argument list from a method without arguments should be empty'
-            );
+            System.Assert.areEqual(0, emptyList.size(), 'the argument list from a method without arguments should be empty');
 
             return null;
         }

@@ -6,21 +6,9 @@ public with sharing class fflib_QualifiedMethodTest {
     @IsTest
     private static void equalsReturnsExpectedResults() {
         //Given
-        fflib_QualifiedMethod qm1 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class }
-        );
-        fflib_QualifiedMethod qm2 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class }
-        );
-        fflib_QualifiedMethod qm3 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ String.class }
-        );
+        fflib_QualifiedMethod qm1 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class });
+        fflib_QualifiedMethod qm2 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class });
+        fflib_QualifiedMethod qm3 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ String.class });
         fflib_QualifiedMethod qm4 = new fflib_QualifiedMethod(
             'Type2',
             'Method2',
@@ -61,21 +49,9 @@ public with sharing class fflib_QualifiedMethodTest {
     @IsTest
     private static void hashCodeReturnsExpectedResults() {
         //Given
-        fflib_QualifiedMethod qm1 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class }
-        );
-        fflib_QualifiedMethod qm2 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class }
-        );
-        fflib_QualifiedMethod qm3 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ String.class }
-        );
+        fflib_QualifiedMethod qm1 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class });
+        fflib_QualifiedMethod qm2 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class });
+        fflib_QualifiedMethod qm3 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ String.class });
         fflib_QualifiedMethod qm4 = new fflib_QualifiedMethod(
             'Type2',
             'Method2',
@@ -117,8 +93,7 @@ public with sharing class fflib_QualifiedMethodTest {
     public static void toStringReturnsExpectedResult() {
         System.Assert.areEqual(
             'MyClass.MyMethod(Integer)',
-            new fflib_QualifiedMethod('MyClass', 'MyMethod', new List<Type>{ Integer.class })
-                .toString()
+            new fflib_QualifiedMethod('MyClass', 'MyMethod', new List<Type>{ Integer.class }).toString()
         );
     }
 
@@ -127,29 +102,10 @@ public with sharing class fflib_QualifiedMethodTest {
         //Given
         String instance = 'My object instance';
         String instance2 = 'My other object instance';
-        fflib_QualifiedMethod qm1 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class }
-        );
-        fflib_QualifiedMethod qm2 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class },
-            instance
-        );
-        fflib_QualifiedMethod qm3 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class },
-            instance
-        );
-        fflib_QualifiedMethod qm4 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class },
-            instance2
-        );
+        fflib_QualifiedMethod qm1 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class });
+        fflib_QualifiedMethod qm2 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class }, instance);
+        fflib_QualifiedMethod qm3 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class }, instance);
+        fflib_QualifiedMethod qm4 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class }, instance2);
 
         //When/thens
         fflib_ApexMocksConfig.HasIndependentMocks = false;
@@ -175,29 +131,10 @@ public with sharing class fflib_QualifiedMethodTest {
         //Given
         String instance = 'My object instance';
         String instance2 = 'My other object instance';
-        fflib_QualifiedMethod qm1 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class }
-        );
-        fflib_QualifiedMethod qm2 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class },
-            instance
-        );
-        fflib_QualifiedMethod qm3 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class },
-            instance
-        );
-        fflib_QualifiedMethod qm4 = new fflib_QualifiedMethod(
-            'Type1',
-            'Method1',
-            new List<Type>{ Integer.class },
-            instance2
-        );
+        fflib_QualifiedMethod qm1 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class });
+        fflib_QualifiedMethod qm2 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class }, instance);
+        fflib_QualifiedMethod qm3 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class }, instance);
+        fflib_QualifiedMethod qm4 = new fflib_QualifiedMethod('Type1', 'Method1', new List<Type>{ Integer.class }, instance2);
 
         //When/thens
         fflib_ApexMocksConfig.HasIndependentMocks = false;

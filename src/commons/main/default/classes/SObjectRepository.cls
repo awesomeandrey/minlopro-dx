@@ -3,11 +3,7 @@ public inherited sharing class SObjectRepository implements Repository {
         return Database.query(soqlQuery);
     }
 
-    public List<SObject> queryWithBinds(
-        String soqlQuery,
-        Map<String, Object> binds,
-        AccessLevel accessLevel
-    ) {
+    public List<SObject> queryWithBinds(String soqlQuery, Map<String, Object> binds, AccessLevel accessLevel) {
         return Database.queryWithBinds(soqlQuery, binds, accessLevel);
     }
 

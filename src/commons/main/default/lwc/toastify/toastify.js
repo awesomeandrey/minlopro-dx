@@ -1,16 +1,16 @@
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 // Custom Labels;
-import successMsg from '@salesforce/label/c.Global_Msg_Success';
-import errorMsg from '@salesforce/label/c.Global_Msg_Error';
-import warningMsg from '@salesforce/label/c.Global_Msg_Warning';
-import infoMsg from '@salesforce/label/c.Global_Msg_Info';
+import successMsg from '@salesforce/label/c.Commons_Msg_Success';
+import errorMsg from '@salesforce/label/c.Commons_Msg_Error';
+import warningMsg from '@salesforce/label/c.Commons_Msg_Warning';
+import infoMsg from '@salesforce/label/c.Commons_Msg_Info';
 
 const Variant = {
     INFO: 'info',
     SUCCESS: 'success',
     WARNING: 'warning',
-    ERROR: 'error',
+    ERROR: 'error'
 };
 
 /**
@@ -43,7 +43,7 @@ function showToast(title, message, variant, mode) {
         title,
         message,
         variant,
-        mode,
+        mode
     });
     // 'dispatchEvent' function is invoked against 'window' object!
     dispatchEvent(event);
@@ -54,5 +54,5 @@ export default {
     success,
     info,
     warning,
-    error,
+    error
 };

@@ -31,9 +31,7 @@ public with sharing class fflib_MethodArgValuesTest {
         fflib_MethodArgValues qm1 = new fflib_MethodArgValues(new List<Object>{ 'hello' });
         fflib_MethodArgValues qm2 = new fflib_MethodArgValues(new List<Object>{ 'hello' });
         fflib_MethodArgValues qm3 = new fflib_MethodArgValues(new List<Object>{ 'hi' });
-        fflib_MethodArgValues qm4 = new fflib_MethodArgValues(
-            new List<Object>{ 'hello', 'hello', 'hello' }
-        );
+        fflib_MethodArgValues qm4 = new fflib_MethodArgValues(new List<Object>{ 'hello', 'hello', 'hello' });
         fflib_MethodArgValues qm5 = new fflib_MethodArgValues(new List<Object>());
         fflib_MethodArgValues qm6 = new fflib_MethodArgValues(null);
 
@@ -72,9 +70,7 @@ public with sharing class fflib_MethodArgValuesTest {
         fflib_MethodArgValues qm1 = new fflib_MethodArgValues(new List<Object>{ 'hello' });
         fflib_MethodArgValues qm2 = new fflib_MethodArgValues(new List<Object>{ 'hello' });
         fflib_MethodArgValues qm3 = new fflib_MethodArgValues(new List<Object>{ 'hi' });
-        fflib_MethodArgValues qm4 = new fflib_MethodArgValues(
-            new List<Object>{ 'hello', 'hello', 'hello' }
-        );
+        fflib_MethodArgValues qm4 = new fflib_MethodArgValues(new List<Object>{ 'hello', 'hello', 'hello' });
         fflib_MethodArgValues qm5 = new fflib_MethodArgValues(new List<Object>());
         fflib_MethodArgValues qm6 = new fflib_MethodArgValues(null);
 

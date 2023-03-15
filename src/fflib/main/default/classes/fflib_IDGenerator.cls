@@ -34,10 +34,7 @@ public with sharing class fflib_IDGenerator {
         String keyPrefix = sobjectType.getDescribe().getKeyPrefix();
         fakeIdCount++;
 
-        String fakeIdPrefix = ID_PATTERN.substring(
-            0,
-            ID_PATTERN.length() - String.valueOf(fakeIdCount).length()
-        );
+        String fakeIdPrefix = ID_PATTERN.substring(0, ID_PATTERN.length() - String.valueOf(fakeIdCount).length());
 
         return Id.valueOf(keyPrefix + fakeIdPrefix + fakeIdCount);
     }

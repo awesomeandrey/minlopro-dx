@@ -25,11 +25,7 @@ public class fflib_System {
      * @param value         The object instance upon which we are checking equality.
      * @param customAssertMessage Provides context or additional information for the assertion.
      */
-    public static void assertEquals(
-        Object ignoredRetval,
-        Object value,
-        String customAssertMessage
-    ) {
+    public static void assertEquals(Object ignoredRetval, Object value, String customAssertMessage) {
         fflib_IMatcher matcher = null;
         try {
             List<fflib_IMatcher> matchers = fflib_Match.getAndClearMatchers(1);

@@ -57,9 +57,7 @@ public with sharing class fflib_MethodReturnValueRecorder {
     public fflib_MethodReturnValue prepareMethodReturnValue(fflib_InvocationOnMock invocation) {
         MethodReturnValue = new fflib_MethodReturnValue();
 
-        List<fflib_MatchersReturnValue> matcherReturnValues = matcherReturnValuesByMethod.get(
-            invocation.getMethod()
-        );
+        List<fflib_MatchersReturnValue> matcherReturnValues = matcherReturnValuesByMethod.get(invocation.getMethod());
         if (matcherReturnValues == null) {
             matcherReturnValues = new List<fflib_MatchersReturnValue>();
             matcherReturnValuesByMethod.put(invocation.getMethod(), matcherReturnValues);
@@ -89,20 +87,11 @@ public with sharing class fflib_MethodReturnValueRecorder {
      * @return The MethodReturnValue instance.
      */
     public fflib_MethodReturnValue getMethodReturnValue(fflib_InvocationOnMock invocation) {
-        List<fflib_MatchersReturnValue> matchersForMethods = matcherReturnValuesByMethod.get(
-            invocation.getMethod()
-        );
+        List<fflib_MatchersReturnValue> matchersForMethods = matcherReturnValuesByMethod.get(invocation.getMethod());
         if (matchersForMethods != null) {
             for (Integer i = matchersForMethods.size() - 1; i >= 0; i--) {
-                fflib_MatchersReturnValue matchersReturnValue = (fflib_MatchersReturnValue) matchersForMethods.get(
-                    i
-                );
-                if (
-                    fflib_Match.matchesAllArgs(
-                        invocation.getMethodArgValues(),
-                        matchersReturnValue.matchers
-                    )
-                ) {
+                fflib_MatchersReturnValue matchersReturnValue = (fflib_MatchersReturnValue) matchersForMethods.get(i);
+                if (fflib_Match.matchesAllArgs(invocation.getMethodArgValues(), matchersReturnValue.matchers)) {
                     return matchersReturnValue.ReturnValue;
                 }
             }

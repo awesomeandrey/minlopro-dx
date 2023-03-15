@@ -26,8 +26,5 @@
 public interface fflib_ISelectorFactory {
     fflib_ISObjectSelector newInstance(SObjectType sObjectType);
     List<SObject> selectById(Set<Id> recordIds);
-    List<SObject> selectByRelationship(
-        List<SObject> relatedRecords,
-        SObjectField relationshipField
-    );
+    List<SObject> selectByRelationship(List<SObject> relatedRecords, SObjectField relationshipField);
 }

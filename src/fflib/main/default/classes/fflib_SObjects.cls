@@ -182,10 +182,7 @@ public virtual class fflib_SObjects extends fflib_Objects implements fflib_ISObj
      *
      * @return A list with only the SObjects where the given field has the provided value
      */
-    protected virtual List<SObject> getRecordsByFieldValue(
-        Schema.SObjectField field,
-        Object value
-    ) {
+    protected virtual List<SObject> getRecordsByFieldValue(Schema.SObjectField field, Object value) {
         return getRecordsByFieldValues(field, new Set<Object>{ value });
     }
 
@@ -195,10 +192,7 @@ public virtual class fflib_SObjects extends fflib_Objects implements fflib_ISObj
      *
      * @return A list with only the SObjects where the given field value is part of the provided values
      */
-    protected virtual List<SObject> getRecordsByFieldValues(
-        Schema.SObjectField field,
-        Set<Object> values
-    ) {
+    protected virtual List<SObject> getRecordsByFieldValues(Schema.SObjectField field, Set<Object> values) {
         List<SObject> result = new List<SObject>();
         for (SObject record : getRecords()) {
             if (values?.contains(record.get(field))) {
@@ -222,9 +216,7 @@ public virtual class fflib_SObjects extends fflib_Objects implements fflib_ISObj
      *
      * @return A list with only the SObjects where the at least one given field value is either null or '')
      */
-    protected virtual List<SObject> getRecordsWithBlankFieldValues(
-        Set<Schema.SObjectField> fields
-    ) {
+    protected virtual List<SObject> getRecordsWithBlankFieldValues(Set<Schema.SObjectField> fields) {
         List<SObject> result = new List<SObject>();
         for (SObject record : getRecords()) {
             for (SObjectField field : fields) {
@@ -243,9 +235,7 @@ public virtual class fflib_SObjects extends fflib_Objects implements fflib_ISObj
      *
      * @return A list with only the SObjects where all given field values are either null or ''
      */
-    protected virtual List<SObject> getRecordsWithAllBlankFieldValues(
-        Set<Schema.SObjectField> fields
-    ) {
+    protected virtual List<SObject> getRecordsWithAllBlankFieldValues(Set<Schema.SObjectField> fields) {
         List<SObject> result = new List<SObject>();
         for (SObject record : getRecords()) {
             Boolean allBlank = true;
@@ -275,9 +265,7 @@ public virtual class fflib_SObjects extends fflib_Objects implements fflib_ISObj
      *
      * @return A list with only the SObjects where the at least one given field value not null or ''
      */
-    protected virtual List<SObject> getRecordsWithNotBlankFieldValues(
-        Set<Schema.SObjectField> fields
-    ) {
+    protected virtual List<SObject> getRecordsWithNotBlankFieldValues(Set<Schema.SObjectField> fields) {
         List<SObject> result = new List<SObject>();
         for (SObject record : getRecords()) {
             for (SObjectField field : fields) {
@@ -295,9 +283,7 @@ public virtual class fflib_SObjects extends fflib_Objects implements fflib_ISObj
      *
      * @return A list with only the SObjects where all given field values are not null or ''
      */
-    protected virtual List<SObject> getRecordsWithAllNotBlankFieldValues(
-        Set<Schema.SObjectField> fields
-    ) {
+    protected virtual List<SObject> getRecordsWithAllNotBlankFieldValues(Set<Schema.SObjectField> fields) {
         List<SObject> result = new List<SObject>();
         for (SObject record : getRecords()) {
             Boolean allNonBlank = true;
@@ -369,12 +355,7 @@ public virtual class fflib_SObjects extends fflib_Objects implements fflib_ISObj
             return error(null, message, record, field);
         }
 
-        public String error(
-            fflib_ISObjects domain,
-            String message,
-            SObject record,
-            SObjectField field
-        ) {
+        public String error(fflib_ISObjects domain, String message, SObject record, SObjectField field) {
             FieldError fieldError = new FieldError();
             fieldError.domain = domain;
             fieldError.message = message;

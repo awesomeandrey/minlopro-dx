@@ -22,18 +22,14 @@ public class fflib_AnyOrder extends fflib_MethodVerifier {
         List<fflib_IMatcher> expectedMatchers = fflib_Match.Matching
             ? fflib_Match.getAndClearMatchers(expectedArguments.argValues.size())
             : null;
-        List<fflib_MethodArgValues> actualArguments = fflib_MethodCountRecorder.getMethodArgumentsByTypeName()
-            .get(qm);
+        List<fflib_MethodArgValues> actualArguments = fflib_MethodCountRecorder.getMethodArgumentsByTypeName().get(qm);
 
         Integer methodCount = getMethodCount(expectedArguments, expectedMatchers, actualArguments);
 
         String qualifier = '';
         Integer expectedCount = null;
 
-        if (
-            (verificationMode.VerifyMin == verificationMode.VerifyMax) &&
-            methodCount != verificationMode.VerifyMin
-        ) {
+        if ((verificationMode.VerifyMin == verificationMode.VerifyMax) && methodCount != verificationMode.VerifyMin) {
             expectedCount = verificationMode.VerifyMin;
         } else if (verificationMode.VerifyMin != null && verificationMode.VerifyMin > methodCount) {
             expectedCount = verificationMode.VerifyMin;
@@ -58,11 +54,7 @@ public class fflib_AnyOrder extends fflib_MethodVerifier {
         }
     }
 
-    private Integer getMethodCount(
-        fflib_MethodArgValues methodArg,
-        List<fflib_IMatcher> matchers,
-        List<fflib_MethodArgValues> methodArgs
-    ) {
+    private Integer getMethodCount(fflib_MethodArgValues methodArg, List<fflib_IMatcher> matchers, List<fflib_MethodArgValues> methodArgs) {
         Integer retval = 0;
 
         if (methodArgs != null) {
@@ -81,10 +73,7 @@ public class fflib_AnyOrder extends fflib_MethodVerifier {
         return retval;
     }
 
-    private Integer countCalls(
-        List<fflib_MethodArgValues> methodArgs,
-        fflib_MethodArgValues methodArg
-    ) {
+    private Integer countCalls(List<fflib_MethodArgValues> methodArgs, fflib_MethodArgValues methodArg) {
         Integer count = 0;
 
         for (fflib_MethodArgValues arg : methodArgs) {
@@ -104,9 +93,7 @@ public class fflib_AnyOrder extends fflib_MethodVerifier {
      */
     protected override void validateMode(fflib_VerificationMode verificationMode) {
         if (verificationMode.Method == fflib_VerificationMode.ModeName.CALLS) {
-            throw new fflib_ApexMocks.ApexMocksException(
-                'The calls() method is available only in the InOrder Verification.'
-            );
+            throw new fflib_ApexMocks.ApexMocksException('The calls() method is available only in the InOrder Verification.');
         }
     }
 }

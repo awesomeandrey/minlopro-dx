@@ -63,11 +63,7 @@ private class fflib_SObjectDescribeTest {
         System.assertEquals(Schema.SObjectType.Account.fields.getMap().size(), fields.size());
 
         System.assertEquals(null, fields.get(null), 'Null input should result in null ouput.');
-        System.assertEquals(
-            null,
-            fields.get(''),
-            'Invalid fieldname input should result in null ouput.'
-        );
+        System.assertEquals(null, fields.get(''), 'Invalid fieldname input should result in null ouput.');
     }
 
     @IsTest
@@ -92,10 +88,7 @@ private class fflib_SObjectDescribeTest {
         System.assert(!fields.keySet(true).contains(fakeNamespace + '__otherField__c'));
 
         fields.currentNamespace = 'someOtherNamespace';
-        System.assertNotEquals(
-            fields.get('name__C'),
-            fields.get(fakeNamespace.capitalize() + '__nAme__c')
-        );
+        System.assertNotEquals(fields.get('name__C'), fields.get(fakeNamespace.capitalize() + '__nAme__c'));
     }
 
     @IsTest
@@ -106,9 +99,7 @@ private class fflib_SObjectDescribeTest {
             fakeNamespace + '__name__c' => Account.SObjectType,
             'createddate' => Lead.SObjectType
         };
-        fflib_SObjectDescribe.GlobalDescribeMap gdm = new fflib_SObjectDescribe.GlobalDescribeMap(
-            fakeFieldData
-        );
+        fflib_SObjectDescribe.GlobalDescribeMap gdm = new fflib_SObjectDescribe.GlobalDescribeMap(fakeFieldData);
         gdm.currentNamespace = fakeNamespace;
         System.assertEquals(true, gdm.containsKey('name__c'));
         System.assertEquals(true, gdm.containsKey(fakeNamespace + '__name__c'));
@@ -124,10 +115,7 @@ private class fflib_SObjectDescribeTest {
         fflib_SObjectDescribe d2 = fflib_SObjectDescribe.getDescribe(Account.SObjectType);
         fflib_SObjectDescribe d3 = fflib_SObjectDescribe.getDescribe(Schema.SObjectType.Account);
         System.assertEquals('Account', d.getDescribe().getName());
-        System.assert(
-            (d === d2 && d2 === d3),
-            'All three getDescribe calls should return the same cached instance.'
-        );
+        System.assert((d === d2 && d2 === d3), 'All three getDescribe calls should return the same cached instance.');
     }
 
     @IsTest

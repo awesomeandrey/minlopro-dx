@@ -9,12 +9,7 @@ public class fflib_Mocks {
         }
 
         public void add(String value) {
-            mocks.mockVoidMethod(
-                this,
-                'add',
-                new List<Type>{ System.Type.forName('String') },
-                new List<Object>{ value }
-            );
+            mocks.mockVoidMethod(this, 'add', new List<Type>{ System.Type.forName('String') }, new List<Object>{ value });
         }
 
         public void add(String value1, String value2, String value3, String value4) {
@@ -32,21 +27,11 @@ public class fflib_Mocks {
         }
 
         public void addMore(String value) {
-            mocks.mockVoidMethod(
-                this,
-                'addMore',
-                new List<Type>{ System.Type.forName('String') },
-                new List<Object>{ value }
-            );
+            mocks.mockVoidMethod(this, 'addMore', new List<Type>{ System.Type.forName('String') }, new List<Object>{ value });
         }
 
         public void add(String[] value) {
-            mocks.mockVoidMethod(
-                this,
-                'add',
-                new List<Type>{ System.Type.forName('String[]') },
-                new List<Object>{ value }
-            );
+            mocks.mockVoidMethod(this, 'add', new List<Type>{ System.Type.forName('String[]') }, new List<Object>{ value });
         }
 
         public String get(Integer index) {
@@ -72,12 +57,7 @@ public class fflib_Mocks {
         }
 
         public Boolean isEmpty() {
-            return (Boolean) mocks.mockNonVoidMethod(
-                this,
-                'isEmpty',
-                new List<Type>{},
-                new List<Object>{}
-            );
+            return (Boolean) mocks.mockNonVoidMethod(this, 'isEmpty', new List<Type>{}, new List<Object>{});
         }
 
         public void set(Integer index, Object value) {

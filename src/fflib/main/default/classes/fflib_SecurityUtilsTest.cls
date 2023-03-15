@@ -33,10 +33,7 @@ private class fflib_SecurityUtilsTest {
         // #315 Create a Permission Set that grants "Read" access to Account, Contact and Lead. We will use this in
         // Spring '21 orgs that lack the "Read Only" Profile. See:
         // https://help.salesforce.com/articleView?id=release-notes.rn_profiles_and_perms_read_only_new.htm&release=230&type=5).
-        PermissionSet ps = new PermissionSet(
-            Label = 'Read Only Permission Set',
-            Name = 'ReadOnlyPermissionSet'
-        );
+        PermissionSet ps = new PermissionSet(Label = 'Read Only Permission Set', Name = 'ReadOnlyPermissionSet');
         insert ps;
 
         // Grant Read access to the SObjects we use for CRUD tests
@@ -75,13 +72,7 @@ private class fflib_SecurityUtilsTest {
         );
     }
 
-    static FieldPermissions createFieldPermissions(
-        Id permSetId,
-        String objectType,
-        String fieldName,
-        Boolean canRead,
-        Boolean canEdit
-    ) {
+    static FieldPermissions createFieldPermissions(Id permSetId, String objectType, String fieldName, Boolean canRead, Boolean canEdit) {
         return new FieldPermissions(
             ParentId = permSetId,
             SobjectType = objectType,
@@ -119,12 +110,7 @@ private class fflib_SecurityUtilsTest {
             uniqueness += e.getStackTraceString(); //includes the top level test method name without having to pass it
         }
         User usr = new User(
-            username = UserInfo.getUserId() +
-                '.' +
-                uniqueness.HashCode() +
-                '@' +
-                UserInfo.getOrganizationId() +
-                '.sfdcOrg',
+            username = UserInfo.getUserId() + '.' + uniqueness.HashCode() + '@' + UserInfo.getOrganizationId() + '.sfdcOrg',
             alias = 'testExec',
             email = 'apextests@example.com',
             emailencodingkey = 'UTF-8',
@@ -143,10 +129,7 @@ private class fflib_SecurityUtilsTest {
                 FROM PermissionSet
                 WHERE Name = 'ReadOnlyPermissionSet'
             ];
-            PermissionSetAssignment psa = new PermissionSetAssignment(
-                AssigneeId = usr.Id,
-                PermissionSetId = accountReadPS.Id
-            );
+            PermissionSetAssignment psa = new PermissionSetAssignment(AssigneeId = usr.Id, PermissionSetId = accountReadPS.Id);
             insert psa;
         }
         return usr;
@@ -163,15 +146,8 @@ private class fflib_SecurityUtilsTest {
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
-                System.assertNotEquals(
-                    null,
-                    ex,
-                    'Read only profile should not be able to insert Account.Name'
-                );
-                System.assert(
-                    ex instanceof fflib_SecurityUtils.FlsException,
-                    'Expected an FlsException, got ' + ex.getTypeName()
-                );
+                System.assertNotEquals(null, ex, 'Read only profile should not be able to insert Account.Name');
+                System.assert(ex instanceof fflib_SecurityUtils.FlsException, 'Expected an FlsException, got ' + ex.getTypeName());
             }
             {
                 fflib_SecurityUtils.SecurityException ex;
@@ -180,11 +156,7 @@ private class fflib_SecurityUtilsTest {
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
-                System.assertEquals(
-                    null,
-                    ex,
-                    'Read only profile should be able to read Contact.LastName'
-                );
+                System.assertEquals(null, ex, 'Read only profile should be able to read Contact.LastName');
             }
             {
                 fflib_SecurityUtils.SecurityException ex;
@@ -193,15 +165,8 @@ private class fflib_SecurityUtilsTest {
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
-                System.assertNotEquals(
-                    null,
-                    ex,
-                    'Read only profile should not be able to update Lead.Company'
-                );
-                System.assert(
-                    ex instanceof fflib_SecurityUtils.FlsException,
-                    'Expected an FlsException, got ' + ex.getTypeName()
-                );
+                System.assertNotEquals(null, ex, 'Read only profile should not be able to update Lead.Company');
+                System.assert(ex instanceof fflib_SecurityUtils.FlsException, 'Expected an FlsException, got ' + ex.getTypeName());
             }
 
             fflib_SecurityUtils.BYPASS_INTERNAL_FLS_AND_CRUD = true;
@@ -225,15 +190,8 @@ private class fflib_SecurityUtilsTest {
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
-                System.assertNotEquals(
-                    null,
-                    ex,
-                    'Read only profile should not be able to insert Account'
-                );
-                System.assert(
-                    ex instanceof fflib_SecurityUtils.CrudException,
-                    'Expected an CrudException, got ' + ex.getTypeName()
-                );
+                System.assertNotEquals(null, ex, 'Read only profile should not be able to insert Account');
+                System.assert(ex instanceof fflib_SecurityUtils.CrudException, 'Expected an CrudException, got ' + ex.getTypeName());
             }
             {
                 fflib_SecurityUtils.SecurityException ex;
@@ -251,15 +209,8 @@ private class fflib_SecurityUtilsTest {
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
-                System.assertNotEquals(
-                    null,
-                    ex,
-                    'Read only profile should not be able to update Lead'
-                );
-                System.assert(
-                    ex instanceof fflib_SecurityUtils.CrudException,
-                    'Expected an CrudException, got ' + ex.getTypeName()
-                );
+                System.assertNotEquals(null, ex, 'Read only profile should not be able to update Lead');
+                System.assert(ex instanceof fflib_SecurityUtils.CrudException, 'Expected an CrudException, got ' + ex.getTypeName());
             }
             {
                 fflib_SecurityUtils.SecurityException ex;
@@ -268,15 +219,8 @@ private class fflib_SecurityUtilsTest {
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
-                System.assertNotEquals(
-                    null,
-                    ex,
-                    'Read only profile should not be able to delete Opportunity'
-                );
-                System.assert(
-                    ex instanceof fflib_SecurityUtils.CrudException,
-                    'Expected an CrudException, got ' + ex.getTypeName()
-                );
+                System.assertNotEquals(null, ex, 'Read only profile should not be able to delete Opportunity');
+                System.assert(ex instanceof fflib_SecurityUtils.CrudException, 'Expected an CrudException, got ' + ex.getTypeName());
             }
 
             fflib_SecurityUtils.BYPASS_INTERNAL_FLS_AND_CRUD = true;
@@ -297,30 +241,17 @@ private class fflib_SecurityUtilsTest {
             {
                 fflib_SecurityUtils.SecurityException ex;
                 try {
-                    fflib_SecurityUtils.checkInsert(
-                        Account.SObjectType,
-                        new List<String>{ 'Name', 'ParentId', 'ownerId' }
-                    );
+                    fflib_SecurityUtils.checkInsert(Account.SObjectType, new List<String>{ 'Name', 'ParentId', 'ownerId' });
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
-                System.assertNotEquals(
-                    null,
-                    ex,
-                    'Read only profile should not be able to insert Account'
-                );
-                System.assert(
-                    ex instanceof fflib_SecurityUtils.CrudException,
-                    'Expected an CrudException, got ' + ex.getTypeName()
-                );
+                System.assertNotEquals(null, ex, 'Read only profile should not be able to insert Account');
+                System.assert(ex instanceof fflib_SecurityUtils.CrudException, 'Expected an CrudException, got ' + ex.getTypeName());
             }
             {
                 fflib_SecurityUtils.SecurityException ex;
                 try {
-                    fflib_SecurityUtils.checkRead(
-                        Contact.SObjectType,
-                        new List<String>{ 'LastName', 'eMaiL', 'BirthDATE' }
-                    );
+                    fflib_SecurityUtils.checkRead(Contact.SObjectType, new List<String>{ 'LastName', 'eMaiL', 'BirthDATE' });
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
@@ -329,39 +260,20 @@ private class fflib_SecurityUtilsTest {
             {
                 fflib_SecurityUtils.SecurityException ex;
                 try {
-                    fflib_SecurityUtils.checkUpdate(
-                        Lead.SObjectType,
-                        new List<String>{ 'LastName', 'FirstNAMe', 'cOMPANY' }
-                    );
+                    fflib_SecurityUtils.checkUpdate(Lead.SObjectType, new List<String>{ 'LastName', 'FirstNAMe', 'cOMPANY' });
                 } catch (fflib_SecurityUtils.SecurityException e) {
                     ex = e;
                 }
-                System.assertNotEquals(
-                    null,
-                    ex,
-                    'Read only profile should not be able to update Lead'
-                );
-                System.assert(
-                    ex instanceof fflib_SecurityUtils.CrudException,
-                    'Expected an CrudException, got ' + ex.getTypeName()
-                );
+                System.assertNotEquals(null, ex, 'Read only profile should not be able to update Lead');
+                System.assert(ex instanceof fflib_SecurityUtils.CrudException, 'Expected an CrudException, got ' + ex.getTypeName());
             }
 
             fflib_SecurityUtils.BYPASS_INTERNAL_FLS_AND_CRUD = true;
             {
                 //no exceptions, despite no rights
-                fflib_SecurityUtils.checkInsert(
-                    Account.SObjectType,
-                    new List<String>{ 'Name', 'Type', 'ownerId' }
-                );
-                fflib_SecurityUtils.checkRead(
-                    Contact.SObjectType,
-                    new List<String>{ 'LastName', 'accountId', 'ownerId' }
-                );
-                fflib_SecurityUtils.checkUpdate(
-                    Lead.SObjectType,
-                    new List<String>{ 'LastName', 'FirstNAMe', 'cOMPANY' }
-                );
+                fflib_SecurityUtils.checkInsert(Account.SObjectType, new List<String>{ 'Name', 'Type', 'ownerId' });
+                fflib_SecurityUtils.checkRead(Contact.SObjectType, new List<String>{ 'LastName', 'accountId', 'ownerId' });
+                fflib_SecurityUtils.checkUpdate(Lead.SObjectType, new List<String>{ 'LastName', 'FirstNAMe', 'cOMPANY' });
             }
         }
     }

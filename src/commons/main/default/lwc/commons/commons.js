@@ -1,3 +1,16 @@
+export function to(promise, errorExt) {
+    return promise
+        .then(function (data) {
+            return [null, data];
+        })
+        .catch(function (err) {
+            if (errorExt) {
+                Object.assign(err, errorExt);
+            }
+            return [err, undefined];
+        });
+}
+
 export function wait(callback) {
     setTimeout(callback, 0);
 }
@@ -90,6 +103,19 @@ export const pipe =
     (...functions) =>
     (args) =>
         functions.reduce((arg, fn) => fn(arg), args);
+
+export function flatten(obj, prefix, resultObj) {
+    prefix = prefix || [];
+    resultObj = resultObj || {};
+    if (typeof obj === 'object' && obj !== null) {
+        Object.keys(obj).forEach((key) => {
+            flatten(obj[key], prefix.concat(key), resultObj);
+        });
+    } else {
+        resultObj[prefix.join('.')] = obj;
+    }
+    return resultObj;
+}
 
 export function parseError(err) {
     let message = '',

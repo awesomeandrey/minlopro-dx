@@ -68,9 +68,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     @IsTest
     private static void testRegisterNew_ThrowExceptionOnDirtyRecord() {
         // GIVEN an existing record
-        Opportunity opportunity = new Opportunity(
-            Id = fflib_IDGenerator.generate(Schema.Opportunity.SObjectType)
-        );
+        Opportunity opportunity = new Opportunity(Id = fflib_IDGenerator.generate(Schema.Opportunity.SObjectType));
         fflib_SObjectUnitOfWork unitOfWork = new fflib_SObjectUnitOfWork(MY_SOBJECTS);
 
         // WHEN we register the existing record as new
@@ -79,11 +77,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             unitOfWork.registerNew(opportunity);
         } catch (Exception e) {
             exceptionThrown = true;
-            System.assertEquals(
-                'Only new records can be registered as new',
-                e.getMessage(),
-                'Incorrect exception message thrown'
-            );
+            System.assertEquals('Only new records can be registered as new', e.getMessage(), 'Incorrect exception message thrown');
         }
 
         // THEN it should have thrown an exception
@@ -102,11 +96,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             unitOfWork.registerDirty(opportunity);
         } catch (Exception e) {
             exceptionThrown = true;
-            System.assertEquals(
-                'New records cannot be registered as dirty',
-                e.getMessage(),
-                'Incorrect exception message thrown'
-            );
+            System.assertEquals('New records cannot be registered as dirty', e.getMessage(), 'Incorrect exception message thrown');
         }
 
         // THEN it should have thrown an exception
@@ -116,12 +106,8 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     @IsTest
     private static void testRegisterDeleted() {
         // GIVEN - two existing records
-        Opportunity opportunity = new Opportunity(
-            Id = fflib_IDGenerator.generate(Schema.Opportunity.SObjectType)
-        );
-        Product2 product = new Product2(
-            Id = fflib_IDGenerator.generate(Schema.Product2.SObjectType)
-        );
+        Opportunity opportunity = new Opportunity(Id = fflib_IDGenerator.generate(Schema.Opportunity.SObjectType));
+        Product2 product = new Product2(Id = fflib_IDGenerator.generate(Schema.Product2.SObjectType));
         MockDML mockDML = new MockDML();
         fflib_SObjectUnitOfWork unitOfWork = new fflib_SObjectUnitOfWork(MY_SOBJECTS, mockDML);
 
@@ -136,12 +122,8 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
     @IsTest
     private static void testRegisterPermanentlyDeleted() {
         // GIVEN - two existing records
-        Opportunity opportunity = new Opportunity(
-            Id = fflib_IDGenerator.generate(Schema.Opportunity.SObjectType)
-        );
-        Product2 product = new Product2(
-            Id = fflib_IDGenerator.generate(Schema.Product2.SObjectType)
-        );
+        Opportunity opportunity = new Opportunity(Id = fflib_IDGenerator.generate(Schema.Opportunity.SObjectType));
+        Product2 product = new Product2(Id = fflib_IDGenerator.generate(Schema.Product2.SObjectType));
         MockDML mockDML = new MockDML();
         fflib_SObjectUnitOfWork unitOfWork = new fflib_SObjectUnitOfWork(MY_SOBJECTS, mockDML);
 
@@ -151,18 +133,13 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
 
         // THEN - the dmlDelete and emptyRecycleBin actions should be invoked
         System.assertEquals(new List<SObject>{ opportunity, product }, mockDML.recordsForDelete);
-        System.assertEquals(
-            new List<SObject>{ opportunity, product },
-            mockDML.recordsForRecycleBin
-        );
+        System.assertEquals(new List<SObject>{ opportunity, product }, mockDML.recordsForRecycleBin);
     }
 
     @IsTest
     private static void testRegisterEmptyRecycleBin() {
         // GIVEN - an existing record of the recycle bin
-        Opportunity opportunity = new Opportunity(
-            Id = fflib_IDGenerator.generate(Schema.Opportunity.SObjectType)
-        );
+        Opportunity opportunity = new Opportunity(Id = fflib_IDGenerator.generate(Schema.Opportunity.SObjectType));
         MockDML mockDML = new MockDML();
         fflib_SObjectUnitOfWork unitOfWork = new fflib_SObjectUnitOfWork(MY_SOBJECTS, mockDML);
 
@@ -188,10 +165,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             unitOfWork.assertForNonEventSObjectType('PlatformEventObject__e');
         } catch (Exception e) {
             exceptionThrown = true;
-            System.assert(
-                e.getMessage().contains('registerPublishBeforeTransaction'),
-                'Incorrect exception message thrown'
-            );
+            System.assert(e.getMessage().contains('registerPublishBeforeTransaction'), 'Incorrect exception message thrown');
         }
 
         System.assert(exceptionThrown);
@@ -211,10 +185,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             unitOfWork.assertForEventSObjectType('CustomObject__c');
         } catch (Exception e) {
             exceptionThrown = true;
-            System.assert(
-                e.getMessage().contains('invalid for publishing'),
-                'Incorrect exception message thrown'
-            );
+            System.assert(e.getMessage().contains('invalid for publishing'), 'Incorrect exception message thrown');
         }
 
         System.assert(exceptionThrown);
@@ -228,10 +199,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             unitOfWork.registerNew(new Account());
         } catch (Exception e) {
             exceptionThrown = true;
-            System.assert(
-                e.getMessage().contains('not supported by this unit of work'),
-                'Incorrect exception message thrown'
-            );
+            System.assert(e.getMessage().contains('not supported by this unit of work'), 'Incorrect exception message thrown');
         }
 
         System.assert(exceptionThrown);
@@ -428,10 +396,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         uow.commitWork();
 
         System.assertEquals(1, mockDML.recordsForUpdate.size());
-        System.assertEquals(
-            'Expected',
-            mockDML.recordsForUpdate.get(0).get(Schema.Opportunity.Name)
-        );
+        System.assertEquals('Expected', mockDML.recordsForUpdate.get(0).get(Schema.Opportunity.Name));
     }
 
     /**
@@ -459,14 +424,8 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         uow.commitWork();
 
         System.assertEquals(1, mockDML.recordsForUpdate.size());
-        System.assertEquals(
-            nameUpdate.Name,
-            mockDML.recordsForUpdate.get(0).get(Schema.Opportunity.Name)
-        );
-        System.assertEquals(
-            amountUpdate.Amount,
-            mockDML.recordsForUpdate.get(0).get(Schema.Opportunity.Amount)
-        );
+        System.assertEquals(nameUpdate.Name, mockDML.recordsForUpdate.get(0).get(Schema.Opportunity.Name));
+        System.assertEquals(amountUpdate.Amount, mockDML.recordsForUpdate.get(0).get(Schema.Opportunity.Amount));
     }
 
     /**
@@ -562,14 +521,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         };
         uow.registerDirty(recordsWithStageUpdate, new List<SObjectField>{ Opportunity.StageName });
         uow.registerDirty(recordsWithAmountUpdate, new List<SObjectField>{ Opportunity.Amount });
-        uow.registerDirty( // Register again the original record, should overwrite the one with the dirty fields
-            new Opportunity(
-                Id = opportunityB.Id,
-                Name = 'test name B',
-                StageName = 'Open',
-                CloseDate = System.today()
-            )
-        );
+        uow.registerDirty(new Opportunity(Id = opportunityB.Id, Name = 'test name B', StageName = 'Open', CloseDate = System.today())); // Register again the original record, should overwrite the one with the dirty fields
         uow.commitWork();
 
         // THEN only the first record should be registered with both changed values for Amount and StageName and the second should be the original
@@ -599,10 +551,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
                             Opportunity.Amount => 250,
                             Opportunity.StageName => 'Closed'
                         },
-                        new Map<SObjectField, Object>{
-                            Opportunity.Id => opportunityB.Id,
-                            Opportunity.StageName => 'Open'
-                        }
+                        new Map<SObjectField, Object>{ Opportunity.Id => opportunityB.Id, Opportunity.StageName => 'Open' }
                     }
                 )
                 .matches(mockDML.recordsForUpdate),
@@ -619,11 +568,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             CloseDate = System.today()
         );
 
-        Opportunity newOpportunity = new Opportunity(
-            Name = 'New Opportunity',
-            StageName = 'Closed',
-            CloseDate = System.today()
-        );
+        Opportunity newOpportunity = new Opportunity(Name = 'New Opportunity', StageName = 'Closed', CloseDate = System.today());
 
         Test.startTest();
         MockDML mockDML = new MockDML();
@@ -644,9 +589,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
 
     @IsTest
     private static void constructUserModeDML_When_AccessLevelSupplied_Expect_SameAccessLevel() {
-        fflib_SObjectUnitOfWork.UserModeDML dml = new fflib_SObjectUnitOfWork.UserModeDML(
-            AccessLevel.SYSTEM_MODE
-        );
+        fflib_SObjectUnitOfWork.UserModeDML dml = new fflib_SObjectUnitOfWork.UserModeDML(AccessLevel.SYSTEM_MODE);
         System.assertEquals(AccessLevel.SYSTEM_MODE, dml.m_accessLevel);
     }
 
@@ -666,10 +609,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             System.assertEquals(
                 expectedEvents[i],
                 actualEvents[i],
-                String.format(
-                    'Event {0} was not fired in order expected.',
-                    new List<String>{ expectedEvents[i] }
-                )
+                String.format('Event {0} was not fired in order expected.', new List<String>{ expectedEvents[i] })
             );
         }
 
@@ -679,10 +619,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             System.assertEquals(
                 true,
                 actualTypes.contains(sObjectType),
-                String.format(
-                    'Type {0} was not registered.',
-                    new List<String>{ sObjectType.getDescribe().getName() }
-                )
+                String.format('Type {0} was not registered.', new List<String>{ sObjectType.getDescribe().getName() })
             );
         }
     }
@@ -724,12 +661,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             // ensure that this event has not been fired already
             for (String eventName : m_commitWorkEventsFired) {
                 if (event == eventName) {
-                    throw new DerivedUnitOfWorkException(
-                        String.format(
-                            'Event {0} has already been fired.',
-                            new List<String>{ event }
-                        )
-                    );
+                    throw new DerivedUnitOfWorkException(String.format('Event {0} has already been fired.', new List<String>{ event }));
                 }
             }
             m_commitWorkEventsFired.add(event);
@@ -738,10 +670,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         public override void onRegisterType(Schema.SObjectType sObjectType) {
             if (m_registeredTypes.contains(sObjectType)) {
                 throw new DerivedUnitOfWorkException(
-                    String.format(
-                        'Type {0} has already been registered.',
-                        new List<String>{ sObjectType.getDescribe().getName() }
-                    )
+                    String.format('Type {0} has already been registered.', new List<String>{ sObjectType.getDescribe().getName() })
                 );
             }
             m_registeredTypes.add(sObjectType);

@@ -241,11 +241,7 @@ public class fflib_SObjectDescribe {
 
         protected NamespacedAttributeMap(Map<String, Object> values) {
             //namespace detection courtesy http://salesforce.stackexchange.com/a/28977/60
-            currentNamespace = fflib_SObjectDescribe.class
-                .getName()
-                .substringBefore('fflib_SObjectDescribe')
-                .removeEnd('.')
-                .toLowerCase();
+            currentNamespace = fflib_SObjectDescribe.class.getName().substringBefore('fflib_SObjectDescribe').removeEnd('.').toLowerCase();
             this.values = values;
         }
         //A no-args constructor to allow subclasses with different constructor signatures
@@ -267,8 +263,7 @@ public class fflib_SObjectDescribe {
                 null //short-circuit lookup logic since null can't possibly be a valid field name, and it saves us null checking
             )
                 return null;
-            String preferredValue = ((implyNamespace ? currentNamespace + '__' : '') + name)
-                .toLowerCase();
+            String preferredValue = ((implyNamespace ? currentNamespace + '__' : '') + name).toLowerCase();
             if (values.containsKey(preferredValue)) {
                 return values.get(preferredValue);
             } else if (implyNamespace) {
@@ -286,10 +281,8 @@ public class fflib_SObjectDescribe {
                 null //short-circuit lookup logic since null can't possibly be a valid field name, and it saves us null checking
             )
                 return null;
-            String preferredValue = ((implyNamespace ? currentNamespace + '__' : '') + name)
-                .toLowerCase();
-            return (values.containsKey(preferredValue) ||
-            implyNamespace && values.containsKey(name.toLowerCase()));
+            String preferredValue = ((implyNamespace ? currentNamespace + '__' : '') + name).toLowerCase();
+            return (values.containsKey(preferredValue) || implyNamespace && values.containsKey(name.toLowerCase()));
         }
         public virtual Integer size() {
             return values.size();

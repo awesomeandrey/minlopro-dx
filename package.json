@@ -1,51 +1,44 @@
 {
-  "name": "minlopro",
-  "private": true,
-  "version": "1.0.0",
-  "engines": {
-    "node": "19.7.0"
-  },
-  "description": "Minlopro DX",
-  "scripts": {
-    "prettier": "prettier --write \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-    "prettier:commons": "prettier --write \"src/commons/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-    "prettier:minlopro": "prettier --write \"src/minlopro/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-    "prettier:check": "prettier --check \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-    "test:unit": "sfdx-lwc-jest --skipApiVersionCheck",
-    "test:unit:watch": "sfdx-lwc-jest --watch --skipApiVersionCheck",
-    "test:unit:debug": "sfdx-lwc-jest --debug --skipApiVersionCheck",
-    "test:unit:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
-    "sfdx:apex:tests": "sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage",
-    "sfdx:apex:test": "sfdx force:apex:test:run -r human",
-    "sfdx:auth:create": "sfdx force:org:display --verbose --json > sfdx-auth/dev-org.json",
-    "sfdx:auth:store": "sfdx auth:sfdxurl:store -f sfdx-auth/dev-org.json",
-    "sfdx:manifest": "sfdx force:source:manifest:create --sourcepath src --manifestname manifests/package.xml",
-    "src:deploy:full": "sfdx force:source:deploy -x manifests/package.xml --predestructivechanges manifests/destructiveChangesPre.xml --postdestructivechanges manifests/destructiveChangesPost.xml --verbose --ignorewarnings",
-    "src:deploy:check": "npm run src:deploy:full -- --checkonly",
-    "src:push": "sfdx force:source:push --forceoverwrite",
-    "src:pull": "sfdx force:source:pull"
-  },
-  "devDependencies": {
-    "@lwc/eslint-plugin-lwc": "^1.1.2",
-    "@prettier/plugin-xml": "^2.0.1",
-    "@salesforce/eslint-config-lwc": "^3.2.3",
-    "@salesforce/eslint-plugin-aura": "^2.0.0",
-    "@salesforce/eslint-plugin-lightning": "^1.0.0",
-    "@salesforce/sfdx-lwc-jest": "^1.3.0",
-    "eslint": "^8.11.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-jest": "^26.1.2",
-    "husky": "^7.0.4",
-    "lint-staged": "^12.3.7",
-    "prettier": "^2.8.4",
-    "prettier-plugin-apex": "^1.12.0"
-  },
-  "lint-staged": {
-    "**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}": [
-      "prettier --write"
-    ],
-    "**/{aura,lwc}/**": [
-      "eslint"
-    ]
-  }
+    "name": "minlopro",
+    "private": true,
+    "version": "1.0.0",
+    "engines": {
+        "node": "19.7.0"
+    },
+    "description": "Minlopro DX",
+    "scripts": {
+        "prettier": "prettier --write \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier:commons": "prettier --write \"src/commons/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier:minlopro": "prettier --write \"src/minlopro/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier:logger": "prettier --write \"src/logger/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier:check": "prettier --check \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "test:unit": "sfdx-lwc-jest --skipApiVersionCheck",
+        "test:unit:watch": "sfdx-lwc-jest --watch --skipApiVersionCheck",
+        "test:unit:debug": "sfdx-lwc-jest --debug --skipApiVersionCheck",
+        "test:unit:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
+        "sfdx:apex:tests": "sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage",
+        "sfdx:apex:test": "sfdx force:apex:test:run -r human",
+        "sfdx:auth:create": "sfdx force:org:display --verbose --json > sfdx-auth/dev-org.json",
+        "sfdx:auth:store": "sfdx auth:sfdxurl:store -f sfdx-auth/dev-org.json",
+        "sfdx:manifest": "sfdx force:source:manifest:create --sourcepath src --manifestname manifests/package.xml",
+        "src:deploy:full": "sfdx force:source:deploy -x manifests/package.xml --predestructivechanges manifests/destructiveChangesPre.xml --postdestructivechanges manifests/destructiveChangesPost.xml --verbose --ignorewarnings",
+        "src:deploy:check": "npm run src:deploy:full -- --checkonly",
+        "src:push": "sfdx force:source:push --forceoverwrite --ignorewarnings",
+        "src:pull": "sfdx force:source:pull"
+    },
+    "devDependencies": {
+        "@lwc/eslint-plugin-lwc": "^1.1.2",
+        "@prettier/plugin-xml": "^2.0.1",
+        "@salesforce/eslint-config-lwc": "^3.2.3",
+        "@salesforce/eslint-plugin-aura": "^2.0.0",
+        "@salesforce/eslint-plugin-lightning": "^1.0.0",
+        "@salesforce/sfdx-lwc-jest": "^1.3.0",
+        "eslint": "^8.11.0",
+        "eslint-plugin-import": "^2.25.4",
+        "eslint-plugin-jest": "^26.1.2",
+        "husky": "^7.0.4",
+        "lint-staged": "^12.3.7",
+        "prettier": "^2.8.4",
+        "prettier-plugin-apex": "^1.12.0"
+    }
 }

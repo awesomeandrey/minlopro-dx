@@ -4,21 +4,14 @@ private class UserSelectorTest {
     static void getSObjectTypeTest() {
         UserSelector userSelector = new UserSelector();
         SObjectType sObjectType = userSelector.getSObjectType();
-        Assert.areEqual(
-            User.SObjectType,
-            sObjectType,
-            '`UserSelector.cls` has no `User` sobject type defined!'
-        );
+        Assert.areEqual(User.SObjectType, sObjectType, '`UserSelector.cls` has no `User` sobject type defined!');
     }
 
     @IsTest
     static void getSObjectFieldListTest() {
         UserSelector userSelector = new UserSelector();
         List<SObjectField> returnedSObjectFields = userSelector.getSObjectFieldList();
-        Assert.isFalse(
-            returnedSObjectFields.isEmpty(),
-            '`UserSelector.cls` has no SOBJECT_FIELD_LIST defined!'
-        );
+        Assert.isFalse(returnedSObjectFields.isEmpty(), '`UserSelector.cls` has no SOBJECT_FIELD_LIST defined!');
     }
 
     @IsTest

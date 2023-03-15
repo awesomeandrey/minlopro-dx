@@ -48,11 +48,7 @@ public interface fflib_ISObjectUnitOfWork {
      * @param relatedToParentField A SObjectField reference to the child field that associates the child record with its parent
      * @param relatedToParentRecord A SObject instance of the parent record (should also be registered as new separately)
      **/
-    void registerNew(
-        SObject record,
-        Schema.SObjectField relatedToParentField,
-        SObject relatedToParentRecord
-    );
+    void registerNew(SObject record, Schema.SObjectField relatedToParentField, SObject relatedToParentRecord);
     /**
      * Register a relationship between two records that have yet to be inserted to the database. This information will be
      *  used during the commitWork phase to make the references only when related records have been inserted to the database.
@@ -61,11 +57,7 @@ public interface fflib_ISObjectUnitOfWork {
      * @param relatedToField A SObjectField reference to the lookup field that relates the two records together
      * @param relatedTo A SObject instance (yet to be committed to the database)
      */
-    void registerRelationship(
-        SObject record,
-        Schema.SObjectField relatedToField,
-        SObject relatedTo
-    );
+    void registerRelationship(SObject record, Schema.SObjectField relatedToField, SObject relatedTo);
     /**
      * Registers a relationship between a record and a Messaging.Email where the record has yet to be inserted
      *  to the database.  This information will be
@@ -88,12 +80,7 @@ public interface fflib_ISObjectUnitOfWork {
      *
      * Wraps putSObject, creating a new instance of the lookup sobject using the external id field and value.
      */
-    void registerRelationship(
-        SObject record,
-        Schema.SObjectField relatedToField,
-        Schema.SObjectField externalIdField,
-        Object externalId
-    );
+    void registerRelationship(SObject record, Schema.SObjectField relatedToField, Schema.SObjectField externalIdField, Object externalId);
     /**
      * Register an existing record to be updated during the commitWork method
      *
@@ -128,11 +115,7 @@ public interface fflib_ISObjectUnitOfWork {
      * @param relatedToParentField A SObjectField reference to the child field that associates the child record with its parent
      * @param relatedToParentRecord A SObject instance of the parent record (should also be registered as new separately)
      **/
-    void registerDirty(
-        SObject record,
-        Schema.SObjectField relatedToParentField,
-        SObject relatedToParentRecord
-    );
+    void registerDirty(SObject record, Schema.SObjectField relatedToParentField, SObject relatedToParentRecord);
     /**
      * Register a list of existing records to be updated during the commitWork method
      *

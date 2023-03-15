@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Custom tab which comprises core LWC in the context of logger module.</description>
+    <flexiPage>LogsMonitor</flexiPage>
+    <label>Logs Monitor</label>
+    <motif>Custom80: Motorcycle</motif>
+</CustomTab>

@@ -23,4 +23,6 @@ manifests/package.xml
 **/profiles
 **/profileSessionSettings
 **/lwc/playground/
+**/classes/LoggerDemo.cls
+**/classes/LoggerDemo.cls-meta.xml
 **/settings/Security.settings-meta.xml
