@@ -72,13 +72,7 @@ public class fflib_ApexMocksUtils {
         // Find out more about this relationship...
         String relationshipFieldName = relationshipField.getDescribe().getName();
         DescribeSObjectResult parentDescribe = parents.getSObjectType().getDescribe();
-        return deserializeParentsAndChildren(
-            parentsType,
-            parentDescribe,
-            relationshipField,
-            parents,
-            children
-        );
+        return deserializeParentsAndChildren(parentsType, parentDescribe, relationshipField, parents, children);
     }
 
     /**
@@ -97,24 +91,14 @@ public class fflib_ApexMocksUtils {
         SObjectField relationshipField = getField(childTypeName, relationshipFieldName);
         DescribeSObjectResult parentDescribe = parentType.getDescribe();
         Type parentsType = List<SObject>.class;
-        return deserializeParentsAndChildren(
-            parentsType,
-            parentDescribe,
-            relationshipField,
-            parents,
-            children
-        );
+        return deserializeParentsAndChildren(parentsType, parentDescribe, relationshipField, parents, children);
     }
 
     /**
      * Gives the ability to set test values on formula
      * and other read-only fields of mock SObjects
      */
-    public static Object setReadOnlyFields(
-        SObject objInstance,
-        Type deserializeType,
-        Map<SObjectField, Object> properties
-    ) {
+    public static Object setReadOnlyFields(SObject objInstance, Type deserializeType, Map<SObjectField, Object> properties) {
         Map<String, Object> fieldNameMap = new Map<String, Object>();
         for (SObjectField field : properties.keySet()) {
             // Resolve the fieldNames from the FieldTokens
@@ -127,14 +111,8 @@ public class fflib_ApexMocksUtils {
      * Generic overload to setReadOnlyFields. Enables setting test
      * values on read-only fields by their name
      */
-    public static Object setReadOnlyFields(
-        SObject objInstance,
-        Type deserializeType,
-        Map<String, Object> properties
-    ) {
-        Map<String, Object> mergedMap = new Map<String, Object>(
-            objInstance.getPopulatedFieldsAsMap()
-        );
+    public static Object setReadOnlyFields(SObject objInstance, Type deserializeType, Map<String, Object> properties) {
+        Map<String, Object> mergedMap = new Map<String, Object>(objInstance.getPopulatedFieldsAsMap());
         // Merge the values from the properties map into the fields already set on the object
         mergedMap.putAll(properties);
         // Serialize the merged map, and then deserialize it as the desired object type.
@@ -166,11 +144,7 @@ public class fflib_ApexMocksUtils {
         JSONParser parentsParser = JSON.createParser(JSON.serialize(parents));
         JSONParser childrenParser = JSON.createParser(JSON.serialize(children));
         JSONGenerator combinedOutput = JSON.createGenerator(false);
-        streamTokens(
-            parentsParser,
-            combinedOutput,
-            new InjectChildrenEventHandler(childrenParser, relationshipName, children)
-        );
+        streamTokens(parentsParser, combinedOutput, new InjectChildrenEventHandler(childrenParser, relationshipName, children));
 
         // Derserialise back into SObject list complete with children
         return JSON.deserialize(combinedOutput.getAsString(), parentsType);
@@ -186,11 +160,7 @@ public class fflib_ApexMocksUtils {
         private List<List<SObject>> children;
         private Integer childListIdx = 0;
 
-        public InjectChildrenEventHandler(
-            JSONParser childrenParser,
-            String relationshipName,
-            List<List<SObject>> children
-        ) {
+        public InjectChildrenEventHandler(JSONParser childrenParser, String relationshipName, List<List<SObject>> children) {
             this.childrenParser = childrenParser;
             this.relationshipName = relationshipName;
             this.children = children;
@@ -216,11 +186,7 @@ public class fflib_ApexMocksUtils {
     /**
      * Utility function to stream tokens from a reader to a write, while providing a basic eventing model
      */
-    private static void streamTokens(
-        JSONParser fromStream,
-        JSONGenerator toStream,
-        JSONParserEvents events
-    ) {
+    private static void streamTokens(JSONParser fromStream, JSONGenerator toStream, JSONParserEvents events) {
         Integer depth = 0;
         while (fromStream.nextToken() != null) {
             // Give event handler chance to inject

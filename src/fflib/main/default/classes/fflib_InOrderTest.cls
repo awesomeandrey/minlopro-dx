@@ -145,8 +145,7 @@ private class fflib_InOrderTest {
         firstMock.add('1-4');
 
         // Then
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(2)))
-            .add(fflib_Match.stringStartsWith('1-1'));
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(2))).add(fflib_Match.stringStartsWith('1-1'));
         ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('1-4');
     }
 
@@ -164,15 +163,12 @@ private class fflib_InOrderTest {
         firstMock.add('1-4');
 
         // Then
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(2)))
-            .add(fflib_Match.stringStartsWith('1-1'));
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(2))).add(fflib_Match.stringStartsWith('1-1'));
         ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('1-4');
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('1-11');
-            System.Assert.fail(
-                'It should fail because addMore(1-11) has been already verified using the matchers'
-            );
+            System.Assert.fail('It should fail because addMore(1-11) has been already verified using the matchers');
         } catch (fflib_ApexMocks.ApexMocksException error) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 1 in order' +
@@ -207,10 +203,8 @@ private class fflib_InOrderTest {
         firstMock.add('2-4');
 
         // Then
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4)))
-            .add(fflib_Match.stringStartsWith('1-'));
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4)))
-            .add(fflib_Match.stringStartsWith('2-'));
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4))).add(fflib_Match.stringStartsWith('1-'));
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4))).add(fflib_Match.stringStartsWith('2-'));
     }
 
     @IsTest
@@ -230,10 +224,8 @@ private class fflib_InOrderTest {
         firstMock.add('2-4');
 
         // Then
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4)))
-            .add(fflib_Match.stringStartsWith('1-'));
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1)))
-            .add(fflib_Match.stringStartsWith('2-'));
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4))).add(fflib_Match.stringStartsWith('1-'));
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add(fflib_Match.stringStartsWith('2-'));
     }
 
     @IsTest
@@ -253,14 +245,11 @@ private class fflib_InOrderTest {
         firstMock.add('2-4');
 
         // Then
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4)))
-            .add(fflib_Match.stringStartsWith('1-'));
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4))).add(fflib_Match.stringStartsWith('1-'));
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(4))).add('1-11');
-            System.Assert.fail(
-                'It should fail because only one call for the 2- is available to verify'
-            );
+            System.Assert.fail('It should fail because only one call for the 2- is available to verify');
         } catch (fflib_ApexMocks.ApexMocksException error) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 4 in order' +
@@ -388,10 +377,7 @@ private class fflib_InOrderTest {
         fflib_MyList secondMock = (fflib_MyList) MY_MOCKS.mock(fflib_MyList.class);
         fflib_MyList thirdMock = (fflib_MyList) MY_MOCKS.mock(fflib_MyList.class);
 
-        fflib_InOrder inOrder = new fflib_InOrder(
-            MY_MOCKS,
-            new List<Object>{ firstMock, secondMock }
-        );
+        fflib_InOrder inOrder = new fflib_InOrder(MY_MOCKS, new List<Object>{ firstMock, secondMock });
 
         // When
         firstMock.add('1-1');
@@ -415,8 +401,7 @@ private class fflib_InOrderTest {
         ((fflib_MyList.IList) inOrder.verify(firstMock, MY_MOCKS.calls(1))).add('1-3');
         ((fflib_MyList.IList) inOrder.verify(secondMock, MY_MOCKS.calls(1))).add('2-3');
 
-        ((fflib_MyList.IList) MY_MOCKS.verify(thirdMock, MY_MOCKS.times(3)))
-            .add(fflib_Match.stringStartsWith('3-'));
+        ((fflib_MyList.IList) MY_MOCKS.verify(thirdMock, MY_MOCKS.times(3))).add(fflib_Match.stringStartsWith('3-'));
     }
 
     @IsTest
@@ -427,10 +412,7 @@ private class fflib_InOrderTest {
         fflib_MyList thirdMock = (fflib_MyList) MY_MOCKS.mock(fflib_MyList.class);
 
         fflib_InOrder inOrder1 = new fflib_InOrder(MY_MOCKS, new List<Object>{ firstMock });
-        fflib_InOrder inOrder2 = new fflib_InOrder(
-            MY_MOCKS,
-            new List<Object>{ firstMock, secondMock }
-        );
+        fflib_InOrder inOrder2 = new fflib_InOrder(MY_MOCKS, new List<Object>{ firstMock, secondMock });
 
         // When
         firstMock.add('1-1');
@@ -457,8 +439,7 @@ private class fflib_InOrderTest {
         ((fflib_MyList.IList) inOrder2.verify(firstMock, MY_MOCKS.calls(1))).add('1-3');
         ((fflib_MyList.IList) inOrder2.verify(secondMock, MY_MOCKS.calls(1))).add('2-3');
 
-        ((fflib_MyList.IList) MY_MOCKS.verify(thirdMock, MY_MOCKS.times(3)))
-            .add(fflib_Match.stringStartsWith('3-'));
+        ((fflib_MyList.IList) MY_MOCKS.verify(thirdMock, MY_MOCKS.times(3))).add(fflib_Match.stringStartsWith('3-'));
     }
 
     @IsTest
@@ -477,9 +458,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(secondMock, MY_MOCKS.calls(1))).add('2-1');
-            System.Assert.fail(
-                'An exception was expected, because this verify is not in the list of the mocks to verify'
-            );
+            System.Assert.fail('An exception was expected, because this verify is not in the list of the mocks to verify');
         } catch (fflib_ApexMocks.ApexMocksException mockexcep) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 1 in order' +
@@ -511,11 +490,7 @@ private class fflib_InOrderTest {
         ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('1-2');
         // Then
         try {
-            ((fflib_MyList.IList) inOrder1.verify(
-                    firstMock,
-                    MY_MOCKS.description(customErrorMesage)
-                ))
-                .add('1-1');
+            ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.description(customErrorMesage))).add('1-1');
             System.Assert.fail('expected some exception ');
         } catch (fflib_ApexMocks.ApexMocksException e) {
             System.Assert.areEqual(
@@ -553,16 +528,10 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.atMost(3))).add('1-1');
-            System.Assert.fail(
-                'an exception was expected because the method is not implemented for the InOrder class'
-            );
+            System.Assert.fail('an exception was expected because the method is not implemented for the InOrder class');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             String expectedMessage = 'The atMost method is not implemented for the fflib_InOrder class';
-            System.Assert.areEqual(
-                expectedMessage,
-                mockExcept.getMessage(),
-                ' the error message is not as expected'
-            );
+            System.Assert.areEqual(expectedMessage, mockExcept.getMessage(), ' the error message is not as expected');
         }
     }
 
@@ -587,16 +556,10 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.between(3, 5))).add('1-1');
-            System.Assert.fail(
-                'an exception was expected because the method is not implemented for the InOrder class'
-            );
+            System.Assert.fail('an exception was expected because the method is not implemented for the InOrder class');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             String expectedMessage = 'The between method is not implemented for the fflib_InOrder class';
-            System.Assert.areEqual(
-                expectedMessage,
-                mockExcept.getMessage(),
-                ' the error message is not as expected'
-            );
+            System.Assert.areEqual(expectedMessage, mockExcept.getMessage(), ' the error message is not as expected');
         }
     }
 
@@ -641,8 +604,7 @@ private class fflib_InOrderTest {
         ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('1-1');
         ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('2-1');
 
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.never()))
-            .add(fflib_Match.stringStartsWith('3-'));
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.never())).add(fflib_Match.stringStartsWith('3-'));
     }
 
     @IsTest
@@ -702,8 +664,7 @@ private class fflib_InOrderTest {
         ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('2-1');
 
         try {
-            ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.never()))
-                .add(fflib_Match.stringStartsWith('1-'));
+            ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.never())).add(fflib_Match.stringStartsWith('1-'));
             System.Assert.fail('expected some exception because the method has been called');
         } catch (fflib_ApexMocks.ApexMocksException e) {
             System.Assert.areEqual(
@@ -734,16 +695,10 @@ private class fflib_InOrderTest {
         // Then
         try {
             ((fflib_MyList.IList) MY_MOCKS.verify(firstMock, MY_MOCKS.calls(1))).add('1-1');
-            System.Assert.fail(
-                'an exception was expected because the method is only implemented for the InOrder class'
-            );
+            System.Assert.fail('an exception was expected because the method is only implemented for the InOrder class');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             String expectedMessage = 'The calls() method is available only in the InOrder Verification.';
-            System.Assert.areEqual(
-                expectedMessage,
-                mockExcept.getMessage(),
-                ' the error message is not as expected'
-            );
+            System.Assert.areEqual(expectedMessage, mockExcept.getMessage(), ' the error message is not as expected');
         }
     }
 
@@ -758,8 +713,7 @@ private class fflib_InOrderTest {
         firstMock.addMore('2-1');
         firstMock.add('1-1');
 
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1)))
-            .add('1-1', '1-1', '1-1', '1-1');
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('1-1', '1-1', '1-1', '1-1');
 
         // Then
         try {
@@ -770,11 +724,7 @@ private class fflib_InOrderTest {
                 'No more Interactions were expected after the ' +
                 fflib_MyList.getStubClassName() +
                 '.add(String, String, String, String) method.';
-            System.Assert.areEqual(
-                expectedMessage,
-                mockExcept.getMessage(),
-                ' the error message is not as expected'
-            );
+            System.Assert.areEqual(expectedMessage, mockExcept.getMessage(), ' the error message is not as expected');
         }
     }
 
@@ -800,11 +750,7 @@ private class fflib_InOrderTest {
                 'No more Interactions were expected after the ' +
                 fflib_MyList.getStubClassName() +
                 '.addMore(String) method.';
-            System.Assert.areEqual(
-                expectedMessage,
-                mockExcept.getMessage(),
-                ' the error message is not as expected'
-            );
+            System.Assert.areEqual(expectedMessage, mockExcept.getMessage(), ' the error message is not as expected');
         }
     }
 
@@ -851,11 +797,7 @@ private class fflib_InOrderTest {
             System.Assert.fail('an exception was expected because there are other interactions');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             String expectedMessage = 'No Interactions expected on this InOrder Mock instance!';
-            System.Assert.areEqual(
-                expectedMessage,
-                mockExcept.getMessage(),
-                ' the error message is not as expected'
-            );
+            System.Assert.areEqual(expectedMessage, mockExcept.getMessage(), ' the error message is not as expected');
         }
     }
 
@@ -876,11 +818,7 @@ private class fflib_InOrderTest {
             System.Assert.fail('an exception was expected because there are other interactions');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             String expectedMessage = 'No Interactions expected on this InOrder Mock instance!';
-            System.Assert.areEqual(
-                expectedMessage,
-                mockExcept.getMessage(),
-                ' the error message is not as expected'
-            );
+            System.Assert.areEqual(expectedMessage, mockExcept.getMessage(), ' the error message is not as expected');
         }
     }
 
@@ -1041,9 +979,7 @@ private class fflib_InOrderTest {
         // Then
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('2-1');
-            System.Assert.fail(
-                'an exception was expected because the atLeast have consumed all the interactions of 1-1'
-            );
+            System.Assert.fail('an exception was expected because the atLeast have consumed all the interactions of 1-1');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 1 in order' +
@@ -1161,9 +1097,7 @@ private class fflib_InOrderTest {
         // Then
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('2-1');
-            System.Assert.fail(
-                'an exception was expected because the atLeast have consumed all the interactions of 1-1'
-            );
+            System.Assert.fail('an exception was expected because the atLeast have consumed all the interactions of 1-1');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 1 in order' +
@@ -1220,9 +1154,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.times(2))).add('1-1');
-            System.Assert.fail(
-                'exception expected because the method is called more times than expected in the verification'
-            );
+            System.Assert.fail('exception expected because the method is called more times than expected in the verification');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 2 in order' +
@@ -1258,9 +1190,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.times(4))).add('1-1');
-            System.Assert.fail(
-                'exception expected because the method is called more times than expected in the verification'
-            );
+            System.Assert.fail('exception expected because the method is called more times than expected in the verification');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 4 in order' +
@@ -1408,9 +1338,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.times(5))).add('1-1');
-            System.Assert.fail(
-                'exception expected because the method is called more times than expected in the verification'
-            );
+            System.Assert.fail('exception expected because the method is called more times than expected in the verification');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 5 in order' +
@@ -1473,9 +1401,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock)).add('1-1');
-            System.Assert.fail(
-                'exception expected because the method is called more times than expected in the verification'
-            );
+            System.Assert.fail('exception expected because the method is called more times than expected in the verification');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 1 in order' +
@@ -1532,9 +1458,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, 2)).add('1-1');
-            System.Assert.fail(
-                'exception expected because the method is called more times than expected in the verification'
-            );
+            System.Assert.fail('exception expected because the method is called more times than expected in the verification');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 2 in order' +
@@ -1570,9 +1494,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, 4)).add('1-1');
-            System.Assert.fail(
-                'exception expected because the method is called more times than expected in the verification'
-            );
+            System.Assert.fail('exception expected because the method is called more times than expected in the verification');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 4 in order' +
@@ -1633,9 +1555,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, 5)).add('1-1');
-            System.Assert.fail(
-                'exception expected because the method is called more times than expected in the verification'
-            );
+            System.Assert.fail('exception expected because the method is called more times than expected in the verification');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 5 in order' +
@@ -1723,9 +1643,7 @@ private class fflib_InOrderTest {
 
         try {
             ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(1))).add('2-1');
-            System.Assert.fail(
-                'exception expected because the atLeast have consumed all the calls'
-            );
+            System.Assert.fail('exception expected because the atLeast have consumed all the calls');
         } catch (fflib_ApexMocks.ApexMocksException mockExcept) {
             System.Assert.areEqual(
                 'EXPECTED COUNT: 1 in order' +
@@ -1756,14 +1674,9 @@ private class fflib_InOrderTest {
 
         fflib_ArgumentCaptor argument = fflib_ArgumentCaptor.forClass(String.class);
 
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.atLeast(2)))
-            .get2(fflib_Match.eqInteger(1), (String) argument.capture());
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.atLeast(2))).get2(fflib_Match.eqInteger(1), (String) argument.capture());
 
-        System.Assert.areEqual(
-            '4-1',
-            (string) argument.getValue(),
-            'the last value captured is not as expected'
-        );
+        System.Assert.areEqual('4-1', (string) argument.getValue(), 'the last value captured is not as expected');
     }
 
     @IsTest
@@ -1786,14 +1699,9 @@ private class fflib_InOrderTest {
 
         fflib_ArgumentCaptor argument = fflib_ArgumentCaptor.forClass(String.class);
 
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.times(5)))
-            .get2(fflib_Match.eqInteger(1), (String) argument.capture());
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.times(5))).get2(fflib_Match.eqInteger(1), (String) argument.capture());
 
-        System.Assert.areEqual(
-            '5-1',
-            (string) argument.getValue(),
-            'the last value captured is not as expected'
-        );
+        System.Assert.areEqual('5-1', (string) argument.getValue(), 'the last value captured is not as expected');
     }
 
     @IsTest
@@ -1816,13 +1724,8 @@ private class fflib_InOrderTest {
 
         fflib_ArgumentCaptor argument = fflib_ArgumentCaptor.forClass(String.class);
 
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(2)))
-            .get2(fflib_Match.eqInteger(1), (String) argument.capture());
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(2))).get2(fflib_Match.eqInteger(1), (String) argument.capture());
 
-        System.Assert.areEqual(
-            '2-1',
-            (string) argument.getValue(),
-            'the last value captured is not as expected'
-        );
+        System.Assert.areEqual('2-1', (string) argument.getValue(), 'the last value captured is not as expected');
     }
 }

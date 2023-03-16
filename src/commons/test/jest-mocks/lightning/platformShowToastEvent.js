@@ -11,7 +11,7 @@ export class ShowToastEvent extends CustomEvent {
             composed: true,
             cancelable: true,
             bubbles: true,
-            detail: toastDetail,
+            detail: toastDetail
         });
     }
 }

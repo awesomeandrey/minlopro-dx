@@ -116,9 +116,7 @@ public with sharing class fflib_MethodReturnValue {
          */
         public StandardAnswer setValues(List<Object> values) {
             if (values == null || values.size() == 0) {
-                throw new fflib_ApexMocks.ApexMocksException(
-                    'The stubbing is not correct, no return values have been set.'
-                );
+                throw new fflib_ApexMocks.ApexMocksException('The stubbing is not correct, no return values have been set.');
             }
 
             ReturnValues.addAll(values);
@@ -132,9 +130,7 @@ public with sharing class fflib_MethodReturnValue {
          */
         public Object answer(fflib_InvocationOnMock invocation) {
             if (ReturnValues == null || ReturnValues.size() == 0) {
-                throw new fflib_ApexMocks.ApexMocksException(
-                    'The stubbing is not correct, no return values have been set.'
-                );
+                throw new fflib_ApexMocks.ApexMocksException('The stubbing is not correct, no return values have been set.');
             }
 
             Integer returnValuesSize = ReturnValues.size() - 1;

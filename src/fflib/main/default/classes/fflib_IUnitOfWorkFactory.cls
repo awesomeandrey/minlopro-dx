@@ -27,8 +27,5 @@ public interface fflib_IUnitOfWorkFactory {
     fflib_ISObjectUnitOfWork newInstance();
     fflib_ISObjectUnitOfWork newInstance(fflib_SObjectUnitOfWork.IDML dml);
     fflib_ISObjectUnitOfWork newInstance(List<SObjectType> objectTypes);
-    fflib_ISObjectUnitOfWork newInstance(
-        List<SObjectType> objectTypes,
-        fflib_SObjectUnitOfWork.IDML dml
-    );
+    fflib_ISObjectUnitOfWork newInstance(List<SObjectType> objectTypes, fflib_SObjectUnitOfWork.IDML dml);
 }

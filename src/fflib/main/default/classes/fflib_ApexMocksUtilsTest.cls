@@ -38,21 +38,11 @@ public class fflib_ApexMocksUtilsTest {
     @IsTest
     private static void makeRelationship_returnsObjectsWithRelationFieldSet() {
         //Given
-        Account acc = new Account(
-            Id = fflib_IDGenerator.generate(Account.SObjectType),
-            Name = 'AccName',
-            NumberOfEmployees = 7
-        );
+        Account acc = new Account(Id = fflib_IDGenerator.generate(Account.SObjectType), Name = 'AccName', NumberOfEmployees = 7);
 
-        Contact contact1 = new Contact(
-            Id = fflib_IDGenerator.generate(Contact.SObjectType),
-            DoNotCall = true
-        );
+        Contact contact1 = new Contact(Id = fflib_IDGenerator.generate(Contact.SObjectType), DoNotCall = true);
 
-        Contact contact2 = new Contact(
-            Id = fflib_IDGenerator.generate(Contact.SObjectType),
-            DoNotCall = false
-        );
+        Contact contact2 = new Contact(Id = fflib_IDGenerator.generate(Contact.SObjectType), DoNotCall = false);
 
         //When
         Account accWithRelationships = ((List<Account>) fflib_ApexMocksUtils.makeRelationship(
@@ -107,10 +97,7 @@ public class fflib_ApexMocksUtilsTest {
         //Then
         System.Assert.areEqual(acc.Id, accWithRelationships.Id);
         System.Assert.areEqual(acc.get('Name'), accWithRelationships.get('Name'));
-        System.Assert.areEqual(
-            acc.get('NumberOfEmployees'),
-            accWithRelationships.get('NumberOfEmployees')
-        );
+        System.Assert.areEqual(acc.get('NumberOfEmployees'), accWithRelationships.get('NumberOfEmployees'));
 
         //Assert relationship fields
         List<SObject> contacts = accWithRelationships.getSObjects('Contacts');
@@ -118,16 +105,10 @@ public class fflib_ApexMocksUtilsTest {
         System.Assert.areEqual(2, contacts.size());
 
         System.Assert.areEqual(contact1.Id, contacts[0].Id);
-        System.Assert.areEqual(
-            (Boolean) contact1.get('DoNotCall'),
-            (Boolean) contacts[0].get('DoNotCall')
-        );
+        System.Assert.areEqual((Boolean) contact1.get('DoNotCall'), (Boolean) contacts[0].get('DoNotCall'));
 
         System.Assert.areEqual(contact2.Id, contacts[1].Id);
-        System.Assert.areEqual(
-            (Boolean) contact2.get('DoNotCall'),
-            (Boolean) contacts[1].get('DoNotCall')
-        );
+        System.Assert.areEqual((Boolean) contact2.get('DoNotCall'), (Boolean) contacts[1].get('DoNotCall'));
     }
 
     @IsTest
@@ -262,11 +243,7 @@ public class fflib_ApexMocksUtilsTest {
         Task t = new Task();
 
         Test.startTest();
-        t = (Task) fflib_ApexMocksUtils.setReadOnlyFields(
-            t,
-            Task.class,
-            new Map<String, Object>{ 'What' => acc }
-        );
+        t = (Task) fflib_ApexMocksUtils.setReadOnlyFields(t, Task.class, new Map<String, Object>{ 'What' => acc });
         Test.stopTest();
 
         System.Assert.areEqual(acc.Name, t.What.Name);

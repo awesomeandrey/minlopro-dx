@@ -130,10 +130,7 @@ public virtual class fflib_StringBuilder {
             this(values, null);
         }
 
-        public MultiCurrencyFieldListBuilder(
-            List<Schema.SObjectField> values,
-            List<Schema.FieldSet> fieldSets
-        ) {
+        public MultiCurrencyFieldListBuilder(List<Schema.SObjectField> values, List<Schema.FieldSet> fieldSets) {
             super(values, fieldSets);
 
             // Dynamically add CurrencyIsoCode field for multi-currency organisations

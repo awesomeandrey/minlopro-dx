@@ -68,10 +68,7 @@ public class fflib_Match {
      * @throws fflib_ApexMocks.ApexMocksException Thrown when methodArgValues is null/empty, targetMatchers is null, or their sizes don't match
      * @return Boolean True if all arg values satisfy all of the supplied matchers.
      */
-    public static Boolean matchesAllArgs(
-        fflib_MethodArgValues methodArg,
-        List<fflib_IMatcher> targetMatchers
-    ) {
+    public static Boolean matchesAllArgs(fflib_MethodArgValues methodArg, List<fflib_IMatcher> targetMatchers) {
         validateArgs(methodArg, targetMatchers);
 
         Integer matchersSize = targetMatchers.size();
@@ -87,10 +84,7 @@ public class fflib_Match {
         return true;
     }
 
-    private static void validateArgs(
-        fflib_MethodArgValues methodArg,
-        List<fflib_IMatcher> targetMatchers
-    ) {
+    private static void validateArgs(fflib_MethodArgValues methodArg, List<fflib_IMatcher> targetMatchers) {
         if (methodArg == null) {
             throw new fflib_ApexMocks.ApexMocksException('MethodArgs cannot be null');
         }
@@ -272,13 +266,8 @@ public class fflib_Match {
         return combined(fflib_MatcherDefinitions.Connective.NONE, o);
     }
 
-    private static Object combined(
-        fflib_MatcherDefinitions.Connective connectiveExpression,
-        List<Object> o
-    ) {
-        return matches(
-            new fflib_MatcherDefinitions.Combined(connectiveExpression, (gatherMatchers(o)))
-        );
+    private static Object combined(fflib_MatcherDefinitions.Connective connectiveExpression, List<Object> o) {
+        return matches(new fflib_MatcherDefinitions.Combined(connectiveExpression, (gatherMatchers(o))));
     }
 
     private static List<fflib_IMatcher> gatherMatchers(Object[] ignoredMatcherObjects) {
@@ -621,20 +610,8 @@ public class fflib_Match {
      * @param inclusiveTo Whether or not a Date equal to toDate should be considered a match
      * @return Date A dummy object of the correct type, so that when called inline as part of a method call, the correct method is invoked.
      */
-    public static Date dateBetween(
-        Date fromDate,
-        Boolean inclusiveFrom,
-        Date toDate,
-        Boolean inclusiveTo
-    ) {
-        return (Date) matches(
-            new fflib_MatcherDefinitions.DatetimeBetween(
-                fromDate,
-                inclusiveFrom,
-                toDate,
-                inclusiveTo
-            )
-        );
+    public static Date dateBetween(Date fromDate, Boolean inclusiveFrom, Date toDate, Boolean inclusiveTo) {
+        return (Date) matches(new fflib_MatcherDefinitions.DatetimeBetween(fromDate, inclusiveFrom, toDate, inclusiveTo));
     }
 
     /**
@@ -693,20 +670,8 @@ public class fflib_Match {
      * @param inclusiveTo Whether or not a Datetime equal to toDate should be considered a match
      * @return Datetime A dummy object of the correct type, so that when called inline as part of a method call, the correct method is invoked.
      */
-    public static Datetime datetimeBetween(
-        Datetime fromDate,
-        Boolean inclusiveFrom,
-        Datetime toDate,
-        Boolean inclusiveTo
-    ) {
-        return (Datetime) matches(
-            new fflib_MatcherDefinitions.DatetimeBetween(
-                fromDate,
-                inclusiveFrom,
-                toDate,
-                inclusiveTo
-            )
-        );
+    public static Datetime datetimeBetween(Datetime fromDate, Boolean inclusiveFrom, Datetime toDate, Boolean inclusiveTo) {
+        return (Datetime) matches(new fflib_MatcherDefinitions.DatetimeBetween(fromDate, inclusiveFrom, toDate, inclusiveTo));
     }
 
     /**
@@ -727,20 +692,8 @@ public class fflib_Match {
      * @param inclusiveUpper Whether or not a number equal to the upper bound should be considered a match
      * @return Decimal A dummy object of the correct type, so that when called inline as part of a method call, the correct method is invoked.
      */
-    public static Decimal decimalBetween(
-        Decimal lower,
-        Boolean inclusiveLower,
-        Decimal upper,
-        Boolean inclusiveUpper
-    ) {
-        return (Decimal) matches(
-            new fflib_MatcherDefinitions.DecimalBetween(
-                lower,
-                inclusiveLower,
-                upper,
-                inclusiveUpper
-            )
-        );
+    public static Decimal decimalBetween(Decimal lower, Boolean inclusiveLower, Decimal upper, Boolean inclusiveUpper) {
+        return (Decimal) matches(new fflib_MatcherDefinitions.DecimalBetween(lower, inclusiveLower, upper, inclusiveUpper));
     }
 
     /**
@@ -799,20 +752,8 @@ public class fflib_Match {
      * @param inclusiveUpper Whether or not a number equal to the upper bound should be considered a match
      * @return Double A dummy object of the correct type, so that when called inline as part of a method call, the correct method is invoked.
      */
-    public static Double doubleBetween(
-        Double lower,
-        Boolean inclusiveLower,
-        Double upper,
-        Boolean inclusiveUpper
-    ) {
-        return (Double) matches(
-            new fflib_MatcherDefinitions.DecimalBetween(
-                lower,
-                inclusiveLower,
-                upper,
-                inclusiveUpper
-            )
-        );
+    public static Double doubleBetween(Double lower, Boolean inclusiveLower, Double upper, Boolean inclusiveUpper) {
+        return (Double) matches(new fflib_MatcherDefinitions.DecimalBetween(lower, inclusiveLower, upper, inclusiveUpper));
     }
 
     /**
@@ -859,9 +800,7 @@ public class fflib_Match {
      * @return Schema.FieldSet A dummy object of the correct type, so that when called inline as part of a method call, the correct method is invoked.
      */
     public static Schema.FieldSet fieldSetEquivalentTo(Schema.FieldSet toMatch) {
-        return (Schema.FieldSet) matches(
-            new fflib_MatcherDefinitions.FieldSetEquivalentTo(toMatch)
-        );
+        return (Schema.FieldSet) matches(new fflib_MatcherDefinitions.FieldSetEquivalentTo(toMatch));
     }
 
     /**
@@ -882,20 +821,8 @@ public class fflib_Match {
      * @param inclusiveUpper Whether or not a number equal to the upper bound should be considered a match
      * @return Integer A dummy object of the correct type, so that when called inline as part of a method call, the correct method is invoked.
      */
-    public static Integer integerBetween(
-        Integer lower,
-        Boolean inclusiveLower,
-        Integer upper,
-        Boolean inclusiveUpper
-    ) {
-        return (Integer) matches(
-            new fflib_MatcherDefinitions.DecimalBetween(
-                lower,
-                inclusiveLower,
-                upper,
-                inclusiveUpper
-            )
-        );
+    public static Integer integerBetween(Integer lower, Boolean inclusiveLower, Integer upper, Boolean inclusiveUpper) {
+        return (Integer) matches(new fflib_MatcherDefinitions.DecimalBetween(lower, inclusiveLower, upper, inclusiveUpper));
     }
 
     /**
@@ -987,20 +914,8 @@ public class fflib_Match {
      * @param inclusiveUpper Whether or not a number equal to the upper bound should be considered a match
      * @return Long A dummy object of the correct type, so that when called inline as part of a method call, the correct method is invoked.
      */
-    public static Long longBetween(
-        Long lower,
-        Boolean inclusiveLower,
-        Long upper,
-        Boolean inclusiveUpper
-    ) {
-        return (Long) matches(
-            new fflib_MatcherDefinitions.DecimalBetween(
-                lower,
-                inclusiveLower,
-                upper,
-                inclusiveUpper
-            )
-        );
+    public static Long longBetween(Long lower, Boolean inclusiveLower, Long upper, Boolean inclusiveUpper) {
+        return (Long) matches(new fflib_MatcherDefinitions.DecimalBetween(lower, inclusiveLower, upper, inclusiveUpper));
     }
 
     /**
@@ -1071,13 +986,8 @@ public class fflib_Match {
      * @param toMatch A list of Map of SObjectFields to required values, to be compared to concrete SObject records. Comparison can be order dependent
      * @return SObject a dummy object of the correct type, so that when called inline as part of a method call, the correct method is invoked
      */
-    public static SObject[] sObjectsWith(
-        list<Map<Schema.SObjectField, Object>> toMatch,
-        Boolean matchInOrder
-    ) {
-        return (SObject[]) matches(
-            new fflib_MatcherDefinitions.SObjectsWith(toMatch, matchInOrder)
-        );
+    public static SObject[] sObjectsWith(list<Map<Schema.SObjectField, Object>> toMatch, Boolean matchInOrder) {
+        return (SObject[]) matches(new fflib_MatcherDefinitions.SObjectsWith(toMatch, matchInOrder));
     }
 
     /**

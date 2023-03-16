@@ -35,21 +35,11 @@ public class fflib_SObjectMocks {
         }
 
         public Schema.SObjectType sObjectType() {
-            return (Schema.SObjectType) mocks.mockNonVoidMethod(
-                this,
-                'sObjectType',
-                new List<Type>{},
-                new List<Object>{}
-            );
+            return (Schema.SObjectType) mocks.mockNonVoidMethod(this, 'sObjectType', new List<Type>{}, new List<Object>{});
         }
 
         public List<SObject> getRecords() {
-            return (List<SObject>) mocks.mockNonVoidMethod(
-                this,
-                'getRecords',
-                new List<Type>{},
-                new List<Object>{}
-            );
+            return (List<SObject>) mocks.mockNonVoidMethod(this, 'getRecords', new List<Type>{}, new List<Object>{});
         }
 
         public Object getType() {
@@ -69,12 +59,7 @@ public class fflib_SObjectMocks {
         }
 
         public Schema.SObjectType sObjectType() {
-            return (Schema.SObjectType) mocks.mockNonVoidMethod(
-                this,
-                'sObjectType',
-                new List<Type>{},
-                new List<Object>{}
-            );
+            return (Schema.SObjectType) mocks.mockNonVoidMethod(this, 'sObjectType', new List<Type>{}, new List<Object>{});
         }
 
         public List<SObject> selectSObjectsById(Set<Id> idSet) {
@@ -95,28 +80,14 @@ public class fflib_SObjectMocks {
         }
 
         public void registerNew(SObject record) {
-            mocks.mockVoidMethod(
-                this,
-                'registerNew',
-                new List<Type>{ SObject.class },
-                new List<Object>{ record }
-            );
+            mocks.mockVoidMethod(this, 'registerNew', new List<Type>{ SObject.class }, new List<Object>{ record });
         }
 
         public void registerNew(List<SObject> records) {
-            mocks.mockVoidMethod(
-                this,
-                'registerNew',
-                new List<Type>{ List<SObject>.class },
-                new List<Object>{ records }
-            );
+            mocks.mockVoidMethod(this, 'registerNew', new List<Type>{ List<SObject>.class }, new List<Object>{ records });
         }
 
-        public void registerNew(
-            SObject record,
-            Schema.sObjectField relatedToParentField,
-            SObject relatedToParentRecord
-        ) {
+        public void registerNew(SObject record, Schema.sObjectField relatedToParentField, SObject relatedToParentRecord) {
             mocks.mockVoidMethod(
                 this,
                 'registerNew',
@@ -125,11 +96,7 @@ public class fflib_SObjectMocks {
             );
         }
 
-        public void registerRelationship(
-            SObject record,
-            Schema.sObjectField relatedToField,
-            SObject relatedTo
-        ) {
+        public void registerRelationship(SObject record, Schema.sObjectField relatedToField, SObject relatedTo) {
             mocks.mockVoidMethod(
                 this,
                 'registerRelationship',
@@ -156,23 +123,13 @@ public class fflib_SObjectMocks {
             mocks.mockVoidMethod(
                 this,
                 'registerRelationship',
-                new List<Type>{
-                    SObject.class,
-                    Schema.sObjectField.class,
-                    Schema.sObjectField.class,
-                    Object.class
-                },
+                new List<Type>{ SObject.class, Schema.sObjectField.class, Schema.sObjectField.class, Object.class },
                 new List<Object>{ record, relatedToField, externalIdField, externalId }
             );
         }
 
         public void registerDirty(SObject record) {
-            mocks.mockVoidMethod(
-                this,
-                'registerDirty',
-                new List<Type>{ SObject.class },
-                new List<Object>{ record }
-            );
+            mocks.mockVoidMethod(this, 'registerDirty', new List<Type>{ SObject.class }, new List<Object>{ record });
         }
 
         public void registerDirty(List<SObject> records, List<SObjectField> dirtyFields) {
@@ -193,107 +150,48 @@ public class fflib_SObjectMocks {
             );
         }
 
-        public void registerDirty(
-            SObject record,
-            Schema.sObjectField relatedToParentField,
-            SObject relatedToParentRecord
-        ) {
-            mocks.mockVoidMethod(
-                this,
-                'registerDirty',
-                new List<Type>{ SObject.class },
-                new List<Object>{ record }
-            );
+        public void registerDirty(SObject record, Schema.sObjectField relatedToParentField, SObject relatedToParentRecord) {
+            mocks.mockVoidMethod(this, 'registerDirty', new List<Type>{ SObject.class }, new List<Object>{ record });
         }
 
         public void registerDirty(List<SObject> records) {
-            mocks.mockVoidMethod(
-                this,
-                'registerDirty',
-                new List<Type>{ List<SObject>.class },
-                new List<Object>{ records }
-            );
+            mocks.mockVoidMethod(this, 'registerDirty', new List<Type>{ List<SObject>.class }, new List<Object>{ records });
         }
 
         public void registerUpsert(SObject record) {
-            mocks.mockVoidMethod(
-                this,
-                'registerUpsert',
-                new List<Type>{ List<SObject>.class },
-                new List<Object>{ record }
-            );
+            mocks.mockVoidMethod(this, 'registerUpsert', new List<Type>{ List<SObject>.class }, new List<Object>{ record });
         }
 
         public void registerEmptyRecycleBin(SObject record) {
-            mocks.mockVoidMethod(
-                this,
-                'registerEmptyRecycleBin',
-                new List<Type>{ List<SObject>.class },
-                new List<Object>{ record }
-            );
+            mocks.mockVoidMethod(this, 'registerEmptyRecycleBin', new List<Type>{ List<SObject>.class }, new List<Object>{ record });
         }
 
         public void registerEmptyRecycleBin(List<SObject> records) {
-            mocks.mockVoidMethod(
-                this,
-                'registerEmptyRecycleBin',
-                new List<Type>{ List<SObject>.class },
-                new List<Object>{ records }
-            );
+            mocks.mockVoidMethod(this, 'registerEmptyRecycleBin', new List<Type>{ List<SObject>.class }, new List<Object>{ records });
         }
 
         public void registerUpsert(List<SObject> records) {
-            mocks.mockVoidMethod(
-                this,
-                'registerUpsert',
-                new List<Type>{ List<SObject>.class },
-                new List<Object>{ records }
-            );
+            mocks.mockVoidMethod(this, 'registerUpsert', new List<Type>{ List<SObject>.class }, new List<Object>{ records });
         }
 
         public void registerDeleted(SObject record) {
-            mocks.mockVoidMethod(
-                this,
-                'registerDeleted',
-                new List<Type>{ SObject.class },
-                new List<Object>{ record }
-            );
+            mocks.mockVoidMethod(this, 'registerDeleted', new List<Type>{ SObject.class }, new List<Object>{ record });
         }
 
         public void registerDeleted(List<SObject> records) {
-            mocks.mockVoidMethod(
-                this,
-                'registerDeleted',
-                new List<Type>{ List<SObject>.class },
-                new List<Object>{ records }
-            );
+            mocks.mockVoidMethod(this, 'registerDeleted', new List<Type>{ List<SObject>.class }, new List<Object>{ records });
         }
 
         public void registerPermanentlyDeleted(SObject record) {
-            mocks.mockVoidMethod(
-                this,
-                'registerPermanentlyDeleted',
-                new List<Type>{ SObject.class },
-                new List<Object>{ record }
-            );
+            mocks.mockVoidMethod(this, 'registerPermanentlyDeleted', new List<Type>{ SObject.class }, new List<Object>{ record });
         }
 
         public void registerPermanentlyDeleted(List<SObject> records) {
-            mocks.mockVoidMethod(
-                this,
-                'registerPermanentlyDeleted',
-                new List<Type>{ SObject.class },
-                new List<Object>{ records }
-            );
+            mocks.mockVoidMethod(this, 'registerPermanentlyDeleted', new List<Type>{ SObject.class }, new List<Object>{ records });
         }
 
         public void registerPublishBeforeTransaction(SObject record) {
-            mocks.mockVoidMethod(
-                this,
-                'registerPublishBeforeTransaction',
-                new List<Type>{ SObject.class },
-                new List<Object>{ record }
-            );
+            mocks.mockVoidMethod(this, 'registerPublishBeforeTransaction', new List<Type>{ SObject.class }, new List<Object>{ record });
         }
 
         public void registerPublishBeforeTransaction(List<SObject> records) {
@@ -343,21 +241,11 @@ public class fflib_SObjectMocks {
         }
 
         public void registerWork(fflib_SObjectUnitOfWork.IDoWork work) {
-            mocks.mockVoidMethod(
-                this,
-                'registerWork',
-                new List<Type>{ fflib_SObjectUnitOfWork.IDoWork.class },
-                new List<Object>{ work }
-            );
+            mocks.mockVoidMethod(this, 'registerWork', new List<Type>{ fflib_SObjectUnitOfWork.IDoWork.class }, new List<Object>{ work });
         }
 
         public void registerEmail(Messaging.Email email) {
-            mocks.mockVoidMethod(
-                this,
-                'registerEmail',
-                new List<Type>{ Messaging.Email.class },
-                new List<Object>{ email }
-            );
+            mocks.mockVoidMethod(this, 'registerEmail', new List<Type>{ Messaging.Email.class }, new List<Object>{ email });
         }
     }
 }

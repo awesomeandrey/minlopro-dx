@@ -39,20 +39,15 @@ private class fflib_AnyOrderTest {
 
         // Then
         ((fflib_MyList.IList) mocks.verify(mockList, mocks.never()))
-            .add(
-                (String) fflib_Match.allOf(fflib_Match.eq('bob'), fflib_Match.stringContains('re'))
-            );
+            .add((String) fflib_Match.allOf(fflib_Match.eq('bob'), fflib_Match.stringContains('re')));
 
         ((fflib_MyList.IList) mocks.verify(mockList))
-            .add(
-                (String) fflib_Match.allOf(fflib_Match.eq('fred'), fflib_Match.stringContains('re'))
-            );
+            .add((String) fflib_Match.allOf(fflib_Match.eq('fred'), fflib_Match.stringContains('re')));
 
         ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2)))
             .add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('fred')));
 
-        ((fflib_MyList.IList) mocks.verify(mockList))
-            .add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('jack')));
+        ((fflib_MyList.IList) mocks.verify(mockList)).add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('jack')));
 
         ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2)))
             .add((String) fflib_Match.noneOf(fflib_Match.eq('jack'), fflib_Match.eq('tim')));
@@ -65,8 +60,7 @@ private class fflib_AnyOrderTest {
                 )
             );
 
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2)))
-            .add((String) fflib_Match.isNot(fflib_Match.eq('jack')));
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2))).add((String) fflib_Match.isNot(fflib_Match.eq('jack')));
     }
 
     @IsTest
@@ -83,10 +77,8 @@ private class fflib_AnyOrderTest {
         mockList.get(5);
 
         // Then
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(3)))
-            .get((Integer) fflib_Match.matches(new isOdd()));
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2)))
-            .get((Integer) fflib_Match.matches(new isEven()));
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(3))).get((Integer) fflib_Match.matches(new isOdd()));
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2))).get((Integer) fflib_Match.matches(new isEven()));
     }
 
     @IsTest
@@ -244,8 +236,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(4)))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(4))).add(fflib_Match.anyString());
 
             System.Assert.fail('an exception was expected');
         } catch (Exception exc) {
@@ -266,8 +257,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2)))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2))).add(fflib_Match.anyString());
 
             System.Assert.fail('an exception was expected');
         } catch (Exception exc) {
@@ -294,11 +284,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(
-                    mockList,
-                    mocks.times(2).description(customAssertMessage)
-                ))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2).description(customAssertMessage))).add(fflib_Match.anyString());
 
             System.Assert.fail('an exception was expected');
         } catch (Exception exc) {
@@ -399,8 +385,7 @@ private class fflib_AnyOrderTest {
         mockList.add('fred');
 
         // Then
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeast(2)))
-            .add(fflib_Match.anyString());
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeast(2))).add(fflib_Match.anyString());
     }
 
     @IsTest
@@ -416,8 +401,7 @@ private class fflib_AnyOrderTest {
         mockList.add('fred');
 
         // Then
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeast(2)))
-            .add(fflib_Match.anyString());
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeast(2))).add(fflib_Match.anyString());
     }
 
     @IsTest
@@ -432,8 +416,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeast(3)))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeast(3))).add(fflib_Match.anyString());
 
             System.Assert.fail(
                 'an exception was expected because we are asserting that the method is called 3 times when instead is called only twice'
@@ -572,8 +555,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.atMost(3)))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.atMost(3))).add(fflib_Match.anyString());
 
             System.Assert.fail(
                 'an exception was expected because we are asserting that the method is called 3 times when instead is called four times'
@@ -671,8 +653,7 @@ private class fflib_AnyOrderTest {
         mockList.add('fred', 'fred', 'fred', 'fred');
 
         // Then
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce()))
-            .add(fflib_Match.anyString());
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce())).add(fflib_Match.anyString());
     }
 
     @IsTest
@@ -690,8 +671,7 @@ private class fflib_AnyOrderTest {
         mockList.add('fred', 'fred', 'fred', 'fred');
 
         // Then
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce()))
-            .add(fflib_Match.anyString());
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce())).add(fflib_Match.anyString());
     }
 
     @IsTest
@@ -707,8 +687,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce()))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce())).add(fflib_Match.anyString());
 
             System.Assert.fail(
                 'an exception was expected because we are asserting that the method is called at lest once when instead is never called'
@@ -797,8 +776,7 @@ private class fflib_AnyOrderTest {
         mockList.add('bob');
 
         // Then
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.between(3, 5)))
-            .add(fflib_Match.anyString());
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.between(3, 5))).add(fflib_Match.anyString());
     }
 
     @IsTest
@@ -813,8 +791,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.between(3, 5)))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.between(3, 5))).add(fflib_Match.anyString());
 
             System.Assert.fail(
                 'an exception was expected because we are asserting that the method is called 3 times when instead is called only twice'
@@ -887,8 +864,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.between(3, 5)))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.between(3, 5))).add(fflib_Match.anyString());
 
             System.Assert.fail(
                 'an exception was expected because we are asserting that the method is called 5 times when instead is called six times'
@@ -975,8 +951,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.never()))
-                .add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.never())).add(fflib_Match.anyString());
 
             System.Assert.fail('an exception was expected');
         } catch (Exception exc) {
@@ -1066,8 +1041,7 @@ private class fflib_AnyOrderTest {
         mockList.add('fred');
 
         // Then
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce()))
-            .add(fflib_Match.anyString());
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce())).add(fflib_Match.anyString());
     }
 
     @IsTest
@@ -1083,8 +1057,7 @@ private class fflib_AnyOrderTest {
         mockList.add('fred');
 
         // Then
-        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce()))
-            .add(fflib_Match.anyString());
+        ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce())).add(fflib_Match.anyString());
     }
 
     @IsTest
@@ -1099,8 +1072,7 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce()))
-                .add(fflib_Match.stringStartsWith('rob'));
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.atLeastOnce())).add(fflib_Match.stringStartsWith('rob'));
 
             System.Assert.fail(
                 'an exception was expected because we are asserting that the method is called once when instead is not called'
@@ -1124,15 +1096,9 @@ private class fflib_AnyOrderTest {
      *	HELPER METHODS
      */
 
-    private static void assertFailMessage(
-        String exceptionMessage,
-        Integer expectedInvocations,
-        Integer actualsInvocations
-    ) {
+    private static void assertFailMessage(String exceptionMessage, Integer expectedInvocations, Integer actualsInvocations) {
         System.Assert.isTrue(
-            exceptionMessage.startsWith(
-                'EXPECTED COUNT: ' + expectedInvocations + '\nACTUAL COUNT: ' + actualsInvocations
-            ),
+            exceptionMessage.startsWith('EXPECTED COUNT: ' + expectedInvocations + '\nACTUAL COUNT: ' + actualsInvocations),
             'Unexpected verify fail message: ' + exceptionMessage
         );
     }

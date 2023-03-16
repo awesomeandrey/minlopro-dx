@@ -218,9 +218,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
      **/
     public virtual void handleAfterInsert() {
         if (Configuration.EnforcingTriggerCRUDSecurity && !SObjectDescribe.isCreateable())
-            throw new DomainException(
-                'Permission to create an ' + SObjectDescribe.getName() + ' denied.'
-            );
+            throw new DomainException('Permission to create an ' + SObjectDescribe.getName() + ' denied.');
 
         onValidate();
         onAfterInsert();
@@ -233,9 +231,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
      **/
     public virtual void handleAfterUpdate(Map<Id, SObject> existingRecords) {
         if (Configuration.EnforcingTriggerCRUDSecurity && !SObjectDescribe.isUpdateable())
-            throw new DomainException(
-                'Permission to update an ' + SObjectDescribe.getName() + ' denied.'
-            );
+            throw new DomainException('Permission to update an ' + SObjectDescribe.getName() + ' denied.');
 
         if (Configuration.OldOnUpdateValidateBehaviour)
             onValidate();
@@ -250,9 +246,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
      **/
     public virtual void handleAfterDelete() {
         if (Configuration.EnforcingTriggerCRUDSecurity && !SObjectDescribe.isDeletable())
-            throw new DomainException(
-                'Permission to delete an ' + SObjectDescribe.getName() + ' denied.'
-            );
+            throw new DomainException('Permission to delete an ' + SObjectDescribe.getName() + ' denied.');
 
         onAfterDelete();
     }
@@ -264,9 +258,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
      **/
     public virtual void handleAfterUndelete() {
         if (Configuration.EnforcingTriggerCRUDSecurity && !SObjectDescribe.isUndeletable())
-            throw new DomainException(
-                'Permission to undelete an ' + SObjectDescribe.getName() + ' denied.'
-            );
+            throw new DomainException('Permission to undelete an ' + SObjectDescribe.getName() + ' denied.');
 
         onAfterUndelete();
     }
@@ -419,10 +411,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
         }
 
         // has this event been disabled?
-        if (
-            !getTriggerEvent(domainClass)
-                .isEnabled(isBefore, isAfter, isInsert, isUpdate, isDelete, isUndelete)
-        ) {
+        if (!getTriggerEvent(domainClass).isEnabled(isBefore, isAfter, isInsert, isUpdate, isDelete, isUndelete)) {
             return;
         }
 
@@ -570,17 +559,11 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
         }
 
         public TriggerEvent enableAllAfter() {
-            return this.enableAfterInsert()
-                .enableAfterUpdate()
-                .enableAfterDelete()
-                .enableAfterUndelete();
+            return this.enableAfterInsert().enableAfterUpdate().enableAfterDelete().enableAfterUndelete();
         }
 
         public TriggerEvent disableAllAfter() {
-            return this.disableAfterInsert()
-                .disableAfterUpdate()
-                .disableAfterDelete()
-                .disableAfterUndelete();
+            return this.disableAfterInsert().disableAfterUpdate().disableAfterDelete().disableAfterUndelete();
         }
 
         public boolean isEnabled(
@@ -734,12 +717,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
             return error(null, message, record, field);
         }
 
-        private String error(
-            fflib_SObjectDomain domain,
-            String message,
-            SObject record,
-            SObjectField field
-        ) {
+        private String error(fflib_SObjectDomain domain, String message, SObject record, SObjectField field) {
             FieldError fieldError = new FieldError();
             fieldError.domain = domain;
             fieldError.message = message;
@@ -812,30 +790,10 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
 
         private void testTriggerHandler(Type domainClass) {
             // Mock Before
-            triggerHandler(
-                domainClass,
-                true,
-                false,
-                isInsert,
-                isUpdate,
-                isDelete,
-                isUndelete,
-                records,
-                oldRecords
-            );
+            triggerHandler(domainClass, true, false, isInsert, isUpdate, isDelete, isUndelete, records, oldRecords);
 
             // Mock After
-            triggerHandler(
-                domainClass,
-                false,
-                true,
-                isInsert,
-                isUpdate,
-                isDelete,
-                isUndelete,
-                records,
-                oldRecords
-            );
+            triggerHandler(domainClass, false, true, isInsert, isUpdate, isDelete, isUndelete, records, oldRecords);
         }
 
         public void onInsert(List<SObject> records) {
@@ -872,10 +830,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
         }
 
         public Boolean hasRecords() {
-            return records != null &&
-                records.size() > 0 ||
-                oldRecords != null &&
-                oldRecords.size() > 0;
+            return records != null && records.size() > 0 || oldRecords != null && oldRecords.size() > 0;
         }
     }
 
@@ -913,11 +868,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
             for (Opportunity opp : (List<Opportunity>) Records) {
                 if (opp.Type != null && opp.Type.startsWith('Existing') && opp.AccountId == null) {
                     opp.AccountId.addError(
-                        error(
-                            'You must provide an Account for Opportunities for existing Customers.',
-                            opp,
-                            Opportunity.AccountId
-                        )
+                        error('You must provide an Account for Opportunities for existing Customers.', opp, Opportunity.AccountId)
                     );
                 }
             }
@@ -931,13 +882,7 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
             for (Opportunity opp : (List<Opportunity>) Records) {
                 Opportunity existingOpp = (Opportunity) existingRecords.get(opp.Id);
                 if (opp.Type != existingOpp.Type) {
-                    opp.Type.addError(
-                        error(
-                            'You cannot change the Opportunity type once it has been created.',
-                            opp,
-                            Opportunity.Type
-                        )
-                    );
+                    opp.Type.addError(error('You cannot change the Opportunity type once it has been created.', opp, Opportunity.Type));
                 }
             }
         }
@@ -1002,18 +947,14 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
 
                 // Create a new Opportunity record to trigger recursive code path?
                 if (opp.Name.equals('Test Recursive 1'))
-                    newOpps.add(
-                        new Opportunity(Name = 'Test Recursive 2', Type = 'Existing Account')
-                    );
+                    newOpps.add(new Opportunity(Name = 'Test Recursive 2', Type = 'Existing Account'));
             }
 
             // If testing recursiving emulate an insert
             if (newOpps.size() > 0) {
                 // This will force recursion and thus validate via the above assert results in a new domain instance
                 fflib_SObjectDomain.Test.Database.onInsert(newOpps);
-                fflib_SObjectDomain.triggerHandler(
-                    fflib_SObjectDomain.TestSObjectStatefulDomainConstructor.class
-                );
+                fflib_SObjectDomain.triggerHandler(fflib_SObjectDomain.TestSObjectStatefulDomainConstructor.class);
             }
         }
 

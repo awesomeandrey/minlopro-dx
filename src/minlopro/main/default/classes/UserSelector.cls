@@ -1,7 +1,5 @@
 public inherited sharing class UserSelector extends fflib_SObjectSelector {
-    private final Repository repository = (Repository) Application.Service.newInstance(
-        Repository.class
-    );
+    private final Repository repository = (Repository) Application.Service.newInstance(Repository.class);
 
     public SObjectType getSObjectType() {
         return User.SObjectType;

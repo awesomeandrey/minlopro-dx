@@ -1,19 +1,22 @@
 {
-  "packageDirectories": [
-    {
-      "path": "src/fflib"
-    },
-    {
-      "path": "src/commons"
-    },
-    {
-      "path": "src/minlopro",
-      "default": true
-    }
-  ],
-  "pushPackageDirectoriesSequentially": true,
-  "name": "minlopro-dx",
-  "namespace": "",
-  "sfdcLoginUrl": "https://test.salesforce.com",
-  "sourceApiVersion": "55.0"
+    "packageDirectories": [
+        {
+            "path": "src/fflib"
+        },
+        {
+            "path": "src/commons"
+        },
+        {
+            "path": "src/logger"
+        },
+        {
+            "path": "src/minlopro",
+            "default": true
+        }
+    ],
+    "pushPackageDirectoriesSequentially": true,
+    "name": "minlopro-dx",
+    "namespace": "",
+    "sfdcLoginUrl": "https://test.salesforce.com",
+    "sourceApiVersion": "55.0"
 }

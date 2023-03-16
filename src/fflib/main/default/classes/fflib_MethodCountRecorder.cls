@@ -39,9 +39,7 @@ public with sharing class fflib_MethodCountRecorder {
      * @param invocation The object holding all the data of the invocation, like the method and arguments and the mock instance.
      */
     public void recordMethod(fflib_InvocationOnMock invocation) {
-        List<fflib_MethodArgValues> methodArgs = methodArgumentsByTypeName.get(
-            invocation.getMethod()
-        );
+        List<fflib_MethodArgValues> methodArgs = methodArgumentsByTypeName.get(invocation.getMethod());
 
         if (methodArgs == null) {
             methodArgs = new List<fflib_MethodArgValues>();

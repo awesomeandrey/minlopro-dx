@@ -64,12 +64,7 @@ public class fflib_SecurityUtils {
             else if (operation == OperationType.DEL)
                 this.setMessage('fflib_security_error_object_not_deletable');
 
-            this.setMessage(
-                String.format(
-                    this.getMessage(),
-                    new List<String>{ objectType.getDescribe().getName() }
-                )
-            );
+            this.setMessage(String.format(this.getMessage(), new List<String>{ objectType.getDescribe().getName() }));
         }
     }
     /**
@@ -79,11 +74,7 @@ public class fflib_SecurityUtils {
     public class FlsException extends SecurityException {
         private Schema.SObjectField m_fieldToken;
 
-        private FlsException(
-            OperationType operation,
-            Schema.SObjectType objectType,
-            Schema.SObjectField fieldToken
-        ) {
+        private FlsException(OperationType operation, Schema.SObjectType objectType, Schema.SObjectField fieldToken) {
             this.m_operation = operation;
             this.m_objectType = objectType;
             this.m_fieldToken = fieldToken;
@@ -95,13 +86,7 @@ public class fflib_SecurityUtils {
                 this.setMessage('fflib_security_error_field_not_updateable');
 
             this.setMessage(
-                String.format(
-                    this.getMessage(),
-                    new List<String>{
-                        objectType.getDescribe().getName(),
-                        fieldToken.getDescribe().getName()
-                    }
-                )
+                String.format(this.getMessage(), new List<String>{ objectType.getDescribe().getName(), fieldToken.getDescribe().getName() })
             );
         }
     }
@@ -199,10 +184,7 @@ public class fflib_SecurityUtils {
      * @exception FlsException if the running user does not have insert rights to the {@code fieldName} field.
      **/
     public static void checkFieldIsInsertable(SObjectType objType, String fieldName) {
-        checkFieldIsInsertable(
-            objType,
-            fflib_SObjectDescribe.getDescribe(objType).getField(fieldName)
-        );
+        checkFieldIsInsertable(objType, fflib_SObjectDescribe.getDescribe(objType).getField(fieldName));
     }
 
     /**
@@ -217,10 +199,7 @@ public class fflib_SecurityUtils {
      * Identical to {@link #checkFieldIsInsertable(SObjectType,String)}, except with DescribeFieldResult instead of String field reference.
      * @exception FlsException if the running user does not have insert rights to the {@code fieldName} field.
      **/
-    public static void checkFieldIsInsertable(
-        SObjectType objType,
-        DescribeFieldResult fieldDescribe
-    ) {
+    public static void checkFieldIsInsertable(SObjectType objType, DescribeFieldResult fieldDescribe) {
         if (BYPASS_INTERNAL_FLS_AND_CRUD)
             return;
         if (!fieldDescribe.isCreateable())
@@ -232,10 +211,7 @@ public class fflib_SecurityUtils {
      * @exception FlsException if the running user does not have read rights to the {@code fieldName} field.
      **/
     public static void checkFieldIsReadable(SObjectType objType, String fieldName) {
-        checkFieldIsReadable(
-            objType,
-            fflib_SObjectDescribe.getDescribe(objType).getField(fieldName)
-        );
+        checkFieldIsReadable(objType, fflib_SObjectDescribe.getDescribe(objType).getField(fieldName));
     }
 
     /**
@@ -250,10 +226,7 @@ public class fflib_SecurityUtils {
      * Identical to {@link #checkFieldIsReadable(SObjectType,String)}, except with DescribeFieldResult instead of String field reference.
      * @exception FlsException if the running user does not have read rights to the {@code fieldName} field.
      **/
-    public static void checkFieldIsReadable(
-        SObjectType objType,
-        DescribeFieldResult fieldDescribe
-    ) {
+    public static void checkFieldIsReadable(SObjectType objType, DescribeFieldResult fieldDescribe) {
         if (BYPASS_INTERNAL_FLS_AND_CRUD)
             return;
         if (!fieldDescribe.isAccessible())
@@ -265,10 +238,7 @@ public class fflib_SecurityUtils {
      * @exception FlsException if the running user does not have update rights to the {@code fieldName} field.
      **/
     public static void checkFieldIsUpdateable(SObjectType objType, String fieldName) {
-        checkFieldIsUpdateable(
-            objType,
-            fflib_SObjectDescribe.getDescribe(objType).getField(fieldName)
-        );
+        checkFieldIsUpdateable(objType, fflib_SObjectDescribe.getDescribe(objType).getField(fieldName));
     }
 
     /**
@@ -283,10 +253,7 @@ public class fflib_SecurityUtils {
      * Identical to {@link #checkFieldIsUpdateable(SObjectType,String)}, except with DescribeFieldResult instead of String field reference.
      * @exception FlsException if the running user does not have update rights to the {@code fieldName} field.
      **/
-    public static void checkFieldIsUpdateable(
-        SObjectType objType,
-        DescribeFieldResult fieldDescribe
-    ) {
+    public static void checkFieldIsUpdateable(SObjectType objType, DescribeFieldResult fieldDescribe) {
         if (BYPASS_INTERNAL_FLS_AND_CRUD)
             return;
         if (!fieldDescribe.isUpdateable())

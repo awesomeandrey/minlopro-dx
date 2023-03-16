@@ -18,11 +18,7 @@ public with sharing class fflib_InvocationOnMock {
      *  @param args The fflib_MethodArgValues instance to be stored.
      *  @param mockInstance The mock instance to be stored.
      */
-    public fflib_InvocationOnMock(
-        fflib_QualifiedMethod qm,
-        fflib_MethodArgValues args,
-        Object mockInstance
-    ) {
+    public fflib_InvocationOnMock(fflib_QualifiedMethod qm, fflib_MethodArgValues args, Object mockInstance) {
         this.qm = qm;
         this.methodArg = args;
         this.mockInstance = mockInstance;
@@ -74,9 +70,7 @@ public with sharing class fflib_InvocationOnMock {
     private void validateIndex(Integer index) {
         if (index < 0 || index >= methodArg.argValues.size()) {
             throw new fflib_ApexMocks.ApexMocksException(
-                'Invalid index, must be greater or equal to zero and less of ' +
-                    methodArg.argValues.size() +
-                    '.'
+                'Invalid index, must be greater or equal to zero and less of ' + methodArg.argValues.size() + '.'
             );
         }
     }

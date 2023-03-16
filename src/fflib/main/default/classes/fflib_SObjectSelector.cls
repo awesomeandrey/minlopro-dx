@@ -41,9 +41,7 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
     private Boolean CURRENCY_ISO_CODE_ENABLED {
         get {
             if (CURRENCY_ISO_CODE_ENABLED == null) {
-                CURRENCY_ISO_CODE_ENABLED = describeWrapper.getFieldsMap()
-                    .keySet()
-                    .contains('currencyisocode');
+                CURRENCY_ISO_CODE_ENABLED = describeWrapper.getFieldsMap().keySet().contains('currencyisocode');
             }
             return CURRENCY_ISO_CODE_ENABLED;
         }
@@ -130,11 +128,7 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
      * @param includeFieldSetFields Set to true if the Selector queries are to include Fieldset fields as well
      * @deprecated - consider using dataAccess for native platform enforcement of CRUD and FLS
      **/
-    public fflib_SObjectSelector(
-        Boolean includeFieldSetFields,
-        Boolean enforceCRUD,
-        Boolean enforceFLS
-    ) {
+    public fflib_SObjectSelector(Boolean includeFieldSetFields, Boolean enforceCRUD, Boolean enforceFLS) {
         this(includeFieldSetFields, enforceCRUD, enforceFLS, true);
     }
 
@@ -147,12 +141,7 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
      * @param sortSelectFields Set to false if selecting many columns to skip sorting select fields and improve performance
      * @deprecated - consider using dataAccess for native platform enforcement of CRUD and FLS
      **/
-    public fflib_SObjectSelector(
-        Boolean includeFieldSetFields,
-        Boolean enforceCRUD,
-        Boolean enforceFLS,
-        Boolean sortSelectFields
-    ) {
+    public fflib_SObjectSelector(Boolean includeFieldSetFields, Boolean enforceCRUD, Boolean enforceFLS, Boolean sortSelectFields) {
         this(includeFieldSetFields, enforceCRUD, enforceFLS, sortSelectFields, DataAccess.LEGACY);
     }
 
@@ -275,9 +264,7 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
      * @depricated See newQueryFactory
      **/
     public fflib_StringBuilder.CommaDelimitedListBuilder getFieldListBuilder() {
-        return new fflib_StringBuilder.CommaDelimitedListBuilder(
-            new List<String>(newQueryFactory().getSelectedFields())
-        );
+        return new fflib_StringBuilder.CommaDelimitedListBuilder(new List<String>(newQueryFactory().getSelectedFields()));
     }
 
     /**
@@ -386,11 +373,7 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
      * Returns a QueryFactory configured with the Selectors object, fields, fieldsets and default order by
      * CRUD and FLS read security will be checked if the corresponding inputs are true (overrides that defined in the selector).
      **/
-    public fflib_QueryFactory newQueryFactory(
-        Boolean assertCRUD,
-        Boolean enforceFLS,
-        Boolean includeSelectorFields
-    ) {
+    public fflib_QueryFactory newQueryFactory(Boolean assertCRUD, Boolean enforceFLS, Boolean includeSelectorFields) {
         // Construct QueryFactory around the given SObject
         return newQueryFactory(assertCRUD, enforceFLS, includeSelectorFields, DataAccess.LEGACY);
     }
@@ -402,13 +385,7 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
         DataAccess dataAccess
     ) {
         // Construct QueryFactory around the given SObject
-        return configureQueryFactory(
-            new fflib_QueryFactory(getSObjectType2()),
-            assertCRUD,
-            enforceFLS,
-            includeSelectorFields,
-            dataAccess
-        );
+        return configureQueryFactory(new fflib_QueryFactory(getSObjectType2()), assertCRUD, enforceFLS, includeSelectorFields, dataAccess);
     }
 
     /**
@@ -416,16 +393,10 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
      *
      * // TODO: This should be consistent (ideally) with configureQueryFactory below
      **/
-    public void configureQueryFactoryFields(
-        fflib_QueryFactory queryFactory,
-        String relationshipFieldPath
-    ) {
+    public void configureQueryFactoryFields(fflib_QueryFactory queryFactory, String relationshipFieldPath) {
         // Add fields from selector prefixing the relationship path
         for (SObjectField field : getSObjectFieldList()) {
-            queryFactory.selectField(
-                relationshipFieldPath + '.' + field.getDescribe().getName(),
-                this.getSObjectType()
-            );
+            queryFactory.selectField(relationshipFieldPath + '.' + field.getDescribe().getName(), this.getSObjectType());
         }
         // Automatically select the CurrencyIsoCode for MC orgs (unless the object is a known exception to the rule)
         if (UserInfo.isMultiCurrencyOrganization() && CURRENCY_ISO_CODE_ENABLED) {
@@ -443,29 +414,15 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
     /**
      * Adds a subselect QueryFactory based on this selector to the given QueryFactor
      **/
-    public fflib_QueryFactory addQueryFactorySubselect(
-        fflib_QueryFactory parentQueryFactory,
-        Boolean includeSelectorFields
-    ) {
-        fflib_QueryFactory subSelectQueryFactory = parentQueryFactory.subselectQuery(
-            getSObjectType2()
-        );
-        return configureQueryFactory(
-            subSelectQueryFactory,
-            m_enforceCRUD,
-            m_enforceFLS,
-            includeSelectorFields,
-            m_dataAccess
-        );
+    public fflib_QueryFactory addQueryFactorySubselect(fflib_QueryFactory parentQueryFactory, Boolean includeSelectorFields) {
+        fflib_QueryFactory subSelectQueryFactory = parentQueryFactory.subselectQuery(getSObjectType2());
+        return configureQueryFactory(subSelectQueryFactory, m_enforceCRUD, m_enforceFLS, includeSelectorFields, m_dataAccess);
     }
 
     /**
      * Adds a subselect QueryFactory based on this selector to the given QueryFactor, returns the parentQueryFactory
      **/
-    public fflib_QueryFactory addQueryFactorySubselect(
-        fflib_QueryFactory parentQueryFactory,
-        String relationshipName
-    ) {
+    public fflib_QueryFactory addQueryFactorySubselect(fflib_QueryFactory parentQueryFactory, String relationshipName) {
         return addQueryFactorySubselect(parentQueryFactory, relationshipName, true);
     }
 
@@ -477,16 +434,8 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
         String relationshipName,
         Boolean includeSelectorFields
     ) {
-        fflib_QueryFactory subSelectQueryFactory = parentQueryFactory.subselectQuery(
-            relationshipName
-        );
-        return configureQueryFactory(
-            subSelectQueryFactory,
-            m_enforceCRUD,
-            m_enforceFLS,
-            includeSelectorFields,
-            m_dataAccess
-        );
+        fflib_QueryFactory subSelectQueryFactory = parentQueryFactory.subselectQuery(relationshipName);
+        return configureQueryFactory(subSelectQueryFactory, m_enforceCRUD, m_enforceFLS, includeSelectorFields, m_dataAccess);
     }
 
     /**
@@ -514,9 +463,7 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
             } catch (fflib_SecurityUtils.CrudException e) {
                 // Marshal exception into DomainException for backwards compatibility
                 throw new fflib_SObjectDomain.DomainException(
-                    'Permission to access an ' +
-                        getSObjectType().getDescribe().getName() +
-                        ' denied.'
+                    'Permission to access an ' + getSObjectType().getDescribe().getName() + ' denied.'
                 );
             }
         }
@@ -559,11 +506,7 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
                 fieldSortOrder = fflib_QueryFactory.SortOrder.DESCENDING;
             else if (fieldSortOrderPart.equalsIgnoreCase('ASC'))
                 fieldSortOrder = fflib_QueryFactory.SortOrder.ASCENDING;
-            queryFactory.addOrdering(
-                fieldNamePart,
-                fieldSortOrder,
-                orderBy.containsIgnoreCase('NULLS LAST')
-            );
+            queryFactory.addOrdering(fieldNamePart, fieldSortOrder, orderBy.containsIgnoreCase('NULLS LAST'));
         }
 
         queryFactory.setSortSelectFields(m_sortSelectFields);

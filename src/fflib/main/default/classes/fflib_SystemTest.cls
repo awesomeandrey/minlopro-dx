@@ -42,10 +42,7 @@ private class fflib_SystemTest {
         } catch (fflib_ApexMocks.ApexMocksException e) {
             String expected = 'Actual: Test String';
             String actual = e.getMessage();
-            System.Assert.isTrue(
-                actual.contains(expected),
-                'Expected: ' + expected + ', Actual: ' + actual
-            );
+            System.Assert.isTrue(actual.contains(expected), 'Expected: ' + expected + ', Actual: ' + actual);
         }
     }
 
@@ -87,11 +84,7 @@ private class fflib_SystemTest {
         fflib_Match.stringIsNotBlank();
 
         try {
-            fflib_System.assertEquals(
-                fflib_Match.stringStartsWith('Test S'),
-                'Test String',
-                'My Custom Message'
-            );
+            fflib_System.assertEquals(fflib_Match.stringStartsWith('Test S'), 'Test String', 'My Custom Message');
             System.Assert.fail('Expected exception');
         } catch (fflib_ApexMocks.ApexMocksException e) {
             System.Assert.areEqual(
@@ -104,29 +97,18 @@ private class fflib_SystemTest {
     @IsTest
     private static void assertEquals_WithCustomMessage_WithMismatch_ShouldThrowException() {
         try {
-            fflib_System.assertEquals(
-                fflib_Match.stringStartsWith('Test X'),
-                'Test String',
-                'My Custom Message'
-            );
+            fflib_System.assertEquals(fflib_Match.stringStartsWith('Test X'), 'Test String', 'My Custom Message');
             System.Assert.fail('Expected exception');
         } catch (fflib_ApexMocks.ApexMocksException e) {
             String expected = 'Actual: Test String -- My Custom Message';
             String actual = e.getMessage();
-            System.Assert.isTrue(
-                actual.contains(expected),
-                'Expected: ' + expected + ', Actual: ' + actual
-            );
+            System.Assert.isTrue(actual.contains(expected), 'Expected: ' + expected + ', Actual: ' + actual);
         }
     }
 
     @IsTest
     private static void assertEquals_WithCustomMessage_WithMatch_ShouldPass() {
-        fflib_System.assertEquals(
-            fflib_Match.stringStartsWith('Test S'),
-            'Test String',
-            'My Custom Message'
-        );
+        fflib_System.assertEquals(fflib_Match.stringStartsWith('Test S'), 'Test String', 'My Custom Message');
     }
 
     @IsTest

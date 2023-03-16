@@ -1,7 +1,5 @@
 public inherited sharing class Users extends fflib_SObjectDomain {
-    private final UserSelector userSelector = (UserSelector) Application.Selector.newInstance(
-        User.SObjectType
-    );
+    private final UserSelector userSelector = (UserSelector) Application.Selector.newInstance(User.SObjectType);
 
     public Users(List<User> userRecords) {
         super(userRecords);

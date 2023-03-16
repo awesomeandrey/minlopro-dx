@@ -11,12 +11,7 @@ public with sharing class fflib_QualifiedMethod {
         this(typeName, methodName, methodArgTypes, null);
     }
 
-    public fflib_QualifiedMethod(
-        String typeName,
-        String methodName,
-        List<Type> methodArgTypes,
-        Object mockInstance
-    ) {
+    public fflib_QualifiedMethod(String typeName, String methodName, List<Type> methodArgTypes, Object mockInstance) {
         this.mockInstance = mockInstance;
         this.typeName = typeName;
         this.methodName = methodName;
@@ -33,13 +28,10 @@ public with sharing class fflib_QualifiedMethod {
             return true;
         }
 
-        fflib_QualifiedMethod that = other instanceof fflib_QualifiedMethod
-            ? (fflib_QualifiedMethod) other
-            : null;
+        fflib_QualifiedMethod that = other instanceof fflib_QualifiedMethod ? (fflib_QualifiedMethod) other : null;
 
         return that != null &&
-            (this.mockInstance === that.mockInstance ||
-            !fflib_ApexMocksConfig.HasIndependentMocks) &&
+            (this.mockInstance === that.mockInstance || !fflib_ApexMocksConfig.HasIndependentMocks) &&
             this.typeName == that.typeName &&
             this.methodName == that.methodName &&
             this.methodArgTypes == that.methodArgTypes;

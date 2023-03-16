@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 19.7.0
+          node-version: "18.x"
       - name: "Checkout Source Code"
         uses: actions/checkout@v3
       - name: "Install Dependencies"
@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 19.7.0
+          node-version: "18.x"
       - name: "Checkout Source Code"
         uses: actions/checkout@v3
       - name: "Install Dependencies"
@@ -50,7 +50,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 19.7.0
+          node-version: "18.x"
       - name: "Environment Info"
         run: |
           echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
@@ -81,7 +81,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 19.7.0
+          node-version: "18.x"
       - name: "Checkout Source Code"
         uses: actions/checkout@v3
       - name: "Install Salesforce CLI"
@@ -105,7 +105,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v3
         with:
-          node-version: 19.7.0
+          node-version: "18.x"
       - name: "Checkout Source Code"
         uses: actions/checkout@v3
       - name: "Install Salesforce CLI"

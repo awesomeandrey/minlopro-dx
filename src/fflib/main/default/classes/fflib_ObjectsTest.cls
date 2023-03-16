@@ -26,24 +26,14 @@
 
 @IsTest
 private class fflib_ObjectsTest {
-    private static final fflib_ObjectsTest.DataTransferObject TRANSFER_OBJECT_A = new DataTransferObject(
-        'Test A'
-    );
-    private static final fflib_ObjectsTest.DataTransferObject TRANSFER_OBJECT_B = new DataTransferObject(
-        'Test B'
-    );
-    private static final fflib_ObjectsTest.DataTransferObject TRANSFER_OBJECT_C = new DataTransferObject(
-        'Test C'
-    );
-    private static final fflib_ObjectsTest.DataTransferObject TRANSFER_OBJECT_D = new DataTransferObject(
-        'Test D'
-    );
+    private static final fflib_ObjectsTest.DataTransferObject TRANSFER_OBJECT_A = new DataTransferObject('Test A');
+    private static final fflib_ObjectsTest.DataTransferObject TRANSFER_OBJECT_B = new DataTransferObject('Test B');
+    private static final fflib_ObjectsTest.DataTransferObject TRANSFER_OBJECT_C = new DataTransferObject('Test C');
+    private static final fflib_ObjectsTest.DataTransferObject TRANSFER_OBJECT_D = new DataTransferObject('Test D');
 
     @IsTest
     static void itShouldReturnTheCorrectType() {
-        fflib_ObjectsTest.Domain dtoDomain = new Domain(
-            new List<DataTransferObject>{ TRANSFER_OBJECT_A, TRANSFER_OBJECT_B }
-        );
+        fflib_ObjectsTest.Domain dtoDomain = new Domain(new List<DataTransferObject>{ TRANSFER_OBJECT_A, TRANSFER_OBJECT_B });
 
         System.assertEquals(DataTransferObject.class, dtoDomain.getType(), 'Wrong domain type');
     }
@@ -51,31 +41,21 @@ private class fflib_ObjectsTest {
     @IsTest
     static void itShouldContainTheObject() {
         fflib_ObjectsTest.DataTransferObject transferObject = TRANSFER_OBJECT_A;
-        fflib_ObjectsTest.Domain dtoDomain = new Domain(
-            new List<DataTransferObject>{ transferObject, TRANSFER_OBJECT_B }
-        );
+        fflib_ObjectsTest.Domain dtoDomain = new Domain(new List<DataTransferObject>{ transferObject, TRANSFER_OBJECT_B });
 
-        System.assert(
-            dtoDomain.contains(transferObject),
-            'The object should have been part of the domain'
-        );
+        System.assert(dtoDomain.contains(transferObject), 'The object should have been part of the domain');
     }
 
     @IsTest
     static void itShouldNotContainTheObject() {
         fflib_ObjectsTest.Domain dtoDomain = generateDomain();
 
-        System.assert(
-            dtoDomain.containsNot(TRANSFER_OBJECT_D),
-            'The object should not have been part of the domain'
-        );
+        System.assert(dtoDomain.containsNot(TRANSFER_OBJECT_D), 'The object should not have been part of the domain');
     }
 
     @IsTest
     static void itShouldNotContainTheObjects() {
-        fflib_ObjectsTest.Domain dtoDomain = new Domain(
-            new List<Object>{ TRANSFER_OBJECT_A, TRANSFER_OBJECT_B }
-        );
+        fflib_ObjectsTest.Domain dtoDomain = new Domain(new List<Object>{ TRANSFER_OBJECT_A, TRANSFER_OBJECT_B });
 
         System.assert(
             dtoDomain.containsNot(new Set<Object>{ TRANSFER_OBJECT_C, TRANSFER_OBJECT_D }),
@@ -105,9 +85,7 @@ private class fflib_ObjectsTest {
         fflib_ObjectsTest.Domain dtoDomain = generateDomain();
 
         System.assert(
-            dtoDomain.containsAll(
-                new List<DataTransferObject>{ TRANSFER_OBJECT_A, TRANSFER_OBJECT_B }
-            ),
+            dtoDomain.containsAll(new List<DataTransferObject>{ TRANSFER_OBJECT_A, TRANSFER_OBJECT_B }),
             'Domain should contain the whole List of objects'
         );
         System.assert(
@@ -127,11 +105,7 @@ private class fflib_ObjectsTest {
     }
 
     private static List<DataTransferObject> generateDataTransferObjects() {
-        return new List<DataTransferObject>{
-            TRANSFER_OBJECT_A,
-            TRANSFER_OBJECT_B,
-            TRANSFER_OBJECT_C
-        };
+        return new List<DataTransferObject>{ TRANSFER_OBJECT_A, TRANSFER_OBJECT_B, TRANSFER_OBJECT_C };
     }
 
     private class Domain extends fflib_Objects {
