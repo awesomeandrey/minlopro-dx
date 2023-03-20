@@ -44,8 +44,9 @@ describe('Throw toast messages via "toastify.js"', () => {
         // Reset Jest Mocks;
         jest.clearAllMocks();
         // Cleanup DOM;
-        const $buttonElement = document.querySelector('button');
-        $buttonElement.remove();
+        while (document.body.firstChild) {
+            document.body.removeChild(document.body.firstChild);
+        }
     });
 
     it('Throw toast messages by variants', () => {

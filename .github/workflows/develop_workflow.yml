@@ -44,6 +44,20 @@ jobs:
         run: npm install
       - name: "Run Jest Tests with Coverage"
         run: npm run test:unit:coverage
+  run-pmd-checks:
+    needs: [ run-jest-tests ]
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+      - name: "Checkout Source Code"
+        uses: actions/checkout@v3
+      - name: "Install Dependencies"
+        run: npm install
+      - name: "Run Apex Static Code Analysis (PMD)"
+        run: npm run pmd:text
   validate-deployment-to-org:
     needs: [ run-prettier, run-jest-tests ]
     runs-on: ubuntu-latest
