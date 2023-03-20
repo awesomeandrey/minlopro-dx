@@ -6,7 +6,7 @@
 node_modules/
 IlluminatedCloud/
 coverage/
-sfdx-auth/
+assets/
 logs/
 
 # Logs
@@ -22,7 +22,11 @@ manifests/package.xml
 **/profilePasswordPolicies
 **/profiles
 **/profileSessionSettings
+**/settings/Security.settings-meta.xml
+
+# Playground Files
 **/lwc/playground/
+**/tabs/Playground.tab-meta.xml
+**/flexipages/Playground.flexipage-meta.xml
 **/classes/LoggerDemo.cls
 **/classes/LoggerDemo.cls-meta.xml
-**/settings/Security.settings-meta.xml
