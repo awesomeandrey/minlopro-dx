@@ -24,7 +24,9 @@
         "src:deploy:full": "sfdx force:source:deploy -x manifests/package.xml --predestructivechanges manifests/destructiveChangesPre.xml --postdestructivechanges manifests/destructiveChangesPost.xml --verbose --ignorewarnings",
         "src:deploy:check": "npm run src:deploy:full -- --checkonly",
         "src:push": "sfdx force:source:push --forceoverwrite --ignorewarnings",
-        "src:pull": "sfdx force:source:pull"
+        "src:pull": "sfdx force:source:pull",
+        "pmd:text": "pmd -d src -R apex-ruleset.xml -f text",
+        "pmd:html": "pmd -d src -R apex-ruleset.xml -f html --report-file assets/apex-pmd-report.html"
     },
     "devDependencies": {
         "@lwc/eslint-plugin-lwc": "^1.1.2",
@@ -36,9 +38,11 @@
         "eslint": "^8.11.0",
         "eslint-plugin-import": "^2.25.4",
         "eslint-plugin-jest": "^26.1.2",
+        "flush-promises": "^1.0.2",
         "husky": "^7.0.4",
         "lint-staged": "^12.3.7",
         "prettier": "^2.8.4",
-        "prettier-plugin-apex": "^1.12.0"
+        "prettier-plugin-apex": "^1.12.0",
+        "pmd-bin": "^1.37.0"
     }
 }
