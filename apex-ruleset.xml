@@ -10,5 +10,7 @@
     <rule ref="rulesets/apex/quickstart.xml">
         <exclude name="ApexDoc" />
         <exclude name="EmptyStatementBlock" />
+<!--        <exclude name="ApexUnitTestClassShouldHaveRunAs" />-->
+<!--        <exclude name="FieldNamingConventions" />-->
     </rule>
 </ruleset>
