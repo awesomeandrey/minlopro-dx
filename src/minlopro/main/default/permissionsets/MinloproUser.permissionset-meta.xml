@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>Minlopro</application>
+        <visible>true</visible>
+    </applicationVisibilities>
+    <description>Primary PS for Minlopro end-users.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Minlopro User</label>
+</PermissionSet>
