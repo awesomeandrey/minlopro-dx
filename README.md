@@ -1,6 +1,6 @@
 # minlopro-dx
 
-TODO - Describe the project
+[![DEVELOP Branch Workflow](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/develop_workflow.yml/badge.svg?branch=develop&event=push)](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/develop_workflow.yml)
 
 ## Prerequisites
 
@@ -66,8 +66,8 @@ sfdx force:source:deploy \
 
 The following flags are optional:
 
-- `--checkonly` - used to validate bundle deployment
-- `--testlevel` - used to invoke Apex Tests during deployment
+-   `--checkonly` - used to validate bundle deployment
+-   `--testlevel` - used to invoke Apex Tests during deployment
 
 _Invoke All Apex Tests_
 
@@ -75,7 +75,7 @@ _Invoke All Apex Tests_
 sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
 ```
 
- ### Scripts in `package.json`
+### Scripts in `package.json`
 
 Aforementioned commands were broken down into smaller ones in `package.json` project file.
 Keep im mind that scripts that start with `sfdx:...` or `src:...` can be invoked with extra parameters passed to them.
@@ -90,4 +90,6 @@ npm run sfdx:manifest && npm run src:deploy:check -- -u [AUTHORIZED_ORG_ALIAS]
 npm run sfdx:manifest && npm run src:deploy:full -- -u [AUTHORIZED_ORG_ALIAS] --tracksource --forceoverwrite
 ```
 
-Please, refer to [SFDX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm) for more information.
+Please, refer
+to [SFDX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+for more information.
