@@ -18,7 +18,7 @@ export function wait(callback) {
 export function uniqueId() {
     let array = new Uint32Array(8);
     if (window.crypto) {
-        window.crypto.getRandomValues(array);
+        array = window.crypto.getRandomValues(array);
     }
     let str = '';
     for (let i = 0; i < array.length; i++) {
@@ -35,13 +35,15 @@ export function isEmpty(value) {
         return value.length === 0;
     } else if (typeof value === 'object') {
         return Object.keys(value).length === 0 && value.constructor === Object;
-    } else if (value === 0) {
-        return false;
     } else if (typeof value === 'string' || value instanceof String) {
         return !value.trim();
     } else {
         return !Boolean(value);
     }
+}
+
+export function isNotEmpty(obj) {
+    return !isEmpty(obj);
 }
 
 export function isArray(arr) {
@@ -50,10 +52,6 @@ export function isArray(arr) {
 
 export function isEmptyArray(arr) {
     return !(Array.isArray(arr) && arr.length);
-}
-
-export function isNotEmpty(obj) {
-    return !isEmpty(obj);
 }
 
 export function debounce(callback, timeout = 500) {
@@ -81,11 +79,9 @@ export function throttle(callback, interval = 1000) {
 }
 
 export function cloneObject(value) {
-    if (typeof window.structuredClone === 'function') {
-        return window.structuredClone(value);
-    } else {
-        return JSON.parse(JSON.stringify(value));
-    }
+    return typeof window.structuredClone === 'function'
+        ? window.structuredClone(value)
+        : JSON.parse(JSON.stringify(value));
 }
 
 export function splitByComma(stringToSplit = '') {
@@ -142,7 +138,7 @@ export function parseError(err) {
         } else if (err.message) {
             message = err.message;
         } else if (err.pageErrors?.length) {
-            // Errors from force:recordData
+            // Errors from force:recordData;
             message = err.pageErrors[0].message;
         } else {
             message = err;
