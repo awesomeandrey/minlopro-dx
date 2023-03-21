@@ -2,136 +2,140 @@ name: DEVELOP Branch Workflow
 
 # Trigger Events
 on:
-  schedule:
-    # Runs "At 07:00 on every day-of-week from Monday through Friday"
-    - cron: "0 7 * * 1-5"
-  workflow_dispatch:
-    branches:
-      - develop
-  pull_request:
-    branches:
-      - develop
-  push:
-    branches:
-      - develop
+    schedule:
+        # Runs "At 07:00 on every day-of-week from Monday through Friday"
+        - cron: '0 7 * * 1-5'
+    workflow_dispatch:
+        branches:
+            - develop
+    pull_request:
+        branches:
+            - develop
+    push:
+        branches:
+            - develop
 
 # Jobs
 jobs:
-  # Event = 'Pull Request'
-  run-prettier:
-    if: ${{github.event_name == 'pull_request'}}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - name: "Checkout Source Code"
-        uses: actions/checkout@v3
-      - name: "Install Dependencies"
-        run: npm install
-      - name: "Run Prettier Check"
-        run: npm run prettier:check
-  run-jest-tests:
-    needs: [ run-prettier ]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - name: "Checkout Source Code"
-        uses: actions/checkout@v3
-      - name: "Install Dependencies"
-        run: npm install
-      - name: "Run Jest Tests with Coverage"
-        run: npm run test:unit:coverage
-  run-pmd-checks:
-    needs: [ run-jest-tests ]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - name: "Checkout Source Code"
-        uses: actions/checkout@v3
-      - name: "Install Dependencies"
-        run: npm install
-      - name: "Run Apex Static Code Analysis (PMD)"
-        continue-on-error: true
-        run: npm run pmd:text
-  validate-deployment-to-org:
-    needs: [ run-prettier, run-jest-tests ]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - name: "Environment Info"
-        run: |
-          echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
-          echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
-          echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
-      - name: "Checkout Source Code"
-        uses: actions/checkout@v3
-      - name: "Install Salesforce CLI"
-        run: |
-          npm install sfdx-cli --location=global
-          nodeInstallPath=$(npm config get prefix)
-          echo "$nodeInstallPath/bin" >> $GITHUB_PATH
-          sfdx --version
-      - name: "Authorize Target Environment via Auth URL"
-        run: |
-          echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
-          sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
-          sfdx force:org:display --verbose
-      - name: "Check-Only Deploy Source to Target Org And Run Local Tests"
-        run: |
-          npm run sfdx:manifest
-          npm run src:deploy:check -- --testlevel=RunLocalTests
+    # Event = 'Pull Request'
+    run-prettier-checks:
+        if: ${{github.event_name == 'pull_request'}}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Checkout Source Code'
+              uses: actions/checkout@v3
+            - name: 'Install Dependencies'
+              run: npm install
+            - name: 'Run Prettier Check'
+              run: npm run prettier:check
+    run-jest-tests:
+        needs: [run-prettier-checks]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Checkout Source Code'
+              uses: actions/checkout@v3
+            - name: 'Install Dependencies'
+              run: npm install
+            - name: 'Run Jest Tests with Coverage'
+              run: npm run test:unit:coverage
+    validate-deployment-to-org:
+        needs: [run-prettier-checks, run-jest-tests]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Environment Info'
+              run: |
+                  echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
+                  echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
+                  echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
+            - name: 'Checkout Source Code'
+              uses: actions/checkout@v3
+            - name: 'Install Salesforce CLI'
+              run: |
+                  npm install sfdx-cli --location=global
+                  nodeInstallPath=$(npm config get prefix)
+                  echo "$nodeInstallPath/bin" >> $GITHUB_PATH
+                  sfdx --version
+            - name: 'Authorize Target Environment via Auth URL'
+              run: |
+                  echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
+                  sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
+                  sfdx force:org:display --verbose
+            - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
+              run: |
+                  npm run sfdx:manifest
+                  npm run src:deploy:check -- --testlevel=RunLocalTests
 
-  # Event <> 'Pull Request'
-  deploy-source-to-org:
-    if: ${{github.event_name != 'pull_request'}}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - name: "Checkout Source Code"
-        uses: actions/checkout@v3
-      - name: "Install Salesforce CLI"
-        run: |
-          npm install sfdx-cli --location=global
-          nodeInstallPath=$(npm config get prefix)
-          echo "$nodeInstallPath/bin" >> $GITHUB_PATH
-          sfdx --version
-      - name: "Authorize Target Environment via Auth URL"
-        run: |
-          echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
-          sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
-          sfdx force:org:display --verbose
-      - name: "Deploy Source to Target Org"
-        run: |
-          npm run sfdx:manifest
-          npm run src:deploy:full
-  run-apex-tests:
-    needs: [ deploy-source-to-org ]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/setup-node@v3
-        with:
-          node-version: "18.x"
-      - name: "Checkout Source Code"
-        uses: actions/checkout@v3
-      - name: "Install Salesforce CLI"
-        run: |
-          npm install sfdx-cli --location=global
-          nodeInstallPath=$(npm config get prefix)
-          echo "$nodeInstallPath/bin" >> $GITHUB_PATH
-          sfdx --version
-      - name: "Authorize Target Environment via Auth URL"
-        run: |
-          echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
-          sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
-          sfdx force:org:display --verbose
-      - name: "Run All Apex Tests with Coverage"
-        run: npm run sfdx:apex:tests
+    # Event <> 'Pull Request'
+    deploy-source-to-org:
+        if: ${{github.event_name != 'pull_request'}}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Checkout Source Code'
+              uses: actions/checkout@v3
+            - name: 'Install Salesforce CLI'
+              run: |
+                  npm install sfdx-cli --location=global
+                  nodeInstallPath=$(npm config get prefix)
+                  echo "$nodeInstallPath/bin" >> $GITHUB_PATH
+                  sfdx --version
+            - name: 'Authorize Target Environment via Auth URL'
+              run: |
+                  echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
+                  sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
+                  sfdx force:org:display --verbose
+            - name: 'Deploy Source to Target Org'
+              run: |
+                  npm run sfdx:manifest
+                  npm run src:deploy:full
+    run-apex-tests:
+        needs: [deploy-source-to-org]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Checkout Source Code'
+              uses: actions/checkout@v3
+            - name: 'Install Salesforce CLI'
+              run: |
+                  npm install sfdx-cli --location=global
+                  nodeInstallPath=$(npm config get prefix)
+                  echo "$nodeInstallPath/bin" >> $GITHUB_PATH
+                  sfdx --version
+            - name: 'Authorize Target Environment via Auth URL'
+              run: |
+                  echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
+                  sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
+                  sfdx force:org:display --verbose
+            - name: 'Run All Apex Tests with Coverage'
+              run: npm run sfdx:apex:tests
+    run-pmd-checks:
+        needs: [deploy-source-to-org]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Checkout Source Code'
+              uses: actions/checkout@v3
+            - name: 'Install Dependencies'
+              run: npm install
+            - name: 'Run Apex Static Code Analysis (PMD)'
+              run: npm run pmd:html || echo "PMD report has been generated!"
+            - name: 'Upload PMD report as Artifact'
+              uses: actions/upload-artifact@v3
+              with:
+                  name: apex-pmd-report
+                  path: assets/apex-pmd-report.html
