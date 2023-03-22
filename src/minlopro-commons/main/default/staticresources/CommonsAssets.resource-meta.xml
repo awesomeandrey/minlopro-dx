@@ -2,6 +2,6 @@
 <StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
     <cacheControl>Public</cacheControl>
     <contentType>application/zip</contentType>
-    <description
-    >Asset files for &apos;commons&apos; module (including images, pictures etc.).</description>
+    <description>Asset files for &apos;commons&apos; module (including images, pictures etc.).
+    </description>
 </StaticResource>

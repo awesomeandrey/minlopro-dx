@@ -1,9 +1,24 @@
-# logger
+# Common / Reusable Modules
+
+## FFLib
+
+Open-source framework for Salesforce development.
+
+Sources:
+
+-   https://github.com/apex-enterprise-patterns/fflib-apex-common
+-   https://github.com/apex-enterprise-patterns/fflib-apex-mocks
+
+## Commons
+
+Contains low-level methods / functions used during product development.
+
+## Logger
 
 Exposes custom means for Apex logs tracking/monitoring.
 Originally inspired by https://github.com/rsoesemann/apex-unified-logging.
 
-## Demo
+**How To Use**
 
 0. Assign `LoggerUser.permissionset` to the running user.
 

@@ -6,7 +6,7 @@
     xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd"
 >
     <description>Apex Custom PMD Rules</description>
-    <exclude-pattern>.*/fflib/.*</exclude-pattern>
+    <exclude-pattern>.*/minlopro-commons/*.*</exclude-pattern>
     <rule ref="rulesets/apex/quickstart.xml">
         <exclude name="ApexDoc" />
         <exclude name="EmptyStatementBlock" />

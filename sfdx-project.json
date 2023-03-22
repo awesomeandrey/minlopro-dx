@@ -1,13 +1,10 @@
 {
     "packageDirectories": [
         {
-            "path": "src/fflib"
+            "path": "src/minlopro-commons"
         },
         {
-            "path": "src/commons"
-        },
-        {
-            "path": "src/logger"
+            "path": "src/minlopro-schema"
         },
         {
             "path": "src/minlopro",
