@@ -2,7 +2,7 @@ import * as $Commons from 'c/commons';
 
 const crypto = require('crypto');
 
-describe('Invoke utilities in "commons.js"', () => {
+describe('Invoke utilities in "minlopro-schema.js"', () => {
     it('to()', async () => {
         const resolvedPromise = Promise.resolve(true);
         const [error1, result1] = await $Commons.to(resolvedPromise);

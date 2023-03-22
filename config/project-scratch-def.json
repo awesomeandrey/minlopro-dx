@@ -1,32 +1,35 @@
 {
-  "orgName": "minlopro-dx",
-  "country": "US",
-  "username": "admin-dx@minlopro.com",
-  "adminEmail": "andrii.melnichuk@customertimes.com",
-  "edition": "Enterprise",
-  "description": "Minlopro DX Scratch Org",
-  "hasSampleData": true,
-  "language": "en_US",
-  "features": [
-    "EnableSetPasswordInApi",
-    "DebugApex",
-    "AuthorApex",
-    "API",
-    "StreamingAPI",
-    "StateAndCountryPicklist"
-  ],
-  "settings": {
-    "lightningExperienceSettings": {
-      "enableS1DesktopEnabled": true,
-      "enableUsersAreLightningOnly": false
-    },
-    "mobileSettings": {
-      "enableS1EncryptedStoragePref2": false
-    },
-    "securitySettings": {
-      "sessionSettings": {
-        "lockerServiceNext": true
-      }
+    "orgName": "minlopro-dx",
+    "country": "US",
+    "username": "admin-dx@minlopro.com",
+    "adminEmail": "andrii.melnichuk@customertimes.com",
+    "edition": "Enterprise",
+    "description": "Minlopro DX Scratch Org",
+    "hasSampleData": true,
+    "language": "en_US",
+    "features": [
+        "EnableSetPasswordInApi",
+        "DebugApex",
+        "AuthorApex",
+        "API",
+        "StreamingAPI",
+        "StateAndCountryPicklist"
+    ],
+    "settings": {
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true,
+            "enableUsersAreLightningOnly": false
+        },
+        "mobileSettings": {
+            "enableS1EncryptedStoragePref2": false
+        },
+        "securitySettings": {
+            "sessionSettings": {
+                "lockerServiceNext": true
+            }
+        },
+        "apexSettings": {
+            "enableCompileOnDeploy": false
+        }
     }
-  }
 }
