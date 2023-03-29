@@ -1,0 +1,39 @@
+<template>
+    <template lwc:if={hasDefaultCoords}>
+        <div class="slds-box slds-box_x-small">
+            <lightning-tabset>
+                <lightning-tab label="Locations">
+                    <lightning-datatable
+                        key-field="id"
+                        columns={locationColumns}
+                        data={locationData}
+                        onrowaction={handleRowAction}
+                        show-row-number-column
+                        hide-checkbox-column
+                    ></lightning-datatable>
+                </lightning-tab>
+                <lightning-tab label="Polygons">
+                    <p>This section is under construction!</p>
+                </lightning-tab>
+            </lightning-tabset>
+        </div>
+    </template>
+    <template lwc:else>
+        <c-stencil-skeleton short-lines="0" repeat="3">
+            <lightning-layout horizontal-align="center" vertical-align="center">
+                <lightning-layout-item>
+                    <lightning-icon
+                        icon-name="utility:location"
+                        alternative-text="Loading"
+                        size="x-small"
+                        title="Loading"
+                    >
+                    </lightning-icon>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                    <span class="slds-m-left_xx-small">Getting local coordinates...</span>
+                </lightning-layout-item>
+            </lightning-layout>
+        </c-stencil-skeleton>
+    </template>
+</template>

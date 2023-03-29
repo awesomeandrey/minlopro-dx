@@ -12,6 +12,7 @@
     <navType>Standard</navType>
     <tabs>standard-Account</tabs>
     <tabs>LogsMonitor</tabs>
+    <tabs>GoogleMapsApiPlayground</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Minlopro_UtilityBar</utilityBar>
 </CustomApplication>
