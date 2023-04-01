@@ -4,6 +4,10 @@
         <apexClass>GoogleMapsPocController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>ApiKey__mdt</name>
+    </customMetadataTypeAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Google Maps API User</label>
     <pageAccesses>

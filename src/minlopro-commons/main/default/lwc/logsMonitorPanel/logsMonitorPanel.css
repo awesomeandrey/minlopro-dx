@@ -1,0 +1,27 @@
+.resizeable-container {
+    display: flex;
+    max-height: 45rem;
+}
+
+.resizeable-item {
+    flex: 50%;
+    overflow: auto;
+}
+
+.resize-bar {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgb(243, 243, 243);
+    z-index: 2;
+    cursor: col-resize;
+}
+
+.resize-bar::after {
+    content: '';
+    width: 0.07rem;
+    height: 1rem;
+    margin: 0.15rem;
+    background: darkgrey;
+}

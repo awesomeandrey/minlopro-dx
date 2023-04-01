@@ -3,8 +3,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>logMonitor</componentName>
-                <identifier>c_logMonitor</identifier>
+                <componentName>logsMonitorPanel</componentName>
+                <identifier>c_logsMonitorPanel</identifier>
             </componentInstance>
         </itemInstances>
         <name>main</name>

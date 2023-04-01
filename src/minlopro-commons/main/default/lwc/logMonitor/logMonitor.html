@@ -1,7 +1,7 @@
 <template>
     <div class="slds-p-around_x-small slds-border_bottom slds-theme_shade">
         <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
-            <lightning-badge label={logsAmountMsg} class="slds-badge_inverse"></lightning-badge>
+            <lightning-badge label={logsAmountBadge} class="slds-badge_inverse"></lightning-badge>
             <div if:true={hasError}>
                 <span class="slds-text-color_error">{error.message}</span>
             </div>

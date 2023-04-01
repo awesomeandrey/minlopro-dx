@@ -42,7 +42,7 @@ export default class LogMonitor extends LightningElement {
         };
     }
 
-    get logsAmountMsg() {
+    get logsAmountBadge() {
         return `${this.labels.logsAmountAllLbl}: ${
             Object.values(this.logsByContextId).flat().length
         }`;
