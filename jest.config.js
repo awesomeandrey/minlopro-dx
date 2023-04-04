@@ -4,6 +4,6 @@ module.exports = {
     ...jestConfig,
     moduleNameMapper: {
         '^lightning/platformShowToastEvent$':
-            '<rootDir>/src/minlopro-commons/test/jest-mocks/lightning/platformShowToastEvent'
+            '<rootDir>/src/minlopro-core/test/jest-mocks/lightning/platformShowToastEvent'
     }
 };

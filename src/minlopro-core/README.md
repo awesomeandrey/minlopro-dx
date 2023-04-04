@@ -1,4 +1,4 @@
-# Common / Reusable Modules
+# Core / Base Modules
 
 ## FFLib
 
@@ -9,7 +9,7 @@ Sources:
 -   https://github.com/apex-enterprise-patterns/fflib-apex-common
 -   https://github.com/apex-enterprise-patterns/fflib-apex-mocks
 
-## Commons
+## Utilities
 
 Contains low-level methods / functions used during product development.
 

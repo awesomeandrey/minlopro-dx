@@ -1,4 +1,4 @@
-import { isEmptyArray, isNotEmpty } from 'c/commons';
+import { isEmptyArray, isNotEmpty } from 'c/utilities';
 
 const availableLettersStack = Array.from('ABCDEFGHIJKLMNOPQRSTUVWXYZ');
 

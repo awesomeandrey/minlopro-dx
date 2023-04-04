@@ -150,3 +150,8 @@ export function parseError(err) {
     }
     return { message, code, details };
 }
+
+export function isBoundFunction(fn) {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString#description
+    return typeof fn === 'function' ? fn.toString() === 'function () { [native code] }' : false;
+}

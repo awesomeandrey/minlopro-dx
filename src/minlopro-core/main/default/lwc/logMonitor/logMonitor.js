@@ -2,7 +2,7 @@ import { LightningElement, track } from 'lwc';
 import EMP from 'lightning/empApi';
 import LightningAlert from 'lightning/alert';
 import $Toastify from 'c/toastify';
-import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId } from 'c/commons';
+import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId } from 'c/utilities';
 
 import USER_ID from '@salesforce/user/Id';
 

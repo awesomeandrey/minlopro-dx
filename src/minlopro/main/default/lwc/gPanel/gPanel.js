@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import { subscribeToEvent, publishEvent } from 'c/bridge';
-import { cloneObject, isNotEmpty, uniqueId, flatten } from 'c/commons';
+import { cloneObject, isNotEmpty, uniqueId, flatten } from 'c/utilities';
 import * as MarkerLabel from 'c/gMarkerLabelMgr';
 
 export default class GPanel extends LightningElement {

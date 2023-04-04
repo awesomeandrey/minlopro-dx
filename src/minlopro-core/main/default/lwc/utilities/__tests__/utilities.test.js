@@ -1,17 +1,17 @@
-import * as $Commons from 'c/commons';
+import * as $Utils from 'c/utilities';
 
 const crypto = require('crypto');
 
 describe('Invoke utilities in "minlopro-schema.js"', () => {
     it('to()', async () => {
         const resolvedPromise = Promise.resolve(true);
-        const [error1, result1] = await $Commons.to(resolvedPromise);
+        const [error1, result1] = await $Utils.to(resolvedPromise);
         expect(error1).toBeNull();
         expect(result1).toEqual(true);
 
         const rejectedPromise = Promise.reject({ message: 'Original Message!' });
         const overwrittenErrorMessage = 'Rejected Promise!';
-        const [error2, result2] = await $Commons.to(rejectedPromise, {
+        const [error2, result2] = await $Utils.to(rejectedPromise, {
             message: overwrittenErrorMessage
         });
         expect(error2.message).toEqual(overwrittenErrorMessage);
@@ -21,7 +21,7 @@ describe('Invoke utilities in "minlopro-schema.js"', () => {
     it('wait()', () => {
         jest.useFakeTimers();
         let counter = 0;
-        $Commons.wait(() => {
+        $Utils.wait(() => {
             counter = 10;
         });
         jest.runOnlyPendingTimers();
@@ -35,34 +35,34 @@ describe('Invoke utilities in "minlopro-schema.js"', () => {
                 getRandomValues: (arr) => crypto.randomBytes(arr.length)
             }
         });
-        const uniqueIdsArray = new Array(100).fill(0).map($Commons.uniqueId);
+        const uniqueIdsArray = new Array(100).fill(0).map($Utils.uniqueId);
         const uniqueIdsSet = new Set(uniqueIdsArray);
         expect(uniqueIdsSet.size).toEqual(uniqueIdsArray.length);
     });
 
     it('isArray() & isEmptyArray()', () => {
-        expect($Commons.isArray([])).toEqual(true);
-        expect($Commons.isArray({})).toEqual(false);
-        expect($Commons.isArray({ length: 5 })).toEqual(false);
-        expect($Commons.isEmptyArray([])).toEqual(true);
-        expect($Commons.isEmptyArray({})).toEqual(true);
-        expect($Commons.isEmptyArray({ length: 5 })).toEqual(true);
+        expect($Utils.isArray([])).toEqual(true);
+        expect($Utils.isArray({})).toEqual(false);
+        expect($Utils.isArray({ length: 5 })).toEqual(false);
+        expect($Utils.isEmptyArray([])).toEqual(true);
+        expect($Utils.isEmptyArray({})).toEqual(true);
+        expect($Utils.isEmptyArray({ length: 5 })).toEqual(true);
     });
 
     it('isEmpty() & isNotEmpty()', () => {
-        expect($Commons.isEmpty(null)).toEqual(true);
-        expect($Commons.isEmpty(undefined)).toEqual(true);
-        expect($Commons.isEmpty([])).toEqual(true);
-        expect($Commons.isEmpty(['apex'])).toEqual(false);
-        expect($Commons.isEmpty({})).toEqual(true);
-        expect($Commons.isEmpty({ key: 'value' })).toEqual(false);
-        expect($Commons.isEmpty(0)).toEqual(true);
-        expect($Commons.isEmpty(-5051)).toEqual(false);
-        expect($Commons.isEmpty(5051)).toEqual(false);
-        expect($Commons.isEmpty('   ')).toEqual(true);
-        expect($Commons.isEmpty('apex')).toEqual(false);
-        expect($Commons.isNotEmpty('   ')).toEqual(false);
-        expect($Commons.isNotEmpty('apex')).toEqual(true);
+        expect($Utils.isEmpty(null)).toEqual(true);
+        expect($Utils.isEmpty(undefined)).toEqual(true);
+        expect($Utils.isEmpty([])).toEqual(true);
+        expect($Utils.isEmpty(['apex'])).toEqual(false);
+        expect($Utils.isEmpty({})).toEqual(true);
+        expect($Utils.isEmpty({ key: 'value' })).toEqual(false);
+        expect($Utils.isEmpty(0)).toEqual(true);
+        expect($Utils.isEmpty(-5051)).toEqual(false);
+        expect($Utils.isEmpty(5051)).toEqual(false);
+        expect($Utils.isEmpty('   ')).toEqual(true);
+        expect($Utils.isEmpty('apex')).toEqual(false);
+        expect($Utils.isNotEmpty('   ')).toEqual(false);
+        expect($Utils.isNotEmpty('apex')).toEqual(true);
     });
 
     it('cloneObject() & flatten()', () => {
@@ -74,12 +74,12 @@ describe('Invoke utilities in "minlopro-schema.js"', () => {
             },
             price: 1000000
         };
-        const clonedCarObj = $Commons.cloneObject(carObj);
+        const clonedCarObj = $Utils.cloneObject(carObj);
         expect(clonedCarObj.model).toEqual(carObj.model);
         expect(clonedCarObj.price).toEqual(carObj.price);
         expect(clonedCarObj.brand.name).toEqual(carObj.brand.name);
         expect(clonedCarObj.brand.country).toEqual(carObj.brand.country);
-        const flattenedCarObj = $Commons.flatten(carObj);
+        const flattenedCarObj = $Utils.flatten(carObj);
         expect(flattenedCarObj.model).toEqual(carObj.model);
         expect(flattenedCarObj.price).toEqual(carObj.price);
         expect(flattenedCarObj['brand.name']).toEqual(carObj.brand.name);
@@ -87,28 +87,28 @@ describe('Invoke utilities in "minlopro-schema.js"', () => {
     });
 
     it('splitByComma()', () => {
-        expect($Commons.splitByComma()).toEqual([]);
-        expect($Commons.splitByComma('')).toEqual([]);
-        expect($Commons.splitByComma('apple, orange, plum')).toEqual(['apple', 'orange', 'plum']);
-        expect($Commons.splitByComma('apple,orange,plum')).toEqual(['apple', 'orange', 'plum']);
-        expect($Commons.splitByComma(' apple,orange,plum ')).toEqual(['apple', 'orange', 'plum']);
-        expect($Commons.splitByComma('apple,,plum')).toEqual(['apple', 'plum']);
-        expect($Commons.splitByComma(',')).toEqual([]);
-        expect($Commons.splitByComma(',,,')).toEqual([]);
+        expect($Utils.splitByComma()).toEqual([]);
+        expect($Utils.splitByComma('')).toEqual([]);
+        expect($Utils.splitByComma('apple, orange, plum')).toEqual(['apple', 'orange', 'plum']);
+        expect($Utils.splitByComma('apple,orange,plum')).toEqual(['apple', 'orange', 'plum']);
+        expect($Utils.splitByComma(' apple,orange,plum ')).toEqual(['apple', 'orange', 'plum']);
+        expect($Utils.splitByComma('apple,,plum')).toEqual(['apple', 'plum']);
+        expect($Utils.splitByComma(',')).toEqual([]);
+        expect($Utils.splitByComma(',,,')).toEqual([]);
     });
 
     it('pipe()', () => {
         const add5 = (_) => _ + 5;
         const add10 = (_) => _ + 10;
         const add100 = (_) => _ + 100;
-        const result = $Commons.pipe(add5, add10, add100)(5);
+        const result = $Utils.pipe(add5, add10, add100)(5);
         expect(result).toEqual(5 + 5 + 10 + 100);
     });
 
     it('throttle()', () => {
         let counter = 0;
         const throttledFunction = jest.fn(
-            $Commons.throttle(() => {
+            $Utils.throttle(() => {
                 counter++;
             }, 2000)
         );
@@ -122,7 +122,7 @@ describe('Invoke utilities in "minlopro-schema.js"', () => {
         jest.useFakeTimers();
         let counter = 0;
         const debouncedFunction = jest.fn(
-            $Commons
+            $Utils
                 .debounce(() => {
                     counter++;
                 }, 2000)

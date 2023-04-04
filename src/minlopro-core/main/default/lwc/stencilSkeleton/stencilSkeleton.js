@@ -1,5 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
-import { uniqueId } from 'c/commons';
+import { uniqueId } from 'c/utilities';
 
 export default class StencilSkeleton extends LightningElement {
     @api repeat = 1;

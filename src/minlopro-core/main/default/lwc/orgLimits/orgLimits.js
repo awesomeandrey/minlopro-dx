@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import { cloneObject, isNotEmpty, to, uniqueId } from 'c/commons';
+import { cloneObject, isNotEmpty, to, uniqueId } from 'c/utilities';
 
 // Apex;
 import getAllOrgLimitsApex from '@salesforce/apex/OrgLimitsController.getAll';

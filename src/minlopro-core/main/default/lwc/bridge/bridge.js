@@ -1,12 +1,10 @@
 import {
     publish,
     subscribe,
-    unsubscribe,
     createMessageContext,
-    releaseMessageContext,
     APPLICATION_SCOPE
 } from 'lightning/messageService';
-import { wait, to, isNotEmpty, isEmpty } from 'c/commons';
+import { isEmpty, isBoundFunction } from 'c/utilities';
 
 import LMS_CHANNEL from '@salesforce/messageChannel/BridgeChannel__c';
 
@@ -51,8 +49,11 @@ const publishEvent = (eventName, payload) => {
 };
 
 const subscribeToEvent = (eventName, callback) => {
-    if (typeof eventName !== 'string' || isEmpty(eventName) || typeof callback !== 'function') {
-        throw new Error('Could not subscribe to event: invalid arguments.');
+    if (typeof eventName !== 'string' || isEmpty(eventName)) {
+        throw new Error('Invalid event name!');
+    }
+    if (!isBoundFunction(callback)) {
+        throw new Error('Callback must be a bound function!');
     }
     if (!$eventsMap.has(eventName)) {
         $eventsMap.set(eventName, []);
