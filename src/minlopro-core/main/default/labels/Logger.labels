@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Logger_Btn_Mute</fullName>
+        <categories>Logger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mute</shortDescription>
+        <value>Mute</value>
+    </labels>
+    <labels>
+        <fullName>Logger_Btn_Unmute</fullName>
+        <categories>Logger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Unmute</shortDescription>
+        <value>Unmute</value>
+    </labels>
+    <labels>
+        <fullName>Logger_Btn_ClearAll</fullName>
+        <categories>Logger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Clear All</shortDescription>
+        <value>Clear All</value>
+    </labels>
+    <labels>
+        <fullName>Logger_Btn_ExpandAll</fullName>
+        <categories>Logger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Expand All</shortDescription>
+        <value>Expand All</value>
+    </labels>
+    <labels>
+        <fullName>Logger_Btn_CollapseAll</fullName>
+        <categories>Logger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Collapse All</shortDescription>
+        <value>Collapse All</value>
+    </labels>
+    <labels>
+        <fullName>Logger_Badge_LogsAmount</fullName>
+        <categories>Logger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Logs Amount</shortDescription>
+        <value>Logs Amount</value>
+    </labels>
+    <labels>
+        <fullName>Logger_Msg_NoLogsYet</fullName>
+        <categories>Logger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>There are no logs yet!</shortDescription>
+        <value>There are no logs yet!</value>
+    </labels>
+    <labels>
+        <fullName>Logger_Info_EnableLogging</fullName>
+        <categories>Logger</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Make sure that logging settings are enabled for your user</shortDescription>
+        <value>Make sure that logging settings are enabled for your user</value>
+    </labels>
+</CustomLabels>

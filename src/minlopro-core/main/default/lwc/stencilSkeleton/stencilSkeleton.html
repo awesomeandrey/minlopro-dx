@@ -1,0 +1,14 @@
+<template>
+    <div class="slds-is-relative">
+        <template for:each={skeletons} for:item="_">
+            <div key={_} class="slds-is-relative">
+                <c-stencil count={shortLines} width="35"></c-stencil>
+                <c-stencil count={mediumLines} width="70"></c-stencil>
+                <c-stencil count={longLines} width="100"></c-stencil>
+            </div>
+        </template>
+        <div class="slds-align_absolute-center slds-text-color_weak slds-text-body_small">
+            <slot></slot>
+        </div>
+    </div>
+</template>

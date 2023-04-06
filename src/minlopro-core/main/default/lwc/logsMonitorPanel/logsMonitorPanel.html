@@ -1,0 +1,23 @@
+<template>
+    <section
+        class="resizeable-container slds-theme_default slds-p-around_x-small slds-box_border"
+        lwc:ref="container"
+        onmouseup={handleContainerMouseUp}
+        onmousemove={handleContainerMouseMove}
+    >
+        <!--Left Panel-->
+        <div class="resizeable-item slds-is-relative">
+            <c-log-monitor></c-log-monitor>
+        </div>
+        <!--Bar-->
+        <div
+            class="resize-bar slds-border_left slds-border_right"
+            lwc:ref="bar"
+            onmousedown={handleBarMouseDown}
+        ></div>
+        <!--Right Panel-->
+        <div class="resizeable-item slds-is-relative">
+            <c-org-limits></c-org-limits>
+        </div>
+    </section>
+</template>

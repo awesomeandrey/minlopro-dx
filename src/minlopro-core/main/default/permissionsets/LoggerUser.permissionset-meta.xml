@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>OrgLimitsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customSettingAccesses>
+        <enabled>true</enabled>
+        <name>LoggerSettings__c</name>
+    </customSettingAccesses>
+    <description
+    >Grants access to logger module features. This PS should be primarily used by developer(s).</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Logger User</label>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Log__e</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <tabSettings>
+        <tab>LogsMonitor</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Common communication channel</description>
+    <isExposed>true</isExposed>
+    <lightningMessageFields>
+        <description>Custom Event Name</description>
+        <fieldName>eventName</fieldName>
+    </lightningMessageFields>
+    <lightningMessageFields>
+        <description>Data to be transmitted to the event consumer</description>
+        <fieldName>payload</fieldName>
+    </lightningMessageFields>
+    <masterLabel>Bridge Channel</masterLabel>
+</LightningMessageChannel>

@@ -9,6 +9,7 @@ on:
         branches:
             - develop
     pull_request:
+        types: [opened, synchronize, reopened]
         branches:
             - develop
     push:
@@ -43,7 +44,7 @@ jobs:
             - name: 'Install Dependencies'
               run: npm install
             - name: 'Run Jest Tests with Coverage'
-              run: npm run test:unit:coverage
+              run: npm run jest:coverage
     validate-deployment-to-org:
         needs: [run-prettier-checks, run-jest-tests]
         runs-on: ubuntu-latest

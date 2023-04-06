@@ -1,7 +1,7 @@
 {
     "packageDirectories": [
         {
-            "path": "src/minlopro-commons"
+            "path": "src/minlopro-core"
         },
         {
             "path": "src/minlopro-schema"
