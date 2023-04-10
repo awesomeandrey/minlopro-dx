@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "4a844d97-6aa0-4b75-ae0f-71f53b69287d",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "91609fc3-983c-4edf-a206-e406709bc3c7",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Home_Visualforce_Page_Component",
+  "id" : "b93668c2-6365-405e-9b97-7426a64e5f2f",
+  "type" : "experienceVariation"
+}

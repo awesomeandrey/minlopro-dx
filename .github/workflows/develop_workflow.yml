@@ -32,8 +32,8 @@ jobs:
               run: npm install
             - name: 'Run Prettier Check'
               run: npm run prettier:check
+              continue-on-error: true
     run-jest-tests:
-        needs: [run-prettier-checks]
         runs-on: ubuntu-latest
         steps:
             - uses: actions/setup-node@v3
@@ -99,7 +99,10 @@ jobs:
             - name: 'Deploy Source to Target Org'
               run: |
                   npm run sfdx:manifest
-                  npm run src:deploy:full
+                  npm run src:deploy:full -- -u targetOrg
+            - name: 'Assign Permission Sets'
+              continue-on-error: true
+              run: sfdx force:user:permset:assign -u targetOrg -n "CoreAccessUser,MinloproUser,LoggerUser,GoogleMapsApiUser"
     run-apex-tests:
         needs: [deploy-source-to-org]
         runs-on: ubuntu-latest

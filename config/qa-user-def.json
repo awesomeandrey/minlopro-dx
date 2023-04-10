@@ -1,0 +1,12 @@
+{
+  "Username": "qa.user@customertimes.com",
+  "FirstName": "Minlopro",
+  "LastName": "QaUser",
+  "Email": "andrii.melnichuk@customertimes.com",
+  "TimeZoneSidKey": "America/Denver",
+  "LocaleSidKey": "en_US",
+  "EmailEncodingKey": "UTF-8",
+  "LanguageLocaleKey": "en_US",
+  "profileName": "System Administrator",
+  "generatePassword": true
+}

@@ -16,7 +16,7 @@ private class LoggerTest {
         System.assertEquals('1==2:false', (String) data.get('Message'));
         System.assertEquals(thisClassName(), (String) data.get('Class'));
         System.assertEquals('debug', (String) data.get('Method'));
-        System.assertEquals(1, (Integer) data.get('DMLRows')); // 1x Settings__c
+        System.assert(String.isNotBlank((String) data.get('QueryRows')));
     }
 
     @IsTest

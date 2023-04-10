@@ -1,13 +1,16 @@
 {
     "packageDirectories": [
         {
-            "path": "src/minlopro-core"
-        },
-        {
             "path": "src/minlopro-schema"
         },
         {
-            "path": "src/minlopro",
+            "path": "src/minlopro-core"
+        },
+        {
+            "path": "src/minlopro"
+        },
+        {
+            "path": "src/minlopro-digex",
             "default": true
         }
     ],
@@ -15,5 +18,5 @@
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://test.salesforce.com",
-    "sourceApiVersion": "55.0"
+    "sourceApiVersion": "56.0"
 }

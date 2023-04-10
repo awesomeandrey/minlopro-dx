@@ -40,7 +40,21 @@ Corresponds to **PROD** environment.
 _Create Scratch Org_
 
 ```
-sfdx force:org:create -f config/project-scratch-def.json -a SO_1
+// Create scratch org according to JSON config file;
+sfdx force:org:create -f config/project-scratch-def.json -a SO
+
+[Push Source Code to the newly created Scratch Org]
+
+// Create extra user (optional)
+sfdx force:user:create \
+    -u SO \
+    --definitionfile config/qa-user-def.json \
+    --setalias qa-user \
+    --set-unique-username
+
+// Assign permission sets to users
+sfdx force:user:permset:assign -u SO \
+ -n "Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
 ```
 
 _Generate Auth URL for the Target Org_
@@ -79,6 +93,18 @@ _Invoke All Apex Tests_
 
 ```
 sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
+```
+
+_Reset Tracking_
+
+```
+sfdx force:source:tracking:clear -u SO
+```
+
+_Retrieve Metadata From Org by `package.xml` File_
+
+```
+sfdx force:source:retrieve -x manifests/package.xml -u SO -r assets   
 ```
 
 ### Scripts in `package.json`
