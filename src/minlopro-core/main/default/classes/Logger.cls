@@ -46,21 +46,17 @@ public without sharing class Logger {
                 'Message' => message,
                 'Quiddity' => Request.getCurrent().getQuiddity(),
                 /* Limits */
-                'Callouts' => Limits.getCallouts(),
-                'LimitCallouts' => Limits.getLimitCallouts(),
-                'CpuTime' => Limits.getCpuTime(),
-                'LimitCpuTime' => Limits.getLimitCpuTime(),
-                'HeapSize' => Limits.getHeapSize(),
-                'LimitHeapSize' => Limits.getLimitHeapSize(),
-                'Queries' => Limits.getQueries(),
-                'LimitQueries' => Limits.getLimitQueries(),
-                'DMLRows' => Limits.getDmlRows(),
-                'EmailInvocations' => Limits.getEmailInvocations(),
-                'FutureCalls' => Limits.getFutureCalls(),
-                'LocatorRows' => Limits.getQueryLocatorRows(),
-                'QueryRows' => Limits.getQueryRows(),
-                'QueueableJobs' => Limits.getQueueableJobs(),
-                'SoslQueries' => Limits.getSoslQueries()
+                'Callouts' => String.format('{0} out of {1}', new List<Object>{ Limits.getCallouts(), Limits.getLimitCallouts() }),
+                'CpuTime' => String.format('{0} out of {1}', new List<Object>{ Limits.getCpuTime(), Limits.getLimitCpuTime() }),
+                'HeapSize' => String.format('{0} out of {1}', new List<Object>{ Limits.getHeapSize(), Limits.getLimitHeapSize() }),
+                'Queries' => String.format('{0} out of {1}', new List<Object>{ Limits.getQueries(), Limits.getLimitQueries() }),
+                'DMLRows' => String.format('{0} out of {1}', new List<Object>{ Limits.getDmlRows(), Limits.getLimitDmlRows() }),
+                'FutureCalls' => String.format('{0} out of {1}', new List<Object>{ Limits.getFutureCalls(), Limits.getLimitFutureCalls() }),
+                'QueryRows' => String.format('{0} out of {1}', new List<Object>{ Limits.getQueryRows(), Limits.getLimitQueryRows() }),
+                'QueueableJobs' => String.format(
+                    '{0} out of {1}',
+                    new List<Object>{ Limits.getQueueableJobs(), Limits.getLimitQueueableJobs() }
+                )
             };
             storeLocation(data);
             log = new Log__e(

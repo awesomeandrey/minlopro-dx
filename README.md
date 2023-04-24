@@ -37,6 +37,12 @@ Corresponds to **PROD** environment.
 
 ### Useful Commands
 
+_Create Scratch Org_
+
+```
+sfdx force:org:create -f config/project-scratch-def.json -a SO_1
+```
+
 _Generate Auth URL for the Target Org_
 
 ```
