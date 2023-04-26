@@ -1,7 +1,6 @@
 {
     "orgName": "minlopro-dx",
     "country": "US",
-    "username": "admin-dx@minlopro.com",
     "adminEmail": "andrii.melnichuk@customertimes.com",
     "edition": "Enterprise",
     "description": "Minlopro DX Scratch Org",
@@ -13,9 +12,16 @@
         "AuthorApex",
         "API",
         "StreamingAPI",
-        "StateAndCountryPicklist"
+        "StateAndCountryPicklist",
+        "Communities"
     ],
     "settings": {
+        "experienceBundleSettings": {
+            "enableExperienceBundleMetadata": true
+        },
+        "communitiesSettings": {
+            "enableNetworksEnabled": true
+        },
         "lightningExperienceSettings": {
             "enableS1DesktopEnabled": true,
             "enableUsersAreLightningOnly": false

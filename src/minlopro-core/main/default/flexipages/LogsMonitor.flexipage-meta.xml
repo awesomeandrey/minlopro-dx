@@ -3,6 +3,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>runningUserInfo</componentName>
+                <identifier>c_runningUserInfo</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>logsMonitorPanel</componentName>
                 <identifier>c_logsMonitorPanel</identifier>
             </componentInstance>

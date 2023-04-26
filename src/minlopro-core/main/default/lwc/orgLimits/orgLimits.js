@@ -1,8 +1,9 @@
 import { LightningElement, track } from 'lwc';
-import { cloneObject, isNotEmpty, to, uniqueId } from 'c/utilities';
+import { cloneObject, isNotEmpty, parseError, to, uniqueId } from 'c/utilities';
+import toastify from 'c/toastify';
 
 // Apex;
-import getAllOrgLimitsApex from '@salesforce/apex/OrgLimitsController.getAll';
+import getAllOrgLimitsApex from '@salesforce/apex/SystemInfoController.getOrgLimits';
 
 export default class OrgLimits extends LightningElement {
     @track rawOrgLimits = [];
@@ -76,6 +77,9 @@ export default class OrgLimits extends LightningElement {
         const [error, result = []] = await to(getAllOrgLimitsApex());
         if (isNotEmpty(error)) {
             this.errorObj = error;
+            const { message } = parseError(error);
+            toastify.error({ message });
+            return;
         }
         // Enrich with `uid`;
         this.rawOrgLimits = cloneObject(result).map((_) => ({

@@ -1,0 +1,48 @@
+{
+  "appPageId" : "2bcb76a2-b349-4b4b-bd9f-4264ec49fbaa",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "b6816916-e3f6-46be-99d0-168a677b3ef2",
+  "label" : "Login Error",
+  "regions" : [ {
+    "id" : "789ac768-7aa8-4c15-b421-24a1a61d8722",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<div style=\"text-align: center;\">Invalid Page</div>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "36137980-fd9d-40b8-a30b-23e889018ec8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "375b9dfb-59b7-4381-ae67-ec9d251f92bb",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "c543ac92-71c6-4879-8457-9496d198c913",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Login Error"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "bf60b218-c84d-4104-bc75-f757ef8440fd",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "1f91419c-3233-4b7b-9778-23afcdcaa981",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Login",
+  "type" : "view",
+  "viewType" : "login-error"
+}

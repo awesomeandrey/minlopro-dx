@@ -2,9 +2,12 @@
 **/appMenus
 **/customindex
 **/profilePasswordPolicies
-**/profiles
 **/profileSessionSettings
 **/settings/Security.settings-meta.xml
+
+# Ignore specific set of Profiles
+**/profiles/Admin.profile-meta.xml
+Admin.profile
 
 # LWC Jest tests
 **/__tests__/**

@@ -5,5 +5,10 @@
         <members>bridgeDemo</members>
         <name>LightningComponentBundle</name>
     </types>
+    <types>
+        <members>OrgLimitsController</members>
+        <members>OrgLimitsControllerTest</members>
+        <name>ApexClass</name>
+    </types>
     <version>55.0</version>
 </Package>
