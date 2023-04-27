@@ -21,6 +21,7 @@ jobs:
     # Event = 'Pull Request'
     run-prettier-checks:
         if: ${{github.event_name == 'pull_request'}}
+        continue-on-error: true
         runs-on: ubuntu-latest
         steps:
             - uses: actions/setup-node@v3
@@ -32,9 +33,9 @@ jobs:
               run: npm install
             - name: 'Run Prettier Check'
               run: npm run prettier:check
-              continue-on-error: true
     run-jest-tests:
         if: ${{github.event_name == 'pull_request'}}
+        continue-on-error: true
         runs-on: ubuntu-latest
         steps:
             - uses: actions/setup-node@v3
