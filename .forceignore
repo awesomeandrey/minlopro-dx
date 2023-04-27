@@ -5,9 +5,11 @@
 **/profileSessionSettings
 **/settings/Security.settings-meta.xml
 
-# Ignore specific set of Profiles
+# Ignore specific set of metadata items
 **/profiles/Admin.profile-meta.xml
 Admin.profile
+**/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
+**/audience/Default_DigEx.audience-meta.xml
 
 # LWC Jest tests
 **/__tests__/**

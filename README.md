@@ -54,7 +54,7 @@ sfdx force:user:create \
 
 // Assign permission sets to users
 sfdx force:user:permset:assign -u SO \
- -n "Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
+ -n "Minlopro_User,Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
 ```
 
 _Generate Auth URL for the Target Org_

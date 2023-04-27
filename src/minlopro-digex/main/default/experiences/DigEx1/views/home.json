@@ -5,65 +5,14 @@
   "id" : "4524c642-fc12-46c3-a850-f1494e4393d8",
   "label" : "Home",
   "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:runningUserInfo",
-      "id" : "b68868b6-8350-4784-95c7-e1b2d5fac1a0",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "bannerBackgroundColor" : "",
-        "bannerPosition" : "top",
-        "bannerSizePercent" : 35,
-        "borderRadius" : 20,
-        "boxShadow" : true,
-        "haveBanner" : false,
-        "iconBackgroundColor" : "rgb(255,255,255)",
-        "iconSize" : "medium",
-        "noImageColor" : "rgb(212, 212, 212)",
-        "overlay" : "rgba(0,0,0,0.01)",
-        "templateType" : "default",
-        "tileMenuEditor" : "DigEx_Navigation_Items_Set",
-        "titleColor" : "",
-        "titleFontSize" : "medium",
-        "titleHorizontalAlign" : "center"
-      },
-      "componentName" : "community_navigation:tileMenu",
-      "id" : "dcee08d5-7023-46e6-879c-d563395dde04",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "b461b045-bc8c-48c5-a289-ef04d3197668",
     "regionName" : "header",
     "type" : "region"
   }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "height" : "600",
-        "pageName" : "GoogleMapsPoc",
-        "recordId" : "{!recordId}"
-      },
-      "componentName" : "forceCommunity:visualforcePage",
-      "id" : "91609fc3-983c-4edf-a206-e406709bc3c7",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "17436f93-9175-4279-8c29-c9febe7b5967",
     "regionName" : "content",
     "type" : "region"
   }, {
-    "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:orgLimits",
-      "id" : "77b5f490-61f5-4f50-81fd-7f9d951cac21",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "27dd54e5-c4c5-467c-9ea0-3584d4089781",
     "regionName" : "footer",
     "type" : "region"
@@ -83,7 +32,7 @@
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
-  "themeLayoutType" : "Inner",
+  "themeLayoutType" : "BIGuMbINxUUPKhG01SUcMMJNvZRHRb",
   "type" : "view",
   "viewType" : "home"
 }
