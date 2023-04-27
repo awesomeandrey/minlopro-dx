@@ -57,6 +57,13 @@ sfdx force:user:permset:assign -u SO \
  -n "Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
 ```
 
+_User Management_
+
+```
+sfdx force:user:password:generate --targetusername SO
+sfdx force:user:display --targetusername SO
+```
+
 _Generate Auth URL for the Target Org_
 
 ```
@@ -98,7 +105,7 @@ sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
 _Reset Tracking_
 
 ```
-sfdx force:source:tracking:clear -u SO
+sfdx force:source:tracking:clear -u SO -p
 ```
 
 _Retrieve Metadata From Org by `package.xml` File_

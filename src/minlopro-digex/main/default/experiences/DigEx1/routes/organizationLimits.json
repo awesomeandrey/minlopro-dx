@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "ac9471b4-a162-48c3-93a1-18f125e0e351",
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "configurationTags" : [ ],
+  "id" : "03524e47-b7df-4d5f-9e0e-7461f4cd6de8",
+  "label" : "Organization Limits",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-org-limits",
+  "type" : "route",
+  "urlPrefix" : "org-limits"
+}

@@ -2,13 +2,13 @@
   "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
   "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
-  "id" : "4524c642-fc12-46c3-a850-f1494e4393d8",
-  "label" : "Home",
+  "id" : "ac9471b4-a162-48c3-93a1-18f125e0e351",
+  "label" : "Organization Limits",
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:runningUserInfo",
-      "id" : "b68868b6-8350-4784-95c7-e1b2d5fac1a0",
+      "id" : "32ba7169-84b6-4b4e-b111-9abe68fd16a6",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -17,30 +17,28 @@
         "menuApiName" : "DigEx_Navigation_Items_Set"
       },
       "componentName" : "c:navigationMenu",
-      "id" : "fd9daf9d-50f3-4234-abaf-5648d9de2f33",
+      "id" : "6b74cd37-03a3-472e-b61e-11726a0a9cdd",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "b461b045-bc8c-48c5-a289-ef04d3197668",
+    "id" : "8bb145a9-8b6a-45ab-9e03-aecbcf77df00",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<h2>Welcome to DigEx community!</h2>"
-      },
-      "componentName" : "forceCommunity:htmlBlock",
-      "id" : "cb844ffc-d2bf-495c-aa84-188fa1f4fddd",
+      "componentAttributes" : { },
+      "componentName" : "c:orgLimits",
+      "id" : "79174f1c-117b-4d7b-85b5-61c5495ba70b",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "17436f93-9175-4279-8c29-c9febe7b5967",
+    "id" : "ad676d22-e5a0-4adf-9c93-707de8ad0bae",
     "regionName" : "content",
     "type" : "region"
   }, {
-    "id" : "27dd54e5-c4c5-467c-9ea0-3584d4089781",
+    "id" : "0ddb9a76-1c02-4f0c-8393-e192ef8d3432",
     "regionName" : "footer",
     "type" : "region"
   }, {
@@ -48,18 +46,18 @@
       "componentAttributes" : {
         "customHeadTags" : "",
         "description" : "",
-        "title" : "Home"
+        "title" : "Organization Limits"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "e8add185-5501-4942-968f-4dc4b7cab31f",
+      "id" : "b36cf7a3-0158-4d74-a6ce-90cf68b76949",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "d6b86856-51b0-4537-ab30-e6ff2af51a01",
+    "id" : "2bcbe595-a6af-483a-bdaf-71fc27568359",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
   "themeLayoutType" : "Inner",
   "type" : "view",
-  "viewType" : "home"
+  "viewType" : "custom-org-limits"
 }

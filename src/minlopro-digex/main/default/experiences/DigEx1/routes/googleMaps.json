@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "014d670d-5a97-4f40-8c2b-73373c6357ff",
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "configurationTags" : [ ],
+  "id" : "3a38b51b-5715-493b-a527-e26999c743d7",
+  "label" : "Google Maps",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-google-maps",
+  "type" : "route",
+  "urlPrefix" : "google-maps"
+}

@@ -1,0 +1,32 @@
+<template>
+    <div class="slds-theme_default">
+        <template lwc:if={hasLoaded}>
+            <lightning-layout horizontal-align="space">
+                <template for:each={visibleNavigationItems} for:item="item">
+                    <lightning-layout-item flexibility="auto,no-grow" key={item.id}>
+                        <a href="javascript:void(0)">
+                            <template lwc:if={item.selected}>
+                                <lightning-badge
+                                    label={item.label}
+                                    data-id={item.id}
+                                    icon-name="custom:custom11"
+                                    onclick={handleNavigate}
+                                ></lightning-badge>
+                            </template>
+                            <template lwc:else>
+                                <lightning-badge
+                                    label={item.label}
+                                    data-id={item.id}
+                                    onclick={handleNavigate}
+                                ></lightning-badge>
+                            </template>
+                        </a>
+                    </lightning-layout-item>
+                </template>
+            </lightning-layout>
+        </template>
+        <template lwc:else>
+            <c-stencil-skeleton short-lines="0" repeat="3"></c-stencil-skeleton>
+        </template>
+    </div>
+</template>

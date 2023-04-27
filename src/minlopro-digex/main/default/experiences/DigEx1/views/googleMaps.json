@@ -2,13 +2,13 @@
   "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
   "componentName" : "siteforce:sldsOneColLayout",
   "dataProviders" : [ ],
-  "id" : "4524c642-fc12-46c3-a850-f1494e4393d8",
-  "label" : "Home",
+  "id" : "014d670d-5a97-4f40-8c2b-73373c6357ff",
+  "label" : "Google Maps",
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:runningUserInfo",
-      "id" : "b68868b6-8350-4784-95c7-e1b2d5fac1a0",
+      "id" : "2a9f0dd5-9454-4bca-906a-4649cafa93ef",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -17,30 +17,32 @@
         "menuApiName" : "DigEx_Navigation_Items_Set"
       },
       "componentName" : "c:navigationMenu",
-      "id" : "fd9daf9d-50f3-4234-abaf-5648d9de2f33",
+      "id" : "99f737c0-db5c-441b-8f03-8f6a02d3633d",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "b461b045-bc8c-48c5-a289-ef04d3197668",
+    "id" : "62df350a-841a-4262-8ff7-922a55fce3c4",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<h2>Welcome to DigEx community!</h2>"
+        "height" : "600",
+        "pageName" : "GoogleMapsPoc",
+        "recordId" : "{!recordId}"
       },
-      "componentName" : "forceCommunity:htmlBlock",
-      "id" : "cb844ffc-d2bf-495c-aa84-188fa1f4fddd",
+      "componentName" : "forceCommunity:visualforcePage",
+      "id" : "921a50ae-ec90-4e22-8341-36df4a3cead3",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "17436f93-9175-4279-8c29-c9febe7b5967",
+    "id" : "b2f6d3e6-ba1e-4d9e-a675-68c548103ccf",
     "regionName" : "content",
     "type" : "region"
   }, {
-    "id" : "27dd54e5-c4c5-467c-9ea0-3584d4089781",
+    "id" : "042a2042-5135-443e-b6d4-da8c5a68b0b4",
     "regionName" : "footer",
     "type" : "region"
   }, {
@@ -48,18 +50,18 @@
       "componentAttributes" : {
         "customHeadTags" : "",
         "description" : "",
-        "title" : "Home"
+        "title" : "Google Maps"
       },
       "componentName" : "forceCommunity:seoAssistant",
-      "id" : "e8add185-5501-4942-968f-4dc4b7cab31f",
+      "id" : "3efc4111-b63e-425b-8f26-a60c21ce6367",
       "renditionMap" : { },
       "type" : "component"
     } ],
-    "id" : "d6b86856-51b0-4537-ab30-e6ff2af51a01",
+    "id" : "8d93f2fa-0701-49bf-9b57-64c86cf116f5",
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
   "themeLayoutType" : "Inner",
   "type" : "view",
-  "viewType" : "home"
+  "viewType" : "custom-google-maps"
 }

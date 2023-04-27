@@ -1,0 +1,13 @@
+{
+  "componentVariants" : [ {
+    "id" : "84711c7b-86f4-434e-a726-b66ae3710f04",
+    "propertyOverrides" : {
+      "isVisible" : true
+    },
+    "targetId" : "921a50ae-ec90-4e22-8341-36df4a3cead3",
+    "type" : "componentVariant"
+  } ],
+  "developerName" : "Google_Maps_Visualforce_Page_Component",
+  "id" : "0abc7d55-3bea-4357-92bb-1b83ee300c86",
+  "type" : "experienceVariation"
+}

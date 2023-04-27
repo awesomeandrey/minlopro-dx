@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Audience xmlns="http://soap.sforce.com/2006/04/metadata">
     <audienceName>Minlopro - Google Maps User</audienceName>
     <container>DigEx</container>
@@ -18,11 +18,10 @@
     <isDefaultAudience>false</isDefaultAudience>
     <targets>
         <target>
-            <groupName
-            >4524c642-fc12-46c3-a850-f1494e4393d8$#$91609fc3-983c-4edf-a206-e406709bc3c7</groupName>
+            <groupName>014d670d-5a97-4f40-8c2b-73373c6357ff$#$921a50ae-ec90-4e22-8341-36df4a3cead3</groupName>
             <priority>1</priority>
             <targetType>ExperienceVariation</targetType>
-            <targetValue>Home_Visualforce_Page_Component</targetValue>
+            <targetValue>Google_Maps_Visualforce_Page_Component</targetValue>
         </target>
     </targets>
 </Audience>
