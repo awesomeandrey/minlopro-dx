@@ -10,5 +10,12 @@
         <members>OrgLimitsControllerTest</members>
         <name>ApexClass</name>
     </types>
+    <types>
+        <members>CoreAccessUser</members>
+        <members>MinloproUser</members>
+        <members>LoggerUser"</members>
+        <members>GoogleMapsApiUser"</members>
+        <name>PermissionSet</name>
+    </types>
     <version>55.0</version>
 </Package>

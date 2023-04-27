@@ -104,7 +104,9 @@ jobs:
                   npm run src:deploy:full -- -u targetOrg
             - name: 'Assign Permission Sets'
               continue-on-error: true
-              run: sfdx force:user:permset:assign -u targetOrg -n "CoreAccessUser,MinloproUser,LoggerUser,GoogleMapsApiUser"
+              run: |
+                sfdx force:user:permset:assign -u targetOrg \
+                  -n "Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
     run-apex-tests:
         needs: [deploy-source-to-org]
         runs-on: ubuntu-latest
