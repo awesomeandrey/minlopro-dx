@@ -5,6 +5,16 @@
   "id" : "4524c642-fc12-46c3-a850-f1494e4393d8",
   "label" : "Home",
   "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p>Hi there!</p>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "504d3196-8c94-4a2c-a7d1-c0d2a09d8f36",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
     "id" : "b461b045-bc8c-48c5-a289-ef04d3197668",
     "regionName" : "header",
     "type" : "region"

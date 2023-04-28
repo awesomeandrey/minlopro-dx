@@ -134,6 +134,14 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
                     url: target
                 }
             };
+        } else if (type === 'Event') {
+            // There are 3 event-like navigation items: login, logout & switch account;
+            this.pageReference = {
+                type: 'comm__loginPage',
+                attributes: {
+                    actionName: target.toLowerCase()
+                }
+            };
         }
         if (this.pageReference) {
             this[NavigationMixin.Navigate](this.pageReference);

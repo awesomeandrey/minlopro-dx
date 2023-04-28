@@ -23,8 +23,6 @@
     <redirectToCustomDomain>false</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
     <selfRegPage>CommunitiesSelfReg</selfRegPage>
-<!--    <siteAdmin>test-9ok9l7ex9644@example.com</siteAdmin>-->
-<!--    <siteGuestRecordDefaultOwner>test-9ok9l7ex9644@example.com</siteGuestRecordDefaultOwner>-->
     <siteType>ChatterNetwork</siteType>
     <urlPathPrefix>digex</urlPathPrefix>
 </CustomSite>
