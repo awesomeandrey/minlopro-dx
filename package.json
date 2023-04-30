@@ -22,7 +22,7 @@
         "sfdx:auth:create": "sfdx force:org:display --verbose --json > build/target-org-info.json",
         "sfdx:auth:store": "sfdx auth:sfdxurl:store -f build/target-org-info.json",
         "sfdx:manifest": "sfdx force:source:manifest:create --sourcepath src --manifestname manifests/package.xml",
-        "sfdx:manifest:delta": "sfdx sgd:source:delta --output manifests/sgd --source 'src'",
+        "sfdx:manifest:delta": "mkdir -p manifests/sgd && sfdx sgd:source:delta --output manifests/sgd --source 'src'",
         "src:deploy:full": "sfdx force:source:deploy -x manifests/package.xml --predestructivechanges manifests/destructiveChangesPre.xml --postdestructivechanges manifests/destructiveChangesPost.xml --verbose --ignorewarnings",
         "src:deploy:check": "npm run src:deploy:full -- --checkonly",
         "src:push": "sfdx force:source:push --forceoverwrite --ignorewarnings",
