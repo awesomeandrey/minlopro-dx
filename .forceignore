@@ -5,7 +5,7 @@
 **/profileSessionSettings
 **/settings/Security.settings-meta.xml
 
-# Ignore specific set of Profiles
+# Ignore specific set of metadata items
 **/profiles/Admin.profile-meta.xml
 Admin.profile
 

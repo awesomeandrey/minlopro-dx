@@ -1,0 +1,66 @@
+{
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "componentName" : "siteforce:sldsThreeCol444Layout",
+  "dataProviders" : [ ],
+  "id" : "cebf5701-a2f4-49ee-ac66-4ed98182de68",
+  "label" : "Welcome",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "menuApiName" : "DigEx_Navigation_Items_Set_Unauthenticated"
+      },
+      "componentName" : "c:navigationBar",
+      "id" : "e1aef1c6-6a55-4320-9cb0-333d0ea81644",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ea1686ed-0594-4077-9984-0f219dd12fc1",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "91ac6297-3bd0-4170-8386-8765fc722026",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p>Welcome! Login into the system first.</p>"
+      },
+      "componentName" : "forceCommunity:htmlBlock",
+      "id" : "495d2aa6-433f-45b9-9845-9a6998c76cbb",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "24bdc1ac-c220-4cc6-8d4d-a32d06d09ebc",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "c5fad841-ee2a-45b9-b4c4-64c957f66e53",
+    "regionName" : "sidebarAlt",
+    "type" : "region"
+  }, {
+    "id" : "5b930c9c-fa14-4933-878f-4e70ebce87f8",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Welcome"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "8d1ee54e-8f0b-4e79-9186-51a36c04846a",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "ecef6713-5ddf-4eb4-b28c-e35f4bdda826",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-welcome"
+}

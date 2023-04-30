@@ -54,7 +54,7 @@ sfdx force:user:create \
 
 // Assign permission sets to users
 sfdx force:user:permset:assign -u SO \
- -n "Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
+ -n "Minlopro_User,Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
 ```
 
 _Generate Auth URL for the Target Org_
@@ -95,7 +95,7 @@ _Invoke All Apex Tests_
 sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
 ```
 
-_Reset Tracking_
+_Reset Source Tracking Locally_
 
 ```
 sfdx force:source:tracking:clear -u SO
@@ -104,7 +104,22 @@ sfdx force:source:tracking:clear -u SO
 _Retrieve Metadata From Org by `package.xml` File_
 
 ```
-sfdx force:source:retrieve -x manifests/package.xml -u SO -r assets   
+sfdx force:source:retrieve -x manifests/package.xml -u SO -r build
+```
+
+_Generate `package.xml` File Based on Changes Delta_
+
+This implies [sfdx-git-delta](https://github.com/scolladon/sfdx-git-delta) plugin usage.
+
+```
+// Install plugin once
+sfdx plugins:install sfdx-git-delta@stable
+// Generate manifest files that indicate source changes
+sfdx sgd:source:delta \
+    --output manifests \
+    --source 'src' \
+    --from "SOURCE_BRANCH_NAME" \
+    --to "WORKING_BRANCH_NAME"
 ```
 
 ### Scripts in `package.json`

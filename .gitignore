@@ -6,7 +6,7 @@
 node_modules/
 IlluminatedCloud/
 coverage/
-assets/
+build/
 logs/
 
 # Logs
@@ -16,6 +16,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # Project files
+manifests/sgd/
 manifests/package.xml
 
 # Custom file exclusions

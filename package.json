@@ -11,7 +11,7 @@
         "prettier:minlopro": "prettier --write \"src/minlopro/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "prettier:core": "prettier --write \"src/minlopro-core/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "prettier:schema": "prettier --write \"src/minlopro-schema/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-        "prettier:portal": "prettier --write \"src/minlopro-digex-myplayground/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier:digex": "prettier --write \"src/minlopro-digex/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "prettier:check": "prettier --check \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "jest": "sfdx-lwc-jest --skipApiVersionCheck",
         "jest:watch": "sfdx-lwc-jest --watch --skipApiVersionCheck",
@@ -19,15 +19,16 @@
         "jest:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
         "sfdx:apex:tests": "sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage",
         "sfdx:apex:test": "sfdx force:apex:test:run -r human",
-        "sfdx:auth:create": "sfdx force:org:display --verbose --json > assets/target-org-info.json",
-        "sfdx:auth:store": "sfdx auth:sfdxurl:store -f assets/target-org-info.json",
+        "sfdx:auth:create": "sfdx force:org:display --verbose --json > build/target-org-info.json",
+        "sfdx:auth:store": "sfdx auth:sfdxurl:store -f build/target-org-info.json",
         "sfdx:manifest": "sfdx force:source:manifest:create --sourcepath src --manifestname manifests/package.xml",
+        "sfdx:manifest:delta": "sfdx sgd:source:delta --output manifests/sgd --source 'src'",
         "src:deploy:full": "sfdx force:source:deploy -x manifests/package.xml --predestructivechanges manifests/destructiveChangesPre.xml --postdestructivechanges manifests/destructiveChangesPost.xml --verbose --ignorewarnings",
         "src:deploy:check": "npm run src:deploy:full -- --checkonly",
         "src:push": "sfdx force:source:push --forceoverwrite --ignorewarnings",
         "src:pull": "sfdx force:source:pull",
         "pmd:text": "pmd -d src -R apex-ruleset.xml -f text",
-        "pmd:html": "pmd -d src -R apex-ruleset.xml -f html --report-file assets/apex-pmd-report.html"
+        "pmd:html": "pmd -d src -R apex-ruleset.xml -f html --report-file build/apex-pmd-report.html"
     },
     "devDependencies": {
         "@lwc/eslint-plugin-lwc": "^1.1.2",
@@ -42,8 +43,9 @@
         "flush-promises": "^1.0.2",
         "husky": "^7.0.4",
         "lint-staged": "^12.3.7",
-        "prettier": "^2.8.4",
+        "pmd-bin": "^1.37.0",
+        "prettier": "^2.8.8",
         "prettier-plugin-apex": "^1.12.0",
-        "pmd-bin": "^1.37.0"
+        "sfdx-git-delta": "^5.17.1"
     }
 }

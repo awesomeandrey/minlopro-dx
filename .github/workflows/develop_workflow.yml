@@ -23,24 +23,30 @@ jobs:
         if: ${{github.event_name == 'pull_request'}}
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - name: 'Checkout Source Code'
-              uses: actions/checkout@v3
             - name: 'Install Dependencies'
               run: npm install
-            - name: 'Run Prettier Check'
-              run: npm run prettier:check
-              continue-on-error: true
+            - name: 'Run Prettier Check (Partial)'
+              run: |
+                  git checkout ${{github.base_ref}}
+                  git pull
+                  git checkout ${{github.head_ref}}
+                  git pull
+                  git branch -a
+                  bash ./.github/scripts/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
     run-jest-tests:
+        if: ${{github.event_name == 'pull_request'}}
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - name: 'Checkout Source Code'
-              uses: actions/checkout@v3
             - name: 'Install Dependencies'
               run: npm install
             - name: 'Run Jest Tests with Coverage'
@@ -49,97 +55,103 @@ jobs:
         needs: [run-prettier-checks, run-jest-tests]
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
+            - uses: sfdx-actions/setup-sfdx@v1
+              with:
+                  sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
+            - name: 'Install "sfdx-git-delta"'
+              run: |
+                  echo y | sfdx plugins:install "sfdx-git-delta@stable"
             - name: 'Environment Info'
               run: |
                   echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
                   echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
                   echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
-            - name: 'Checkout Source Code'
-              uses: actions/checkout@v3
-            - name: 'Install Salesforce CLI'
-              run: |
-                  npm install sfdx-cli --location=global
-                  nodeInstallPath=$(npm config get prefix)
-                  echo "$nodeInstallPath/bin" >> $GITHUB_PATH
+                  echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
+                  echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
                   sfdx --version
-            - name: 'Authorize Target Environment via Auth URL'
-              run: |
-                  echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
-                  sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
+                  sf --version
                   sfdx force:org:display --verbose
+            - name: 'Generate Delta Manifests'
+              run: |
+                  git checkout ${{github.base_ref}}
+                  git pull
+                  git checkout ${{github.head_ref}}
+                  git pull
+                  git branch -a
+                  mkdir manifests/sgd
+                  npm run sfdx:manifest:delta -- \
+                    --from "${{github.base_ref}}" \
+                    --to "${{github.head_ref}}"
+                  tree manifests/sgd
+                  echo "<<< PACKAGE.XML >>>" && cat manifests/sgd/package/package.xml
+                  echo "<<< DESTRUCTIVE_CHANGES.XML >>>" && cat manifests/sgd/destructiveChanges/destructiveChanges.xml
+            - name: 'Upload Delta Manifest Files as Artifact'
+              uses: actions/upload-artifact@v3
+              with:
+                  name: delta-changes
+                  path: manifests/sgd
             - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
               run: |
-                  npm run sfdx:manifest
-                  npm run src:deploy:check -- --testlevel=RunLocalTests
+                  sfdx force:source:deploy \
+                    --checkonly \
+                    --verbose \
+                    --ignorewarnings \
+                    --manifest "manifests/sgd/package/package.xml" \
+                    --postdestructivechanges "manifests/sgd/destructiveChanges/destructiveChanges.xml"
 
     # Event <> 'Pull Request'
     deploy-source-to-org:
         if: ${{github.event_name != 'pull_request'}}
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - name: 'Checkout Source Code'
-              uses: actions/checkout@v3
-            - name: 'Install Salesforce CLI'
-              run: |
-                  npm install sfdx-cli --location=global
-                  nodeInstallPath=$(npm config get prefix)
-                  echo "$nodeInstallPath/bin" >> $GITHUB_PATH
-                  sfdx --version
-            - name: 'Authorize Target Environment via Auth URL'
-              run: |
-                  echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
-                  sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
-                  sfdx force:org:display --verbose
+            - uses: sfdx-actions/setup-sfdx@v1
+              with:
+                  sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
             - name: 'Deploy Source to Target Org'
               run: |
                   npm run sfdx:manifest
-                  npm run src:deploy:full -- -u targetOrg
+                  npm run src:deploy:full
             - name: 'Assign Permission Sets'
               continue-on-error: true
-              run: sfdx force:user:permset:assign -u targetOrg -n "CoreAccessUser,MinloproUser,LoggerUser,GoogleMapsApiUser"
+              run: |
+                  sfdx force:user:permset:assign -n "CoreAccessUser,MinloproUser,LoggerUser,GoogleMapsApiUser"
     run-apex-tests:
         needs: [deploy-source-to-org]
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - name: 'Checkout Source Code'
-              uses: actions/checkout@v3
-            - name: 'Install Salesforce CLI'
-              run: |
-                  npm install sfdx-cli --location=global
-                  nodeInstallPath=$(npm config get prefix)
-                  echo "$nodeInstallPath/bin" >> $GITHUB_PATH
-                  sfdx --version
-            - name: 'Authorize Target Environment via Auth URL'
-              run: |
-                  echo "${{secrets.QA_AUTH_URL}}" > ./org_auth_url.txt
-                  sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
-                  sfdx force:org:display --verbose
+            - uses: sfdx-actions/setup-sfdx@v1
+              with:
+                  sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
             - name: 'Run All Apex Tests with Coverage'
               run: npm run sfdx:apex:tests
     run-pmd-checks:
         needs: [deploy-source-to-org]
         runs-on: ubuntu-latest
         steps:
+            - uses: actions/checkout@v3
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - name: 'Checkout Source Code'
-              uses: actions/checkout@v3
             - name: 'Install Dependencies'
               run: npm install
             - name: 'Run Apex Static Code Analysis (PMD)'
               run: npm run pmd:html || echo "PMD report has been generated!"
-            - name: 'Upload PMD report as Artifact'
+            - name: 'Upload PMD Report as Artifact'
               uses: actions/upload-artifact@v3
               with:
                   name: apex-pmd-report
-                  path: assets/apex-pmd-report.html
+                  path: build/apex-pmd-report.html
