@@ -46,7 +46,9 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
                 return {
                     ..._,
                     selected,
-                    className: `slds-context-bar__item ${selected ? 'slds-is-active' : ''}`
+                    className: `slds-context-bar__item ${
+                        selected ? 'slds-is-active' : 'slds-non-active_to_delete'
+                    }`
                 };
             });
     }
