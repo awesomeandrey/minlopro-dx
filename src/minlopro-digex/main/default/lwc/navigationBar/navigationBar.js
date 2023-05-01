@@ -9,11 +9,11 @@ import getNavigationMenuItemsApex from '@salesforce/apex/NavigationMenuItemsCont
 // Constants;
 import $IsGuestUser from '@salesforce/user/isGuest';
 import $BasePath from '@salesforce/community/basePath';
-import basePath from '@salesforce/community/basePath';
 
 export default class NavigationBar extends NavigationMixin(LightningElement) {
     @api menuApiName;
 
+    @track currentUrlPath = '/';
     @track siteState = 'Draft';
     @track navigationItems = undefined;
 
@@ -35,19 +35,18 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
                 return false;
             })
             .map((_) => {
-                let selected = false;
-                if (_.target === '/' && window.location.pathname === $BasePath) {
-                    selected = true;
-                } else {
-                    selected = window.location.pathname.includes(_.target);
-                }
-                selected = false;
-                // TODO - mark selected tab!
+                const selected = (() => {
+                    if (_.target === '/') {
+                        // Exception for HOME page;
+                        return this.currentUrlPath === '/';
+                    }
+                    return this.currentUrlPath.startsWith(_.target);
+                })();
                 return {
                     ..._,
                     selected,
                     className: `slds-context-bar__item ${
-                        selected ? 'slds-is-active' : 'slds-non-active_to_delete'
+                        selected ? 'slds-is-active' : 'slds-is-relative'
                     }`
                 };
             });
@@ -62,6 +61,9 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
         } else {
             this.siteState = 'Live';
         }
+        // Update current URL path;
+        // https://...site.com/digex/s/org-limits -> /org-limits
+        this.currentUrlPath = window.location.pathname.replace($BasePath, '');
     }
 
     @wire(getNavigationMenuItemsApex, {
@@ -125,7 +127,7 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
             this.pageReference = {
                 type: 'standard__webPage',
                 attributes: {
-                    url: basePath + target
+                    url: $BasePath + target
                 }
             };
         } else if (type === 'ExternalLink') {
