@@ -1,6 +1,7 @@
 public without sharing class SystemInfoController {
     @AuraEnabled
     public static List<Map<String, Object>> getOrgLimits() {
+        Logger.debug('Requesting Org Limits');
         try {
             List<Map<String, Object>> orgLimitsMap = new List<Map<String, Object>>();
             if (Test.isRunningTest()) {
@@ -21,13 +22,17 @@ public without sharing class SystemInfoController {
         }
     }
 
-    @AuraEnabled
-    public static User getRunningUserInfo() {
+    @AuraEnabled(Cacheable=true)
+    public static User getUserInfoById(Id userId) {
+        Logger.debug('Requesting User Info');
+        if (String.isBlank(userId)) {
+            userId = UserInfo.getUserId();
+        }
         try {
             return [
-                SELECT Id, Name, Email, Username, UserType, IsPortalEnabled, Profile.Name
+                SELECT Id, Name, Email, Username, UserType, IsPortalEnabled, ProfileId, Profile.Name
                 FROM User
-                WHERE Id = :UserInfo.getUserId()
+                WHERE Id = :userId
                 LIMIT 1
             ][0];
         } catch (Exception ex) {

@@ -61,14 +61,17 @@ public without sharing class Logger {
             storeLocation(data);
             log = new Log__e(
                 AuthorId__c = UserInfo.getUserId(),
+                AuthorProfileId__c = UserInfo.getProfileId(),
                 Context__c = Request.getCurrent().getRequestId(),
                 Level__c = level.name(),
                 Data__c = JSON.serializePretty(data, true)
             );
             EventBus.publish(log);
-        } else {
-            System.debug(level, message);
         }
+        // Output to debug anyway;
+        System.debug('-----\\n');
+        System.debug(level, message);
+        System.debug('-----\\n');
     }
 
     private static List<String> cast(List<Object> values) {
@@ -121,7 +124,16 @@ public without sharing class Logger {
         if (!objectDescribe.getDescribe().isCreateable()) {
             return false;
         }
+        // User-level;
         LoggerSettings__c settings = LoggerSettings__c.getValues(UserInfo.getUserId());
+        if (settings == null) {
+            // Profile-level;
+            settings = LoggerSettings__c.getValues(UserInfo.getProfileId());
+        }
+        if (settings == null) {
+            // Org-default level;
+            settings = LoggerSettings__c.getOrgDefaults();
+        }
         return (settings == null) ? false : (System.today() == settings.LogsEmissionDate__c);
     }
 

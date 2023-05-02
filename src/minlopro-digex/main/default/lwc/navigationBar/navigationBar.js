@@ -21,6 +21,15 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
         return this.navigationItems !== undefined;
     }
 
+    get isGuestUser() {
+        return $IsGuestUser;
+    }
+
+    get logoutLink() {
+        const sitePrefix = $BasePath.replace(/\/s$/i, ''); // site prefix is the site base path without the trailing "/s"
+        return sitePrefix + '/secur/logout.jsp';
+    }
+
     get visibleNavigationItems() {
         if (!this.hasLoaded) {
             return [];
@@ -61,6 +70,7 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
         } else {
             this.siteState = 'Live';
         }
+        console.log('>>> Wired CurrentPageReference', currentPageReference);
         // Update current URL path;
         // https://...site.com/digex/s/org-limits -> /org-limits
         this.currentUrlPath = window.location.pathname.replace($BasePath, '');
@@ -73,9 +83,10 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
     wireMenuItems({ error, data }) {
         if (isNotEmpty(error)) {
             const { message } = parseError(error);
-            toastify.error({ message });
+            toastify.error({ message }, this);
             return;
         }
+        console.log('>>> Wired Data', data);
         this.navigationItems = (data || []).map((_) => ({
             id: `${_.Target}:${_.Type}`,
             label: _.Label,
@@ -104,6 +115,14 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
         if (homeNavItem) {
             this.navigate(homeNavItem);
         }
+    }
+
+    handleNavigateLogin(event) {
+        event.preventDefault();
+        this.navigate({
+            type: 'Event',
+            target: 'login'
+        });
     }
 
     navigate(navigationItem) {

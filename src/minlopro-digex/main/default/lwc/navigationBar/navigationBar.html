@@ -30,5 +30,13 @@
                 </template>
             </ul>
         </nav>
+        <div class="slds-align_absolute-center">
+            <template lwc:if={isGuestUser}>
+                <a href="javascript:void(0)" onclick={handleNavigateLogin}>Login</a>
+            </template>
+            <template lwc:else>
+                <a href={logoutLink}>Logout</a>
+            </template>
+        </div>
     </div>
 </template>
