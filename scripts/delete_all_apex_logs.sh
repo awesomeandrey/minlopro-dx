@@ -3,18 +3,23 @@
 # Define constants;
 targetOrg=$1 #Mandatory parameter!
 buildFolderName="./build"
-apexLogsCsvFilename="$buildFolderName/apex_logs.csv"
+apexLogsCsvFilePath="$buildFolderName/apex_logs.csv"
 
 mkdir -p $buildFolderName
 
 sfdx data query \
   --target-org $targetOrg \
   -q "SELECT Id FROM ApexLog" \
-  -r "csv" > "$apexLogsCsvFilename"
+  -r "csv" > "$apexLogsCsvFilePath"
+
+if ! [ -s $apexLogsCsvFilePath ]; then
+  printf "\n<----- No Apex Logs found in [$apexLogsCsvFilePath] file! ----->\n"
+  exit 0
+fi
 
 sfdx force:data:bulk:delete \
   --target-org $targetOrg \
   -s ApexLog \
-  -f $apexLogsCsvFilename
+  -f $apexLogsCsvFilePath
 
-rm $apexLogsCsvFilename
+rm $apexLogsCsvFilePath

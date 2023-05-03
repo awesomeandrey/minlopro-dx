@@ -113,13 +113,23 @@ jobs:
             - uses: sfdx-actions/setup-sfdx@v1
               with:
                   sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
+            - uses: sergeysova/jq-action@v2
+              with:
+                  cmd: jq --version
+            - name: 'Assign Alias To Target Org'
+              run: |
+                  targetUsername=$(sfdx force:org:display --verbose --json | jq -r '.result.username')
+                  printf "Target Org Username is $targetUsername"
+                  sfdx alias:set TARGET_ORG=$targetUsername
             - name: 'Deploy Source to Target Org'
               run: |
                   npm run sfdx:manifest
-                  npm run src:deploy:full
+                  npm run src:deploy:full -- -u TARGET_ORG
             - name: 'Assign Permission Sets'
-              continue-on-error: true
-              run: sfdx force:user:permset:assign -n "Minlopro_User,Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
+              run: |
+                  bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_permission_sets
+                  bash ./scripts/run_apex_script.sh TARGET_ORG enable_debug_mode
+                  bash ./scripts/delete_all_apex_logs.sh TARGET_ORG
     run-apex-tests:
         needs: [deploy-source-to-org]
         runs-on: ubuntu-latest
