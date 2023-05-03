@@ -2,7 +2,7 @@
     <!--Attributes-->
     <aura:attribute name="menuApiName" type="String" required="true" />
     <!--Main Content Area-->
-    <div class="slds-m-horizontal_xx-large slds-theme_default">
+    <div class="slds-m-horizontal_xx-large slds-p-top_xx-small slds-theme_default">
         <c:navigationBar menuApiName="{!v.menuApiName}" />
         <div class="slds-grid slds-wrap">
             <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_6-of-12">

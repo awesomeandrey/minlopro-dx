@@ -37,6 +37,19 @@
             </div>
         </div>
     </div>
+    <div class="slds-theme_default slds-p-horizontal_small slds-p-bottom_small">
+        <lightning-combobox
+            label="Log Owners"
+            placeholder="Select Log Owners To Track"
+            value="null"
+            options={eligibleLogOwners}
+            onchange={handleSelectLogOwner}
+        ></lightning-combobox>
+        <lightning-pill-container
+            items={selectedLogOwnersAsPills}
+            onitemremove={handleRemoveLogOwner}
+        ></lightning-pill-container>
+    </div>
     <div if:true={hasLogs} class="slds-container_fluid slds-scrollable_x slds-scrollable_y">
         <lightning-tree-grid
             key-field="uid"

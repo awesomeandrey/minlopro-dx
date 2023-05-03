@@ -35,6 +35,7 @@
     <networkMemberGroups>
         <permissionSet>Minlopro_DigEx</permissionSet>
         <profile>Admin</profile>
+        <profile>DigEx Partner</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
@@ -44,7 +45,8 @@
         <selfRegProfilePageOverrideSetting>Designer</selfRegProfilePageOverrideSetting>
     </networkPageOverrides>
     <picassoSite>DigEx1</picassoSite>
-    <selfRegistration>false</selfRegistration>
+    <selfRegProfile>DigEx Partner</selfRegProfile>
+    <selfRegistration>true</selfRegistration>
     <sendWelcomeEmail>false</sendWelcomeEmail>
     <site>DigEx</site>
     <siteArchiveStatus>NotArchived</siteArchiveStatus>

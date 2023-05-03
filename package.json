@@ -3,7 +3,7 @@
     "private": true,
     "version": "1.0.0",
     "engines": {
-        "node": "19.7.0"
+        "node": ">=18.x"
     },
     "description": "Minlopro DX",
     "scripts": {
@@ -21,7 +21,7 @@
         "sfdx:apex:test": "sfdx force:apex:test:run -r human",
         "sfdx:auth:create": "sfdx force:org:display --verbose --json > build/target-org-info.json",
         "sfdx:auth:store": "sfdx auth:sfdxurl:store -f build/target-org-info.json",
-        "sfdx:manifest": "sfdx force:source:manifest:create --sourcepath src --manifestname manifests/package.xml",
+        "sfdx:manifest": "sfdx project generate manifest --source-dir src --name manifests/package.xml",
         "sfdx:manifest:delta": "mkdir -p manifests/sgd && sfdx sgd:source:delta --output manifests/sgd --source 'src'",
         "src:deploy:full": "sfdx force:source:deploy -x manifests/package.xml --predestructivechanges manifests/destructiveChangesPre.xml --postdestructivechanges manifests/destructiveChangesPost.xml --verbose --ignorewarnings",
         "src:deploy:check": "npm run src:deploy:full -- --checkonly",

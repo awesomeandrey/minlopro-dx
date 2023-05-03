@@ -30,3 +30,4 @@ manifests/package.xml
 **/flexipages/Playground.flexipage-meta.xml
 **/classes/LoggerDemo.cls
 **/classes/LoggerDemo.cls-meta.xml
+**/playground.sh

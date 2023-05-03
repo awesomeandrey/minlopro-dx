@@ -38,7 +38,7 @@ jobs:
                   git checkout ${{github.head_ref}}
                   git pull
                   git branch -a
-                  bash ./.github/scripts/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
+                  bash ./scripts/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
     run-jest-tests:
         if: ${{github.event_name == 'pull_request'}}
         runs-on: ubuntu-latest
@@ -64,6 +64,14 @@ jobs:
             - uses: sfdx-actions/setup-sfdx@v1
               with:
                   sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
+            - uses: sergeysova/jq-action@v2
+              with:
+                  cmd: jq --version
+            - name: 'Assign Alias To Target Org'
+              run: |
+                  targetUsername=$(sfdx force:org:display --verbose --json | jq -r '.result.username')
+                  printf "Target Org Username is $targetUsername"
+                  sfdx alias:set TARGET_ORG=$targetUsername
             - name: 'Install "sfdx-git-delta"'
               run: |
                   echo y | sfdx plugins:install "sfdx-git-delta@stable"
@@ -84,26 +92,14 @@ jobs:
                   git checkout ${{github.head_ref}}
                   git pull
                   git branch -a
-                  mkdir manifests/sgd
-                  npm run sfdx:manifest:delta -- \
-                    --from "${{github.base_ref}}" \
-                    --to "${{github.head_ref}}"
-                  tree manifests/sgd
-                  echo "<<< PACKAGE.XML >>>" && cat manifests/sgd/package/package.xml
-                  echo "<<< DESTRUCTIVE_CHANGES.XML >>>" && cat manifests/sgd/destructiveChanges/destructiveChanges.xml
+                  bash ./scripts/sgd_generate_manifests.sh ${{github.base_ref}} ${{github.head_ref}}
             - name: 'Upload Delta Manifest Files as Artifact'
               uses: actions/upload-artifact@v3
               with:
                   name: delta-changes
                   path: manifests/sgd
             - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
-              run: |
-                  sfdx force:source:deploy \
-                    --checkonly \
-                    --verbose \
-                    --ignorewarnings \
-                    --manifest "manifests/sgd/package/package.xml" \
-                    --postdestructivechanges "manifests/sgd/destructiveChanges/destructiveChanges.xml"
+              run: bash ./scripts/sgd_validate_deployment.sh TARGET_ORG
 
     # Event <> 'Pull Request'
     deploy-source-to-org:
@@ -117,14 +113,23 @@ jobs:
             - uses: sfdx-actions/setup-sfdx@v1
               with:
                   sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
+            - uses: sergeysova/jq-action@v2
+              with:
+                  cmd: jq --version
+            - name: 'Assign Alias To Target Org'
+              run: |
+                  targetUsername=$(sfdx force:org:display --verbose --json | jq -r '.result.username')
+                  printf "Target Org Username is $targetUsername"
+                  sfdx alias:set TARGET_ORG=$targetUsername
             - name: 'Deploy Source to Target Org'
               run: |
                   npm run sfdx:manifest
-                  npm run src:deploy:full
+                  npm run src:deploy:full -- -u TARGET_ORG
             - name: 'Assign Permission Sets'
-              continue-on-error: true
               run: |
-                  sfdx force:user:permset:assign -n "CoreAccessUser,MinloproUser,LoggerUser,GoogleMapsApiUser"
+                  bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_permission_sets
+                  bash ./scripts/run_apex_script.sh TARGET_ORG enable_debug_mode
+                  bash ./scripts/delete_all_apex_logs.sh TARGET_ORG
     run-apex-tests:
         needs: [deploy-source-to-org]
         runs-on: ubuntu-latest

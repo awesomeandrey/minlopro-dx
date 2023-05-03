@@ -34,8 +34,11 @@ function warning({ message, mode, title }) {
     showToast(!title ? warningMsg : title, message, Variant.WARNING, mode);
 }
 
-function error({ message, mode, title }) {
+function error({ message, mode, title }, thisArg) {
     showToast(!title ? errorMsg : title, message, Variant.ERROR, mode);
+    if (!!thisArg) {
+        console.error(`>>> ${thisArg.constructor.name}.js`, title, message);
+    }
 }
 
 function showToast(title, message, variant, mode) {

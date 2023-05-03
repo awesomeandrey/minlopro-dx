@@ -98,7 +98,7 @@ sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
 _Reset Source Tracking Locally_
 
 ```
-sfdx force:source:tracking:clear -u SO
+sfdx force:source:tracking:clear -u SO -p
 ```
 
 _Retrieve Metadata From Org by `package.xml` File_

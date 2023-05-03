@@ -1,5 +1,8 @@
 <!-- add implements="forceCommunity:availableForAllPageTypes" to surface the component in community builder -->
-<aura:component controller="LightningSelfRegisterController">
+<aura:component
+    controller="LightningSelfRegisterController"
+    implements="forceCommunity:availableForAllPageTypes"
+>
     <aura:attribute
         name="accountId"
         type="String"
@@ -77,6 +80,7 @@
     <aura:dependency resource="c:setExpId" type="EVENT" />
 
     <div>
+        <h2>Custom Aura component</h2>
         <aura:renderIf isTrue="{!v.showError}">
             <div id="error">
                 <ui:outputRichText value="{!v.errorMessage}" />

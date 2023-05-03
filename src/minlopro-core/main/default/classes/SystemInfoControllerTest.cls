@@ -7,8 +7,8 @@ private class SystemInfoControllerTest {
     }
 
     @IsTest
-    static void testGetRunningUserInfo() {
-        User runningUser = SystemInfoController.getRunningUserInfo();
+    static void testGetUserInfoById() {
+        User runningUser = SystemInfoController.getUserInfoById(UserInfo.getUserId());
         Assert.areEqual(UserInfo.getUserId(), runningUser.Id);
     }
 }

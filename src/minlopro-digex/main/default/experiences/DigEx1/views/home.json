@@ -19,6 +19,14 @@
     "regionName" : "header",
     "type" : "region"
   }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:runningUserInfoGenerator",
+      "id" : "eef51d45-ef83-4dcf-884e-a4d9a42b25a7",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
     "id" : "17436f93-9175-4279-8c29-c9febe7b5967",
     "regionName" : "content",
     "type" : "region"

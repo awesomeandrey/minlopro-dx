@@ -9,7 +9,7 @@ srcFilePrefix="$srcFolderName/"
 changedFiles="changedFiles.txt"
 changedFilesPath="$buildFolderName/$changedFiles"
 
-echo "baseRef is $baseRef"
+printf "\n baseRef is [$baseRef] \n"
 
 # Create 'build' folder;
 mkdir -p "$buildFolderName"
@@ -19,28 +19,33 @@ mkdir -p "$srcFolderPath"
 # Grab HEAD commit SHA from source branch;
 BASE=$(git merge-base $baseRef HEAD)
 
-echo "BASE is $BASE"
+printf "\n BASE commit in [$baseRef] is [$BASE] \n"
 
 # Extract changed files and save those names into the text file;
 touch "$changedFilesPath"
 git diff --name-only $BASE HEAD > "$changedFilesPath"
 
 # Quick overview of changed files;
-echo "<<< CHANGED FILES >>>"
+printf "\n <----- CHANGED FILES -----> \n"
 cat "$changedFilesPath"
 
-# Copy each changed file into a separate folder preserving folders hierarchy;
+# Copy each SRC-changed file into a separate folder preserving folders hierarchy;
 grep "$srcFilePrefix" "$changedFilesPath" | while read -r filepath; do
   if [ -f $filepath ]; then
     rsync -R "$filepath" "$buildFolderName"
   fi
 done
 
-echo "<<< SRC FOLDER TREE >>>"
+printf "\n <----- BUILD FOLDER TREE -----> \n"
 tree $buildFolderName
+
+if ! [ "$(ls $srcFolderPath)" ]; then
+  printf "\n<----- No changed files detected in [$srcFolderPath] folder! ----->\n"
+  exit 0
+fi
 
 # Invoke prettier;
 npm install -g prettier
-echo "prettier version is $(prettier --version)"
-echo "pwd is $(pwd)"
+printf "\n prettier version is $(prettier --version)\n"
+printf "\n pwd is $(pwd)\n"
 prettier --check "$srcFolderPath/**/*.{cmp,component,css,html,js,json,md,page,trigger,yaml,yml}"

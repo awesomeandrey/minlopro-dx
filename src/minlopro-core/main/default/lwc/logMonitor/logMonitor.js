@@ -1,10 +1,14 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
 import EMP from 'lightning/empApi';
 import LightningAlert from 'lightning/alert';
 import $Toastify from 'c/toastify';
-import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId } from 'c/utilities';
+import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId, wait } from 'c/utilities';
 
-import USER_ID from '@salesforce/user/Id';
+import $UserId from '@salesforce/user/Id';
+
+// Apex;
+import getUserInfoByIdApex from '@salesforce/apex/SystemInfoController.getUserInfoById';
+import getLoggerSettingsBySetupOwnersApex from '@salesforce/apex/LogsMonitorPanelController.getLoggerSettingsBySetupOwners';
 
 // Static Resources;
 import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
@@ -27,6 +31,50 @@ export default class LogMonitor extends LightningElement {
     @track isMuted = false;
     @track logsByContextId = {};
     @track lastTimestampByContextId = {};
+
+    @track selectedLogOwnerIds = [];
+    /**
+     * The list of setup owner definitions for which logger settings are created & active.
+     * Sample setup owner definition:
+     * {
+     *   ownerId - User or Profile ID (e.g. '00e1l000000IM9GAAW')
+     *   name - User or Profile Name (e.g. 'DigEx Profile')
+     *   type - Setup Owner Type (e.g. 'user' or 'profile')
+     * }
+     * Note that owr-default setting is ignored!
+     * @type {[]}
+     */
+    @track logOwners = [];
+
+    get eligibleLogOwners() {
+        // Used in the 'combobox' element;
+        return this.logOwners
+            .filter((_) => {
+                // Exclude selected ones;
+                return !this.selectedLogOwnerIds.includes(_.ownerId);
+            })
+            .map(({ name, ownerId, type }) => {
+                return {
+                    label: `${name} (${type.toUpperCase()})`,
+                    value: ownerId
+                };
+            });
+    }
+
+    get selectedLogOwnersAsPills() {
+        return this.logOwners
+            .filter(({ ownerId }) => {
+                return this.selectedLogOwnerIds.includes(ownerId);
+            })
+            .map(({ name, ownerId, type }) => {
+                return {
+                    type: 'avatar',
+                    label: name,
+                    name: ownerId,
+                    fallbackIconName: type === 'user' ? 'standard:user' : 'standard:individual'
+                };
+            });
+    }
 
     get labels() {
         return {
@@ -82,8 +130,7 @@ export default class LogMonitor extends LightningElement {
             {
                 fieldName: 'data.Quiddity',
                 label: 'Quiddity',
-                initialWidth: 150,
-                actions: []
+                initialWidth: 150
             },
             {
                 fieldName: 'debugLevel',
@@ -129,6 +176,13 @@ export default class LogMonitor extends LightningElement {
         const clonedLogEntries = cloneObject(Object.values(this.logsByContextId));
         return clonedLogEntries.reduce((accumulator = [], logs = [], currentIndex) => {
             const firstLog = logs[0];
+            // Check whether log should be shown based on predefined log owners;
+            const doShow = this.selectedLogOwnerIds.some((_) => {
+                return firstLog.logOwnerIds.includes(_);
+            });
+            if (!doShow) {
+                return accumulator;
+            }
             if (logs.length > 1) {
                 // Add remaining logs as child items;
                 firstLog._children = logs.slice(1);
@@ -141,14 +195,42 @@ export default class LogMonitor extends LightningElement {
         }, []);
     }
 
+    get runningUserId() {
+        return this.wiredRunningUser?.data?.Id;
+    }
+
+    get runningUserProfileId() {
+        return this.wiredRunningUser?.data?.ProfileId;
+    }
+
     get $treeGrid() {
         return this.template.querySelector('lightning-tree-grid');
     }
 
+    @wire(getUserInfoByIdApex, { userId: $UserId })
+    wiredRunningUser = {};
+
     // Lifecycle methods;
 
-    connectedCallback() {
+    async connectedCallback() {
+        // Subscribe to EMP;
         this.subscribe();
+        // Retrieve info about all eligible log filters;
+        const [error, result] = await to(getLoggerSettingsBySetupOwnersApex());
+        if (isNotEmpty(error)) {
+            this.parseErrorAndShow(error);
+            return;
+        }
+        this.logOwners = cloneObject(result);
+        // Auto-select option for running user (if applicable);
+        wait(() => {
+            const logSettingsForRunningUser = this.logOwners.filter(({ ownerId }) => {
+                return [this.runningUserId, this.runningUserProfileId].includes(ownerId);
+            });
+            if (isNotEmpty(logSettingsForRunningUser)) {
+                this.selectedLogOwnerIds = logSettingsForRunningUser.map(({ ownerId }) => ownerId);
+            }
+        });
     }
 
     disconnectedCallback() {
@@ -199,6 +281,16 @@ export default class LogMonitor extends LightningElement {
         }
     }
 
+    handleSelectLogOwner(event) {
+        const ownerIdToAdd = event.detail.value;
+        this.selectedLogOwnerIds = [...this.selectedLogOwnerIds, ownerIdToAdd];
+    }
+
+    handleRemoveLogOwner(event) {
+        const ownerIdToRemove = event.detail.item.name;
+        this.selectedLogOwnerIds = this.selectedLogOwnerIds.filter((_) => _ !== ownerIdToRemove);
+    }
+
     // Utility Methods;
 
     subscribe() {
@@ -245,11 +337,14 @@ export default class LogMonitor extends LightningElement {
         const {
             Level__c: debugLevel,
             AuthorId__c: authorId,
+            AuthorProfileId__c: authorProfileId,
             Data__c: dataAsString,
             Context__c: contextId,
             CreatedDate: createdDate
         } = message.data.payload;
-        if (authorId === USER_ID) {
+        const matchedLogOwners = this.findMatchedLogOwners({ authorId, authorProfileId });
+        debugger;
+        if (isNotEmpty(matchedLogOwners)) {
             // Normalize PE payload;
             const data = JSON.parse(dataAsString);
             const logItem = flatten({
@@ -263,6 +358,7 @@ export default class LogMonitor extends LightningElement {
             // Custom attributes;
             logItem.stacktrace = `${data.Class}.cls > ${data.Method}() > Line #${data.Line}`;
             logItem.iconName = debugLevel === 'ERROR' ? 'utility:bug' : 'utility:info';
+            logItem.logOwnerIds = matchedLogOwners.map(({ ownerId }) => ownerId);
             // Calculate 'elapsed' time for the context;
             const currentTimestamp = new Date(createdDate).getTime();
             const lastTimestamp = this.lastTimestampByContextId[contextId] || currentTimestamp;
@@ -291,5 +387,12 @@ export default class LogMonitor extends LightningElement {
         this.error = { title, message };
         // Output error info to console;
         console.error('LogMonitor.js', { title, message, code, details });
+    }
+
+    findMatchedLogOwners(logEvent) {
+        const { authorId, authorProfileId } = logEvent;
+        return this.logOwners
+            .filter(({ ownerId }) => this.selectedLogOwnerIds.includes(ownerId))
+            .filter(({ ownerId }) => ownerId === authorId || ownerId === authorProfileId);
     }
 }

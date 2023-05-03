@@ -9,16 +9,25 @@ import getNavigationMenuItemsApex from '@salesforce/apex/NavigationMenuItemsCont
 // Constants;
 import $IsGuestUser from '@salesforce/user/isGuest';
 import $BasePath from '@salesforce/community/basePath';
-import basePath from '@salesforce/community/basePath';
 
 export default class NavigationBar extends NavigationMixin(LightningElement) {
     @api menuApiName;
 
+    @track currentUrlPath = '/';
     @track siteState = 'Draft';
     @track navigationItems = undefined;
 
     get hasLoaded() {
         return this.navigationItems !== undefined;
+    }
+
+    get isGuestUser() {
+        return $IsGuestUser;
+    }
+
+    get logoutLink() {
+        const sitePrefix = $BasePath.replace(/\/s$/i, ''); // site prefix is the site base path without the trailing "/s"
+        return sitePrefix + '/secur/logout.jsp';
     }
 
     get visibleNavigationItems() {
@@ -35,18 +44,19 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
                 return false;
             })
             .map((_) => {
-                let selected = false;
-                if (_.target === '/' && window.location.pathname === $BasePath) {
-                    selected = true;
-                } else {
-                    selected = window.location.pathname.includes(_.target);
-                }
-                selected = false;
-                // TODO - mark selected tab!
+                const selected = (() => {
+                    if (_.target === '/') {
+                        // Exception for HOME page;
+                        return this.currentUrlPath === '/';
+                    }
+                    return this.currentUrlPath.startsWith(_.target);
+                })();
                 return {
                     ..._,
                     selected,
-                    className: `slds-context-bar__item ${selected ? 'slds-is-active' : ''}`
+                    className: `slds-context-bar__item ${
+                        selected ? 'slds-is-active' : 'slds-is-relative'
+                    }`
                 };
             });
     }
@@ -60,6 +70,10 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
         } else {
             this.siteState = 'Live';
         }
+        console.log('>>> Wired CurrentPageReference', currentPageReference);
+        // Update current URL path;
+        // https://...site.com/digex/s/org-limits -> /org-limits
+        this.currentUrlPath = window.location.pathname.replace($BasePath, '');
     }
 
     @wire(getNavigationMenuItemsApex, {
@@ -69,9 +83,10 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
     wireMenuItems({ error, data }) {
         if (isNotEmpty(error)) {
             const { message } = parseError(error);
-            toastify.error({ message });
+            toastify.error({ message }, this);
             return;
         }
+        console.log('>>> Wired Data', data);
         this.navigationItems = (data || []).map((_) => ({
             id: `${_.Target}:${_.Type}`,
             label: _.Label,
@@ -102,6 +117,14 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
         }
     }
 
+    handleNavigateLogin(event) {
+        event.preventDefault();
+        this.navigate({
+            type: 'Event',
+            target: 'login'
+        });
+    }
+
     navigate(navigationItem) {
         const { type, target, defaultListViewId } = navigationItem;
         // Get the correct PageReference object for the menu item type
@@ -123,7 +146,7 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
             this.pageReference = {
                 type: 'standard__webPage',
                 attributes: {
-                    url: basePath + target
+                    url: $BasePath + target
                 }
             };
         } else if (type === 'ExternalLink') {

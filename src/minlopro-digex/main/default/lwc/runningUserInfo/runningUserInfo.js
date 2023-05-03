@@ -4,13 +4,11 @@ import { cloneObject, isEmpty, isNotEmpty, parseError, to } from 'c/utilities';
 import toastify from 'c/toastify';
 
 // Apex;
-import getRunningUserInfoApex from '@salesforce/apex/SystemInfoController.getRunningUserInfo';
+import getUserInfoByIdApex from '@salesforce/apex/SystemInfoController.getUserInfoById';
 
 // Props;
 import $UserId from '@salesforce/user/Id';
 import $IsGuest from '@salesforce/user/isGuest';
-// import $CommunityId from '@salesforce/community/Id';
-// import $CommunityBasePath from '@salesforce/community/basePath';
 
 export default class RunningUserInfo extends NavigationMixin(LightningElement) {
     @track userInfoItems = [];
@@ -21,10 +19,10 @@ export default class RunningUserInfo extends NavigationMixin(LightningElement) {
     }
 
     async connectedCallback() {
-        const [error, result = []] = await to(getRunningUserInfoApex());
+        const [error, result = []] = await to(getUserInfoByIdApex({ userId: $UserId }));
         if (isNotEmpty(error)) {
             const { message } = parseError(error);
-            toastify.error({ message });
+            toastify.error({ message }, this);
             return;
         }
         const userInfo = cloneObject(result);
