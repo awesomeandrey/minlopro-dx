@@ -1,0 +1,48 @@
+<apex:page
+    controller="digex_RunningUserInfoAsPdfController"
+    action="{!doLoadCurrentUserInfo}"
+    showHeader="false"
+    sidebar="false"
+    standardStylesheets="false"
+    docType="html-5.0"
+    applyHtmlTag="false"
+    applyBodyTag="false"
+    renderAs="pdf"
+>
+    <head>
+        <!-- SLDS styles are not supported when rendering VF page as PDF -->
+        <style>
+            table,
+            th,
+            td {
+                border: 1px solid silver;
+            }
+        </style>
+    </head>
+    <body class="slds-scope">
+        <div class="slds-text-heading_medium slds-text-align_center">
+            Hi, <span class="slds-text-color_success">{!currentUser.Name}</span>
+        </div>
+        <apex:dataTable
+            value="{!userInfoItems}"
+            var="infoItem"
+            id="theTable"
+            rowClasses="odd,even"
+            styleClass="slds-table slds-table_cell-buffer slds-table_bordered"
+        >
+            <apex:facet name="caption">
+                <div class="slds-text-title_caps slds-m-vertical_x-small slds-text-align_center">
+                    Your Information
+                </div>
+            </apex:facet>
+            <apex:column>
+                <apex:facet name="header">Field Name</apex:facet>
+                <apex:outputText value="{!infoItem.field}" />
+            </apex:column>
+            <apex:column>
+                <apex:facet name="header">Field value</apex:facet>
+                <apex:outputText value="{!infoItem.value}" />
+            </apex:column>
+        </apex:dataTable>
+    </body>
+</apex:page>

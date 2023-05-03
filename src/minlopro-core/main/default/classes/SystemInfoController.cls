@@ -41,4 +41,10 @@ public without sharing class SystemInfoController {
             throw new AuraHandledException(exceptionDetails);
         }
     }
+
+    @AuraEnabled
+    public static String getRunningUserInfoAsPdf() {
+        Blob b = Page.digex_RunningUserInfoAsPdf.getContentAsPDF();
+        return EncodingUtil.base64Encode(b);
+    }
 }
