@@ -50,7 +50,8 @@ export default class RunningUserInfo extends NavigationMixin(LightningElement) {
         this.communityInfoItems = [
             // {name: "Community Base Path", value: $CommunityBasePath},
             { name: 'Is Guest', value: $IsGuest, isCheckbox: true },
-            { name: 'Is Portal Enabled', value: userInfo.IsPortalEnabled, isCheckbox: true }
+            { name: 'Is Portal Enabled', value: userInfo.IsPortalEnabled, isCheckbox: true },
+            { name: 'Profile User License', value: userInfo?.Profile?.UserLicense?.Name }
             // {
             //     name: 'Is Portal Self Registered',
             //     value: userInfo.IsPortalSelfRegistered,

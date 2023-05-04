@@ -33,7 +33,6 @@
     >unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
     <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
     <networkMemberGroups>
-        <permissionSet>Minlopro_DigEx</permissionSet>
         <profile>Admin</profile>
         <profile>DigEx Partner</profile>
     </networkMemberGroups>
