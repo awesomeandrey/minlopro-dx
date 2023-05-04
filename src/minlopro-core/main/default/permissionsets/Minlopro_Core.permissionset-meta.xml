@@ -4,7 +4,15 @@
         <apexClass>SystemInfoController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>digex_RunningUserInfoAsPdfController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Primary PS for Minlopro end-users.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - Core</label>
+    <pageAccesses>
+        <apexPage>digex_RunningUserInfoAsPdf</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
 </PermissionSet>

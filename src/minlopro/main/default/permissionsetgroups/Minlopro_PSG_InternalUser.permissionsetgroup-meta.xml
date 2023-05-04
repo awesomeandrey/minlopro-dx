@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>PSG for internal users only.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Minlopro - PSG - Internal User</label>
+    <permissionSets>Minlopro_Core</permissionSets>
+    <permissionSets>Minlopro_DigEx</permissionSets>
+    <permissionSets>Minlopro_GoogleMaps</permissionSets>
+    <permissionSets>Minlopro_Logger</permissionSets>
+    <permissionSets>Minlopro_User</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

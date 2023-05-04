@@ -10,5 +10,9 @@
         <members>OrgLimitsControllerTest</members>
         <name>ApexClass</name>
     </types>
+    <types>
+        <members>Auto_Assign_Minlopro_Permission_Sets_to_DigEx_Users</members>
+        <name>Flow</name>
+    </types>
     <version>55.0</version>
 </Package>

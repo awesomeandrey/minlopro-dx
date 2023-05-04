@@ -52,9 +52,11 @@ sfdx force:user:create \
     --setalias qa-user \
     --set-unique-username
 
-// Assign permission sets to users
-sfdx force:user:permset:assign -u SO \
- -n "Minlopro_User,Minlopro_Core,Minlopro_DigEx,Minlopro_GoogleMaps,Minlopro_Logger"
+// Assign permission set groups to target users
+
+# bash ./scripts/run_apex_script.sh SO_alias assign_minlopro_digex_psg
+# bash ./scripts/run_apex_script.sh SO_alias assign_minlopro_psg
+# bash ./scripts/run_apex_script.sh SO enable_debug_mode
 ```
 
 _Generate Auth URL for the Target Org_

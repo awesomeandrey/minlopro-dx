@@ -5,16 +5,6 @@
   "id" : "cebf5701-a2f4-49ee-ac66-4ed98182de68",
   "label" : "Welcome",
   "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : {
-        "menuApiName" : "DigEx_Navigation_Items_Set_Unauthenticated"
-      },
-      "componentName" : "c:navigationBar",
-      "id" : "e1aef1c6-6a55-4320-9cb0-333d0ea81644",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "ea1686ed-0594-4077-9984-0f219dd12fc1",
     "regionName" : "header",
     "type" : "region"

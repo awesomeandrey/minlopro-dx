@@ -9,5 +9,9 @@
 **/profiles/Admin.profile-meta.xml
 Admin.profile
 
+# Ignore DigEx profiles as well;
+**/profiles/DigEx Partner.profile-meta.xml
+**/profiles/DigEx Profile.profile-meta.xml
+
 # LWC Jest tests
 **/__tests__/**
