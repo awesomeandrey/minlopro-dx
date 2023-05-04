@@ -4,8 +4,18 @@ Map<Id, PermissionSet> permissionSetsByIds = new Map<Id, PermissionSet>(
 );
 List<PermissionSetAssignment> psaItems = new List<PermissionSetAssignment>();
 for (PermissionSet psItem : permissionSetsByIds.values()) {
-    psaItems.add(new PermissionSetAssignment(PermissionSetId = psItem.Id, AssigneeId = runningUserId));
+    psaItems.add(
+            new PermissionSetAssignment(
+                PermissionSetId = psItem.Id,
+                AssigneeId = runningUserId
+            )
+    );
 }
 if (!psaItems.isEmpty()) {
     Database.insert(psaItems, false);
 }
+System.debug(
+        String.format(
+                '\n\n Successfully assigned "Minlopro"-like permission sets to [{0}] user. \n',
+                Lists.of(UserInfo.getName()))
+);

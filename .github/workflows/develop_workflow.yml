@@ -125,7 +125,7 @@ jobs:
               run: |
                   npm run sfdx:manifest
                   npm run src:deploy:full -- -u TARGET_ORG
-            - name: 'Assign Permission Sets'
+            - name: 'Custom Post-Deployment Steps'
               run: |
                   bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_permission_sets
                   bash ./scripts/run_apex_script.sh TARGET_ORG enable_debug_mode

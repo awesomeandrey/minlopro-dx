@@ -12,8 +12,10 @@ sfdx data query \
   -q "SELECT Id FROM ApexLog" \
   -r "csv" > "$apexLogsCsvFilePath"
 
-if ! [ -s $apexLogsCsvFilePath ]; then
-  printf "\n<----- No Apex Logs found in [$apexLogsCsvFilePath] file! ----->\n"
+# Check if there are logs fetched;
+wordsCount=$(wc -w < $apexLogsCsvFilePath)
+if (($wordsCount < 10)); then
+  echo 'There are not so many Apex Logs to delete so far.'
   exit 0
 fi
 
