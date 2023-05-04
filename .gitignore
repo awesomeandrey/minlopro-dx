@@ -28,6 +28,8 @@ manifests/package.xml
 **/lwc/playground/
 **/tabs/Playground.tab-meta.xml
 **/flexipages/Playground.flexipage-meta.xml
+**/classes/Playground.cls
+**/classes/Playground.cls-meta.xml
 **/classes/LoggerDemo.cls
 **/classes/LoggerDemo.cls-meta.xml
 **/playground.sh

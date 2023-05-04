@@ -1,38 +1,33 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>57.0</apiVersion>
     <assignments>
-        <name>Create_PSA</name>
-        <label>Create PSA</label>
-        <locationX>138</locationX>
-        <locationY>695</locationY>
+        <name>Create_PSA_Prototype</name>
+        <label>Create PSA Prototype</label>
+        <locationX>50</locationX>
+        <locationY>575</locationY>
         <assignmentItems>
-            <assignToReference>individualPermissionSetAssignmentRecord.PermissionSetId</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Loop_Through_Permission_Sets.Id</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>individualPermissionSetAssignmentRecord.AssigneeId</assignToReference>
+            <assignToReference>permissionSetAssignmentToInsert.AssigneeId</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>$Record.Id</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference>permissionSetAssignmentsToInsert</assignToReference>
-            <operator>Add</operator>
+            <assignToReference
+            >permissionSetAssignmentToInsert.PermissionSetGroupId</assignToReference>
+            <operator>Assign</operator>
             <value>
-                <elementReference>individualPermissionSetAssignmentRecord</elementReference>
+                <elementReference>Find_Minlopro_DigEx_PSG.Id</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Loop_Through_Permission_Sets</targetReference>
+            <targetReference>Insert_PSG_Assignment</targetReference>
         </connector>
     </assignments>
     <decisions>
-        <description>Check if the running user&apos;s profile is &apos;DigEx Partner&apos;</description>
+        <description
+        >Check if the running user&apos;s profile is &apos;DigEx Partner&apos;</description>
         <name>Is_DigEx_Partner_Profile_User</name>
         <label>Is &apos;DigEx Partner&apos; Profile User?</label>
         <locationX>182</locationX>
@@ -49,28 +44,14 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Find_Minlopro_Permission_Sets</targetReference>
+                <targetReference>Find_Minlopro_DigEx_PSG</targetReference>
             </connector>
             <label>DigEx Profile User</label>
         </rules>
     </decisions>
     <environments>Default</environments>
-    <interviewLabel>Auto-Assign Minlopro Permission Sets {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Auto-Assign Minlopro Permission Sets to DigEx Users</label>
-    <loops>
-        <name>Loop_Through_Permission_Sets</name>
-        <label>Loop Through Permission Sets</label>
-        <locationX>50</locationX>
-        <locationY>575</locationY>
-        <collectionReference>Find_Minlopro_Permission_Sets</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>Create_PSA</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>Insert_Permission_Set_Assignment_Records</targetReference>
-        </noMoreValuesConnector>
-    </loops>
+    <interviewLabel>Auto-Assign PSG To DigEx Users {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Auto-Assign PSG To DigEx Users</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -91,38 +72,31 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordCreates>
-        <name>Insert_Permission_Set_Assignment_Records</name>
-        <label>Insert Permission Set Assignment Records</label>
+        <name>Insert_PSG_Assignment</name>
+        <label>Insert PSG Assignment</label>
         <locationX>50</locationX>
-        <locationY>911</locationY>
-        <inputReference>permissionSetAssignmentsToInsert</inputReference>
+        <locationY>695</locationY>
+        <inputReference>permissionSetAssignmentToInsert</inputReference>
     </recordCreates>
     <recordLookups>
-        <name>Find_Minlopro_Permission_Sets</name>
-        <label>Find Minlopro Permission Sets</label>
+        <name>Find_Minlopro_DigEx_PSG</name>
+        <label>Find Minlopro DigEx PSG</label>
         <locationX>50</locationX>
         <locationY>455</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Loop_Through_Permission_Sets</targetReference>
+            <targetReference>Create_PSA_Prototype</targetReference>
         </connector>
-        <filterLogic>or</filterLogic>
+        <filterLogic>and</filterLogic>
         <filters>
-            <field>Name</field>
+            <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Minlopro_Core</stringValue>
+                <stringValue>Minlopro_PSG_DigExUser</stringValue>
             </value>
         </filters>
-        <filters>
-            <field>Name</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Minlopro_DigEx</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>PermissionSet</object>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>PermissionSetGroup</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
@@ -138,17 +112,9 @@
     <status>Active</status>
     <triggerOrder>1</triggerOrder>
     <variables>
-        <name>individualPermissionSetAssignmentRecord</name>
+        <name>permissionSetAssignmentToInsert</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <objectType>PermissionSetAssignment</objectType>
-    </variables>
-    <variables>
-        <name>permissionSetAssignmentsToInsert</name>
-        <dataType>SObject</dataType>
-        <isCollection>true</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
         <objectType>PermissionSetAssignment</objectType>

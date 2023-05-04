@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>PSG for DigEx users only (partners and guest user).</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Minlopro - PSG - DigEx User</label>
+    <permissionSets>Minlopro_Core</permissionSets>
+    <permissionSets>Minlopro_DigEx</permissionSets>
+    <permissionSets>Minlopro_GoogleMaps</permissionSets>
+    <permissionSets>Minlopro_Logger</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

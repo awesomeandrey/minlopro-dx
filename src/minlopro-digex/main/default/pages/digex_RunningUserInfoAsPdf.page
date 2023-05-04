@@ -17,12 +17,17 @@
             td {
                 border: 1px solid silver;
             }
+
+            body {
+                font-family: 'Arial Unicode MS', serif;
+            }
         </style>
     </head>
     <body class="slds-scope">
         <div class="slds-text-heading_medium slds-text-align_center">
             Hi, <span class="slds-text-color_success">{!currentUser.Name}</span>
         </div>
+        <p>Ukrainian: Українска Мова</p>
         <apex:dataTable
             value="{!userInfoItems}"
             var="infoItem"

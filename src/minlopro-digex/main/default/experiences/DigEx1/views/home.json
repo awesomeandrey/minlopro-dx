@@ -7,7 +7,7 @@
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<p>Hi there!</p>"
+        "richTextValue" : "<p>Hi there! Welcome to my first Experience Cloud implementation!</p>"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "504d3196-8c94-4a2c-a7d1-c0d2a09d8f36",
