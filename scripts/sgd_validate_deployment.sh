@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Sample Execution:
+# bash ./scripts/sgd_validate_deployment.sh TARGET_ORG_ALIAS
+
 # Define constants;
 targetOrgAlias=$1
 sgdFolder="manifests/sgd"
@@ -16,6 +19,9 @@ if (($packageXmlLinesCount < 10)) && (($destructiveChangesXmlLinesCount < 10)); 
   exit 0
 fi
 
+# Ignore '.forceignore' file settings when generating manifest;
+mv '.forceignore' '.forceignore_skip'
+
 # Otherwise validate deployment;
 sfdx force:source:deploy \
   --checkonly \
@@ -24,3 +30,6 @@ sfdx force:source:deploy \
   --ignorewarnings \
   --manifest "$packageXml" \
   --postdestructivechanges "$destructiveChangesXml"
+
+# Revert changes;
+mv '.forceignore_skip' '.forceignore'

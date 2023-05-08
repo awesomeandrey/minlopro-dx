@@ -69,7 +69,7 @@ jobs:
                   cmd: jq --version
             - name: 'Assign Alias To Target Org'
               run: |
-                  targetUsername=$(sfdx force:org:display --verbose --json | jq -r '.result.username')
+                  targetUsername=$(sfdx org display --verbose --json | jq -r '.result.username')
                   printf "Target Org Username is $targetUsername"
                   sfdx alias:set TARGET_ORG=$targetUsername
             - name: 'Install "sfdx-git-delta"'
@@ -84,7 +84,7 @@ jobs:
                   echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
                   sfdx --version
                   sf --version
-                  sfdx force:org:display --verbose
+                  sfdx org display --target-org TARGET_ORG --json --verbose
             - name: 'Generate Delta Manifests'
               run: |
                   git checkout ${{github.base_ref}}
@@ -118,7 +118,7 @@ jobs:
                   cmd: jq --version
             - name: 'Assign Alias To Target Org'
               run: |
-                  targetUsername=$(sfdx force:org:display --verbose --json | jq -r '.result.username')
+                  targetUsername=$(sfdx org display --verbose --json | jq -r '.result.username')
                   printf "Target Org Username is $targetUsername"
                   sfdx alias:set TARGET_ORG=$targetUsername
             - name: 'Deploy Source to Target Org'

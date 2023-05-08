@@ -7,11 +7,11 @@
             "path": "src/minlopro-core"
         },
         {
-            "path": "src/minlopro"
+            "path": "src/minlopro",
+            "default": true
         },
         {
-            "path": "src/minlopro-digex",
-            "default": true
+            "path": "src/minlopro-digex"
         }
     ],
     "pushPackageDirectoriesSequentially": true,

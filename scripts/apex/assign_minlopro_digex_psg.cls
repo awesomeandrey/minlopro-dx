@@ -5,7 +5,9 @@ Assert.areEqual(digExPsgName, digExPsg.DeveloperName, 'DigEx Permission Set Grou
 
 // Fetch network definition;
 final String digExNetworkName = 'DigEx';
-Network digExNetwork = (Network) [SELECT Id, Name FROM Network WHERE Name = :digExNetworkName LIMIT 1][0];
+List<Network> networks = (List<Network>) [SELECT Id, Name FROM Network WHERE Name = :digExNetworkName LIMIT 1];
+Assert.isFalse(networks.isEmpty(), 'There are no networks/sites defined!');
+Network digExNetwork = networks[0];
 Assert.areEqual(digExNetworkName, digExNetwork.Name, 'DigEx network is not found!');
 
 // Fetch all network members and create PSG-assignments accordingly;

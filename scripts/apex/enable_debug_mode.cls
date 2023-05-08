@@ -1,5 +1,7 @@
 Id runningUserId = UserInfo.getUserId();
-Boolean enabled = [SELECT UserPreferencesUserDebugModePref FROM User WHERE Id = :runningUserId].UserPreferencesUserDebugModePref;
+User runningUser = [SELECT UserPreferencesUserDebugModePref, Country, CountryCode FROM User WHERE Id = :runningUserId LIMIT 1][0];
+System.debug('\n\n Running User Info => ' + runningUser + '\n');
+Boolean enabled = runningUser.UserPreferencesUserDebugModePref;
 if (!enabled) {
     update new User(Id = runningUserId, UserPreferencesUserDebugModePref = true);
 }

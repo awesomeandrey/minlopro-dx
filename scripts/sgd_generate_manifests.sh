@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Sample Execution:
+# bash ./scripts/sgd_generate_manifests.sh "SOURCE_BRANCH_NAME" "CURRENT_BRANCH_NAME"
+
 # Define constants;
 fromRef=$1 #Mandatory parameter!
 toRef=$2   #Mandatory parameter!

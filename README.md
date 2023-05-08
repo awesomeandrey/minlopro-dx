@@ -37,6 +37,16 @@ Corresponds to **PROD** environment.
 
 ### Useful Commands
 
+_Create DigEx Site_
+
+```
+sfdx force:community:create \
+    --u SO \
+    --name 'DigEx' \
+    --templatename 'Build Your Own' \
+    --urlpathprefix digex
+```
+
 _Create Scratch Org_
 
 ```
@@ -57,6 +67,12 @@ sfdx force:user:create \
 # bash ./scripts/run_apex_script.sh SO_alias assign_minlopro_digex_psg
 # bash ./scripts/run_apex_script.sh SO_alias assign_minlopro_psg
 # bash ./scripts/run_apex_script.sh SO enable_debug_mode
+```
+
+_Publish Community_
+
+```
+sfdx force:community:publish --name "DigEx" -u SO
 ```
 
 _Generate Auth URL for the Target Org_
