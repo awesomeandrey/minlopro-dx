@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ManagedTopics xmlns="http://soap.sforce.com/2006/04/metadata">
+    <managedTopic>
+        <fullName>DigEx.Content:Learning Digital Experince</fullName>
+        <managedTopicType>Content</managedTopicType>
+        <name>Learning Digital Experince</name>
+        <parentName />
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>DigEx.Navigational:Products</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Products</name>
+        <parentName />
+        <position>0</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+    <managedTopic>
+        <fullName>DigEx.Navigational:Services</fullName>
+        <managedTopicType>Navigational</managedTopicType>
+        <name>Services</name>
+        <parentName />
+        <position>1</position>
+        <topicDescription> </topicDescription>
+    </managedTopic>
+</ManagedTopics>

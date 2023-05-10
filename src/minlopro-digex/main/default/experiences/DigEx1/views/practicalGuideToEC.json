@@ -1,0 +1,278 @@
+{
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "a9a8650b-f46f-4383-93d0-a15c9402eb67",
+  "label" : "Practical Guide To EC",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "772cf4e0-b190-4c84-a6d6-d453e0becde5",
+          "columns" : [ {
+            "UUID" : "9f77f2f0-981b-4435-9328-562e914b6343",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 87
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "772cf4e0-b190-4c84-a6d6-d453e0becde5",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "bannerText" : "A place where you can easily find solutions and ask questions",
+            "bannerTextWithKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineArticles\">articles</a> and <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "bannerTextWithoutKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+            "pageType" : "",
+            "showSubTopics" : true,
+            "title" : "Dig Ex Title",
+            "uniqueNameOrId" : ""
+          },
+          "componentName" : "forceCommunity:headline",
+          "id" : "b5a66408-5ff9-4f6c-8c26-7a00677c0690",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "numberOfTopicsToDisplay" : 10,
+            "searchHint" : "Type a topic name and press Enter.",
+            "title" : "Topics"
+          },
+          "componentName" : "forceCommunity:topicsOnRecordWrapper",
+          "id" : "6ced07f1-4ebd-4c89-b5bd-45ef1246207d",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "9f77f2f0-981b-4435-9328-562e914b6343",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "cfb3e58d-98ed-4448-b79b-e8b425320180",
+          "columns" : [ {
+            "UUID" : "d9dfe699-3246-4134-a493-f46772caf15b",
+            "columnKey" : "9e120",
+            "columnName" : "Column 1",
+            "columnWidth" : "9",
+            "seedComponents" : [ ]
+          }, {
+            "UUID" : "26e493c0-ac23-4037-bb06-1af73e2fb3d1",
+            "columnKey" : "eaccc",
+            "columnName" : "Column 2",
+            "columnWidth" : "3",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "cfb3e58d-98ed-4448-b79b-e8b425320180",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "canChangeSorting" : true,
+            "defaultFilter" : "",
+            "defaultSortOrderHomeFeed" : "Relevance",
+            "defaultSortOrderTopicsFeed" : "Relevance",
+            "feedDesign" : "DEFAULT",
+            "hasFeedSearch" : true,
+            "subjectId" : "{!recordId}",
+            "type" : "Record"
+          },
+          "componentName" : "forceCommunity:forceCommunityFeed",
+          "id" : "3f8d27b8-0ad5-45f8-96e5-6bdce4d9985d",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "richTextValue" : "<div class=\"sfdcCbVideoContainer\"><iframe class=\"sfdcCbVideo\" allowfullscreen=\"true\" width=\"100%\" title=\"Video from https://www.youtube.com/embed/dNB_FRw7mEs\" src=\"https://www.youtube.com/embed/dNB_FRw7mEs\"></iframe></div><p> </p>"
+          },
+          "componentName" : "forceCommunity:richTextInline",
+          "id" : "43b682c8-68d1-4b4a-9222-34698856740e",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "d9dfe699-3246-4134-a493-f46772caf15b",
+        "regionLabel" : "Column 1",
+        "regionName" : "9e120",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "tabsetConfig" : {
+              "UUID" : "409b87fe-ac14-4a61-a302-1977b261e8a9",
+              "activeTab" : "",
+              "tabs" : [ {
+                "UUID" : "4b3040d2-b1a4-4c4e-a6cc-cb13d15d69c0",
+                "allowGuestUser" : false,
+                "locked" : false,
+                "seedComponents" : [ ],
+                "tabKey" : "1",
+                "tabName" : "LINKS"
+              }, {
+                "UUID" : "ce52c488-b733-4b2e-be0b-ddb3f92d2058",
+                "allowGuestUser" : false,
+                "locked" : false,
+                "seedComponents" : [ ],
+                "tabKey" : "2",
+                "tabName" : "TASKS"
+              }, {
+                "UUID" : "03c316b8-cee4-46cd-a980-16f0b75cb72c",
+                "allowGuestUser" : false,
+                "locked" : false,
+                "seedComponents" : [ ],
+                "tabKey" : "3",
+                "tabName" : "GET HELP"
+              } ],
+              "useOverflowMenu" : false
+            }
+          },
+          "componentName" : "forceCommunity:tabset",
+          "id" : "409b87fe-ac14-4a61-a302-1977b261e8a9",
+          "regions" : [ {
+            "components" : [ {
+              "componentAttributes" : {
+                "bannerBackgroundColor" : "",
+                "bannerPosition" : "top",
+                "bannerSizePercent" : 35,
+                "borderRadius" : 20,
+                "boxShadow" : true,
+                "haveBanner" : false,
+                "iconBackgroundColor" : "rgb(255,255,255)",
+                "iconSize" : "medium",
+                "noImageColor" : "rgb(212, 212, 212)",
+                "overlay" : "rgba(0,0,0,0.01)",
+                "templateType" : "default",
+                "tileMenuEditor" : "DigEx_Navigation_Items_Set",
+                "titleColor" : "",
+                "titleFontSize" : "small",
+                "titleHorizontalAlign" : "center"
+              },
+              "componentName" : "community_navigation:tileMenu",
+              "id" : "43e3244c-a853-4df4-8b2e-63a7fd358bda",
+              "renditionMap" : { },
+              "type" : "component"
+            } ],
+            "id" : "4b3040d2-b1a4-4c4e-a6cc-cb13d15d69c0",
+            "regionLabel" : "LINKS",
+            "regionName" : "1",
+            "renditionMap" : { },
+            "type" : "region"
+          }, {
+            "components" : [ {
+              "componentAttributes" : {
+                "enableInlineEdit" : false,
+                "filterName" : "OpenTasks",
+                "layout" : "COMPACT",
+                "pageSize" : 25,
+                "scope" : "Task",
+                "showActionBar" : true,
+                "showChartsPanel" : true,
+                "showDisplay" : "showall",
+                "showFilterPanel" : true,
+                "showImageIcon" : true,
+                "showManualRefreshButton" : true,
+                "showObjectName" : true,
+                "showPinnedList" : false,
+                "showSearchBar" : true
+              },
+              "componentName" : "forceCommunity:objectHome",
+              "id" : "ec296a9f-5709-406c-acad-646e8b744eea",
+              "renditionMap" : { },
+              "type" : "component"
+            } ],
+            "id" : "ce52c488-b733-4b2e-be0b-ddb3f92d2058",
+            "regionLabel" : "TASKS",
+            "regionName" : "2",
+            "renditionMap" : { },
+            "type" : "region"
+          }, {
+            "components" : [ {
+              "componentAttributes" : {
+                "attachFiles" : true,
+                "authenticatedActionName" : "",
+                "confirmationMessageDescription" : "You'll hear back from us soon.",
+                "confirmationMessageTitle" : "Your request was submitted successfully.",
+                "deflectionCategoryGroupName" : "{!DataCategoryGroupName}",
+                "deflectionNotHelpful" : "Didn't find what you're looking for?",
+                "deflectionNumberOfArticles" : 6,
+                "deflectionParentCategory" : "{!TopLevelCategory}",
+                "deflectionSubHeader" : "Check out these articles...",
+                "deflectionTitle" : "Need Answers Fast?",
+                "hasDeflection" : true,
+                "headerTitle" : "Create a Case",
+                "isReCaptchaEnabled" : false,
+                "reCaptchaPrivateKey" : "",
+                "reCaptchaPublicKey" : "",
+                "unauthenticatedActionName" : ""
+              },
+              "componentName" : "selfService:caseCreate",
+              "id" : "44eadd3a-b40e-413d-904c-b2851c9c683c",
+              "renditionMap" : { },
+              "type" : "component"
+            } ],
+            "id" : "03c316b8-cee4-46cd-a980-16f0b75cb72c",
+            "regionLabel" : "GET HELP",
+            "regionName" : "3",
+            "renditionMap" : { },
+            "type" : "region"
+          } ],
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "26e493c0-ac23-4037-bb06-1af73e2fb3d1",
+        "regionLabel" : "Column 2",
+        "regionName" : "eaccc",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7f745098-dee2-412f-bfde-47c7845e2f5f",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Practical Guide To EC"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "6ad66790-e5a6-4a91-bda7-9f1968e00a58",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "6428ff77-a193-45a8-b3a3-59edb514f05e",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-practical-guide-to-ec"
+}

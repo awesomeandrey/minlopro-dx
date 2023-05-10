@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>DigEx_Download_User_Details</fullName>
+        <categories>DigEx</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Info</shortDescription>
+        <value>Click the button below in order to get you user details (UPD)</value>
+    </labels>
+</CustomLabels>

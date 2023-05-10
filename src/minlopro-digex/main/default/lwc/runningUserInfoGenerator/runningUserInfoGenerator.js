@@ -9,9 +9,16 @@ import getRunningUserInfoAsPdfApex from '@salesforce/apex/SystemInfoController.g
 // Static Resources;
 import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
 
+// Custom Labels;
+import helpTextLbl from '@salesforce/label/c.DigEx_Download_User_Details';
+
 export default class RunningUserInfoGenerator extends NavigationMixin(LightningElement) {
     get backgroundSvgUrl() {
         return `${COMMONS_ASSETS}/svg/background1.svg`;
+    }
+
+    get helpText() {
+        return helpTextLbl;
     }
 
     async handleDownloadUserInfo(event) {

@@ -32,7 +32,7 @@
     "type" : "view"
   }, {
     "componentAttributes" : {
-      "fixedPageWidth" : 1440,
+      "fixedPageWidth" : 1275,
       "isPageWidthFixed" : true
     },
     "componentName" : "siteforce:starterBody",
@@ -87,11 +87,13 @@
       "components" : [ {
         "componentAttributes" : {
           "NavigationMenuEditorRefresh" : "",
-          "hideAppLauncher" : true,
-          "hideHomeText" : true
+          "alignment" : "left",
+          "showAppLauncher" : false,
+          "showBackLabel" : false,
+          "showHomeLink" : true
         },
-        "componentName" : "forceCommunity:globalNavigation",
-        "id" : "98385181-52ee-4424-9280-2ffcb7273a4e",
+        "componentName" : "forceCommunity:multiLevelNavigationWrapper",
+        "id" : "787b0cb4-0637-4e36-9112-9738c3c066cc",
         "renditionMap" : { },
         "type" : "component"
       } ],

@@ -24,4 +24,11 @@
         <target>/google-maps</target>
         <type>InternalLink</type>
     </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Topics</label>
+        <position>4</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>ShowMoreTopics</target>
+        <type>NavigationalTopic</type>
+    </navigationMenuItem>
 </NavigationMenu>

@@ -5,6 +5,17 @@
   "id" : "cebf5701-a2f4-49ee-ac66-4ed98182de68",
   "label" : "Welcome",
   "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "label" : "Preferred Language",
+        "pickerAlignment" : "left"
+      },
+      "componentName" : "forceCommunity:languageSelector43",
+      "id" : "4497d5fb-13e3-4536-98fc-860b892f2cf8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
     "id" : "ea1686ed-0594-4077-9984-0f219dd12fc1",
     "regionName" : "header",
     "type" : "region"
@@ -15,7 +26,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<p>Welcome! Login into the system first.</p>"
+        "richTextValue" : "<p>Error - page not found.</p>☺️"
       },
       "componentName" : "forceCommunity:htmlBlock",
       "id" : "495d2aa6-433f-45b9-9845-9a6998c76cbb",
@@ -50,7 +61,7 @@
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
-  "themeLayoutType" : "Inner",
+  "themeLayoutType" : "BIGuMbINxUUPKhG01SUcMMJNvZRHRb",
   "type" : "view",
   "viewType" : "custom-welcome"
 }

@@ -1,0 +1,10 @@
+{
+  "activeViewId" : "4bde1e8b-7036-49a6-89dc-a5b50691b611",
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "configurationTags" : [ ],
+  "id" : "f58cdfa9-c5d3-4547-96f5-0c92b261d1b0",
+  "label" : "Task Related List",
+  "routeType" : "relatedlist-00T",
+  "type" : "route",
+  "urlPrefix" : "task"
+}

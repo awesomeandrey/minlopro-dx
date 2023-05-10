@@ -36,6 +36,9 @@
         },
         "apexSettings": {
             "enableCompileOnDeploy": false
+        },
+        "languageSettings": {
+            "enableTranslationWorkbench": true
         }
     }
 }

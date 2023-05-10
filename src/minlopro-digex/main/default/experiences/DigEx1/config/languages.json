@@ -1,6 +1,23 @@
 {
   "defaultCode" : "en_US",
-  "defaultLabel" : "English (US)",
+  "defaultLabel" : "English (US) - edited display label",
   "id" : "e91402d4-ded4-4a8d-965a-56b6e40e8cfe",
+  "languages" : [ {
+    "countryCode" : "",
+    "fallbackLanguageId" : null,
+    "id" : "bd454ae2-1c91-40bd-86de-c05be7576b61",
+    "isActive" : true,
+    "label" : "Ukrainian",
+    "languageCode" : "uk",
+    "type" : "language"
+  }, {
+    "countryCode" : "",
+    "fallbackLanguageId" : null,
+    "id" : "9124d5d2-caa3-46db-a642-5196dbf8b30b",
+    "isActive" : true,
+    "label" : "dogs lang",
+    "languageCode" : "ru",
+    "type" : "language"
+  } ],
   "type" : "languageContainer"
 }

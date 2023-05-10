@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <applicationVisibilities>
+        <application>standard__SalesforceCMS</application>
+        <visible>true</visible>
+    </applicationVisibilities>
     <classAccesses>
         <apexClass>SystemInfoController</apexClass>
         <enabled>true</enabled>
@@ -15,4 +19,8 @@
         <apexPage>digex_RunningUserInfoAsPdf</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ApiEnabled</name>
+    </userPermissions>
 </PermissionSet>

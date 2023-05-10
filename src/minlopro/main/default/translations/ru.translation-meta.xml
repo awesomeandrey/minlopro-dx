@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customApplications>
+        <label><!-- Minlopro --></label>
+        <name>Minlopro</name>
+    </customApplications>
+    <customLabels>
+        <label><!-- Error --></label>
+        <name>Commons_Msg_Error</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Info --></label>
+        <name>Commons_Msg_Info</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Success --></label>
+        <name>Commons_Msg_Success</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Warning --></label>
+        <name>Commons_Msg_Warning</name>
+    </customLabels>
+    <customLabels>
+        <label>завантажити деталі профайлу</label>
+        <name>DigEx_Download_User_Details</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Logs Amount --></label>
+        <name>Logger_Badge_LogsAmount</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Clear All --></label>
+        <name>Logger_Btn_ClearAll</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Collapse All --></label>
+        <name>Logger_Btn_CollapseAll</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Expand All --></label>
+        <name>Logger_Btn_ExpandAll</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Mute --></label>
+        <name>Logger_Btn_Mute</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Unmute --></label>
+        <name>Logger_Btn_Unmute</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- Make sure that logging settings are enabled for your user --></label>
+        <name>Logger_Info_EnableLogging</name>
+    </customLabels>
+    <customLabels>
+        <label><!-- There are no logs yet! --></label>
+        <name>Logger_Msg_NoLogsYet</name>
+    </customLabels>
+</Translations>

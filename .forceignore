@@ -18,5 +18,8 @@ Admin.profile
 # Connected Apps
 **/connectedApps
 
+# Auth Providers
+**/authproviders
+
 # LWC Jest tests
 **/__tests__/**

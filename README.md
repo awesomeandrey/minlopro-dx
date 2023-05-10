@@ -140,6 +140,13 @@ sfdx sgd:source:delta \
     --to "WORKING_BRANCH_NAME"
 ```
 
+
+_Generate User Password_
+```
+sfdx force:user:password:generate -u SO
+sfdx user:display -u SO
+```
+
 ### Scripts in `package.json`
 
 Aforementioned commands were broken down into smaller ones in `package.json` project file.

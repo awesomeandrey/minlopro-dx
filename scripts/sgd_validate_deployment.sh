@@ -31,5 +31,9 @@ sfdx force:source:deploy \
   --manifest "$packageXml" \
   --postdestructivechanges "$destructiveChangesXml"
 
+deploymentStatus=$?
+
 # Revert changes;
 mv '.forceignore_skip' '.forceignore'
+
+exit $deploymentStatus

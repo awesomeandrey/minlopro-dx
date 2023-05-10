@@ -14,6 +14,22 @@
       "type" : "component"
     }, {
       "componentAttributes" : {
+        "canChangeSorting" : true,
+        "defaultFilter" : "",
+        "defaultSortOrderHomeFeed" : "Relevance",
+        "defaultSortOrderTopicsFeed" : "Relevance",
+        "feedDesign" : "DEFAULT",
+        "hasFeedSearch" : true,
+        "subjectId" : "{!recordId}",
+        "type" : "UserProfile"
+      },
+      "componentName" : "forceCommunity:forceCommunityFeed",
+      "id" : "3dfb5303-1377-4f1a-a6ba-91f3cf8feb2e",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
         "bannerBackgroundColor" : "",
         "bannerPosition" : "top",
         "bannerSizePercent" : 35,

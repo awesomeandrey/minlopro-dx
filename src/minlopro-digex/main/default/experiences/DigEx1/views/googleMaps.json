@@ -27,7 +27,7 @@
       "regions" : [ {
         "components" : [ {
           "componentAttributes" : {
-            "height" : "600",
+            "height" : "450",
             "pageName" : "GoogleMapsPoc",
             "recordId" : "{!recordId}"
           },
