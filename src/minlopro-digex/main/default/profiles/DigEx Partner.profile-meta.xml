@@ -142,10 +142,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>Playground</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>Repository</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -630,10 +626,6 @@
     </tabVisibilities>
     <tabVisibilities>
         <tab>LogsMonitor</tab>
-        <visibility>Hidden</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>Playground</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>
