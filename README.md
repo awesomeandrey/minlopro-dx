@@ -37,6 +37,22 @@ Corresponds to **PROD** environment.
 
 ### Useful Commands
 
+_Create Scratch Org_
+
+```
+// Create scratch org according to JSON config file;
+sfdx force:org:create -f config/project-scratch-def.json -a SO
+
+// SF CLI
+sf org create scratch \
+    --target-dev-hub sf-practises-devhub \
+    --definition-file config/project-scratch-def.json \
+    --set-default \
+    --edition enterprise \
+    --alias SO \
+    --duration-days 30
+```
+
 _Create DigEx Site_
 
 ```
@@ -47,25 +63,27 @@ sfdx force:community:create \
     --urlpathprefix digex
 ```
 
-_Create Scratch Org_
+_Deploy Codebase_
 
 ```
-// Create scratch org according to JSON config file;
-sfdx force:org:create -f config/project-scratch-def.json -a SO
-
 [Push Source Code to the newly created Scratch Org]
+sf project deploy start  --source-dir src --target-org SO
+
+Better to deploy all codebase via Metadata Deploy:
+npm run sfdx:manifest
+npm run src:deploy:full
 
 // Create extra user (optional)
 sfdx force:user:create \
-    -u SO \
-    --definitionfile config/qa-user-def.json \
-    --setalias qa-user \
-    --set-unique-username
+-u SO \
+--definitionfile config/qa-user-def.json \
+--setalias qa-user \
+--set-unique-username
 
 // Assign permission set groups to target users
 
-# bash ./scripts/run_apex_script.sh SO_alias assign_minlopro_digex_psg
-# bash ./scripts/run_apex_script.sh SO_alias assign_minlopro_psg
+# bash ./scripts/run_apex_script.sh SO assign_minlopro_digex_psg
+# bash ./scripts/run_apex_script.sh SO assign_minlopro_psg
 # bash ./scripts/run_apex_script.sh SO enable_debug_mode
 ```
 
@@ -90,7 +108,7 @@ _Deploy Repository Source to Target Org_
 
 ```
 // Create 'package.xml' manifest file that lists all metadata components within the repo
-sfdx force:source:manifest:create --sourcepath minlopro --manifestname manifests/package.xml
+sfdx force:source:manifest:create --sourcepath src --manifestname manifests/package.xml
 // Initiate source code deployment
 sfdx force:source:deploy \
     -x manifests/package.xml \
@@ -113,10 +131,10 @@ _Invoke All Apex Tests_
 sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
 ```
 
-_Reset Source Tracking Locally_
+_Reset Source Tracking_
 
 ```
-sfdx force:source:tracking:clear -u SO -p
+sf project reset tracking --target-org SO --no-prompt
 ```
 
 _Retrieve Metadata From Org by `package.xml` File_
@@ -143,8 +161,7 @@ sfdx sgd:source:delta \
 
 _Generate User Password_
 ```
-sfdx force:user:password:generate -u SO
-sfdx user:display -u SO
+sf org generate password --target-org SO && sf org display user --target-org SO
 ```
 
 ### Scripts in `package.json`

@@ -1,0 +1,83 @@
+name: Deploy To INT Org
+
+# Trigger Events
+on:
+    schedule:
+        # Runs "At 07:00 on every day-of-week from Monday through Friday"
+        - cron: '0 7 * * 1-5'
+    workflow_dispatch:
+        branches:
+            - develop
+    push:
+        branches:
+            - develop
+
+# Jobs
+jobs:
+    # Event = 'Push'
+    deploy-source-to-org:
+        if: ${{github.event_name == 'push'}}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Install Salesforce CLI & Authorize Target Org'
+              run: |
+                  npm install --global sfdx-cli
+                  sfdx --version
+                  echo 'Installed SFDX! Hooray!'
+                  touch ./targetOrgAuthUrl.txt
+                  echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
+                  sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
+                  sfdx force:org:display
+                  echo 'Done!'
+            - name: 'Deploy Source to Target Org'
+              run: |
+                  npm run sfdx:manifest
+                  npm run src:deploy:full -- -u TARGET_ORG
+            - name: 'Custom Post-Deployment Steps'
+              run: |
+                  bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_digex_psg
+                  bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_psg
+                  bash ./scripts/run_apex_script.sh TARGET_ORG enable_debug_mode
+                  bash ./scripts/delete_all_apex_logs.sh TARGET_ORG
+                  bash ./scripts/delete_obsolete_flow_versions.sh TARGET_ORG
+    run-apex-tests:
+        needs: [deploy-source-to-org]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Install Salesforce CLI & Authorize Target Org'
+              run: |
+                  npm install --global sfdx-cli
+                  sfdx --version
+                  echo 'Installed SFDX! Hooray!'
+                  touch ./targetOrgAuthUrl.txt
+                  echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
+                  sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
+                  sfdx force:org:display
+                  echo 'Done!'
+            - name: 'Run All Apex Tests with Coverage'
+              run: npm run sfdx:apex:tests
+    run-pmd-checks:
+        needs: [deploy-source-to-org]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Install Dependencies'
+              run: npm install
+            - name: 'Run Apex Static Code Analysis (PMD)'
+              run: npm run pmd:html || echo "PMD report has been generated!"
+            - name: 'Upload PMD Report as Artifact'
+              uses: actions/upload-artifact@v3
+              with:
+                  name: apex-pmd-report
+                  path: build/apex-pmd-report.html

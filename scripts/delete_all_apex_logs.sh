@@ -7,6 +7,7 @@ apexLogsCsvFilePath="$buildFolderName/apex_logs.csv"
 
 mkdir -p $buildFolderName
 
+echo "Querying Apex Logs..."
 sfdx data query \
   --target-org $targetOrg \
   -q "SELECT Id FROM ApexLog" \
@@ -16,6 +17,7 @@ sfdx data query \
 wordsCount=$(wc -w < $apexLogsCsvFilePath)
 if (($wordsCount < 10)); then
   echo 'There are not so many Apex Logs to delete so far.'
+  rm $apexLogsCsvFilePath
   exit 0
 fi
 

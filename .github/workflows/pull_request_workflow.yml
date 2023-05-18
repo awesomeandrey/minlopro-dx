@@ -1,0 +1,89 @@
+name: Validate Pull Request Changes
+
+# Trigger Events
+on:
+    pull_request:
+        types: [opened, synchronize, reopened]
+        branches:
+            - develop
+
+# Jobs
+jobs:
+    # Event = 'Pull Request'
+    run-prettier-checks:
+        if: ${{github.event_name == 'pull_request'}}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Install Dependencies'
+              run: npm install
+            - name: 'Run Prettier Check (Partial)'
+              run: |
+                  git checkout ${{github.base_ref}}
+                  git pull
+                  git checkout ${{github.head_ref}}
+                  git pull
+                  git branch -a
+                  bash ./scripts/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
+    run-jest-tests:
+        if: ${{github.event_name == 'pull_request'}}
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Install Dependencies'
+              run: npm install
+            - name: 'Run Jest Tests with Coverage'
+              run: npm run jest:coverage
+    validate-deployment-to-org:
+        needs: [run-prettier-checks, run-jest-tests]
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+              with:
+                  fetch-depth: 0
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '18.x'
+            - name: 'Install Salesforce CLI & Authorize Target Org'
+              run: |
+                  npm install --global sfdx-cli
+                  sfdx --version
+                  echo 'Installed SFDX! Hooray!'
+                  touch ./targetOrgAuthUrl.txt
+                  echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
+                  sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
+                  sfdx force:org:display
+                  echo 'Done!'
+            - name: 'Install "sfdx-git-delta"'
+              run: |
+                  echo y | sfdx plugins:install "sfdx-git-delta@stable"
+            - name: 'Environment Info'
+              run: |
+                  echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
+                  echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
+                  echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
+                  echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
+                  echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
+            - name: 'Generate Delta Manifests'
+              run: |
+                  git checkout ${{github.base_ref}}
+                  git pull
+                  git checkout ${{github.head_ref}}
+                  git pull
+                  git branch -a
+                  bash ./scripts/sgd_generate_manifests.sh ${{github.base_ref}} ${{github.head_ref}}
+            - name: 'Upload Delta Manifest Files as Artifact'
+              uses: actions/upload-artifact@v3
+              with:
+                  name: delta-changes
+                  path: manifests/sgd
+            - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
+              run: bash ./scripts/sgd_validate_deployment.sh TARGET_ORG

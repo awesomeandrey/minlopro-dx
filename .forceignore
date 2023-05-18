@@ -3,15 +3,13 @@
 **/customindex
 **/profilePasswordPolicies
 **/profileSessionSettings
-**/settings/Security.settings-meta.xml
+**/settings
 
 # Ignore specific set of metadata items
 **/profiles/Admin.profile-meta.xml
 Admin.profile
 
 # DigEx portal related metadata items;
-**/profiles/DigEx Partner.profile-meta.xml
-**/profiles/DigEx Profile.profile-meta.xml
 **/audience/Default_DigEx.audience-meta.xml
 **/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
 

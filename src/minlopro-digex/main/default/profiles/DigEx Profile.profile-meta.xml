@@ -146,6 +146,10 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>PublicRestEndpoint</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>Repository</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -515,6 +519,9 @@
         <layout>ApiKey__mdt-API Key Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Car__c-Car Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Event-Event Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -621,12 +628,12 @@
         <enabled>false</enabled>
     </pageAccesses>
     <tabVisibilities>
-        <tab>GoogleMapsApiPlayground</tab>
+        <tab>Car__c</tab>
         <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>
-        <tab>Knowledge__kav</tab>
-        <visibility>DefaultOn</visibility>
+        <tab>GoogleMapsApiPlayground</tab>
+        <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>LogsMonitor</tab>
@@ -635,10 +642,6 @@
     <tabVisibilities>
         <tab>Playground</tab>
         <visibility>Hidden</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>standard-Knowledge</tab>
-        <visibility>DefaultOn</visibility>
     </tabVisibilities>
     <userLicense>Guest User License</userLicense>
     <userPermissions>
@@ -664,10 +667,6 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>EnableNotifications</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>PasswordNeverExpires</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
