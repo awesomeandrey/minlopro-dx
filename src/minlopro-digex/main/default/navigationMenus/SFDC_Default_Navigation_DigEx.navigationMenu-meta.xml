@@ -3,11 +3,4 @@
     <container>DigEx</container>
     <containerType>Network</containerType>
     <label>Default Navigation</label>
-    <navigationMenuItem>
-        <label>Topics</label>
-        <position>1</position>
-        <publiclyAvailable>true</publiclyAvailable>
-        <target>ShowMoreTopics</target>
-        <type>NavigationalTopic</type>
-    </navigationMenuItem>
 </NavigationMenu>

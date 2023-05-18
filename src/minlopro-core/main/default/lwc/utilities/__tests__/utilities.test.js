@@ -2,7 +2,7 @@ import * as $Utils from 'c/utilities';
 
 const crypto = require('crypto');
 
-describe('Invoke utilities in "minlopro-schema.js"', () => {
+describe('Invoke utilities in "minlopro-core.js"', () => {
     it('to()', async () => {
         const resolvedPromise = Promise.resolve(true);
         const [error1, result1] = await $Utils.to(resolvedPromise);

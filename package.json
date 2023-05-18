@@ -10,7 +10,6 @@
         "prettier": "prettier --write \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "prettier:minlopro": "prettier --write \"src/minlopro/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "prettier:core": "prettier --write \"src/minlopro-core/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-        "prettier:schema": "prettier --write \"src/minlopro-schema/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "prettier:digex": "prettier --write \"src/minlopro-digex/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "prettier:check": "prettier --check \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
         "jest": "sfdx-lwc-jest --skipApiVersionCheck",

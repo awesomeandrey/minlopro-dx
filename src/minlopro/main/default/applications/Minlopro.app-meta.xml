@@ -11,6 +11,7 @@
     <label>Minlopro</label>
     <navType>Standard</navType>
     <tabs>standard-Account</tabs>
+    <tabs>standard-Contact</tabs>
     <tabs>LogsMonitor</tabs>
     <tabs>GoogleMapsApiPlayground</tabs>
     <uiType>Lightning</uiType>

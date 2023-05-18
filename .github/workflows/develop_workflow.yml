@@ -2,162 +2,160 @@ name: DEVELOP Branch Workflow
 
 # Trigger Events
 on:
-    schedule:
-        # Runs "At 07:00 on every day-of-week from Monday through Friday"
-        - cron: '0 7 * * 1-5'
-    workflow_dispatch:
-        branches:
-            - develop
-    pull_request:
-        types: [opened, synchronize, reopened]
-        branches:
-            - develop
-    push:
-        branches:
-            - develop
+  schedule:
+    # Runs "At 07:00 on every day-of-week from Monday through Friday"
+    - cron: '0 7 * * 1-5'
+  workflow_dispatch:
+    branches:
+      - develop
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    branches:
+      - develop
+  push:
+    branches:
+      - develop
 
 # Jobs
 jobs:
-    # Event = 'Pull Request'
-    run-prettier-checks:
-        if: ${{github.event_name == 'pull_request'}}
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '18.x'
-            - name: 'Install Dependencies'
-              run: npm install
-            - name: 'Run Prettier Check (Partial)'
-              run: |
-                  git checkout ${{github.base_ref}}
-                  git pull
-                  git checkout ${{github.head_ref}}
-                  git pull
-                  git branch -a
-                  bash ./scripts/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
-    run-jest-tests:
-        if: ${{github.event_name == 'pull_request'}}
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '18.x'
-            - name: 'Install Dependencies'
-              run: npm install
-            - name: 'Run Jest Tests with Coverage'
-              run: npm run jest:coverage
-    validate-deployment-to-org:
-        needs: [run-prettier-checks, run-jest-tests]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '18.x'
-            - uses: sfdx-actions/setup-sfdx@v1
-              with:
-                  sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
-            - uses: sergeysova/jq-action@v2
-              with:
-                  cmd: jq --version
-            - name: 'Assign Alias To Target Org'
-              run: |
-                  targetUsername=$(sfdx org display --verbose --json | jq -r '.result.username')
-                  printf "Target Org Username is $targetUsername"
-                  sfdx alias:set TARGET_ORG=$targetUsername
-            - name: 'Install "sfdx-git-delta"'
-              run: |
-                  echo y | sfdx plugins:install "sfdx-git-delta@stable"
-            - name: 'Environment Info'
-              run: |
-                  echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
-                  echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
-                  echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
-                  echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
-                  echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
-                  sfdx --version
-                  sf --version
-                  sfdx org display --target-org TARGET_ORG --json --verbose
-            - name: 'Generate Delta Manifests'
-              run: |
-                  git checkout ${{github.base_ref}}
-                  git pull
-                  git checkout ${{github.head_ref}}
-                  git pull
-                  git branch -a
-                  bash ./scripts/sgd_generate_manifests.sh ${{github.base_ref}} ${{github.head_ref}}
-            - name: 'Upload Delta Manifest Files as Artifact'
-              uses: actions/upload-artifact@v3
-              with:
-                  name: delta-changes
-                  path: manifests/sgd
-            - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
-              run: bash ./scripts/sgd_validate_deployment.sh TARGET_ORG
+  # Event = 'Pull Request'
+  run-prettier-checks:
+    if: ${{github.event_name == 'pull_request'}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: 'Install Dependencies'
+        run: npm install
+      - name: 'Run Prettier Check (Partial)'
+        run: |
+          git checkout ${{github.base_ref}}
+          git pull
+          git checkout ${{github.head_ref}}
+          git pull
+          git branch -a
+          bash ./scripts/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
+  run-jest-tests:
+    if: ${{github.event_name == 'pull_request'}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: 'Install Dependencies'
+        run: npm install
+      - name: 'Run Jest Tests with Coverage'
+        run: npm run jest:coverage
+  validate-deployment-to-org:
+    needs: [ run-prettier-checks, run-jest-tests ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: 'Install Salesforce CLI & Authorize Target Org'
+        run: |
+          npm install --global sfdx-cli
+          sfdx --version
+          echo 'Installed SFDX! Hooray!'
+          touch ./targetOrgAuthUrl.txt
+          echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
+          sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
+          sfdx force:org:display
+          echo 'Done!'
+      - name: 'Install "sfdx-git-delta"'
+        run: |
+          echo y | sfdx plugins:install "sfdx-git-delta@stable"
+      - name: 'Environment Info'
+        run: |
+          echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
+          echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
+          echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
+          echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
+          echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
+          sfdx --version
+          sf --version
+          sfdx org display --target-org TARGET_ORG --json --verbose
+      - name: 'Generate Delta Manifests'
+        run: |
+          git checkout ${{github.base_ref}}
+          git pull
+          git checkout ${{github.head_ref}}
+          git pull
+          git branch -a
+          bash ./scripts/sgd_generate_manifests.sh ${{github.base_ref}} ${{github.head_ref}}
+      - name: 'Upload Delta Manifest Files as Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: delta-changes
+          path: manifests/sgd
+      - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
+        run: bash ./scripts/sgd_validate_deployment.sh TARGET_ORG
 
-    # Event <> 'Pull Request'
-    deploy-source-to-org:
-        if: ${{github.event_name != 'pull_request'}}
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '18.x'
-            - uses: sfdx-actions/setup-sfdx@v1
-              with:
-                  sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
-            - uses: sergeysova/jq-action@v2
-              with:
-                  cmd: jq --version
-            - name: 'Assign Alias To Target Org'
-              run: |
-                  targetUsername=$(sfdx org display --verbose --json | jq -r '.result.username')
-                  printf "Target Org Username is $targetUsername"
-                  sfdx alias:set TARGET_ORG=$targetUsername
-            - name: 'Deploy Source to Target Org'
-              run: |
-                  npm run sfdx:manifest
-                  npm run src:deploy:full -- -u TARGET_ORG
-            - name: 'Custom Post-Deployment Steps'
-              run: |
-                  bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_digex_psg
-                  bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_psg
-                  bash ./scripts/run_apex_script.sh TARGET_ORG enable_debug_mode
-                  bash ./scripts/delete_all_apex_logs.sh TARGET_ORG
-    run-apex-tests:
-        needs: [deploy-source-to-org]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '18.x'
-            - uses: sfdx-actions/setup-sfdx@v1
-              with:
-                  sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
-            - name: 'Run All Apex Tests with Coverage'
-              run: npm run sfdx:apex:tests
-    run-pmd-checks:
-        needs: [deploy-source-to-org]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '18.x'
-            - name: 'Install Dependencies'
-              run: npm install
-            - name: 'Run Apex Static Code Analysis (PMD)'
-              run: npm run pmd:html || echo "PMD report has been generated!"
-            - name: 'Upload PMD Report as Artifact'
-              uses: actions/upload-artifact@v3
-              with:
-                  name: apex-pmd-report
-                  path: build/apex-pmd-report.html
+  # Event <> 'Pull Request'
+  deploy-source-to-org:
+    if: ${{github.event_name != 'pull_request'}}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: 'Install Salesforce CLI & Authorize Target Org'
+        run: |
+          npm install --global sfdx-cli
+          sfdx --version
+          echo 'Installed SFDX! Hooray!'
+          touch ./targetOrgAuthUrl.txt
+          echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
+          sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
+          sfdx force:org:display
+          echo 'Done!'
+      - name: 'Deploy Source to Target Org'
+        run: |
+          npm run sfdx:manifest
+          npm run src:deploy:full -- -u TARGET_ORG
+      - name: 'Custom Post-Deployment Steps'
+        run: |
+          bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_digex_psg
+          bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_psg
+          bash ./scripts/run_apex_script.sh TARGET_ORG enable_debug_mode
+          bash ./scripts/delete_all_apex_logs.sh TARGET_ORG
+  run-apex-tests:
+    needs: [ deploy-source-to-org ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - uses: sfdx-actions/setup-sfdx@v1
+        with:
+          sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
+      - name: 'Run All Apex Tests with Coverage'
+        run: npm run sfdx:apex:tests
+  run-pmd-checks:
+    needs: [ deploy-source-to-org ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+      - name: 'Install Dependencies'
+        run: npm install
+      - name: 'Run Apex Static Code Analysis (PMD)'
+        run: npm run pmd:html || echo "PMD report has been generated!"
+      - name: 'Upload PMD Report as Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: apex-pmd-report
+          path: build/apex-pmd-report.html

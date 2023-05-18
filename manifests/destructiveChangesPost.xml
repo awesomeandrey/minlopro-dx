@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>commons</members>
-        <members>bridgeDemo</members>
-        <name>LightningComponentBundle</name>
-    </types>
-    <types>
-        <members>OrgLimitsController</members>
-        <members>OrgLimitsControllerTest</members>
-        <name>ApexClass</name>
-    </types>
-    <types>
-        <members>Auto_Assign_Minlopro_Permission_Sets_to_DigEx_Users</members>
-        <name>Flow</name>
-    </types>
     <version>55.0</version>
 </Package>
