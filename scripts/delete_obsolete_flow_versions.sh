@@ -2,12 +2,12 @@
 
 # Define constants;
 targetOrg=$1 #Mandatory parameter!
+buildFolderName="./build"
+csvFileName="$buildFolderName/flow_version_IDs_to_delete.csv"
 
-csvFileName='flowVersionIdsToDelete.csv'
-touch $csvFileName
+mkdir -p $buildFolderName
 
 echo "Querying obsolete flow versions..."
-
 sfdx data query \
   --query "SELECT Id FROM Flow WHERE Status = 'Obsolete'" \
   --target-org $1 \
