@@ -3,7 +3,7 @@
 **/customindex
 **/profilePasswordPolicies
 **/profileSessionSettings
-**/settings/Security.settings-meta.xml
+**/settings
 
 # Ignore specific set of metadata items
 **/profiles/Admin.profile-meta.xml
