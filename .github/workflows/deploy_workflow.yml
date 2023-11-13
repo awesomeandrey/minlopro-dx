@@ -52,9 +52,16 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - uses: sfdx-actions/setup-sfdx@v1
-              with:
-                  sfdx-auth-url: ${{secrets.QA_AUTH_URL}}
+            - name: 'Install Salesforce CLI & Authorize Target Org'
+              run: |
+                  npm install --global sfdx-cli
+                  sfdx --version
+                  echo 'Installed SFDX! Hooray!'
+                  touch ./targetOrgAuthUrl.txt
+                  echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
+                  sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
+                  sfdx force:org:display
+                  echo 'Done!'
             - name: 'Run All Apex Tests with Coverage'
               run: npm run sfdx:apex:tests
     run-pmd-checks:
