@@ -37,6 +37,7 @@ grep "$srcFilePrefix" "$changedFilesPath" | while read -r filepath; do
 done
 
 printf "\n <----- BUILD FOLDER TREE -----> \n"
+rm $changedFilesPath
 tree $buildFolderName
 
 if ! [ "$(ls $srcFolderPath)" ]; then
@@ -45,7 +46,14 @@ if ! [ "$(ls $srcFolderPath)" ]; then
 fi
 
 # Invoke prettier;
-npm install -g prettier
-printf "\n prettier version is $(prettier --version)\n"
+printf "\n prettier version is $(./node_modules/.bin/prettier --version)\n"
 printf "\n pwd is $(pwd)\n"
-prettier --check "$srcFolderPath/**/*.{cmp,component,css,html,js,json,md,page,trigger,yaml,yml}"
+./node_modules/.bin/prettier --check "$srcFolderPath/**/*.{cmp,cls,component,css,html,js,json,md,page,trigger,yaml,yml}"
+# Capture the exit code
+prettier_exit_code=$?
+if [ $prettier_exit_code -eq 2 ]; then
+  echo "Override Prettier exit code!"
+  exit 0
+else
+  exit $prettier_exit_code
+fi
