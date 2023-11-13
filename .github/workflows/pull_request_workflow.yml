@@ -72,9 +72,6 @@ jobs:
                   echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
                   echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
                   echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
-                  sfdx --version
-                  sf --version
-                  sfdx org display --target-org TARGET_ORG --json --verbose
             - name: 'Generate Delta Manifests'
               run: |
                   git checkout ${{github.base_ref}}
