@@ -161,8 +161,7 @@ sfdx sgd:source:delta \
 
 _Generate User Password_
 ```
-sfdx force:user:password:generate -u SO
-sfdx user:display -u SO
+sf org generate password --target-org SO && sf org display user --target-org SO
 ```
 
 ### Scripts in `package.json`
