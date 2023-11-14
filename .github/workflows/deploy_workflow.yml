@@ -1,4 +1,4 @@
-name: Deploy To INT Org
+name: Deploy Source
 
 # Trigger Events
 on:
