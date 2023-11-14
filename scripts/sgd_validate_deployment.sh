@@ -14,7 +14,7 @@ packageXmlLinesCount=$(wc -l < $packageXml)
 printf "\n Package XML lines count = ${packageXmlLinesCount} \n"
 destructiveChangesXmlLinesCount=$(wc -l < $destructiveChangesXml)
 printf "\n Destructive XML lines count = ${destructiveChangesXmlLinesCount} \n"
-if (($packageXmlLinesCount < 10)) && (($destructiveChangesXmlLinesCount < 10)); then
+if (($packageXmlLinesCount < 6)) && (($destructiveChangesXmlLinesCount < 6)); then
   printf '\n There are no metadata changes detected! \n'
   exit 0
 fi
