@@ -1,6 +1,6 @@
 # minlopro-dx
 
-[![DEVELOP Branch Workflow](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/develop_workflow.yml/badge.svg?branch=develop&event=push)](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/develop_workflow.yml)
+[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/deploy_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/deploy_workflow.yml)
 
 ## Prerequisites
 
