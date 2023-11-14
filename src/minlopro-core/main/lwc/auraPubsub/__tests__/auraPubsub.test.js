@@ -5,7 +5,7 @@ import AuraPubsub from 'c/auraPubsub';
 const flushPromises = require('flush-promises');
 
 // Mocked Page Reference;
-const MOCKED_APP_PAGE_REF = require('../../../../../test/jest-mocks/pageReferences/appPageRef.json');
+const MOCKED_APP_PAGE_REF = require('../../../../test/jest-mocks/pageReferences/appPageRef.json');
 // Custom Event Name(s);
 const EVENT_NAME1 = 'customEvt_1';
 const EVENT_NAME2 = 'customEvt_2';
