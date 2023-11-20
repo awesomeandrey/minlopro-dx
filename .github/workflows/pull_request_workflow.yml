@@ -19,7 +19,7 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - name: 'Install Dependencies'
+            - name: 'Install NPM Dependencies'
               run: npm install
             - name: 'Run Prettier Check (Partial)'
               run: |
@@ -27,8 +27,7 @@ jobs:
                   git pull
                   git checkout ${{github.head_ref}}
                   git pull
-                  git branch -a
-                  bash ./scripts/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
+                  bash ./scripts/deploy/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
     run-jest-tests:
         runs-on: ubuntu-latest
         steps:
@@ -36,7 +35,7 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - name: 'Install Dependencies'
+            - name: 'Install NPM Dependencies'
               run: npm install
             - name: 'Run Jest Tests with Coverage'
               run: npm run jest:coverage
@@ -52,17 +51,8 @@ jobs:
                   node-version: '18.x'
             - name: 'Install Salesforce CLI & Authorize Target Org'
               run: |
-                  npm install --global sfdx-cli
-                  sfdx --version
-                  echo 'Installed SFDX! Hooray!'
-                  touch ./targetOrgAuthUrl.txt
-                  echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
-                  sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
-                  sfdx force:org:display
-                  echo 'Done!'
-            - name: 'Install "sfdx-git-delta"'
-              run: |
-                  echo y | sfdx plugins:install "sfdx-git-delta@stable"
+                  bash ./scripts/deploy/build.sh
+                  echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
             - name: 'Environment Info'
               run: |
                   echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
@@ -76,12 +66,19 @@ jobs:
                   git pull
                   git checkout ${{github.head_ref}}
                   git pull
-                  git branch -a
-                  bash ./scripts/sgd_generate_manifests.sh ${{github.base_ref}} ${{github.head_ref}}
+                  branchesInfoFile="branches-info.txt"
+                  touch $branchesInfoFile
+                  # From
+                  echo ${{github.base_ref}} >> $branchesInfoFile
+                  # To
+                  echo ${{github.head_ref}} >> $branchesInfoFile
+                  bash ./scripts/deploy/sgd_generate_manifests.sh < $branchesInfoFile
             - name: 'Upload Delta Manifest Files as Artifact'
               uses: actions/upload-artifact@v3
               with:
                   name: delta-changes
                   path: manifests/sgd
-            - name: 'Check-Only Deploy Source to Target Org And Run Local Tests'
-              run: bash ./scripts/sgd_validate_deployment.sh TARGET_ORG
+            - name: 'Check-Only Deploy Source to Target Org'
+              run: |
+                  targetOrgAlias=$(bash ./scripts/deploy/get_target_org_alias.sh)
+                  echo $targetOrgAlias | bash ./scripts/deploy/sgd_validate_deployment.sh

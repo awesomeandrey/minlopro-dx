@@ -1,7 +1,7 @@
 @IsTest
 public class ContactLockingTest {
     /**
-     * Users with Modify All Data or Modify All for given object permission
+     * Users with 'Modify All Data' or 'Modify All' for given object permission
      * can update locked records and bypass Approval.Lock API
      */
 
