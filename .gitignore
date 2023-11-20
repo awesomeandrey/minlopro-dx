@@ -7,6 +7,7 @@ node_modules/
 IlluminatedCloud/
 coverage/
 build/
+temp/
 logs/
 
 # Logs
@@ -18,11 +19,6 @@ yarn-error.log*
 # Project files
 manifests/sgd/
 manifests/package.xml
-
-# Custom file exclusions
-**/profilePasswordPolicies
-**/profileSessionSettings
-**/settings
 
 # Playground Files
 scripts/playground

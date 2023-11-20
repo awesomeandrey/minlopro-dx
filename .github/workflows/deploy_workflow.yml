@@ -24,25 +24,20 @@ jobs:
                   node-version: '18.x'
             - name: 'Install Salesforce CLI & Authorize Target Org'
               run: |
-                  npm install --global sfdx-cli
-                  sfdx --version
-                  echo 'Installed SFDX! Hooray!'
-                  touch ./targetOrgAuthUrl.txt
-                  echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
-                  sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
-                  sfdx force:org:display
-                  echo 'Done!'
+                  bash ./scripts/deploy/build.sh
+                  echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
             - name: 'Deploy Source to Target Org'
               run: |
-                  npm run sfdx:manifest
-                  npm run src:deploy:full -- -u TARGET_ORG
+                  npm run sf:manifest:create
+                  npm run src:deploy:full
             - name: 'Custom Post-Deployment Steps'
               run: |
-                  bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_digex_psg
-                  bash ./scripts/run_apex_script.sh TARGET_ORG assign_minlopro_psg
-                  bash ./scripts/run_apex_script.sh TARGET_ORG enable_debug_mode
-                  bash ./scripts/delete_all_apex_logs.sh TARGET_ORG
-                  bash ./scripts/delete_obsolete_flow_versions.sh TARGET_ORG
+                  targetOrgAlias=$(bash ./scripts/deploy/get_target_org_alias.sh)
+                  bash ./scripts/util/run_apex_script.sh $targetOrgAlias assign_minlopro_digex_psg
+                  bash ./scripts/util/run_apex_script.sh $targetOrgAlias assign_minlopro_psg
+                  bash ./scripts/util/run_apex_script.sh $targetOrgAlias enable_debug_mode
+                  echo $targetOrgAlias | bash ./scripts/util/delete_all_apex_logs.sh
+                  echo $targetOrgAlias | bash ./scripts/util/delete_obsolete_flow_versions.sh
     run-apex-tests:
         needs: [deploy-source-to-org]
         runs-on: ubuntu-latest
@@ -53,16 +48,10 @@ jobs:
                   node-version: '18.x'
             - name: 'Install Salesforce CLI & Authorize Target Org'
               run: |
-                  npm install --global sfdx-cli
-                  sfdx --version
-                  echo 'Installed SFDX! Hooray!'
-                  touch ./targetOrgAuthUrl.txt
-                  echo ${{secrets.QA_AUTH_URL}} > ./targetOrgAuthUrl.txt
-                  sfdx auth:sfdxurl:store -f ./targetOrgAuthUrl.txt -s -a TARGET_ORG
-                  sfdx force:org:display
-                  echo 'Done!'
+                  bash ./scripts/deploy/build.sh
+                  echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
             - name: 'Run All Apex Tests with Coverage'
-              run: npm run sfdx:apex:tests
+              run: npm run sf:apex:tests:coverage
     run-pmd-checks:
         needs: [deploy-source-to-org]
         runs-on: ubuntu-latest
@@ -71,7 +60,7 @@ jobs:
             - uses: actions/setup-node@v3
               with:
                   node-version: '18.x'
-            - name: 'Install Dependencies'
+            - name: 'Install NPM Dependencies'
               run: npm install
             - name: 'Run Apex Static Code Analysis (PMD)'
               run: npm run pmd:html || echo "PMD report has been generated!"
