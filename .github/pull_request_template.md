@@ -21,5 +21,5 @@ Describe how the feature was implemented / bug was fixed.
 
 ## Apex Tests Coverage 🛠
 
-Include screenshot of Apex Tests report (use `npm run sfdx:apex:tests` command in order to launch all Apex Tests in the
+Include screenshot of Apex Tests report (use `npm run sf:apex:tests` command in order to launch all Apex Tests in the
 dev org).

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# How to use:
+# - bash ./scripts/deploy/run_prettier_check_against_changed_files.sh TARGET_BRANCH_NAME
+
 # Define constants;
 baseRef=$1 #Mandatory parameter!
 buildFolderName="./build"
@@ -9,7 +12,7 @@ srcFilePrefix="$srcFolderName/"
 changedFiles="changedFiles.txt"
 changedFilesPath="$buildFolderName/$changedFiles"
 
-printf "\n baseRef is [$baseRef] \n"
+printf "\nbaseRef is [$baseRef]\n"
 
 # Create 'build' folder;
 mkdir -p "$buildFolderName"
@@ -19,14 +22,14 @@ mkdir -p "$srcFolderPath"
 # Grab HEAD commit SHA from source branch;
 BASE=$(git merge-base $baseRef HEAD)
 
-printf "\n BASE commit in [$baseRef] is [$BASE] \n"
+printf "\nBASE commit in [$baseRef] is [$BASE]\n"
 
 # Extract changed files and save those names into the text file;
 touch "$changedFilesPath"
 git diff --name-only $BASE HEAD > "$changedFilesPath"
 
 # Quick overview of changed files;
-printf "\n <----- CHANGED FILES -----> \n"
+printf "\n---CHANGED FILES---\n"
 cat "$changedFilesPath"
 
 # Copy each SRC-changed file into a separate folder preserving folders hierarchy;
@@ -36,12 +39,12 @@ grep "$srcFilePrefix" "$changedFilesPath" | while read -r filepath; do
   fi
 done
 
-printf "\n <----- BUILD FOLDER TREE -----> \n"
+printf "\n---BUILD FOLDER TREE---\n"
 rm $changedFilesPath
 tree $buildFolderName
 
 if ! [ "$(ls $srcFolderPath)" ]; then
-  printf "\n<----- No changed files detected in [$srcFolderPath] folder! ----->\n"
+  printf "\nNo changed files detected in [$srcFolderPath] folder!\n"
   exit 0
 fi
 

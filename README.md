@@ -8,7 +8,7 @@ Install `node` version according to `package.json` file (_19.7.0_). It's recomme
 use [NVM](https://tecadmin.net/install-nvm-macos-with-homebrew/) in order to manage NODE versions on
 local machine.
 
-Run `npm install` in order to load project dependencies.
+Run `bash ./scripts/deploy/build.sh` in order to load project dependencies.
 
 Look through the pre-configured GitHub Workflows/Actions located in `.github/workflows/` folder.
 
@@ -40,10 +40,6 @@ Corresponds to **PROD** environment.
 _Create Scratch Org_
 
 ```
-// Create scratch org according to JSON config file;
-sfdx force:org:create -f config/project-scratch-def.json -a SO
-
-// SF CLI
 sf org create scratch \
     --target-dev-hub sf-practises-devhub \
     --definition-file config/project-scratch-def.json \
@@ -56,108 +52,33 @@ sf org create scratch \
 _Create DigEx Site_
 
 ```
-sfdx force:community:create \
-    --u SO \
+sf community create \
+    --target-org SO \
     --name 'DigEx' \
-    --templatename 'Build Your Own' \
-    --urlpathprefix digex
+    --template-name 'Build Your Own' \
+    --url-path-prefix digex
 ```
 
 _Deploy Codebase_
 
 ```
-[Push Source Code to the newly created Scratch Org]
-sf project deploy start  --source-dir src --target-org SO
-
-Better to deploy all codebase via Metadata Deploy:
-npm run sfdx:manifest
-npm run src:deploy:full
-
-// Create extra user (optional)
-sfdx force:user:create \
--u SO \
---definitionfile config/qa-user-def.json \
---setalias qa-user \
---set-unique-username
-
-// Assign permission set groups to target users
-
-# bash ./scripts/run_apex_script.sh SO assign_minlopro_digex_psg
-# bash ./scripts/run_apex_script.sh SO assign_minlopro_psg
-# bash ./scripts/run_apex_script.sh SO enable_debug_mode
+npm run sf:manifest:create && npm run src:deploy:full
 ```
 
 _Publish Community_
 
 ```
-sfdx force:community:publish --name "DigEx" -u SO
-```
-
-_Generate Auth URL for the Target Org_
-
-```
-// Authorize Org (defining 'targetOrg' alias)
-sfdx auth:web:login --setalias targetOrg
-// Generate auth URL and save it to the file './org_auth_url.txt'
-sfdx auth:sfdxurl:store -f ./org_auth_url.txt -a targetOrg -d -s
-// Print org info
-sfdx force:org:display --verbose -a targetOrg
-```
-
-_Deploy Repository Source to Target Org_
-
-```
-// Create 'package.xml' manifest file that lists all metadata components within the repo
-sfdx force:source:manifest:create --sourcepath src --manifestname manifests/package.xml
-// Initiate source code deployment
-sfdx force:source:deploy \
-    -x manifests/package.xml \
-    --predestructivechanges manifests/destructiveChangesPre.xml \
-    --postdestructivechanges manifests/destructiveChangesPost.xml \
-    --checkonly \
-    --verbose \
-    --testlevel=RunLocalTests \
-    --ignorewarnings
-```
-
-The following flags are optional:
-
--   `--checkonly` - used to validate bundle deployment
--   `--testlevel` - used to invoke Apex Tests during deployment
-
-_Invoke All Apex Tests_
-
-```
-sfdx force:apex:test:run --code-coverage --result-format human -d ./coverage
-```
-
-_Reset Source Tracking_
-
-```
-sf project reset tracking --target-org SO --no-prompt
+sf community publish --name "DigEx" --target-org SO
 ```
 
 _Retrieve Metadata From Org by `package.xml` File_
 
 ```
-sfdx force:source:retrieve -x manifests/package.xml -u SO -r build
+sf project retrieve start \
+    --manifest manifests/package.xml \
+    --target-org SO \
+    --output-dir build
 ```
-
-_Generate `package.xml` File Based on Changes Delta_
-
-This implies [sfdx-git-delta](https://github.com/scolladon/sfdx-git-delta) plugin usage.
-
-```
-// Install plugin once
-sfdx plugins:install sfdx-git-delta@stable
-// Generate manifest files that indicate source changes
-sfdx sgd:source:delta \
-    --output manifests \
-    --source 'src' \
-    --from "SOURCE_BRANCH_NAME" \
-    --to "WORKING_BRANCH_NAME"
-```
-
 
 _Generate User Password_
 ```
@@ -167,18 +88,13 @@ sf org generate password --target-org SO && sf org display user --target-org SO
 ### Scripts in `package.json`
 
 Aforementioned commands were broken down into smaller ones in `package.json` project file.
-Keep im mind that scripts that start with `sfdx:...` or `src:...` can be invoked with extra parameters passed to them.
+Keep im mind that scripts that start with `sf:...` or `src:...` can be invoked with extra parameters passed to them.
 E.g. you can execute particular script passing in ORG alias:
-
 ```
-// Authorize Org
-npm run sfdx:auth:create -- -u [AUTHORIZED_ORG_ALIAS] && npm run sfdx:auth:store
-// Validate deployment to target ORG
-npm run sfdx:manifest && npm run src:deploy:check -- -u [AUTHORIZED_ORG_ALIAS]
-// Run deployment to target ORG that has source tracking enabled (such as sandboxes and scratch orgs)
-npm run sfdx:manifest && npm run src:deploy:full -- -u [AUTHORIZED_ORG_ALIAS] --tracksource --forceoverwrite
+// Push source to target org
+npm run src:push -- -o $ORG_ALIAS
 ```
 
 Please, refer
-to [SFDX CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+to [SF CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_unified.htm)
 for more information.
