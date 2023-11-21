@@ -12,6 +12,11 @@ srcFilePrefix="$srcFolderName/"
 changedFiles="changedFiles.txt"
 changedFilesPath="$buildFolderName/$changedFiles"
 
+# Delete 'build' folder if it exists;
+if [ -d "$buildFolderName" ]; then
+  rm -rf "$buildFolderName"
+fi
+
 printf "baseRef is [$baseRef]\n"
 
 # Create 'build' folder;
