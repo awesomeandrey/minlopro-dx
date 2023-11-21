@@ -106,7 +106,9 @@ public with sharing class fflib_InOrder extends fflib_MethodVerifier {
         fflib_VerificationMode verificationMode
     ) {
         String inOrder = ' in order';
-        List<fflib_IMatcher> matchers = fflib_Match.Matching ? fflib_Match.getAndClearMatchers(expectedArguments.argValues.size()) : null;
+        List<fflib_IMatcher> matchers = fflib_Match.Matching
+            ? fflib_Match.getAndClearMatchers(expectedArguments.argValues.size())
+            : null;
         List<fflib_InvocationOnMock> actualInvocations = fflib_MethodCountRecorder.getOrderedMethodCalls();
         List<fflib_MethodArgValues> actualArguments = new List<fflib_MethodArgValues>();
         for (fflib_InvocationOnMock invocation : actualInvocations) {
@@ -150,7 +152,9 @@ public with sharing class fflib_InOrder extends fflib_MethodVerifier {
             if (hasNextInteraction(unorderedMockInstances, idxMethodCall)) {
                 fflib_InvocationOnMock nextMethod = getNextMethodCall(false);
 
-                if (nextMethod.getMethod() == qm && argumentsMatch(nextMethod.getMethodArgValues(), matchers, expectedArguments)) {
+                if (
+                    nextMethod.getMethod() == qm && argumentsMatch(nextMethod.getMethodArgValues(), matchers, expectedArguments)
+                ) {
                     Integer methodCounts = i + countInteractions(matchers, qm, expectedArguments);
                     throwException(
                         qm,
@@ -247,7 +251,11 @@ public with sharing class fflib_InOrder extends fflib_MethodVerifier {
         idxMethodCall = lastInteracionIndex + 1;
     }
 
-    private Boolean argumentsMatch(fflib_MethodArgValues calledMethodArg, List<fflib_IMatcher> matchers, fflib_MethodArgValues methodArg) {
+    private Boolean argumentsMatch(
+        fflib_MethodArgValues calledMethodArg,
+        List<fflib_IMatcher> matchers,
+        fflib_MethodArgValues methodArg
+    ) {
         //Check it was called with the right args.
         if (matchers != null) {
             if (fflib_Match.matchesAllArgs(calledMethodArg, matchers)) {

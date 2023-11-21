@@ -65,7 +65,10 @@ private class fflib_SObjectsTest {
         Set<Id> recordIds = new Set<Id>{ idA, idB, idC };
         System.assert(domain.getRecordIds().equals(recordIds), 'The domain should return all the record Ids');
 
-        System.assert(domain.getIdFieldValues(Schema.Account.Id).equals(recordIds), 'The domain should return all the record Ids');
+        System.assert(
+            domain.getIdFieldValues(Schema.Account.Id).equals(recordIds),
+            'The domain should return all the record Ids'
+        );
     }
 
     @IsTest

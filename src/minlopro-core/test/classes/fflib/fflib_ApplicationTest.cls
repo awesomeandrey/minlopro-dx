@@ -30,7 +30,9 @@ private class fflib_ApplicationTest {
     private static void callingDomainFactoryShouldGiveRegisteredImplsAndMocks() {
         // Registered Accounts domain class by SObject List
         Id testAccountId = fflib_IDGenerator.generate(Account.SObjectType);
-        fflib_IDomain domainObjectAcct = Domain.newInstance(new List<Account>{ new Account(Id = testAccountId, Name = 'Test Account') });
+        fflib_IDomain domainObjectAcct = Domain.newInstance(
+            new List<Account>{ new Account(Id = testAccountId, Name = 'Test Account') }
+        );
         System.assert(domainObjectAcct instanceof AccountsDomain);
         System.assertEquals(testAccountId, getFirstSObject(domainObjectAcct).Id);
 
@@ -198,7 +200,9 @@ private class fflib_ApplicationTest {
 
         // Mocking behaviour
         UnitOfWork.setMock(new fflib_SObjectMocks.SObjectUnitOfWork(new fflib_ApexMocks()));
-        System.assert(UnitOfWork.newInstance(new List<SObjectType>{ Account.SObjectType }) instanceof fflib_SObjectMocks.SObjectUnitOfWork);
+        System.assert(
+            UnitOfWork.newInstance(new List<SObjectType>{ Account.SObjectType }) instanceof fflib_SObjectMocks.SObjectUnitOfWork
+        );
     }
 
     @IsTest
@@ -210,7 +214,10 @@ private class fflib_ApplicationTest {
             Service.newInstance(IContactService.class);
             System.assert(false, 'Expected exception');
         } catch (fflib_Application.DeveloperException e) {
-            System.assertEquals('No implementation registered for service interface ' + IContactService.class.getName(), e.getMessage());
+            System.assertEquals(
+                'No implementation registered for service interface ' + IContactService.class.getName(),
+                e.getMessage()
+            );
         }
 
         // Mocking behaviour
@@ -252,11 +259,17 @@ private class fflib_ApplicationTest {
     private static void callingSelectorFactorySelectByIdWithMixedIdTypeListShouldGiveException() {
         try {
             Selector.selectById(
-                new Set<Id>{ fflib_IDGenerator.generate(Opportunity.SObjectType), fflib_IDGenerator.generate(Account.SObjectType) }
+                new Set<Id>{
+                    fflib_IDGenerator.generate(Opportunity.SObjectType),
+                    fflib_IDGenerator.generate(Account.SObjectType)
+                }
             );
             System.assert(true, 'Expected exception');
         } catch (fflib_Application.DeveloperException e) {
-            System.assertEquals('Unable to determine SObjectType, Set contains Id\'s from different SObject types', e.getMessage());
+            System.assertEquals(
+                'Unable to determine SObjectType, Set contains Id\'s from different SObject types',
+                e.getMessage()
+            );
         }
     }
 
@@ -302,7 +315,12 @@ private class fflib_ApplicationTest {
 
         // When
         List<Opportunity> opportunties = new List<Opportunity>{
-            new Opportunity(Id = testOpportunityId, Account = accounts[0], AccountId = testAccountId, Name = 'Test Opportunity 1'),
+            new Opportunity(
+                Id = testOpportunityId,
+                Account = accounts[0],
+                AccountId = testAccountId,
+                Name = 'Test Opportunity 1'
+            ),
             new Opportunity(Id = testOpportunityId, Name = 'Test Opportunity 2')
         };
         List<Account> assertAccounts = Selector.selectByRelationship(opportunties, Opportunity.AccountId);
@@ -417,7 +435,10 @@ private class fflib_ApplicationTest {
 
     // Configure and create the SelectorFactory for this Application
     public static final fflib_Application.SelectorFactory Selector = new fflib_Application.SelectorFactory(
-        new Map<SObjectType, Type>{ Account.SObjectType => AccountsSelector.class, Opportunity.SObjectType => OpportuntiesSelector.class }
+        new Map<SObjectType, Type>{
+            Account.SObjectType => AccountsSelector.class,
+            Opportunity.SObjectType => OpportuntiesSelector.class
+        }
     );
 
     // Configure and create the DomainFactory for this Application

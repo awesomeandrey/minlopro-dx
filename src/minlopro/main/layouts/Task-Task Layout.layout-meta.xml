@@ -34,7 +34,9 @@
                 <field>WhoId</field>
             </layoutItems>
         </layoutColumns>
-        <style>TwoColumnsTopToBottom</style>
+        <style>
+            TwoColumnsTopToBottom
+        </style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -47,7 +49,9 @@
                 <field>Description</field>
             </layoutItems>
         </layoutColumns>
-        <style>OneColumn</style>
+        <style>
+            OneColumn
+        </style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -74,7 +78,9 @@
                 <field>Email</field>
             </layoutItems>
         </layoutColumns>
-        <style>TwoColumnsLeftToRight</style>
+        <style>
+            TwoColumnsLeftToRight
+        </style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -83,7 +89,9 @@
         <label>Other Information</label>
         <layoutColumns />
         <layoutColumns />
-        <style>TwoColumnsTopToBottom</style>
+        <style>
+            TwoColumnsTopToBottom
+        </style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -102,14 +110,18 @@
                 <field>LastModifiedById</field>
             </layoutItems>
         </layoutColumns>
-        <style>TwoColumnsTopToBottom</style>
+        <style>
+            TwoColumnsTopToBottom
+        </style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
         <layoutColumns />
-        <style>CustomLinks</style>
+        <style>
+            CustomLinks
+        </style>
     </layoutSections>
     <quickActionList>
         <quickActionListItems>

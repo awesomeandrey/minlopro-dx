@@ -57,7 +57,9 @@
                 <componentInstanceProperties>
                     <name>sectionConfig</name>
                     <value
-                    >{&quot;UUID&quot;:&quot;dbc888b1-b09e-49f9-963b-5a773b2479e8&quot;,&quot;columns&quot;:[{&quot;UUID&quot;:&quot;7f4ebf34-c019-4a9a-b8f9-a4e06f30f5b0&quot;,&quot;columnKey&quot;:&quot;1&quot;,&quot;columnName&quot;:&quot;Column 1&quot;,&quot;columnWidth&quot;:&quot;12&quot;,&quot;seedComponents&quot;:[]}]}</value>
+                        >{&quot;UUID&quot;:&quot;dbc888b1-b09e-49f9-963b-5a773b2479e8&quot;,&quot;columns&quot;:[{&quot;UUID&quot;:&quot;7f4ebf34-c019-4a9a-b8f9-a4e06f30f5b0&quot;,&quot;columnKey&quot;:&quot;1&quot;,&quot;columnName&quot;:&quot;Column
+                        1&quot;,&quot;columnWidth&quot;:&quot;12&quot;,&quot;seedComponents&quot;:[]}]}</value
+                    >
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sectionHeight</name>

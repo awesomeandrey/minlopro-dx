@@ -36,9 +36,7 @@
             styleClass="slds-table slds-table_cell-buffer slds-table_bordered"
         >
             <apex:facet name="caption">
-                <div class="slds-text-title_caps slds-m-vertical_x-small slds-text-align_center">
-                    Your Information
-                </div>
+                <div class="slds-text-title_caps slds-m-vertical_x-small slds-text-align_center">Your Information</div>
             </apex:facet>
             <apex:column>
                 <apex:facet name="header">Field Name</apex:facet>

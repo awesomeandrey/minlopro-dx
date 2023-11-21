@@ -163,11 +163,21 @@ public class fflib_SObjectMocks {
         }
 
         public void registerEmptyRecycleBin(SObject record) {
-            mocks.mockVoidMethod(this, 'registerEmptyRecycleBin', new List<Type>{ List<SObject>.class }, new List<Object>{ record });
+            mocks.mockVoidMethod(
+                this,
+                'registerEmptyRecycleBin',
+                new List<Type>{ List<SObject>.class },
+                new List<Object>{ record }
+            );
         }
 
         public void registerEmptyRecycleBin(List<SObject> records) {
-            mocks.mockVoidMethod(this, 'registerEmptyRecycleBin', new List<Type>{ List<SObject>.class }, new List<Object>{ records });
+            mocks.mockVoidMethod(
+                this,
+                'registerEmptyRecycleBin',
+                new List<Type>{ List<SObject>.class },
+                new List<Object>{ records }
+            );
         }
 
         public void registerUpsert(List<SObject> records) {
@@ -187,11 +197,21 @@ public class fflib_SObjectMocks {
         }
 
         public void registerPermanentlyDeleted(List<SObject> records) {
-            mocks.mockVoidMethod(this, 'registerPermanentlyDeleted', new List<Type>{ SObject.class }, new List<Object>{ records });
+            mocks.mockVoidMethod(
+                this,
+                'registerPermanentlyDeleted',
+                new List<Type>{ SObject.class },
+                new List<Object>{ records }
+            );
         }
 
         public void registerPublishBeforeTransaction(SObject record) {
-            mocks.mockVoidMethod(this, 'registerPublishBeforeTransaction', new List<Type>{ SObject.class }, new List<Object>{ record });
+            mocks.mockVoidMethod(
+                this,
+                'registerPublishBeforeTransaction',
+                new List<Type>{ SObject.class },
+                new List<Object>{ record }
+            );
         }
 
         public void registerPublishBeforeTransaction(List<SObject> records) {
@@ -241,7 +261,12 @@ public class fflib_SObjectMocks {
         }
 
         public void registerWork(fflib_SObjectUnitOfWork.IDoWork work) {
-            mocks.mockVoidMethod(this, 'registerWork', new List<Type>{ fflib_SObjectUnitOfWork.IDoWork.class }, new List<Object>{ work });
+            mocks.mockVoidMethod(
+                this,
+                'registerWork',
+                new List<Type>{ fflib_SObjectUnitOfWork.IDoWork.class },
+                new List<Object>{ work }
+            );
         }
 
         public void registerEmail(Messaging.Email email) {

@@ -7,22 +7,22 @@
 baseRef=$1 #Mandatory parameter!
 buildFolderName="./build"
 srcFolderName="src"
-srcFolderPath="$buildFolderName/$srcFolderName"
+copiedSrcFolderPath="$buildFolderName/$srcFolderName"
 srcFilePrefix="$srcFolderName/"
 changedFiles="changedFiles.txt"
 changedFilesPath="$buildFolderName/$changedFiles"
 
-printf "\nbaseRef is [$baseRef]\n"
+printf "baseRef is [$baseRef]\n"
 
 # Create 'build' folder;
 mkdir -p "$buildFolderName"
 # Create 'build/src' folder;
-mkdir -p "$srcFolderPath"
+mkdir -p "$copiedSrcFolderPath"
 
 # Grab HEAD commit SHA from source branch;
 BASE=$(git merge-base $baseRef HEAD)
 
-printf "\nBASE commit in [$baseRef] is [$BASE]\n"
+printf "BASE commit in [$baseRef] is [$BASE]\n"
 
 # Extract changed files and save those names into the text file;
 touch "$changedFilesPath"
@@ -43,15 +43,17 @@ printf "\n---BUILD FOLDER TREE---\n"
 rm $changedFilesPath
 tree $buildFolderName
 
-if ! [ "$(ls $srcFolderPath)" ]; then
-  printf "\nNo changed files detected in [$srcFolderPath] folder!\n"
+if ! [ "$(ls $copiedSrcFolderPath)" ]; then
+  printf "No changed files detected in [$copiedSrcFolderPath] folder!\n"
   exit 0
 fi
 
 # Invoke prettier;
-printf "\n prettier version is $(./node_modules/.bin/prettier --version)\n"
-printf "\n pwd is $(pwd)\n"
-./node_modules/.bin/prettier --check "$srcFolderPath/**/*.{cmp,cls,component,css,html,js,json,md,page,trigger,yaml,yml}"
+printf "prettier version = $(prettier --version)\n"
+printf "which prettier = $(which prettier)\n"
+printf "pwd = $(pwd)\n"
+prettier --check "$copiedSrcFolderPath/**"
+
 # Capture the exit code
 prettier_exit_code=$?
 if [ $prettier_exit_code -eq 2 ]; then

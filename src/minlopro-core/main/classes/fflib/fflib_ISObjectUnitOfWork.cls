@@ -80,7 +80,12 @@ public interface fflib_ISObjectUnitOfWork {
      *
      * Wraps putSObject, creating a new instance of the lookup sobject using the external id field and value.
      */
-    void registerRelationship(SObject record, Schema.SObjectField relatedToField, Schema.SObjectField externalIdField, Object externalId);
+    void registerRelationship(
+        SObject record,
+        Schema.SObjectField relatedToField,
+        Schema.SObjectField externalIdField,
+        Object externalId
+    );
     /**
      * Register an existing record to be updated during the commitWork method
      *

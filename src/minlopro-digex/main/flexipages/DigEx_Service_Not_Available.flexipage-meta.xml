@@ -7,7 +7,15 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value
-                    >&lt;div style=&apos;display: flex; align-items: center; flex-direction: column; margin: 60px 25px 40px 25px;&apos;&gt;&lt;div style=&apos;background: url(/sfsites/assets/Images/serviceNotAvailable/serviceNotAvailable.svg) center no-repeat; background-size: contain; height: 331px; width: 100%; max-width: 538px;&apos;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&apos;margin: 0 25px; text-align: center;&apos;&gt;&lt;h1&gt;&lt;b style=&apos;font-size: 2em&apos;&gt;Looks like the site is temporarily unavailable&lt;/b&gt;&lt;/h1&gt;&lt;br/&gt;&lt;p&gt;&lt;span style=&apos;font-size: 1.5em;&apos;&gt;Please try again in a bit.&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;</value>
+                        >&lt;div style=&apos;display: flex; align-items: center; flex-direction: column; margin: 60px 25px 40px
+                        25px;&apos;&gt;&lt;div style=&apos;background:
+                        url(/sfsites/assets/Images/serviceNotAvailable/serviceNotAvailable.svg) center no-repeat; background-size:
+                        contain; height: 331px; width: 100%; max-width: 538px;&apos;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div
+                        style=&apos;margin: 0 25px; text-align: center;&apos;&gt;&lt;h1&gt;&lt;b style=&apos;font-size:
+                        2em&apos;&gt;Looks like the site is temporarily
+                        unavailable&lt;/b&gt;&lt;/h1&gt;&lt;br/&gt;&lt;p&gt;&lt;span style=&apos;font-size: 1.5em;&apos;&gt;Please
+                        try again in a bit.&lt;/span&gt;&lt;/p&gt;&lt;/div&gt;</value
+                    >
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
                 <identifier>forceCommunity_htmlBlock</identifier>

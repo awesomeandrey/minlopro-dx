@@ -241,7 +241,11 @@ public class fflib_SObjectDescribe {
 
         protected NamespacedAttributeMap(Map<String, Object> values) {
             //namespace detection courtesy http://salesforce.stackexchange.com/a/28977/60
-            currentNamespace = fflib_SObjectDescribe.class.getName().substringBefore('fflib_SObjectDescribe').removeEnd('.').toLowerCase();
+            currentNamespace = fflib_SObjectDescribe.class
+                .getName()
+                .substringBefore('fflib_SObjectDescribe')
+                .removeEnd('.')
+                .toLowerCase();
             this.values = values;
         }
         //A no-args constructor to allow subclasses with different constructor signatures

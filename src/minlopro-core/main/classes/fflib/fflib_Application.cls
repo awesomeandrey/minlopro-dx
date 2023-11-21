@@ -155,7 +155,9 @@ public virtual class fflib_Application {
             // Create an instance of the type implementing the given interface
             Type serviceImpl = m_serviceInterfaceTypeByServiceImplType.get(serviceInterfaceType);
             if (serviceImpl == null)
-                throw new DeveloperException('No implementation registered for service interface ' + serviceInterfaceType.getName());
+                throw new DeveloperException(
+                    'No implementation registered for service interface ' + serviceInterfaceType.getName()
+                );
             return serviceImpl.newInstance();
         }
 
@@ -227,7 +229,9 @@ public virtual class fflib_Application {
             SObjectType domainSObjectType = new List<Id>(recordIds)[0].getSObjectType();
             for (Id recordId : recordIds)
                 if (recordId.getSobjectType() != domainSObjectType)
-                    throw new DeveloperException('Unable to determine SObjectType, Set contains Id\'s from different SObject types');
+                    throw new DeveloperException(
+                        'Unable to determine SObjectType, Set contains Id\'s from different SObject types'
+                    );
 
             // Construct Selector class and query by Id for the records
             return newInstance(domainSObjectType).selectSObjectsById(recordIds);
@@ -301,7 +305,10 @@ public virtual class fflib_Application {
          * @param selectorFactory, e.g. Application.Selector
          * @param sObjectByDomainConstructorType Map of Apex classes by SObjectType
          **/
-        public DomainFactory(fflib_Application.SelectorFactory selectorFactory, Map<SObjectType, Type> sObjectByDomainConstructorType) {
+        public DomainFactory(
+            fflib_Application.SelectorFactory selectorFactory,
+            Map<SObjectType, Type> sObjectByDomainConstructorType
+        ) {
             m_selectorFactory = selectorFactory;
             this.constructorTypeByObject = getConstructorTypeByObject(sObjectByDomainConstructorType);
             this.mockDomainByObject = new Map<Object, fflib_IDomain>();
@@ -353,7 +360,8 @@ public virtual class fflib_Application {
                 return (fflib_IDomain) ((fflib_SObjectDomain.IConstructable2) domainConstructor)
                     .construct((List<SObject>) objects, (SObjectType) objectType);
             } else if (domainConstructor instanceof fflib_SObjectDomain.IConstructable) {
-                return (fflib_IDomain) ((fflib_SObjectDomain.IConstructable) domainConstructor).construct((List<SObject>) objects);
+                return (fflib_IDomain) ((fflib_SObjectDomain.IConstructable) domainConstructor)
+                    .construct((List<SObject>) objects);
             }
 
             return ((fflib_IDomainConstructor) domainConstructor).construct(objects);

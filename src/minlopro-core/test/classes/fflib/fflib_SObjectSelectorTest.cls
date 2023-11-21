@@ -209,7 +209,9 @@ private with sharing class fflib_SObjectSelectorTest {
         String soql = qf.toSOQL();
 
         //Then
-        Pattern soqlPattern = Pattern.compile('SELECT (.*) FROM Account ORDER BY Name DESC NULLS FIRST , AnnualRevenue ASC NULLS LAST ');
+        Pattern soqlPattern = Pattern.compile(
+            'SELECT (.*) FROM Account ORDER BY Name DESC NULLS FIRST , AnnualRevenue ASC NULLS LAST '
+        );
         Matcher soqlMatcher = soqlPattern.matcher(soql);
         soqlMatcher.matches();
 
@@ -234,7 +236,9 @@ private with sharing class fflib_SObjectSelectorTest {
         String soql = qf.toSOQL();
 
         // Assert that the
-        Pattern soqlPattern = Pattern.compile('SELECT (.*) FROM Account ORDER BY Name DESC NULLS FIRST , AnnualRevenue ASC NULLS LAST ');
+        Pattern soqlPattern = Pattern.compile(
+            'SELECT (.*) FROM Account ORDER BY Name DESC NULLS FIRST , AnnualRevenue ASC NULLS LAST '
+        );
         Matcher soqlMatcher = soqlPattern.matcher(soql);
         system.assert(soqlMatcher.matches(), 'The SOQL should have that expected.');
     }
@@ -257,7 +261,10 @@ private with sharing class fflib_SObjectSelectorTest {
         String soql = qf.toSOQL();
         Pattern soqlPattern = Pattern.compile('SELECT (.*) FROM Account');
         Matcher soqlMatcher = soqlPattern.matcher(soql);
-        System.assert(soqlMatcher.matches(), 'Generated SOQL does not match expected pattern. Here is the generated SOQL: ' + soql);
+        System.assert(
+            soqlMatcher.matches(),
+            'Generated SOQL does not match expected pattern. Here is the generated SOQL: ' + soql
+        );
 
         List<String> actualSelectFields = soqlMatcher.group(1).deleteWhiteSpace().split(',');
         System.assertEquals(expectedSelectFields, new Set<String>(actualSelectFields));
@@ -279,9 +286,14 @@ private with sharing class fflib_SObjectSelectorTest {
 
         //Then
         String soql = qf.toSOQL();
-        Pattern soqlPattern = Pattern.compile('SELECT Id, \\(SELECT (.*) FROM Users ORDER BY Name ASC NULLS FIRST \\) +FROM Account');
+        Pattern soqlPattern = Pattern.compile(
+            'SELECT Id, \\(SELECT (.*) FROM Users ORDER BY Name ASC NULLS FIRST \\) +FROM Account'
+        );
         Matcher soqlMatcher = soqlPattern.matcher(soql);
-        System.assert(soqlMatcher.matches(), 'Generated SOQL does not match expected pattern. Here is the generated SOQL: ' + soql);
+        System.assert(
+            soqlMatcher.matches(),
+            'Generated SOQL does not match expected pattern. Here is the generated SOQL: ' + soql
+        );
 
         List<String> actualSelectFields = soqlMatcher.group(1).deleteWhiteSpace().split(',');
         System.assertEquals(expectedSelectFields, new Set<String>(actualSelectFields));
@@ -303,9 +315,14 @@ private with sharing class fflib_SObjectSelectorTest {
 
         //Then
         String soql = qf.toSOQL();
-        Pattern soqlPattern = Pattern.compile('SELECT Id, \\(SELECT (.*) FROM Users ORDER BY Name ASC NULLS FIRST \\) +FROM Account');
+        Pattern soqlPattern = Pattern.compile(
+            'SELECT Id, \\(SELECT (.*) FROM Users ORDER BY Name ASC NULLS FIRST \\) +FROM Account'
+        );
         Matcher soqlMatcher = soqlPattern.matcher(soql);
-        System.assert(soqlMatcher.matches(), 'Generated SOQL does not match expected pattern. Here is the generated SOQL: ' + soql);
+        System.assert(
+            soqlMatcher.matches(),
+            'Generated SOQL does not match expected pattern. Here is the generated SOQL: ' + soql
+        );
 
         List<String> actualSelectFields = soqlMatcher.group(1).deleteWhiteSpace().split(',');
         System.assertEquals(expectedSelectFields, new Set<String>(actualSelectFields));
@@ -398,7 +415,12 @@ private with sharing class fflib_SObjectSelectorTest {
             super();
         }
 
-        public Testfflib_SObjectSelector(Boolean includeFieldSetFields, Boolean enforceCRUD, Boolean enforceFLS, Boolean sortSelectFields) {
+        public Testfflib_SObjectSelector(
+            Boolean includeFieldSetFields,
+            Boolean enforceCRUD,
+            Boolean enforceFLS,
+            Boolean sortSelectFields
+        ) {
             super(includeFieldSetFields, enforceCRUD, enforceFLS, sortSelectFields);
         }
 

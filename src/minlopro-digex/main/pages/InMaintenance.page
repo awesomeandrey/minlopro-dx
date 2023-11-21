@@ -4,11 +4,7 @@
             <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/warning.png')}" />
         </apex:define>
         <apex:define name="error">
-            <apex:outputText
-                escape="false"
-                styleClass="title"
-                value="{!$Label.site.down_for_maintenance}"
-            >
+            <apex:outputText escape="false" styleClass="title" value="{!$Label.site.down_for_maintenance}">
                 <apex:param value="{!$Site.BaseUrl}" />
             </apex:outputText>
             <br />

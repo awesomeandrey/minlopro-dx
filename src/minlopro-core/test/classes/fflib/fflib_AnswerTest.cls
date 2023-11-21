@@ -46,7 +46,11 @@ private class fflib_AnswerTest {
         // Then
 
         Object methodCalled = actualInvocation.getMethod();
-        System.Assert.isInstanceOfType(methodCalled, fflib_QualifiedMethod.class, 'the object returned is not a method as expected');
+        System.Assert.isInstanceOfType(
+            methodCalled,
+            fflib_QualifiedMethod.class,
+            'the object returned is not a method as expected'
+        );
 
         String expectedMethodSignature = fflib_MyList.getStubClassName() + '.get2(Integer, String)';
         System.Assert.areEqual(
@@ -74,7 +78,11 @@ private class fflib_AnswerTest {
 
         // Then
         Object methodCalled = actualInvocation.getMethod();
-        System.Assert.isInstanceOfType(methodCalled, fflib_QualifiedMethod.class, 'the object returned is not a method as expected');
+        System.Assert.isInstanceOfType(
+            methodCalled,
+            fflib_QualifiedMethod.class,
+            'the object returned is not a method as expected'
+        );
 
         String expectedMethodSignature = fflib_MyList.getStubClassName() + '.get2(Integer, String)';
         System.Assert.areEqual(
@@ -125,7 +133,11 @@ private class fflib_AnswerTest {
             fflib_MyList.IList.class,
             'the object returned is not a mock instance as expected'
         );
-        System.Assert.areEqual(mockList, actualInvocation.getMock(), 'the mock returned should be the mockList used in the stubbing');
+        System.Assert.areEqual(
+            mockList,
+            actualInvocation.getMock(),
+            'the mock returned should be the mockList used in the stubbing'
+        );
     }
 
     @IsTest
@@ -241,7 +253,11 @@ private class fflib_AnswerTest {
 
         // Then
         Object methodCalled = actualInvocation.getMethod();
-        System.Assert.isInstanceOfType(methodCalled, fflib_QualifiedMethod.class, 'the object returned is not a method as expected');
+        System.Assert.isInstanceOfType(
+            methodCalled,
+            fflib_QualifiedMethod.class,
+            'the object returned is not a method as expected'
+        );
 
         String expectedMethodSignature = fflib_MyList.getStubClassName() + '.addMore(String)';
         System.Assert.areEqual(
@@ -270,7 +286,11 @@ private class fflib_AnswerTest {
 
         // Then
         Object methodCalled = actualInvocation.getMethod();
-        System.Assert.isInstanceOfType(methodCalled, fflib_QualifiedMethod.class, 'the object returned is not a method as expected');
+        System.Assert.isInstanceOfType(
+            methodCalled,
+            fflib_QualifiedMethod.class,
+            'the object returned is not a method as expected'
+        );
 
         String expectedMethodSignature = fflib_MyList.getStubClassName() + '.addMore(String)';
         System.Assert.areEqual(
