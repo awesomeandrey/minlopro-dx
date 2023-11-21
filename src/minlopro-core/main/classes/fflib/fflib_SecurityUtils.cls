@@ -86,7 +86,10 @@ public class fflib_SecurityUtils {
                 this.setMessage('fflib_security_error_field_not_updateable');
 
             this.setMessage(
-                String.format(this.getMessage(), new List<String>{ objectType.getDescribe().getName(), fieldToken.getDescribe().getName() })
+                String.format(
+                    this.getMessage(),
+                    new List<String>{ objectType.getDescribe().getName(), fieldToken.getDescribe().getName() }
+                )
             );
         }
     }

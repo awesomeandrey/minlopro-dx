@@ -8,23 +8,14 @@
                 <lightning-layout-item flexibility="grow">
                     <article class="slds-tile slds-media">
                         <div class="slds-media__figure">
-                            <lightning-icon
-                                icon-name="standard:customer_portal_users"
-                                size="medium"
-                            ></lightning-icon>
+                            <lightning-icon icon-name="standard:customer_portal_users" size="medium"></lightning-icon>
                         </div>
                         <div class="slds-media__body">
-                            <h3 class="slds-tile__title slds-truncate slds-text-title_caps">
-                                General User Info
-                            </h3>
+                            <h3 class="slds-tile__title slds-truncate slds-text-title_caps">General User Info</h3>
                             <div class="slds-tile__detail">
                                 <template for:each={userInfoItems} for:item="item">
                                     <dl key={item.name} class="slds-list_horizontal slds-wrap">
-                                        <dt
-                                            class="slds-item_label slds-text-color_weak slds-truncate"
-                                        >
-                                            {item.name}:
-                                        </dt>
+                                        <dt class="slds-item_label slds-text-color_weak slds-truncate">{item.name}:</dt>
                                         <dd class="slds-item_detail slds-truncate">
                                             <template lwc:if={item.link}>
                                                 <a href={item.link} target="_blank">{item.value}</a>
@@ -40,30 +31,17 @@
                 <lightning-layout-item flexibility="grow">
                     <article class="slds-tile slds-media">
                         <div class="slds-media__figure">
-                            <lightning-icon
-                                icon-name="standard:portal"
-                                size="medium"
-                            ></lightning-icon>
+                            <lightning-icon icon-name="standard:portal" size="medium"></lightning-icon>
                         </div>
                         <div class="slds-media__body">
-                            <h3 class="slds-tile__title slds-truncate slds-text-title_caps">
-                                Portal Info
-                            </h3>
+                            <h3 class="slds-tile__title slds-truncate slds-text-title_caps">Portal Info</h3>
                             <div class="slds-tile__detail">
                                 <template for:each={communityInfoItems} for:item="item">
                                     <dl key={item.name} class="slds-list_horizontal slds-wrap">
-                                        <dt
-                                            class="slds-item_label slds-text-color_weak slds-truncate"
-                                        >
-                                            {item.name}:
-                                        </dt>
+                                        <dt class="slds-item_label slds-text-color_weak slds-truncate">{item.name}:</dt>
                                         <dd class="slds-item_detail slds-truncate">
                                             <template lwc:if={item.isCheckbox}>
-                                                <lightning-input
-                                                    type="checkbox"
-                                                    checked={item.value}
-                                                    disabled
-                                                ></lightning-input>
+                                                <lightning-input type="checkbox" checked={item.value} disabled></lightning-input>
                                             </template>
                                             <template lwc:else>{item.value}</template>
                                         </dd>

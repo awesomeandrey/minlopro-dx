@@ -141,7 +141,12 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
      * @param sortSelectFields Set to false if selecting many columns to skip sorting select fields and improve performance
      * @deprecated - consider using dataAccess for native platform enforcement of CRUD and FLS
      **/
-    public fflib_SObjectSelector(Boolean includeFieldSetFields, Boolean enforceCRUD, Boolean enforceFLS, Boolean sortSelectFields) {
+    public fflib_SObjectSelector(
+        Boolean includeFieldSetFields,
+        Boolean enforceCRUD,
+        Boolean enforceFLS,
+        Boolean sortSelectFields
+    ) {
         this(includeFieldSetFields, enforceCRUD, enforceFLS, sortSelectFields, DataAccess.LEGACY);
     }
 
@@ -385,7 +390,13 @@ public abstract with sharing class fflib_SObjectSelector implements fflib_ISObje
         DataAccess dataAccess
     ) {
         // Construct QueryFactory around the given SObject
-        return configureQueryFactory(new fflib_QueryFactory(getSObjectType2()), assertCRUD, enforceFLS, includeSelectorFields, dataAccess);
+        return configureQueryFactory(
+            new fflib_QueryFactory(getSObjectType2()),
+            assertCRUD,
+            enforceFLS,
+            includeSelectorFields,
+            dataAccess
+        );
     }
 
     /**

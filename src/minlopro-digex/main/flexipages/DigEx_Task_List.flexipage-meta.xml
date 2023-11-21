@@ -11,12 +11,17 @@
                 <componentInstanceProperties>
                     <name>bannerTextWithKnowledge</name>
                     <value
-                    >Explore other &lt;a href=&quot;javascript:void(0)&quot; class=&quot;headlineArticles&quot;&gt;articles&lt;/a&gt; and &lt;a href=&quot;javascript:void(0)&quot; class=&quot;headlineDiscussions&quot;&gt;discussions&lt;/a&gt; on this topic.</value>
+                        >Explore other &lt;a href=&quot;javascript:void(0)&quot;
+                        class=&quot;headlineArticles&quot;&gt;articles&lt;/a&gt; and &lt;a href=&quot;javascript:void(0)&quot;
+                        class=&quot;headlineDiscussions&quot;&gt;discussions&lt;/a&gt; on this topic.</value
+                    >
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>bannerTextWithoutKnowledge</name>
                     <value
-                    >Explore other &lt;a href=&quot;javascript:void(0)&quot; class=&quot;headlineDiscussions&quot;&gt;discussions&lt;/a&gt; on this topic.</value>
+                        >Explore other &lt;a href=&quot;javascript:void(0)&quot;
+                        class=&quot;headlineDiscussions&quot;&gt;discussions&lt;/a&gt; on this topic.</value
+                    >
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>pageType</name>

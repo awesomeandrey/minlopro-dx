@@ -704,7 +704,10 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
     private void assertForEventSObjectType(String sObjectType) {
         if (sObjectType.length() > 3 && sObjectType.right(3) != '__e') {
             throw new UnitOfWorkException(
-                String.format('SObject type {0} is invalid for publishing within this unit of work', new List<String>{ sObjectType })
+                String.format(
+                    'SObject type {0} is invalid for publishing within this unit of work',
+                    new List<String>{ sObjectType }
+                )
             );
         }
     }
@@ -729,7 +732,12 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
             }
         }
 
-        public void add(SObject record, Schema.SObjectField relatedToField, Schema.SObjectField externalIdField, Object externalId) {
+        public void add(
+            SObject record,
+            Schema.SObjectField relatedToField,
+            Schema.SObjectField externalIdField,
+            Object externalId
+        ) {
             if (relatedToField == null) {
                 throw new UnitOfWorkException('Invalid argument: relatedToField.');
             }

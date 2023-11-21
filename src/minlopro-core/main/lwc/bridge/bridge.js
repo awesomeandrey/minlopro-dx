@@ -1,9 +1,4 @@
-import {
-    publish,
-    subscribe,
-    createMessageContext,
-    APPLICATION_SCOPE
-} from 'lightning/messageService';
+import { publish, subscribe, createMessageContext, APPLICATION_SCOPE } from 'lightning/messageService';
 import { isEmpty, isBoundFunction } from 'c/utilities';
 
 import LMS_CHANNEL from '@salesforce/messageChannel/BridgeChannel__c';

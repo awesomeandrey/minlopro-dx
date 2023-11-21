@@ -2,10 +2,7 @@
     <template lwc:if={hasOrgLimitsData}>
         <div class="slds-p-around_x-small slds-border_bottom slds-theme_shade">
             <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
-                <lightning-badge
-                    label={orgLimitsAmountBadge}
-                    class="slds-badge_inverse"
-                ></lightning-badge>
+                <lightning-badge label={orgLimitsAmountBadge} class="slds-badge_inverse"></lightning-badge>
                 <div if:true={hasError}>
                     <span class="slds-text-color_error">{errorObj.message}</span>
                 </div>
@@ -17,11 +14,7 @@
                             icon-name="utility:filter"
                             variant={toggleFilterBtnVariant}
                         ></lightning-button>
-                        <lightning-button
-                            label="Refresh"
-                            onclick={handleRefresh}
-                            icon-name="utility:refresh"
-                        ></lightning-button>
+                        <lightning-button label="Refresh" onclick={handleRefresh} icon-name="utility:refresh"></lightning-button>
                     </lightning-button-group>
                 </div>
             </div>
@@ -41,12 +34,7 @@
             <c-stencil-skeleton short-lines="0" repeat="3">
                 <lightning-layout horizontal-align="center" vertical-align="center">
                     <lightning-layout-item>
-                        <lightning-icon
-                            icon-name="utility:warning"
-                            alternative-text="Loading"
-                            size="xx-small"
-                            title="Loading"
-                        >
+                        <lightning-icon icon-name="utility:warning" alternative-text="Loading" size="xx-small" title="Loading">
                         </lightning-icon>
                     </lightning-layout-item>
                     <lightning-layout-item>

@@ -14,7 +14,8 @@
                 <componentInstanceProperties>
                     <name>scopes</name>
                     <value
-                    >[{&quot;isPublic&quot;:true,&quot;name&quot;:&quot;FeedPost&quot;},{&quot;isPublic&quot;:true,&quot;name&quot;:&quot;KnowledgeArticleVersion&quot;},{&quot;isPublic&quot;:false,&quot;name&quot;:&quot;Case&quot;},{&quot;isPublic&quot;:true,&quot;name&quot;:&quot;CollaborationGroup&quot;}]</value>
+                        >[{&quot;isPublic&quot;:true,&quot;name&quot;:&quot;FeedPost&quot;},{&quot;isPublic&quot;:true,&quot;name&quot;:&quot;KnowledgeArticleVersion&quot;},{&quot;isPublic&quot;:false,&quot;name&quot;:&quot;Case&quot;},{&quot;isPublic&quot;:true,&quot;name&quot;:&quot;CollaborationGroup&quot;}]</value
+                    >
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>searchResultFiltering</name>

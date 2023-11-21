@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
-    <consumerKey
-    >602245334490-aopnucsrm9dgmjmci5vbfmncqotg5cb0.apps.googleusercontent.com</consumerKey>
+    <consumerKey>602245334490-aopnucsrm9dgmjmci5vbfmncqotg5cb0.apps.googleusercontent.com</consumerKey>
     <consumerSecret>Placeholder_Value</consumerSecret>
-<!--    <executionUser>test-8zpi3cxcsjhv@example.com</executionUser>-->
+    <!--    <executionUser>test-8zpi3cxcsjhv@example.com</executionUser>-->
     <friendlyName>GoogleToSfSSO</friendlyName>
     <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
     <providerType>Google</providerType>
-<!--    <registrationHandler>AutocreatedRegHandler1683723165014</registrationHandler>-->
+    <!--    <registrationHandler>AutocreatedRegHandler1683723165014</registrationHandler>-->
     <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
     <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
     <sendSecretInApis>true</sendSecretInApis>

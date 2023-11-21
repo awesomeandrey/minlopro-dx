@@ -2,7 +2,12 @@ public with sharing class Playground {
     public void play() {
         // Fetch target PSG;
         final String psgName = 'Minlopro_PSG_InternalUser';
-        PermissionSetGroup targetPsg = [SELECT Id, DeveloperName FROM PermissionSetGroup WHERE DeveloperName = :psgName LIMIT 1][0];
+        PermissionSetGroup targetPsg = [
+            SELECT Id, DeveloperName
+            FROM PermissionSetGroup
+            WHERE DeveloperName = :psgName
+            LIMIT 1
+        ][0];
         Assert.areEqual(psgName, targetPsg.DeveloperName, 'Minlopro Permission Set Group (for internal users) is not found!');
 
         // Insert PSG assignment;

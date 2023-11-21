@@ -30,7 +30,10 @@ private with sharing class fflib_StringBuilderTest {
         fflib_StringBuilder sb = new fflib_StringBuilder();
         sb.add('this is a string');
         sb.add(new List<String>{ ', which is made', ' up from\r ', 'a number of smaller strings', '. 5 in this case!' });
-        system.assertEquals(sb.getStringValue(), 'this is a string, which is made up from\r a number of smaller strings. 5 in this case!');
+        system.assertEquals(
+            sb.getStringValue(),
+            'this is a string, which is made up from\r a number of smaller strings. 5 in this case!'
+        );
     }
 
     static testMethod void testfflib_StringBuilder2() {
@@ -51,21 +54,27 @@ private with sharing class fflib_StringBuilderTest {
     }
 
     static testMethod void testCommaDelimitedBuilder2() {
-        fflib_StringBuilder.CommaDelimitedListBuilder sb = new fflib_StringBuilder.CommaDelimitedListBuilder(new List<String>{ 'x', 'y' });
+        fflib_StringBuilder.CommaDelimitedListBuilder sb = new fflib_StringBuilder.CommaDelimitedListBuilder(
+            new List<String>{ 'x', 'y' }
+        );
         sb.add('a');
         sb.add(new List<String>{ 'b', 'c', 'd' });
         system.assertEquals(sb.getStringValue(), 'x,y,a,b,c,d');
     }
 
     static testMethod void testCommanDelimitedBuilderWithItemPrefix() {
-        fflib_StringBuilder.CommaDelimitedListBuilder sb = new fflib_StringBuilder.CommaDelimitedListBuilder(new List<String>{ 'x', 'y' });
+        fflib_StringBuilder.CommaDelimitedListBuilder sb = new fflib_StringBuilder.CommaDelimitedListBuilder(
+            new List<String>{ 'x', 'y' }
+        );
         sb.add('a');
         sb.add(new List<String>{ 'b', 'c', 'd' });
         system.assertEquals(sb.getStringValue('$'), '$x,$y,$a,$b,$c,$d');
     }
 
     static testMethod void testCommanDelimitedBuilderWithAlternativeDelimiter() {
-        fflib_StringBuilder.CommaDelimitedListBuilder sb = new fflib_StringBuilder.CommaDelimitedListBuilder(new List<String>{ 'x', 'y' });
+        fflib_StringBuilder.CommaDelimitedListBuilder sb = new fflib_StringBuilder.CommaDelimitedListBuilder(
+            new List<String>{ 'x', 'y' }
+        );
         sb.setDelimiter(';');
         sb.add('a');
         sb.add(new List<String>{ 'b', 'c', 'd' });
@@ -73,7 +82,9 @@ private with sharing class fflib_StringBuilderTest {
     }
 
     static testMethod void testCommanDelimitedBuilderWithAlternativeDelimiterAndPrefix() {
-        fflib_StringBuilder.CommaDelimitedListBuilder sb = new fflib_StringBuilder.CommaDelimitedListBuilder(new List<String>{ 'x', 'y' });
+        fflib_StringBuilder.CommaDelimitedListBuilder sb = new fflib_StringBuilder.CommaDelimitedListBuilder(
+            new List<String>{ 'x', 'y' }
+        );
         sb.setItemPrefix('#');
         sb.setDelimiter(':');
         sb.add('a');

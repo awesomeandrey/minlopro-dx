@@ -1,8 +1,6 @@
-**/audience/
 **/experiences
 **/digitalExperiences
-**/navigationMenus/
 **/certs/
-**/remoteSiteSettings/
-**/connectedApps/
-**/authproviders/
+**/staticresources/
+**/networkBranding/
+**/layouts/

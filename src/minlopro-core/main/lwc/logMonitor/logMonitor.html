@@ -45,10 +45,7 @@
             options={eligibleLogOwners}
             onchange={handleSelectLogOwner}
         ></lightning-combobox>
-        <lightning-pill-container
-            items={selectedLogOwnersAsPills}
-            onitemremove={handleRemoveLogOwner}
-        ></lightning-pill-container>
+        <lightning-pill-container items={selectedLogOwnersAsPills} onitemremove={handleRemoveLogOwner}></lightning-pill-container>
     </div>
     <div if:true={hasLogs} class="slds-container_fluid slds-scrollable_x slds-scrollable_y">
         <lightning-tree-grid

@@ -13,17 +13,8 @@
         <nav class="slds-context-bar__secondary" role="navigation">
             <ul class="slds-grid">
                 <template for:each={visibleNavigationItems} for:item="item">
-                    <li
-                        data-id={item.id}
-                        key={item.id}
-                        class={item.className}
-                        onclick={handleNavigate}
-                    >
-                        <a
-                            data-id={item.id}
-                            href="javascript:void(0)"
-                            class="slds-context-bar__label-action"
-                        >
+                    <li data-id={item.id} key={item.id} class={item.className} onclick={handleNavigate}>
+                        <a data-id={item.id} href="javascript:void(0)" class="slds-context-bar__label-action">
                             <span data-id={item.id} class="slds-truncate">{item.label}</span>
                         </a>
                     </li>

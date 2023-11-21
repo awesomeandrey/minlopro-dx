@@ -47,7 +47,8 @@ private class fflib_AnyOrderTest {
         ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2)))
             .add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('fred')));
 
-        ((fflib_MyList.IList) mocks.verify(mockList)).add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('jack')));
+        ((fflib_MyList.IList) mocks.verify(mockList))
+            .add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('jack')));
 
         ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2)))
             .add((String) fflib_Match.noneOf(fflib_Match.eq('jack'), fflib_Match.eq('tim')));
@@ -284,7 +285,8 @@ private class fflib_AnyOrderTest {
 
         // Then
         try {
-            ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2).description(customAssertMessage))).add(fflib_Match.anyString());
+            ((fflib_MyList.IList) mocks.verify(mockList, mocks.times(2).description(customAssertMessage)))
+                .add(fflib_Match.anyString());
 
             System.Assert.fail('an exception was expected');
         } catch (Exception exc) {

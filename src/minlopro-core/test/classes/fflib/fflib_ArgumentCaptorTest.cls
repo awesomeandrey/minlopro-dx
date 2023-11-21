@@ -43,12 +43,24 @@ private class fflib_ArgumentCaptorTest {
         Object capturedArg = argument.getValue();
         System.Assert.areNotEqual(null, capturedArg, 'CapturedArg should not be null');
 
-        System.Assert.isInstanceOfType(capturedArg, TestInnerClass.class, 'CapturedArg should be SObject, instead was ' + capturedArg);
+        System.Assert.isInstanceOfType(
+            capturedArg,
+            TestInnerClass.class,
+            'CapturedArg should be SObject, instead was ' + capturedArg
+        );
 
         TestInnerClass testValueCaptured = (TestInnerClass) capturedArg;
 
-        System.Assert.areEqual(4, testValueCaptured.i, 'the values inside the argument captured should be the same of the original one');
-        System.Assert.areEqual('5', testValueCaptured.s, 'the values inside the argument captured should be the same of the original one');
+        System.Assert.areEqual(
+            4,
+            testValueCaptured.i,
+            'the values inside the argument captured should be the same of the original one'
+        );
+        System.Assert.areEqual(
+            '5',
+            testValueCaptured.s,
+            'the values inside the argument captured should be the same of the original one'
+        );
     }
 
     @IsTest
@@ -348,12 +360,24 @@ private class fflib_ArgumentCaptorTest {
         Object capturedArg = argument.getValue();
         System.Assert.areNotEqual(null, capturedArg, 'CapturedArg should not be null');
 
-        System.Assert.isInstanceOfType(capturedArg, TestInnerClass.class, 'CapturedArg should be SObject, instead was ' + capturedArg);
+        System.Assert.isInstanceOfType(
+            capturedArg,
+            TestInnerClass.class,
+            'CapturedArg should be SObject, instead was ' + capturedArg
+        );
 
         TestInnerClass testValueCaptured = (TestInnerClass) capturedArg;
 
-        System.Assert.areEqual(4, testValueCaptured.i, 'the values inside the argument captured should be the same of the original one');
-        System.Assert.areEqual('5', testValueCaptured.s, 'the values inside the argument captured should be the same of the original one');
+        System.Assert.areEqual(
+            4,
+            testValueCaptured.i,
+            'the values inside the argument captured should be the same of the original one'
+        );
+        System.Assert.areEqual(
+            '5',
+            testValueCaptured.s,
+            'the values inside the argument captured should be the same of the original one'
+        );
     }
 
     @IsTest
@@ -499,7 +523,8 @@ private class fflib_ArgumentCaptorTest {
 
         ((fflib_MyList.IList) inOrder1.verify(mockList, mocks.calls(2))).add((String) argument.capture());
 
-        ((fflib_MyList.IList) inOrder1.verify(mockList, mocks.calls(1))).get2((Integer) fflib_Match.eq(3), (String) argument.capture());
+        ((fflib_MyList.IList) inOrder1.verify(mockList, mocks.calls(1)))
+            .get2((Integer) fflib_Match.eq(3), (String) argument.capture());
 
         List<Object> argsCaptured = argument.getAllValues();
 

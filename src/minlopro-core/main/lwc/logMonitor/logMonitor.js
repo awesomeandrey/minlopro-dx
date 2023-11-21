@@ -91,9 +91,7 @@ export default class LogMonitor extends LightningElement {
     }
 
     get logsAmountBadge() {
-        return `${this.labels.logsAmountAllLbl}: ${
-            Object.values(this.logsByContextId).flat().length
-        }`;
+        return `${this.labels.logsAmountAllLbl}: ${Object.values(this.logsByContextId).flat().length}`;
     }
 
     get muteIconName() {
@@ -264,10 +262,7 @@ export default class LogMonitor extends LightningElement {
         const { action, row } = event.detail;
         if (action.name === 'viewDetails') {
             const strippedLogDetails = Object.keys(row).reduce((_, key) => {
-                if (
-                    key.includes('.') &&
-                    !key.toLowerCase().includes('Message'.toLocaleLowerCase())
-                ) {
+                if (key.includes('.') && !key.toLowerCase().includes('Message'.toLocaleLowerCase())) {
                     const normalizedKey = key.split('.')[1];
                     _[normalizedKey] = row[key];
                 }

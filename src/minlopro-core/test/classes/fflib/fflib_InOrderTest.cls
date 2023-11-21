@@ -1674,7 +1674,8 @@ private class fflib_InOrderTest {
 
         fflib_ArgumentCaptor argument = fflib_ArgumentCaptor.forClass(String.class);
 
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.atLeast(2))).get2(fflib_Match.eqInteger(1), (String) argument.capture());
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.atLeast(2)))
+            .get2(fflib_Match.eqInteger(1), (String) argument.capture());
 
         System.Assert.areEqual('4-1', (string) argument.getValue(), 'the last value captured is not as expected');
     }
@@ -1699,7 +1700,8 @@ private class fflib_InOrderTest {
 
         fflib_ArgumentCaptor argument = fflib_ArgumentCaptor.forClass(String.class);
 
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.times(5))).get2(fflib_Match.eqInteger(1), (String) argument.capture());
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.times(5)))
+            .get2(fflib_Match.eqInteger(1), (String) argument.capture());
 
         System.Assert.areEqual('5-1', (string) argument.getValue(), 'the last value captured is not as expected');
     }
@@ -1724,7 +1726,8 @@ private class fflib_InOrderTest {
 
         fflib_ArgumentCaptor argument = fflib_ArgumentCaptor.forClass(String.class);
 
-        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(2))).get2(fflib_Match.eqInteger(1), (String) argument.capture());
+        ((fflib_MyList.IList) inOrder1.verify(firstMock, MY_MOCKS.calls(2)))
+            .get2(fflib_Match.eqInteger(1), (String) argument.capture());
 
         System.Assert.areEqual('2-1', (string) argument.getValue(), 'the last value captured is not as expected');
     }
