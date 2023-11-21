@@ -532,7 +532,9 @@ public with sharing class fflib_MatcherDefinitions {
             if (arg != null && arg instanceof Decimal) {
                 Decimal longArg = (Decimal) arg;
 
-                if ((inclusiveLower ? longArg >= lower : longArg > lower) && (inclusiveUpper ? longArg <= upper : longArg < upper)) {
+                if (
+                    (inclusiveLower ? longArg >= lower : longArg > lower) && (inclusiveUpper ? longArg <= upper : longArg < upper)
+                ) {
                     return true;
                 }
             }

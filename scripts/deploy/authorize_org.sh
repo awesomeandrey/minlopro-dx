@@ -2,7 +2,7 @@
 
 # How to use:
 # - bash ./scripts/deploy/authorize_org.sh
-# - echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+# - echo ${{secrets.GitHub_Action_Secret}} | bash ./scripts/deploy/authorize_org.sh
 # - echo 'force://...' | bash ./scripts/deploy/authorize_org.sh
 
 # Capture target org SF AUTH URL (should be in 'force://PlatformCLI:...salesforce.com' format);
@@ -23,4 +23,4 @@ sf org login sfdx-url \
   --alias TARGET_ORG \
   --set-default
 sf org display
-echo '\nDone!'
+printf '\nDone!'

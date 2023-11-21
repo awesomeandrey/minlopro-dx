@@ -7,7 +7,15 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value
-                    >&lt;div style=&apos;display: flex; align-items: center; flex-direction: column; margin: 60px 25px 30px 25px;&apos;&gt;&lt;div style=&apos;background-image: url(/sfsites/assets/Images/tooManyRequests/tooManyRequests.svg); background-size: contain; height: 350px; width: 100%; background-repeat: no-repeat; background-position: center;&apos;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&apos;margin: 0 25px; text-align: center;&apos;&gt;&lt;h1 class=&apos;slds-text-heading_large&apos;&gt;Looks like the site is experiencing higher than usual demand…&lt;/h1&gt;&lt;p class=&apos;slds-text-heading_small&apos;&gt;Don&apos;t go anywhere. We&apos;ll redirect you in a moment.&lt;/p&gt;&lt;/div&gt;</value>
+                        >&lt;div style=&apos;display: flex; align-items: center; flex-direction: column; margin: 60px 25px 30px
+                        25px;&apos;&gt;&lt;div style=&apos;background-image:
+                        url(/sfsites/assets/Images/tooManyRequests/tooManyRequests.svg); background-size: contain; height: 350px;
+                        width: 100%; background-repeat: no-repeat; background-position:
+                        center;&apos;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div style=&apos;margin: 0 25px; text-align:
+                        center;&apos;&gt;&lt;h1 class=&apos;slds-text-heading_large&apos;&gt;Looks like the site is experiencing
+                        higher than usual demand…&lt;/h1&gt;&lt;p class=&apos;slds-text-heading_small&apos;&gt;Don&apos;t go
+                        anywhere. We&apos;ll redirect you in a moment.&lt;/p&gt;&lt;/div&gt;</value
+                    >
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
                 <identifier>forceCommunity_htmlBlock</identifier>

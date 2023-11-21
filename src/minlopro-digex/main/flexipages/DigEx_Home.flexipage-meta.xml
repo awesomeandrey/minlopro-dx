@@ -20,8 +20,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>richTextValue</name>
-                    <value
-                    >&lt;p&gt;Hi there! Welcome to my first Experience Cloud implementation!&lt;/p&gt;</value>
+                    <value>&lt;p&gt;Hi there! Welcome to my first Experience Cloud implementation!&lt;/p&gt;</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:htmlBlock</componentName>
                 <identifier>forceCommunity_htmlBlock</identifier>

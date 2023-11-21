@@ -67,12 +67,7 @@
                         console.log('Could not create component >', status, errorMessage);
                     }
                 };
-                $Lightning.createComponent(
-                    'c:gMap',
-                    { googleApiLib: google.maps },
-                    'map-region',
-                    callback
-                );
+                $Lightning.createComponent('c:gMap', { googleApiLib: google.maps }, 'map-region', callback);
                 $Lightning.createComponent('c:gPanel', {}, 'panel-region', callback);
             });
         });

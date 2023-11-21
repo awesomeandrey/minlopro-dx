@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description
-    >Playground tab that demonstrates how to use / work with Google Maps API</description>
+    <description>Playground tab that demonstrates how to use / work with Google Maps API</description>
     <label>Google Maps API Playground</label>
     <motif>Custom21: Computer</motif>
     <page>GoogleMapsPoc</page>

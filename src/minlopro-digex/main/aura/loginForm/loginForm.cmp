@@ -1,54 +1,16 @@
 <!-- add implements="forceCommunity:availableForAllPageTypes" to surface the component in community builder -->
 <aura:component controller="LightningLoginFormController">
-    <aura:attribute
-        name="showError"
-        type="Boolean"
-        required="true"
-        description=""
-        default="false"
-        access="private"
-    />
-    <aura:attribute
-        name="errorMessage"
-        type="String"
-        required="false"
-        description=""
-        access="private"
-    />
-    <aura:attribute
-        name="startUrl"
-        type="String"
-        required="false"
-        description="The url you go to after a successful login"
-    />
+    <aura:attribute name="showError" type="Boolean" required="true" description="" default="false" access="private" />
+    <aura:attribute name="errorMessage" type="String" required="false" description="" access="private" />
+    <aura:attribute name="startUrl" type="String" required="false" description="The url you go to after a successful login" />
     <aura:attribute name="usernameLabel" type="String" required="false" default="Username" />
     <aura:attribute name="passwordLabel" type="String" required="false" default="Password" />
     <aura:attribute name="loginButtonLabel" type="String" required="false" default="Log in" />
-    <aura:attribute
-        name="expid"
-        type="String"
-        required="false"
-        description="The branding experience ID"
-    />
+    <aura:attribute name="expid" type="String" required="false" description="The branding experience ID" />
 
-    <aura:attribute
-        name="forgotPasswordLabel"
-        type="String"
-        required="false"
-        default="Forgot your password?"
-    />
-    <aura:attribute
-        name="selfRegisterLabel"
-        type="String"
-        required="false"
-        default="Not a member?"
-    />
-    <aura:attribute
-        name="forgotPasswordUrl"
-        type="String"
-        required="false"
-        default="/ForgotPassword"
-    />
+    <aura:attribute name="forgotPasswordLabel" type="String" required="false" default="Forgot your password?" />
+    <aura:attribute name="selfRegisterLabel" type="String" required="false" default="Not a member?" />
+    <aura:attribute name="forgotPasswordUrl" type="String" required="false" default="/ForgotPassword" />
     <aura:attribute name="selfRegisterUrl" type="String" required="false" default="/SelfRegister" />
 
     <aura:attribute name="isUsernamePasswordEnabled" type="Boolean" access="private" />
@@ -102,25 +64,18 @@
             </div>
 
             <div class="sfdc">
-                <ui:button
-                    aura:id="submitButton"
-                    label="{!v.loginButtonLabel}"
-                    press="{!c.handleLogin}"
-                    class="sfdc_button"
-                />
+                <ui:button aura:id="submitButton" label="{!v.loginButtonLabel}" press="{!c.handleLogin}" class="sfdc_button" />
             </div>
 
             <div id="sfdc_forgot" class="sfdc">
                 <span
-                    ><a
-                        href="{!if(v.communityForgotPasswordUrl == null, v.forgotPasswordUrl, v.communityForgotPasswordUrl)}"
+                    ><a href="{!if(v.communityForgotPasswordUrl == null, v.forgotPasswordUrl, v.communityForgotPasswordUrl)}"
                         >{!v.forgotPasswordLabel}</a
                     ></span
                 >
                 <aura:renderIf isTrue="{!v.isSelfRegistrationEnabled}">
                     <span style="float: right"
-                        ><a
-                            href="{!if(v.communitySelfRegisterUrl == null, v.selfRegisterUrl, v.communitySelfRegisterUrl)}"
+                        ><a href="{!if(v.communitySelfRegisterUrl == null, v.selfRegisterUrl, v.communitySelfRegisterUrl)}"
                             >{!v.selfRegisterLabel}</a
                         ></span
                     >

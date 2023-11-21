@@ -47,7 +47,8 @@ private class fflib_ApexMocksTest {
         fflib_MyList mockList = (fflib_MyList) mocks.mock(fflib_MyList.class);
 
         mocks.startStubbing();
-        ((fflib_MyList.IList) mocks.doThrowWhen(new MyException('Matcher Exception'), mockList)).add(fflib_Match.stringContains('Hello'));
+        ((fflib_MyList.IList) mocks.doThrowWhen(new MyException('Matcher Exception'), mockList))
+            .add(fflib_Match.stringContains('Hello'));
         mocks.stopStubbing();
 
         // When
@@ -79,11 +80,14 @@ private class fflib_ApexMocksTest {
         ((fflib_MyList.IList) mocks.verify(mockList))
             .add((String) fflib_Match.allOf(fflib_Match.eq('fred'), fflib_Match.stringContains('re')));
 
-        ((fflib_MyList.IList) mocks.verify(mockList, 2)).add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('fred')));
+        ((fflib_MyList.IList) mocks.verify(mockList, 2))
+            .add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('fred')));
 
-        ((fflib_MyList.IList) mocks.verify(mockList, 1)).add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('jack')));
+        ((fflib_MyList.IList) mocks.verify(mockList, 1))
+            .add((String) fflib_Match.anyOf(fflib_Match.eq('bob'), fflib_Match.eq('jack')));
 
-        ((fflib_MyList.IList) mocks.verify(mockList, 2)).add((String) fflib_Match.noneOf(fflib_Match.eq('jack'), fflib_Match.eq('tim')));
+        ((fflib_MyList.IList) mocks.verify(mockList, 2))
+            .add((String) fflib_Match.noneOf(fflib_Match.eq('jack'), fflib_Match.eq('tim')));
 
         ((fflib_MyList.IList) mocks.verify(mockList, 2))
             .add(
@@ -214,7 +218,8 @@ private class fflib_ApexMocksTest {
 
         mocks.startStubbing();
 
-        ((fflib_MyList.IList) mocks.doThrowWhen(new fflib_ApexMocks.ApexMocksException('Bad'), mockList)).add('Non-matcher first'); //Set the exception value using the non-matcher arguments
+        ((fflib_MyList.IList) mocks.doThrowWhen(new fflib_ApexMocks.ApexMocksException('Bad'), mockList))
+            .add('Non-matcher first'); //Set the exception value using the non-matcher arguments
         ((fflib_MyList.IList) mocks.doThrowWhen(new fflib_ApexMocks.ApexMocksException('Good'), mockList))
             .add(fflib_Match.stringContains('Non-matcher first')); //Override the exception value using matcher arguments
 
@@ -1242,7 +1247,8 @@ private class fflib_ApexMocksTest {
 
         // When
         MY_MOCKS.startStubbing();
-        ((fflib_MyList.IList) MY_MOCKS.doThrowWhen(new List<Exception>{ first2, second2, third2 }, MY_MOCK_LIST)).addMore('Hello');
+        ((fflib_MyList.IList) MY_MOCKS.doThrowWhen(new List<Exception>{ first2, second2, third2 }, MY_MOCK_LIST))
+            .addMore('Hello');
         ((fflib_MyList.IList) MY_MOCKS.doThrowWhen(new List<Exception>{ first, second, third }, MY_MOCK_LIST)).add('Hello');
         MY_MOCKS.stopStubbing();
 

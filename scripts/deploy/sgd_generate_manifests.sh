@@ -24,7 +24,8 @@ sf sgd:source:delta \
   --from $FROM_REF \
   --to $TO_REF \
   --output $sgdFolder \
-  --source $srcFolder &&
+  --source $srcFolder \
+  --ignore '.forceignore' &&
 
 # Output results;
 tree "$sgdFolder"

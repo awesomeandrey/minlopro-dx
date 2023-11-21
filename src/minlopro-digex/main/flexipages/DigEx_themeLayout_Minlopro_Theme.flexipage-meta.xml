@@ -14,8 +14,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>searchObjects</name>
-                    <value
-                    >[{&quot;isPublic&quot;:true,&quot;name&quot;:&quot;Account&quot;}]</value>
+                    <value>[{&quot;isPublic&quot;:true,&quot;name&quot;:&quot;Account&quot;}]</value>
                 </componentInstanceProperties>
                 <componentName>forceCommunity:globalSearchInput</componentName>
                 <identifier>forceCommunity_globalSearchInput</identifier>
