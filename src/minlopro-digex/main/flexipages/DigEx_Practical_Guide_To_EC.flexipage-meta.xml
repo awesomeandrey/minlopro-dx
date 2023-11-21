@@ -32,12 +32,17 @@
                 <componentInstanceProperties>
                     <name>bannerTextWithKnowledge</name>
                     <value
-                    >Explore other &lt;a href=&quot;javascript:void(0)&quot; class=&quot;headlineArticles&quot;&gt;articles&lt;/a&gt; and &lt;a href=&quot;javascript:void(0)&quot; class=&quot;headlineDiscussions&quot;&gt;discussions&lt;/a&gt; on this topic.</value>
+                        >Explore other &lt;a href=&quot;javascript:void(0)&quot;
+                        class=&quot;headlineArticles&quot;&gt;articles&lt;/a&gt; and &lt;a href=&quot;javascript:void(0)&quot;
+                        class=&quot;headlineDiscussions&quot;&gt;discussions&lt;/a&gt; on this topic.</value
+                    >
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>bannerTextWithoutKnowledge</name>
                     <value
-                    >Explore other &lt;a href=&quot;javascript:void(0)&quot; class=&quot;headlineDiscussions&quot;&gt;discussions&lt;/a&gt; on this topic.</value>
+                        >Explore other &lt;a href=&quot;javascript:void(0)&quot;
+                        class=&quot;headlineDiscussions&quot;&gt;discussions&lt;/a&gt; on this topic.</value
+                    >
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>pageType</name>
@@ -167,7 +172,11 @@
                 <componentInstanceProperties>
                     <name>richTextValue</name>
                     <value
-                    >&lt;div class=&quot;sfdcCbVideoContainer&quot;&gt;&lt;iframe class=&quot;sfdcCbVideo&quot; allowfullscreen=&quot;true&quot; width=&quot;100%&quot; title=&quot;Video from https://www.youtube.com/embed/dNB_FRw7mEs&quot; src=&quot;https://www.youtube.com/embed/dNB_FRw7mEs&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt; &lt;/p&gt;</value>
+                        >&lt;div class=&quot;sfdcCbVideoContainer&quot;&gt;&lt;iframe class=&quot;sfdcCbVideo&quot;
+                        allowfullscreen=&quot;true&quot; width=&quot;100%&quot; title=&quot;Video from
+                        https://www.youtube.com/embed/dNB_FRw7mEs&quot;
+                        src=&quot;https://www.youtube.com/embed/dNB_FRw7mEs&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt; &lt;/p&gt;</value
+                    >
                 </componentInstanceProperties>
                 <componentName>forceCommunity:richTextInline</componentName>
                 <identifier>forceCommunity_richTextInline</identifier>
@@ -451,7 +460,9 @@
                 <componentInstanceProperties>
                     <name>tabsetConfig</name>
                     <value
-                    >{&quot;UUID&quot;:&quot;409b87fe-ac14-4a61-a302-1977b261e8a9&quot;,&quot;activeTab&quot;:&quot;&quot;,&quot;useOverflowMenu&quot;:false,&quot;tabs&quot;:[{&quot;UUID&quot;:&quot;4b3040d2-b1a4-4c4e-a6cc-cb13d15d69c0&quot;,&quot;tabName&quot;:&quot;LINKS&quot;,&quot;tabKey&quot;:&quot;1&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:false,&quot;seedComponents&quot;:[]},{&quot;UUID&quot;:&quot;ce52c488-b733-4b2e-be0b-ddb3f92d2058&quot;,&quot;tabName&quot;:&quot;TASKS&quot;,&quot;tabKey&quot;:&quot;2&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:false,&quot;seedComponents&quot;:[]},{&quot;UUID&quot;:&quot;03c316b8-cee4-46cd-a980-16f0b75cb72c&quot;,&quot;tabName&quot;:&quot;GET HELP&quot;,&quot;tabKey&quot;:&quot;3&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:false,&quot;seedComponents&quot;:[]}]}</value>
+                        >{&quot;UUID&quot;:&quot;409b87fe-ac14-4a61-a302-1977b261e8a9&quot;,&quot;activeTab&quot;:&quot;&quot;,&quot;useOverflowMenu&quot;:false,&quot;tabs&quot;:[{&quot;UUID&quot;:&quot;4b3040d2-b1a4-4c4e-a6cc-cb13d15d69c0&quot;,&quot;tabName&quot;:&quot;LINKS&quot;,&quot;tabKey&quot;:&quot;1&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:false,&quot;seedComponents&quot;:[]},{&quot;UUID&quot;:&quot;ce52c488-b733-4b2e-be0b-ddb3f92d2058&quot;,&quot;tabName&quot;:&quot;TASKS&quot;,&quot;tabKey&quot;:&quot;2&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:false,&quot;seedComponents&quot;:[]},{&quot;UUID&quot;:&quot;03c316b8-cee4-46cd-a980-16f0b75cb72c&quot;,&quot;tabName&quot;:&quot;GET
+                        HELP&quot;,&quot;tabKey&quot;:&quot;3&quot;,&quot;locked&quot;:false,&quot;allowGuestUser&quot;:false,&quot;seedComponents&quot;:[]}]}</value
+                    >
                 </componentInstanceProperties>
                 <componentName>forceCommunity:tabset</componentName>
                 <identifier>forceCommunity_tabset</identifier>
@@ -485,7 +496,9 @@
                 <componentInstanceProperties>
                     <name>sectionConfig</name>
                     <value
-                    >{&quot;UUID&quot;:&quot;772cf4e0-b190-4c84-a6d6-d453e0becde5&quot;,&quot;columns&quot;:[{&quot;UUID&quot;:&quot;9f77f2f0-981b-4435-9328-562e914b6343&quot;,&quot;columnName&quot;:&quot;Column 1&quot;,&quot;columnKey&quot;:&quot;1&quot;,&quot;columnWidth&quot;:&quot;12&quot;,&quot;seedComponents&quot;:[]}]}</value>
+                        >{&quot;UUID&quot;:&quot;772cf4e0-b190-4c84-a6d6-d453e0becde5&quot;,&quot;columns&quot;:[{&quot;UUID&quot;:&quot;9f77f2f0-981b-4435-9328-562e914b6343&quot;,&quot;columnName&quot;:&quot;Column
+                        1&quot;,&quot;columnKey&quot;:&quot;1&quot;,&quot;columnWidth&quot;:&quot;12&quot;,&quot;seedComponents&quot;:[]}]}</value
+                    >
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sectionHeight</name>
@@ -516,7 +529,10 @@
                 <componentInstanceProperties>
                     <name>sectionConfig</name>
                     <value
-                    >{&quot;UUID&quot;:&quot;cfb3e58d-98ed-4448-b79b-e8b425320180&quot;,&quot;columns&quot;:[{&quot;UUID&quot;:&quot;d9dfe699-3246-4134-a493-f46772caf15b&quot;,&quot;columnName&quot;:&quot;Column 1&quot;,&quot;columnKey&quot;:&quot;9e120&quot;,&quot;columnWidth&quot;:&quot;9&quot;,&quot;seedComponents&quot;:[]},{&quot;UUID&quot;:&quot;26e493c0-ac23-4037-bb06-1af73e2fb3d1&quot;,&quot;columnName&quot;:&quot;Column 2&quot;,&quot;columnKey&quot;:&quot;eaccc&quot;,&quot;columnWidth&quot;:&quot;3&quot;,&quot;seedComponents&quot;:[]}]}</value>
+                        >{&quot;UUID&quot;:&quot;cfb3e58d-98ed-4448-b79b-e8b425320180&quot;,&quot;columns&quot;:[{&quot;UUID&quot;:&quot;d9dfe699-3246-4134-a493-f46772caf15b&quot;,&quot;columnName&quot;:&quot;Column
+                        1&quot;,&quot;columnKey&quot;:&quot;9e120&quot;,&quot;columnWidth&quot;:&quot;9&quot;,&quot;seedComponents&quot;:[]},{&quot;UUID&quot;:&quot;26e493c0-ac23-4037-bb06-1af73e2fb3d1&quot;,&quot;columnName&quot;:&quot;Column
+                        2&quot;,&quot;columnKey&quot;:&quot;eaccc&quot;,&quot;columnWidth&quot;:&quot;3&quot;,&quot;seedComponents&quot;:[]}]}</value
+                    >
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sectionHeight</name>

@@ -1,11 +1,7 @@
 ({
     initialize: function (component, event, helper) {
-        $A.get('e.siteforce:registerQueryEventMap')
-            .setParams({ qsToEvent: helper.qsToEventMap })
-            .fire();
-        $A.get('e.siteforce:registerQueryEventMap')
-            .setParams({ qsToEvent: helper.qsToEventMap2 })
-            .fire();
+        $A.get('e.siteforce:registerQueryEventMap').setParams({ qsToEvent: helper.qsToEventMap }).fire();
+        $A.get('e.siteforce:registerQueryEventMap').setParams({ qsToEvent: helper.qsToEventMap2 }).fire();
         component.set('v.extraFields', helper.getExtraFields(component, event, helper));
     },
 

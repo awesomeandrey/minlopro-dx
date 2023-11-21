@@ -1,9 +1,9 @@
 <design:component label="Minlopro Theme Layout (AURA)">
     <design:attribute
-            name="menuApiName"
-            label="Navigation Menu"
-            required="true"
-            dataSource="apex://NavigationLinkSetPickList"
-            description="The name of the Navigation Menu Link Set, which can be configured in Settings > Navigation"
+        name="menuApiName"
+        label="Navigation Menu"
+        required="true"
+        dataSource="apex://NavigationLinkSetPickList"
+        description="The name of the Navigation Menu Link Set, which can be configured in Settings > Navigation"
     />
 </design:component>

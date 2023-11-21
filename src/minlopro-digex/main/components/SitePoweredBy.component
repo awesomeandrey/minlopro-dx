@@ -11,9 +11,7 @@
         <apex:panelGroup id="poweredBy">
             <apex:outputText style="font-size: smaller" value="{!$Label.site.powered_by}" />
             <apex:outputLink value="http://www.force.com"
-                ><apex:image
-                    url="{!URLFOR($Resource.SiteSamples, 'img/poweredby.png')}"
-                    styleClass="poweredByImage"
+                ><apex:image url="{!URLFOR($Resource.SiteSamples, 'img/poweredby.png')}" styleClass="poweredByImage"
             /></apex:outputLink>
         </apex:panelGroup>
     </apex:panelGrid>

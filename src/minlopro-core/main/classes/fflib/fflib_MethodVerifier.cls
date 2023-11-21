@@ -24,7 +24,11 @@ public abstract class fflib_MethodVerifier {
      * @param methodArg The arguments of the method that needs to be verified.
      * @param verificationMode The verification mode that holds the setting about how the verification should be performed.
      */
-    protected abstract void verify(fflib_QualifiedMethod qm, fflib_MethodArgValues methodArg, fflib_VerificationMode verificationMode);
+    protected abstract void verify(
+        fflib_QualifiedMethod qm,
+        fflib_MethodArgValues methodArg,
+        fflib_VerificationMode verificationMode
+    );
 
     /*
      * Method that validates the verification mode used in the verify.

@@ -77,7 +77,11 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             unitOfWork.registerNew(opportunity);
         } catch (Exception e) {
             exceptionThrown = true;
-            System.assertEquals('Only new records can be registered as new', e.getMessage(), 'Incorrect exception message thrown');
+            System.assertEquals(
+                'Only new records can be registered as new',
+                e.getMessage(),
+                'Incorrect exception message thrown'
+            );
         }
 
         // THEN it should have thrown an exception
@@ -96,7 +100,11 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             unitOfWork.registerDirty(opportunity);
         } catch (Exception e) {
             exceptionThrown = true;
-            System.assertEquals('New records cannot be registered as dirty', e.getMessage(), 'Incorrect exception message thrown');
+            System.assertEquals(
+                'New records cannot be registered as dirty',
+                e.getMessage(),
+                'Incorrect exception message thrown'
+            );
         }
 
         // THEN it should have thrown an exception
@@ -521,7 +529,9 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         };
         uow.registerDirty(recordsWithStageUpdate, new List<SObjectField>{ Opportunity.StageName });
         uow.registerDirty(recordsWithAmountUpdate, new List<SObjectField>{ Opportunity.Amount });
-        uow.registerDirty(new Opportunity(Id = opportunityB.Id, Name = 'test name B', StageName = 'Open', CloseDate = System.today())); // Register again the original record, should overwrite the one with the dirty fields
+        uow.registerDirty(
+            new Opportunity(Id = opportunityB.Id, Name = 'test name B', StageName = 'Open', CloseDate = System.today())
+        ); // Register again the original record, should overwrite the one with the dirty fields
         uow.commitWork();
 
         // THEN only the first record should be registered with both changed values for Amount and StageName and the second should be the original
@@ -661,7 +671,9 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             // ensure that this event has not been fired already
             for (String eventName : m_commitWorkEventsFired) {
                 if (event == eventName) {
-                    throw new DerivedUnitOfWorkException(String.format('Event {0} has already been fired.', new List<String>{ event }));
+                    throw new DerivedUnitOfWorkException(
+                        String.format('Event {0} has already been fired.', new List<String>{ event })
+                    );
                 }
             }
             m_commitWorkEventsFired.add(event);
@@ -670,7 +682,10 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
         public override void onRegisterType(Schema.SObjectType sObjectType) {
             if (m_registeredTypes.contains(sObjectType)) {
                 throw new DerivedUnitOfWorkException(
-                    String.format('Type {0} has already been registered.', new List<String>{ sObjectType.getDescribe().getName() })
+                    String.format(
+                        'Type {0} has already been registered.',
+                        new List<String>{ sObjectType.getDescribe().getName() }
+                    )
                 );
             }
             m_registeredTypes.add(sObjectType);

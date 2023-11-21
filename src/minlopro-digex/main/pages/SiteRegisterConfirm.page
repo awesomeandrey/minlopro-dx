@@ -5,37 +5,17 @@
                 <apex:panelGrid bgcolor="white" columns="1" style="align: center">
                     <br />
                     <br />
-                    <apex:panelGrid
-                        width="758"
-                        cellpadding="0"
-                        cellspacing="0"
-                        bgcolor="white"
-                        columns="1"
-                        style="topPanel"
-                    >
+                    <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="1" style="topPanel">
                         <br />
                         <apex:outputPanel layout="block" styleClass="topPanelContainer">
-                            <apex:panelGrid
-                                width="758"
-                                cellpadding="0"
-                                cellspacing="0"
-                                bgcolor="white"
-                                columns="2"
-                            >
-                                <apex:image
-                                    url="{!URLFOR($Resource.SiteSamples, 'img/clock.png')}"
-                                />
+                            <apex:panelGrid width="758" cellpadding="0" cellspacing="0" bgcolor="white" columns="2">
+                                <apex:image url="{!URLFOR($Resource.SiteSamples, 'img/clock.png')}" />
                                 <apex:panelGroup>
                                     <br />
-                                    <apex:outputText
-                                        styleClass="title"
-                                        value="{!$Label.site.thank_you_for_registering}"
-                                    />
+                                    <apex:outputText styleClass="title" value="{!$Label.site.thank_you_for_registering}" />
                                     <br />
                                     <br />
-                                    <apex:outputLink
-                                        value="{!$Page.SiteLogin}"
-                                        rendered="{!$Site.LoginEnabled}"
+                                    <apex:outputLink value="{!$Page.SiteLogin}" rendered="{!$Site.LoginEnabled}"
                                         >{!$Label.site.go_to_login_page}</apex:outputLink
                                     >
                                     <br />

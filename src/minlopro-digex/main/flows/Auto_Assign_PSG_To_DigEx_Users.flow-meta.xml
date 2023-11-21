@@ -14,8 +14,7 @@
             </value>
         </assignmentItems>
         <assignmentItems>
-            <assignToReference
-            >permissionSetAssignmentToInsert.PermissionSetGroupId</assignToReference>
+            <assignToReference>permissionSetAssignmentToInsert.PermissionSetGroupId</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Find_Minlopro_DigEx_PSG.Id</elementReference>
@@ -26,8 +25,7 @@
         </connector>
     </assignments>
     <decisions>
-        <description
-        >Check if the running user&apos;s profile is &apos;DigEx Partner&apos;</description>
+        <description>Check if the running user&apos;s profile is &apos;DigEx Partner&apos;</description>
         <name>Is_DigEx_Partner_Profile_User</name>
         <label>Is &apos;DigEx Partner&apos; Profile User?</label>
         <locationX>182</locationX>

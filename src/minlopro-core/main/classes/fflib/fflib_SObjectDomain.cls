@@ -882,7 +882,9 @@ public virtual with sharing class fflib_SObjectDomain extends fflib_SObjects imp
             for (Opportunity opp : (List<Opportunity>) Records) {
                 Opportunity existingOpp = (Opportunity) existingRecords.get(opp.Id);
                 if (opp.Type != existingOpp.Type) {
-                    opp.Type.addError(error('You cannot change the Opportunity type once it has been created.', opp, Opportunity.Type));
+                    opp.Type.addError(
+                        error('You cannot change the Opportunity type once it has been created.', opp, Opportunity.Type)
+                    );
                 }
             }
         }

@@ -54,17 +54,14 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
                 return {
                     ..._,
                     selected,
-                    className: `slds-context-bar__item ${
-                        selected ? 'slds-is-active' : 'slds-is-relative'
-                    }`
+                    className: `slds-context-bar__item ${selected ? 'slds-is-active' : 'slds-is-relative'}`
                 };
             });
     }
 
     @wire(CurrentPageReference)
     wireCurrentPageReference(currentPageReference) {
-        const app =
-            currentPageReference && currentPageReference.state && currentPageReference.state.app;
+        const app = currentPageReference && currentPageReference.state && currentPageReference.state.app;
         if (app === 'commeditor') {
             this.siteState = 'Draft';
         } else {
@@ -170,9 +167,7 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
             this[NavigationMixin.Navigate](this.pageReference);
         } else {
             toastify.error({
-                message: `Navigation menu type "${type}" is not implemented for item ${JSON.stringify(
-                    navigationItem
-                )}`
+                message: `Navigation menu type "${type}" is not implemented for item ${JSON.stringify(navigationItem)}`
             });
         }
     }

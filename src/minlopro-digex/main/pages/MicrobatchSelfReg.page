@@ -10,23 +10,10 @@
                 <apex:pageMessages id="error" />
                 <apex:panelGrid columns="2" style="margin-top: 1em">
                     <apex:outputLabel value="First Name" for="firstName" />
-                    <apex:inputText
-                        required="true"
-                        id="firstName"
-                        value="{!firstName}"
-                        label="First Name"
-                    />
+                    <apex:inputText required="true" id="firstName" value="{!firstName}" label="First Name" />
                     <apex:outputLabel value="Last Name" for="lastName" />
-                    <apex:inputText
-                        required="true"
-                        id="lastName"
-                        value="{!lastName}"
-                        label="Last Name"
-                    />
-                    <apex:outputLabel
-                        value="{!$Label.site.community_nickname}"
-                        for="communityNickname"
-                    />
+                    <apex:inputText required="true" id="lastName" value="{!lastName}" label="Last Name" />
+                    <apex:outputLabel value="{!$Label.site.community_nickname}" for="communityNickname" />
                     <apex:inputText
                         required="true"
                         id="communityNickname"
@@ -34,18 +21,9 @@
                         label="{!$Label.site.community_nickname}"
                     />
                     <apex:outputLabel value="{!$Label.site.email}" for="email" />
-                    <apex:inputText
-                        required="true"
-                        id="email"
-                        value="{!email}"
-                        label="{!$Label.site.email}"
-                    />
+                    <apex:inputText required="true" id="email" value="{!email}" label="{!$Label.site.email}" />
                     <apex:outputText value="" />
-                    <apex:commandButton
-                        action="{!registerUser}"
-                        value="{!$Label.site.submit}"
-                        id="submit"
-                    />
+                    <apex:commandButton action="{!registerUser}" value="{!$Label.site.submit}" id="submit" />
                 </apex:panelGrid>
                 <br />
             </apex:form>

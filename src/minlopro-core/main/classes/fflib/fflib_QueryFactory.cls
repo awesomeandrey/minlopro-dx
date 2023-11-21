@@ -153,7 +153,10 @@ public class fflib_QueryFactory { //No explicit sharing declaration - inherit fr
                     throw new InvalidFieldException(field, lastSObjectType);
                 else
                     throw new NonReferenceFieldException(
-                        lastSObjectType + '.' + field + ' is not a lookup or master-detail field but is used in a cross-object query field.'
+                        lastSObjectType +
+                            '.' +
+                            field +
+                            ' is not a lookup or master-detail field but is used in a cross-object query field.'
                     );
             }
         }
@@ -849,7 +852,10 @@ public class fflib_QueryFactory { //No explicit sharing declaration - inherit fr
             return direction;
         }
         public String toSOQL() {
-            return field + ' ' + (direction == SortOrder.ASCENDING ? 'ASC' : 'DESC') + (nullsLast ? ' NULLS LAST ' : ' NULLS FIRST ');
+            return field +
+                ' ' +
+                (direction == SortOrder.ASCENDING ? 'ASC' : 'DESC') +
+                (nullsLast ? ' NULLS LAST ' : ' NULLS FIRST ');
         }
     }
 

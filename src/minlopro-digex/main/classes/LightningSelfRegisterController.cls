@@ -60,7 +60,8 @@ global class LightningSelfRegisterController {
                 u.put('UserPreferencesHideS1BrowserUI', true);
             }
 
-            String nickname = ((firstname != null && firstname.length() > 0) ? firstname.substring(0, 1) : '') + lastname.substring(0, 1);
+            String nickname =
+                ((firstname != null && firstname.length() > 0) ? firstname.substring(0, 1) : '') + lastname.substring(0, 1);
             nickname += String.valueOf(Crypto.getRandomInteger()).substring(1, 7);
             u.put('CommunityNickname', nickname);
 

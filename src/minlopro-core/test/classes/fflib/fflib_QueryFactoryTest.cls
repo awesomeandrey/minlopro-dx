@@ -96,7 +96,11 @@ private class fflib_QueryFactoryTest {
         } catch (fflib_QueryFactory.NonReferenceFieldException ex) {
             e = ex;
         }
-        System.assertNotEquals(null, e, 'Cross-object notation on a non-reference field should throw NonReferenceFieldException.');
+        System.assertNotEquals(
+            null,
+            e,
+            'Cross-object notation on a non-reference field should throw NonReferenceFieldException.'
+        );
     }
 
     @IsTest
@@ -108,7 +112,11 @@ private class fflib_QueryFactoryTest {
         } catch (fflib_QueryFactory.InvalidFieldException ex) {
             e = ex;
         }
-        System.assertNotEquals(null, e, 'Cross-object notation on a non-reference field should throw NonReferenceFieldException.');
+        System.assertNotEquals(
+            null,
+            e,
+            'Cross-object notation on a non-reference field should throw NonReferenceFieldException.'
+        );
     }
 
     @IsTest
@@ -172,7 +180,11 @@ private class fflib_QueryFactoryTest {
             qf.getOrderings()[0].getField(),
             'Unexpected order field - should have been resolved from the field OwnerId'
         );
-        System.assertEquals(fflib_QueryFactory.SortOrder.DESCENDING, qf.getOrderings()[0].getDirection(), 'Unexpected order direction.');
+        System.assertEquals(
+            fflib_QueryFactory.SortOrder.DESCENDING,
+            qf.getOrderings()[0].getDirection(),
+            'Unexpected order direction.'
+        );
 
         //test method overload with ordering by LastModifiedDate Ascending
         qf.setOrdering('LastModifiedDate', fflib_QueryFactory.SortOrder.ASCENDING, true);
@@ -183,7 +195,11 @@ private class fflib_QueryFactoryTest {
             qf.getOrderings()[0].getField(),
             'Unexpected order field - should have been resolved from the field LastModifiedDate'
         );
-        System.assertEquals(fflib_QueryFactory.SortOrder.ASCENDING, qf.getOrderings()[0].getDirection(), 'Unexpected order direction.');
+        System.assertEquals(
+            fflib_QueryFactory.SortOrder.ASCENDING,
+            qf.getOrderings()[0].getDirection(),
+            'Unexpected order direction.'
+        );
 
         //test method overload with ordering by CreatedDate Descending
         qf.setOrdering(Contact.CreatedDate, fflib_QueryFactory.SortOrder.DESCENDING, true);
@@ -194,13 +210,21 @@ private class fflib_QueryFactoryTest {
             qf.getOrderings()[0].getField(),
             'Unexpected order field - should have been resolved from the field CreatedDate'
         );
-        System.assertEquals(fflib_QueryFactory.SortOrder.DESCENDING, qf.getOrderings()[0].getDirection(), 'Unexpected order direction.');
+        System.assertEquals(
+            fflib_QueryFactory.SortOrder.DESCENDING,
+            qf.getOrderings()[0].getDirection(),
+            'Unexpected order direction.'
+        );
 
         //test method overload with ordering by CreatedBy.Name Descending
         qf.setOrdering('CreatedBy.Name', fflib_QueryFactory.SortOrder.DESCENDING);
 
         System.assertEquals(1, qf.getOrderings().size(), 'Unexpected order size - setOrder should replace previous Orderings');
-        System.assertEquals(fflib_QueryFactory.SortOrder.DESCENDING, qf.getOrderings()[0].getDirection(), 'Unexpected order direction.');
+        System.assertEquals(
+            fflib_QueryFactory.SortOrder.DESCENDING,
+            qf.getOrderings()[0].getDirection(),
+            'Unexpected order direction.'
+        );
 
         //test method overload with ordering by Birthdate Ascending
         qf.setOrdering(Contact.Birthdate, fflib_QueryFactory.SortOrder.ASCENDING);
@@ -211,7 +235,11 @@ private class fflib_QueryFactoryTest {
             qf.getOrderings()[0].getField(),
             'Unexpected order field - should have been resolved from the field Birthdate'
         );
-        System.assertEquals(fflib_QueryFactory.SortOrder.ASCENDING, qf.getOrderings()[0].getDirection(), 'Unexpected order direction.');
+        System.assertEquals(
+            fflib_QueryFactory.SortOrder.ASCENDING,
+            qf.getOrderings()[0].getDirection(),
+            'Unexpected order direction.'
+        );
 
         String query = qf.toSOQL();
     }
@@ -499,7 +527,11 @@ private class fflib_QueryFactoryTest {
             .addOrdering(Contact.LastModifiedDate, fflib_QueryFactory.SortOrder.DESCENDING)
             .addOrdering(Contact.CreatedDate, fflib_QueryFactory.SortOrder.DESCENDING, true);
         Set<String> fields = qf.getSelectedFields();
-        fflib_QueryFactory.Ordering ordering = new fflib_QueryFactory.Ordering('Contact', 'name', fflib_QueryFactory.SortOrder.ASCENDING);
+        fflib_QueryFactory.Ordering ordering = new fflib_QueryFactory.Ordering(
+            'Contact',
+            'name',
+            fflib_QueryFactory.SortOrder.ASCENDING
+        );
         System.assertEquals('Name', ordering.getField());
 
         System.assertEquals(
@@ -692,7 +724,9 @@ private class fflib_QueryFactoryTest {
     static void testSoql_unsortedSelectFields() {
         //Given
         fflib_QueryFactory qf = new fflib_QueryFactory(User.SObjectType);
-        qf.selectFields(new List<String>{ 'Id', 'FirstName', 'LastName', 'CreatedBy.Name', 'CreatedBy.Manager', 'LastModifiedBy.Email' });
+        qf.selectFields(
+            new List<String>{ 'Id', 'FirstName', 'LastName', 'CreatedBy.Name', 'CreatedBy.Manager', 'LastModifiedBy.Email' }
+        );
 
         qf.setSortSelectFields(false);
 

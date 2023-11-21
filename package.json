@@ -7,11 +7,11 @@
     },
     "description": "Minlopro DX",
     "scripts": {
-        "prettier": "prettier --write \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-        "prettier:minlopro": "prettier --write \"src/minlopro/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-        "prettier:core": "prettier --write \"src/minlopro-core/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-        "prettier:digex": "prettier --write \"src/minlopro-digex/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-        "prettier:check": "prettier --check \"src/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+        "prettier": "prettier --write \"src/**\"",
+        "prettier:check": "prettier --check \"src/**\"",
+        "prettier:package:minlopro": "prettier --write \"src/minlopro/**\"",
+        "prettier:package:core": "prettier --write \"src/minlopro-core/**\"",
+        "prettier:package:digex": "prettier --write \"src/minlopro-digex/**\"",
         "jest": "sfdx-lwc-jest --skipApiVersionCheck",
         "jest:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
         "sf:apex:tests": "sf apex run test -r human --wait 15",
@@ -43,7 +43,7 @@
         "husky": "^7.0.4",
         "lint-staged": "^12.3.7",
         "pmd-bin": "^1.37.0",
-        "prettier": "^2.8.8",
-        "prettier-plugin-apex": "^1.12.0"
+        "prettier": "2.8.8",
+        "prettier-plugin-apex": "1.13.0"
     }
 }
