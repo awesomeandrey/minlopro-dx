@@ -49,10 +49,11 @@ if ! [ "$(ls $copiedSrcFolderPath)" ]; then
 fi
 
 # Invoke prettier;
-printf "prettier version = $(prettier --version)\n"
-printf "which prettier = $(which prettier)\n"
+prettierExec="./node_modules/.bin/prettier"
+printf "prettier version = $("$prettierExec" --version)\n"
+printf "which prettier = $(which "$prettierExec")\n"
 printf "pwd = $(pwd)\n"
-prettier --check "$copiedSrcFolderPath/**"
+"$prettierExec" --check "$copiedSrcFolderPath/**"
 
 # Capture the exit code
 prettier_exit_code=$?
