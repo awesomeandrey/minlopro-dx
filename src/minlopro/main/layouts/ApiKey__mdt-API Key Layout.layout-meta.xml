@@ -29,9 +29,7 @@
                 <field>NamespacePrefix</field>
             </layoutItems>
         </layoutColumns>
-        <style>
-            TwoColumnsTopToBottom
-        </style>
+        <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -50,9 +48,7 @@
                 <field>LastModifiedById</field>
             </layoutItems>
         </layoutColumns>
-        <style>
-            TwoColumnsTopToBottom
-        </style>
+        <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -61,9 +57,7 @@
         <layoutColumns />
         <layoutColumns />
         <layoutColumns />
-        <style>
-            CustomLinks
-        </style>
+        <style>CustomLinks</style>
     </layoutSections>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
