@@ -4,9 +4,8 @@
 
 ## Prerequisites
 
-Install `node` version according to `package.json` file (_19.7.0_). It's recommended to
-use [NVM](https://tecadmin.net/install-nvm-macos-with-homebrew/) in order to manage NODE versions on
-local machine.
+Install `node` version specified in `package.json` file. It's recommended to
+use [NVM](https://tecadmin.net/install-nvm-macos-with-homebrew/) in order to manage NODE versions on local machine.
 
 Run `bash ./scripts/deploy/build.sh` in order to load project dependencies.
 
@@ -81,6 +80,7 @@ sf project retrieve start \
 ```
 
 _Generate User Password_
+
 ```
 sf org generate password --target-org SO && sf org display user --target-org SO
 ```
@@ -90,6 +90,7 @@ sf org generate password --target-org SO && sf org display user --target-org SO
 Aforementioned commands were broken down into smaller ones in `package.json` project file.
 Keep im mind that scripts that start with `sf:...` or `src:...` can be invoked with extra parameters passed to them.
 E.g. you can execute particular script passing in ORG alias:
+
 ```
 // Push source to target org
 npm run src:push -- -o $ORG_ALIAS
