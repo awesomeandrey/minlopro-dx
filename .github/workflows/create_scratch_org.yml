@@ -1,0 +1,36 @@
+name: Create Scratch Org
+
+# Trigger Events
+on:
+    workflow_dispatch:
+        branches:
+            - develop
+
+# Jobs
+jobs:
+    spin-up-scratch-org:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: actions/setup-node@v3
+              with:
+                  node-version: '20.x'
+            - name: 'Install Salesforce CLI & Authorize DevHub Org'
+              run: |
+                  bash ./scripts/deploy/build.sh
+                  echo ${{secrets.DEV_HUB_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+                  devHubOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
+                  # Override 'target-dev-hub' property
+                  sf config set target-dev-hub="$devHubOrgAlias"
+            - name: 'Spin Up Brand New Scratch Org'
+              run: |
+                  sf config list
+                  orgAliasesFile="orgAliases.txt"
+                  touch $orgAliasesFile
+                  # Dev Hub Alias
+                  devHubAlias=$(bash ./scripts/util/get_target_dev_hub_alias.sh)
+                  echo "$devHubAlias" >> $orgAliasesFile
+                  # Scratch Org Alias
+                  echo "SO" >> $orgAliasesFile
+                  # Initiate scratch org generation
+                  bash ./scripts/util/create_scratch_org.sh < $orgAliasesFile

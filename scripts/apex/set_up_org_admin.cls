@@ -18,3 +18,5 @@ System.debug(
                 '\n\n Successfully set up admin user. \n',
                 Lists.of(UserInfo.getName()))
 );
+
+// TODO - assign all Admin permission sets
