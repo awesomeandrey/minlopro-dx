@@ -2,7 +2,7 @@
 
 # How to use:
 # - bash ./scripts/util/create_scratch_org.sh
-# - echo $TXT_FILE_WITH_DEV_HUB_AND_SO_ALIASES | bash ./scripts/util/create_scratch_org.sh
+# - echo $TXT_WITH_INPUTS | bash ./scripts/util/create_scratch_org.sh
 
 # Enable errexit option to exit on command failure
 set -e
@@ -15,13 +15,18 @@ read DEV_HUB_ALIAS
 printf "Enter Scratch Org alias:\n"
 read SCRATCH_ORG_ALIAS
 
-echo "Spinning up scratch org [$SCRATCH_ORG_ALIAS] under [$DEV_HUB_ALIAS] dev hub org..."
+# Capture Admin email address alias;
+printf "Enter Admin Email Address:\n"
+read ADMIN_EMAIL
+
+echo "Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
 
 # Create a brand new scratch org ans set it as a default org
 sf org create scratch \
     --target-dev-hub $DEV_HUB_ALIAS \
     --alias $SCRATCH_ORG_ALIAS \
     --definition-file "config/project-scratch-def.json" \
+    --admin-email $ADMIN_EMAIL \
     --set-default \
     --edition enterprise \
     --duration-days 30 \
@@ -49,7 +54,11 @@ sf community publish \
 
 # Reset Admin user password and display it to console
 sf org generate password --target-org $SCRATCH_ORG_ALIAS
+orgCredentialsFile="build/scratch-org-credentials.txt"
+mkdir -p "build"
+touch $orgCredentialsFile
 printf "\n----- Scratch Org Credentials -----\n"
-sf org display user --target-org $SCRATCH_ORG_ALIAS
+sf org display user --target-org $SCRATCH_ORG_ALIAS > $orgCredentialsFile
+cat $orgCredentialsFile
 
 echo "Done!"

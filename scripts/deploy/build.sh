@@ -4,6 +4,8 @@
 # - bash ./scripts/deploy/build.sh
 # - bash ./scripts/deploy/build.sh -a
 
+mkdir -p "build"
+
 # Flag that forces installation of mandatory modules only
 INSTALL_ALL_MODULES=false
 while getopts "a" opt; do

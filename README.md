@@ -15,6 +15,10 @@ Familiarise yourself with Salesforce environments involved and automations built
 
 ![Salesforce Development Workflow](.github/Salesforce_Development_Workflow.png)
 
+Spin up scratch org by
+running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/create_scratch_org.yml)
+GitHub Action Workflow.
+
 Make sure that the changed codebase files are _prettified_ via `npm run prettier` command.
 Alternatively, you can run `npm run prettier:check` in order to identify _non-prettified_ files.
 
@@ -31,28 +35,6 @@ once the feature(s) has been developed, tested and pushed to release.
 
 ### Useful Commands
 
-_Create Scratch Org_
-
-```
-sf org create scratch \
-    --target-dev-hub $DEV_HUB_ALIAS \
-    --alias $SCRATCH_ORG_ALIAS \
-    --definition-file config/project-scratch-def.json \
-    --set-default \
-    --edition enterprise \
-    --duration-days 30
-```
-
-_Create DigEx Site_
-
-```
-sf community create \
-    --target-org $SCRATCH_ORG_ALIAS \
-    --name "DigEx" \
-    --template-name "Build Your Own" \
-    --url-path-prefix digex
-```
-
 _Deploy Codebase_
 
 ```
@@ -62,31 +44,18 @@ npm run sf:manifest:create && npm run src:deploy:full
 _Publish Community_
 
 ```
-sf community publish \
-    --name "DigEx" 
-    --target-org $SCRATCH_ORG_ALIAS
+sf community publish --name "DigEx" --target-org $SCRATCH_ORG_ALIAS
 ```
 
 _Retrieve Metadata From Org by `package.xml` File_
 
 ```
-sf project retrieve start \
-    --manifest manifests/package.xml \
-    --target-org $SCRATCH_ORG_ALIAS \
-    --output-dir build
-```
-
-_Generate User Password_
-
-```
-sf org generate password --target-org $SCRATCH_ORG_ALIAS 
-sf org display user --target-org $SCRATCH_ORG_ALIAS
+sf project retrieve start --manifest manifests/package.xml --target-org $SCRATCH_ORG_ALIAS --output-dir build
 ```
 
 ### Scripts in `package.json`
 
-Aforementioned commands were broken down into smaller ones in `package.json` project file.
-Keep im mind that scripts that start with `sf:...` or `src:...` can be invoked with extra parameters passed to them.
+Scripts that start with `sf:...` or `src:...` can be invoked with extra parameters passed to them.
 E.g. you can execute particular script passing in ORG alias:
 
 ```
