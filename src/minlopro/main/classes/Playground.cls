@@ -3,7 +3,7 @@ public with sharing class Playground {
         // Fetch target PSG;
         final String psgName = 'Minlopro_PSG_InternalUser';
         PermissionSetGroup targetPsg = [
-            SELECT Id, DeveloperName
+            SELECT Id, DeveloperName, NamespacePrefix
             FROM PermissionSetGroup
             WHERE DeveloperName = :psgName
             LIMIT 1

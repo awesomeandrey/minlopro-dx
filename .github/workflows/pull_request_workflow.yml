@@ -80,5 +80,5 @@ jobs:
                   path: manifests/sgd
             - name: 'Check-Only Deploy Source to Target Org'
               run: |
-                  targetOrgAlias=$(bash ./scripts/deploy/get_target_org_alias.sh)
+                  targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
                   echo $targetOrgAlias | bash ./scripts/deploy/sgd_validate_deployment.sh
