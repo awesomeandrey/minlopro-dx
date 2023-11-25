@@ -32,6 +32,16 @@ sf org create scratch \
     --duration-days 30 \
     --wait 10
 
+# Reset Admin user password and display it to console
+sf org generate password --target-org $SCRATCH_ORG_ALIAS
+orgCredentialsFile="build/scratch-org-credentials.txt"
+mkdir -p "build"
+touch $orgCredentialsFile
+printf "\n----- Scratch Org Credentials -----\n"
+sf org display user --target-org $SCRATCH_ORG_ALIAS >> $orgCredentialsFile
+sf org display --target-org $SCRATCH_ORG_ALIAS --verbose >> $orgCredentialsFile
+cat $orgCredentialsFile
+
 # Optional: install packages here.
 
 # Generate project manifest
@@ -52,15 +62,5 @@ sf community publish \
 
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
-
-# Reset Admin user password and display it to console
-sf org generate password --target-org $SCRATCH_ORG_ALIAS
-orgCredentialsFile="build/scratch-org-credentials.txt"
-mkdir -p "build"
-touch $orgCredentialsFile
-printf "\n----- Scratch Org Credentials -----\n"
-sf org display user --target-org $SCRATCH_ORG_ALIAS >> $orgCredentialsFile
-sf org display --target-org $SCRATCH_ORG_ALIAS --verbose >> $orgCredentialsFile
-cat $orgCredentialsFile
 
 echo "Done!"
