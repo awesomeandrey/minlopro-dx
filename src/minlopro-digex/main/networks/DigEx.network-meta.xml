@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Network xmlns="http://soap.sforce.com/2006/04/metadata">
     <allowInternalUserLogin>true</allowInternalUserLogin>
     <allowMembersToFlag>false</allowMembersToFlag>
@@ -30,10 +30,12 @@
     <enableUpDownVote>false</enableUpDownVote>
     <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
     <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
-    <maxFileSizeKb>5120</maxFileSizeKb>
+    <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
+    <maxFileSizeKb>10240</maxFileSizeKb>
     <networkMemberGroups>
-        <profile>Admin</profile>
-        <profile>DigEx Partner</profile>
+        <permissionSet>Minlopro_DigEx</permissionSet>
+        <profile>admin</profile>
+        <profile>digex partner</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>

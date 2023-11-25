@@ -2,70 +2,68 @@ name: Deploy Source
 
 # Trigger Events
 on:
-    schedule:
-        # Runs "At 07:00 on every day-of-week from Monday through Friday"
-        - cron: '0 7 * * 1-5'
-    workflow_dispatch:
-        branches:
-            - develop
-    push:
-        branches:
-            - develop
+  schedule:
+    # Runs "At 07:00 on every day-of-week from Monday through Friday"
+    - cron: '0 7 * * 1-5'
+  workflow_dispatch:
+    branches:
+      - develop
+  push:
+    branches:
+      - develop
 
 # Jobs
 jobs:
-    # Event = 'Push'
-    deploy-source-to-org:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '20.x'
-            - name: 'Install Salesforce CLI & Authorize Target Org'
-              run: |
-                  bash ./scripts/deploy/build.sh
-                  echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
-            - name: 'Deploy Source to Target Org'
-              run: |
-                  npm run sf:manifest:create
-                  npm run src:deploy:full
-            - name: 'Custom Post-Deployment Steps'
-              run: |
-                  targetOrgAlias=$(bash ./scripts/deploy/get_target_org_alias.sh)
-                  bash ./scripts/util/run_apex_script.sh $targetOrgAlias assign_minlopro_digex_psg
-                  bash ./scripts/util/run_apex_script.sh $targetOrgAlias assign_minlopro_psg
-                  bash ./scripts/util/run_apex_script.sh $targetOrgAlias enable_debug_mode
-                  echo $targetOrgAlias | bash ./scripts/util/delete_all_apex_logs.sh
-                  echo $targetOrgAlias | bash ./scripts/util/delete_obsolete_flow_versions.sh
-    run-apex-tests:
-        needs: [deploy-source-to-org]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '20.x'
-            - name: 'Install Salesforce CLI & Authorize Target Org'
-              run: |
-                  bash ./scripts/deploy/build.sh
-                  echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
-            - name: 'Run All Apex Tests with Coverage'
-              run: npm run sf:apex:tests:coverage
-    run-pmd-checks:
-        needs: [deploy-source-to-org]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '20.x'
-            - name: 'Install NPM Dependencies'
-              run: npm install
-            - name: 'Run Apex Static Code Analysis (PMD)'
-              run: npm run pmd:html || echo "PMD report has been generated!"
-            - name: 'Upload PMD Report as Artifact'
-              uses: actions/upload-artifact@v3
-              with:
-                  name: apex-pmd-report
-                  path: build/apex-pmd-report.html
+  # Event = 'Push'
+  deploy-source-to-org:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: 'Install Salesforce CLI & Authorize Target Org'
+        run: |
+          bash ./scripts/deploy/build.sh
+          echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+      - name: 'Deploy Source to Target Org'
+        run: |
+          npm run sf:manifest:create
+          npm run src:deploy:full
+      - name: 'Custom Post-Deployment Steps'
+        run: |
+          targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
+          bash ./scripts/util/run_apex_script.sh $targetOrgAlias set_up_org_admin
+          echo $targetOrgAlias | bash ./scripts/util/delete_all_apex_logs.sh
+          echo $targetOrgAlias | bash ./scripts/util/delete_obsolete_flow_versions.sh
+  run-apex-tests:
+    needs: [ deploy-source-to-org ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: 'Install Salesforce CLI & Authorize Target Org'
+        run: |
+          bash ./scripts/deploy/build.sh
+          echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+      - name: 'Run All Apex Tests with Coverage'
+        run: npm run sf:apex:tests:coverage
+  run-pmd-checks:
+    needs: [ deploy-source-to-org ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: 'Install NPM Dependencies'
+        run: npm install
+      - name: 'Run Apex Static Code Analysis (PMD)'
+        run: npm run pmd:html || echo "PMD report has been generated!"
+      - name: 'Upload PMD Report as Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: apex-pmd-report
+          path: build/apex-pmd-report.html

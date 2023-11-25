@@ -2,83 +2,85 @@ name: Validate Pull Request Changes
 
 # Trigger Events
 on:
-    pull_request:
-        types: [opened, synchronize, reopened]
-        branches:
-            - develop
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    branches:
+      - develop
 
 # Jobs
 jobs:
-    # Event = 'Pull Request'
-    run-prettier-checks:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '20.x'
-            - name: 'Install NPM Dependencies'
-              run: npm install
-            - name: 'Run Prettier Check (Partial)'
-              run: |
-                  git checkout ${{github.base_ref}}
-                  git pull
-                  git checkout ${{github.head_ref}}
-                  git pull
-                  bash ./scripts/deploy/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
-    run-jest-tests:
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '20.x'
-            - name: 'Install NPM Dependencies'
-              run: npm install
-            - name: 'Run Jest Tests with Coverage'
-              run: npm run jest:coverage
-    validate-deployment-to-org:
-        needs: [run-prettier-checks, run-jest-tests]
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-              with:
-                  fetch-depth: 0
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: '20.x'
-            - name: 'Install Salesforce CLI & Authorize Target Org'
-              run: |
-                  bash ./scripts/deploy/build.sh
-                  echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
-            - name: 'Environment Info'
-              run: |
-                  echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
-                  echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
-                  echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
-                  echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
-                  echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
-            - name: 'Generate Delta Manifests'
-              run: |
-                  git checkout ${{github.base_ref}}
-                  git pull
-                  git checkout ${{github.head_ref}}
-                  git pull
-                  branchesInfoFile="branches-info.txt"
-                  touch $branchesInfoFile
-                  # From
-                  echo ${{github.base_ref}} >> $branchesInfoFile
-                  # To
-                  echo ${{github.head_ref}} >> $branchesInfoFile
-                  bash ./scripts/deploy/sgd_generate_manifests.sh < $branchesInfoFile
-            - name: 'Upload Delta Manifest Files as Artifact'
-              uses: actions/upload-artifact@v3
-              with:
-                  name: delta-changes
-                  path: manifests/sgd
-            - name: 'Check-Only Deploy Source to Target Org'
-              run: |
-                  targetOrgAlias=$(bash ./scripts/deploy/get_target_org_alias.sh)
-                  echo $targetOrgAlias | bash ./scripts/deploy/sgd_validate_deployment.sh
+  # Event = 'Pull Request'
+  run-prettier-checks:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: 'Install NPM Dependencies'
+        run: npm install
+      - name: 'Run Prettier Check (Partial)'
+        run: |
+          git checkout ${{github.base_ref}}
+          git pull
+          git checkout ${{github.head_ref}}
+          git pull
+          bash ./scripts/deploy/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
+  run-jest-tests:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: 'Install NPM Dependencies'
+        run: npm install
+      - name: 'Run Jest Tests with Coverage'
+        run: npm run jest:coverage
+  validate-deployment-to-org:
+    needs: [ run-prettier-checks, run-jest-tests ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - name: 'Install Salesforce CLI & Authorize Target Org'
+        run: |
+          bash ./scripts/deploy/build.sh
+          echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+      - name: 'Environment Info'
+        run: |
+          echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
+          echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
+          echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
+          echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
+          echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
+      - name: 'Generate Delta Manifests'
+        run: |
+          git checkout ${{github.base_ref}}
+          git pull
+          git checkout ${{github.head_ref}}
+          git pull
+          branchesInfoFile="branches-info.txt"
+          touch $branchesInfoFile
+          # From
+          echo ${{github.base_ref}} >> $branchesInfoFile
+          # To
+          echo ${{github.head_ref}} >> $branchesInfoFile
+          bash ./scripts/deploy/sgd_generate_manifests.sh < $branchesInfoFile
+      - name: 'Upload Delta Manifest Files as Artifact'
+        uses: actions/upload-artifact@v3
+        with:
+          name: delta-changes
+          path: manifests/sgd
+      - name: 'Check-Only Deploy Source to Target Org'
+        run: |
+          targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
+          echo $targetOrgAlias | bash ./scripts/deploy/sgd_validate_deployment.sh

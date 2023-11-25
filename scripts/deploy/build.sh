@@ -20,6 +20,22 @@ while getopts "a" opt; do
   esac
 done
 
+# Flag that forces installation of mandatory modules only
+INSTALL_ALL_MODULES=false
+while getopts "a" opt; do
+  case $opt in
+    a)
+      # Set flag_a to true when -a is specified
+      INSTALL_ALL_MODULES=true
+      ;;
+    \?)
+      # Invalid option
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+  esac
+done
+
 # Install SF CLI (v2);
 sfCliPackageName="@salesforce/cli"
 if npm ls -g "$sfCliPackageName" &>/dev/null; then

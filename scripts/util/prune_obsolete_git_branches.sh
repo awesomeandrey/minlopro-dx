@@ -6,8 +6,6 @@
 
 mainBranchName="main"
 
-git fetch --prune
-
 for k in $(git branch --format="%(refname:short)" --merged "$mainBranchName" -r); do
   if (($(git log -1 --since='2 month ago' -s $k | wc -l) == 0)); then
     # Remove 'echo' below in order to prune obsolete branch
@@ -15,3 +13,6 @@ for k in $(git branch --format="%(refname:short)" --merged "$mainBranchName" -r)
     # git branch -d $k && git push origin --delete $k
   fi
 done
+
+# Purges local branches linked to non-existing remote branches
+# git fetch --prune
