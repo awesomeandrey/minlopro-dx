@@ -49,7 +49,7 @@
     </decisions>
     <environments>Default</environments>
     <interviewLabel>Auto-Assign PSG To DigEx Users {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Auto-Assign PSG To DigEx Users</label>
+    <label>Minlopro - Auto-Assign PSG To DigEx Users</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>

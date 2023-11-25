@@ -13,7 +13,8 @@
         "API",
         "StreamingAPI",
         "StateAndCountryPicklist",
-        "Communities"
+        "Communities",
+        "PersonAccounts"
     ],
     "settings": {
         "experienceBundleSettings": {

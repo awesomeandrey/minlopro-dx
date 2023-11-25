@@ -1,19 +1,22 @@
 {
-    "packageDirectories": [
-        {
-            "path": "src/minlopro-core"
-        },
-        {
-            "path": "src/minlopro",
-            "default": true
-        },
-        {
-            "path": "src/minlopro-digex"
-        }
-    ],
-    "pushPackageDirectoriesSequentially": true,
-    "name": "minlopro-dx",
-    "namespace": "",
-    "sfdcLoginUrl": "https://test.salesforce.com",
-    "sourceApiVersion": "58.0"
+  "packageDirectories": [
+    {
+      "path": "src/minlopro-core"
+    },
+    {
+      "path": "src/minlopro"
+    },
+    {
+      "path": "src/minlopro-digex"
+    },
+    {
+      "path": "src/minlopro-default",
+      "default": true
+    }
+  ],
+  "pushPackageDirectoriesSequentially": true,
+  "name": "minlopro-dx",
+  "namespace": "",
+  "sfdcLoginUrl": "https://test.salesforce.com",
+  "sourceApiVersion": "58.0"
 }

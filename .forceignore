@@ -4,20 +4,16 @@
 **/profilePasswordPolicies
 **/profileSessionSettings
 **/settings
-
-# Ignore specific set of metadata items
-**/profiles/Admin.profile-meta.xml
-Admin.profile
+**/profiles
+**/connectedApps
+**/authproviders
 
 # DigEx portal related metadata items;
 **/audience/Default_DigEx.audience-meta.xml
 **/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
 
-# Connected Apps
-**/connectedApps
-
-# Auth Providers
-**/authproviders
+# Default folder for pulled components/metadata
+**/minlopro-default
 
 # LWC Jest tests
 **/__tests__/**

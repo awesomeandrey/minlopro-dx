@@ -2,6 +2,10 @@
 
 [![Deploy Source](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/deploy_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/deploy_workflow.yml)
 
+## About
+
+This is a blueprint repository for typical Salesforce org-based project which is accompanied with CI/CD automations.
+
 ## Prerequisites
 
 Install `node` version specified in `package.json` file. It's recommended to
@@ -50,7 +54,10 @@ sf community publish --name "DigEx" --target-org $SCRATCH_ORG_ALIAS
 _Retrieve Metadata From Org by `package.xml` File_
 
 ```
-sf project retrieve start --manifest manifests/package.xml --target-org $SCRATCH_ORG_ALIAS --output-dir build
+sf project retrieve start \
+    --manifest manifests/package.xml \
+    --target-org $SCRATCH_ORG_ALIAS \
+    --output-dir "src/minlopro-default"
 ```
 
 ### Scripts in `package.json`
