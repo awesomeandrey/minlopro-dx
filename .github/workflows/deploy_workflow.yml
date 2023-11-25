@@ -34,8 +34,6 @@ jobs:
         run: |
           targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
           bash ./scripts/util/run_apex_script.sh $targetOrgAlias set_up_org_admin
-          bash ./scripts/util/run_apex_script.sh $targetOrgAlias assign_minlopro_digex_psg
-          bash ./scripts/util/run_apex_script.sh $targetOrgAlias assign_minlopro_psg
           echo $targetOrgAlias | bash ./scripts/util/delete_all_apex_logs.sh
           echo $targetOrgAlias | bash ./scripts/util/delete_obsolete_flow_versions.sh
   run-apex-tests:

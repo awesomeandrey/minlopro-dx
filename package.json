@@ -21,7 +21,7 @@
         "sf:manifest:create": "sf project generate manifest --source-dir src --name manifests/package.xml",
         "sf:manifest:create:delta": "bash ./scripts/deploy/sgd_generate_manifests.sh",
         "sf:tracking:reset": "sf project reset tracking --no-prompt",
-        "sf:target:org:get": "bash ./scripts/util/get_target_org_alias.sh",
+        "src:retrieve": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/util/retrieve_by_manifest.sh",
         "src:deploy:full": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/deploy/deploy.sh",
         "src:deploy:check": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/deploy/validate.sh",
         "src:push": "sf project deploy start --ignore-conflicts --ignore-warnings --wait 10",

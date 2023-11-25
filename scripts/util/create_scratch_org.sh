@@ -42,7 +42,7 @@ sf project generate manifest \
 # Initiate full deploy to scratch org (this automatically creates Digital Experience Site)
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/deploy.sh
 
-# Enable debug mode in scratch org by default
+# Sets up admin user
 bash ./scripts/util/run_apex_script.sh "$SCRATCH_ORG_ALIAS" set_up_org_admin
 
 # Publish Digital Experience Site
@@ -50,7 +50,8 @@ sf community publish \
   --name "DigEx" \
   --target-org "$SCRATCH_ORG_ALIAS"
 
-# TODO: import sample data here.
+# Import sample data
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
 
 # Reset Admin user password and display it to console
 sf org generate password --target-org $SCRATCH_ORG_ALIAS
@@ -58,7 +59,8 @@ orgCredentialsFile="build/scratch-org-credentials.txt"
 mkdir -p "build"
 touch $orgCredentialsFile
 printf "\n----- Scratch Org Credentials -----\n"
-sf org display user --target-org $SCRATCH_ORG_ALIAS > $orgCredentialsFile
+sf org display user --target-org $SCRATCH_ORG_ALIAS >> $orgCredentialsFile
+sf org display --target-org $SCRATCH_ORG_ALIAS --verbose >> $orgCredentialsFile
 cat $orgCredentialsFile
 
 echo "Done!"

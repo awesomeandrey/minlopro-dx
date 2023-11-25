@@ -9,6 +9,7 @@ coverage/
 build/
 temp/
 logs/
+retrieved-src/
 
 # Logs
 *.log
@@ -19,6 +20,8 @@ yarn-error.log*
 # Project files
 manifests/sgd/
 manifests/package.xml
+**/minlopro-default/main
+**/minlopro-default/default
 
 # Playground Files
 scripts/playground

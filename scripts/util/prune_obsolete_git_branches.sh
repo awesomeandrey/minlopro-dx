@@ -14,5 +14,5 @@ for k in $(git branch --format="%(refname:short)" --merged "$mainBranchName" -r)
   fi
 done
 
-# Invoke command below once obsolete remote branches are purged
+# Purges local branches linked to non-existing remote branches
 # git fetch --prune
