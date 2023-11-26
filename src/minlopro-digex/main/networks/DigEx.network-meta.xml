@@ -34,8 +34,8 @@
     <maxFileSizeKb>10240</maxFileSizeKb>
     <networkMemberGroups>
         <permissionSet>Minlopro_DigEx</permissionSet>
-        <profile>admin</profile>
-        <profile>digex partner</profile>
+        <profile>Admin</profile>
+        <profile>DigEx Partner</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>

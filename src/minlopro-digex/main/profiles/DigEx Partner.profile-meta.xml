@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <applicationVisibilities>
         <application>Minlopro</application>
@@ -47,6 +47,10 @@
     </classAccesses>
     <classAccesses>
         <apexClass>CommunitiesSelfRegControllerTest</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ContactLockingTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -198,7 +202,15 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>demo</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>digex_RunningUserInfoAsPdfController</apexClass>
+        <enabled>false</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ff</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -488,6 +500,11 @@
     <custom>true</custom>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.AccountSource</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Event.My_Details__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -623,6 +640,21 @@
         <apexPage>digex_RunningUserInfoAsPdf</apexPage>
         <enabled>false</enabled>
     </pageAccesses>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Account.Company</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Account.IndividualEntrepreneur</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>PersonAccount.Customer</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
     <tabVisibilities>
         <tab>Car__c</tab>
         <visibility>DefaultOff</visibility>

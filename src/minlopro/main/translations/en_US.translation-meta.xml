@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <customApplications>
+        <description xsi:nil="true" />
         <label><!-- Minlopro --></label>
         <name>Minlopro</name>
     </customApplications>
@@ -56,4 +57,132 @@
         <label><!-- There are no logs yet! --></label>
         <name>Logger_Msg_NoLogsYet</name>
     </customLabels>
+    <customTabs>
+        <label><!-- Getting Started --></label>
+        <name>Getting_Started</name>
+    </customTabs>
+    <customTabs>
+        <label><!-- Google Maps API Playground --></label>
+        <name>GoogleMapsApiPlayground</name>
+    </customTabs>
+    <customTabs>
+        <label><!-- Logs Monitor --></label>
+        <name>LogsMonitor</name>
+    </customTabs>
+    <customTabs>
+        <label><!-- Playground --></label>
+        <name>Playground</name>
+    </customTabs>
+    <flowDefinitions>
+        <flows />
+        <fullName>Minlopro_Assign_PSG_To_DigEx_Users</fullName>
+    </flowDefinitions>
+    <quickActions>
+        <label><!-- Guest Community Case --></label>
+        <name>GuestCommunityCase</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- LogACall --></label>
+        <name>LogACall</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewAccount --></label>
+        <name>NewAccount</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewCase --></label>
+        <name>NewCase</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Community Case --></label>
+        <name>NewCommunityCase</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewContact --></label>
+        <name>NewContact</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewEvent --></label>
+        <name>NewEvent</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewGroup --></label>
+        <name>NewGroup</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewLead --></label>
+        <name>NewLead</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewNote --></label>
+        <name>NewNote</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewOpportunity --></label>
+        <name>NewOpportunity</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewTask --></label>
+        <name>NewTask</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- SendEmail --></label>
+        <name>SendEmail</name>
+    </quickActions>
+    <reportTypes>
+        <description><!-- Accounts with Entitlements with Contacts --></description>
+        <label><!-- Accounts with Entitlements with Contacts --></label>
+        <name>Accounts_with_Entitlements_with_Contacts</name>
+        <sections>
+            <label><!-- Accounts --></label>
+            <name>Accounts</name>
+        </sections>
+        <sections>
+            <label><!-- Contacts --></label>
+            <name>Contacts</name>
+        </sections>
+        <sections>
+            <label><!-- Entitlements --></label>
+            <name>Entitlements</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Service Contracts with Contract Line Items --></description>
+        <label><!-- Service Contracts with Contract Line Items --></label>
+        <name>Service_Contracts_with_Contract_Line_Items</name>
+        <sections>
+            <label><!-- Contract Line Items --></label>
+            <name>Contract Line Items</name>
+        </sections>
+        <sections>
+            <label><!-- Service Contracts --></label>
+            <name>Service Contracts</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Service Contracts with Entitlements --></description>
+        <label><!-- Service Contracts with Entitlements --></label>
+        <name>Service_Contracts_with_Entitlements</name>
+        <sections>
+            <label><!-- Entitlements --></label>
+            <name>Entitlements</name>
+        </sections>
+        <sections>
+            <label><!-- Service Contracts --></label>
+            <name>Service Contracts</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Screen Flows --></description>
+        <label><!-- Screen Flows --></label>
+        <name>screen_flows_prebuilt_crt</name>
+        <sections>
+            <label><!-- Flow Interview Log Entries --></label>
+            <name>Flow Interview Log Entries</name>
+        </sections>
+        <sections>
+            <label><!-- Flow Interview Logs --></label>
+            <name>Flow Interview Logs</name>
+        </sections>
+    </reportTypes>
 </Translations>
