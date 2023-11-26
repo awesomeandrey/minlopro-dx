@@ -12,7 +12,7 @@ jobs:
   # Event = 'Pull Request'
   run-prettier-checks:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    continue-on-error: false
     steps:
       - uses: actions/checkout@v3
         with:
@@ -31,7 +31,7 @@ jobs:
           bash ./scripts/deploy/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
   run-jest-tests:
     runs-on: ubuntu-latest
-    continue-on-error: true
+    continue-on-error: false
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

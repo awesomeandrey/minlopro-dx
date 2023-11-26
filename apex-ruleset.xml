@@ -7,6 +7,7 @@
 >
     <description>Apex Custom PMD Rules</description>
     <exclude-pattern>.*/minlopro-core/*.*</exclude-pattern>
+    <exclude-pattern>.*/minlopro-digex/*.*</exclude-pattern>
     <rule ref="rulesets/apex/quickstart.xml">
         <exclude name="ApexDoc" />
         <exclude name="EmptyStatementBlock" />

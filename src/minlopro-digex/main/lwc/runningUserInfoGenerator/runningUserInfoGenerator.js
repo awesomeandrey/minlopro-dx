@@ -29,7 +29,6 @@ export default class RunningUserInfoGenerator extends NavigationMixin(LightningE
             toastify.error({ message }, this);
             return;
         }
-        debugger;
         const finalUrl = `data:application/pdf;base64,${encodedBlob}`;
         const linkElement = this.refs.link;
         linkElement.href = finalUrl;
