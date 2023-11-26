@@ -147,7 +147,7 @@
     </classAccesses>
     <classAccesses>
         <apexClass>PublicRestEndpoint</apexClass>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>Repository</apexClass>
@@ -498,6 +498,7 @@
         <enabled>false</enabled>
     </classAccesses>
     <custom>true</custom>
+    <description>Auto-generated guest user profile for the digital experience site.</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.AccountSource</field>
