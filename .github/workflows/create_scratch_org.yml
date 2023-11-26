@@ -48,4 +48,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: scratch-org-credentials
-          path: build/scratch-org-credentials.txt
+          path: build/*scratch-org-credentials.txt
+          if-no-files-found: error
+          retention-days: 5
