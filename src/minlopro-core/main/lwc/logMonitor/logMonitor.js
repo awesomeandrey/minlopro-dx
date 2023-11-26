@@ -338,7 +338,6 @@ export default class LogMonitor extends LightningElement {
             CreatedDate: createdDate
         } = message.data.payload;
         const matchedLogOwners = this.findMatchedLogOwners({ authorId, authorProfileId });
-        debugger;
         if (isNotEmpty(matchedLogOwners)) {
             // Normalize PE payload;
             const data = JSON.parse(dataAsString);
