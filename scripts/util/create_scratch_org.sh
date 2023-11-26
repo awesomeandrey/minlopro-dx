@@ -34,7 +34,7 @@ sf org create scratch \
 
 # Reset Admin user password and display it to console
 sf org generate password --target-org $SCRATCH_ORG_ALIAS
-orgCredentialsFile="build/scratch-org-credentials.txt"
+orgCredentialsFile="build/$ADMIN_EMAIL-scratch-org-credentials.txt"
 mkdir -p "build"
 touch $orgCredentialsFile
 printf "\n----- Scratch Org Credentials -----\n"

@@ -80,6 +80,7 @@ jobs:
         with:
           name: delta-changes
           path: manifests/sgd
+          retention-days: 5
       - name: 'Check-Only Deploy Source to Target Org'
         run: |
           targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
