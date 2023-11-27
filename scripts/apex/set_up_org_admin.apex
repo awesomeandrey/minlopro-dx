@@ -14,8 +14,8 @@ User runningUser = [
         WHERE Id = :userId
         LIMIT 1
 ][0];
-System.debug('\n\n Running User Info => ' + runningUser + '\n');
-System.debug(String.format('\n\n Successfully set up admin user. \n', Lists.of(UserInfo.getName())));
+System.debug(String.format('\n\n >>> Successfully set up [{0}] user. \n', Lists.of(runningUser.Name)));
+
 // Auto assign all custom PS/PSGs;
 List<PermissionSet> customPermissionSets = [
         SELECT Id, Name, PermissionSetGroupId, IsCustom, Type, License.Name
@@ -44,12 +44,18 @@ for (Database.SaveResult saveResultItem : Database.insert(assignments, false)) {
         Database.Error errorItem = saveResultItem.getErrors().get(0);
         if (errorItem.getStatusCode() != StatusCode.DUPLICATE_VALUE) {
             hasFailedPsAssignment = true;
-            System.debug('\n\n Unexpected Assignment Error => ' + errorItem + '\n');
+            System.debug('\n\n >>> Unexpected Assignment Error => ' + errorItem + '\n');
         }
     }
 }
 if (hasFailedPsAssignment) {
-    System.debug('\n\n Some of Permission Set and/or PSG were NOT assigned.\n');
+    System.debug(String.format(
+            '\n\n >>> Some of Permission Set and/or PSG were NOT assigned to [{0}] user. \n',
+            Lists.of(runningUser.Name)
+    ));
 } else {
-    System.debug('\n\n All Permission Sets and/or PSGs were successfully assigned.\n');
+    System.debug(String.format(
+            '\n\n >>> All Permission Sets and/or PSGs were successfully assigned to [{0}] user. \n',
+            Lists.of(runningUser.Name)
+    ));
 }
