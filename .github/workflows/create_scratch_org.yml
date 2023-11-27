@@ -30,7 +30,7 @@ jobs:
           # List all scratch orgs
           bash ./scripts/util/list_all_scratch_orgs.sh
       - name: 'Spin Up Brand New Scratch Org'
-        continue-on-error: false
+        continue-on-error: true
         run: |
           sf config list
           inputsFile="inputs.txt"
