@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # How to use:
-# - bash ./scripts/util/create_scratch_org.sh
-# - echo $TXT_WITH_INPUTS | bash ./scripts/util/create_scratch_org.sh
+# - bash ./scripts/automations/create_scratch_org.sh
+# - echo $TXT_WITH_INPUTS | bash ./scripts/automations/create_scratch_org.sh
 
 # Enable errexit option to exit on command failure
 set -e

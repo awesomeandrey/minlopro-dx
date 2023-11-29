@@ -1,4 +1,4 @@
-name: Create Scratch Org
+name: Create Scratch Org 🔔
 
 # Trigger Events
 on:
@@ -9,7 +9,7 @@ on:
         description: "Admin Email Address"
         required: true
     branches:
-      - develop
+      - main
 
 # Jobs
 jobs:
@@ -43,7 +43,7 @@ jobs:
           # Admin Email Address
           echo "${{github.event.inputs.adminEmail}}" >> $inputsFile
           # Initiate scratch org generation
-          bash ./scripts/util/create_scratch_org.sh < $inputsFile
+          bash ./scripts/automations/create_scratch_org.sh < $inputsFile
       - name: 'Upload Scratch Org Credentials as Artifact'
         uses: actions/upload-artifact@v3
         with:

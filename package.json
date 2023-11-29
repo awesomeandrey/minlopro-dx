@@ -44,6 +44,7 @@
         "lint-staged": "^12.3.7",
         "pmd-bin": "^1.37.0",
         "prettier": "2.8.8",
-        "prettier-plugin-apex": "1.13.0"
+        "prettier-plugin-apex": "1.13.0",
+        "xml2js": "^0.6.2"
     }
 }
