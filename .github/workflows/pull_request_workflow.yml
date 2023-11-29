@@ -1,4 +1,4 @@
-name: Validate Pull Request Changes
+name: Validate Pull Request Changes 🔧
 
 # Trigger Events
 on:
