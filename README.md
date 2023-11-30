@@ -1,8 +1,8 @@
 # minlopro-dx
 
-<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/deploy_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/deploy_workflow.yml)</span>
-<span>[![Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/create_scratch_org.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/create_scratch_org.yml)</span>
-<span>[![Reset Destructive Manifests](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/reset_destructive_manifests.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/reset_destructive_manifests.yml)</span>
+<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
+<span>[![Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)</span>
+<span>[![Reset Destructive Manifests](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml)</span>
 
 ## About
 
@@ -22,7 +22,7 @@ Familiarise yourself with Salesforce environments involved and automations built
 ![Salesforce Development Workflow](.github/Salesforce_Development_Workflow.png)
 
 Spin up scratch org by
-running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx-playground/actions/workflows/create_scratch_org.yml)
+running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)
 GitHub Action Workflow.
 
 Make sure that the changed codebase files are _prettified_ via `npm run prettier` command.

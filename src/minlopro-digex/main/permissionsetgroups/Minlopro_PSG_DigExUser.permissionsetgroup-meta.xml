@@ -3,6 +3,7 @@
     <description>PSG for DigEx users only (partners and guest user).</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - PSG - DigEx User</label>
+    <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_Core</permissionSets>
     <permissionSets>Minlopro_DigEx</permissionSets>
     <permissionSets>Minlopro_GoogleMaps</permissionSets>
