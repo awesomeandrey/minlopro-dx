@@ -10,6 +10,7 @@ on:
         required: true
     branches:
       - main
+      - develop
 
 # Jobs
 jobs:
