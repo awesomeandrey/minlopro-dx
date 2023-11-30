@@ -3,6 +3,7 @@
     <description>PSG for internal users only.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - PSG - Internal User</label>
+    <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_Core</permissionSets>
     <permissionSets>Minlopro_GoogleMaps</permissionSets>
     <permissionSets>Minlopro_Logger</permissionSets>

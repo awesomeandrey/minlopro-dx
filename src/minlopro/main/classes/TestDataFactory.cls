@@ -1,4 +1,3 @@
-@IsTest
 public class TestDataFactory {
     private final static Integer USERNAME_LENGTH = 10;
 
