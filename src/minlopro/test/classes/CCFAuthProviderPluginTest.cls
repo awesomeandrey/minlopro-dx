@@ -21,7 +21,7 @@ private class CCFAuthProviderPluginTest {
     }
 
     // TODO - review tests implementation;
-    
+
     @IsTest
     static void testGetCustomMetadataType() {
         CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
@@ -69,10 +69,7 @@ private class CCFAuthProviderPluginTest {
         );
 
         Test.startTest();
-        Auth.AuthProviderTokenResponse actualAuthProvResponse = plugin.handleCallback(
-            authProviderConfiguration,
-            cbState
-        );
+        Auth.AuthProviderTokenResponse actualAuthProvResponse = plugin.handleCallback(authProviderConfiguration, cbState);
         Test.stopTest();
 
         Assert.areEqual(expectedAuthProvResponse.provider, actualAuthProvResponse.provider);
@@ -102,10 +99,7 @@ private class CCFAuthProviderPluginTest {
         Test.startTest();
         Exception expectecException;
         try {
-            Auth.AuthProviderTokenResponse actualAuthProvResponse = plugin.handleCallback(
-                authProviderConfiguration,
-                cbState
-            );
+            Auth.AuthProviderTokenResponse actualAuthProvResponse = plugin.handleCallback(authProviderConfiguration, cbState);
         } catch (Exception ex) {
             expectecException = ex;
         }
