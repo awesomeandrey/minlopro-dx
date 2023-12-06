@@ -9,6 +9,7 @@
 - ✏️ New Feature
 - ✏️ Bug Fix
 - ✏️ Enhancement
+- ✏️ POC / Investigation / Research
 
 ## Details 🔎
 
