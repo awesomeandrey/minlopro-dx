@@ -83,9 +83,10 @@ public class MockedCalloutsFactory implements HttpCalloutMock {
         private String responseBody = null;
 
         private HttpCalloutMockBuilder() {
-            this.responseStatus = 'Default - OK';
+            // Default values;
+            this.responseStatus = 'OK';
             this.responseStatusCode = 200;
-            this.responseBody = 'Default: {}';
+            this.responseBody = '{"success": true}';
         }
 
         private HttpCalloutMockBuilder(String requestMethod, String requestEndpoint, String requestBody) {

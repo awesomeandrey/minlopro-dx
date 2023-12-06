@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <!--This metadata should be configured manually on target environment-->
+    <customMetadataTypeRecord>CCF_Configurations__mdt.SmsTwilioAndGlobalOptInProxy</customMetadataTypeRecord>
+    <!--<executionUser>integrationuser@libertymutual.com.lsc.drc</executionUser>-->
+    <friendlyName>SMS Twilio &amp; GlobalOptIn Proxy</friendlyName>
+    <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
+    <plugin>ApigeeProxyAuthProviderPlugin</plugin>
+    <providerType>Custom</providerType>
+    <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
+    <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
+    <sendSecretInApis>false</sendSecretInApis>
+</AuthProvider>

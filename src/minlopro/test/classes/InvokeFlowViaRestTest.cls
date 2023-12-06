@@ -1,5 +1,5 @@
 @IsTest
-private class InvokeFlowViaRest {
+private class InvokeFlowViaRestTest {
     /**
      * Useful links:
      * - https://help.salesforce.com/s/articleView?id=sf.flow_distribute_system_rest.htm&type=5
