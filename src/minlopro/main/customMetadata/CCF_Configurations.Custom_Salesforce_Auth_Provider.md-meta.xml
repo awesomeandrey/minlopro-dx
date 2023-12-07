@@ -14,11 +14,11 @@
     </values>
     <values>
         <field>ClientId__c</field>
-        <value xsi:type="xsd:string">3MVG904d7VkkD2aPk6n6toFRJz1zUTpmzsE3Bcm2BBbjGvP7IqE28mXNpgu0SItSFirJIjVbvzg==</value>
+        <value xsi:type="xsd:string">3MVG904d7VkkD2aPk6n6toFRJz9rJsHWKg3PlWHg1FX_JNNOpxuXTL2dQeFFiwV25GNC4McERRUKBN9gO5Qyb</value>
     </values>
     <values>
         <field>ClientSecret__c</field>
-        <value xsi:type="xsd:string">3245D791939D8FAC54DFDA5D7F222D53ED17F32F1CABED6CACB9B7CF9DAD0944</value>
+        <value xsi:type="xsd:string">429F6E81B0CC7A48B55632EC607327914E5061E81FD9170DD41FB120C6E8C1C7</value>
     </values>
     <values>
         <field>TokenEndpointUrl__c</field>

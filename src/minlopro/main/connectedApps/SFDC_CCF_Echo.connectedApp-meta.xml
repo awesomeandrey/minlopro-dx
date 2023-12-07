@@ -4,7 +4,7 @@
     <label>SFDC CCF Echo</label>
     <oauthConfig>
         <callbackUrl>http://localhost:8080</callbackUrl>
-        <isAdminApproved>false</isAdminApproved>
+        <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>true</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
         <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
@@ -20,4 +20,6 @@
         <ipRelaxation>BYPASS</ipRelaxation>
         <refreshTokenPolicy>specific_lifetime:1:HOURS</refreshTokenPolicy>
     </oauthPolicy>
+    <permissionSetName>Minlopro - Custom Auth. Provider &amp; NC</permissionSetName>
+    <profileName>System Administrator</profileName>
 </ConnectedApp>
