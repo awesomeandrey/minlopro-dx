@@ -3,7 +3,6 @@
  * enabling seamless authentication to external systems that implement Client Credentials OAuth Flow.
  * Used together with Auth. Provider and Named Credential.
  */
-
 public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
     public String getCustomMetadataType() {
         return CCF_Configurations__mdt.SObjectType.getDescribe().getName();
@@ -69,26 +68,19 @@ public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
         request.setMethod(httpMethod);
         String body = String.format(
             'client_id={0}&client_secret={1}&grant_type={2}',
-            new List<String>{ clientId, clientSecret, grant_type }
+            Lists.of(clientId, clientSecret, grant_type)
         );
         request.setBody(body);
         HttpResponse response = http.send(request);
-
-        // If request is not successful, then throw an exception
-        if (response.getStatusCode() != 200 && response.getStatusCode() != 201) {
-            throw new Auth.AuthProviderPluginException(generateErrorMessage(response.getBody()));
+        if (response.getStatusCode() != 200 || response.getStatusCode() != 201) {
+            String errorMessage = String.format(
+                'Authentication error occurred in "CCFAuthProviderPlugin.cls" | {0}',
+                Lists.of(response.getBody())
+            );
+            Logger.error(errorMessage);
+            throw new Auth.AuthProviderPluginException(errorMessage);
         }
-
         return (OAuthResponsePayload) JSON.deserialize(response.getBody(), OAuthResponsePayload.class);
-    }
-
-    private String generateErrorMessage(String responseBody) {
-        // TODO - add logging;
-        Map<String, String> responseMap = (Map<String, String>) JSON.deserialize(responseBody, Map<String, String>.class);
-        return String.format(
-            'Authentication error occurred in "CCFAuthProviderPlugin"! Code:{0}, Error:{1}.',
-            new List<String>{ responseMap.get('ErrorCode'), responseMap.get('Error') }
-        );
     }
 
     public class OAuthResponsePayload {

@@ -17,7 +17,7 @@ if [ -d "$buildFolderName" ]; then
   rm -rf "$buildFolderName"
 fi
 
-printf "baseRef is [$baseRef]\n"
+printf "🔵baseRef is [$baseRef]\n"
 
 # Create 'build' folder;
 mkdir -p "$buildFolderName"
@@ -27,7 +27,7 @@ mkdir -p "$copiedSrcFolderPath"
 # Grab HEAD commit SHA from source branch;
 BASE=$(git merge-base $baseRef HEAD)
 
-printf "BASE commit in [$baseRef] is [$BASE]\n"
+printf "🔵BASE commit in [$baseRef] is [$BASE]\n"
 
 # Extract changed files and save those names into the text file;
 touch "$changedFilesPath"
@@ -49,7 +49,7 @@ rm $changedFilesPath
 tree $buildFolderName
 
 if ! [ "$(ls $copiedSrcFolderPath)" ]; then
-  printf "No changed files detected in [$copiedSrcFolderPath] folder!\n"
+  printf "🔵No changed files detected in [$copiedSrcFolderPath] folder!\n"
   exit 0
 fi
 

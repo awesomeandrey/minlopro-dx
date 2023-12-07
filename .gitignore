@@ -10,6 +10,7 @@ build/
 temp/
 logs/
 retrieved-src/
+.env
 
 # Logs
 *.log

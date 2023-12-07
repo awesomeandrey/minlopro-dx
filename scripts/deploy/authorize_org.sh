@@ -23,4 +23,4 @@ sf org login sfdx-url \
   --alias TARGET_ORG \
   --set-default
 sf org display
-printf '\nDone!'
+echo '🔵Done!'

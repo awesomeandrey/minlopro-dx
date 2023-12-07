@@ -8,15 +8,24 @@ on:
   workflow_dispatch:
     branches:
       - develop
-  push:
-    branches:
-      - develop
+# TODO - uncomment
+#  push:
+#    branches:
+#      - develop
 
 # Jobs
 jobs:
   # Event = 'Push'
   deploy-source-to-org:
     runs-on: ubuntu-latest
+    environment: "Minlopro DevHub"
+    env:
+      SF_USERNAME: ${{ vars.SF_USERNAME }}
+      SF_CLIENT_ID: ${{ vars.SF_CLIENT_ID }}
+      SF_CLIENT_SECRET: ${{ vars.SF_CLIENT_SECRET }}
+      SF_BASE_URL: ${{ vars.SF_BASE_URL }}
+      SF_TOKEN_URL_PATH: ${{ vars.SF_TOKEN_URL_PATH }}
+      SF_AUTH_PROVIDER_URL_PATH: ${{ vars.SF_AUTH_PROVIDER_URL_PATH }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -28,6 +37,7 @@ jobs:
           echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
       - name: 'Deploy Source to Target Org'
         run: |
+          bash ./scripts/deploy/replace_variables.sh
           npm run sf:manifest:create
           npm run src:deploy:full
       - name: 'Custom Post-Deployment Steps'

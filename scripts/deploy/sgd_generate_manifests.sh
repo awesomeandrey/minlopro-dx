@@ -19,7 +19,7 @@ destructiveChangesXml="$sgdFolder/destructiveChanges/destructiveChanges.xml"
 mkdir -p "$sgdFolder"
 
 # Invoke SGD plugin and generate manifests;
-printf "Generating XML manifests from [$FROM_REF] to [$TO_REF]...\n"
+printf "🔵Generating XML manifests from [$FROM_REF] to [$TO_REF]...\n"
 sf sgd:source:delta \
   --from $FROM_REF \
   --to $TO_REF \

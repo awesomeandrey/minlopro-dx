@@ -27,7 +27,7 @@ if (($wordsCount < 10)); then
   exit 0
 fi
 
-echo "Deleting Apex Logs from [$TARGET_ORG_ALIAS]..."
+echo "🔵Deleting Apex Logs from [$TARGET_ORG_ALIAS]..."
 sf data delete bulk \
   --target-org $TARGET_ORG_ALIAS \
   --sobject ApexLog \

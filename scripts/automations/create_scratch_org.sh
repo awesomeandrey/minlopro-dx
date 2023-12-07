@@ -19,7 +19,7 @@ read SCRATCH_ORG_ALIAS
 printf "Enter Admin Email Address:\n"
 read ADMIN_EMAIL
 
-echo "Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
+echo "🔵Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
 
 # Create a brand new scratch org ans set it as a default org
 sf org create scratch \
@@ -31,6 +31,11 @@ sf org create scratch \
     --edition enterprise \
     --duration-days 30 \
     --wait 10
+
+# Replace environment variables
+username=$(bash ./scripts/util/get_target_org_username.sh)
+export SF_USERNAME="$username"
+bash ./scripts/deploy/replace_variables.sh
 
 # Reset Admin user password and display it to console
 sf org generate password --target-org $SCRATCH_ORG_ALIAS
@@ -65,4 +70,4 @@ sf community publish \
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
 
-echo "Done!"
+echo "🔵Done!"

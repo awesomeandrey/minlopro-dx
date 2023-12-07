@@ -8,6 +8,7 @@
 manifestsFolder="manifests"
 sgdFolder="manifests/sgd"
 sgdPackageXml="$sgdFolder/package/package.xml"
+
 # Destructive manifest files are pulled from 'manifests' folder instead of 'sgd'
 preDestructiveChangesXml="$manifestsFolder/destructiveChangesPre.xml"
 postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
@@ -36,7 +37,7 @@ printf "Enter target org alias to validate deploy against:\n"
 read TARGET_ORG_ALIAS
 
 # Otherwise validate deployment;
-printf "Target Org Alias: [$TARGET_ORG_ALIAS]\n"
+printf "🔵Target Org Alias: [$TARGET_ORG_ALIAS]\n"
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "$sgdPackageXml" \

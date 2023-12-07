@@ -4,9 +4,6 @@
 **/profilePasswordPolicies
 **/profileSessionSettings
 **/settings
-#**/connectedApps
-#**/authproviders
-#**/namedCredentials
 
 # DigEx portal related metadata items;
 **/audience/Default_DigEx.audience-meta.xml

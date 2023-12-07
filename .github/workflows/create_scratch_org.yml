@@ -16,6 +16,14 @@ on:
 jobs:
   spin-up-scratch-org:
     runs-on: ubuntu-latest
+    environment: "Minlopro DevHub"
+    env:
+      SF_USERNAME: "unknown"
+      SF_CLIENT_ID: "unknown"
+      SF_CLIENT_SECRET: "unknown"
+      SF_BASE_URL: "https://unknown-site-777.scratch.my.salesforce.com"
+      SF_TOKEN_URL_PATH: ${{ vars.SF_TOKEN_URL_PATH }}
+      SF_AUTH_PROVIDER_URL_PATH: ${{ vars.SF_AUTH_PROVIDER_URL_PATH }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

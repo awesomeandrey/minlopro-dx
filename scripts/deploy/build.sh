@@ -46,3 +46,5 @@ fi
 
 # Install the rest of dependencies via NPM
 npm install
+
+echo "🔵Done!"

@@ -26,7 +26,7 @@ if ! grep -q Id "$csvFileName"; then
   exit 0
 fi
 
-echo "Deleting obsolete flow versions from [$TARGET_ORG_ALIAS]..."
+echo "🔵Deleting obsolete flow versions from [$TARGET_ORG_ALIAS]..."
 while read c; do
   if [[ "$c" != "Id" && "$c" != "Your query returned no results." ]]; then
     sf data delete record \
