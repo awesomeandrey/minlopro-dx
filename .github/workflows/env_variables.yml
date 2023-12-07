@@ -1,0 +1,17 @@
+name: Env Variables Playground
+
+# Trigger Events
+on:
+  workflow_dispatch:
+
+# Jobs
+jobs:
+  play-with-env-variables:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: 'Playground Job'
+        run: |
+          echo "Loading environment variables"
+          echo "SF_USERNAME = $SF_USERNAME"
+          echo "SF_BASE_URL = $SF_BASE_URL"
