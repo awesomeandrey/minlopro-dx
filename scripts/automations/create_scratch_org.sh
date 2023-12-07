@@ -8,18 +8,18 @@
 set -e
 
 # Capture DevHub org alias;
-printf "Enter DevHub org alias:\n"
+printf "🔶 Enter DevHub org alias:\n"
 read DEV_HUB_ALIAS
 
 # Capture Scratch Org alias;
-printf "Enter Scratch Org alias:\n"
+printf "🔶 Enter Scratch Org alias:\n"
 read SCRATCH_ORG_ALIAS
 
 # Capture Admin email address alias;
-printf "Enter Admin Email Address:\n"
+printf "🔶 Enter Admin Email Address:\n"
 read ADMIN_EMAIL
 
-echo "🔵Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
+echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
 
 # Create a brand new scratch org ans set it as a default org
 sf org create scratch \
@@ -32,6 +32,7 @@ sf org create scratch \
     --duration-days 30 \
     --wait 10
 
+# TODO - replace multiple env variables!
 # Replace environment variables
 username=$(bash ./scripts/util/get_target_org_username.sh)
 export SF_USERNAME="$username"
@@ -69,5 +70,3 @@ sf community publish \
 
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
-
-echo "🔵Done!"

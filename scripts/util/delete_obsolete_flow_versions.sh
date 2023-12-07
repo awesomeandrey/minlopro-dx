@@ -4,8 +4,10 @@
 # - bash ./scripts/util/delete_obsolete_flow_versions.sh
 
 # Capture target org alias;
-printf "Enter target org alias:\n"
+printf "🔶 Enter target org alias:\n"
 read TARGET_ORG_ALIAS
+
+echo "🔵 Purging obsolete Flow Versions from [$TARGET_ORG_ALIAS] organization..."
 
 # Define constants;
 buildFolderName="build"
@@ -26,7 +28,7 @@ if ! grep -q Id "$csvFileName"; then
   exit 0
 fi
 
-echo "🔵Deleting obsolete flow versions from [$TARGET_ORG_ALIAS]..."
+echo "Deleting obsolete flow versions from [$TARGET_ORG_ALIAS]..."
 while read c; do
   if [[ "$c" != "Id" && "$c" != "Your query returned no results." ]]; then
     sf data delete record \

@@ -4,6 +4,8 @@
 # - bash ./scripts/deploy/build.sh
 # - bash ./scripts/deploy/build.sh -a
 
+echo "🔵 Building environment and installing dependencies..."
+
 mkdir -p "build"
 
 # Flag that forces installation of mandatory modules only
@@ -46,5 +48,3 @@ fi
 
 # Install the rest of dependencies via NPM
 npm install
-
-echo "🔵Done!"

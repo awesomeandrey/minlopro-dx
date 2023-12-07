@@ -5,10 +5,10 @@
 # - echo $ORG_ALIAS | bash ./scripts/util/export_sample_data.sh
 
 # Capture target org alias;
-printf "Enter target org alias:\n"
+printf "🔶 Enter target org alias:\n"
 read TARGET_ORG_ALIAS
 
-echo "Exporting sample data from [$TARGET_ORG_ALIAS]..."
+echo "🔵 Exporting sample data from [$TARGET_ORG_ALIAS]..."
 
 mkdir -p "build"
 

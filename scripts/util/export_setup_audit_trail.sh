@@ -4,8 +4,10 @@
 # - bash ./scripts/util/export_setup_audit_trail.sh
 
 # Capture target org alias;
-printf "Enter target org alias:\n"
+printf "🔶 Enter target org alias:\n"
 read TARGET_ORG_ALIAS
+
+echo "🔵 Exporting Audit Trail from [$TARGET_ORG_ALIAS] organization..."
 
 # Define constants;
 buildFolderName="build"
@@ -15,5 +17,5 @@ mkdir -p $buildFolderName
 
 sf data query \
   --target-org $TARGET_ORG_ALIAS \
-  --query "SELECT Id,Action,Section,CreatedDate,CreatedBy.Name,Display FROM SetupAuditTrail ORDER BY CreatedDate DESC" \
+  --query "SELECT Id, Action, Section, CreatedDate, CreatedBy.Name, Display FROM SetupAuditTrail ORDER BY CreatedDate DESC" \
   --result-format csv > "$auditTrailCsvFilename"

@@ -4,10 +4,12 @@
 # - bash ./scripts/deploy/sgd_generate_manifests.sh
 # - echo $TXT_FILE_WITH_BRANCH_NAMES | bash ./scripts/deploy/sgd_generate_manifests.sh
 
-printf "Branch Name / Commit SHA to capture changes FROM:\n"
+printf "🔶 Enter branch name / commit SHA to capture changes FROM:\n"
 read FROM_REF
-printf "Branch Name / Commit SHA to capture changes UP TO:\n"
+printf "🔶 Enter branch name / commit SHA to capture changes UP TO:\n"
 read TO_REF
+
+printf "🔵 Generating XML manifests from [$FROM_REF] to [$TO_REF]...\n"
 
 # Define constants;
 srcFolder="src"
@@ -19,7 +21,6 @@ destructiveChangesXml="$sgdFolder/destructiveChanges/destructiveChanges.xml"
 mkdir -p "$sgdFolder"
 
 # Invoke SGD plugin and generate manifests;
-printf "🔵Generating XML manifests from [$FROM_REF] to [$TO_REF]...\n"
 sf sgd:source:delta \
   --from $FROM_REF \
   --to $TO_REF \

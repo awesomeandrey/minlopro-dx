@@ -6,11 +6,14 @@
 # - echo 'force://...' | bash ./scripts/deploy/authorize_org.sh
 
 # Capture target org SF AUTH URL (should be in 'force://PlatformCLI:...salesforce.com' format);
-printf "Provide SF AUTH URL:\n"
+printf "🔶 Provide SF AUTH URL:\n"
 read SF_AUTH_URL
 
+orgAlias="TARGET_ORG"
 buildFolder="build"
 sfAuthUrlFile="$buildFolder/target-org-auth-url.txt"
+
+echo "🔵 Authorizing [$orgAlias] organization..."
 
 # Save sf auth URL into a text file
 mkdir -p "$buildFolder"
@@ -20,7 +23,6 @@ echo $SF_AUTH_URL > "$sfAuthUrlFile"
 # Authorize Salesforce org and set it as default one
 sf org login sfdx-url \
   --sfdx-url-file $sfAuthUrlFile \
-  --alias TARGET_ORG \
+  --alias "$orgAlias" \
   --set-default
-sf org display
-echo '🔵Done!'
+sf org display --target-org "$orgAlias"
