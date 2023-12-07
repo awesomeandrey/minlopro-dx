@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata
+    xmlns="http://soap.sforce.com/2006/04/metadata"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <label>Custom_Salesforce_Auth_Provider</label>
+    <protected>false</protected>
+    <values>
+        <field>CallbackUrl__c</field>
+        <value xsi:type="xsd:string"
+            >https://energy-nosoftware-598.scratch.my.salesforce.com/services/authcallback/Custom_Salesforce_Auth_Provider</value
+        >
+    </values>
+    <values>
+        <field>ClientId__c</field>
+        <value xsi:type="xsd:string">3MVG904d7VkkD2aPk6n6toFRJz1zUTpmzsE3Bcm2BBbjGvP7IqE28mXNpgu0SItSFirJIjVbvzg==</value>
+    </values>
+    <values>
+        <field>ClientSecret__c</field>
+        <value xsi:type="xsd:string">3245D791939D8FAC54DFDA5D7F222D53ED17F32F1CABED6CACB9B7CF9DAD0944</value>
+    </values>
+    <values>
+        <field>TokenEndpointUrl__c</field>
+        <value xsi:type="xsd:string">https://energy-nosoftware-598.scratch.my.salesforce.com/services/oauth2/token</value>
+    </values>
+</CustomMetadata>

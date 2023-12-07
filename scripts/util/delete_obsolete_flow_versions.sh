@@ -18,7 +18,7 @@ sf data query \
   --query "SELECT Id FROM Flow WHERE Status = 'Obsolete'" \
   --target-org $TARGET_ORG_ALIAS \
   --use-tooling-api \
-  --result-format csv >"$csvFileName"
+  --result-format csv > "$csvFileName"
 
 if ! grep -q Id "$csvFileName"; then
   echo 'No obsolete flow versions to delete.'
@@ -35,6 +35,6 @@ while read c; do
       --target-org $TARGET_ORG_ALIAS \
       --use-tooling-api
   fi
-done <"$csvFileName"
+done < "$csvFileName"
 
 rm $csvFileName

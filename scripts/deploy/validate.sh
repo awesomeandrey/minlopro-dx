@@ -12,9 +12,9 @@ read TARGET_ORG_ALIAS
 printf "Target Org Alias: [$TARGET_ORG_ALIAS]\n"
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
-  --manifest manifests/package.xml \
-  --pre-destructive-changes manifests/destructiveChangesPre.xml \
-  --post-destructive-changes manifests/destructiveChangesPost.xml \
+  --manifest "manifests/package.xml" \
+  --pre-destructive-changes "manifests/destructiveChangesPre.xml" \
+  --post-destructive-changes "manifests/destructiveChangesPost.xml" \
   --verbose \
   --ignore-conflicts \
   --ignore-warnings \
