@@ -5,11 +5,11 @@
 # - echo 'ORG_ALIAS' | bash ./scripts/deploy/deploy.sh
 
 # Capture target org alias;
-printf "🔵Enter target org alias to run hard deploy against:\n"
+echo "🔶 Enter target org alias to run hard deploy against:"
 read TARGET_ORG_ALIAS
 
 # Invoke source deploy to target org;
-printf "🔵Target Org Alias: [$TARGET_ORG_ALIAS]\n"
+echo "🔵 Deploying to [$TARGET_ORG_ALIAS] organization..."
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "manifests/package.xml" \

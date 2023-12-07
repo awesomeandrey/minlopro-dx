@@ -4,12 +4,21 @@
  * Used together with Auth. Provider and Named Credential.
  */
 public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
+    @TestVisible
+    private final static String CALLBACK_URL = CCF_Configurations__mdt.CallbackUrl__c.getDescribe().getName();
+    @TestVisible
+    private final static String TOKEN_ENDPOINT_URL = CCF_Configurations__mdt.TokenEndpointUrl__c.getDescribe().getName();
+    @TestVisible
+    private final static String CLIENT_ID = CCF_Configurations__mdt.ClientId__c.getDescribe().getName();
+    @TestVisible
+    private final static String CLIENT_SECRET = CCF_Configurations__mdt.ClientSecret__c.getDescribe().getName();
+
     public String getCustomMetadataType() {
         return CCF_Configurations__mdt.SObjectType.getDescribe().getName();
     }
 
     public PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {
-        String callbackUrl = authProviderConfiguration.get('CallbackUrl__c');
+        String callbackUrl = authProviderConfiguration.get(CALLBACK_URL);
         callbackUrl += '?state=' + stateToPropagate;
         return new PageReference(callbackUrl);
     }
@@ -18,7 +27,7 @@ public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
         Map<String, String> authProviderConfiguration,
         Auth.AuthProviderCallbackState state
     ) {
-        String authProviderName = authProviderConfiguration.get('CallbackUrl__c').substringAfterLast('/');
+        String authProviderName = authProviderConfiguration.get(CALLBACK_URL).substringAfterLast('/');
         OAuthResponsePayload responsePayload = this.fetchAccessToken(authProviderConfiguration);
         return new Auth.AuthProviderTokenResponse(
             authProviderName,
@@ -55,9 +64,9 @@ public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
 
     private OAuthResponsePayload fetchAccessToken(Map<String, String> authProviderConfiguration) {
         // Extract app credentials;
-        final String tokenEndpointUrl = authProviderConfiguration.get('TokenEndpointUrl__c');
-        final String clientId = authProviderConfiguration.get('ClientId__c');
-        final String clientSecret = authProviderConfiguration.get('ClientSecret__c');
+        final String tokenEndpointUrl = authProviderConfiguration.get(TOKEN_ENDPOINT_URL);
+        final String clientId = authProviderConfiguration.get(CLIENT_ID);
+        final String clientSecret = authProviderConfiguration.get(CLIENT_SECRET);
         final String httpMethod = 'POST';
         final String grant_type = 'client_credentials';
         // Request access token according to OAuth Client Credentials Flow;
@@ -72,12 +81,11 @@ public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
         );
         request.setBody(body);
         HttpResponse response = http.send(request);
-        if (response.getStatusCode() != 200 || response.getStatusCode() != 201) {
-            String errorMessage = String.format(
-                'Authentication error occurred in "CCFAuthProviderPlugin.cls" | {0}',
-                Lists.of(response.getBody())
-            );
-            Logger.error(errorMessage);
+        final Set<Integer> allowedStatusCodes = new Set<Integer>{ 200, 201 };
+        if (!allowedStatusCodes.contains(response.getStatusCode())) {
+            String errorTemplate = 'Authentication error occurred in "CCFAuthProviderPlugin.cls" | {0}';
+            String errorMessage = String.format(errorTemplate, Lists.of(response.getBody()));
+            Logger.error(errorTemplate, Lists.of(response.getBody()));
             throw new Auth.AuthProviderPluginException(errorMessage);
         }
         return (OAuthResponsePayload) JSON.deserialize(response.getBody(), OAuthResponsePayload.class);
@@ -85,5 +93,12 @@ public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
 
     public class OAuthResponsePayload {
         public String access_token;
+
+        public OAuthResponsePayload() {
+        }
+
+        public OAuthResponsePayload(String accessToken) {
+            this.access_token = accessToken;
+        }
     }
 }
