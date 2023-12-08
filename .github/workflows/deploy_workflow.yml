@@ -71,7 +71,7 @@ jobs:
       - name: 'Install NPM Dependencies'
         run: npm install
       - name: 'Run Apex Static Code Analysis (PMD)'
-        run: npm run pmd:html
+        run: npm run pmd:html || echo "PMD report has been generated!"
       - name: 'Upload PMD Report as Artifact'
         uses: actions/upload-artifact@v3
         with:

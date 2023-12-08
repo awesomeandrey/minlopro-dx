@@ -32,10 +32,9 @@ sf org create scratch \
     --duration-days 30 \
     --wait 10
 
-# TODO - replace multiple env variables!
-# Replace environment variables
-username=$(bash ./scripts/util/get_target_org_username.sh)
-export SF_USERNAME="$username"
+# Replace environment variables (with overrides)
+export SF_USERNAME=$(bash ./scripts/util/get_target_org_username.sh)
+export SF_BASE_URL=$(bash ./scripts/util/get_target_org_instance_url.sh)
 bash ./scripts/deploy/replace_variables.sh
 
 # Reset Admin user password and display it to console
