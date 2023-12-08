@@ -17,7 +17,7 @@ jobs:
   # Event = 'Push'
   deploy-source-to-org:
     runs-on: ubuntu-latest
-    environment: "Minlopro DevHub"
+    environment: "Minlopro DevHub" # Note that environment can be overridden depending on branch name
     env:
       SF_USERNAME: ${{ vars.SF_USERNAME }}
       SF_CLIENT_ID: ${{ vars.SF_CLIENT_ID }}

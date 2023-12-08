@@ -53,6 +53,20 @@ _Publish Community_
 sf community publish --name "DigEx" --target-org $SCRATCH_ORG_ALIAS
 ```
 
+### Managing Environment Variables
+
+Environment variables are useful for deploying metadata components with secrets or org-specific settings (e.g.
+usernames, URLs, connected app credentials). This project benefits from GitHub Secrets & Environment Variables feature.
+At the same time, there are project-level rules enforced with regards to using/replacing variables.
+
+Follow steps below if there is a need to replace specific setting with variable value:
+
+1. Define an environment variable in GitHub repository
+2. Import variable into workflow files affected (see `.github/workflows` folder)
+3. Explicitly create reference(s) in metadata components using `@VAR_NAME` format
+
+As an example, refer to `namedCredentials` or `customMetadata` folders.
+
 ### Scripts in `package.json`
 
 Scripts that start with `sf:...` or `src:...` can be invoked with extra parameters passed to them.
