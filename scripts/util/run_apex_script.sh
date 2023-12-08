@@ -9,5 +9,5 @@ targetOrg=$1          #Mandatory parameter!
 apexScriptFileName=$2 #Mandatory parameter!
 apexScriptFilePath="scripts/apex/$2.apex"
 
-printf "\n🔵Running Apex Script: [$2]\n"
+printf "🔵 Running Apex Script [$2] against [$targetOrg] organizations..."
 sf apex run --target-org $targetOrg --file $apexScriptFilePath

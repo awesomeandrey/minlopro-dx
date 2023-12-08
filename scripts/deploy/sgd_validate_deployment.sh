@@ -15,29 +15,29 @@ postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
 
 # Check if SGD manifests exist;
 if ! [ -d "$sgdFolder" ]; then
-  printf "\nMake sure to generate manifests via SGD plugin prior to running this script!\n"
+  printf "⚪ Make sure to generate manifests via SGD plugin prior to running this script!"
   exit 0
 fi
 
 # Check if there are metadata changes detected;
 sgdPackageXmlLinesCount=$(wc -l < $sgdPackageXml)
-printf "\nSGD Package XML lines count = ${sgdPackageXmlLinesCount}\n"
+printf "SGD Package XML lines count = ${sgdPackageXmlLinesCount}\n"
 preDestructiveChangesXmlLinesCount=$(wc -l < $preDestructiveChangesXml)
 printf "PRE-Destructive XML lines count = ${preDestructiveChangesXmlLinesCount}\n"
 postDestructiveChangesXmlLinesCount=$(wc -l < $postDestructiveChangesXml)
 printf "POST-Destructive XML lines count = ${postDestructiveChangesXmlLinesCount}\n"
 
 if (($sgdPackageXmlLinesCount < 6)) && (($preDestructiveChangesXmlLinesCount < 6)) && (($postDestructiveChangesXmlLinesCount < 6)); then
-  printf '\nThere are no metadata changes detected!\n'
+  printf '⚪ There are no metadata changes detected!'
   exit 0
 fi
 
 # Capture target org alias;
-printf "Enter target org alias to validate deploy against:\n"
+printf "🔶 Enter target org alias to validate deploy against:\n"
 read TARGET_ORG_ALIAS
 
 # Otherwise validate deployment;
-printf "🔵Target Org Alias: [$TARGET_ORG_ALIAS]\n"
+printf "🔵 Validating partial deployment against [$TARGET_ORG_ALIAS] organization...\n"
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "$sgdPackageXml" \

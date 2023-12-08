@@ -8,10 +8,9 @@ on:
   workflow_dispatch:
     branches:
       - develop
-# TODO - uncomment
-#  push:
-#    branches:
-#      - develop
+  push:
+    branches:
+      - develop
 
 # Jobs
 jobs:

@@ -4,8 +4,10 @@
 # - bash ./scripts/util/delete_all_apex_logs.sh
 
 # Capture target org alias;
-printf "Enter target org alias:\n"
+printf "🔶 Enter target org alias:\n"
 read TARGET_ORG_ALIAS
+
+echo "🔵 Purging Apex Logs from [$TARGET_ORG_ALIAS] organization..."
 
 # Define constants;
 buildFolderName="build"
@@ -27,7 +29,7 @@ if (($wordsCount < 10)); then
   exit 0
 fi
 
-echo "🔵Deleting Apex Logs from [$TARGET_ORG_ALIAS]..."
+echo "Deleting Apex Logs from [$TARGET_ORG_ALIAS]..."
 sf data delete bulk \
   --target-org $TARGET_ORG_ALIAS \
   --sobject ApexLog \

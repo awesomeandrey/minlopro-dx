@@ -3,6 +3,8 @@
 # How to use:
 # - bash ./scripts/deploy/replace_variables.sh
 
+echo "🔵 Replacing variables with secrets/values..."
+
 # Step 1 - Load all environment variables into '.env' file;
 fileName=".env"
 # Create or clear the file;
@@ -23,7 +25,7 @@ cliExec="./node_modules/.bin/replace-in-files"
 cat "$fileName" | sed -e '$a\' | while IFS='=' read -r key value; do
     # Ignore empty lines and lines starting with #
     if [ -n "$key" ] && [[ ! $key =~ ^# ]]; then
-        echo "🔵Replacing [$key] variable with [$value] value..."
+        echo "Replacing [$key] variable with [$value] value..."
         # Note: variables should be referenced with "@" sign in order to be replaced!
         $cliExec \
           --ignore-case \

@@ -4,7 +4,7 @@
 # - bash ./scripts/util/list_all_scratch_orgs.sh
 
 devHubAlias=$(bash ./scripts/util/get_target_dev_hub_alias.sh)
-echo "Listing scratch orgs for [$devHubAlias] DevHub..."
+echo "🔵 Listing scratch orgs for [$devHubAlias] DevHub..."
 
 sf data query \
   --query "SELECT Name, OrgName, CreatedDate, SignupEmail, ScratchOrg, SignupUsername, ExpirationDate FROM ActiveScratchOrg ORDER BY ExpirationDate DESC" \

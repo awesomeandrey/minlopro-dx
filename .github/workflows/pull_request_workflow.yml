@@ -63,13 +63,6 @@ jobs:
         run: |
           bash ./scripts/deploy/build.sh
           echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
-      - name: 'Environment Info'
-        run: |
-          echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
-          echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
-          echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
-          echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
-          echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
       - name: 'Generate Delta Manifests'
         run: |
           git checkout ${{github.base_ref}}
@@ -83,12 +76,6 @@ jobs:
           # To
           echo ${{github.head_ref}} >> $branchesInfoFile
           bash ./scripts/deploy/sgd_generate_manifests.sh < $branchesInfoFile
-      - name: 'Upload Delta Manifest Files as Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: delta-changes
-          path: manifests/sgd
-          retention-days: 5
       - name: 'Check-Only Deploy Source to Target Org'
         run: |
           bash ./scripts/deploy/replace_variables.sh

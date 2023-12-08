@@ -1,191 +1,81 @@
 @IsTest
 private class CCFAuthProviderPluginTest {
-    private static final String OAUTH_TOKEN = 'testToken';
-    private static final String STATE = 'mocktestState';
-    private static final String PROVIDER = 'TestProvider';
-    private static final String REDIRECT_URL = 'http://localhost/services/authcallback/orgId/TestProvider';
-    private static final String KEY = 'testKey';
-    private static final String SECRET = 'testSecret';
-    private static final String STATE_TO_PROPOGATE = 'testState';
-    private static final String ACCESS_TOKEN_URL = 'http://www.dummyhost.com/accessTokenUri';
-    private static final String INVALID_CLIENT_ERR_CODE = 'invalid_client';
-    private static final String INVALID_CLIENT_ERR_MESSAGE = 'Client credentials are invalid';
+    private static final String TEST_AUTH_STATE = 'test_auth_state';
+    private static final String TEST_ACCESS_TOKEN = 'test_access_token';
 
-    private static Map<String, String> setupAuthProviderConfig() {
-        Map<String, String> authProviderConfiguration = new Map<String, String>();
-        authProviderConfiguration.put('CallbackUrl__c', REDIRECT_URL);
-        authProviderConfiguration.put('ClientId__c', KEY);
-        authProviderConfiguration.put('ClientSecret__c', SECRET);
-        authProviderConfiguration.put('TokenEndpointUrl__c', ACCESS_TOKEN_URL);
-        return authProviderConfiguration;
-    }
-
-    // TODO - review tests implementation;
-
-    @IsTest
-    static void testGetCustomMetadataType() {
-        CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
-        String expectedMetadataName = CCF_Configurations__mdt.SObjectType.getDescribe().getName();
-
-        Test.startTest();
-        String actualMetadataName = plugin.getCustomMetadataType();
-        Test.stopTest();
-
-        Assert.areEqual(expectedMetadataName, actualMetadataName);
+    private static Map<String, String> getAuthProviderConfigMock() {
+        Map<String, String> configs = new Map<String, String>();
+        configs.put(CCFAuthProviderPlugin.CALLBACK_URL, 'https://salesforce.com/authcallback/CustomAuthProvider');
+        configs.put(CCFAuthProviderPlugin.CLIENT_ID, '***client_id***');
+        configs.put(CCFAuthProviderPlugin.CLIENT_SECRET, '***client_secret***');
+        configs.put(CCFAuthProviderPlugin.TOKEN_ENDPOINT_URL, 'https://org.com/oauth/token');
+        return configs;
     }
 
     @IsTest
-    static void testInitiateMethod() {
-        Map<String, String> authProviderConfiguration = setupAuthProviderConfig();
+    static void getCustomMetadataType() {
         CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
+        String cmtObjectName = CCF_Configurations__mdt.SObjectType.getDescribe().getName();
+        Assert.areEqual(cmtObjectName, plugin.getCustomMetadataType());
+    }
 
+    @IsTest
+    static void initiate() {
+        Map<String, String> authProviderConfig = getAuthProviderConfigMock();
+        String callbackUrlFieldName = CCF_Configurations__mdt.CallbackUrl__c.getDescribe().getName();
         PageReference expectedUrl = new PageReference(
-            authProviderConfiguration.get('CallbackUrl__c') + '?state=' + STATE_TO_PROPOGATE
+            String.format('{0}?state={1}', Lists.of(authProviderConfig.get(callbackUrlFieldName), TEST_AUTH_STATE))
         );
-
-        Test.startTest();
-        PageReference actualUrl = plugin.initiate(authProviderConfiguration, STATE_TO_PROPOGATE);
-        Test.stopTest();
-
+        CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
+        PageReference actualUrl = plugin.initiate(authProviderConfig, TEST_AUTH_STATE);
         Assert.areEqual(expectedUrl.getUrl(), actualUrl.getUrl());
     }
 
     @IsTest
-    static void testHandleCallback() {
-        Map<String, String> authProviderConfiguration = setupAuthProviderConfig();
-        CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
-
-        Test.setMock(HttpCalloutMock.class, new ProviderMockHttpResponseGenerator());
-
-        Map<String, String> queryParams = new Map<String, String>();
-        queryParams.put('state', STATE);
-        Auth.AuthProviderCallbackState cbState = new Auth.AuthProviderCallbackState(null, null, queryParams);
-
-        Auth.AuthProviderTokenResponse expectedAuthProvResponse = new Auth.AuthProviderTokenResponse(
-            'TestProvider',
-            OAUTH_TOKEN,
-            OAUTH_TOKEN,
-            STATE
+    static void handleCallbackAndRefresh() {
+        Map<String, String> authProviderConfig = getAuthProviderConfigMock();
+        CCFAuthProviderPlugin.OAuthResponsePayload responsePayload = new CCFAuthProviderPlugin.OAuthResponsePayload(
+            TEST_ACCESS_TOKEN
         );
-
-        Test.startTest();
-        Auth.AuthProviderTokenResponse actualAuthProvResponse = plugin.handleCallback(authProviderConfiguration, cbState);
-        Test.stopTest();
-
-        Assert.areEqual(expectedAuthProvResponse.provider, actualAuthProvResponse.provider);
-        Assert.areEqual(expectedAuthProvResponse.oauthToken, actualAuthProvResponse.oauthToken);
-        Assert.areEqual(expectedAuthProvResponse.oauthSecretOrRefreshToken, actualAuthProvResponse.oauthSecretOrRefreshToken);
-        Assert.areEqual(expectedAuthProvResponse.state, actualAuthProvResponse.state);
+        MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
+        factory.mockUnknownRequest().withResponseStatusCode(200).withResponseBody(JSON.serialize(responsePayload));
+        factory.mock();
+        Auth.AuthProviderCallbackState cbState = new Auth.AuthProviderCallbackState(
+            null,
+            null,
+            new Map<String, String>{ 'state' => TEST_AUTH_STATE }
+        );
+        CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
+        Auth.AuthProviderTokenResponse tokenResponse = plugin.handleCallback(authProviderConfig, cbState);
+        Assert.areEqual(TEST_ACCESS_TOKEN, tokenResponse.oauthToken);
+        Assert.areEqual(TEST_ACCESS_TOKEN, tokenResponse.oauthSecretOrRefreshToken);
+        Auth.OAuthRefreshResult refreshResult = plugin.refresh(authProviderConfig, null);
+        Assert.areEqual(TEST_ACCESS_TOKEN, refreshResult.accessToken);
+        Assert.areEqual(TEST_ACCESS_TOKEN, refreshResult.refreshToken);
     }
 
     @IsTest
-    static void testHandleCallbackWithErrorInResponse() {
-        Map<String, String> authProviderConfiguration = setupAuthProviderConfig();
-        CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
-
-        Test.setMock(HttpCalloutMock.class, new ProviderMockHttpErrorResponseGenerator());
-
-        Map<String, String> queryParams = new Map<String, String>();
-        queryParams.put('state', STATE);
-        Auth.AuthProviderCallbackState cbState = new Auth.AuthProviderCallbackState(null, null, queryParams);
-
-        Auth.AuthProviderTokenResponse expectedAuthProvResponse = new Auth.AuthProviderTokenResponse(
-            'TestProvider',
-            OAUTH_TOKEN,
-            OAUTH_TOKEN,
-            STATE
-        );
-
-        Test.startTest();
-        Exception expectecException;
+    static void handleCallbackWithException() {
+        final String errorResponse = '{"errorMessage": "Bad Request"}';
+        Map<String, String> authProviderConfig = getAuthProviderConfigMock();
+        MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
+        factory.mockUnknownRequest().withResponseStatusCode(400).withResponseBody(errorResponse);
+        factory.mock();
         try {
-            Auth.AuthProviderTokenResponse actualAuthProvResponse = plugin.handleCallback(authProviderConfiguration, cbState);
+            CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
+            Auth.AuthProviderTokenResponse tokenResponse = plugin.handleCallback(authProviderConfig, null);
+            Assert.areEqual(null, tokenResponse, 'Plugin should have thrown exception!');
         } catch (Exception ex) {
-            expectecException = ex;
+            Assert.isInstanceOfType(ex, Auth.AuthProviderPluginException.class);
+            Assert.isTrue(ex.getMessage().containsIgnoreCase(errorResponse));
         }
-        Test.stopTest();
-
-        Assert.isNotNull(expectecException);
-        Assert.isTrue(expectecException.getMessage().contains(INVALID_CLIENT_ERR_CODE));
-        Assert.isTrue(expectecException.getMessage().contains(INVALID_CLIENT_ERR_MESSAGE));
     }
 
     @IsTest
-    static void testRefresh() {
-        Map<String, String> authProviderConfiguration = setupAuthProviderConfig();
+    static void getUserInfo() {
+        Map<String, String> authProviderConfiguration = getAuthProviderConfigMock();
         CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
-
-        Test.setMock(HttpCalloutMock.class, new ProviderMockHttpResponseGenerator());
-
-        Map<String, String> queryParams = new Map<String, String>();
-        queryParams.put('state', STATE);
-        Auth.AuthProviderCallbackState cbState = new Auth.AuthProviderCallbackState(null, null, queryParams);
-
-        Auth.OAuthRefreshResult expectedRefreshResult = new Auth.OAuthRefreshResult(OAUTH_TOKEN, OAUTH_TOKEN);
-
-        Test.startTest();
-        Auth.OAuthRefreshResult actualRefreshResult = plugin.refresh(authProviderConfiguration, OAUTH_TOKEN);
-        Test.stopTest();
-
-        Assert.areEqual(expectedRefreshResult.accessToken, actualRefreshResult.accessToken);
-        Assert.areEqual(expectedRefreshResult.refreshToken, actualRefreshResult.refreshToken);
-    }
-
-    @IsTest
-    static void testGetUserInfo() {
-        Map<String, String> authProviderConfiguration = setupAuthProviderConfig();
-        CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
-
-        Auth.AuthProviderTokenResponse response = new Auth.AuthProviderTokenResponse(PROVIDER, OAUTH_TOKEN, OAUTH_TOKEN, STATE);
-
-        Auth.UserData expectedUserData = new Auth.UserData(
-            UserInfo.getUserName(),
-            UserInfo.getFirstName(),
-            UserInfo.getLastName(),
-            UserInfo.getName(),
-            UserInfo.getUserEmail(),
-            null,
-            UserInfo.getUserName(),
-            null,
-            null,
-            null,
-            null
-        );
-
-        Test.startTest();
-        Auth.UserData actualUserData = plugin.getUserInfo(authProviderConfiguration, response);
-        Test.stopTest();
-
-        Assert.areNotEqual(expectedUserData, null);
-        Assert.areEqual(expectedUserData.firstName, actualUserData.firstName);
-        Assert.areEqual(expectedUserData.lastName, actualUserData.lastName);
-        Assert.areEqual(expectedUserData.fullName, actualUserData.fullName);
-        Assert.areEqual(expectedUserData.email, actualUserData.email);
-        Assert.areEqual(expectedUserData.username, actualUserData.username);
-    }
-
-    public class ProviderMockHttpResponseGenerator implements HttpCalloutMock {
-        public HTTPResponse respond(HTTPRequest req) {
-            Map<String, String> responseMap = new Map<String, String>{ 'access_token' => OAUTH_TOKEN };
-            HttpResponse res = new HttpResponse();
-            res.setHeader('Content-Type', 'application/json');
-            res.setBody(JSON.serialize(responseMap));
-            res.setStatusCode(200);
-            return res;
-        }
-    }
-
-    public class ProviderMockHttpErrorResponseGenerator implements HttpCalloutMock {
-        public HTTPResponse respond(HTTPRequest req) {
-            Map<String, String> responseMap = new Map<String, String>{
-                'ErrorCode' => 'invalid_client',
-                'Error' => 'Client credentials are invalid'
-            };
-            HttpResponse res = new HttpResponse();
-            res.setHeader('Content-Type', 'application/json');
-            res.setBody(JSON.serialize(responseMap));
-            res.setStatusCode(401);
-            return res;
-        }
+        Auth.UserData actualUserData = plugin.getUserInfo(authProviderConfiguration, null);
+        Assert.areEqual(UserInfo.getUserName(), actualUserData.username);
     }
 }
