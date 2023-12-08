@@ -4,7 +4,7 @@
 # - bash ./scripts/util/delete_all_apex_logs.sh
 
 # Capture target org alias;
-printf "🔶 Enter target org alias:\n"
+echo "🔶 Enter target org alias:"
 read TARGET_ORG_ALIAS
 
 echo "🔵 Purging Apex Logs from [$TARGET_ORG_ALIAS] organization..."
@@ -15,7 +15,6 @@ apexLogsCsvFilePath="$buildFolderName/apex_logs.csv"
 
 mkdir -p $buildFolderName
 
-echo "Querying Apex Logs from [$TARGET_ORG_ALIAS]..."
 sf data query \
   --target-org $TARGET_ORG_ALIAS \
   --query "SELECT Id FROM ApexLog" \
@@ -29,7 +28,6 @@ if (($wordsCount < 10)); then
   exit 0
 fi
 
-echo "Deleting Apex Logs from [$TARGET_ORG_ALIAS]..."
 sf data delete bulk \
   --target-org $TARGET_ORG_ALIAS \
   --sobject ApexLog \

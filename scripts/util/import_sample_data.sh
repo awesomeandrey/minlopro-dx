@@ -5,7 +5,7 @@
 # - echo $ORG_ALIAS | bash ./scripts/util/import_sample_data.sh
 
 # Capture target org alias;
-printf "🔶 Enter target org alias:\n"
+echo "🔶 Enter target org alias:"
 read TARGET_ORG_ALIAS
 
 echo "🔵 Importing sample data into [$TARGET_ORG_ALIAS] organization..."

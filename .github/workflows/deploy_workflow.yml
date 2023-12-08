@@ -33,7 +33,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+          echo ${{secrets.DEV_HUB_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
       - name: 'Deploy Source to Target Org'
         run: |
           bash ./scripts/deploy/replace_variables.sh
@@ -57,7 +57,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+          echo ${{secrets.DEV_HUB_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
       - name: 'Run All Apex Tests with Coverage'
         run: npm run sf:apex:tests:coverage
   run-pmd-checks:
@@ -71,7 +71,7 @@ jobs:
       - name: 'Install NPM Dependencies'
         run: npm install
       - name: 'Run Apex Static Code Analysis (PMD)'
-        run: npm run pmd:html || echo "PMD report has been generated!"
+        run: npm run pmd:html
       - name: 'Upload PMD Report as Artifact'
         uses: actions/upload-artifact@v3
         with:

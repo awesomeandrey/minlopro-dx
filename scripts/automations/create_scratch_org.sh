@@ -8,15 +8,15 @@
 set -e
 
 # Capture DevHub org alias;
-printf "🔶 Enter DevHub org alias:\n"
+echo "🔶 Enter DevHub org alias:"
 read DEV_HUB_ALIAS
 
 # Capture Scratch Org alias;
-printf "🔶 Enter Scratch Org alias:\n"
+echo "🔶 Enter Scratch Org alias:"
 read SCRATCH_ORG_ALIAS
 
 # Capture Admin email address alias;
-printf "🔶 Enter Admin Email Address:\n"
+echo "🔶 Enter Admin Email Address:"
 read ADMIN_EMAIL
 
 echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
@@ -43,7 +43,7 @@ sf org generate password --target-org $SCRATCH_ORG_ALIAS
 orgCredentialsFile="build/$ADMIN_EMAIL-scratch-org-credentials.txt"
 mkdir -p "build"
 touch $orgCredentialsFile
-printf "\n----- Scratch Org Credentials -----\n"
+echo "📜 Scratch Org Credentials"
 sf org display user --target-org $SCRATCH_ORG_ALIAS >> $orgCredentialsFile
 sf org display --target-org $SCRATCH_ORG_ALIAS --verbose >> $orgCredentialsFile
 cat $orgCredentialsFile

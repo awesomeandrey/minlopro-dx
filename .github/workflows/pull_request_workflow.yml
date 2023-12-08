@@ -28,7 +28,7 @@ jobs:
           git pull
           git checkout ${{github.head_ref}}
           git pull
-          bash ./scripts/deploy/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
+          echo ${{github.base_ref}} | bash ./scripts/deploy/run_prettier_check_against_changed_files.sh
   run-jest-tests:
     runs-on: ubuntu-latest
     continue-on-error: false
@@ -62,7 +62,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+          echo ${{secrets.DEV_HUB_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
       - name: 'Generate Delta Manifests'
         run: |
           git checkout ${{github.base_ref}}

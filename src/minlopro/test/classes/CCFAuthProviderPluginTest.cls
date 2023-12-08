@@ -1,7 +1,7 @@
 @IsTest
 private class CCFAuthProviderPluginTest {
-    private static final String TEST_AUTH_STATE = 'test_auth_state';
-    private static final String TEST_ACCESS_TOKEN = 'test_access_token';
+    private static final String MOCKED_AUTH_STATE = 'done';
+    private static final String MOCKED_ACCESS_TOKEN = 'at1234567890@!minlopro';
 
     private static Map<String, String> getAuthProviderConfigMock() {
         Map<String, String> configs = new Map<String, String>();
@@ -24,10 +24,10 @@ private class CCFAuthProviderPluginTest {
         Map<String, String> authProviderConfig = getAuthProviderConfigMock();
         String callbackUrlFieldName = CCF_Configurations__mdt.CallbackUrl__c.getDescribe().getName();
         PageReference expectedUrl = new PageReference(
-            String.format('{0}?state={1}', Lists.of(authProviderConfig.get(callbackUrlFieldName), TEST_AUTH_STATE))
+            String.format('{0}?state={1}', Lists.of(authProviderConfig.get(callbackUrlFieldName), MOCKED_AUTH_STATE))
         );
         CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
-        PageReference actualUrl = plugin.initiate(authProviderConfig, TEST_AUTH_STATE);
+        PageReference actualUrl = plugin.initiate(authProviderConfig, MOCKED_AUTH_STATE);
         Assert.areEqual(expectedUrl.getUrl(), actualUrl.getUrl());
     }
 
@@ -35,7 +35,7 @@ private class CCFAuthProviderPluginTest {
     static void handleCallbackAndRefresh() {
         Map<String, String> authProviderConfig = getAuthProviderConfigMock();
         CCFAuthProviderPlugin.OAuthResponsePayload responsePayload = new CCFAuthProviderPlugin.OAuthResponsePayload(
-            TEST_ACCESS_TOKEN
+            MOCKED_ACCESS_TOKEN
         );
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
         factory.mockUnknownRequest().withResponseStatusCode(200).withResponseBody(JSON.serialize(responsePayload));
@@ -43,15 +43,15 @@ private class CCFAuthProviderPluginTest {
         Auth.AuthProviderCallbackState cbState = new Auth.AuthProviderCallbackState(
             null,
             null,
-            new Map<String, String>{ 'state' => TEST_AUTH_STATE }
+            new Map<String, String>{ 'state' => MOCKED_AUTH_STATE }
         );
         CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
         Auth.AuthProviderTokenResponse tokenResponse = plugin.handleCallback(authProviderConfig, cbState);
-        Assert.areEqual(TEST_ACCESS_TOKEN, tokenResponse.oauthToken);
-        Assert.areEqual(TEST_ACCESS_TOKEN, tokenResponse.oauthSecretOrRefreshToken);
+        Assert.areEqual(MOCKED_ACCESS_TOKEN, tokenResponse.oauthToken);
+        Assert.areEqual(MOCKED_ACCESS_TOKEN, tokenResponse.oauthSecretOrRefreshToken);
         Auth.OAuthRefreshResult refreshResult = plugin.refresh(authProviderConfig, null);
-        Assert.areEqual(TEST_ACCESS_TOKEN, refreshResult.accessToken);
-        Assert.areEqual(TEST_ACCESS_TOKEN, refreshResult.refreshToken);
+        Assert.areEqual(MOCKED_ACCESS_TOKEN, refreshResult.accessToken);
+        Assert.areEqual(MOCKED_ACCESS_TOKEN, refreshResult.refreshToken);
     }
 
     @IsTest

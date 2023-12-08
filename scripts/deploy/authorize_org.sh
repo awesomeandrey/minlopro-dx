@@ -6,7 +6,7 @@
 # - echo 'force://...' | bash ./scripts/deploy/authorize_org.sh
 
 # Capture target org SF AUTH URL (should be in 'force://PlatformCLI:...salesforce.com' format);
-printf "🔶 Provide SF AUTH URL:\n"
+echo "🔶 Provide SF AUTH URL:"
 read SF_AUTH_URL
 
 orgAlias="TARGET_ORG"
