@@ -5,6 +5,8 @@
 # How to use:
 # - bash ./scripts/automations/reset_and_commit_destructive_manifests.sh
 
+echo "🔵 Resetting destructive manifests..."
+
 # Enable errexit option to exit on command failure
 set -e
 
@@ -44,5 +46,5 @@ if [[ $file1_modified -eq 1 || $file2_modified -eq 1 ]]; then
     git commit -m "Automation: Reset Destructive Manifests"
     git push origin HEAD
 else
-    echo "No changes detected in destructive manifests."
+    echo "⚪ No changes detected in destructive manifests."
 fi

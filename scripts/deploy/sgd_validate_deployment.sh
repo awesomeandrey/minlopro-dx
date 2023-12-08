@@ -8,35 +8,36 @@
 manifestsFolder="manifests"
 sgdFolder="manifests/sgd"
 sgdPackageXml="$sgdFolder/package/package.xml"
+
 # Destructive manifest files are pulled from 'manifests' folder instead of 'sgd'
 preDestructiveChangesXml="$manifestsFolder/destructiveChangesPre.xml"
 postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
 
 # Check if SGD manifests exist;
 if ! [ -d "$sgdFolder" ]; then
-  printf "\nMake sure to generate manifests via SGD plugin prior to running this script!\n"
+  echo "⚪ Make sure to generate manifests via SGD plugin prior to running this script!"
   exit 0
 fi
 
 # Check if there are metadata changes detected;
 sgdPackageXmlLinesCount=$(wc -l < $sgdPackageXml)
-printf "\nSGD Package XML lines count = ${sgdPackageXmlLinesCount}\n"
+echo "SGD Package XML lines count = ${sgdPackageXmlLinesCount}" | xargs
 preDestructiveChangesXmlLinesCount=$(wc -l < $preDestructiveChangesXml)
-printf "PRE-Destructive XML lines count = ${preDestructiveChangesXmlLinesCount}\n"
+echo "PRE-Destructive XML lines count = ${preDestructiveChangesXmlLinesCount}" | xargs
 postDestructiveChangesXmlLinesCount=$(wc -l < $postDestructiveChangesXml)
-printf "POST-Destructive XML lines count = ${postDestructiveChangesXmlLinesCount}\n"
+echo "POST-Destructive XML lines count = ${postDestructiveChangesXmlLinesCount}" | xargs
 
 if (($sgdPackageXmlLinesCount < 6)) && (($preDestructiveChangesXmlLinesCount < 6)) && (($postDestructiveChangesXmlLinesCount < 6)); then
-  printf '\nThere are no metadata changes detected!\n'
+  echo '⚪ There are no metadata changes detected!'
   exit 0
 fi
 
 # Capture target org alias;
-printf "Enter target org alias to validate deploy against:\n"
+echo "🔶 Enter target org alias to validate deploy against:"
 read TARGET_ORG_ALIAS
 
 # Otherwise validate deployment;
-printf "Target Org Alias: [$TARGET_ORG_ALIAS]\n"
+echo "🔵 Validating partial deployment against [$TARGET_ORG_ALIAS] organization..."
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "$sgdPackageXml" \

@@ -5,16 +5,16 @@
 # - echo 'ORG_ALIAS' | bash ./scripts/deploy/validate.sh
 
 # Capture target org alias;
-printf "Enter target org alias to validate deploy against:\n"
+echo "🔶 Enter target org alias to validate deploy against:"
 read TARGET_ORG_ALIAS
 
 # Invoke source deploy to target org (dry-run);
-printf "Target Org Alias: [$TARGET_ORG_ALIAS]\n"
+echo "🔵 Validate deployment against [$TARGET_ORG_ALIAS] organization..."
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
-  --manifest manifests/package.xml \
-  --pre-destructive-changes manifests/destructiveChangesPre.xml \
-  --post-destructive-changes manifests/destructiveChangesPost.xml \
+  --manifest "manifests/package.xml" \
+  --pre-destructive-changes "manifests/destructiveChangesPre.xml" \
+  --post-destructive-changes "manifests/destructiveChangesPost.xml" \
   --verbose \
   --ignore-conflicts \
   --ignore-warnings \

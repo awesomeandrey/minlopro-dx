@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata
+    xmlns="http://soap.sforce.com/2006/04/metadata"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <label>Custom_Salesforce_Auth_Provider</label>
+    <protected>false</protected>
+    <values>
+        <field>CallbackUrl__c</field>
+        <value xsi:type="xsd:string">@SF_BASE_URL/@SF_AUTH_PROVIDER_URL_PATH</value>
+    </values>
+    <values>
+        <field>ClientId__c</field>
+        <value xsi:type="xsd:string">@SF_CLIENT_ID</value>
+    </values>
+    <values>
+        <field>ClientSecret__c</field>
+        <value xsi:type="xsd:string">@SF_CLIENT_SECRET</value>
+    </values>
+    <values>
+        <field>TokenEndpointUrl__c</field>
+        <value xsi:type="xsd:string">@SF_BASE_URL/@SF_TOKEN_URL_PATH</value>
+    </values>
+</CustomMetadata>

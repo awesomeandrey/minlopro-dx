@@ -16,6 +16,14 @@ on:
 jobs:
   spin-up-scratch-org:
     runs-on: ubuntu-latest
+    environment: "Minlopro DevHub"
+    env:
+      SF_USERNAME: "to_be_replaced_with_valid_value"
+      SF_CLIENT_ID: "to_be_replaced_with_valid_value"
+      SF_CLIENT_SECRET: "to_be_replaced_with_valid_value"
+      SF_BASE_URL: "to_be_replaced_with_valid_value"
+      SF_TOKEN_URL_PATH: ${{ vars.SF_TOKEN_URL_PATH }}
+      SF_AUTH_PROVIDER_URL_PATH: ${{ vars.SF_AUTH_PROVIDER_URL_PATH }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -28,8 +36,6 @@ jobs:
           devHubOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
           # Override 'target-dev-hub' property
           sf config set target-dev-hub="$devHubOrgAlias"
-          # List all scratch orgs
-          bash ./scripts/util/list_all_scratch_orgs.sh
       - name: 'Spin Up Brand New Scratch Org'
         continue-on-error: true
         run: |

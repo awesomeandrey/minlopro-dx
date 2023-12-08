@@ -4,21 +4,9 @@
 # - bash ./scripts/deploy/build.sh
 # - bash ./scripts/deploy/build.sh -a
 
-# Flag that forces installation of mandatory modules only
-INSTALL_ALL_MODULES=false
-while getopts "a" opt; do
-  case $opt in
-    a)
-      # Set flag_a to true when -a is specified
-      INSTALL_ALL_MODULES=true
-      ;;
-    \?)
-      # Invalid option
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-  esac
-done
+echo "🔵 Building environment and installing dependencies..."
+
+mkdir -p "build"
 
 # Flag that forces installation of mandatory modules only
 INSTALL_ALL_MODULES=false

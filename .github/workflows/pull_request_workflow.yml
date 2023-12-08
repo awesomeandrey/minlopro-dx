@@ -28,7 +28,7 @@ jobs:
           git pull
           git checkout ${{github.head_ref}}
           git pull
-          bash ./scripts/deploy/run_prettier_check_against_changed_files.sh ${{github.base_ref}}
+          echo ${{github.base_ref}} | bash ./scripts/deploy/run_prettier_check_against_changed_files.sh
   run-jest-tests:
     runs-on: ubuntu-latest
     continue-on-error: false
@@ -43,6 +43,14 @@ jobs:
         run: npm run jest:coverage
   validate-deployment-to-org:
     needs: [ run-prettier-checks, run-jest-tests ]
+    environment: "Minlopro DevHub"
+    env:
+      SF_USERNAME: ${{ vars.SF_USERNAME }}
+      SF_CLIENT_ID: ${{ vars.SF_CLIENT_ID }}
+      SF_CLIENT_SECRET: ${{ vars.SF_CLIENT_SECRET }}
+      SF_BASE_URL: ${{ vars.SF_BASE_URL }}
+      SF_TOKEN_URL_PATH: ${{ vars.SF_TOKEN_URL_PATH }}
+      SF_AUTH_PROVIDER_URL_PATH: ${{ vars.SF_AUTH_PROVIDER_URL_PATH }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -54,14 +62,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          echo ${{secrets.QA_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
-      - name: 'Environment Info'
-        run: |
-          echo "🎉 The job was automatically triggered by a [${{github.event_name}}] event."
-          echo "🐧 This job is now running on a [${{runner.os}}] server hosted by GitHub!"
-          echo "🔎 The name of your branch is [${{github.ref}}] and your repository is [${{ github.repository}}]."
-          echo "🔎 [base_ref] param is set to [${{github.base_ref}}]."
-          echo "🔎 [head_ref] param is set to [${{github.head_ref}}]."
+          echo ${{secrets.DEV_HUB_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
       - name: 'Generate Delta Manifests'
         run: |
           git checkout ${{github.base_ref}}
@@ -75,13 +76,8 @@ jobs:
           # To
           echo ${{github.head_ref}} >> $branchesInfoFile
           bash ./scripts/deploy/sgd_generate_manifests.sh < $branchesInfoFile
-      - name: 'Upload Delta Manifest Files as Artifact'
-        uses: actions/upload-artifact@v3
-        with:
-          name: delta-changes
-          path: manifests/sgd
-          retention-days: 5
       - name: 'Check-Only Deploy Source to Target Org'
         run: |
+          bash ./scripts/deploy/replace_variables.sh
           targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
           echo $targetOrgAlias | bash ./scripts/deploy/sgd_validate_deployment.sh

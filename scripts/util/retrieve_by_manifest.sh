@@ -5,13 +5,13 @@
 # - echo $ORG_ALIAS | bash ./scripts/util/retrieve_by_manifest.sh
 
 # Capture target org alias;
-printf "Enter target org alias:\n"
+echo "🔶 Enter target org alias:"
 read TARGET_ORG_ALIAS
 
 manifestPath="manifests/package.xml"
 targetDirPath="retrieved-src"
 
-echo "Retrieving metadata by [$manifestPath] manifest from [$TARGET_ORG_ALIAS] into [$targetDirPath] folder..."
+echo "🔵 Retrieving metadata by [$manifestPath] manifest from [$TARGET_ORG_ALIAS] into [$targetDirPath] folder..."
 
 if [ -d "$targetDirPath" ]; then
   rm -rf "$targetDirPath"
