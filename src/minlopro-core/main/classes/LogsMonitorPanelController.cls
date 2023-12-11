@@ -46,38 +46,48 @@ public with sharing class LogsMonitorPanelController {
 
     @AuraEnabled
     public static List<Object> getLoggerSettingsBySetupOwners() {
-        Map<Id, Map<String, String>> settingBySetupOwnerId = new Map<Id, Map<String, String>>();
-        Set<Id> userOrProfileIds = new Set<Id>();
-        for (LoggerSettings__c setting : [
-            SELECT SetupOwner.Id, SetupOwner.Name, SetupOwner.Type
-            FROM LoggerSettings__c
-            WHERE LogsEmissionDate__c = TODAY
-        ]) {
-            // Exclude org default setting;
-            String setupOwnerType = setting.SetupOwner.Type;
-            if (setupOwnerType.equalsIgnoreCase('00D')) {
-                continue;
+        try {
+
+
+            Map<Id, Map<String, String>> settingBySetupOwnerId = new Map<Id, Map<String, String>>();
+            Set<Id> userOrProfileIds = new Set<Id>();
+            for (LoggerSettings__c setting : [
+                    SELECT SetupOwner.Id, SetupOwner.Name, SetupOwner.Type
+                    FROM LoggerSettings__c
+                    WHERE LogsEmissionDate__c >= TODAY
+            ]) {
+                // Exclude org default setting;
+                String setupOwnerType = setting.SetupOwner.Type;
+                if (setupOwnerType.equalsIgnoreCase('00D')) {
+                    continue;
+                }
+                Id setupOwnerId = setting.SetupOwner.Id;
+                String normalisedSetupOwnerType = setupOwnerType.equalsIgnoreCase('User') ? 'user' : 'profile';
+                settingBySetupOwnerId.put(
+                        setupOwnerId,
+                        new Map<String, String>{
+                                'ownerId' => setupOwnerId, 'type' => normalisedSetupOwnerType
+                        }
+                );
+                // Capture user / profile ID;
+                userOrProfileIds.add(setupOwnerId);
             }
-            Id setupOwnerId = setting.SetupOwner.Id;
-            String normalisedSetupOwnerType = setupOwnerType.equalsIgnoreCase('User') ? 'user' : 'profile';
-            settingBySetupOwnerId.put(
-                setupOwnerId,
-                new Map<String, String>{ 'ownerId' => setupOwnerId, 'type' => normalisedSetupOwnerType }
-            );
-            // Capture user / profile ID;
-            userOrProfileIds.add(setupOwnerId);
+            Map<Id, String> userOrProfileNameByUserOrProfileId = new Map<Id, String>();
+            for (Profile profileItem : [SELECT Name FROM Profile WHERE Id IN :userOrProfileIds]) {
+                userOrProfileNameByUserOrProfileId.put(profileItem.Id, profileItem.Name);
+            }
+            for (User userItem : [SELECT Name FROM User WHERE Id IN :userOrProfileIds]) {
+                userOrProfileNameByUserOrProfileId.put(userItem.Id, userItem.Name);
+            }
+            // Update human-readable user / profile name;
+            for (Id ownerId : settingBySetupOwnerId.keySet()) {
+                settingBySetupOwnerId.get(ownerId).put('name', userOrProfileNameByUserOrProfileId.get(ownerId));
+            }
+            return settingBySetupOwnerId.values();
+        } catch (Exception ex) {
+            String exceptionDetails = Exceptions.getDetails(ex).toString();
+            Logger.error(exceptionDetails);
+            throw new AuraHandledException(exceptionDetails);
         }
-        Map<Id, String> userOrProfileNameByUserOrProfileId = new Map<Id, String>();
-        for (Profile profileItem : [SELECT Name FROM Profile WHERE Id IN :userOrProfileIds]) {
-            userOrProfileNameByUserOrProfileId.put(profileItem.Id, profileItem.Name);
-        }
-        for (User userItem : [SELECT Name FROM User WHERE Id IN :userOrProfileIds]) {
-            userOrProfileNameByUserOrProfileId.put(userItem.Id, userItem.Name);
-        }
-        // Update human-readable user / profile name;
-        for (Id ownerId : settingBySetupOwnerId.keySet()) {
-            settingBySetupOwnerId.get(ownerId).put('name', userOrProfileNameByUserOrProfileId.get(ownerId));
-        }
-        return settingBySetupOwnerId.values();
     }
 }

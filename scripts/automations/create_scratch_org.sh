@@ -34,7 +34,7 @@ sf org create scratch \
 
 # Replace environment variables (with overrides)
 export SF_USERNAME=$(bash ./scripts/util/get_target_org_username.sh)
-export SF_BASE_URL=$(bash ./scripts/util/get_target_org_instance_url.sh)
+export SF_INSTANCE_URL=$(bash ./scripts/util/get_target_org_instance_url.sh)
 bash ./scripts/deploy/replace_variables.sh
 
 # Reset Admin user password and display it to console

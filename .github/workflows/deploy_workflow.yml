@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     branches:
       - develop
-  push:
-    branches:
-      - develop
+#  push:
+#    branches:
+#      - develop
 
 # Jobs
 jobs:
@@ -20,11 +20,9 @@ jobs:
     environment: "Minlopro DevHub" # Note that environment can be overridden depending on branch name
     env:
       SF_USERNAME: ${{ vars.SF_USERNAME }}
-      SF_CLIENT_ID: ${{ vars.SF_CLIENT_ID }}
-      SF_CLIENT_SECRET: ${{ vars.SF_CLIENT_SECRET }}
-      SF_BASE_URL: ${{ vars.SF_BASE_URL }}
-      SF_TOKEN_URL_PATH: ${{ vars.SF_TOKEN_URL_PATH }}
-      SF_AUTH_PROVIDER_URL_PATH: ${{ vars.SF_AUTH_PROVIDER_URL_PATH }}
+      SF_CCF_APP_CLIENT_ID: ${{ vars.SF_CCF_APP_CLIENT_ID }}
+      SF_CCF_APP_CLIENT_SECRET: ${{ vars.SF_CCF_APP_CLIENT_SECRET }}
+      SF_INSTANCE_URL: ${{ vars.SF_INSTANCE_URL }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

@@ -8,18 +8,18 @@
     <protected>false</protected>
     <values>
         <field>CallbackUrl__c</field>
-        <value xsi:type="xsd:string">@SF_BASE_URL/@SF_AUTH_PROVIDER_URL_PATH</value>
+        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/authcallback/Custom_Salesforce_Auth_Provider</value>
     </values>
     <values>
         <field>ClientId__c</field>
-        <value xsi:type="xsd:string">@SF_CLIENT_ID</value>
+        <value xsi:type="xsd:string">@SF_CCF_APP_CLIENT_ID</value>
     </values>
     <values>
         <field>ClientSecret__c</field>
-        <value xsi:type="xsd:string">@SF_CLIENT_SECRET</value>
+        <value xsi:type="xsd:string">@SF_CCF_APP_CLIENT_SECRET</value>
     </values>
     <values>
         <field>TokenEndpointUrl__c</field>
-        <value xsi:type="xsd:string">@SF_BASE_URL/@SF_TOKEN_URL_PATH</value>
+        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/oauth2/token</value>
     </values>
 </CustomMetadata>

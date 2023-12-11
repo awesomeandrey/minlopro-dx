@@ -83,9 +83,11 @@ public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
         HttpResponse response = http.send(request);
         final Set<Integer> allowedStatusCodes = new Set<Integer>{ 200, 201 };
         if (!allowedStatusCodes.contains(response.getStatusCode())) {
-            String errorTemplate = 'Authentication error occurred in "CCFAuthProviderPlugin.cls" | {0}';
-            String errorMessage = String.format(errorTemplate, Lists.of(response.getBody()));
-            Logger.error(errorTemplate, Lists.of(response.getBody()));
+            String errorMessage = String.format(
+                    'Authentication error occurred in "CCFAuthProviderPlugin.cls" | {0}',
+                    Lists.of(response.getBody())
+            );
+            Logger.error(errorMessage);
             throw new Auth.AuthProviderPluginException(errorMessage);
         }
         return (OAuthResponsePayload) JSON.deserialize(response.getBody(), OAuthResponsePayload.class);
