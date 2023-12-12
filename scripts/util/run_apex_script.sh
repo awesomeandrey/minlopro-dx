@@ -7,8 +7,8 @@
 # Define constants;
 targetOrg=$1          #Mandatory parameter!
 apexScriptFileName=$2 #Mandatory parameter!
-apexScriptFilePath="scripts/apex/$2.apex"
+apexScriptFilePath="scripts/apex/$apexScriptFileName.apex"
 
-echo "🔵 Running Apex Script [$2] against [$targetOrg] organization..."
+echo "🔵 Running Apex Script [$apexScriptFileName] against [$targetOrg] organization..."
 echo
 sf apex run --target-org $targetOrg --file $apexScriptFilePath

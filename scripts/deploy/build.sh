@@ -5,6 +5,7 @@
 # - bash ./scripts/deploy/build.sh -a
 
 echo "🔵 Building environment and installing dependencies..."
+echo
 
 mkdir -p "build"
 

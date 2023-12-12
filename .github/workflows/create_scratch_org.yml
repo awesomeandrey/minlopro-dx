@@ -16,12 +16,10 @@ on:
 jobs:
   spin-up-scratch-org:
     runs-on: ubuntu-latest
-    environment: "Minlopro DevHub"
     env:
-      SF_USERNAME: "to_be_replaced_with_valid_value"
-      SF_CCF_APP_CLIENT_ID: "to_be_replaced_with_valid_value"
-      SF_CCF_APP_CLIENT_SECRET: "to_be_replaced_with_valid_value"
-      SF_INSTANCE_URL: "to_be_replaced_with_valid_value"
+      DEV_HUB_AUTH_URL: ${{ secrets.DEV_HUB_AUTH_URL }}
+      SF_CCF_APP_CLIENT_ID: "Invalid_SF_CCF_APP_CLIENT_ID"
+      SF_CCF_APP_CLIENT_SECRET: "Invalid_SF_CCF_APP_CLIENT_SECRET"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -30,21 +28,17 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize DevHub Org'
         run: |
           bash ./scripts/deploy/build.sh
-          echo ${{secrets.DEV_HUB_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
-          devHubOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
-          # Override 'target-dev-hub' property
-          sf config set target-dev-hub="$devHubOrgAlias"
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $DEV_HUB_AUTH_URL --orgAlias DEV_HUB
+          sf config set target-dev-hub=DEV_HUB
       - name: 'Spin Up Brand New Scratch Org'
         continue-on-error: true
         run: |
-          sf config list
           inputsFile="inputs.txt"
           touch $inputsFile
           # Dev Hub Alias
-          devHubAlias=$(bash ./scripts/util/get_target_dev_hub_alias.sh)
-          echo "$devHubAlias" >> $inputsFile
+          echo "DEV_HUB" >> $inputsFile
           # Scratch Org Alias
-          echo "SO" >> $inputsFile
+          echo "ScratchOrg" >> $inputsFile
           # Admin Email Address
           echo "${{github.event.inputs.adminEmail}}" >> $inputsFile
           # Initiate scratch org generation

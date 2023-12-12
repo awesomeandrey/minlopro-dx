@@ -10,6 +10,7 @@ read TARGET_ORG_ALIAS
 
 # Invoke source deploy to target org (dry-run);
 echo "🔵 Validate deployment against [$TARGET_ORG_ALIAS] organization..."
+echo
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "manifests/package.xml" \

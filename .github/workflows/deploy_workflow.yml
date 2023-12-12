@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     branches:
       - develop
-#  push:
-#    branches:
-#      - develop
+  push:
+    branches:
+      - develop
 
 # Jobs
 jobs:
@@ -19,10 +19,9 @@ jobs:
     runs-on: ubuntu-latest
     environment: "Minlopro DevHub" # Note that environment can be overridden depending on branch name
     env:
-      SF_USERNAME: ${{ vars.SF_USERNAME }}
-      SF_CCF_APP_CLIENT_ID: ${{ vars.SF_CCF_APP_CLIENT_ID }}
-      SF_CCF_APP_CLIENT_SECRET: ${{ vars.SF_CCF_APP_CLIENT_SECRET }}
-      SF_INSTANCE_URL: ${{ vars.SF_INSTANCE_URL }}
+      SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
+      SF_CCF_APP_CLIENT_ID: ${{ secrets.SF_CCF_APP_CLIENT_ID }}
+      SF_CCF_APP_CLIENT_SECRET: ${{ secrets.SF_CCF_APP_CLIENT_SECRET }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -31,11 +30,11 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          echo ${{secrets.DEV_HUB_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $SF_AUTH_URL
       - name: 'Deploy Source to Target Org'
         run: |
-          bash ./scripts/deploy/replace_variables.sh
           npm run sf:manifest:create
+          bash ./scripts/deploy/replace_variables.sh
           npm run src:deploy:full
       - name: 'Custom Post-Deployment Steps'
         run: |
@@ -47,6 +46,9 @@ jobs:
   run-apex-tests:
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-latest
+    environment: "Minlopro DevHub"
+    env:
+      SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -55,7 +57,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          echo ${{secrets.DEV_HUB_AUTH_URL}} | bash ./scripts/deploy/authorize_org.sh
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $SF_AUTH_URL
       - name: 'Run All Apex Tests with Coverage'
         run: npm run sf:apex:tests:coverage
   run-pmd-checks:
