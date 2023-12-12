@@ -100,12 +100,15 @@ export default class GPanel extends LightningElement {
         const defaultCoordinates = { lat: -34.397, lng: 150.644 }; // Sydney;
         return new Promise((resolve) => {
             if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(({ coords }) => {
-                    resolve({
-                        lat: coords.latitude,
-                        lng: coords.longitude
-                    });
-                }, resolve.bind(this, defaultCoordinates));
+                navigator.geolocation.getCurrentPosition(
+                    ({ coords }) => {
+                        resolve({
+                            lat: coords.latitude,
+                            lng: coords.longitude
+                        });
+                    },
+                    resolve.bind(this, defaultCoordinates)
+                );
             } else {
                 resolve(defaultCoordinates);
             }

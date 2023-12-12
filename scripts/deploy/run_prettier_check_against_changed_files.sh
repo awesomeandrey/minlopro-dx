@@ -53,12 +53,15 @@ if ! [ "$(ls $copiedSrcFolderPath)" ]; then
   exit 0
 fi
 
+echo "node version = $(node --version)"
+echo "npm version = $(npm --version)"
+echo "java version = $(java --version)"
+
 # Invoke prettier;
-prettierExec="./node_modules/.bin/prettier"
-echo "prettier version = $("$prettierExec" --version)"
-echo "which prettier = $(which "$prettierExec")"
-echo "pwd = $(pwd)"
-"$prettierExec" --check "$copiedSrcFolderPath/**"
+npm run prettier -- --version
+npm run prettier -- \
+  --check "$copiedSrcFolderPath/**" \
+  --ignore-path "./.prettierignore"
 
 # Capture the exit code
 prettier_exit_code=$?

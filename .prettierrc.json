@@ -1,5 +1,5 @@
 {
-    "plugins": ["prettier-plugin-apex"],
+    "plugins": ["prettier-plugin-apex", "@prettier/plugin-xml"],
     "trailingComma": "none",
     "tabWidth": 4,
     "semi": true,
@@ -8,11 +8,15 @@
     "overrides": [
         {
             "files": "**/lwc/**/*.html",
-            "options": {"parser": "lwc"}
+            "options": { "parser": "lwc" }
         },
         {
             "files": "*.{cmp,page,component,app,xml,labels,evt,design}",
             "options": { "parser": "html" }
+        },
+        {
+            "files": "*.{cls,trigger}",
+            "options": { "parser": "apex" }
         }
     ]
 }

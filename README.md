@@ -13,6 +13,11 @@ This is a blueprint repository for typical Salesforce org-based project which is
 Install `node` version specified in `package.json` file. It's recommended to
 use [NVM](https://tecadmin.net/install-nvm-macos-with-homebrew/) in order to manage NODE versions on local machine.
 
+Download and install [OpenJDK (11<)](https://sap.github.io/SapMachine/). This step is mandatory
+for `prettier-plugin-apex` to work as expected. Refer to
+this [link](https://medium.com/@bectorhimanshu/how-to-set-java-home-environment-variable-on-macos-x-10-9-or-later-versions-dd4fa6936899)
+for configuring `$JAVA_HOME` environment variable.
+
 Run `bash ./scripts/deploy/build.sh` in order to load project dependencies.
 
 Look through the pre-configured GitHub Workflows/Actions located in `.github/workflows/` folder.
@@ -25,7 +30,7 @@ Spin up scratch org by
 running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)
 GitHub Action Workflow.
 
-Make sure that the changed codebase files are _prettified_ via `npm run prettier` command.
+Make sure that the changed codebase files are _prettified_ via `npm run prettier:write` command.
 Alternatively, you can run `npm run prettier:check` in order to identify _non-prettified_ files.
 
 ### Branches

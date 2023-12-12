@@ -3,7 +3,7 @@ public without sharing class Logger {
     private static final String ORG_NAMESPACE = [SELECT NamespacePrefix FROM Organization].NamespacePrefix;
     private static final String CLASSNAME = Logger.class.getName();
     private static final Pattern STACK_LINE = Pattern.compile(
-            '^(?:Class\\.)?([^.]+)\\.?([^\\.\\:]+)?[\\.\\:]?([^\\.\\:]*): line (\\d+), column (\\d+)$'
+        '^(?:Class\\.)?([^.]+)\\.?([^\\.\\:]+)?[\\.\\:]?([^\\.\\:]*): line (\\d+), column (\\d+)$'
     );
     private static Log__e log = null;
 
@@ -48,56 +48,40 @@ public without sharing class Logger {
         // Emit platform event with payload;
         if (IS_ENABLED) {
             Map<String, Object> data = new Map<String, Object>{
-                    'Message' => message,
-                    'Quiddity' => Request.getCurrent().getQuiddity(),
-                    /* Limits */
-                    'Callouts' => String.format(
-                            '{0} out of {1}',
-                            new List<Object>{
-                                    Limits.getCallouts(), Limits.getLimitCallouts()
-                            }
-                    ),
-                    'CpuTime' => String.format('{0} out of {1}', new List<Object>{
-                            Limits.getCpuTime(), Limits.getLimitCpuTime()
-                    }),
-                    'HeapSize' => String.format(
-                            '{0} out of {1}',
-                            new List<Object>{
-                                    Limits.getHeapSize(), Limits.getLimitHeapSize()
-                            }
-                    ),
-                    'Queries' => String.format('{0} out of {1}', new List<Object>{
-                            Limits.getQueries(), Limits.getLimitQueries()
-                    }),
-                    'DMLRows' => String.format('{0} out of {1}', new List<Object>{
-                            Limits.getDmlRows(), Limits.getLimitDmlRows()
-                    }),
-                    'FutureCalls' => String.format(
-                            '{0} out of {1}',
-                            new List<Object>{
-                                    Limits.getFutureCalls(), Limits.getLimitFutureCalls()
-                            }
-                    ),
-                    'QueryRows' => String.format(
-                            '{0} out of {1}',
-                            new List<Object>{
-                                    Limits.getQueryRows(), Limits.getLimitQueryRows()
-                            }
-                    ),
-                    'QueueableJobs' => String.format(
-                            '{0} out of {1}',
-                            new List<Object>{
-                                    Limits.getQueueableJobs(), Limits.getLimitQueueableJobs()
-                            }
-                    )
+                'Message' => message,
+                'Quiddity' => Request.getCurrent().getQuiddity(),
+                /* Limits */
+                'Callouts' => String.format(
+                    '{0} out of {1}',
+                    new List<Object>{ Limits.getCallouts(), Limits.getLimitCallouts() }
+                ),
+                'CpuTime' => String.format('{0} out of {1}', new List<Object>{ Limits.getCpuTime(), Limits.getLimitCpuTime() }),
+                'HeapSize' => String.format(
+                    '{0} out of {1}',
+                    new List<Object>{ Limits.getHeapSize(), Limits.getLimitHeapSize() }
+                ),
+                'Queries' => String.format('{0} out of {1}', new List<Object>{ Limits.getQueries(), Limits.getLimitQueries() }),
+                'DMLRows' => String.format('{0} out of {1}', new List<Object>{ Limits.getDmlRows(), Limits.getLimitDmlRows() }),
+                'FutureCalls' => String.format(
+                    '{0} out of {1}',
+                    new List<Object>{ Limits.getFutureCalls(), Limits.getLimitFutureCalls() }
+                ),
+                'QueryRows' => String.format(
+                    '{0} out of {1}',
+                    new List<Object>{ Limits.getQueryRows(), Limits.getLimitQueryRows() }
+                ),
+                'QueueableJobs' => String.format(
+                    '{0} out of {1}',
+                    new List<Object>{ Limits.getQueueableJobs(), Limits.getLimitQueueableJobs() }
+                )
             };
             storeLocation(data);
             log = new Log__e(
-                    AuthorId__c = UserInfo.getUserId(),
-                    AuthorProfileId__c = UserInfo.getProfileId(),
-                    Context__c = Request.getCurrent().getRequestId(),
-                    Level__c = level.name(),
-                    Data__c = JSON.serializePretty(data, true)
+                AuthorId__c = UserInfo.getUserId(),
+                AuthorProfileId__c = UserInfo.getProfileId(),
+                Context__c = Request.getCurrent().getRequestId(),
+                Level__c = level.name(),
+                Data__c = JSON.serializePretty(data, true)
             );
             EventBus.publish(log);
         }
