@@ -46,11 +46,9 @@ jobs:
     environment: "Minlopro DevHub"
     env:
       SF_USERNAME: ${{ vars.SF_USERNAME }}
-      SF_CLIENT_ID: ${{ vars.SF_CLIENT_ID }}
-      SF_CLIENT_SECRET: ${{ vars.SF_CLIENT_SECRET }}
-      SF_BASE_URL: ${{ vars.SF_BASE_URL }}
-      SF_TOKEN_URL_PATH: ${{ vars.SF_TOKEN_URL_PATH }}
-      SF_AUTH_PROVIDER_URL_PATH: ${{ vars.SF_AUTH_PROVIDER_URL_PATH }}
+      SF_CCF_APP_CLIENT_ID: ${{ vars.SF_CCF_APP_CLIENT_ID }}
+      SF_CCF_APP_CLIENT_SECRET: ${{ vars.SF_CCF_APP_CLIENT_SECRET }}
+      SF_INSTANCE_URL: ${{ vars.SF_INSTANCE_URL }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

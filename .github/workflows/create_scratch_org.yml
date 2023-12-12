@@ -19,11 +19,9 @@ jobs:
     environment: "Minlopro DevHub"
     env:
       SF_USERNAME: "to_be_replaced_with_valid_value"
-      SF_CLIENT_ID: "to_be_replaced_with_valid_value"
-      SF_CLIENT_SECRET: "to_be_replaced_with_valid_value"
-      SF_BASE_URL: "to_be_replaced_with_valid_value"
-      SF_TOKEN_URL_PATH: ${{ vars.SF_TOKEN_URL_PATH }}
-      SF_AUTH_PROVIDER_URL_PATH: ${{ vars.SF_AUTH_PROVIDER_URL_PATH }}
+      SF_CCF_APP_CLIENT_ID: "to_be_replaced_with_valid_value"
+      SF_CCF_APP_CLIENT_SECRET: "to_be_replaced_with_valid_value"
+      SF_INSTANCE_URL: "to_be_replaced_with_valid_value"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
