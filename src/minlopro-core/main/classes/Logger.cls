@@ -45,7 +45,7 @@ public without sharing class Logger {
         for (Integer i = 0; i < valuesAsStrings.size(); i++) {
             message = message.replaceAll('\\{' + String.valueOf(i) + '\\}', valuesAsStrings[i]);
         }
-        // Emit platform event with payload;
+        // Emit platform event with log payload;
         if (IS_ENABLED) {
             Map<String, Object> data = new Map<String, Object>{
                 'Message' => message,

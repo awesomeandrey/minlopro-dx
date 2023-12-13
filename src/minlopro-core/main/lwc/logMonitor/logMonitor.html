@@ -5,45 +5,42 @@
             <div if:true={hasError}>
                 <span class="slds-text-color_error">{error.message}</span>
             </div>
-            <div>
-                <lightning-button-group>
-                    <lightning-button
-                        label={muteButtonLabel}
-                        variant="border-filled"
-                        onclick={handleToggleMute}
-                        icon-name={muteIconName}
-                        disabled={hasError}
-                    ></lightning-button>
-                    <lightning-button
-                        label={labels.clearAllLbl}
-                        onclick={handleClearAll}
-                        icon-name="utility:delete"
-                        variant="destructive"
-                        disabled={disableButtons}
-                    ></lightning-button>
-                    <lightning-button
-                        label={labels.expandAllLbl}
-                        onclick={handleExpandAll}
-                        icon-name="utility:expand_all"
-                        disabled={disableButtons}
-                    ></lightning-button>
-                    <lightning-button
-                        label={labels.collapseAllLbl}
-                        onclick={handleCollapseAll}
-                        icon-name="utility:collapse_all"
-                        disabled={disableButtons}
-                    ></lightning-button>
-                </lightning-button-group>
-            </div>
+            <lightning-button-group>
+                <lightning-button
+                    label={muteButtonLabel}
+                    variant="border-filled"
+                    onclick={handleToggleMute}
+                    icon-name={muteIconName}
+                    disabled={hasError}
+                ></lightning-button>
+                <lightning-button
+                    label={labels.clearAllLbl}
+                    onclick={handleClearAll}
+                    icon-name="utility:delete"
+                    variant="destructive"
+                    disabled={disableButtons}
+                ></lightning-button>
+                <lightning-button
+                    label={labels.expandAllLbl}
+                    onclick={handleExpandAll}
+                    icon-name="utility:expand_all"
+                    disabled={disableButtons}
+                ></lightning-button>
+                <lightning-button
+                    label={labels.collapseAllLbl}
+                    onclick={handleCollapseAll}
+                    icon-name="utility:collapse_all"
+                    disabled={disableButtons}
+                ></lightning-button>
+            </lightning-button-group>
         </div>
     </div>
     <div class="slds-theme_default slds-p-horizontal_small slds-p-bottom_small">
-        <!--TODO - add warning about missing config in CS-->
         <lightning-combobox
             label="Log Owners"
-            placeholder="Select Log Owners To Track"
-            value="null"
+            placeholder={comboboxPlaceholder}
             options={eligibleLogOwners}
+            read-only={disableLogOwnersSelection}
             onchange={handleSelectLogOwner}
         ></lightning-combobox>
         <lightning-pill-container items={selectedLogOwnersAsPills} onitemremove={handleRemoveLogOwner}></lightning-pill-container>

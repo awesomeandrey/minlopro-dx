@@ -1,8 +1,8 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 import EMP from 'lightning/empApi';
 import LightningAlert from 'lightning/alert';
 import $Toastify from 'c/toastify';
-import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId, wait } from 'c/utilities';
+import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId, wait, isEmptyArray } from 'c/utilities';
 
 import $UserId from '@salesforce/user/Id';
 
@@ -74,6 +74,17 @@ export default class LogMonitor extends LightningElement {
                     fallbackIconName: type === 'user' ? 'standard:user' : 'standard:individual'
                 };
             });
+    }
+
+    get disableLogOwnersSelection() {
+        return isEmptyArray(this.eligibleLogOwners);
+    }
+
+    get comboboxPlaceholder() {
+        if (isEmptyArray(this.logOwners)) {
+            return '- There are no Log Owners configured -';
+        }
+        return 'Select Log Owners To Track';
     }
 
     get labels() {
@@ -201,6 +212,10 @@ export default class LogMonitor extends LightningElement {
         return this.wiredRunningUser?.data?.ProfileId;
     }
 
+    get $combobox() {
+        return this.template.querySelector('lightning-combobox');
+    }
+
     get $treeGrid() {
         return this.template.querySelector('lightning-tree-grid');
     }
@@ -279,11 +294,15 @@ export default class LogMonitor extends LightningElement {
     handleSelectLogOwner(event) {
         const ownerIdToAdd = event.detail.value;
         this.selectedLogOwnerIds = [...this.selectedLogOwnerIds, ownerIdToAdd];
+        // Reset 'combobox' value parameter in order to remove checkmark icon from dropdown;
+        this.$combobox.value = null;
     }
 
     handleRemoveLogOwner(event) {
         const ownerIdToRemove = event.detail.item.name;
         this.selectedLogOwnerIds = this.selectedLogOwnerIds.filter((_) => _ !== ownerIdToRemove);
+        // Reset 'combobox' value parameter in order to remove checkmark icon from dropdown;
+        this.$combobox.value = null;
     }
 
     // Utility Methods;

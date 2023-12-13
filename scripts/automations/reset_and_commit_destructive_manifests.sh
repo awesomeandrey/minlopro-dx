@@ -10,12 +10,12 @@ echo "🔵 Resetting destructive manifests..."
 # Enable errexit option to exit on command failure
 set -e
 
-# Reset XML files content
+# Reset XML files content via custom JS script
 node scripts/util/js/reset_destructive_manifests.js
 
 # Prettify XML files content
-prettierExec="./node_modules/.bin/prettier"
-"$prettierExec" --write "manifests/**"
+npm run prettier -- --version
+npm run prettier -- --write "manifests/**"
 
 # Define the files to track
 file1="manifests/destructiveChangesPre.xml"

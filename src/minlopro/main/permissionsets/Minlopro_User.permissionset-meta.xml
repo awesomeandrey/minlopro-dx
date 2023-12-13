@@ -225,4 +225,8 @@
         <tab>Car__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
+    <tabSettings>
+        <tab>Playground</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>

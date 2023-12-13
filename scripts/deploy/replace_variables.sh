@@ -4,7 +4,6 @@
 # - bash ./scripts/deploy/replace_variables.sh
 
 echo "🔵 Replacing variables with secrets/values..."
-echo
 
 # Step 1 - Load all environment variables into 'build/.env' file;
 mkdir -p "build"

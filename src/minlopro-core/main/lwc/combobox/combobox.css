@@ -1,0 +1,16 @@
+/* Styles are derived from SLDS */
+
+.slds-combobox input[readonly] {
+    background-color: var(--lwc-colorBackgroundInput, rgb(255, 255, 255));
+    border: var(--lwc-borderWidthThin, 1px) solid var(--lwc-colorBorderInput, rgb(221, 219, 218));
+    padding: 0 1.9rem 0 var(--lwc-spacingSmall, 0.75rem);
+}
+
+.slds-form-element .slds-form-element__help {
+    color: var(--lwc-colorTextError, rgb(234, 0, 30));
+    display: none;
+}
+
+.slds-form-element.slds-has-error .slds-form-element__help {
+    display: block;
+}

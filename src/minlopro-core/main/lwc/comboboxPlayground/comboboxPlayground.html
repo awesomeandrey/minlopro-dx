@@ -1,0 +1,27 @@
+<template>
+    <span class="slds-text-title_caps slds-p-around_small"><code>c-combobox</code> Demo</span>
+    <lightning-button-group>
+        <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+        <lightning-button label="Toggle Nullify Options" onclick={handleToggleNullifyOptions}></lightning-button>
+        <lightning-button label="Toggle Required" onclick={handleToggleRequired}></lightning-button>
+        <lightning-button label="Set Custom Validity" onclick={handleSetCustomValidity}></lightning-button>
+        <lightning-button label="Report Validity" onclick={handleReportValidity}></lightning-button>
+    </lightning-button-group>
+    <lightning-layout multiple-rows>
+        <template for:each={containers} for:item="container">
+            <lightning-layout-item key={container.label} size={container.columnsSize} padding="around-small">
+                <div class="slds-box slds-box_x-small slds-m-bottom_xx-small">
+                    <c-combobox
+                        name={container.componentName}
+                        label={container.label}
+                        value={selectedValueAsStr}
+                        options={dynamicOptions}
+                        multi-select={container.multi}
+                        required={required}
+                        onchange={handleChange}
+                    ></c-combobox>
+                </div>
+            </lightning-layout-item>
+        </template>
+    </lightning-layout>
+</template>
