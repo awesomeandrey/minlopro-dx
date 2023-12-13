@@ -6,6 +6,8 @@ global without sharing class PublicRestEndpoint {
      * The Apex transaction gets instantiated on behalf of Guest user of the site, therefore
      * the Guest user should be given access to this Apex class (e.g. through permission set OR site guest user profile).
      *
+     * NOTE: use [***.my.site.com] path!
+     *
      * cURL command to use: [curl https://[your-site-domain]/services/apexrest/echo | jq .]
      * e.g. curl https://energy-nosoftware-598.scratch.my.site.com/services/apexrest/echo | jq .
      * Note 'jq' utility usage - it simply prettifies output value to the console.

@@ -47,14 +47,12 @@ public with sharing class LogsMonitorPanelController {
     @AuraEnabled
     public static List<Object> getLoggerSettingsBySetupOwners() {
         try {
-
-
             Map<Id, Map<String, String>> settingBySetupOwnerId = new Map<Id, Map<String, String>>();
             Set<Id> userOrProfileIds = new Set<Id>();
             for (LoggerSettings__c setting : [
-                    SELECT SetupOwner.Id, SetupOwner.Name, SetupOwner.Type
-                    FROM LoggerSettings__c
-                    WHERE LogsEmissionDate__c >= TODAY
+                SELECT SetupOwner.Id, SetupOwner.Name, SetupOwner.Type
+                FROM LoggerSettings__c
+                WHERE LogsEmissionDate__c >= TODAY
             ]) {
                 // Exclude org default setting;
                 String setupOwnerType = setting.SetupOwner.Type;
@@ -64,10 +62,8 @@ public with sharing class LogsMonitorPanelController {
                 Id setupOwnerId = setting.SetupOwner.Id;
                 String normalisedSetupOwnerType = setupOwnerType.equalsIgnoreCase('User') ? 'user' : 'profile';
                 settingBySetupOwnerId.put(
-                        setupOwnerId,
-                        new Map<String, String>{
-                                'ownerId' => setupOwnerId, 'type' => normalisedSetupOwnerType
-                        }
+                    setupOwnerId,
+                    new Map<String, String>{ 'ownerId' => setupOwnerId, 'type' => normalisedSetupOwnerType }
                 );
                 // Capture user / profile ID;
                 userOrProfileIds.add(setupOwnerId);

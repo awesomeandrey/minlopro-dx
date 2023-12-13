@@ -42,8 +42,8 @@ orgCredentialsFile="build/$ADMIN_EMAIL-scratch-org-credentials.txt"
 mkdir -p "build"
 touch $orgCredentialsFile
 echo "📜 Scratch Org Credentials"
-sf org display user --target-org $SCRATCH_ORG_ALIAS >> $orgCredentialsFile
-sf org display --target-org $SCRATCH_ORG_ALIAS --verbose >> $orgCredentialsFile
+sf org display user --target-org $SCRATCH_ORG_ALIAS --json >> $orgCredentialsFile
+sf org display --target-org $SCRATCH_ORG_ALIAS --verbose --json >> $orgCredentialsFile
 cat $orgCredentialsFile
 
 # Optional: install packages here.

@@ -1,17 +1,16 @@
 {
     "name": "minlopro",
     "private": true,
-    "version": "1.0.0",
+    "version": "2.0.0",
     "engines": {
-        "node": ">=20.x"
+        "node": ">=20.x",
+        "npm": ">=10.x"
     },
     "description": "Minlopro DX",
     "scripts": {
-        "prettier": "prettier --write 'src/**'",
-        "prettier:check": "prettier --check 'src/**'",
-        "prettier:package:minlopro": "prettier --write 'src/minlopro/**'",
-        "prettier:package:core": "prettier --write 'src/minlopro-core/**'",
-        "prettier:package:digex": "prettier --write 'src/minlopro-digex/**'",
+        "prettier": "prettier",
+        "prettier:write": "prettier --write \"src/**\"",
+        "prettier:check": "prettier --check \"src/**\"",
         "jest": "sfdx-lwc-jest --skipApiVersionCheck",
         "jest:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
         "sf:apex:tests": "sf apex run test -r human --wait 15",
@@ -30,21 +29,12 @@
         "pmd:html": "pmd -d 'src' -R apex-ruleset.xml -f html --report-file 'build/apex-pmd-report.html'"
     },
     "devDependencies": {
-        "@lwc/eslint-plugin-lwc": "^1.1.2",
         "@prettier/plugin-xml": "^2.0.1",
-        "@salesforce/eslint-config-lwc": "^3.2.3",
-        "@salesforce/eslint-plugin-aura": "^2.0.0",
-        "@salesforce/eslint-plugin-lightning": "^1.0.0",
         "@salesforce/sfdx-lwc-jest": "^1.3.0",
-        "eslint": "^8.11.0",
-        "eslint-plugin-import": "^2.25.4",
-        "eslint-plugin-jest": "^26.1.2",
         "flush-promises": "^1.0.2",
-        "husky": "^7.0.4",
-        "lint-staged": "^12.3.7",
         "pmd-bin": "^1.37.0",
-        "prettier": "2.8.8",
-        "prettier-plugin-apex": "1.13.0",
+        "prettier": "^3.1.1",
+        "prettier-plugin-apex": "^2.0.1",
         "replace-in-files-cli": "^2.2.0",
         "xml2js": "^0.6.2"
     }
