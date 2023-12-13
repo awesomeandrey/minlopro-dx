@@ -47,7 +47,7 @@ jobs:
         run: npm run jest:coverage
   validate-deployment-to-org:
     needs: [ run-prettier-checks, run-jest-tests ]
-    environment: "Minlopro DevHub"
+    environment: ${{ github.ref == 'refs/heads/develop' && 'Minlopro DevHub' || 'ANOTHER_ENV' }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_CCF_APP_CLIENT_ID: ${{ secrets.SF_CCF_APP_CLIENT_ID }}
