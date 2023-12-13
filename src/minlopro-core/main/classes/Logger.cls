@@ -47,6 +47,7 @@ public without sharing class Logger {
         }
         // Emit platform event with payload;
         if (IS_ENABLED) {
+            System.debug('\n\n isEnabled() => ' + isEnabled() + '\n');
             Map<String, Object> data = new Map<String, Object>{
                 'Message' => message,
                 'Quiddity' => Request.getCurrent().getQuiddity(),
