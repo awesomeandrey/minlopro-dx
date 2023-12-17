@@ -20,6 +20,7 @@ jobs:
       DEV_HUB_AUTH_URL: ${{ secrets.DEV_HUB_AUTH_URL }}
       SF_CCF_APP_CLIENT_ID: "Invalid_SF_CCF_APP_CLIENT_ID"
       SF_CCF_APP_CLIENT_SECRET: "Invalid_SF_CCF_APP_CLIENT_SECRET"
+      SF_GITHUB_WEBHOOK_SECRET: "Invalid_SF_GITHUB_WEBHOOK_SECRET"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

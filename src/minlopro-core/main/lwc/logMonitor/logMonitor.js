@@ -3,6 +3,7 @@ import EMP from 'lightning/empApi';
 import LightningAlert from 'lightning/alert';
 import $Toastify from 'c/toastify';
 import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId, wait, isEmptyArray } from 'c/utilities';
+import { MULTI_PICKLIST_SEPARATOR } from 'c/comboboxUtils';
 
 import $UserId from '@salesforce/user/Id';
 
@@ -25,13 +26,14 @@ import noLogsYetLbl from '@salesforce/label/c.Logger_Msg_NoLogsYet';
 import enableLoggingLbl from '@salesforce/label/c.Logger_Info_EnableLogging';
 
 export default class LogMonitor extends LightningElement {
+    @api mode = 'compact';
+
     @track isEmpEnabled = false;
     @track subscription = {};
     @track error = {};
     @track isMuted = false;
     @track logsByContextId = {};
     @track lastTimestampByContextId = {};
-
     @track selectedLogOwnerIds = [];
     /**
      * The list of setup owner definitions for which logger settings are created & active.
@@ -46,19 +48,23 @@ export default class LogMonitor extends LightningElement {
      */
     @track logOwners = [];
 
-    get eligibleLogOwners() {
-        // Used in the 'combobox' element;
+    get logOwnerOptions() {
+        return this.logOwners.map(({ name, ownerId, type }) => {
+            return {
+                label: `${name} (${type.toUpperCase()})`,
+                value: ownerId,
+                iconName: type === 'user' ? 'standard:user' : 'standard:individual'
+            };
+        });
+    }
+
+    get selectedLogOwnersAsValue() {
         return this.logOwners
-            .filter((_) => {
-                // Exclude selected ones;
-                return !this.selectedLogOwnerIds.includes(_.ownerId);
+            .filter(({ ownerId }) => {
+                return this.selectedLogOwnerIds.includes(ownerId);
             })
-            .map(({ name, ownerId, type }) => {
-                return {
-                    label: `${name} (${type.toUpperCase()})`,
-                    value: ownerId
-                };
-            });
+            .map(({ ownerId }) => ownerId)
+            .join(MULTI_PICKLIST_SEPARATOR);
     }
 
     get selectedLogOwnersAsPills() {
@@ -74,10 +80,6 @@ export default class LogMonitor extends LightningElement {
                     fallbackIconName: type === 'user' ? 'standard:user' : 'standard:individual'
                 };
             });
-    }
-
-    get disableLogOwnersSelection() {
-        return isEmptyArray(this.eligibleLogOwners);
     }
 
     get comboboxPlaceholder() {
@@ -129,56 +131,65 @@ export default class LogMonitor extends LightningElement {
         return this.hasError || !this.hasLogs;
     }
 
+    get isDetailedMode() {
+        return !this.isCompactMode;
+    }
+
+    get isCompactMode() {
+        return this.mode === 'compact';
+    }
+
     get normalizedColumns() {
         return [
             {
                 fieldName: 'index',
                 label: '#',
-                initialWidth: 100
+                initialWidth: 100,
+                visible: true
             },
             {
                 fieldName: 'data.Quiddity',
                 label: 'Quiddity',
-                initialWidth: 150
+                initialWidth: 150,
+                visible: this.isDetailedMode
             },
             {
-                fieldName: 'debugLevel',
+                fieldName: this.isCompactMode ? 'unknownFieldName' : 'debugLevel',
                 label: 'Level',
                 initialWidth: 100,
                 cellAttributes: {
                     iconName: { fieldName: 'iconName' },
                     iconPosition: 'left'
-                }
+                },
+                visible: true
             },
             {
                 fieldName: 'stacktrace',
                 label: 'Class > Method > Line',
-                wrapText: true,
-                cellAttributes: {
-                    class: 'slds-text-title'
-                }
+                wrapText: false,
+                visible: true
             },
             {
                 fieldName: 'data.Message',
                 label: 'Message',
-                wrapText: true,
+                wrapText: false,
                 iconName: 'utility:apex',
-                cellAttributes: {
-                    class: 'slds-text-title'
-                }
+                visible: true
             },
             {
                 fieldName: 'elapsed',
                 label: 'Elapsed (ms)',
-                initialWidth: 150
+                initialWidth: 150,
+                visible: this.isDetailedMode
             },
             {
                 type: 'action',
                 typeAttributes: {
                     rowActions: [{ label: 'View Details', name: 'viewDetails' }]
-                }
+                },
+                visible: true
             }
-        ];
+        ].filter(({ visible = false }) => Boolean(visible));
     }
 
     get normalizedData() {
@@ -210,10 +221,6 @@ export default class LogMonitor extends LightningElement {
 
     get runningUserProfileId() {
         return this.wiredRunningUser?.data?.ProfileId;
-    }
-
-    get $combobox() {
-        return this.template.querySelector('lightning-combobox');
     }
 
     get $treeGrid() {
@@ -248,6 +255,10 @@ export default class LogMonitor extends LightningElement {
 
     disconnectedCallback() {
         this.unsubscribe();
+    }
+
+    errorCallback(error, stack) {
+        console.error('LogMonitor.js', error, stack);
     }
 
     // Event Handlers;
@@ -292,17 +303,17 @@ export default class LogMonitor extends LightningElement {
     }
 
     handleSelectLogOwner(event) {
-        const ownerIdToAdd = event.detail.value;
-        this.selectedLogOwnerIds = [...this.selectedLogOwnerIds, ownerIdToAdd];
-        // Reset 'combobox' value parameter in order to remove checkmark icon from dropdown;
-        this.$combobox.value = null;
+        const { selectedOptions = [] } = event.detail;
+        this.selectedLogOwnerIds = cloneObject(selectedOptions.map(({ value }) => value));
     }
 
     handleRemoveLogOwner(event) {
         const ownerIdToRemove = event.detail.item.name;
         this.selectedLogOwnerIds = this.selectedLogOwnerIds.filter((_) => _ !== ownerIdToRemove);
-        // Reset 'combobox' value parameter in order to remove checkmark icon from dropdown;
-        this.$combobox.value = null;
+    }
+
+    handleToggleMode() {
+        this.mode = this.isCompactMode ? 'detailed' : 'compact';
     }
 
     // Utility Methods;

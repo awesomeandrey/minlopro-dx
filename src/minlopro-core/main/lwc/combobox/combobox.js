@@ -1,6 +1,6 @@
 import { api, LightningElement, track } from 'lwc';
 import { formatLabel, isEmptyArray, isNotEmpty, uniqueId, wait } from 'c/utilities';
-import $ComboboxFocusedStateManager from 'c/comboboxUtils';
+import { FocusedStateManager, MULTI_PICKLIST_SEPARATOR } from 'c/comboboxUtils';
 
 // Custom Labels;
 import selectOptionLbl from '@salesforce/label/c.Commons_Lbl_SelectOption';
@@ -9,7 +9,6 @@ import nItemsLbl from '@salesforce/label/c.Commons_Lbl_NItems';
 import completeThisFieldLbl from '@salesforce/label/c.Commons_Lbl_CompleteThisField';
 
 // Constants;
-const MULTI_PICKLIST_SEPARATOR = ';';
 const SLDS_HAS_ERROR_CLASS_NAME = 'slds-has-error';
 const SLDS_IS_OPEN_CLASS_NAME = 'slds-is-open';
 
@@ -33,9 +32,9 @@ export default class Combobox extends LightningElement {
 
     /**
      * Placeholder text displayed when no option is selected.
-     * @type {string}
+     * @type {string|null}
      */
-    @api placeholder = selectOptionLbl;
+    @api placeholder = null;
 
     /**
      * Array of options for the combobox.
@@ -106,7 +105,7 @@ export default class Combobox extends LightningElement {
     @track errorMessage = '';
     @track isOpen = false;
     @track hideDropdownBound = this.hideDropdown.bind(this);
-    @track comboboxId = $ComboboxFocusedStateManager.generateId();
+    @track comboboxId = FocusedStateManager.generateId();
 
     get normalizedOptions() {
         const result = this.options.map((option) => ({
@@ -125,7 +124,10 @@ export default class Combobox extends LightningElement {
     }
 
     get normalizedPlaceholder() {
-        return this.multiSelect ? selectMultipleOptionsLbl : this.placeholder;
+        if (typeof this.placeholder === 'string') {
+            return this.placeholder;
+        }
+        return this.multiSelect ? selectMultipleOptionsLbl : selectOptionLbl;
     }
 
     get doDisable() {
@@ -184,8 +186,9 @@ export default class Combobox extends LightningElement {
      * Manages the focus state and attaches an event listener for closing the dropdown.
      */
     renderedCallback() {
+        window.removeEventListener('click', this.hideDropdownBound, { capture: false });
         if (this.isOpen) {
-            $ComboboxFocusedStateManager.focus(this.comboboxId);
+            FocusedStateManager.focus(this.comboboxId);
             // Add event listener to close dropdown when clicked outside;
             wait(() => {
                 /**
@@ -201,7 +204,7 @@ export default class Combobox extends LightningElement {
 
     handleDropdownInputClick(event) {
         // 'event.stopPropagation()' should be invoked only when user interacts with this specific combobox instance;
-        if ($ComboboxFocusedStateManager.isFocused(this.comboboxId)) {
+        if (FocusedStateManager.isFocused(this.comboboxId)) {
             event.stopPropagation();
         }
         // Open / close dropdown;

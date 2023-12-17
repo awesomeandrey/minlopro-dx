@@ -54,7 +54,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Commons_Lbl_NItems</shortDescription>
-        <value>{0} items</value>
+        <value>{0} items selected</value>
     </labels>
     <labels>
         <fullName>Commons_Lbl_CompleteThisField</fullName>

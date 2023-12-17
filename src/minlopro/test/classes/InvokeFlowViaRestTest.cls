@@ -20,7 +20,7 @@ private class InvokeFlowViaRestTest {
      */
     @IsTest
     static void run() {
-        final String flowApiName = 'Minlopro_Create_Account_With_Contacts';
+        final String flowApiName = 'Minlopro_CreateAccountWithContacts';
         // Prepare the Flow variables;
         Map<String, Object> inputParametersMap = new Map<String, Object>();
         Account testAccount = new Account(Name = 'Test Account #1');

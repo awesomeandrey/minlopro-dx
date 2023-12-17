@@ -32,17 +32,23 @@
                     icon-name="utility:collapse_all"
                     disabled={disableButtons}
                 ></lightning-button>
+                <lightning-button-icon-stateful
+                    icon-name="utility:filter_criteria_rule"
+                    selected={isCompactMode}
+                    onclick={handleToggleMode}
+                ></lightning-button-icon-stateful>
             </lightning-button-group>
         </div>
     </div>
-    <div class="slds-theme_default slds-p-horizontal_small slds-p-bottom_small">
-        <lightning-combobox
+    <div class="slds-theme_default slds-p-horizontal_small slds-p-bottom_xx-small">
+        <c-combobox
             label="Log Owners"
             placeholder={comboboxPlaceholder}
-            options={eligibleLogOwners}
-            read-only={disableLogOwnersSelection}
+            options={logOwnerOptions}
+            value={selectedLogOwnersAsValue}
+            multi-select
             onchange={handleSelectLogOwner}
-        ></lightning-combobox>
+        ></c-combobox>
         <lightning-pill-container items={selectedLogOwnersAsPills} onitemremove={handleRemoveLogOwner}></lightning-pill-container>
     </div>
     <div if:true={hasLogs} class="slds-container_fluid slds-scrollable_x slds-scrollable_y">
