@@ -2,7 +2,7 @@ import { LightningElement, api, track, wire } from 'lwc';
 import EMP from 'lightning/empApi';
 import LightningAlert from 'lightning/alert';
 import $Toastify from 'c/toastify';
-import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId, wait, isEmptyArray } from 'c/utilities';
+import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId, wait, isEmptyArray, copyToClipboard } from 'c/utilities';
 import { MULTI_PICKLIST_SEPARATOR } from 'c/comboboxUtils';
 
 import $UserId from '@salesforce/user/Id';
@@ -185,7 +185,10 @@ export default class LogMonitor extends LightningElement {
             {
                 type: 'action',
                 typeAttributes: {
-                    rowActions: [{ label: 'View Details', name: 'viewDetails' }]
+                    rowActions: [
+                        { label: 'View Details', name: 'viewDetails' },
+                        { label: 'Copy Message', name: 'copyMessage' }
+                    ]
                 },
                 visible: true
             }
@@ -299,6 +302,15 @@ export default class LogMonitor extends LightningElement {
                 theme: 'info',
                 label: 'Log Details'
             });
+        } else if (action.name === 'copyMessage') {
+            const logToCopy = row['data.Message'];
+            const [error] = await to(copyToClipboard(logToCopy));
+            if (!!error) {
+                console.error('LogMonitor.js', error.message);
+                $Toastify.error({ message: `Could not copy log message due to: ${error}` });
+            } else {
+                $Toastify.info({ message: 'Copied log message to clipboard.' });
+            }
         }
     }
 

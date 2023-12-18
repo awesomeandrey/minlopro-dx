@@ -180,3 +180,7 @@ export function formatLabel() {
     }
     return label || '';
 }
+
+export async function copyToClipboard(textToCopy) {
+    return navigator.clipboard.writeText(textToCopy);
+}
