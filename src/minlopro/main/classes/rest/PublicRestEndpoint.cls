@@ -7,6 +7,7 @@ global without sharing class PublicRestEndpoint {
      * the Guest user should be given access to this Apex class (e.g. through permission set OR site guest user profile).
      *
      * NOTE: use [***.my.site.com] path!
+     * Alternatively, use bash script "scripts/util/get_digex_site_url.sh" in order to get valid site URL.
      *
      * cURL command to use: [curl https://[your-site-domain]/services/apexrest/echo | jq .]
      * e.g. curl https://energy-nosoftware-598.scratch.my.site.com/services/apexrest/echo | jq .
