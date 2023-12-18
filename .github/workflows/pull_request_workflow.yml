@@ -52,6 +52,7 @@ jobs:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_CCF_APP_CLIENT_ID: ${{ secrets.SF_CCF_APP_CLIENT_ID }}
       SF_CCF_APP_CLIENT_SECRET: ${{ secrets.SF_CCF_APP_CLIENT_SECRET }}
+      SF_GITHUB_WEBHOOK_SECRET: ${{ vars.SF_GITHUB_WEBHOOK_SECRET }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

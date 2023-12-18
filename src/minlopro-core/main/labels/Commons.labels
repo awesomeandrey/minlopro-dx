@@ -32,4 +32,35 @@
         <shortDescription>Warning</shortDescription>
         <value>Warning</value>
     </labels>
+    <labels>
+        <fullName>Commons_Lbl_SelectOption</fullName>
+        <categories>Commons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commons_Lbl_SelectOption</shortDescription>
+        <value>Select an option</value>
+    </labels>
+    <labels>
+        <fullName>Commons_Lbl_SelectMultipleOptions</fullName>
+        <categories>Commons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commons_Lbl_SelectMultipleOptions</shortDescription>
+        <value>Select multiple options</value>
+    </labels>
+    <labels>
+        <fullName>Commons_Lbl_NItems</fullName>
+        <categories>Commons</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Commons_Lbl_NItems</shortDescription>
+        <value>{0} items selected</value>
+    </labels>
+    <labels>
+        <fullName>Commons_Lbl_CompleteThisField</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Complete This Field</shortDescription>
+        <value>Complete this field.</value>
+    </labels>
 </CustomLabels>

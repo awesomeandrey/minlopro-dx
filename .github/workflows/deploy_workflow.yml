@@ -22,6 +22,7 @@ jobs:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_CCF_APP_CLIENT_ID: ${{ secrets.SF_CCF_APP_CLIENT_ID }}
       SF_CCF_APP_CLIENT_SECRET: ${{ secrets.SF_CCF_APP_CLIENT_SECRET }}
+      SF_GITHUB_WEBHOOK_SECRET: ${{ vars.SF_GITHUB_WEBHOOK_SECRET }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -41,6 +42,7 @@ jobs:
           targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
           bash ./scripts/util/run_apex_script.sh $targetOrgAlias set_up_org_admin
           bash ./scripts/util/run_apex_script.sh $targetOrgAlias set_up_digex_guest_user
+          bash ./scripts/util/run_apex_script.sh $targetOrgAlias set_up_log_settings
           echo $targetOrgAlias | bash ./scripts/util/delete_all_apex_logs.sh
           echo $targetOrgAlias | bash ./scripts/util/delete_obsolete_flow_versions.sh
   run-apex-tests:

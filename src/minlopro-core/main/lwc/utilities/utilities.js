@@ -11,8 +11,17 @@ export function to(promise, errorExt) {
         });
 }
 
-export function wait(callback) {
-    setTimeout(callback, 0);
+export function wait(callback, timeout = 0) {
+    setTimeout(callback, timeout);
+}
+
+export async function waitAsync(callback, timeout = 0) {
+    if (timeout <= 0) {
+        return Promise.resolve();
+    }
+    return new Promise((resolve) => {
+        setTimeout(resolve, timeout);
+    });
 }
 
 export function uniqueId() {
@@ -152,4 +161,26 @@ export function parseError(err) {
 export function isBoundFunction(fn) {
     // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/toString#description
     return typeof fn === 'function' ? fn.toString() === 'function () { [native code] }' : false;
+}
+
+/**
+ * Formats a string label by received attributes
+ *
+ * @example
+ * formatLabel('{0} Options Selects', 5); - the result will be '5 Options Selected'
+ *
+ * @param label {String} the label to format
+ * @param attributes the list of attributes to format of a string
+ * @returns {string}
+ */
+export function formatLabel() {
+    let label = arguments[0];
+    for (let i = 1; i < arguments.length; i++) {
+        label = label.replace(`{${i - 1}}`, arguments[i]);
+    }
+    return label || '';
+}
+
+export async function copyToClipboard(textToCopy) {
+    return navigator.clipboard.writeText(textToCopy);
 }

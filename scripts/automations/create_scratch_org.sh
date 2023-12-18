@@ -60,6 +60,8 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/deploy.sh
 bash ./scripts/util/run_apex_script.sh "$SCRATCH_ORG_ALIAS" set_up_org_admin
 # Sets up DigEx guest user
 bash ./scripts/util/run_apex_script.sh "$SCRATCH_ORG_ALIAS" set_up_digex_guest_user
+# Sets up logger settings
+bash ./scripts/util/run_apex_script.sh "$SCRATCH_ORG_ALIAS" set_up_log_settings
 
 # Publish Digital Experience Site
 sf community publish \

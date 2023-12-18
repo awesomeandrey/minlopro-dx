@@ -1,0 +1,84 @@
+<template>
+    <div lwc:ref="container" class="slds-form-element" data-name={name}>
+        <label if:true={label} class="slds-form-element__label">
+            <abbr if:true={required} class="slds-required">* </abbr>{label}
+        </label>
+        <div class="slds-form-element__control">
+            <div class="slds-combobox_container">
+                <!--DROPDOWN-->
+                <div class={dynamicClassName}>
+                    <!--INPUT-->
+                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                        <input
+                            if:false={doDisable}
+                            class="slds-input slds-combobox__input"
+                            value={inputValueLabel}
+                            placeholder={normalizedPlaceholder}
+                            readonly
+                            onclick={handleDropdownInputClick}
+                        />
+                        <input
+                            if:true={doDisable}
+                            class="slds-input slds-combobox__input"
+                            placeholder={normalizedPlaceholder}
+                            disabled
+                        />
+                        <span class="slds-icon_container slds-input__icon slds-input__icon_right">
+                            <lightning-icon icon-name="utility:down" size="xx-small" alternative-text="Down"></lightning-icon>
+                        </span>
+                    </div>
+                    <!--OPTIONS CONTAINER-->
+                    <div
+                        class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid slds-listbox_vertical"
+                        role="listbox"
+                        tabindex="-1"
+                        onclick={handleDropdownOptionsContainerClick}
+                    >
+                        <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                            <template for:each={normalizedOptions} for:item="option">
+                                <li
+                                    key={option.value}
+                                    data-value={option.value}
+                                    role="presentation"
+                                    class="slds-listbox__item"
+                                    onclick={handleDropdownOptionClick}
+                                >
+                                    <div class="slds-media slds-listbox__option slds-listbox__option_plain slds-media_small">
+                                        <span if:false={multiSelect} class="slds-media__figure slds-listbox__option-icon">
+                                            <lightning-icon
+                                                if:true={option.selected}
+                                                icon-name="utility:check"
+                                                size="x-small"
+                                                alternative-text="Selected"
+                                            ></lightning-icon>
+                                        </span>
+                                        <span if:true={multiSelect} class="slds-media__figure slds-listbox__option-icon">
+                                            <div class="slds-checkbox">
+                                                <input if:true={option.selected} type="checkbox" checked />
+                                                <input if:false={option.selected} type="checkbox" />
+                                                <label class="slds-checkbox__label slds-grid">
+                                                    <span class="slds-checkbox_faux"></span>
+                                                    <span class="slds-form-element__label"></span>
+                                                </label>
+                                            </div>
+                                        </span>
+                                        <span if:true={option.iconName} class="slds-media__figure slds-listbox__option-icon">
+                                            <lightning-icon
+                                                icon-name={option.iconName}
+                                                size="x-small"
+                                                alternative-text={option.iconName}
+                                            ></lightning-icon>
+                                        </span>
+                                        <span class="slds-truncate" title={option.label}> {option.label} </span>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--ERROR MESSAGE-->
+        <div class="slds-form-element__help">{normalizedErrorMessage}</div>
+    </div>
+</template>

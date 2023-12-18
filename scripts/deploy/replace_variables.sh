@@ -4,7 +4,6 @@
 # - bash ./scripts/deploy/replace_variables.sh
 
 echo "🔵 Replacing variables with secrets/values..."
-echo
 
 # Step 1 - Load all environment variables into 'build/.env' file;
 mkdir -p "build"
@@ -53,7 +52,8 @@ cat "$fileWithEnvVariables" | sed -e '$a\' | while IFS='=' read -r key value; do
            "**/authproviders/**" \
            "**/namedCredentials/**" \
            "**/customMetadata/**" \
-           "**/connectedApps/**"
+           "**/connectedApps/**" \
+           "**/classes/rest/**"
     fi
 done < "$fileWithEnvVariables"
 git status --porcelain
