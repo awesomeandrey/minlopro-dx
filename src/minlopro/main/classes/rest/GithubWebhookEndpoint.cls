@@ -28,7 +28,7 @@ global with sharing class GithubWebhookEndpoint {
             if (!isSubscribedEvent(event)) {
                 String infoMessage = String.format('Unsubscribed event: {0}.', Lists.of(requestBody));
                 Logger.error(infoMessage);
-                res.statusCode = 400;
+                res.statusCode = 202;
                 res.responseBody = Blob.valueOf(infoMessage);
                 return;
             }
@@ -82,7 +82,7 @@ global with sharing class GithubWebhookEndpoint {
             return false;
         }
         // Filter by workflow name;
-        final Set<String> subscribedWorkflowNames = Sets.of('Deploy Source', 'Reset Destructive Manifests');
+        final Set<String> subscribedWorkflowNames = Sets.of('Deploy Source', 'Validate Pull Request');
         Iterator<String> it = subscribedWorkflowNames.iterator();
         while (it.hasNext()) {
             if (event.workflow_run.name.startsWithIgnoreCase(it.next())) {
@@ -98,7 +98,13 @@ global with sharing class GithubWebhookEndpoint {
         Logger.debug('WF Status: {0}', Lists.of(event.workflow_run.status));
         Logger.debug('WF Conclusion: {0}', Lists.of(event.workflow_run.conclusion));
         // Prepare the Flow input variables;
-        List<String> recipientIds = Lists.of('0057a00000G8HsLAAV'); // TODO - Org Admin;
+        Group adminsGroup = [
+            SELECT Id, Name, DeveloperName
+            FROM Group
+            WHERE DeveloperName = 'OrgAdmins' AND Type = 'Regular'
+            LIMIT 1
+        ];
+        List<String> recipientIds = Lists.of(adminsGroup.Id);
         String message = event.workflow_run.composeMessage();
         String targetPageRef = JSON.serialize(
             new Map<String, Object>{

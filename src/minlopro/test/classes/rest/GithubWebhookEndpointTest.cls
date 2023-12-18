@@ -29,7 +29,7 @@ private class GithubWebhookEndpointTest {
         GithubWebhookEndpoint.doPost();
         Test.stopTest();
         System.assertEquals(
-            400,
+            202,
             RestContext.response.statusCode,
             'Request with valid signature but unsubscribed event should have failed with 400 HTTP status code.'
         );

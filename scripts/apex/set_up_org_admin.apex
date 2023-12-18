@@ -59,3 +59,8 @@ if (hasFailedPsAssignment) {
             Lists.of(JSON.serializePretty(runningUser))
     ));
 }
+
+// Add user to 'Org Admins' public group;
+Group targetGroup = [SELECT Id FROM Group WHERE DeveloperName = 'OrgAdmins' LIMIT 1];
+GroupMember gm = new GroupMember(GroupId = targetGroup.Id, UserOrGroupId = userId);
+Database.insert(gm, false);
