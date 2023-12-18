@@ -1,9 +1,11 @@
 @RestResource(UrlMapping='/github')
 global with sharing class GithubWebhookEndpoint {
     @TestVisible
-    private static final String GITHUB_WEBHOOK_SECRET = '@SF_GITHUB_WEBHOOK_SECRET'; // Environment variable;
+    private static String GITHUB_WEBHOOK_SECRET = '@SF_GITHUB_WEBHOOK_SECRET'; // Environment variable;
     @TestVisible
     private static final String GITHUB_SIGNATURE_HEADER = 'X-Hub-Signature-256';
+    @TestVisible
+    private static final String GITHUB_SIGNATURE_PREFIX = 'sha256';
 
     @HttpPost
     global static void doPost() {
@@ -19,7 +21,10 @@ global with sharing class GithubWebhookEndpoint {
             }
             // Process the GitHub event;
             String requestBody = req.requestBody.toString();
-            GitHubEvent event = (GitHubEvent) JSON.deserialize(requestBody, GitHubEvent.class);
+            GithubWebhookEndpoint.Event event = (GithubWebhookEndpoint.Event) JSON.deserialize(
+                requestBody,
+                GithubWebhookEndpoint.Event.class
+            );
             if (!isSubscribedEvent(event)) {
                 String infoMessage = String.format('Unsubscribed event: {0}.', Lists.of(requestBody));
                 Logger.error(infoMessage);
@@ -45,12 +50,15 @@ global with sharing class GithubWebhookEndpoint {
             return false;
         }
         String requestBodyString = req.requestBody.toString();
-        String expectedSignature = 'sha256=' + generateHmacSHA256(requestBodyString, GITHUB_WEBHOOK_SECRET);
+        String expectedSignature = String.format(
+            '{0}={1}',
+            Lists.of(GITHUB_SIGNATURE_PREFIX, generateHmacSHA256(requestBodyString, GITHUB_WEBHOOK_SECRET))
+        );
         String actualSignature = req.headers.get(GITHUB_SIGNATURE_HEADER);
         return expectedSignature.equals(actualSignature);
     }
 
-    private static Boolean isSubscribedEvent(GitHubEvent event) {
+    private static Boolean isSubscribedEvent(GithubWebhookEndpoint.Event event) {
         if (event.workflow_run == null) {
             return false;
         }
@@ -74,7 +82,7 @@ global with sharing class GithubWebhookEndpoint {
             return false;
         }
         // Filter by workflow name;
-        final Set<String> subscribedWorkflowNames = Sets.of('Validate Pull Request', 'Reset Destructive Manifests');
+        final Set<String> subscribedWorkflowNames = Sets.of('Deploy Source', 'Reset Destructive Manifests');
         Iterator<String> it = subscribedWorkflowNames.iterator();
         while (it.hasNext()) {
             if (event.workflow_run.name.startsWithIgnoreCase(it.next())) {
@@ -84,7 +92,7 @@ global with sharing class GithubWebhookEndpoint {
         return false;
     }
 
-    private static void sendNotificationToAdmin(GitHubEvent event) {
+    private static void sendNotificationToAdmin(GithubWebhookEndpoint.Event event) {
         Logger.debug('Notification for [{0}] github event.', Lists.of(event.workflow_run?.name));
         Logger.debug('Event Action: {0}', Lists.of(event.action));
         Logger.debug('WF Status: {0}', Lists.of(event.workflow_run.status));
@@ -105,7 +113,9 @@ global with sharing class GithubWebhookEndpoint {
         inputParametersMap.put('message', message);
         inputParametersMap.put('targetPageRef', targetPageRef);
         // Invoke Flow;
-        Flow.Interview.createInterview(flowApiName, inputParametersMap).start();
+        if (!Test.isRunningTest()) {
+            Flow.Interview.createInterview(flowApiName, inputParametersMap).start();
+        }
     }
 
     @TestVisible
@@ -114,7 +124,7 @@ global with sharing class GithubWebhookEndpoint {
         return EncodingUtil.convertToHex(mac);
     }
 
-    public class GitHubEvent {
+    public class Event {
         public String action; // 'completed', 'requested'
         public WorkflowRun workflow_run;
     }
