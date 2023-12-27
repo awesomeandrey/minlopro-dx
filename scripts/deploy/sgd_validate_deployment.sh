@@ -37,6 +37,7 @@ read -p "🔶 Enter target org alias to validate deploy against: " TARGET_ORG_AL
 
 # Otherwise validate deployment;
 echo "🔵 Validating partial deployment against [$TARGET_ORG_ALIAS] organization..."
+echo
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "$sgdPackageXml" \

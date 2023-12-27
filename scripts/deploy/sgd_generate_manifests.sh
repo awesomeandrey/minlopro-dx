@@ -8,6 +8,7 @@ read -p "🔶 Enter branch name / commit SHA to capture changes FROM: " FROM_REF
 read -p "🔶 Enter branch name / commit SHA to capture changes UP TO: " TO_REF
 
 echo "🔵 Generating XML manifests from [$FROM_REF] to [$TO_REF]..."
+echo
 
 # Define constants;
 srcFolder="src"

@@ -5,7 +5,8 @@
 # - echo "ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 
 read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
-echo "🔵 Running PRE-Deploy Scripts against [$TARGET_ORG_ALIAS] organization..."
+echo "📗 Running PRE-Deploy Scripts against [$TARGET_ORG_ALIAS] organization..."
+echo
 
 # Step 2: Run Custom Shell Scripts;
 customScriptsDir="./scripts/deploy/pre/custom"

@@ -15,6 +15,7 @@ read -p "🔶 Enter Scratch Org Alias: " SCRATCH_ORG_ALIAS
 read -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
 
 echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
+echo
 
 # Create a brand new scratch org AND set it as a DEFAULT ORG!
 sf org create scratch \

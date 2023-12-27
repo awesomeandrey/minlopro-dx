@@ -5,7 +5,8 @@
 # - echo "ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh
 
 read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
-echo "🔵 Running POST-Deploy Scripts against [$TARGET_ORG_ALIAS] organization..."
+echo "📗 Running POST-Deploy Scripts against [$TARGET_ORG_ALIAS] organization..."
+echo
 
 # Step 1: Run Custom Apex Scripts;
 apexFilesDir="./scripts/deploy/post/apex"

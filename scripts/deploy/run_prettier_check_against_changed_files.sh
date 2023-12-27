@@ -21,6 +21,7 @@ if [ -d "$buildFolderName" ]; then
 fi
 
 echo "🔵 Running prettier checks against baseRef [$baseRef]..."
+echo
 
 # Create 'build' folder;
 mkdir -p "$buildFolderName"
