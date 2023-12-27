@@ -1,5 +1,6 @@
-const fs = require("fs");
-const xml2js = require("xml2js");
+import fs from "fs";
+import path from "path";
+import xml2js from "xml2js";
 
 /**
  * How to use:
@@ -9,7 +10,7 @@ const xml2js = require("xml2js");
 const $Parser = new xml2js.Parser();
 const $Builder = new xml2js.Builder();
 
-// Function to remove '<types>' tags;
+// Function to remove '<types>' tags
 function resetManifestXmlContent(xmlObject) {
   if (xmlObject && typeof xmlObject === "object") {
     Object.keys(xmlObject).forEach(key => {
@@ -23,30 +24,25 @@ function resetManifestXmlContent(xmlObject) {
 }
 
 // Invoke file cleanup for each destructive manifest file
-[
-  "manifests/destructiveChangesPre.xml",
-  "manifests/destructiveChangesPost.xml"
-].forEach(manifestFilePath => {
-  // Read the XML file
-  fs.readFile(manifestFilePath, (err, data) => {
-    if (err) {
-      throw new Error(`Error reading XML file: ${err}`);
+(async filesArray => {
+  for (const manifestFilePath of filesArray) {
+    try {
+      // Resolve absolute file path
+      const absoluteFilePath = path.resolve(manifestFilePath);
+      // Read raw file content
+      const fileContentAsString = await fs.promises.readFile(absoluteFilePath, "utf-8");
+      // Convert file content to XML object
+      const fileContentAsXmlObject = await $Parser.parseStringPromise(fileContentAsString);
+      // Normalize XML tree
+      resetManifestXmlContent(fileContentAsXmlObject);
+      // Convert JavaScript object back to XML representation
+      const resultXml = $Builder.buildObject(fileContentAsXmlObject);
+      // Write back to XML file
+      await fs.promises.writeFile(absoluteFilePath, resultXml);
+      console.log(`Successfully written to [${manifestFilePath}].`);
+    } catch (error) {
+      console.error(`Error resetting [${manifestFilePath}] manifest`, error);
+      process.exit(1);
     }
-    // Parse XML to JavaScript object
-    $Parser.parseString(data, (err, xmlAsObject) => {
-      if (err) {
-        throw new Error(`Error parsing XML file: ${err}`);
-      }
-      resetManifestXmlContent(xmlAsObject);
-      // Convert JavaScript object back to XML
-      const xml = $Builder.buildObject(xmlAsObject);
-      // Write the modified XML
-      fs.writeFile(manifestFilePath, xml, (err) => {
-        if (err) {
-          throw new Error(`Error writing the modified XML file: ${err}`);
-        }
-        console.log(`Successfully written to ${manifestFilePath}`);
-      });
-    });
-  });
-});
+  }
+})(["manifests/destructiveChangesPre.xml", "manifests/destructiveChangesPost.xml"]);
