@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # How to use:
-# - bash ./scripts/deploy/replace_variables.sh
+# - bash ./scripts/deploy/pre/custom/replace_variables.sh
 
 echo "🔵 Replacing variables with secrets/values..."
 

@@ -31,20 +31,13 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $SF_AUTH_URL
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $SF_AUTH_URL --orgAlias TargetOrg
+      - name: "Run PRE-Deploy Scripts"
+        run: echo "TargetOrg" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Deploy Source to Target Org'
-        run: |
-          npm run sf:manifest:create
-          bash ./scripts/deploy/replace_variables.sh
-          npm run src:deploy:full
-      - name: 'Custom Post-Deployment Steps'
-        run: |
-          targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
-          bash ./scripts/util/run_apex_script.sh $targetOrgAlias set_up_org_admin
-          bash ./scripts/util/run_apex_script.sh $targetOrgAlias set_up_digex_guest_user
-          bash ./scripts/util/run_apex_script.sh $targetOrgAlias set_up_log_settings
-          echo $targetOrgAlias | bash ./scripts/util/delete_all_apex_logs.sh
-          echo $targetOrgAlias | bash ./scripts/util/delete_obsolete_flow_versions.sh
+        run: npm run sf:manifest:create && echo "TargetOrg" | bash ./scripts/deploy/deploy.sh
+      - name: 'Run POST-Deploy Scripts'
+        run: echo "TargetOrg" | bash ./scripts/deploy/post/run_post.sh
   run-apex-tests:
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-latest

@@ -5,8 +5,7 @@
 # - echo $ORG_ALIAS | bash ./scripts/util/export_sample_data.sh
 
 # Capture target org alias;
-echo "🔶 Enter target org alias:"
-read TARGET_ORG_ALIAS
+read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 echo "🔵 Exporting sample data from [$TARGET_ORG_ALIAS]..."
 

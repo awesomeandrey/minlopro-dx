@@ -5,8 +5,7 @@
 # - echo 'ORG_ALIAS' | bash ./scripts/deploy/validate.sh
 
 # Capture target org alias;
-echo "🔶 Enter target org alias to validate deploy against:"
-read TARGET_ORG_ALIAS
+read -p "🔶 Enter target org alias to validate deploy against: " TARGET_ORG_ALIAS
 
 # Invoke source deploy to target org (dry-run);
 echo "🔵 Validate deployment against [$TARGET_ORG_ALIAS] organization..."

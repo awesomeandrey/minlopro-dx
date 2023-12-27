@@ -33,11 +33,11 @@ if (($sgdPackageXmlLinesCount < 6)) && (($preDestructiveChangesXmlLinesCount < 6
 fi
 
 # Capture target org alias;
-echo "🔶 Enter target org alias to validate deploy against:"
-read TARGET_ORG_ALIAS
+read -p "🔶 Enter target org alias to validate deploy against: " TARGET_ORG_ALIAS
 
 # Otherwise validate deployment;
 echo "🔵 Validating partial deployment against [$TARGET_ORG_ALIAS] organization..."
+echo
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "$sgdPackageXml" \

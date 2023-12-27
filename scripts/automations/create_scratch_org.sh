@@ -8,23 +8,19 @@
 set -e
 
 # Capture DevHub org alias;
-echo "🔶 Enter DevHub Alias:"
-read DEV_HUB_ALIAS
-
+read -p "🔶 Enter DevHub Alias: " DEV_HUB_ALIAS
 # Capture Scratch Org alias;
-echo "🔶 Enter Scratch Org Alias:"
-read SCRATCH_ORG_ALIAS
-
+read -p "🔶 Enter Scratch Org Alias: " SCRATCH_ORG_ALIAS
 # Capture Admin email address alias;
-echo "🔶 Enter Admin Email Address:"
-read ADMIN_EMAIL
+read -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
 
 echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
+echo
 
 # Create a brand new scratch org AND set it as a DEFAULT ORG!
 sf org create scratch \
-    --target-dev-hub $DEV_HUB_ALIAS \
-    --alias $SCRATCH_ORG_ALIAS \
+    --target-dev-hub "$DEV_HUB_ALIAS" \
+    --alias "$SCRATCH_ORG_ALIAS" \
     --definition-file "config/project-scratch-def.json" \
     --admin-email $ADMIN_EMAIL \
     --set-default \
@@ -33,40 +29,28 @@ sf org create scratch \
     --wait 10
 sf config list
 
-# Replace environment variables
-bash ./scripts/deploy/replace_variables.sh
-
 # Reset Admin user password and display it to console
-sf org generate password --target-org $SCRATCH_ORG_ALIAS
+sf org generate password --target-org "$SCRATCH_ORG_ALIAS"
 orgCredentialsFile="build/$ADMIN_EMAIL-scratch-org-credentials.txt"
 mkdir -p "build"
 touch $orgCredentialsFile
 echo "📜 Scratch Org Credentials"
-sf org display user --target-org $SCRATCH_ORG_ALIAS --json >> $orgCredentialsFile
-sf org display --target-org $SCRATCH_ORG_ALIAS --verbose --json >> $orgCredentialsFile
+sf org display user --target-org "$SCRATCH_ORG_ALIAS" --json >> $orgCredentialsFile
+sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json >> $orgCredentialsFile
 cat $orgCredentialsFile
 
-# Optional: install packages here.
+# Run PRE-deploy scripts
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 
-# Generate project manifest
-sf project generate manifest \
-    --source-dir "src" \
-    --name "manifests/package.xml"
-
-# Initiate full deploy to scratch org (this automatically creates Digital Experience Site)
+# Generate project manifest and initiate full deploy to scratch org (this automatically creates Digital Experience Site)
+sf project generate manifest --source-dir "src" --name "manifests/package.xml"
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/deploy.sh
 
-# Sets up admin user
-bash ./scripts/util/run_apex_script.sh "$SCRATCH_ORG_ALIAS" set_up_org_admin
-# Sets up DigEx guest user
-bash ./scripts/util/run_apex_script.sh "$SCRATCH_ORG_ALIAS" set_up_digex_guest_user
-# Sets up logger settings
-bash ./scripts/util/run_apex_script.sh "$SCRATCH_ORG_ALIAS" set_up_log_settings
+# Run POST-deploy scripts
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh
 
 # Publish Digital Experience Site
-sf community publish \
-  --name "DigEx" \
-  --target-org "$SCRATCH_ORG_ALIAS"
+sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS"
 
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh

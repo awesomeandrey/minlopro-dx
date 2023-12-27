@@ -4,8 +4,7 @@
 # - bash ./scripts/util/export_setup_audit_trail.sh
 
 # Capture target org alias;
-echo "🔶 Enter target org alias:"
-read TARGET_ORG_ALIAS
+read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 echo "🔵 Exporting Audit Trail from [$TARGET_ORG_ALIAS] organization..."
 
