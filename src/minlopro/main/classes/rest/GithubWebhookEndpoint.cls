@@ -179,10 +179,10 @@ global with sharing class GithubWebhookEndpoint {
 
         public String composeMessage() {
             if (this.status.equalsIgnoreCase('queued')) {
-                return String.format('Workflow [{0}] has been {1}{2}.', Lists.of(this.name, this.status, this.statusIcon));
+                return String.format('Workflow "{0}" has been {1} {2}.', Lists.of(this.name, this.status, this.statusIcon));
             } else {
                 return String.format(
-                    'Workflow [{0}] has {1} with conclusion [{2}{3}].',
+                    'Workflow "{0}" has {1} with conclusion "{2} {3}".',
                     new List<String>{ this.name, this.status, this.conclusion, this.conclusionIcon }
                 );
             }
