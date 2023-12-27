@@ -5,8 +5,7 @@
 # - echo 'ORG_ALIAS' | bash ./scripts/deploy/deploy.sh
 
 # Capture target org alias;
-echo "🔶 Enter target org alias to run hard deploy against:"
-read TARGET_ORG_ALIAS
+read -p "🔶 Enter target org alias to run hard deploy against: " TARGET_ORG_ALIAS
 
 # Invoke source deploy to target org;
 echo "🔵 Deploying to [$TARGET_ORG_ALIAS] organization..."

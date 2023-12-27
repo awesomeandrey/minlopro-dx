@@ -13,8 +13,7 @@ changedFiles="changedFiles.txt"
 changedFilesPath="$buildFolderName/$changedFiles"
 
 # Capture target org alias;
-echo "🔶 Enter target branch name to compare changes against:"
-read baseRef
+read -p "🔶 Enter target branch name to compare changes against: " baseRef
 
 # Delete 'build' folder if it exists;
 if [ -d "$buildFolderName" ]; then

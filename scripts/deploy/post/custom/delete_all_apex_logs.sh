@@ -1,11 +1,10 @@
 #!/bin/bash
 
 # How to use:
-# - bash ./scripts/util/delete_all_apex_logs.sh
+# - bash ./scripts/deploy/post/custom/delete_all_apex_logs.sh
 
 # Capture target org alias;
-echo "🔶 Enter target org alias:"
-read TARGET_ORG_ALIAS
+read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 echo "🔵 Purging Apex Logs from [$TARGET_ORG_ALIAS] organization..."
 

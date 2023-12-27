@@ -36,12 +36,12 @@ sfAuthUrlFile="$buildFolder/target-org-auth-url.txt"
 echo "🔵 Authorizing [$orgAlias] organization..."
 echo
 
-# Save sf auth URL into a text file
+# Save sf auth URL into a text file;
 mkdir -p "$buildFolder"
 touch $sfAuthUrlFile
 echo $sfdxUrl > "$sfAuthUrlFile"
 
-# Authorize Salesforce org and set it as default one
+# Authorize Salesforce org and set it as default one;
 sf org login sfdx-url \
   --sfdx-url-file $sfAuthUrlFile \
   --alias "$orgAlias" \

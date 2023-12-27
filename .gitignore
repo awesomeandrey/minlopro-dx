@@ -26,4 +26,5 @@ manifests/package.xml
 application.properties
 
 # Playground Files
+playground/
 scripts/playground

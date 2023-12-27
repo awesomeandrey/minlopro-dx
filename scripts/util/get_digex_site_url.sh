@@ -8,8 +8,7 @@
 set -e
 
 # Capture target org alias;
-echo "🔶 Enter target org alias:"
-read TARGET_ORG_ALIAS
+read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 # Query to get the Site Id;
 siteId=$(sf data query --query "SELECT Id FROM Site WHERE Name = 'DigEx'" --target-org $TARGET_ORG_ALIAS --json | jq -r '.result.records[0].Id')
