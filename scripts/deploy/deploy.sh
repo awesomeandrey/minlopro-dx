@@ -9,7 +9,6 @@ read -p "🔶 Enter target org alias to run hard deploy against: " TARGET_ORG_AL
 
 # Invoke source deploy to target org;
 echo "🔵 Deploying to [$TARGET_ORG_ALIAS] organization..."
-echo
 sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "manifests/package.xml" \

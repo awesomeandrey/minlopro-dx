@@ -7,7 +7,6 @@
 read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 echo "🔵 Purging Apex Logs from [$TARGET_ORG_ALIAS] organization..."
-echo
 
 # Define constants;
 buildFolderName="build"
@@ -24,6 +23,7 @@ sf data query \
 wordsCount=$(wc -w < $apexLogsCsvFilePath)
 if (($wordsCount < 10)); then
   echo 'There are not so many Apex Logs to delete so far.'
+  echo
   rm $apexLogsCsvFilePath
   exit 0
 fi

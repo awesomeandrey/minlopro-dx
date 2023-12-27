@@ -7,7 +7,6 @@
 read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 echo "🔵 Purging obsolete Flow Versions from [$TARGET_ORG_ALIAS] organization..."
-echo
 
 # Define constants;
 buildFolderName="build"
@@ -23,6 +22,7 @@ sf data query \
 
 if ! grep -q Id "$csvFileName"; then
   echo 'No obsolete flow versions to delete.'
+  echo
   rm $csvFileName
   exit 0
 fi

@@ -34,7 +34,6 @@ fi
 buildFolder="build"
 sfAuthUrlFile="$buildFolder/target-org-auth-url.txt"
 echo "🔵 Authorizing [$orgAlias] organization..."
-echo
 
 # Save sf auth URL into a text file;
 mkdir -p "$buildFolder"

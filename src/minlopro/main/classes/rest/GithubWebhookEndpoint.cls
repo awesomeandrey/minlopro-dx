@@ -142,13 +142,48 @@ global with sharing class GithubWebhookEndpoint {
         public String status; // 'queued', 'completed';
         public String conclusion; // null, 'failure', 'success';
 
+        private final String statusIcon {
+            get {
+                switch on this.status {
+                    when 'queued' {
+                        return '▶️';
+                    }
+                    when 'completed' {
+                        return '🔚';
+                    }
+                    when else {
+                        return '⚠️';
+                    }
+                }
+            }
+        }
+
+        private final String conclusionIcon {
+            get {
+                switch on this.conclusion {
+                    when null {
+                        return '⚠️';
+                    }
+                    when 'failure' {
+                        return '❌';
+                    }
+                    when 'success' {
+                        return '✅';
+                    }
+                    when else {
+                        return '⚠️';
+                    }
+                }
+            }
+        }
+
         public String composeMessage() {
             if (this.status.equalsIgnoreCase('queued')) {
-                return String.format('Workflow [{0}] has been {1}.', Lists.of(this.name, this.status));
+                return String.format('Workflow [{0}] has been {1}{2}.', Lists.of(this.name, this.status, this.statusIcon));
             } else {
                 return String.format(
-                    'Workflow [{0}] has {1} with conclusion [{2}].',
-                    Lists.of(this.name, this.status, this.conclusion)
+                    'Workflow [{0}] has {1} with conclusion [{2}{3}].',
+                    new List<String>{ this.name, this.status, this.conclusion, this.conclusionIcon }
                 );
             }
         }
