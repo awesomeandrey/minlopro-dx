@@ -1,11 +1,11 @@
 import { createElement } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import AuraPubsub from 'c/auraPubsub';
-
-const flushPromises = require('flush-promises');
+import flushPromises from 'flush-promises';
 
 // Mocked Page Reference;
-const MOCKED_APP_PAGE_REF = require('../../../../test/jest-mocks/pageReferences/appPageRef.json');
+import MOCKED_APP_PAGE_REF from '../../../../test/jest-mocks/pageReferences/appPageRef.json';
+
 // Custom Event Name(s);
 const EVENT_NAME1 = 'customEvt_1';
 const EVENT_NAME2 = 'customEvt_2';

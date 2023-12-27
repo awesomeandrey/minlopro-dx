@@ -1,6 +1,5 @@
 import * as $Utils from 'c/utilities';
-
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 describe('Invoke utilities in "minlopro-core.js"', () => {
     it('to()', async () => {
