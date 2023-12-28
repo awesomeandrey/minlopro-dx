@@ -3,6 +3,16 @@ import { uniqueId } from 'c/utilities';
 // Picklist values separator character for multi-select combobox;
 export const MULTI_PICKLIST_SEPARATOR = ';';
 
+export const isElementCloseToViewportBottom = (element, threshold = 100) => {
+    const rect = element.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const bottomPosition = rect.bottom;
+    // Distance from the bottom of the element to the bottom of the viewport
+    const distanceFromBottom = viewportHeight - bottomPosition;
+    // Check if the distance is less than the threshold
+    return distanceFromBottom <= threshold;
+};
+
 // Combobox Focused State Manager;
 export const FocusedStateManager = (function () {
     const uniqueComboboxIds = new Set();
@@ -24,3 +34,63 @@ export const FocusedStateManager = (function () {
         }
     };
 })();
+
+// Combobox Fixed Mode Monitor;
+export class FixedDropdownMonitor {
+    constructor({ selectInputElement, selectDropdownElement, hideDropdown }) {
+        this.selectInputElement = selectInputElement;
+        this.selectDropdownElement = selectDropdownElement;
+        this.hideDropdown = hideDropdown;
+        this.originalInputRect = null;
+        this.checkIntervalId = null;
+    }
+
+    get $input() {
+        return this.selectInputElement();
+    }
+
+    get $dropdown() {
+        return this.selectDropdownElement();
+    }
+
+    applyAndObserve() {
+        if (this.checkIntervalId !== null) return;
+
+        // Capture original input coordinates;
+        this.originalInputRect = this.$input.getBoundingClientRect();
+
+        // In 'fixed' mode the dropdown gets closed upon any actions out of combobox;
+        window.addEventListener('resize', this.hideDropdown, { once: true, capture: false });
+        window.addEventListener('scroll', this.hideDropdown, { once: true, capture: false });
+
+        // Override dropdown positioning from 'absolute' to 'fixed' coordinates;
+        const dropdownElement = this.$dropdown;
+        const rect = dropdownElement.getBoundingClientRect();
+        dropdownElement.style.position = 'fixed';
+        dropdownElement.style.top = (() => {
+            if (isElementCloseToViewportBottom(this.$input, 230)) {
+                let { height: inputHeight } = this.originalInputRect;
+                return `${rect.top - rect.height - inputHeight * 1.2}px`;
+            }
+            return `${rect.top}px`;
+        })();
+        dropdownElement.style.left = `${rect.left}px`;
+        dropdownElement.style.width = `${rect.width}px`;
+        dropdownElement.style.transform = 'none';
+
+        // Launch interval check;
+        this.checkIntervalId = setInterval(() => {
+            const inputRect = this.$input?.getBoundingClientRect();
+            if (inputRect.top !== this.originalInputRect.top || inputRect.left !== this.originalInputRect.left) {
+                this.hideDropdown();
+            }
+        }, 20);
+    }
+
+    unobserve() {
+        clearInterval(this.checkIntervalId);
+        this.checkIntervalId = null;
+        window.removeEventListener('resize', this.hideDropdown, { capture: false });
+        window.removeEventListener('scroll', this.hideDropdown, { capture: false });
+    }
+}
