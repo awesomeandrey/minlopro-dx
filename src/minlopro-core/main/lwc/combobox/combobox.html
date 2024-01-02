@@ -6,9 +6,13 @@
         <div class="slds-form-element__control">
             <div class="slds-combobox_container">
                 <!--DROPDOWN-->
-                <div class={dynamicClassName}>
+                <div class={comboboxClassName}>
                     <!--INPUT-->
-                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                    <div
+                        lwc:ref="input"
+                        class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right"
+                        role="none"
+                    >
                         <input
                             if:false={doDisable}
                             class="slds-input slds-combobox__input"
@@ -29,7 +33,9 @@
                     </div>
                     <!--OPTIONS CONTAINER-->
                     <div
-                        class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid slds-listbox_vertical"
+                        if:true={isOpen}
+                        lwc:ref="dropdown"
+                        class={dropdownClassName}
                         role="listbox"
                         tabindex="-1"
                         onclick={handleDropdownOptionsContainerClick}

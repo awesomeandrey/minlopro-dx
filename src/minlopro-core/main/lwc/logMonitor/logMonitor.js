@@ -148,6 +148,16 @@ export default class LogMonitor extends LightningElement {
                 visible: true
             },
             {
+                fieldName: 'author',
+                label: 'Author',
+                visible: true,
+                cellAttributes: {
+                    iconName: {
+                        fieldName: 'authorIconName'
+                    }
+                }
+            },
+            {
                 fieldName: 'data.Quiddity',
                 label: 'Quiddity',
                 initialWidth: 150,
@@ -391,18 +401,26 @@ export default class LogMonitor extends LightningElement {
                 createdDate,
                 data
             });
+
             // Custom attributes;
             logItem.stacktrace = `${data.Class}.cls > ${data.Method}() > Line #${data.Line}`;
             logItem.iconName = debugLevel === 'ERROR' ? 'utility:bug' : 'utility:info';
             logItem.logOwnerIds = matchedLogOwners.map(({ ownerId }) => ownerId);
+
+            // Extract log author;
+            logItem.author = matchedLogOwners[0].name;
+            logItem.authorIconName = matchedLogOwners[0].type === 'user' ? 'standard:user' : 'standard:individual';
+
             // Calculate 'elapsed' time for the context;
             const currentTimestamp = new Date(createdDate).getTime();
             const lastTimestamp = this.lastTimestampByContextId[contextId] || currentTimestamp;
             logItem.elapsed = currentTimestamp - lastTimestamp;
             this.lastTimestampByContextId[contextId] = lastTimestamp;
+
             // Push log item into the store;
             const existingLogs = this.logsByContextId[contextId] || [];
             this.logsByContextId[contextId] = [...existingLogs, logItem];
+
             // Render Tree Grid;
             this.logsByContextId = cloneObject(this.logsByContextId);
         }
@@ -429,6 +447,10 @@ export default class LogMonitor extends LightningElement {
         const { authorId, authorProfileId } = logEvent;
         return this.logOwners
             .filter(({ ownerId }) => this.selectedLogOwnerIds.includes(ownerId))
-            .filter(({ ownerId }) => ownerId === authorId || ownerId === authorProfileId);
+            .filter(({ ownerId }) => ownerId === authorId || ownerId === authorProfileId)
+            .sort(({ type: typeA }, { type: typeB }) => {
+                // User-level log settings take precedence over Profile-level log settings;
+                return typeB.localeCompare(typeA);
+            });
     }
 }

@@ -1,6 +1,11 @@
 import { api, LightningElement, track } from 'lwc';
 import { formatLabel, isEmptyArray, isNotEmpty, uniqueId, wait } from 'c/utilities';
-import { FocusedStateManager, MULTI_PICKLIST_SEPARATOR } from 'c/comboboxUtils';
+import {
+    FocusedStateManager,
+    FixedDropdownMonitor,
+    isElementCloseToViewportBottom,
+    MULTI_PICKLIST_SEPARATOR
+} from 'c/comboboxUtils';
 
 // Custom Labels;
 import selectOptionLbl from '@salesforce/label/c.Commons_Lbl_SelectOption';
@@ -62,6 +67,13 @@ export default class Combobox extends LightningElement {
     @api disabled = false;
 
     /**
+     * Indicates dropdown panel rendering mode.
+     * Allowed values are "absolute" (default) and "fixed".
+     * @type {string}
+     */
+    @api mode = 'absolute';
+
+    /**
      * Gets the selected value(s) as a string joined by a separator.
      * For multi-select, values are joined by `MULTI_PICKLIST_SEPARATOR`.
      * For single-select, it returns the selected value.
@@ -106,6 +118,12 @@ export default class Combobox extends LightningElement {
     @track isOpen = false;
     @track hideDropdownBound = this.hideDropdown.bind(this);
     @track comboboxId = FocusedStateManager.generateId();
+    @track alignment = 'top'; // 'top' | 'bottom';
+    @track fixedDropdownMonitor = new FixedDropdownMonitor({
+        selectInputElement: () => this.$input,
+        selectDropdownElement: () => this.$dropdown,
+        hideDropdown: this.hideDropdownBound
+    });
 
     get normalizedOptions() {
         const result = this.options.map((option) => ({
@@ -167,7 +185,11 @@ export default class Combobox extends LightningElement {
         return isNotEmpty(this.value);
     }
 
-    get dynamicClassName() {
+    get isFixedMode() {
+        return this.mode === 'fixed';
+    }
+
+    get comboboxClassName() {
         const classNames = ['slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click'];
         if (this.isOpen) {
             classNames.push(SLDS_IS_OPEN_CLASS_NAME);
@@ -175,8 +197,24 @@ export default class Combobox extends LightningElement {
         return classNames.join(' ');
     }
 
+    get dropdownClassName() {
+        const classNames = ['slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid slds-listbox_vertical'];
+        if (this.alignment === 'bottom') {
+            classNames.push('slds-dropdown_bottom');
+        }
+        return classNames.join(' ');
+    }
+
     get $container() {
         return this.refs.container;
+    }
+
+    get $input() {
+        return this.refs.input;
+    }
+
+    get $dropdown() {
+        return this.refs.dropdown;
     }
 
     // Lifecycle Hooks;
@@ -188,6 +226,7 @@ export default class Combobox extends LightningElement {
     renderedCallback() {
         window.removeEventListener('click', this.hideDropdownBound, { capture: false });
         if (this.isOpen) {
+            // Dropdown is open;
             FocusedStateManager.focus(this.comboboxId);
             // Add event listener to close dropdown when clicked outside;
             wait(() => {
@@ -197,7 +236,21 @@ export default class Combobox extends LightningElement {
                  */
                 window.addEventListener('click', this.hideDropdownBound, { once: true, capture: false });
             });
+            if (this.isFixedMode) {
+                // Calculate dropdown position for 'fixed' mode;
+                this.fixedDropdownMonitor.applyAndObserve();
+            } else {
+                // Calculate dropdown vertical alignment for 'absolute' mode;
+                this.alignment = isElementCloseToViewportBottom(this.$input, 230) ? 'bottom' : 'top';
+            }
+        } else {
+            // Dropdown is closed;
+            this.fixedDropdownMonitor.unobserve();
         }
+    }
+
+    disconnectedCallback() {
+        this.fixedDropdownMonitor.unobserve();
     }
 
     // Event Handlers;

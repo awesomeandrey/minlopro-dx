@@ -24,7 +24,3 @@ manifests/package.xml
 **/minlopro-default/default
 .env
 application.properties
-
-# Playground Files
-playground/
-scripts/playground

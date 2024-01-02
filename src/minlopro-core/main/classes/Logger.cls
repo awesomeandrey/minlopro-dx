@@ -139,16 +139,12 @@ public without sharing class Logger {
         if (!objectDescribe.getDescribe().isCreateable()) {
             return false;
         }
-        // User-level;
-        LoggerSettings__c settings = LoggerSettings__c.getValues(UserInfo.getUserId());
-        if (settings == null) {
-            // Profile-level;
-            settings = LoggerSettings__c.getValues(UserInfo.getProfileId());
-        }
-        if (settings == null) {
-            // Org-default level;
-            settings = LoggerSettings__c.getOrgDefaults();
-        }
+        LoggerSettings__c userSettings = LoggerSettings__c.getValues(UserInfo.getUserId());
+        LoggerSettings__c profileSettings = LoggerSettings__c.getValues(UserInfo.getProfileId());
+        return isEnabled(userSettings) || isEnabled(profileSettings);
+    }
+
+    private static Boolean isEnabled(LoggerSettings__c settings) {
         return (settings == null) ? false : (settings.LogsEmissionDate__c >= System.today());
     }
 
