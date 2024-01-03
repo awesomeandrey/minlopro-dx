@@ -1,22 +1,26 @@
 <template>
-    <span class="slds-text-title_caps slds-p-around_small"><code>c-datatable</code> Demo</span>
-    <!--    <lightning-button-group>-->
-    <!--        <lightning-button label="Test Button" variant="brand"></lightning-button>-->
-    <!--    </lightning-button-group>-->
-    <lightning-layout>
-        <lightning-layout-item size="12" padding="around-small">
-            <div class="slds-box slds-box_x-small slds-m-bottom_xx-small">
-                <p class="slds-text-title slds-p-vertical_xx-small">No strict height defined</p>
-                <div class="table_no_height_defined">
-                    <c-datatable key-field="id" data={records} columns={columns} hide-checkbox-column></c-datatable>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"> <code>c-datatable</code> Demo</span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Reset" variant="brand" onclick={handleResetDemo}></lightning-button>
+        </lightning-button-group>
+        <lightning-layout>
+            <lightning-layout-item size="12" padding="around-small">
+                <div class="slds-box slds-box_x-small slds-m-bottom_xx-small">
+                    <div class="table_with_height_defined">
+                        <c-datatable
+                            key-field={KEY_FIELD}
+                            data={normalizedRecords}
+                            columns={columns}
+                            draft-values={draftValues}
+                            hide-checkbox-column
+                            oncellchange={handleCellChange}
+                            onsave={handleSave}
+                            oncancel={handleCancel}
+                        ></c-datatable>
+                    </div>
                 </div>
-            </div>
-            <div class="slds-box slds-box_x-small slds-m-bottom_xx-small">
-                <p class="slds-text-title slds-p-vertical_xx-small">Strict height is defined</p>
-                <div class="table_with_height_defined">
-                    <c-datatable key-field="id" data={records} columns={columns} hide-checkbox-column></c-datatable>
-                </div>
-            </div>
-        </lightning-layout-item>
-    </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
 </template>

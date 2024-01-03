@@ -1,0 +1,13 @@
+<template>
+    <div class="slds-form-element">
+        <label lwc:if={label} class="slds-form-element__label">{label}</label>
+        <div class="slds-form-element__control">
+            <template lwc:if={isReadOnly}>
+                <p class="slds-truncate" title={inputValueLabel}>{inputValueLabel}</p>
+            </template>
+            <template lwc:else>
+                <input type="text" class="slds-input" title={inputValueLabel} value={inputValueLabel} disabled />
+            </template>
+        </div>
+    </div>
+</template>
