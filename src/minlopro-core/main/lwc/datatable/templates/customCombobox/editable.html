@@ -1,10 +1,10 @@
 <template>
     <c-cdt-combobox
+        data-inputable="true"
         context={typeAttributes.context}
         field-name={typeAttributes.fieldName}
-        value={typeAttributes.value}
         options={typeAttributes.options}
         multi={typeAttributes.multi}
-        editable={typeAttributes.editable}
+        value={editedValue}
     ></c-cdt-combobox>
 </template>

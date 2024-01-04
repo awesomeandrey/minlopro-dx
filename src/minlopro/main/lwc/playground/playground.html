@@ -1,7 +1,20 @@
 <template>
     <lightning-card title="Playground">
-        <lightning-layout-item size="12" padding="around-small">
+        <div class="slds-p-around_medium">
             <span class="slds-text-title_caps">Playground goes here...</span>
-        </lightning-layout-item>
+            <lightning-record-picker
+                label="Accounts"
+                variant="label-hidden"
+                placeholder="Search Accounts..."
+                object-api-name="Account"
+                value={value}
+                display-info={displayInfo}
+                matching-info={matchingInfo}
+                onchange={handleLookupChange}
+                onblur={handleLookupBlur}
+                onerror={handleLookupError}
+            >
+            </lightning-record-picker>
+        </div>
     </lightning-card>
 </template>

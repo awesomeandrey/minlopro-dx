@@ -1,40 +1,38 @@
 import { LightningElement, api, track } from 'lwc';
 import { wait } from 'c/utilities';
 
-/**
- * TODO
- * - handle CSS styles upon changes CDT (upon hover should still have yellow background color);
- * - pencil icon should be visible upon hover only;
- * - when edited, the content should be bold;
- */
 export default class CdtCombobox extends LightningElement {
-    // Properties below address record context;
     @api context = null;
     @api fieldName = null;
-    // Properties below address 'c-combobox' LWC props;
     @api value = null;
     @api options = [];
     @api multi = false;
-    // Asserts that cell can be edited;
-    @api editable = false;
 
-    @track mode = 'read'; // 'read' or 'edit';
-    @track hasChanged = false;
-
-    get isEditMode() {
-        return this.mode === 'edit';
+    @api get validity() {
+        /**
+         * LWC datatable component requires this property since its referenced
+         * in underlying processing (see 'processInlineEditFinish()' method in base LWC 'datatable.js').
+         */
+        return { valid: true };
     }
 
-    handleClickOnPencilIcon(event) {
-        if (this.editable) {
-            this.mode = 'edit';
+    @track debugModeEnabled = false; // Turn on/off to identify bottlenecks;
+    @track hasRendered = false;
+    @track hasChanged = false;
+
+    renderedCallback() {
+        this.debugModeEnabled && console.log('CdtCombobox.js | renderedCallback()');
+        if (!this.hasRendered) {
+            this.hasRendered = true;
             wait(() => {
+                this.debugModeEnabled && console.log('CdtCombobox.js | open combobox');
                 this.refs.combobox?.open();
-            }, 300);
+            }, 500);
         }
     }
 
     handleChange(event) {
+        this.debugModeEnabled && console.log('CdtCombobox.js | handleChange()');
         event.stopPropagation();
         const { value } = event.detail;
         this.value = value;
@@ -42,26 +40,50 @@ export default class CdtCombobox extends LightningElement {
     }
 
     handleClose(event) {
-        // Revert back to 'read' display mode;
-        this.mode = 'read';
+        this.debugModeEnabled && console.log('CdtCombobox.js | handleClose()');
         // Notify parent datatable LWC;
         if (this.hasChanged) {
-            this.dispatchEvent(
-                new CustomEvent('cellchange', {
-                    composed: true,
-                    bubbles: true,
-                    cancelable: true,
-                    detail: {
-                        draftValues: [
-                            {
-                                context: this.context,
-                                [this.fieldName]: this.value
-                            }
-                        ]
-                    }
-                })
-            );
-            this.hasChanged = false;
+            this.notify();
         }
+        // Close cell edit panel;
+        this.escape();
+    }
+
+    // Service Methods;
+
+    escape() {
+        this.debugModeEnabled && console.log('CdtCombobox.js | escape()');
+        this.dispatchEvent(
+            new CustomEvent('ieditfinished', {
+                composed: true,
+                bubbles: true,
+                cancelable: false,
+                detail: {
+                    reason: 'lost-focus',
+                    rowKeyValue: this.context,
+                    colKeyValue: 'unknown'
+                }
+            })
+        );
+    }
+
+    notify() {
+        this.debugModeEnabled && console.log('CdtCombobox.js | notify()');
+        // Force changes updated;
+        this.dispatchEvent(
+            new CustomEvent('cellchange', {
+                composed: true,
+                bubbles: true,
+                cancelable: true,
+                detail: {
+                    draftValues: [
+                        {
+                            ['context']: this.context,
+                            [this.fieldName]: this.value
+                        }
+                    ]
+                }
+            })
+        );
     }
 }

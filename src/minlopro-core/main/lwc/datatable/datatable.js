@@ -6,44 +6,49 @@ import GLOBAL_STYLES from '@salesforce/resourceUrl/GlobalStyles';
 
 // Templates
 
-// Combobox based on custom LWC;
+// Base LWC combobox;
 import baseComboboxReadonlyTemplate from './templates/baseCombobox/readonly.html';
 import baseComboboxEditableTemplate from './templates/baseCombobox/editable.html';
 
-// Combobox based on base LWC;
-import customComboboxTemplate from './templates/customCombobox/combobox.html';
+// Custom LWC combobox;
+import customComboboxReadonlyTemplate from './templates/customCombobox/readonly.html';
+import customComboboxEditableTemplate from './templates/customCombobox/editable.html';
+
+// Custom Lookup;
+import customLookupReadonlyTemplate from './templates/customLookup/readonly.html';
+import customLookupEditableTemplate from './templates/customLookup/editable.html';
 
 /**
  * Inspired by https://techdicer.com/picklist-in-lwc-datatable-inline-edit/
  * + https://techdicer.com/lookup-field-in-lwc-datatable-inline-edit/
  */
 export default class Datatable extends LightningDatatable {
+    static COMMON_TYPE_ATTRIBUTES = ['value', 'fieldName', 'context', 'editable'];
     static customTypes = {
         baseCombobox: {
             template: baseComboboxReadonlyTemplate,
             editTemplate: baseComboboxEditableTemplate,
             standardCellLayout: true,
-            typeAttributes: ['value', 'options', 'context']
+            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'options']
         },
         customCombobox: {
-            template: customComboboxTemplate,
-            editTemplate: undefined,
-            standardCellLayout: false,
-            typeAttributes: ['value', 'options', 'multi', 'fieldName', 'editable', 'context']
+            template: customComboboxReadonlyTemplate,
+            editTemplate: customComboboxEditableTemplate,
+            standardCellLayout: true,
+            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'options', 'multi']
+        },
+        customLookup: {
+            template: customLookupReadonlyTemplate,
+            editTemplate: customLookupEditableTemplate,
+            standardCellLayout: true,
+            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'objectApiName', 'displayInfo', 'matchingInfo']
         }
     };
 
-    /**
-     * Note: 'constructor()' / 'connectedCallback()' overrides affect Lightning Datatable component
-     * capabilities (such as columns resizing)!
-     */
-
-    // constructor() {
-    //     super();
-    //     Promise.all([loadStyle(this, GLOBAL_STYLES + '/globalStyles.css')]).catch((error) => {
-    //         console.error('Datatable.js', error);
-    //     });
-    // }
-    //
-    // connectedCallback() {}
+    constructor() {
+        super();
+        Promise.all([loadStyle(this, GLOBAL_STYLES + '/globalStyles.css')]).catch((error) => {
+            console.error('Datatable.js', error);
+        });
+    }
 }

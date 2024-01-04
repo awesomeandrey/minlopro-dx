@@ -1,31 +1,11 @@
 <template>
-    <!--Should auto open dropdown and fire 'cellchange' event upon dropdown closure-->
-    <template lwc:if={isEditMode}>
-        <div class="slds-m-around_xx-small">
-            <c-combobox
-                lwc:ref="combobox"
-                mode="fixed"
-                multi-select={multi}
-                options={options}
-                value={value}
-                onchange={handleChange}
-                onclose={handleClose}
-            ></c-combobox>
-        </div>
-    </template>
-    <template lwc:else>
-        <div class="slds-grid slds-grid_align-spread slds-m-horizontal_x-small">
-            <div class="slds-truncate">
-                <c-combobox multi-select={multi} options={options} value={value} read-only></c-combobox>
-            </div>
-            <div class="slds-button slds-button_icon slds-cell-edit__button slds-m-left_x-small">
-                <lightning-button-icon
-                    icon-name="utility:edit"
-                    variant="bare"
-                    class="slds-m-left_xx-small"
-                    onclick={handleClickOnPencilIcon}
-                ></lightning-button-icon>
-            </div>
-        </div>
-    </template>
+    <c-combobox
+        lwc:ref="combobox"
+        mode="fixed"
+        multi-select={multi}
+        options={options}
+        value={value}
+        onchange={handleChange}
+        onclose={handleClose}
+    ></c-combobox>
 </template>

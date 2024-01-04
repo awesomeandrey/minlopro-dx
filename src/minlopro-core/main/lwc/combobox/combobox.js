@@ -135,7 +135,9 @@ export default class Combobox extends LightningElement {
     }
 
     @api open() {
-        this.isOpen = true;
+        if (!this.isDisabledOrReadOnly) {
+            this.isOpen = true;
+        }
     }
 
     @track debugModeEnabled = false; // Turn on/off to identify bottlenecks;

@@ -3,11 +3,12 @@
         <span slot="title" class="slds-text-title_caps"> <code>c-datatable</code> Demo</span>
         <lightning-button-group slot="actions">
             <lightning-button label="Reset" variant="brand" onclick={handleResetDemo}></lightning-button>
+            <lightning-button label="Set 2 Entries" onclick={handleSet2Entries}></lightning-button>
         </lightning-button-group>
         <lightning-layout>
             <lightning-layout-item size="12" padding="around-small">
                 <div class="slds-box slds-box_x-small slds-m-bottom_xx-small">
-                    <div class="table_with_height_defined">
+                    <div class="slds-no-row-hover table_with_height_defined">
                         <c-datatable
                             key-field={KEY_FIELD}
                             data={normalizedRecords}

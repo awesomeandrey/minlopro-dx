@@ -1,0 +1,29 @@
+<template>
+    <template lwc:if={isInputMode}>
+        <div onclick={handleClickContainer}>
+            <lightning-record-picker
+                lwc:ref="recordPicker"
+                label="stub"
+                variant="label-hidden"
+                object-api-name={objectApiName}
+                value={value}
+                onchange={handleLookupChange}
+                onblur={handleLookupBlur}
+                onerror={handleLookupError}
+            ></lightning-record-picker>
+            <span lwc:if={value} class="slds-text-link_reset">
+                <span class="slds-text-link" onclick={handleNavigate}>Open</span>
+                <span class="slds-text-link slds-p-left_xx-small" onclick={handleClearAndEscape}>Clear</span>
+            </span>
+        </div>
+    </template>
+    <template lwc:else>
+        <lightning-formatted-url
+            lwc:if={recordName}
+            label={recordName}
+            value={recordLink}
+            target="_blank"
+            onclick={handleNavigate}
+        ></lightning-formatted-url>
+    </template>
+</template>

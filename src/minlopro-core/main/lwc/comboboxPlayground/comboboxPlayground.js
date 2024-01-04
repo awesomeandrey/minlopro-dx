@@ -61,9 +61,11 @@ export default class ComboboxPlayground extends LightningElement {
     // State Handlers;
 
     handleReset(event) {
-        this.selectedValueAsStr = null;
-        this.required = true;
+        this.multiSelectModeEnabled = false;
         this.nullifiedOptionsModeEnabled = false;
+        this.readOnly = false;
+        this.required = true;
+        this.selectedValueAsStr = null;
         this.$comboboxComponents.forEach((component) => {
             component.setCustomValidity(null);
             component.reportValidity();

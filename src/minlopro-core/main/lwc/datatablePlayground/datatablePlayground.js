@@ -12,7 +12,12 @@ const SKILL_OPTIONS = [
     { label: 'Relationship Building', value: 'relationship_building' },
     { label: 'Adaptability', value: 'adaptability' },
     { label: 'Time Management', value: 'time_management' },
-    { label: 'Product Knowledge', value: 'product_knowledge' }
+    { label: 'Product Knowledge', value: 'product_knowledge' },
+    { label: 'Extra Skill #1', value: 'extra_skill_1' },
+    { label: 'Extra Skill #2', value: 'extra_skill_2' },
+    { label: 'Extra Skill #3', value: 'extra_skill_3' },
+    { label: 'Extra Skill #4', value: 'extra_skill_4' },
+    { label: 'Extra Skill #5', value: 'extra_skill_5' }
 ];
 
 export default class DatatablePlayground extends LightningElement {
@@ -29,29 +34,58 @@ export default class DatatablePlayground extends LightningElement {
                 editable: true
             },
             {
-                label: 'Gender (Base CBX)',
-                fieldName: 'gender',
-                type: 'baseCombobox',
+                label: 'Account Name',
+                fieldName: 'accountId',
+                type: 'customLookup',
                 editable: true,
                 typeAttributes: {
                     context: { fieldName: 'id' },
+                    fieldName: 'accountId',
+                    objectApiName: 'Account',
+                    value: { fieldName: 'accountId' },
+                    displayInfo: {
+                        additionalFields: ['Phone']
+                    },
+                    matchingInfo: {
+                        primaryField: { fieldPath: 'Name' },
+                        additionalFields: [{ fieldPath: 'Phone' }]
+                    }
+                }
+            },
+            // {
+            //     label: 'Gender (Base CBX)',
+            //     fieldName: 'gender',
+            //     type: 'baseCombobox',
+            //     editable: true,
+            //     typeAttributes: {
+            //         value: { fieldName: 'gender' },
+            //         options: { fieldName: 'genderOptions' }
+            //     }
+            // },
+            {
+                label: 'Gender (Custom CBX DIS)',
+                fieldName: 'gender',
+                type: 'customCombobox',
+                editable: true,
+                typeAttributes: {
+                    context: { fieldName: 'id' },
+                    fieldName: 'gender',
                     value: { fieldName: 'gender' },
-                    options: { fieldName: 'genderOptions' }
+                    options: GENDER_OPTIONS,
+                    multi: false
                 }
             },
             {
                 label: 'Skills (Custom CBX)',
                 fieldName: 'skills',
                 type: 'customCombobox',
-                editable: false,
+                editable: true,
                 typeAttributes: {
                     context: { fieldName: 'id' },
                     fieldName: 'skills',
                     value: { fieldName: 'skills' },
-                    options: { fieldName: 'skillOptions' },
-                    // options: SKILL_OPTIONS,
-                    multi: true,
-                    editable: true
+                    options: SKILL_OPTIONS,
+                    multi: true
                 }
             }
         ];
@@ -71,57 +105,34 @@ export default class DatatablePlayground extends LightningElement {
         });
     }
 
-    connectedCallback() {
-        this.draftValues = [];
-        this.records = [];
-        // Generate sample data;
-        this.records.push({
-            id: uniqueId(),
-            name: 'John',
-            gender: 'male',
-            genderOptions: GENDER_OPTIONS,
-            skills: 'time_management;product_knowledge',
-            skillOptions: SKILL_OPTIONS
-        });
-        this.records.push({
-            id: uniqueId(),
-            name: 'Michelle',
-            gender: 'female',
-            genderOptions: GENDER_OPTIONS,
-            skills: 'relationship_building;product_knowledge;time_management',
-            skillOptions: SKILL_OPTIONS
-        });
-        // Dummy data;
-        this.records = [
-            ...this.records,
-            ...new Array(18).fill(null).map((_) => {
-                return {
-                    id: uniqueId(),
-                    name: 'John Doe',
-                    gender: 'bisexual',
-                    genderOptions: GENDER_OPTIONS,
-                    skills: null,
-                    skillOptions: SKILL_OPTIONS
-                };
-            })
-        ];
-    }
-
     errorCallback(error, stack) {
         console.log('DatatablePlayground.js', error, stack);
     }
 
-    handleResetDemo() {
-        this.connectedCallback();
+    connectedCallback() {
+        this.records = this.generateData();
     }
 
+    handleResetDemo() {
+        this.draftValues = [];
+        this.records = this.generateData();
+    }
+
+    /**
+     * Observation: LWC datatable automatically handles 'change' events in cells/CDTs.
+     * Keep in mind event propagation: bubbling VS capturing!
+     * Some base LWCs do not produce bubbling events.
+     */
     handleCellChange(event) {
+        console.group('cellchange');
         // Assumption - 'draftValues' event payload would always have single entry;
         let [changedEntry = {}] = event.detail.draftValues;
+        console.log(JSON.stringify(changedEntry));
         // Normalize entry ID;
         changedEntry[this.KEY_FIELD] = changedEntry[this.KEY_FIELD] || changedEntry['context'];
         // Update draft values;
         if (this.checkEntryPresenceByKeyField(changedEntry)) {
+            console.log('existing draft entry');
             // Update existing draft entry;
             this.draftValues = this.draftValues.map((entry) => {
                 if (entry[this.KEY_FIELD] === changedEntry[this.KEY_FIELD]) {
@@ -132,9 +143,11 @@ export default class DatatablePlayground extends LightningElement {
                 return entry;
             });
         } else {
+            console.log('new draft entry');
             // Add new one;
             this.draftValues = [...this.draftValues, changedEntry];
         }
+        console.groupEnd();
     }
 
     handleSave(event) {
@@ -149,6 +162,48 @@ export default class DatatablePlayground extends LightningElement {
 
     handleCancel(event) {
         console.log('oncancel');
+    }
+
+    handleSet2Entries(event) {
+        this.draftValues = [];
+        this.records = this.generateData().slice(0, 2);
+    }
+
+    // Service Methods;
+
+    generateData() {
+        const data = [];
+        data.push({
+            id: uniqueId(),
+            accountId: '0017a00002RFsXzAAL',
+            name: 'John',
+            gender: 'male',
+            genderOptions: GENDER_OPTIONS,
+            skills: 'time_management;product_knowledge',
+            skillOptions: SKILL_OPTIONS
+        });
+        data.push({
+            id: uniqueId(),
+            name: 'Michelle',
+            gender: 'female',
+            genderOptions: GENDER_OPTIONS,
+            skills: 'relationship_building;product_knowledge;time_management',
+            skillOptions: SKILL_OPTIONS
+        });
+        // Dummy data;
+        data.push(
+            ...new Array(18).fill(null).map((_) => {
+                return {
+                    id: uniqueId(),
+                    name: 'John Doe',
+                    gender: 'bisexual',
+                    genderOptions: GENDER_OPTIONS,
+                    skills: null,
+                    skillOptions: SKILL_OPTIONS
+                };
+            })
+        );
+        return data;
     }
 
     checkEntryPresenceByKeyField(entry = {}) {
