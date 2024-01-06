@@ -1,5 +1,6 @@
 import { LightningElement, track } from 'lwc';
 import { cloneObject, uniqueId } from 'c/utilities';
+import { MULTI_PICKLIST_SEPARATOR } from 'c/comboboxUtils';
 
 // Custom combobox options;
 const GENDER_OPTIONS = [
@@ -23,6 +24,7 @@ const SKILL_OPTIONS = [
 export default class DatatablePlayground extends LightningElement {
     @track records = [];
     @track draftValues = [];
+    @track errors = {};
     @track KEY_FIELD = 'id';
 
     get columns() {
@@ -34,15 +36,16 @@ export default class DatatablePlayground extends LightningElement {
                 editable: true
             },
             {
-                label: 'Account Name',
+                label: 'Account 1',
                 fieldName: 'accountId',
                 type: 'customLookup',
                 editable: true,
                 typeAttributes: {
-                    context: { fieldName: 'id' },
+                    context: { fieldName: this.KEY_FIELD },
                     fieldName: 'accountId',
                     objectApiName: 'Account',
                     value: { fieldName: 'accountId' },
+                    required: false,
                     displayInfo: {
                         additionalFields: ['Phone']
                     },
@@ -52,38 +55,50 @@ export default class DatatablePlayground extends LightningElement {
                     }
                 }
             },
-            // {
-            //     label: 'Gender (Base CBX)',
-            //     fieldName: 'gender',
-            //     type: 'baseCombobox',
-            //     editable: true,
-            //     typeAttributes: {
-            //         value: { fieldName: 'gender' },
-            //         options: { fieldName: 'genderOptions' }
-            //     }
-            // },
             {
-                label: 'Gender (Custom CBX DIS)',
+                label: 'Account 2',
+                fieldName: 'accountId2',
+                type: 'customLookup',
+                editable: true,
+                typeAttributes: {
+                    context: { fieldName: this.KEY_FIELD },
+                    fieldName: 'accountId2',
+                    objectApiName: 'Account',
+                    value: { fieldName: 'accountId2' },
+                    required: true,
+                    displayInfo: {
+                        additionalFields: ['Phone']
+                    },
+                    matchingInfo: {
+                        primaryField: { fieldPath: 'Name' },
+                        additionalFields: [{ fieldPath: 'Phone' }]
+                    }
+                }
+            },
+            {
+                label: 'Gender (Single)',
                 fieldName: 'gender',
                 type: 'customCombobox',
                 editable: true,
                 typeAttributes: {
-                    context: { fieldName: 'id' },
+                    context: { fieldName: this.KEY_FIELD },
                     fieldName: 'gender',
                     value: { fieldName: 'gender' },
+                    required: false,
                     options: GENDER_OPTIONS,
                     multi: false
                 }
             },
             {
-                label: 'Skills (Custom CBX)',
+                label: 'Skills (Multi)',
                 fieldName: 'skills',
                 type: 'customCombobox',
                 editable: true,
                 typeAttributes: {
-                    context: { fieldName: 'id' },
+                    context: { fieldName: this.KEY_FIELD },
                     fieldName: 'skills',
                     value: { fieldName: 'skills' },
+                    required: true,
                     options: SKILL_OPTIONS,
                     multi: true
                 }
@@ -110,21 +125,16 @@ export default class DatatablePlayground extends LightningElement {
     }
 
     connectedCallback() {
-        this.records = this.generateData();
+        this.reset();
     }
 
     handleResetDemo() {
-        this.draftValues = [];
-        this.records = this.generateData();
+        this.reset();
     }
 
-    /**
-     * Observation: LWC datatable automatically handles 'change' events in cells/CDTs.
-     * Keep in mind event propagation: bubbling VS capturing!
-     * Some base LWCs do not produce bubbling events.
-     */
     handleCellChange(event) {
         console.group('cellchange');
+        event.stopPropagation();
         // Assumption - 'draftValues' event payload would always have single entry;
         let [changedEntry = {}] = event.detail.draftValues;
         console.log(JSON.stringify(changedEntry));
@@ -156,50 +166,101 @@ export default class DatatablePlayground extends LightningElement {
             console.log(JSON.stringify(draftRecord));
         });
         console.groupEnd();
-        this.records = cloneObject(this.normalizedRecords);
-        this.draftValues = [];
+        // Validate drafts;
+        const rowKeyByError = this.validateDrafts();
+        if (rowKeyByError.size === 0) {
+            this.records = cloneObject(this.normalizedRecords);
+            this.draftValues = [];
+            this.errors = {};
+        } else {
+            // Init 'error' prop;
+            this.errors = Array.from(rowKeyByError).reduce(
+                (obj, [key, value]) => {
+                    obj.rows[key] = value;
+                    return obj;
+                },
+                {
+                    rows: {},
+                    table: {
+                        title: 'Failed to save changes',
+                        messages: ['Fix the errors and try again']
+                    }
+                }
+            );
+        }
     }
 
     handleCancel(event) {
-        console.log('oncancel');
+        this.errors = {};
+        this.draftValues = [];
     }
 
     handleSet2Entries(event) {
-        this.draftValues = [];
+        this.reset();
         this.records = this.generateData().slice(0, 2);
     }
 
     // Service Methods;
+
+    reset() {
+        this.errors = {};
+        this.draftValues = [];
+        this.records = this.generateData();
+    }
+
+    validateDrafts() {
+        const rowKeyByError = new Map();
+        this.draftValues.forEach((draftRecord) => {
+            let errors = this.validateDraft(draftRecord);
+            if (errors.messages.length !== 0) {
+                rowKeyByError.set(draftRecord[this.KEY_FIELD], {
+                    title: 'Record Level Error',
+                    ...errors
+                });
+            }
+        });
+        return rowKeyByError;
+    }
+
+    validateDraft({ accountId, skills }) {
+        let messages = [],
+            fieldNames = [];
+        if (accountId !== undefined && !Boolean(accountId)) {
+            messages.push('"Account 1" is mandatory!');
+            fieldNames.push('accountId');
+        }
+        if (skills !== undefined && (!Boolean(skills) || skills.split(MULTI_PICKLIST_SEPARATOR).length < 2)) {
+            messages.push('There should be at least 2 skills selected');
+            fieldNames.push('skills');
+        }
+        return { messages, fieldNames };
+    }
 
     generateData() {
         const data = [];
         data.push({
             id: uniqueId(),
             accountId: '0017a00002RFsXzAAL',
+            accountId2: '0017a00002RFsXWAA1',
             name: 'John',
             gender: 'male',
-            genderOptions: GENDER_OPTIONS,
-            skills: 'time_management;product_knowledge',
-            skillOptions: SKILL_OPTIONS
+            skills: 'time_management;product_knowledge'
         });
         data.push({
             id: uniqueId(),
+            accountId: null,
             name: 'Michelle',
             gender: 'female',
-            genderOptions: GENDER_OPTIONS,
-            skills: 'relationship_building;product_knowledge;time_management',
-            skillOptions: SKILL_OPTIONS
+            skills: 'relationship_building;product_knowledge;time_management'
         });
         // Dummy data;
         data.push(
-            ...new Array(18).fill(null).map((_) => {
+            ...new Array(5).fill(null).map((_) => {
                 return {
                     id: uniqueId(),
-                    name: 'John Doe',
+                    name: 'Nicolas',
                     gender: 'bisexual',
-                    genderOptions: GENDER_OPTIONS,
-                    skills: null,
-                    skillOptions: SKILL_OPTIONS
+                    skills: null
                 };
             })
         );

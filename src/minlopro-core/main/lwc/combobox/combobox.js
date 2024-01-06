@@ -104,12 +104,7 @@ export default class Combobox extends LightningElement {
      * @param {string} value - The value(s) to select.
      */
     set value(value) {
-        let selectedValues = (value || '').split(MULTI_PICKLIST_SEPARATOR);
-        if (!this.multiSelect && selectedValues.length > 1) {
-            // Pre-select the 1st option only for single-select mode;
-            selectedValues = [selectedValues[0]];
-        }
-        this.selectedValues = selectedValues;
+        this.selectedValues = (value || '').split(MULTI_PICKLIST_SEPARATOR);
     }
 
     @api
@@ -132,6 +127,10 @@ export default class Combobox extends LightningElement {
             this.$container.classList.remove(SLDS_HAS_ERROR_CLASS_NAME);
             return true;
         }
+    }
+
+    @api showHelpMessageIfInvalid() {
+        console.log(`Combobox.js | ${this.name}`, 'showHelpMessageIfInvalid()');
     }
 
     @api open() {

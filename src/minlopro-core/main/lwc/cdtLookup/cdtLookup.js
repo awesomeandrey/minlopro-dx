@@ -1,22 +1,24 @@
-import { LightningElement, api, track, wire } from 'lwc';
+import { api, track, wire } from 'lwc';
+import DatatableEditableCdt from 'c/datatableEditableCdt';
 import { getRecord, getFieldDisplayValue, getFieldValue } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
 import { wait } from 'c/utilities';
 
-export default class CdtLookup extends NavigationMixin(LightningElement) {
+export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     @api context;
     @api fieldName;
     @api value;
     @api objectApiName;
+    @api required = false;
     @api displayInfo = {};
     @api matchingInfo = {};
     @api readOnly = false;
 
     @api get validity() {
-        /**
-         * LWC datatable component requires this property since its referenced
-         * in underlying processing (see 'processInlineEditFinish()' method in base LWC 'datatable.js').
-         */
+        if (this.isInputMode) {
+            let recordPicker = this.refs.recordPicker;
+            return { valid: recordPicker?.validity?.valid || recordPicker.reportValidity() };
+        }
         return { valid: true };
     }
 
@@ -46,9 +48,14 @@ export default class CdtLookup extends NavigationMixin(LightningElement) {
     @wire(getRecord, { recordId: '$value', fields: '$wiredFields' })
     wiredRecord = {};
 
-    @track debugModeEnabled = false; // Turn on/off to identify bottlenecks;
     @track hasRendered = false;
     @track boundEscapeFromWindowClick = this.escapeFromWindowClick.bind(this);
+
+    constructor() {
+        super();
+        this.cdtClassName = 'CdtLookup';
+        this.debugModeEnabled = false;
+    }
 
     connectedCallback() {
         this.debugModeEnabled && console.log('CdtLookup.js | connectedCallback()');
@@ -96,8 +103,11 @@ export default class CdtLookup extends NavigationMixin(LightningElement) {
         event.preventDefault();
         this.refs.recordPicker?.clearSelection();
         this.value = null;
-        this.notify();
-        this.escape();
+        const isValid = this.refs.recordPicker.reportValidity();
+        if (isValid) {
+            this.notify();
+            this.escape();
+        }
     }
 
     handleLookupError(event) {
@@ -132,45 +142,5 @@ export default class CdtLookup extends NavigationMixin(LightningElement) {
     escapeFromWindowClick(event) {
         this.debugModeEnabled && console.log('CdtLookup.js | escapeFromWindowClick()', JSON.stringify(event.detail));
         this.escape();
-    }
-
-    escape() {
-        this.debugModeEnabled && console.log('CdtLookup.js | escape()');
-        if (this.isInputMode) {
-            this.dispatchEvent(
-                new CustomEvent('ieditfinished', {
-                    composed: true,
-                    bubbles: true,
-                    cancelable: false,
-                    detail: {
-                        reason: 'lost-focus',
-                        rowKeyValue: this.context,
-                        colKeyValue: 'unknown'
-                    }
-                })
-            );
-        }
-    }
-
-    notify() {
-        this.debugModeEnabled && console.log('CdtLookup.js | notify()');
-        if (this.isInputMode) {
-            // Force changes updated;
-            this.dispatchEvent(
-                new CustomEvent('cellchange', {
-                    composed: true,
-                    bubbles: true,
-                    cancelable: true,
-                    detail: {
-                        draftValues: [
-                            {
-                                ['context']: this.context,
-                                [this.fieldName]: this.value
-                            }
-                        ]
-                    }
-                })
-            );
-        }
     }
 }
