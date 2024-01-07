@@ -94,7 +94,7 @@ export default class Combobox extends LightningElement {
      */
     @api
     get value() {
-        return this.selectedValues.join(MULTI_PICKLIST_SEPARATOR);
+        return this.selectedValues.filter(Boolean).join(MULTI_PICKLIST_SEPARATOR);
     }
 
     /**
