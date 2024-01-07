@@ -50,4 +50,21 @@ export default class DatatableEditableCdt extends LightningElement {
             })
         );
     }
+
+    notifyError(errorObj = {}) {
+        console.error(`${this.cdtClassName}.js | notifyError()`);
+        // Force changes updated;
+        this.dispatchEvent(
+            new CustomEvent('cellerror', {
+                composed: true,
+                bubbles: true,
+                cancelable: true,
+                detail: {
+                    ['context']: this.context,
+                    ['fieldName']: this.fieldName,
+                    ['error']: errorObj
+                }
+            })
+        );
+    }
 }

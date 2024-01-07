@@ -1,6 +1,9 @@
 import { LightningElement, track } from 'lwc';
-import { cloneObject, uniqueId } from 'c/utilities';
+import { cloneObject, uniqueId, parseError } from 'c/utilities';
 import { MULTI_PICKLIST_SEPARATOR } from 'c/comboboxUtils';
+
+// Running User ID;
+import USER_ID from '@salesforce/user/Id';
 
 // Custom combobox options;
 const GENDER_OPTIONS = [
@@ -24,7 +27,7 @@ const SKILL_OPTIONS = [
 export default class DatatablePlayground extends LightningElement {
     @track records = [];
     @track draftValues = [];
-    @track errors = {};
+    @track errors = { rows: {}, table: {} };
     @track KEY_FIELD = 'id';
 
     get columns() {
@@ -36,7 +39,27 @@ export default class DatatablePlayground extends LightningElement {
                 editable: true
             },
             {
-                label: 'Account 1',
+                label: 'User',
+                fieldName: 'userId',
+                type: 'customLookup',
+                editable: true,
+                typeAttributes: {
+                    context: { fieldName: this.KEY_FIELD },
+                    fieldName: 'userId',
+                    objectApiName: 'User',
+                    value: { fieldName: 'userId' },
+                    required: true,
+                    displayInfo: JSON.stringify({
+                        additionalFields: ['Phone']
+                    }),
+                    matchingInfo: JSON.stringify({
+                        primaryField: { fieldPath: 'Name' },
+                        additionalFields: [{ fieldPath: 'Phone' }]
+                    })
+                }
+            },
+            {
+                label: 'Account',
                 fieldName: 'accountId',
                 type: 'customLookup',
                 editable: true,
@@ -46,33 +69,13 @@ export default class DatatablePlayground extends LightningElement {
                     objectApiName: 'Account',
                     value: { fieldName: 'accountId' },
                     required: false,
-                    displayInfo: {
+                    displayInfo: JSON.stringify({
                         additionalFields: ['Phone']
-                    },
-                    matchingInfo: {
+                    }),
+                    matchingInfo: JSON.stringify({
                         primaryField: { fieldPath: 'Name' },
                         additionalFields: [{ fieldPath: 'Phone' }]
-                    }
-                }
-            },
-            {
-                label: 'Account 2',
-                fieldName: 'accountId2',
-                type: 'customLookup',
-                editable: true,
-                typeAttributes: {
-                    context: { fieldName: this.KEY_FIELD },
-                    fieldName: 'accountId2',
-                    objectApiName: 'Account',
-                    value: { fieldName: 'accountId2' },
-                    required: true,
-                    displayInfo: {
-                        additionalFields: ['Phone']
-                    },
-                    matchingInfo: {
-                        primaryField: { fieldPath: 'Name' },
-                        additionalFields: [{ fieldPath: 'Phone' }]
-                    }
+                    })
                 }
             },
             {
@@ -160,8 +163,20 @@ export default class DatatablePlayground extends LightningElement {
         console.groupEnd();
     }
 
+    handleCellError(event) {
+        console.log('cellerror', event.detail);
+        const { context, fieldName, error } = event.detail;
+        const currentErrors = this.errors;
+        currentErrors.rows[context] = {
+            title: 'Cell Error Occurred',
+            messages: [parseError(error).message],
+            fieldNames: [fieldName]
+        };
+        this.errors = cloneObject(currentErrors);
+    }
+
     handleSave(event) {
-        console.group('onsave');
+        console.group('save');
         event.detail.draftValues.forEach((draftRecord) => {
             console.log(JSON.stringify(draftRecord));
         });
@@ -169,9 +184,9 @@ export default class DatatablePlayground extends LightningElement {
         // Validate drafts;
         const rowKeyByError = this.validateDrafts();
         if (rowKeyByError.size === 0) {
-            this.records = cloneObject(this.normalizedRecords);
-            this.draftValues = [];
-            this.errors = {};
+            let savedRecords = cloneObject(this.normalizedRecords);
+            this.reset();
+            this.records = savedRecords;
         } else {
             // Init 'error' prop;
             this.errors = Array.from(rowKeyByError).reduce(
@@ -191,7 +206,7 @@ export default class DatatablePlayground extends LightningElement {
     }
 
     handleCancel(event) {
-        this.errors = {};
+        this.errors = { rows: {}, table: {} };
         this.draftValues = [];
     }
 
@@ -203,7 +218,7 @@ export default class DatatablePlayground extends LightningElement {
     // Service Methods;
 
     reset() {
-        this.errors = {};
+        this.errors = { rows: {}, table: {} };
         this.draftValues = [];
         this.records = this.generateData();
     }
@@ -226,7 +241,7 @@ export default class DatatablePlayground extends LightningElement {
         let messages = [],
             fieldNames = [];
         if (accountId !== undefined && !Boolean(accountId)) {
-            messages.push('"Account 1" is mandatory!');
+            messages.push('"Account" is mandatory!');
             fieldNames.push('accountId');
         }
         if (skills !== undefined && (!Boolean(skills) || skills.split(MULTI_PICKLIST_SEPARATOR).length < 2)) {
@@ -240,14 +255,15 @@ export default class DatatablePlayground extends LightningElement {
         const data = [];
         data.push({
             id: uniqueId(),
-            accountId: '0017a00002RFsXzAAL',
-            accountId2: '0017a00002RFsXWAA1',
+            userId: USER_ID,
+            accountId: 'unknownId',
             name: 'John',
             gender: 'male',
             skills: 'time_management;product_knowledge'
         });
         data.push({
             id: uniqueId(),
+            userId: null,
             accountId: null,
             name: 'Michelle',
             gender: 'female',

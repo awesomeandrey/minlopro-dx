@@ -5,6 +5,8 @@
                 lwc:ref="recordPicker"
                 label="stub"
                 variant="label-hidden"
+                display-info={normalizedDisplayInfo}
+                matching-info={normalizedMatchingInfo}
                 object-api-name={objectApiName}
                 value={value}
                 required={required}
@@ -19,8 +21,11 @@
         </div>
     </template>
     <template lwc:else>
+        <div class="spinner-container" lwc:if={doShowSpinner}>
+            <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
+        </div>
         <lightning-formatted-url
-            lwc:if={recordName}
+            lwc:else
             label={recordName}
             value={recordLink}
             target="_blank"

@@ -1,6 +1,6 @@
 import { api, track, wire } from 'lwc';
 import DatatableEditableCdt from 'c/datatableEditableCdt';
-import { getRecord, getFieldDisplayValue, getFieldValue } from 'lightning/uiRecordApi';
+import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
 import { wait } from 'c/utilities';
 
@@ -10,8 +10,8 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     @api value;
     @api objectApiName;
     @api required = false;
-    @api displayInfo = {};
-    @api matchingInfo = {};
+    @api displayInfo = null;
+    @api matchingInfo = null;
     @api readOnly = false;
 
     @api get validity() {
@@ -28,12 +28,9 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
 
     get recordName() {
         if (!!this.value) {
-            return (
-                getFieldDisplayValue(this.wiredRecord?.data, this.wiredFields[0]) ||
-                getFieldValue(this.wiredRecord?.data, this.wiredFields[0])
-            );
+            return getFieldValue(this.wiredRecord?.data, this.wiredFields[0]) || Symbol.for(undefined);
         } else {
-            return '';
+            return null;
         }
     }
 
@@ -43,6 +40,18 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
 
     get isInputMode() {
         return this.readOnly === false;
+    }
+
+    get normalizedDisplayInfo() {
+        return JSON.parse(this.displayInfo);
+    }
+
+    get normalizedMatchingInfo() {
+        return JSON.parse(this.matchingInfo);
+    }
+
+    get doShowSpinner() {
+        return !!this.value && this.recordName === Symbol.for(undefined);
     }
 
     @wire(getRecord, { recordId: '$value', fields: '$wiredFields' })
@@ -111,8 +120,9 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     }
 
     handleLookupError(event) {
-        // TODO - throw custom error to parent datatable;
         console.error('CdtLookup.js', `handleLookupError() | ${JSON.stringify(event.detail)}`);
+        const { error } = event.detail;
+        this.notifyError(error);
     }
 
     handleNavigate(event) {
@@ -133,7 +143,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
                 window.open(url, '_blank').focus();
             })
             .catch((error) => {
-                // TODO - throw custom error to parent datatable;
+                this.notifyError(error);
             });
     }
 
