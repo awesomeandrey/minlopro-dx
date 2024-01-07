@@ -43,7 +43,7 @@ if [[ $file1_modified -eq 1 || $file2_modified -eq 1 ]]; then
     git reset
     git add "$file1" "$file2"
     git status --porcelain
-    git commit -m "Automation: Reset Destructive Manifests"
+    git commit -m "Automation: Reset Destructive Manifests 🚗"
     git push origin HEAD
 else
     echo "⚪ No changes detected in destructive manifests."

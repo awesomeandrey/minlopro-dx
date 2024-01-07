@@ -1,5 +1,5 @@
 import { api, LightningElement, track } from 'lwc';
-import { formatLabel, isEmptyArray, isNotEmpty, uniqueId, wait } from 'c/utilities';
+import { formatLabel, isEmptyArray, isNotEmpty, uniqueId, wait, cloneObject } from 'c/utilities';
 import {
     FocusedStateManager,
     FixedDropdownMonitor,
@@ -13,6 +13,10 @@ import selectMultipleOptionsLbl from '@salesforce/label/c.Commons_Lbl_SelectMult
 import nItemsLbl from '@salesforce/label/c.Commons_Lbl_NItems';
 import completeThisFieldLbl from '@salesforce/label/c.Commons_Lbl_CompleteThisField';
 
+// Templates;
+import disabledOrReadOnlyTemplate from './comboboxDisabledOrReadOnly.html';
+import inputTemplate from './combobox.html';
+
 // Constants;
 const SLDS_HAS_ERROR_CLASS_NAME = 'slds-has-error';
 const SLDS_IS_OPEN_CLASS_NAME = 'slds-is-open';
@@ -21,6 +25,9 @@ const SLDS_IS_OPEN_CLASS_NAME = 'slds-is-open';
  * A reusable combobox component implemented using the Lightning Web Component framework.
  * This component supports single and multi-select options with custom labels and styling.
  * It also includes accessibility and UI state management features.
+ *
+ * Note: the order of properties in consuming LWC matters:
+ * make sure to define 'value' property after 'options' & 'multiSelect'!
  */
 export default class Combobox extends LightningElement {
     /**
@@ -67,6 +74,12 @@ export default class Combobox extends LightningElement {
     @api disabled = false;
 
     /**
+     * Indicates if the combobox is read-only.
+     * @type {boolean}
+     */
+    @api readOnly = false;
+
+    /**
      * Indicates dropdown panel rendering mode.
      * Allowed values are "absolute" (default) and "fixed".
      * @type {string}
@@ -81,7 +94,7 @@ export default class Combobox extends LightningElement {
      */
     @api
     get value() {
-        return this.selectedValues.join(MULTI_PICKLIST_SEPARATOR);
+        return this.selectedValues.filter(Boolean).join(MULTI_PICKLIST_SEPARATOR);
     }
 
     /**
@@ -91,12 +104,15 @@ export default class Combobox extends LightningElement {
      * @param {string} value - The value(s) to select.
      */
     set value(value) {
-        let selectedValues = (value || '').split(MULTI_PICKLIST_SEPARATOR);
-        if (!this.multiSelect && selectedValues.length > 1) {
-            // Pre-select the 1st option only for single-select mode;
-            selectedValues = [selectedValues[0]];
-        }
-        this.selectedValues = selectedValues;
+        this.selectedValues = (value || '').split(MULTI_PICKLIST_SEPARATOR);
+    }
+
+    @api
+    get validity() {
+        return {
+            valid: !this.hasError,
+            valueMissing: !this.hasValueDefined
+        };
     }
 
     @api setCustomValidity(errorMessage) {
@@ -113,6 +129,17 @@ export default class Combobox extends LightningElement {
         }
     }
 
+    @api showHelpMessageIfInvalid() {
+        console.log(`Combobox.js | ${this.name}`, 'showHelpMessageIfInvalid()');
+    }
+
+    @api open() {
+        if (!this.isDisabledOrReadOnly) {
+            this.isOpen = true;
+        }
+    }
+
+    @track debugModeEnabled = false; // Turn on/off to identify bottlenecks;
     @track selectedValues = [];
     @track errorMessage = '';
     @track isOpen = false;
@@ -122,11 +149,20 @@ export default class Combobox extends LightningElement {
     @track fixedDropdownMonitor = new FixedDropdownMonitor({
         selectInputElement: () => this.$input,
         selectDropdownElement: () => this.$dropdown,
-        hideDropdown: this.hideDropdownBound
+        hideDropdown: this.hideDropdownBound,
+        debugModeEnabled: this.debugModeEnabled
     });
 
     get normalizedOptions() {
-        const result = this.options.map((option) => ({
+        // Convert array-like object to array;
+        let clonedOptions = cloneObject(this.options);
+        if (!Array.isArray(clonedOptions)) {
+            // Force array-like object;
+            clonedOptions.length = Object.getOwnPropertyNames(clonedOptions).length;
+        }
+        clonedOptions = Array.from(clonedOptions);
+        // Normalize options;
+        const result = clonedOptions.map((option) => ({
             ...option,
             selected: this.selectedValues.includes(option.value)
         }));
@@ -142,17 +178,31 @@ export default class Combobox extends LightningElement {
     }
 
     get normalizedPlaceholder() {
+        if (this.isDisabledOrReadOnly) {
+            return this.inputValueLabel;
+        }
         if (typeof this.placeholder === 'string') {
             return this.placeholder;
         }
         return this.multiSelect ? selectMultipleOptionsLbl : selectOptionLbl;
     }
 
-    get doDisable() {
-        return Boolean(this.disabled) || isEmptyArray(this.options);
+    get isDisabled() {
+        return Boolean(this.disabled);
+    }
+
+    get isReadOnly() {
+        return Boolean(this.readOnly) || isEmptyArray(this.normalizedOptions);
+    }
+
+    get isDisabledOrReadOnly() {
+        return this.isReadOnly || this.isDisabled;
     }
 
     get inputValueLabel() {
+        if (this.isDisabledOrReadOnly) {
+            return this.selectedOptions.map(({ label }) => label).join(`${MULTI_PICKLIST_SEPARATOR} `);
+        }
         const { length: selectedOptionsAmount = 0, 0: firstSelectedOption = {} } = this.selectedOptions;
         if (this.multiSelect && selectedOptionsAmount > 1) {
             return formatLabel(nItemsLbl, selectedOptionsAmount);
@@ -219,11 +269,18 @@ export default class Combobox extends LightningElement {
 
     // Lifecycle Hooks;
 
+    render() {
+        return this.isDisabledOrReadOnly ? disabledOrReadOnlyTemplate : inputTemplate;
+    }
+
     /**
      * Lifecycle hook that's invoked when the component is rendered.
      * Manages the focus state and attaches an event listener for closing the dropdown.
      */
     renderedCallback() {
+        if (this.isDisabledOrReadOnly) {
+            return;
+        }
         window.removeEventListener('click', this.hideDropdownBound, { capture: false });
         if (this.isOpen) {
             // Dropdown is open;
@@ -295,8 +352,16 @@ export default class Combobox extends LightningElement {
     // Service Methods;
 
     hideDropdown(event) {
+        this.debugModeEnabled && console.log(`Combobox.js | ${this.name}`, 'hideDropdown()');
         if (this.isOpen) {
             this.isOpen = false;
+            this.dispatchEvent(
+                new CustomEvent('close', {
+                    composed: true,
+                    bubbles: true,
+                    cancelable: true
+                })
+            );
         }
     }
 

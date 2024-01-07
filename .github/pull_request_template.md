@@ -15,6 +15,10 @@
 
 Describe how the feature was implemented / bug was fixed.
 
+| Column 1 | Column 2 |
+|----------|----------|
+| TODO     | TODO     |
+
 ## Apex Tests Coverage 🛠
 
 Include screenshot of Apex Tests report.

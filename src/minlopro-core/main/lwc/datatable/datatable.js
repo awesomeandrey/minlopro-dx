@@ -5,14 +5,35 @@ import { loadStyle } from 'lightning/platformResourceLoader';
 import GLOBAL_STYLES from '@salesforce/resourceUrl/GlobalStyles';
 
 // Templates
-import comboboxTemplate from './templates/combobox.html';
 
+// Custom LWC combobox;
+import customComboboxReadonlyTemplate from './templates/customCombobox/readonly.html';
+import customComboboxEditableTemplate from './templates/customCombobox/editable.html';
+
+// Custom Lookup;
+import customLookupReadonlyTemplate from './templates/customLookup/readonly.html';
+import customLookupEditableTemplate from './templates/customLookup/editable.html';
+
+/**
+ * Inspired by https://techdicer.com/picklist-in-lwc-datatable-inline-edit/
+ * + https://techdicer.com/lookup-field-in-lwc-datatable-inline-edit/
+ *
+ * LWC docs - https://developer.salesforce.com/docs/platform/lwc/guide/data-table-custom-types-editable.html
+ */
 export default class Datatable extends LightningDatatable {
+    static COMMON_TYPE_ATTRIBUTES = ['value', 'fieldName', 'context', 'required'];
     static customTypes = {
-        combobox: {
-            template: comboboxTemplate,
+        customCombobox: {
+            template: customComboboxReadonlyTemplate,
+            editTemplate: customComboboxEditableTemplate,
             standardCellLayout: true,
-            typeAttributes: ['name', 'label', 'value', 'options', 'multi', 'required']
+            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'options', 'multi']
+        },
+        customLookup: {
+            template: customLookupReadonlyTemplate,
+            editTemplate: customLookupEditableTemplate,
+            standardCellLayout: true,
+            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'objectApiName', 'displayInfo', 'matchingInfo']
         }
     };
 
@@ -22,6 +43,4 @@ export default class Datatable extends LightningDatatable {
             console.error('Datatable.js', error);
         });
     }
-
-    connectedCallback() {}
 }

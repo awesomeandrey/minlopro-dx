@@ -4,6 +4,7 @@ import { cloneObject } from 'c/utilities';
 export default class ComboboxPlayground extends LightningElement {
     @track multiSelectModeEnabled = false;
     @track nullifiedOptionsModeEnabled = false;
+    @track readOnly = false;
     @track required = true;
     @track selectedValueAsStr = null;
 
@@ -60,9 +61,11 @@ export default class ComboboxPlayground extends LightningElement {
     // State Handlers;
 
     handleReset(event) {
-        this.selectedValueAsStr = null;
-        this.required = true;
+        this.multiSelectModeEnabled = false;
         this.nullifiedOptionsModeEnabled = false;
+        this.readOnly = false;
+        this.required = true;
+        this.selectedValueAsStr = null;
         this.$comboboxComponents.forEach((component) => {
             component.setCustomValidity(null);
             component.reportValidity();
@@ -75,6 +78,10 @@ export default class ComboboxPlayground extends LightningElement {
 
     handleToggleNullifyOptions(event) {
         this.nullifiedOptionsModeEnabled = !this.nullifiedOptionsModeEnabled;
+    }
+
+    handleToggleReadOnly() {
+        this.readOnly = !this.readOnly;
     }
 
     handleSetCustomValidity(event) {

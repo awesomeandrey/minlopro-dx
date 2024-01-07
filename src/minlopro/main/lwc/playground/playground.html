@@ -1,14 +1,20 @@
 <template>
-    <lightning-layout class="slds-theme_default" multiple-rows>
-        <lightning-layout-item size="12" padding="around-small">
-            <div class="slds-box slds-box_x-small">
-                <c-datatable-playground></c-datatable-playground>
-            </div>
-        </lightning-layout-item>
-        <lightning-layout-item size="12" padding="around-small">
-            <div class="slds-box slds-box_x-small">
-                <c-combobox-playground></c-combobox-playground>
-            </div>
-        </lightning-layout-item>
-    </lightning-layout>
+    <lightning-card title="Playground">
+        <div class="slds-p-around_medium">
+            <span class="slds-text-title_caps">Playground goes here...</span>
+            <lightning-record-picker
+                label="Accounts"
+                variant="label-hidden"
+                placeholder="Search Accounts..."
+                object-api-name="Account"
+                value={value}
+                display-info={displayInfo}
+                matching-info={matchingInfo}
+                onchange={handleLookupChange}
+                onblur={handleLookupBlur}
+                onerror={handleLookupError}
+            >
+            </lightning-record-picker>
+        </div>
+    </lightning-card>
 </template>
