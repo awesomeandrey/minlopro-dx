@@ -6,17 +6,17 @@
 
 ## Type Of Change
 
-- ✏️ New Feature
-- ✏️ Bug Fix
-- ✏️ Enhancement
-- ✏️ POC / Investigation / Research
+-   ✏️ New Feature
+-   ✏️ Bug Fix
+-   ✏️ Enhancement
+-   ✏️ POC / Investigation / Research
 
 ## Details 🔎
 
 Describe how the feature was implemented / bug was fixed.
 
 | Column 1 | Column 2 |
-|----------|----------|
+| -------- | -------- |
 | TODO     | TODO     |
 
 ## Apex Tests Coverage 🛠

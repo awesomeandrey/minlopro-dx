@@ -1,5 +1,18 @@
 # Core / Base Modules
 
+## Re-usable Lightning Web Components
+
+-   `bridge.js` - used for communication between components (based off of LMS)
+-   `c-combobox` - custom LWC that extends base `lightning-combobox` LWC
+-   `c-datatable` - extension of base `lightning-datatable` LWC that supports editable lookups & picklists
+-   `c-stencil-skeleton` - UI LWC that improves UX while component is loading
+-   `toastify.js` - utility module that facades API around toast notifications
+-   `utilities.js` - boilerplate JS functions
+
+[Check out `c-datatable` with Custom Data Types for lookup and picklist input elements!](https://youtu.be/rcXXgpCZqcc)
+
+[![Datatable Extension Demo](../../assets/demo/lwc/datatable/datatable_preview.png)](https://youtu.be/rcXXgpCZqcc)
+
 ## FFLib
 
 Open-source framework for Salesforce development.

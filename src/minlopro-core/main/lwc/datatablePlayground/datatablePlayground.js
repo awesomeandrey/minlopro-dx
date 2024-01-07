@@ -33,13 +33,13 @@ export default class DatatablePlayground extends LightningElement {
     get columns() {
         return [
             {
-                label: 'Agent Name',
+                label: 'Name (Text)',
                 fieldName: 'name',
                 type: 'text',
                 editable: true
             },
             {
-                label: 'User',
+                label: 'User (Lookup)',
                 fieldName: 'userId',
                 type: 'customLookup',
                 editable: true,
@@ -48,7 +48,7 @@ export default class DatatablePlayground extends LightningElement {
                     fieldName: 'userId',
                     objectApiName: 'User',
                     value: { fieldName: 'userId' },
-                    required: true,
+                    required: false,
                     displayInfo: JSON.stringify({
                         additionalFields: ['Phone']
                     }),
@@ -59,7 +59,7 @@ export default class DatatablePlayground extends LightningElement {
                 }
             },
             {
-                label: 'Account',
+                label: 'Account (Lookup)',
                 fieldName: 'accountId',
                 type: 'customLookup',
                 editable: true,
@@ -121,6 +121,14 @@ export default class DatatablePlayground extends LightningElement {
                 return record;
             }
         });
+    }
+
+    get stats() {
+        return {
+            recordsCount: this.records.length,
+            draftsCount: this.draftValues.length,
+            rowErrorsCount: Object.keys(this.errors.rows).length
+        };
     }
 
     errorCallback(error, stack) {
@@ -210,9 +218,18 @@ export default class DatatablePlayground extends LightningElement {
         this.draftValues = [];
     }
 
-    handleSet2Entries(event) {
-        this.reset();
-        this.records = this.generateData().slice(0, 2);
+    handleAddEntries(event) {
+        this.records.push(
+            ...new Array(5).fill(null).map((_) => {
+                return {
+                    id: uniqueId(),
+                    name: 'Nicolas',
+                    userId: USER_ID,
+                    gender: 'bisexual',
+                    skills: null
+                };
+            })
+        );
     }
 
     // Service Methods;
@@ -237,12 +254,12 @@ export default class DatatablePlayground extends LightningElement {
         return rowKeyByError;
     }
 
-    validateDraft({ accountId, skills }) {
+    validateDraft({ userId, skills }) {
         let messages = [],
             fieldNames = [];
-        if (accountId !== undefined && !Boolean(accountId)) {
-            messages.push('"Account" is mandatory!');
-            fieldNames.push('accountId');
+        if (userId !== undefined && !Boolean(userId)) {
+            messages.push('"User" lookup is mandatory!');
+            fieldNames.push('userId');
         }
         if (skills !== undefined && (!Boolean(skills) || skills.split(MULTI_PICKLIST_SEPARATOR).length < 2)) {
             messages.push('There should be at least 2 skills selected');
@@ -256,30 +273,17 @@ export default class DatatablePlayground extends LightningElement {
         data.push({
             id: uniqueId(),
             userId: USER_ID,
-            accountId: 'unknownId',
             name: 'John',
             gender: 'male',
             skills: 'time_management;product_knowledge'
         });
         data.push({
             id: uniqueId(),
-            userId: null,
-            accountId: null,
+            userId: USER_ID,
             name: 'Michelle',
             gender: 'female',
             skills: 'relationship_building;product_knowledge;time_management'
         });
-        // Dummy data;
-        data.push(
-            ...new Array(5).fill(null).map((_) => {
-                return {
-                    id: uniqueId(),
-                    name: 'Nicolas',
-                    gender: 'bisexual',
-                    skills: null
-                };
-            })
-        );
         return data;
     }
 

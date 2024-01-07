@@ -3,11 +3,36 @@
         <span slot="title" class="slds-text-title_caps"> <code>c-datatable</code> Demo</span>
         <lightning-button-group slot="actions">
             <lightning-button label="Reset" variant="brand" onclick={handleResetDemo}></lightning-button>
-            <lightning-button label="Set 2 Entries" onclick={handleSet2Entries}></lightning-button>
+            <lightning-button label="Add Entries" onclick={handleAddEntries}></lightning-button>
         </lightning-button-group>
         <lightning-layout>
-            <lightning-layout-item size="12" padding="around-small">
-                <div class="slds-box slds-box_x-small slds-m-bottom_xx-small">
+            <lightning-layout-item size="12" padding="horizontal-small">
+                <div class="slds-box slds-box_x-small slds-m-bottom_small">
+                    <lightning-tile label="Datatable Stats" href="javascript:void(0)" type="media">
+                        <lightning-icon slot="media" icon-name="standard:setup_modal" alternative-text="Stats"></lightning-icon>
+                        <dl class="slds-dl_horizontal">
+                            <dt class="slds-dl_horizontal__label">
+                                <p class="slds-truncate">Records Count:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate">{stats.recordsCount}</p>
+                            </dd>
+                            <dt class="slds-dl_horizontal__label">
+                                <p class="slds-truncate">Drafts Count:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate">{stats.draftsCount}</p>
+                            </dd>
+                            <dt class="slds-dl_horizontal__label">
+                                <p class="slds-truncate">Row Errors Count:</p>
+                            </dt>
+                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
+                                <p class="slds-truncate">{stats.rowErrorsCount}</p>
+                            </dd>
+                        </dl>
+                    </lightning-tile>
+                </div>
+                <div class="slds-box slds-box_x-small">
                     <div class="slds-no-row-hover table_with_height_defined">
                         <c-datatable
                             key-field={KEY_FIELD}

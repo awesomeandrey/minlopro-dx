@@ -1,7 +1,9 @@
 import { LightningElement, track } from 'lwc';
 
+import USER_ID from '@salesforce/user/Id';
+
 export default class Playground extends LightningElement {
-    @track value = '0017a00002RFsXzAAL';
+    @track value = USER_ID;
 
     get displayInfo() {
         return {
