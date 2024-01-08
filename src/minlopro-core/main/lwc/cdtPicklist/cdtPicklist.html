@@ -1,0 +1,18 @@
+<template>
+    <div class="spinner-container" lwc:if={doShowSpinner}>
+        <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
+    </div>
+    <template lwc:else>
+        <c-combobox lwc:if={readOnly} options={options} multi-select={multi} value={value} read-only></c-combobox>
+        <c-cdt-combobox
+            lwc:else
+            lwc:ref="cdtCombobox"
+            context={context}
+            field-name={fieldName}
+            options={options}
+            required={required}
+            multi={multi}
+            value={value}
+        ></c-cdt-combobox>
+    </template>
+</template>

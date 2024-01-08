@@ -1,0 +1,15 @@
+<template>
+    <lightning-tile label={label} href="javascript:void(0)" type="media">
+        <lightning-icon slot="media" icon-name="standard:setup_modal" alternative-text="Stats"></lightning-icon>
+        <dl class="slds-dl_horizontal">
+            <template for:each={statsAsArray} for:item="stat">
+                <dt key={stat.key} lwc:if={stat.isLabel} class="slds-dl_horizontal__label">
+                    <p class="slds-truncate">{stat.value}</p>
+                </dt>
+                <dd key={stat.key} lwc:if={stat.isValue} class="slds-dl_horizontal__detail slds-tile__meta">
+                    <p class="slds-truncate">{stat.value}</p>
+                </dd>
+            </template>
+        </dl>
+    </lightning-tile>
+</template>

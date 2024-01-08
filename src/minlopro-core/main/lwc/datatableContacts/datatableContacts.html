@@ -1,0 +1,39 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"> <code>c-datatable-contacts</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+        </lightning-button-group>
+        <lightning-layout>
+            <lightning-layout-item size="12" padding="horizontal-small">
+                <div class="slds-box slds-box_x-small slds-m-bottom_small">
+                    <c-stats label="Datatable Stats" value={stats}></c-stats>
+                </div>
+                <div class="slds-m-top_x-small table_with_height_defined">
+                    <lightning-spinner
+                        lwc:if={loading}
+                        alternative-text="Loading"
+                        size="medium"
+                        variant="brand"
+                    ></lightning-spinner>
+                    <c-datatable
+                        lwc:ref="datatable"
+                        key-field={KEY_FIELD}
+                        data={normalizedRecords}
+                        columns={columns}
+                        draft-values={draftValues}
+                        hide-checkbox-column
+                        show-row-number-column
+                        enable-infinite-loading={enableInfiniteLoading}
+                        errors={errors}
+                        oncellchange={handleCellChange}
+                        oncellerror={handleCellError}
+                        onsave={handleSave}
+                        oncancel={handleCancel}
+                        onloadmore={throttledHandleLoadMore}
+                    ></c-datatable>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

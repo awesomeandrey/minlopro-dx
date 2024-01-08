@@ -125,9 +125,9 @@ export default class DatatablePlayground extends LightningElement {
 
     get stats() {
         return {
-            recordsCount: this.records.length,
-            draftsCount: this.draftValues.length,
-            rowErrorsCount: Object.keys(this.errors.rows).length
+            'Records Count': this.records.length,
+            'Draft Records Count': this.draftValues.length,
+            'Row Errors Count': Object.keys(this.errors.rows).length
         };
     }
 
@@ -151,6 +151,7 @@ export default class DatatablePlayground extends LightningElement {
         console.log(JSON.stringify(changedEntry));
         // Normalize entry ID;
         changedEntry[this.KEY_FIELD] = changedEntry[this.KEY_FIELD] || changedEntry['context'];
+        delete changedEntry['context'];
         // Update draft values;
         if (this.checkEntryPresenceByKeyField(changedEntry)) {
             console.log('existing draft entry');

@@ -19,6 +19,7 @@ public without sharing class DatatableController {
             factory.selectFields(query.fieldApiNames);
             factory.setOffset(query.offsetValue);
             factory.setLimit(query.limitValue);
+            factory.setOrdering(Contact.Title, fflib_QueryFactory.SortOrder.ASCENDING);
             return (List<Contact>) repository.query(factory.toSOQL());
         } catch (Exception ex) {
             Logger.error(ex.getMessage());

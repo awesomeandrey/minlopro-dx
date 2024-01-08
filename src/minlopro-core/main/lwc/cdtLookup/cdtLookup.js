@@ -43,11 +43,19 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     }
 
     get normalizedDisplayInfo() {
-        return JSON.parse(this.displayInfo);
+        try {
+            return JSON.parse(this.displayInfo);
+        } catch (error) {
+            return null;
+        }
     }
 
     get normalizedMatchingInfo() {
-        return JSON.parse(this.matchingInfo);
+        try {
+            return JSON.parse(this.matchingInfo);
+        } catch (error) {
+            return null;
+        }
     }
 
     get doShowSpinner() {

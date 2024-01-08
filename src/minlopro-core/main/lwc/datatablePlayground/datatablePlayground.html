@@ -8,29 +8,7 @@
         <lightning-layout>
             <lightning-layout-item size="12" padding="horizontal-small">
                 <div class="slds-box slds-box_x-small slds-m-bottom_small">
-                    <lightning-tile label="Datatable Stats" href="javascript:void(0)" type="media">
-                        <lightning-icon slot="media" icon-name="standard:setup_modal" alternative-text="Stats"></lightning-icon>
-                        <dl class="slds-dl_horizontal">
-                            <dt class="slds-dl_horizontal__label">
-                                <p class="slds-truncate">Records Count:</p>
-                            </dt>
-                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
-                                <p class="slds-truncate">{stats.recordsCount}</p>
-                            </dd>
-                            <dt class="slds-dl_horizontal__label">
-                                <p class="slds-truncate">Drafts Count:</p>
-                            </dt>
-                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
-                                <p class="slds-truncate">{stats.draftsCount}</p>
-                            </dd>
-                            <dt class="slds-dl_horizontal__label">
-                                <p class="slds-truncate">Row Errors Count:</p>
-                            </dt>
-                            <dd class="slds-dl_horizontal__detail slds-tile__meta">
-                                <p class="slds-truncate">{stats.rowErrorsCount}</p>
-                            </dd>
-                        </dl>
-                    </lightning-tile>
+                    <c-stats label="Datatable Stats" value={stats}></c-stats>
                 </div>
                 <div class="slds-box slds-box_x-small">
                     <div class="slds-no-row-hover table_with_height_defined">
