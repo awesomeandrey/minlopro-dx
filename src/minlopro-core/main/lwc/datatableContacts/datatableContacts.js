@@ -1,6 +1,6 @@
 import { LightningElement, track, wire } from 'lwc';
 import { updateRecord } from 'lightning/uiRecordApi';
-import { cloneObject, parseError, to, isEmptyArray, throttle } from 'c/utilities';
+import { cloneObject, parseError, to, isEmptyArray } from 'c/utilities';
 
 // Apex Controller Methods;
 import getContactsCountApex from '@salesforce/apex/DatatableController.getContactsCount';
@@ -13,8 +13,6 @@ export default class DatatableContacts extends LightningElement {
     @track KEY_FIELD = 'Id';
 
     @track loading = false;
-    @track currentOffset = -1;
-    @track throttledHandleLoadMore = throttle(this.handleLoadMore.bind(this), 1500);
     @track objectApiName = 'Contact';
 
     get columns() {
@@ -120,11 +118,7 @@ export default class DatatableContacts extends LightningElement {
     }
 
     get enableInfiniteLoading() {
-        return (
-            this.totalRecordsCount > 0 &&
-            this.totalRecordsCount > this.records.length &&
-            this.currentOffset <= this.totalRecordsCount
-        );
+        return this.totalRecordsCount > 0 && this.totalRecordsCount > this.records.length;
     }
 
     get stats() {
@@ -132,7 +126,7 @@ export default class DatatableContacts extends LightningElement {
             'Total Records Count': this.totalRecordsCount,
             'Current Records Count': this.records.length,
             'Draft Records Count': this.draftValues.length,
-            'Current Offset': this.currentOffset,
+            'Current Offset': this.records.length,
             'Has Duplicates': this.hasDuplicates,
             'Enable Infinite Loading': this.enableInfiniteLoading
         };
@@ -141,16 +135,16 @@ export default class DatatableContacts extends LightningElement {
     @wire(getContactsCountApex)
     wiredContactsCount = {};
 
-    async connectedCallback() {
+    connectedCallback() {
         // Load records;
-        await this.fetchAndAppendContacts();
+        this.fetchAndAppendContacts();
     }
 
     // Event Handlers;
 
-    async handleReset(event) {
+    handleReset(event) {
         this.reset();
-        await this.fetchAndAppendContacts();
+        this.fetchAndAppendContacts();
     }
 
     handleCellChange(event) {
@@ -244,10 +238,10 @@ export default class DatatableContacts extends LightningElement {
         this.draftValues = [];
     }
 
-    async handleLoadMore(event) {
-        if (this.enableInfiniteLoading) {
+    handleLoadMore(event) {
+        if (!this.loading && this.enableInfiniteLoading) {
             // Load more data;
-            await this.fetchAndAppendContacts();
+            this.fetchAndAppendContacts();
         }
     }
 
@@ -261,15 +255,15 @@ export default class DatatableContacts extends LightningElement {
         // Turn on spinner;
         this.loading = true;
         // Handle offset state and step;
-        const offsetStep = 10;
-        this.currentOffset = this.currentOffset === -1 ? 0 : this.currentOffset + offsetStep;
+        const offset = this.records.length,
+            step = 15;
         // Pull data from server;
         const [error, records] = await to(
             getContactsApex({
                 query: {
                     fieldApiNames: this.columns.map(({ fieldName }) => fieldName),
-                    offsetValue: this.currentOffset,
-                    limitValue: offsetStep
+                    offsetValue: offset,
+                    limitValue: step
                 }
             })
         );
@@ -284,7 +278,6 @@ export default class DatatableContacts extends LightningElement {
     }
 
     reset() {
-        this.currentOffset = 0;
         this.errors = { rows: {}, table: {} };
         this.draftValues = [];
         this.records = [];
