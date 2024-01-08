@@ -22,14 +22,12 @@ Sources:
 -   https://github.com/apex-enterprise-patterns/fflib-apex-common
 -   https://github.com/apex-enterprise-patterns/fflib-apex-mocks
 
-## Utilities
-
-Contains low-level methods / functions used during product development.
-
 ## Logger
 
 Exposes custom means for Apex logs tracking/monitoring.
 Originally inspired by https://github.com/rsoesemann/apex-unified-logging.
+
+![Log Monitor](../../assets/demo/lwc/logMonitor/logMonitor_demo.png)]
 
 **How To Use**
 
