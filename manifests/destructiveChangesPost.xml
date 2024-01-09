@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>datatablePlayground</members>
-        <name>LightningComponentBundle</name>
-    </types>
-    <types>
-        <members>Contact.Phone_Should_Have_9_Digits</members>
-        <name>ValidationRule</name>
-    </types>
     <version>58.0</version>
 </Package>
