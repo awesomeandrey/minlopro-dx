@@ -10,7 +10,12 @@ export default class CdtPicklist extends DatatableEditableCdt {
     @api objectApiName = null;
     @api recordTypeId = null;
     @api readOnly = false;
-    @api recordInfo = null; // Function with bound context to parent datatable instance;
+    /**
+     * Function with bound context to parent datatable instance.
+     * Make sure this property is included for dependent picklists!
+     * @type {function}
+     */
+    @api recordInfo;
 
     @api get validity() {
         return this.refs.cdtCombobox?.validity;
@@ -43,12 +48,12 @@ export default class CdtPicklist extends DatatableEditableCdt {
     }
 
     get isDependent() {
-        return !!this.controllerFieldName && !!Object.keys(this.controllerValuesMapping).length;
+        return isNotEmpty(this.controllerFieldName) && !isEmptyArray(Object.keys(this.controllerValuesMapping));
     }
 
     get controllerFieldValue() {
         if (this.isDependent && typeof this.recordInfo === 'function') {
-            return this.recordInfo(this.context)[this.controllerFieldName];
+            return (this.recordInfo(this.context) || {})[this.controllerFieldName];
         }
         return null;
     }

@@ -13,12 +13,6 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>datatablePlayground</componentName>
-                <identifier>c_datatablePlayground</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
                 <componentName>comboboxPlayground</componentName>
                 <identifier>c_comboboxPlayground</identifier>
             </componentInstance>

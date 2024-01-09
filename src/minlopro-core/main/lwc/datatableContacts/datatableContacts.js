@@ -6,6 +6,12 @@ import { cloneObject, parseError, to, isEmptyArray } from 'c/utilities';
 import getContactsCountApex from '@salesforce/apex/DatatableController.getContactsCount';
 import getContactsApex from '@salesforce/apex/DatatableController.getContacts';
 
+// Custom combobox options;
+const GENDER_OPTIONS = [
+    { label: 'Male', value: 'Male', iconName: 'utility:activity' },
+    { label: 'Female', value: 'Female', iconName: 'utility:data_cloud' }
+];
+
 export default class DatatableContacts extends LightningElement {
     @track records = [];
     @track draftValues = [];
@@ -21,23 +27,26 @@ export default class DatatableContacts extends LightningElement {
          * Contact.Id - 'customLookup', readonly
          * Contact.Title - 'text', editable
          * Contact.AccountId - 'customLookup', editable
-         * Contact.GenderIdentity - 'customPicklist', editable
+         * Contact.GenderIdentity - 'customCombobox', editable
          * Contact.Industry__c - 'customPicklist', editable
          * Contact.JobFunction__c - 'customPicklist', editable
          * Contact.Email - 'email', readonly
          * Contact.Phone - 'phone', editable
+         * Contact.Birthdate - 'date-local', editable (used for 'Date' data type)
+         * Contact.HasOptedOutOfEmail - 'boolean', editable
+         * Contact.LastCURequestDate - 'date', editable (used for 'DateTime' data type)
          */
         return [
             {
                 label: 'Name',
-                fieldName: 'Id',
+                fieldName: 'Id', // aka 'this.KEY_FIELD';
                 type: 'customLookup',
                 editable: false,
                 typeAttributes: {
                     context: { fieldName: this.KEY_FIELD },
-                    fieldName: 'Id',
+                    fieldName: this.KEY_FIELD,
                     objectApiName: this.objectApiName,
-                    value: { fieldName: 'Id' }
+                    value: { fieldName: this.KEY_FIELD }
                 }
             },
             {
@@ -69,14 +78,13 @@ export default class DatatableContacts extends LightningElement {
             {
                 label: 'Gender',
                 fieldName: 'GenderIdentity',
-                type: 'customPicklist',
+                type: 'customCombobox',
                 editable: true,
                 typeAttributes: {
                     context: { fieldName: this.KEY_FIELD },
                     fieldName: 'GenderIdentity',
                     value: { fieldName: 'GenderIdentity' },
-                    objectApiName: 'Contact',
-                    recordTypeId: null
+                    options: GENDER_OPTIONS
                 }
             },
             {
@@ -115,6 +123,35 @@ export default class DatatableContacts extends LightningElement {
                 fieldName: 'Phone',
                 type: 'phone',
                 editable: true
+            },
+            {
+                label: 'Birthdate',
+                fieldName: 'Birthdate',
+                type: 'date-local',
+                editable: true,
+                typeAttributes: {
+                    month: '2-digit',
+                    day: '2-digit'
+                }
+            },
+            {
+                label: 'Email Opt Out',
+                fieldName: 'HasOptedOutOfEmail',
+                type: 'boolean',
+                editable: true
+            },
+            {
+                label: 'Last Modified Date',
+                fieldName: 'LastModifiedDate',
+                type: 'date',
+                editable: true,
+                typeAttributes: {
+                    year: 'numeric',
+                    month: 'short',
+                    day: '2-digit',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                }
             }
         ];
     }
@@ -222,7 +259,7 @@ export default class DatatableContacts extends LightningElement {
         settledPromises.forEach((result, index) => {
             let { status, reason, value: data } = result;
             if (status === 'fulfilled') {
-                console.log(`record #${index + 1} updated successfully`);
+                console.log(`Record #${index} updated successfully`);
                 // Copy modified fields only;
                 let targetRecord = clonedRecords.find((_) => _[this.KEY_FIELD] === data.id);
                 console.log('targetRecord', JSON.stringify(targetRecord));
@@ -230,7 +267,7 @@ export default class DatatableContacts extends LightningElement {
                 console.log('targetDraftRecord', JSON.stringify(targetDraftRecord));
                 for (let fieldName of Object.getOwnPropertyNames(targetDraftRecord)) {
                     let fieldValue = targetDraftRecord[fieldName];
-                    console.log(`copying "${fieldName}" field value (${fieldValue}) into [targetRecord]`);
+                    console.log(`Copying "${fieldName}" field value (${fieldValue}) into [targetRecord]`);
                     targetRecord[fieldName] = fieldValue;
                 }
                 // Remove updated record from drafts;
@@ -238,7 +275,7 @@ export default class DatatableContacts extends LightningElement {
                 // Nullify any errors related this this draft;
                 delete clonedErrors.rows[data.id];
             } else if (status === 'rejected') {
-                console.error(`record #${index + 1} failed`);
+                console.error(`Record #${index + 1} failed with reason: ${JSON.stringify(reason)}`);
                 const recordId = clonedDrafts[index][this.KEY_FIELD];
                 const { message = '', output = {} } = reason.body;
                 const fieldErrors = output['fieldErrors'] || {};
@@ -251,7 +288,7 @@ export default class DatatableContacts extends LightningElement {
                     fieldNames: Object.keys(fieldErrors)
                 };
             } else {
-                throw new Error(`Unknown error occurred: ${result}`);
+                throw new Error(`Unknown error occurred: ${result}.`);
             }
         });
         // Re-set state;
