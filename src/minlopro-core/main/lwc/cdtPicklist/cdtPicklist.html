@@ -1,0 +1,20 @@
+<template>
+    <div class="spinner-container" lwc:if={doShowSpinner}>
+        <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
+    </div>
+    <template lwc:else>
+        <!--Edit Mode-->
+        <c-cdt-combobox
+            lwc:if={isEditMode}
+            lwc:ref="cdtCombobox"
+            context={context}
+            field-name={fieldName}
+            options={normalizedOptions}
+            required={required}
+            multi={multi}
+            value={value}
+        ></c-cdt-combobox>
+        <!--Read Mode-->
+        <c-combobox lwc:else options={normalizedOptions} multi-select={multi} value={value} read-only></c-combobox>
+    </template>
+</template>

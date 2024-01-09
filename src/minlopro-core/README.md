@@ -9,9 +9,16 @@
 -   `toastify.js` - utility module that facades API around toast notifications
 -   `utilities.js` - boilerplate JS functions
 
-[Check out `c-datatable` with Custom Data Types for lookup and picklist input elements!](https://youtu.be/rcXXgpCZqcc)
+[Check out `c-datatable` with Custom Data Types](https://youtu.be/DvqtHMrvp8k)
 
-[![Datatable Extension Demo](../../assets/demo/lwc/datatable/datatable_preview.png)](https://youtu.be/rcXXgpCZqcc)
+Features:
+
+-   CDT for _Lookup_
+-   CDT for _Picklist (Single/Multi)_
+-   CDT for _Dependent Picklist (Single/Multi)_
+-   CDT for _Custom Combobox (with icons & 'fixed' mode)_
+
+[![Datatable Extension Demo](../../assets/demo/lwc/datatableContacts/datatable_contacts_demo.png)](https://youtu.be/DvqtHMrvp8k)
 
 ## FFLib
 
@@ -22,14 +29,12 @@ Sources:
 -   https://github.com/apex-enterprise-patterns/fflib-apex-common
 -   https://github.com/apex-enterprise-patterns/fflib-apex-mocks
 
-## Utilities
-
-Contains low-level methods / functions used during product development.
-
 ## Logger
 
 Exposes custom means for Apex logs tracking/monitoring.
 Originally inspired by https://github.com/rsoesemann/apex-unified-logging.
+
+![Log Monitor](../../assets/demo/lwc/logMonitor/logMonitor_demo.png)]
 
 **How To Use**
 

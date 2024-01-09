@@ -14,6 +14,10 @@ import customComboboxEditableTemplate from './templates/customCombobox/editable.
 import customLookupReadonlyTemplate from './templates/customLookup/readonly.html';
 import customLookupEditableTemplate from './templates/customLookup/editable.html';
 
+// Custom Picklist;
+import customPicklistReadonlyTemplate from './templates/customPicklist/readonly.html';
+import customPicklistEditableTemplate from './templates/customPicklist/editable.html';
+
 /**
  * Inspired by https://techdicer.com/picklist-in-lwc-datatable-inline-edit/
  * + https://techdicer.com/lookup-field-in-lwc-datatable-inline-edit/
@@ -28,6 +32,12 @@ export default class Datatable extends LightningDatatable {
             editTemplate: customComboboxEditableTemplate,
             standardCellLayout: true,
             typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'options', 'multi']
+        },
+        customPicklist: {
+            template: customPicklistReadonlyTemplate,
+            editTemplate: customPicklistEditableTemplate,
+            standardCellLayout: true,
+            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'objectApiName', 'recordTypeId', 'recordInfo']
         },
         customLookup: {
             template: customLookupReadonlyTemplate,

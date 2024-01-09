@@ -183,6 +183,48 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Industry__pc</picklist>
+        <values>
+            <fullName>Finance</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Healthcare</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>JobFunction__pc</picklist>
+        <values>
+            <fullName>FinancialAnalyst</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>InvestmentBanker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MedicalResearcher</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NursePractitioner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SoftwareDeveloper</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SystemsAnalyst</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Ownership</picklist>
         <values>
             <fullName>Other</fullName>

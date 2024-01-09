@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>JobFunction__c</fullName>
+    <externalId>false</externalId>
+    <label>Job Function</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <controllingField>Industry__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>FinancialAnalyst</fullName>
+                <default>false</default>
+                <label>Financial Analyst</label>
+            </value>
+            <value>
+                <fullName>InvestmentBanker</fullName>
+                <default>false</default>
+                <label>Investment Banker</label>
+            </value>
+            <value>
+                <fullName>MedicalResearcher</fullName>
+                <default>false</default>
+                <label>Medical Researcher</label>
+            </value>
+            <value>
+                <fullName>NursePractitioner</fullName>
+                <default>false</default>
+                <label>Nurse Practitioner</label>
+            </value>
+            <value>
+                <fullName>SoftwareDeveloper</fullName>
+                <default>false</default>
+                <label>Software Developer</label>
+            </value>
+            <value>
+                <fullName>SystemsAnalyst</fullName>
+                <default>false</default>
+                <label>Systems Analyst</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>FinancialAnalyst</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Finance</controllingFieldValue>
+            <valueName>InvestmentBanker</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>MedicalResearcher</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Healthcare</controllingFieldValue>
+            <valueName>NursePractitioner</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Technology</controllingFieldValue>
+            <valueName>SoftwareDeveloper</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Technology</controllingFieldValue>
+            <valueName>SystemsAnalyst</valueName>
+        </valueSettings>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>
