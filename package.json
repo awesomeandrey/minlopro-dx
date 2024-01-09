@@ -10,8 +10,9 @@
     "description": "Minlopro DX",
     "scripts": {
         "prettier": "prettier",
-        "prettier:write": "prettier --write \"src/**\"",
-        "prettier:check": "prettier --check \"src/**\"",
+        "prettier:write": "bash ./scripts/util/prettify_working_directory_files.sh",
+        "prettier:src:write": "prettier --write \"src/**\"",
+        "prettier:src:check": "prettier --check \"src/**\"",
         "jest": "sfdx-lwc-jest --skipApiVersionCheck",
         "jest:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
         "sf:apex:tests": "sf apex run test -r human --wait 15",

@@ -30,8 +30,8 @@ Spin up scratch org by
 running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)
 GitHub Action Workflow.
 
-Make sure that the changed codebase files are _prettified_ via `npm run prettier:write` command.
-Alternatively, you can run `npm run prettier:check` in order to identify _non-prettified_ files.
+Make sure that the changed codebase files are _prettified_ via `npm run prettier:src:write` command.
+Alternatively, you can run `npm run prettier:src:check` in order to identify _non-prettified_ files.
 
 ### Branches
 

@@ -5,5 +5,12 @@
 **/staticresources/
 **/networkBranding/
 **/layouts/
+
 # Static assets folder
 assets/
+
+# Excluded file exentsions
+**/*.sh
+.forceignore
+.gitignore
+.prettierignore

@@ -34,7 +34,7 @@ Sources:
 Exposes custom means for Apex logs tracking/monitoring.
 Originally inspired by https://github.com/rsoesemann/apex-unified-logging.
 
-![Log Monitor](../../assets/demo/lwc/logMonitor/logMonitor_demo.png)]
+![Log Monitor](../../assets/demo/lwc/logMonitor/logMonitor_demo.png)
 
 **How To Use**
 
