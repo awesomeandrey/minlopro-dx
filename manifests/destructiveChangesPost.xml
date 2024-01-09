@@ -4,5 +4,9 @@
         <members>datatablePlayground</members>
         <name>LightningComponentBundle</name>
     </types>
+    <types>
+        <members>Contact.Phone_Should_Have_9_Digits</members>
+        <name>validationRule</name>
+    </types>
     <version>58.0</version>
 </Package>
