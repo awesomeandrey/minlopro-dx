@@ -7,10 +7,8 @@
 # Capture target org alias;
 read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
-echo "🔵 Exporting sample data from [$TARGET_ORG_ALIAS]..."
-
 mkdir -p "build"
-
+echo "🔵 Exporting sample data from [$TARGET_ORG_ALIAS]..."
 sf data export tree \
   --target-org $TARGET_ORG_ALIAS \
   --query "config/data/query.txt" \
