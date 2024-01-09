@@ -31,7 +31,7 @@ export default class DatatableContacts extends LightningElement {
          * Contact.Industry__c - 'customPicklist', editable
          * Contact.JobFunction__c - 'customPicklist', editable
          * Contact.Email - 'email', readonly
-         * Contact.Phone - 'phone', editable
+         * Contact.MobilePhone - 'phone', editable
          * Contact.Birthdate - 'date-local', editable (used for 'Date' data type)
          * Contact.HasOptedOutOfEmail - 'boolean', editable
          * Contact.LastCURequestDate - 'date', editable (used for 'DateTime' data type)
@@ -119,8 +119,8 @@ export default class DatatableContacts extends LightningElement {
                 editable: false
             },
             {
-                label: 'Phone',
-                fieldName: 'Phone',
+                label: 'Mobile Phone',
+                fieldName: 'MobilePhone',
                 type: 'phone',
                 editable: true
             },

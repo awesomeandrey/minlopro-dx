@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Phone_Should_Have_9_Digits</fullName>
-    <active>true</active>
-    <description>Phone should have 9 digits at least!</description>
-    <errorConditionFormula>LEN(Phone) &lt; 9</errorConditionFormula>
-    <errorDisplayField>Phone</errorDisplayField>
-    <errorMessage>Phone should have 9 digits at least!</errorMessage>
-</ValidationRule>
