@@ -37,7 +37,7 @@ export default class Datatable extends LightningDatatable {
             template: customPicklistReadonlyTemplate,
             editTemplate: customPicklistEditableTemplate,
             standardCellLayout: true,
-            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'objectApiName', 'recordTypeId']
+            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'objectApiName', 'recordTypeId', 'recordInfo']
         },
         customLookup: {
             template: customLookupReadonlyTemplate,

@@ -3,16 +3,18 @@
         <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
     </div>
     <template lwc:else>
-        <c-combobox lwc:if={readOnly} options={options} multi-select={multi} value={value} read-only></c-combobox>
+        <!--Edit Mode-->
         <c-cdt-combobox
-            lwc:else
+            lwc:if={isEditMode}
             lwc:ref="cdtCombobox"
             context={context}
             field-name={fieldName}
-            options={options}
+            options={normalizedOptions}
             required={required}
             multi={multi}
             value={value}
         ></c-cdt-combobox>
+        <!--Read Mode-->
+        <c-combobox lwc:else options={normalizedOptions} multi-select={multi} value={value} read-only></c-combobox>
     </template>
 </template>

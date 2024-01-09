@@ -178,8 +178,8 @@ export default class Combobox extends LightningElement {
     }
 
     get normalizedPlaceholder() {
-        if (this.isDisabledOrReadOnly) {
-            return this.inputValueLabel;
+        if (isEmptyArray(this.normalizedOptions)) {
+            return 'No available options';
         }
         if (typeof this.placeholder === 'string') {
             return this.placeholder;
@@ -188,11 +188,11 @@ export default class Combobox extends LightningElement {
     }
 
     get isDisabled() {
-        return Boolean(this.disabled);
+        return Boolean(this.disabled) || isEmptyArray(this.normalizedOptions);
     }
 
     get isReadOnly() {
-        return Boolean(this.readOnly) || isEmptyArray(this.normalizedOptions);
+        return Boolean(this.readOnly);
     }
 
     get isDisabledOrReadOnly() {

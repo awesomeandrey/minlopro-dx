@@ -6,7 +6,14 @@
                 <p class="slds-truncate" title={inputValueLabel}>{inputValueLabel}</p>
             </template>
             <template lwc:else>
-                <input type="text" class="slds-input" title={inputValueLabel} value={inputValueLabel} disabled />
+                <input
+                    type="text"
+                    class="slds-input"
+                    title={inputValueLabel}
+                    placeholder={normalizedPlaceholder}
+                    value={inputValueLabel}
+                    disabled
+                />
             </template>
         </div>
     </div>

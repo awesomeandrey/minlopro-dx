@@ -14,13 +14,16 @@ export default class DatatableContacts extends LightningElement {
 
     @track loading = false;
     @track objectApiName = 'Contact';
+    @track recordInfo = (recordId) => this.normalizedRecords.find((record) => record[this.KEY_FIELD] === recordId);
 
     get columns() {
         /**
          * Contact.Id - 'customLookup', readonly
          * Contact.Title - 'text', editable
          * Contact.AccountId - 'customLookup', editable
-         * Contact.GenderIdentity - 'customCombobox', editable
+         * Contact.GenderIdentity - 'customPicklist', editable
+         * Contact.Industry__c - 'customPicklist', editable
+         * Contact.JobFunction__c - 'customPicklist', editable
          * Contact.Email - 'email', readonly
          * Contact.Phone - 'phone', editable
          */
@@ -74,6 +77,31 @@ export default class DatatableContacts extends LightningElement {
                     value: { fieldName: 'GenderIdentity' },
                     objectApiName: 'Contact',
                     recordTypeId: null
+                }
+            },
+            {
+                label: 'Industry',
+                fieldName: 'Industry__c',
+                type: 'customPicklist',
+                editable: true,
+                typeAttributes: {
+                    context: { fieldName: this.KEY_FIELD },
+                    fieldName: 'Industry__c',
+                    value: { fieldName: 'Industry__c' },
+                    objectApiName: 'Contact'
+                }
+            },
+            {
+                label: 'Job Function',
+                fieldName: 'JobFunction__c',
+                type: 'customPicklist',
+                editable: true,
+                typeAttributes: {
+                    context: { fieldName: this.KEY_FIELD },
+                    fieldName: 'JobFunction__c',
+                    value: { fieldName: 'JobFunction__c' },
+                    objectApiName: 'Contact',
+                    recordInfo: this.recordInfo
                 }
             },
             {
@@ -181,16 +209,16 @@ export default class DatatableContacts extends LightningElement {
         console.group('onsave');
         // Turn on spinner;
         this.loading = true;
+        // Capture current records state and update with values accordingly;
+        let clonedRecords = cloneObject(this.records) || [];
+        let clonedDrafts = cloneObject(this.draftValues) || [];
+        let clonedErrors = cloneObject(this.errors) || {};
         // Save record updates via LDS;
-        const updatePromises = this.draftValues.map((record) => {
+        const updatePromises = clonedDrafts.map((record) => {
             const recordInput = { fields: cloneObject(record) };
             return updateRecord(recordInput);
         });
         const settledPromises = await Promise.allSettled(updatePromises);
-        // Capture current records state and update with values accordingly;
-        let clonedRecords = cloneObject(this.records);
-        let clonedDrafts = cloneObject(this.draftValues);
-        let clonedErrors = cloneObject(this.errors);
         settledPromises.forEach((result, index) => {
             let { status, reason, value: data } = result;
             if (status === 'fulfilled') {
@@ -211,9 +239,9 @@ export default class DatatableContacts extends LightningElement {
                 delete clonedErrors.rows[data.id];
             } else if (status === 'rejected') {
                 console.error(`record #${index + 1} failed`);
-                const recordId = this.draftValues[index][this.KEY_FIELD];
+                const recordId = clonedDrafts[index][this.KEY_FIELD];
                 const { message = '', output = {} } = reason.body;
-                const fieldErrors = output.fieldErrors || {};
+                const fieldErrors = output['fieldErrors'] || {};
                 console.error(`Failures | ${JSON.stringify(fieldErrors)}`);
                 clonedErrors.rows[recordId] = {
                     title: message,
@@ -222,6 +250,8 @@ export default class DatatableContacts extends LightningElement {
                         .map((_) => _['message']),
                     fieldNames: Object.keys(fieldErrors)
                 };
+            } else {
+                throw new Error(`Unknown error occurred: ${result}`);
             }
         });
         // Re-set state;
