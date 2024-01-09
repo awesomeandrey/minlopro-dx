@@ -15,8 +15,8 @@ private class InvokeFlowViaRestTest {
      *   "inputs": [{
      *       "parentAccount": {"Name": "Test Account #1"},
      *       "childContacts": [
-     *          {"LastName": "Test Contact #1", "Phone": "123456789"},
-     *          {"LastName": "Test Contact #2", "Phone": "987654321"}
+     *          {"LastName": "Test Contact #1", "MobilePhone": "123456789"},
+     *          {"LastName": "Test Contact #2", "MobilePhone": "987654321"}
      *      ]
      *   }]
      * }
@@ -28,8 +28,8 @@ private class InvokeFlowViaRestTest {
         Map<String, Object> inputParametersMap = new Map<String, Object>();
         Account testAccount = new Account(Name = 'Test Account #1');
         inputParametersMap.put('parentAccount', testAccount);
-        Contact testContact1 = new Contact(LastName = 'Test Contact #1', Phone = '123456789');
-        Contact testContact2 = new Contact(LastName = 'Test Contact #2', Phone = '123456789');
+        Contact testContact1 = new Contact(LastName = 'Test Contact #1', MobilePhone = '123456789');
+        Contact testContact2 = new Contact(LastName = 'Test Contact #2', MobilePhone = '123456789');
         inputParametersMap.put('childContacts', Lists.of(testContact1, testContact2));
         // Invoke Flow;
         Flow.Interview yourFlow = Flow.Interview.createInterview(flowApiName, inputParametersMap);

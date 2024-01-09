@@ -7,7 +7,7 @@ private class DatatableControllerTest {
         List<Contact> contactsToCreate = new List<Contact>();
         for (Integer i = 0; i < CONTACTS_AMOUNT; i++) {
             contactsToCreate.add(
-                new Contact(FirstName = 'TestFirstName' + i, LastName = 'TestLastName' + i, Phone = '123456789')
+                new Contact(FirstName = 'TestFirstName' + i, LastName = 'TestLastName' + i, MobilePhone = '123456789')
             );
         }
         insert contactsToCreate;
