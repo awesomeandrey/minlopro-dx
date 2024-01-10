@@ -18,7 +18,9 @@ Features:
 -   CDT for _Dependent Picklist (Single/Multi)_
 -   CDT for _Custom Combobox (with icons & 'fixed' mode)_
 
-[![Datatable Extension Demo](../../assets/demo/lwc/datatableContacts/datatable_contacts_demo.png)](https://youtu.be/DvqtHMrvp8k)
+| Datatable                                                                                                                        | Lookup CDT                                                               | Picklist CDT                                                               |
+| -------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| [![Datatable Extension Demo](../../assets/demo/lwc/datatableContacts/datatable_contacts_demo.png)](https://youtu.be/DvqtHMrvp8k) | ![Alt](../../assets/demo/lwc/datatableContacts/datatable_CDT_lookup.png) | ![Alt](../../assets/demo/lwc/datatableContacts/datatable_CDT_picklist.png) |
 
 ## FFLib
 

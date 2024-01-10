@@ -50,10 +50,12 @@ cat "$fileWithEnvVariables" | sed -e '$a\' | while IFS='=' read -r key value; do
           --string "@$key" \
           --replacement "$value" \
            "**/authproviders/**" \
-           "**/namedCredentials/**" \
-           "**/customMetadata/**" \
+           "**/classes/rest/**" \
            "**/connectedApps/**" \
-           "**/classes/rest/**"
+           "**/customMetadata/**" \
+           "**/externalCredentials/**" \
+           "**/namedCredentials/**" \
+           "**/remoteSiteSettings/**"
     fi
 done < "$fileWithEnvVariables"
 git status --porcelain
