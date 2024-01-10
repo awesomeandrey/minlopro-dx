@@ -97,7 +97,7 @@ export default class CdtPicklist extends DatatableEditableCdt {
             this.required = required;
             this.controllerFieldName = controllerName;
         } else if (error) {
-            console.error('CdtPicklist.js', 'wireObjectInfo', error);
+            this.notifyError(error);
         }
     }
 
@@ -106,10 +106,10 @@ export default class CdtPicklist extends DatatableEditableCdt {
         if (data) {
             const { controllerValues, values = [] } = data;
             this.controllerValuesMapping = cloneObject(controllerValues);
-            this.options = values.map(({ label, value, validFor }) => ({ label, value, validFor }));
+            this.options = cloneObject(values).map(({ label, value, validFor }) => ({ label, value, validFor }));
             this.debugModeEnabled && this.logState();
         } else if (error) {
-            console.error('CdtPicklist.js', 'wirePicklistValues', error);
+            this.notifyError(error);
         }
     }
 

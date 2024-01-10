@@ -23,7 +23,6 @@ sf org create scratch \
     --definition-file "config/project-scratch-def.json" \
     --admin-email $ADMIN_EMAIL \
     --set-default \
-    --edition enterprise \
     --duration-days 30 \
     --wait 10
 sf config list
