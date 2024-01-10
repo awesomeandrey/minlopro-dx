@@ -7,6 +7,7 @@
 # DigEx portal related metadata items;
 **/audience/Default_DigEx.audience-meta.xml
 **/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
+**/profiles/DigEx Profile.profile-meta.xml
 
 # LWC Jest tests
 **/__tests__/**
