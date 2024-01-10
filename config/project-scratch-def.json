@@ -12,9 +12,13 @@
         "AuthorApex",
         "API",
         "StreamingAPI",
-        "StateAndCountryPicklist",
+        "PersonAccounts",
+        "DefaultWorkflowUser",
         "Communities",
-        "PersonAccounts"
+        "CustomerCommunityPlus",
+        "ForceComPlatform",
+        "FieldAuditTrail",
+        "Knowledge"
     ],
     "settings": {
         "experienceBundleSettings": {

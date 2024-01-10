@@ -26,6 +26,7 @@ sf org create scratch \
     --duration-days 30 \
     --wait 10
 sf config list
+sf alias list
 
 # Reset Admin User password
 sf org generate password --target-org "$SCRATCH_ORG_ALIAS"
