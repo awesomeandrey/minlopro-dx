@@ -1,5 +1,8 @@
 /**
  * @description - the main class where implemented the logic of querying, syncing updating, creating of Toggl Time Entries
+ *
+ * Salesforce Connect or OData Connector can be enabled in Developer edition org.
+ * See SF docs - https://help.salesforce.com/s/articleView?id=000387779&type=1.
  */
 global class MinloproContactsConnection extends DataSource.Connection {
     private DataSource.ConnectionParams conParams;
