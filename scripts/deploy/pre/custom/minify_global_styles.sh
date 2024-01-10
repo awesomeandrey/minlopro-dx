@@ -11,6 +11,7 @@ npm run cleancss -- --version
 
 if [[ -f "$CSS_FILE" ]]; then
     npm run cleancss -- -o "$CSS_FILE" "$CSS_FILE"
+    git status --porcelain
     echo "Done!"
 else
     echo "⚪ File not found: [$CSS_FILE]."

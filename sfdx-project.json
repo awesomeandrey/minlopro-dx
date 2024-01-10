@@ -18,5 +18,5 @@
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://test.salesforce.com",
-    "sourceApiVersion": "59.0"
+    "sourceApiVersion": "58.0"
 }
