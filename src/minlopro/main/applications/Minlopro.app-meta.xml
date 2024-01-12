@@ -15,6 +15,7 @@
     <tabs>standard-Contact</tabs>
     <tabs>LogsMonitor</tabs>
     <tabs>GoogleMapsApiPlayground</tabs>
+    <tabs>SalesforceContact__x</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Minlopro_UtilityBar</utilityBar>
 </CustomApplication>

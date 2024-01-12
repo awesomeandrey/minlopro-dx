@@ -8,7 +8,7 @@ update new User(
     UserPreferencesUserDebugModePref = true,
     Country = 'United States',
     UserPermissionsKnowledgeUser = true,
-    ExternalId__c = UserInfo.getUserName()
+    ExternalId__c = String.format('{0}', Lists.of(UserInfo.getUserName()))
 );
 User runningUser = [
     SELECT Name, UserPreferencesUserDebugModePref, Country, UserRole.Name, UserType, UserPermissionsKnowledgeUser, ExternalId__c
