@@ -3,6 +3,9 @@
  *
  * Salesforce Connect or OData Connector can be enabled in Developer edition org.
  * See SF docs - https://help.salesforce.com/s/articleView?id=000387779&type=1.
+ *
+ * Originally inspired by https://vimera.io/tpost/huuxhen2l1-show-and-update-external-data-in-salesfo
+ * Another source of inspiration - https://github.com/lmcalpin/custom_adapter_demo/blob/master/CrossOrgDataSourceConnection.apex
  */
 global class MinloproContactsConnection extends DataSource.Connection {
     private static final String API_VERSION = '58.0';

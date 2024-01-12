@@ -15,8 +15,12 @@ public without sharing class Logger {
         debug(message, new List<Object>());
     }
 
-    public static void debug(Object message) {
-        debug(String.valueOf(message), new List<Object>());
+    public static void debug(Integer count) {
+        debug(String.valueOf(count), new List<Object>());
+    }
+
+    public static void debug(List<SObject> records) {
+        debug(JSON.serialize(records), new List<Object>());
     }
 
     public static void debug(List<Object> values) {
@@ -33,6 +37,11 @@ public without sharing class Logger {
 
     public static void error(List<Object> values) {
         error('', values);
+    }
+
+    public static void error(Exception ex) {
+        Map<String, String> exceptionInfo = Exceptions.getDetails(ex);
+        error(JSON.serialize(exceptionInfo));
     }
 
     public static void error(String message) {
