@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Knowledge__kav</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Knowledge__kav.archived_articles</members>
+        <members>Knowledge__kav.draft_articles</members>
+        <members>Knowledge__kav.published_articles</members>
+        <name>ListView</name>
+    </types>
+    <types>
+        <members>Account</members>
+        <members>Knowledge__kav</members>
+        <members>Task</members>
+        <name>TopicsForObjects</name>
+    </types>
     <version>58.0</version>
 </Package>
