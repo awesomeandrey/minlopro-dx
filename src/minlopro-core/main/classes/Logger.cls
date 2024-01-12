@@ -15,6 +15,10 @@ public without sharing class Logger {
         debug(message, new List<Object>());
     }
 
+    public static void debug(Object message) {
+        debug(String.valueOf(message), new List<Object>());
+    }
+
     public static void debug(List<Object> values) {
         debug('', values);
     }
