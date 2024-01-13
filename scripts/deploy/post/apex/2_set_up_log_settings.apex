@@ -31,6 +31,5 @@ if (!settingsToUpsert.isEmpty()) {
     upsert settingsToUpsert;
 }
 
-System.debug(
-    String.format('\n\n ✅ Updated logger settings for the profiles: {0} \n', Lists.of(JSON.serializePretty(affectedProfiles)))
-);
+DebugTableFormatter formatter = new DebugTableFormatter(Lists.of('Id', 'Name'), affectedProfiles.values());
+formatter.log('✅ Updated logger settings for the profiles:\n');
