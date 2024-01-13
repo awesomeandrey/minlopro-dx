@@ -4,7 +4,7 @@
     "adminEmail": "andrii.melnichuk@customertimes.com",
     "edition": "Developer",
     "description": "Minlopro DX Scratch Org",
-    "hasSampleData": true,
+    "hasSampleData": false,
     "language": "en_US",
     "features": [
         "EnableSetPasswordInApi",

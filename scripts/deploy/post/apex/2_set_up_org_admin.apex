@@ -26,8 +26,7 @@ Database.insert(gm, false);
 DebugTableFormatter formatter = new DebugTableFormatter(
     new List<String>{
         'Id',
-        'FirstName',
-        'LastName',
+        'Name',
         'UserPreferencesUserDebugModePref',
         'Country',
         'UserPermissionsKnowledgeUser',
@@ -35,4 +34,4 @@ DebugTableFormatter formatter = new DebugTableFormatter(
     },
     Lists.of(runningUser)
 );
-formatter.log(String.format('✅ Successfully set up [{0}] user:\n', Lists.of(runningUser.Name)));
+formatter.log(String.format('⚪ Successfully set up [{0}] user:\n', Lists.of(runningUser.Name)));

@@ -1,6 +1,6 @@
 public inherited sharing class DebugTableFormatter {
     private final String delimiter = ' ︱ ';
-    private final Integer maxColumnWidth = 80;
+    private final Integer maxColumnWidth = 60;
     private List<String> fieldNames;
     private List<Map<String, String>> records;
 

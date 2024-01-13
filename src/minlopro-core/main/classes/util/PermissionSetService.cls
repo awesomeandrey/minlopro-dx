@@ -103,7 +103,7 @@ public inherited sharing class PermissionSetService {
 
     private String getStatusAsText(Database.UpsertResult dmlResult) {
         if (!dmlResult.isSuccess() && dmlResult.getErrors()[0].getStatusCode().equals(StatusCode.DUPLICATE_VALUE)) {
-            return '⚠️ duplicate (true)';
+            return '🔶 duplicate (true)';
         }
         return dmlResult.isSuccess() ? '✅ true' : '❌ false';
     }

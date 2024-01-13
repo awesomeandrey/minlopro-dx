@@ -7,7 +7,7 @@ List<Site> sitesList = [
     LIMIT 1
 ];
 if (sitesList.isEmpty()) {
-    System.debug(String.format('\n\n ❌ Site was not found: [{0}] \n', Lists.of(SITE_NAME)));
+    System.debug(String.format('\n\n Site was not found: [{0}] \n', Lists.of(SITE_NAME)));
     return;
 }
 final User guestUser = sitesList[0].GuestUser;

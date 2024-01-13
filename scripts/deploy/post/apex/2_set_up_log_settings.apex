@@ -32,4 +32,4 @@ if (!settingsToUpsert.isEmpty()) {
 }
 
 DebugTableFormatter formatter = new DebugTableFormatter(Lists.of('Id', 'Name'), affectedProfiles.values());
-formatter.log('✅ Updated logger settings for the profiles:\n');
+formatter.log('⚪ Updated logger settings for the profiles:\n');
