@@ -7,10 +7,10 @@ CSS_FILE="./src/minlopro-core/main/staticresources/GlobalStyles/globalStyles.css
 
 echo "🔵 Minifying [$CSS_FILE]..."
 
-npm run cleancss -- --version
+npx cleancss --version
 
 if [[ -f "$CSS_FILE" ]]; then
-    npm run cleancss -- -o "$CSS_FILE" "$CSS_FILE"
+    npx cleancss -o "$CSS_FILE" "$CSS_FILE"
     git status --porcelain
     echo "Done!"
 else
