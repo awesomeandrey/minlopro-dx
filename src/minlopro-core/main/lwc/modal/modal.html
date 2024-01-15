@@ -1,0 +1,23 @@
+<template>
+    <lightning-modal-header label={label}></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-is-relative">
+            <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+            <c-stats label="Modal State" value={modalState}></c-stats>
+            <c-combobox
+                label="Select Gender"
+                value={gender}
+                options={genderOptions}
+                mode="fixed"
+                required
+                onchange={handleChangeGender}
+            ></c-combobox>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button-group>
+            <lightning-button label="Confirm" variant="brand" disabled={loading} onclick={handleConfirmBtn}></lightning-button>
+            <lightning-button label="Cancel" disabled={loading} onclick={handleCancelBtn}></lightning-button>
+        </lightning-button-group>
+    </lightning-modal-footer>
+</template>

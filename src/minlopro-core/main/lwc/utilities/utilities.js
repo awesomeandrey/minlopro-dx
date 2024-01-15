@@ -15,7 +15,7 @@ export function wait(callback, timeout = 0) {
     setTimeout(callback, timeout);
 }
 
-export async function waitAsync(callback, timeout = 0) {
+export async function waitAsync(timeout = 0) {
     if (timeout <= 0) {
         return Promise.resolve();
     }
