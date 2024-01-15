@@ -81,7 +81,7 @@ export default class Combobox extends LightningElement {
 
     /**
      * Indicates dropdown panel rendering mode.
-     * Allowed values are "absolute" (default) and "fixed".
+     * Allowed values are "absolute" (default), "fixed" or "fixed-in-modal".
      * @type {string}
      */
     @api mode = 'absolute';
@@ -146,12 +146,7 @@ export default class Combobox extends LightningElement {
     @track hideDropdownBound = this.hideDropdown.bind(this);
     @track comboboxId = FocusedStateManager.generateId();
     @track alignment = 'top'; // 'top' | 'bottom';
-    @track fixedDropdownMonitor = new FixedDropdownMonitor({
-        selectInputElement: () => this.$input,
-        selectDropdownElement: () => this.$dropdown,
-        hideDropdown: this.hideDropdownBound,
-        debugModeEnabled: this.debugModeEnabled
-    });
+    @track fixedDropdownMonitor = null;
 
     get normalizedOptions() {
         // Convert array-like object to array;
@@ -236,7 +231,7 @@ export default class Combobox extends LightningElement {
     }
 
     get isFixedMode() {
-        return this.mode === 'fixed';
+        return ['fixed', 'fixed-in-modal'].includes(this.mode);
     }
 
     get comboboxClassName() {
@@ -271,6 +266,16 @@ export default class Combobox extends LightningElement {
 
     render() {
         return this.isDisabledOrReadOnly ? disabledOrReadOnlyTemplate : inputTemplate;
+    }
+
+    connectedCallback() {
+        this.fixedDropdownMonitor = new FixedDropdownMonitor({
+            selectInputElement: () => this.$input,
+            selectDropdownElement: () => this.$dropdown,
+            hideDropdown: this.hideDropdownBound,
+            isModalContext: this.mode === 'fixed-in-modal',
+            debugModeEnabled: this.debugModeEnabled
+        });
     }
 
     /**

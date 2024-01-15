@@ -37,10 +37,11 @@ export const FocusedStateManager = (function () {
 
 // Combobox Fixed Mode Monitor;
 export class FixedDropdownMonitor {
-    constructor({ selectInputElement, selectDropdownElement, hideDropdown, debugModeEnabled = false }) {
+    constructor({ selectInputElement, selectDropdownElement, hideDropdown, isModalContext = false, debugModeEnabled = false }) {
         this.selectInputElement = selectInputElement;
         this.selectDropdownElement = selectDropdownElement;
         this.hideDropdown = hideDropdown;
+        this.isModalContext = isModalContext;
         this.debugModeEnabled = debugModeEnabled;
         // Internal state properties;
         this.originalInputRect = null;
@@ -71,6 +72,8 @@ export class FixedDropdownMonitor {
         const dropdownElement = this.$dropdown;
         const rect = dropdownElement.getBoundingClientRect();
         dropdownElement.style.position = 'fixed';
+        dropdownElement.style.width = `${rect.width}px`;
+        dropdownElement.style.zIndex = '999999';
         dropdownElement.style.top = (() => {
             if (isElementCloseToViewportBottom(this.$input, 230)) {
                 let { height: inputHeight } = this.originalInputRect;
@@ -78,11 +81,14 @@ export class FixedDropdownMonitor {
             }
             return `${rect.top}px`;
         })();
-        dropdownElement.style.left = `${rect.left}px`;
-        dropdownElement.style.width = `${rect.width}px`;
-        dropdownElement.style.transform = 'none';
-        dropdownElement.style.zIndex = '999999';
-
+        /**
+         * Correlate depending on modal context (in modal context
+         * there is no need to change 'left' and 'transform' style props);
+         */
+        if (!this.isModalContext) {
+            dropdownElement.style.left = `${rect.left}px`;
+            dropdownElement.style.transform = 'none';
+        }
         // Launch interval check;
         this.checkIntervalId = setInterval(() => {
             this.debugModeEnabled && console.log('FixedDropdownMonitor.js', 'running interval function...');

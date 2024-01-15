@@ -64,6 +64,5 @@ export default class ModalPlayground extends LightningElement {
         } else {
             console.log('> Closed Modal without changing gender');
         }
-        debugger;
     }
 }

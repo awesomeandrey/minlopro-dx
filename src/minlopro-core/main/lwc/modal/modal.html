@@ -5,10 +5,11 @@
             <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
             <c-stats label="Modal State" value={modalState}></c-stats>
             <c-combobox
+                lwc:ref="genderInput"
                 label="Select Gender"
                 value={gender}
                 options={genderOptions}
-                mode="fixed"
+                mode="fixed-in-modal"
                 required
                 onchange={handleChangeGender}
             ></c-combobox>

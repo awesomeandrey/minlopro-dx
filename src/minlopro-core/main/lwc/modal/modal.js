@@ -36,6 +36,9 @@ export default class Modal extends LightningModal {
     }
 
     async handleConfirmBtn(event) {
+        if (!this.refs.genderInput.reportValidity()) {
+            return;
+        }
         this.disableClose = true;
         this.loading = true;
         // Imitate async process;
