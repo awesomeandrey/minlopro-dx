@@ -1,6 +1,7 @@
 import { LightningElement, track, wire } from 'lwc';
 import { updateRecord } from 'lightning/uiRecordApi';
 import { cloneObject, parseError, to, isEmptyArray } from 'c/utilities';
+import $Toastify from 'c/toastify';
 
 // Apex Controller Methods;
 import getContactsCountApex from '@salesforce/apex/DatatableController.getContactsCount';
@@ -291,6 +292,10 @@ export default class DatatableContacts extends LightningElement {
                 throw new Error(`Unknown error occurred: ${result}.`);
             }
         });
+        // Collect DML stats;
+        const totalRecordsAmount = this.draftValues.length; // Original draft records amount;
+        const failedRecordsAmount = clonedDrafts.length; // All records still left in drafts;
+        const succeededRecordsAmount = totalRecordsAmount - failedRecordsAmount;
         // Re-set state;
         this.records = clonedRecords;
         this.draftValues = clonedDrafts;
@@ -298,6 +303,17 @@ export default class DatatableContacts extends LightningElement {
         // Turn off spinner;
         this.loading = false;
         console.groupEnd();
+        // Show custom toast messages;
+        if (totalRecordsAmount === succeededRecordsAmount) {
+            $Toastify.success({ message: 'All records were updated!' });
+        } else if (totalRecordsAmount === failedRecordsAmount) {
+            $Toastify.error({ message: 'All records failed to save!' });
+        } else {
+            $Toastify.warning({
+                title: 'Partial Success',
+                message: `${failedRecordsAmount} record failed to save, but the rest of ${succeededRecordsAmount} succeeded.`
+            });
+        }
     }
 
     handleCancel(event) {
