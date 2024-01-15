@@ -9,7 +9,6 @@
     },
     "description": "Minlopro DX",
     "scripts": {
-        "prettier": "prettier",
         "prettier:write": "bash ./scripts/util/prettify_working_directory_files.sh",
         "prettier:src:write": "prettier --write \"src/**\"",
         "prettier:src:check": "prettier --check \"src/**\"",

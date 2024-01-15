@@ -56,12 +56,10 @@ fi
 echo "node version = $(node --version)"
 echo "npm version = $(npm --version)"
 echo "java version = $(java --version)"
+echo "prettier version = $(npx prettier --version)"
 
 # Invoke prettier;
-npm run prettier -- --version
-npm run prettier -- \
-  --check "$copiedSrcFolderPath/**" \
-  --ignore-path "./.prettierignore"
+npx prettier --check "$copiedSrcFolderPath/**" --ignore-path "./.prettierignore"
 
 # Capture the exit code
 prettier_exit_code=$?

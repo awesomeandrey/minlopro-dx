@@ -14,8 +14,8 @@ set -e
 node scripts/util/js/reset_destructive_manifests.js
 
 # Prettify XML files content
-npm run prettier -- --version
-npm run prettier -- --write "manifests/**"
+echo "prettier version = $(npx prettier --version)"
+npx prettier --write "manifests/**"
 
 # Define the files to track
 file1="manifests/destructiveChangesPre.xml"
