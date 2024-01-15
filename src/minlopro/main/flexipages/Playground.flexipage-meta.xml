@@ -23,6 +23,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>modalPlayground</componentName>
+                <identifier>c_modalPlayground</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>playground</componentName>
                 <identifier>c_playground</identifier>
             </componentInstance>
