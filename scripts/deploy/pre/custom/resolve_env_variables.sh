@@ -19,11 +19,11 @@ cp -f "scripts/.env.manifest" "$ENV_FILEPATH"
 OS="$(uname)"
 if [[ "$OS" == "Darwin" ]]; then
     # macOS
-    echo "SED command is adapted for MacOS."
+    echo "SED command is adapted for Mac OS."
     SED_COMMAND="sed -i '' "
 else
     # Linux
-    echo "SED command is adapted for Linux."
+    echo "SED command is adapted for Linux OS."
     SED_COMMAND="sed -i "
 fi
 
@@ -31,7 +31,6 @@ fi
 add_or_update_env_var() {
     local var_name=$1
     local var_value=$2
-    echo "Processing [$var_name] variable..."
     # Check if the variable exists in the file
     if grep -q "^$var_name=" "$ENV_FILEPATH"; then
         # Variable found; update it
@@ -40,6 +39,7 @@ add_or_update_env_var() {
         # Variable not found; add it
         echo "$var_name=$var_value" >> "$ENV_FILEPATH"
     fi
+    echo "- [$var_name] variable was set to [$var_value]."
 }
 
 # Calculate & set static variables;
