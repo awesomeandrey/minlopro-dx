@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# TODO - to decommission!
+
 # How to use:
 # - bash ./scripts/deploy/pre/custom/replace_variables.sh
 

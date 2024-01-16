@@ -25,7 +25,7 @@ while getopts "a" opt; do
   esac
 done
 
-# Install SF CLI (v2);
+# Install SF CLI (v2)
 sfCliPackageName="@salesforce/cli"
 if npm ls -g "$sfCliPackageName" &>/dev/null; then
   echo "$sfCliPackageName is already installed globally."
@@ -49,3 +49,6 @@ fi
 
 # Install the rest of dependencies via NPM
 npm install
+
+# Create '.env' file based on template
+cp -f "scripts/.env.manifest" ".env"

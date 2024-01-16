@@ -18,5 +18,32 @@
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://test.salesforce.com",
-    "sourceApiVersion": "58.0"
+    "sourceApiVersion": "58.0",
+    "replacements": [
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_USERNAME",
+            "replaceWithEnv": "SF_USERNAME"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_INSTANCE_URL",
+            "replaceWithEnv": "SF_INSTANCE_URL"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_CCF_APP_CLIENT_ID",
+            "replaceWithEnv": "SF_CCF_APP_CLIENT_ID"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_CCF_APP_CLIENT_SECRET",
+            "replaceWithEnv": "SF_CCF_APP_CLIENT_SECRET"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_GITHUB_WEBHOOK_SECRET",
+            "replaceWithEnv": "SF_GITHUB_WEBHOOK_SECRET"
+        }
+    ]
 }
