@@ -9,7 +9,9 @@ read -p "🔶 Enter target org alias to run hard deploy against: " TARGET_ORG_AL
 
 # Invoke source deploy to target org;
 echo "🔵 Deploying to [$TARGET_ORG_ALIAS] organization..."
-sf project deploy start \
+
+# Ingest environment variables & deploy;
+npx dotenv -e ".env" -- sf project deploy start \
   --target-org $TARGET_ORG_ALIAS \
   --manifest "manifests/package.xml" \
   --pre-destructive-changes "manifests/destructiveChangesPre.xml" \

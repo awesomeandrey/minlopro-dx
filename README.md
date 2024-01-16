@@ -30,6 +30,8 @@ Spin up scratch org by
 running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)
 GitHub Action Workflow.
 
+Authorize scratch org using [`authorize_org.sh`](scripts/deploy/authorize_org.sh) command.
+
 Make sure that the changed codebase files are _prettified_ via `npm run prettier:src:write` command.
 Alternatively, you can run `npm run prettier:src:check` in order to identify _non-prettified_ files.
 
@@ -66,9 +68,10 @@ At the same time, there are project-level rules enforced with regards to using/r
 
 Follow steps below if there is a need to replace specific setting with variable value:
 
-1. Define an environment variable in GitHub repository
+1. Define an repository variable(s) in GitHub repository for the given GitHub Environment(s)
 2. Import variable into workflow files affected (see `.github/workflows` folder)
-3. Explicitly create reference(s) in metadata components using `@VAR_NAME` format
+3. Create replacement configuration in [`sfdx-project.json`](sfdx-project.json) file
+4. Explicitly create reference(s) in metadata components (classes, named credentials etc.) using `@VAR_NAME` format
 
 As an example, refer to `namedCredentials` or `customMetadata` folders.
 
