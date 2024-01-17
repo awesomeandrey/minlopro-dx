@@ -11,6 +11,7 @@ assets/
 
 # Excluded file exentsions
 **/*.sh
+.env.manifest
 .forceignore
 .gitignore
 .prettierignore

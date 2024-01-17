@@ -32,7 +32,7 @@ const CONTACT_TEMPLATE = {
  * - create Contact record bypassing duplicate rules
  */
 export default class DuplicatesManagerTab extends LightningElement {
-    @track selectedAccountId = '0015t00001Ll5hKAAR'; // TODO - replace with env variable;
+    @track selectedAccountId = '@SF_SAMPLE_ACCOUNT_ID';
     @track selectedContactId;
     @track errorMessage = null;
     @track contactDraft = { ...CONTACT_TEMPLATE };
@@ -202,7 +202,12 @@ export default class DuplicatesManagerTab extends LightningElement {
     })
     wiredRelatedContacts = {};
 
-    connectedCallback() {}
+    connectedCallback() {
+        if (typeof this.selectedAccountId === 'string' && this.selectedAccountId.length < 10) {
+            // Invalid Account ID;
+            this.selectedAccountId = null;
+        }
+    }
 
     // Event Handlers;
 
@@ -251,7 +256,7 @@ export default class DuplicatesManagerTab extends LightningElement {
         if (!this.isFormValid) {
             return;
         }
-        // TODO;
+        // TODO - invoke Apex controller;
     }
 
     async handleSubmitViaUiApi(event) {
@@ -281,7 +286,7 @@ export default class DuplicatesManagerTab extends LightningElement {
             $Toastify.success({ message: `${isNew ? 'Created new' : 'Updated'} Contact [${id}].` });
         } catch (error) {
             const { message, code, details } = parseError(error);
-            this.errorMessage = `${message} | ${code}}`;
+            this.errorMessage = `${message} | ${code}`;
             console.log(`>>> ${JSON.stringify(details)}`);
             // Show notification;
             $Toastify.error({ title: 'Failed to save Contact!', message });

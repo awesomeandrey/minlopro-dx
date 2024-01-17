@@ -3,7 +3,8 @@
  * to identify identical records in Contact object.
  *
  * Contact matching logic will be based on the following fields:
- * - Contact.Name
+ * - Contact.FirstName
+ * - Contact.LastName
  * - Contact.Phone
  */
 public with sharing class DuplicatesManagerController {
