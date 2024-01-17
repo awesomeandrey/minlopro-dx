@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckIfDuplicate__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Flag that indicates that custom duplicate rule(s) on Contact object should de-duplicate the record.</description>
+    <externalId>false</externalId>
+    <inlineHelpText
+        >Flag that indicates that custom duplicate rule(s) on Contact object should de-duplicate the record.</inlineHelpText
+    >
+    <label>Check If Duplicate?</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>
