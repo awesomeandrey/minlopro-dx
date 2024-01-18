@@ -3,6 +3,19 @@
         <span slot="title" class="slds-text-title_caps"><code>c-duplicates-manager-tab</code></span>
         <lightning-button-group slot="actions">
             <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+            <lightning-button
+                lwc:if={hasAccountSelected}
+                label="Refresh Wire Adapters"
+                disabled={disableBtn}
+                onclick={handleRefreshWireAdapter}
+            ></lightning-button>
+            <lightning-button
+                lwc:if={hasAccountSelected}
+                label="Find Duplicates By Prototype"
+                variant="brand"
+                disabled={disableBtn}
+                onclick={handleFindDuplicates}
+            ></lightning-button>
         </lightning-button-group>
         <lightning-layout>
             <lightning-layout-item flexibility="no-grow" padding="horizontal-small" class="form-container slds-border_right">
@@ -90,8 +103,10 @@
                         ></lightning-input>
                         <div class="slds-align_absolute-center slds-m-top_small">
                             <lightning-button-group>
-                                <lightning-button label="Save via UI API" onclick={handleSubmitViaUiApi}> </lightning-button>
-                                <lightning-button label="Save via Apex" onclick={handleSubmitViaApex}> </lightning-button>
+                                <lightning-button label="Save via UI API" disabled={disableBtn} onclick={handleSubmitViaUiApi}>
+                                </lightning-button>
+                                <lightning-button label="Save via Apex" disabled={disableBtn} onclick={handleSubmitViaApex}>
+                                </lightning-button>
                             </lightning-button-group>
                         </div>
                     </div>
@@ -111,17 +126,8 @@
                 <div class="slds-m-vertical_medium">
                     <c-error-alert value={errorObject}></c-error-alert>
                 </div>
-                <div lwc:if={hasAccountSelected} class="slds-align_absolute-center slds-m-top_x-small">
-                    <lightning-button-group>
-                        <lightning-button label="Refresh Wire Adapter" onclick={handleRefreshWireAdapter}></lightning-button>
-                        <lightning-button
-                            label="Find Duplicates By Prototype"
-                            variant="brand"
-                            onclick={handleFindDuplicates}
-                        ></lightning-button>
-                    </lightning-button-group>
-                </div>
-                <div lwc:if={hasAccountSelected} class="slds-m-top_x-small">
+                <div lwc:if={hasAccountSelected}>
+                    <p class="slds-text-title_caps slds-m-vertical_small">Related Contacts</p>
                     <c-datatable
                         key-field="Id"
                         data={contactData}
@@ -133,6 +139,14 @@
                     <div lwc:if={hasNoRelatedContacts} class="slds-align_absolute-center slds-m-vertical_small">
                         <p>No related Contacts found...</p>
                     </div>
+                    <p class="slds-text-title_caps slds-m-vertical_small">Found Duplicates</p>
+                    <c-datatable
+                        key-field="Id"
+                        data={duplicateData}
+                        columns={duplicateColumns}
+                        hide-checkbox-column
+                        show-row-number-column
+                    ></c-datatable>
                 </div>
             </lightning-layout-item>
         </lightning-layout>

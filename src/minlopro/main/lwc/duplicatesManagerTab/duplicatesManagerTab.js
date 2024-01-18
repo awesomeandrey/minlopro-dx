@@ -5,6 +5,10 @@ import { refreshApex } from '@salesforce/apex';
 import { cloneObject, parseError } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
+// Apex Controller Methods;
+import findDuplicatesApex from '@salesforce/apex/DuplicatesManagerController.findDuplicates';
+import upsertContactApex from '@salesforce/apex/DuplicatesManagerController.upsertContact';
+
 // Static Resources;
 import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
 
@@ -38,6 +42,7 @@ export default class DuplicatesManagerTab extends LightningElement {
     @track contactDraft = { ...CONTACT_TEMPLATE };
     @track loading = false;
     @track hasChanges = false;
+    @track duplicateContacts = [];
 
     get accountDisplayInfo() {
         return {
@@ -142,6 +147,47 @@ export default class DuplicatesManagerTab extends LightningElement {
         return [];
     }
 
+    get duplicateColumns() {
+        return [
+            {
+                label: 'Name',
+                fieldName: 'Id',
+                type: 'customLookup',
+                typeAttributes: {
+                    context: { fieldName: this.KEY_FIELD },
+                    fieldName: $RECORD_ID,
+                    objectApiName: 'Contact',
+                    value: { fieldName: $RECORD_ID }
+                }
+            },
+            {
+                label: 'Phone',
+                fieldName: 'Phone',
+                type: 'phone'
+            },
+            {
+                label: 'Account',
+                fieldName: 'AccountId',
+                type: 'customLookup',
+                typeAttributes: {
+                    context: { fieldName: 'AccountId' },
+                    fieldName: 'AccountId',
+                    objectApiName: 'Account',
+                    value: { fieldName: 'AccountId' }
+                }
+            },
+            {
+                label: 'Check If Duplicate?',
+                fieldName: 'CheckIfDuplicate__c',
+                type: 'boolean'
+            }
+        ];
+    }
+
+    get duplicateData() {
+        return cloneObject(this.duplicateContacts || []);
+    }
+
     get hasNoRelatedContacts() {
         return this.contactData.length === 0;
     }
@@ -167,7 +213,7 @@ export default class DuplicatesManagerTab extends LightningElement {
     }
 
     get disableBtn() {
-        return this.loading || !this.hasChanges;
+        return this.loading;
     }
 
     get stats() {
@@ -255,13 +301,29 @@ export default class DuplicatesManagerTab extends LightningElement {
         const { value, checked } = event.detail;
         this.contactDraft[fieldName] = value || checked;
         console.log('Contact Draft Change', JSON.stringify(this.contactDraft));
+        // Reset duplicates;
+        this.duplicateContacts = [];
     }
 
-    handleFindDuplicates(event) {
+    async handleFindDuplicates(event) {
         if (!this.isFormValid) {
             return;
         }
-        // TODO - invoke Apex controller;
+        this.loading = true;
+        this.errorObject = null;
+        try {
+            const contactToCheck = cloneObject(this.contactDraft);
+            this.duplicateContacts = await findDuplicatesApex({ contactToCheck });
+            $Toastify.info({ message: `Found ${this.duplicateContacts.length} duplicate Contacts.` });
+        } catch (error) {
+            // Capture error details;
+            this.errorObject = error;
+            const { message } = parseError(error);
+            // Show notification;
+            $Toastify.error({ title: 'Duplicates search failed!', message });
+        } finally {
+            this.loading = false;
+        }
     }
 
     async handleSubmitViaUiApi(event) {
@@ -294,16 +356,36 @@ export default class DuplicatesManagerTab extends LightningElement {
             this.errorObject = error;
             const { message } = parseError(error);
             // Show notification;
-            $Toastify.error({ title: 'Failed to save Contact!', message });
+            $Toastify.error({ title: 'Failed to save Contact via UI API!', message });
         } finally {
             this.loading = false;
             this.hasChanges = false;
         }
     }
 
-    handleSubmitViaApex(event) {
-        console.log('Submitting via UI API', JSON.stringify(this.contactDraft));
-        // TODO;
-        this.hasChanges = false;
+    async handleSubmitViaApex(event) {
+        // Reset spinner & errors;
+        this.loading = true;
+        this.errorObject = null;
+        // Invoke UI API;
+        console.log('Submitting via Apex', JSON.stringify(this.contactDraft));
+        this.contactDraft['AccountId'] = this.selectedAccountId;
+        this.contactDraft['MobilePhone'] = '1234567890';
+        try {
+            this.selectedContactId = await upsertContactApex({ contactToUpsert: this.contactDraft });
+            // Refresh related list records;
+            await refreshApex(this.wiredRelatedContacts);
+            // Show notification;
+            $Toastify.success({ message: `Saved Contact via Apex!` });
+        } catch (error) {
+            // Capture error details;
+            this.errorObject = error;
+            const { message } = parseError(error);
+            // Show notification;
+            $Toastify.error({ title: 'Failed to save Contact via Apex!', message });
+        } finally {
+            this.loading = false;
+            this.hasChanges = false;
+        }
     }
 }
