@@ -34,9 +34,10 @@ const CONTACT_TEMPLATE = {
 export default class DuplicatesManagerTab extends LightningElement {
     @track selectedAccountId = '@SF_SAMPLE_ACCOUNT_ID';
     @track selectedContactId;
-    @track errorMessage = null;
+    @track errorObject = null;
     @track contactDraft = { ...CONTACT_TEMPLATE };
     @track loading = false;
+    @track hasChanges = false;
 
     get accountDisplayInfo() {
         return {
@@ -146,15 +147,14 @@ export default class DuplicatesManagerTab extends LightningElement {
     }
 
     get hasErrors() {
-        return Boolean(this.wiredRelatedContacts.error) || Boolean(this.errorMessage);
+        return Boolean(this.normalizedErrorObject);
     }
 
-    get normalizedErrorMessage() {
+    get normalizedErrorObject() {
         if (Boolean(this.wiredRelatedContacts.error)) {
-            let { message, code, details } = parseError(this.wiredRelatedContacts.error);
-            return `${code} | ${message} | ${details}`;
-        } else if (Boolean(this.errorMessage)) {
-            return this.errorMessage;
+            return this.wiredRelatedContacts.error;
+        } else if (Boolean(this.errorObject)) {
+            return this.errorObject;
         }
         return null;
     }
@@ -164,6 +164,10 @@ export default class DuplicatesManagerTab extends LightningElement {
             inputFields.reportValidity();
             return validSoFar && inputFields.checkValidity();
         }, true);
+    }
+
+    get disableBtn() {
+        return this.loading || !this.hasChanges;
     }
 
     get stats() {
@@ -216,7 +220,7 @@ export default class DuplicatesManagerTab extends LightningElement {
         this.selectedContactId = null;
         this.contactDraft = { ...CONTACT_TEMPLATE };
         this.refs.accountPicker.clearSelection();
-        this.errorMessage = null;
+        this.errorObject = null;
     }
 
     handleAccountLookupChange(event) {
@@ -246,6 +250,7 @@ export default class DuplicatesManagerTab extends LightningElement {
     }
 
     handleInputChange(event) {
+        this.hasChanges = true;
         const fieldName = event.target.dataset.name;
         const { value, checked } = event.detail;
         this.contactDraft[fieldName] = value || checked;
@@ -263,9 +268,9 @@ export default class DuplicatesManagerTab extends LightningElement {
         if (!this.isFormValid) {
             return;
         }
+        // Reset spinner & errors;
         this.loading = true;
-        // Reset errors;
-        this.errorMessage = null;
+        this.errorObject = null;
         // Invoke UI API;
         console.log('Submitting via UI API', JSON.stringify(this.contactDraft));
         const isNew = !Boolean(this.selectedContactId);
@@ -278,25 +283,27 @@ export default class DuplicatesManagerTab extends LightningElement {
             recordInput.fields['MobilePhone'] = '1234567890';
         }
         try {
-            const { id, fields } = isNew ? await createRecord(recordInput) : await updateRecord(recordInput);
+            const { id } = isNew ? await createRecord(recordInput) : await updateRecord(recordInput);
             this.selectedContactId = id;
             // Refresh related list records;
             await refreshApex(this.wiredRelatedContacts);
             // Show notification;
             $Toastify.success({ message: `${isNew ? 'Created new' : 'Updated'} Contact [${id}].` });
         } catch (error) {
-            const { message, code, details } = parseError(error);
-            this.errorMessage = `${message} | ${code}`;
-            console.log(`>>> ${JSON.stringify(details)}`);
+            // Capture error details;
+            this.errorObject = error;
+            const { message } = parseError(error);
             // Show notification;
             $Toastify.error({ title: 'Failed to save Contact!', message });
         } finally {
             this.loading = false;
+            this.hasChanges = false;
         }
     }
 
     handleSubmitViaApex(event) {
         console.log('Submitting via UI API', JSON.stringify(this.contactDraft));
         // TODO;
+        this.hasChanges = false;
     }
 }

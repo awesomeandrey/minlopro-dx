@@ -106,17 +106,10 @@
                     </div>
                 </div>
             </lightning-layout-item>
-            <lightning-layout-item flexibility="grow" padding="horizontal-small">
+            <lightning-layout-item size="8" padding="horizontal-small">
                 <c-stats label="Stats" icon-name="standard:contract_line_item" value={stats}></c-stats>
-                <div lwc:if={hasErrors} class="slds-align_absolute-center slds-m-top_x-small">
-                    <div class="slds-scoped-notification slds-media slds-media_center slds-theme_warning" role="status">
-                        <div class="slds-media__figure">
-                            <lightning-icon size="small" icon-name="utility:warning" alternative-text="Stats"></lightning-icon>
-                        </div>
-                        <div class="slds-media__body">
-                            <p class="slds-truncate">{normalizedErrorMessage}</p>
-                        </div>
-                    </div>
+                <div class="slds-m-vertical_medium">
+                    <c-error-alert value={errorObject}></c-error-alert>
                 </div>
                 <div lwc:if={hasAccountSelected} class="slds-align_absolute-center slds-m-top_x-small">
                     <lightning-button-group>

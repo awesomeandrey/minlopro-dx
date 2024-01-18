@@ -12,6 +12,7 @@ public with sharing class DuplicatesManagerController {
     public static Object checkDuplicate(Contact contactToCheck) {
         try {
             // TODO - custom logic that validates Contact;
+            // https://sachithradangalla.medium.com/using-duplicate-rules-in-apex-salesforce-131249ecfb4
             return false;
         } catch (Exception ex) {
             Logger.error(ex);

@@ -1,0 +1,23 @@
+.error-details__container div {
+    height: 5rem;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.error-details__container.expanded div {
+    height: auto;
+    max-height: 25rem;
+    overflow: auto;
+}
+
+.error-details__container div pre {
+    margin: 0;
+}
+
+.error-details__container span:after {
+    content: 'Show More';
+}
+
+.error-details__container.expanded span:after {
+    content: 'Show Less';
+}

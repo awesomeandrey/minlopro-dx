@@ -1,0 +1,24 @@
+<template>
+    <article class="slds-tile slds-media">
+        <div class="slds-media__figure">
+            <lightning-icon slot="media" icon-name="utility:warning" variant="error" alternative-text="Error"></lightning-icon>
+        </div>
+        <div class="slds-media__body">
+            <h3 class="slds-tile__title slds-text-title_caps slds-truncate">Error Occurred</h3>
+            <div class="slds-tile__detail">
+                <dl class="slds-list_horizontal slds-wrap">
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate slds-text-title_bold">Message:</dt>
+                    <dd class="slds-item_detail slds-text-color_error slds-truncate">{message}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-truncate slds-text-title_bold">Code:</dt>
+                    <dd class="slds-item_detail slds-text-color_error slds-truncate">{code}</dd>
+                </dl>
+                <div lwc:if={hasDetails} lwc:ref="detailsPanel" class="error-details__container">
+                    <span class="slds-text-link slds-text-link_reset" onclick={handleToggleShowMore}></span>
+                    <div class="slds-box slds-box_xx-small">
+                        <pre>{preformattedDetails}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+</template>
