@@ -166,6 +166,16 @@ export default class DuplicatesManagerTab extends LightningElement {
                 type: 'phone'
             },
             {
+                label: 'Email',
+                fieldName: 'Email',
+                type: 'email'
+            },
+            {
+                label: 'Check If Duplicate?',
+                fieldName: 'CheckIfDuplicate__c',
+                type: 'boolean'
+            },
+            {
                 label: 'Account',
                 fieldName: 'AccountId',
                 type: 'customLookup',
@@ -175,11 +185,6 @@ export default class DuplicatesManagerTab extends LightningElement {
                     objectApiName: 'Account',
                     value: { fieldName: 'AccountId' }
                 }
-            },
-            {
-                label: 'Check If Duplicate?',
-                fieldName: 'CheckIfDuplicate__c',
-                type: 'boolean'
             }
         ];
     }

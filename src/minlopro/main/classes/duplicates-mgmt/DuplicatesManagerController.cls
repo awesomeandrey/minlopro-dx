@@ -6,6 +6,8 @@
  * - Contact.LastName (fuzzy matching)
  * - Contact.Phone (exact matching)
  *
+ * See 'Contact.DeduplicateContacts' duplicate rule!
+ *
  * SF docs - https://developer.salesforce.com/docs/atlas.en-us.apexref.meta/apexref/apex_class_Datacloud_FindDuplicates.htm
  */
 public with sharing class DuplicatesManagerController {

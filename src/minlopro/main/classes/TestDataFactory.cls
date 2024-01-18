@@ -31,4 +31,20 @@ public class TestDataFactory {
         );
         return u;
     }
+
+    public static List<Contact> createContacts(Integer numOfContacts) {
+        List<Contact> contacts = new List<Contact>();
+        for (Integer i = 0; i < numOfContacts; i++) {
+            contacts.add(
+                new Contact(
+                    FirstName = 'TestFirstName' + i,
+                    LastName = 'TestLastName' + i,
+                    Email = 'test' + i + '@example.com',
+                    Phone = '777-' + i,
+                    MobilePhone = '1234567890'
+                )
+            );
+        }
+        return contacts;
+    }
 }
