@@ -11,11 +11,12 @@
     <label>Minlopro</label>
     <navType>Standard</navType>
     <tabs>Playground</tabs>
+    <tabs>LogsMonitor</tabs>
+    <tabs>DuplicatesManager</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
-    <tabs>LogsMonitor</tabs>
-    <tabs>GoogleMapsApiPlayground</tabs>
     <tabs>SalesforceContact__x</tabs>
+    <tabs>GoogleMapsApiPlayground</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Minlopro_UtilityBar</utilityBar>
 </CustomApplication>

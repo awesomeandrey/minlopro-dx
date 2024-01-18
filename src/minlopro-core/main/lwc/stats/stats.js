@@ -4,6 +4,7 @@ import { isEmpty, uniqueId } from 'c/utilities';
 export default class Stats extends LightningElement {
     @api label = 'Datatable Stats';
     @api value = {};
+    @api iconName = 'standard:setup_modal';
 
     get statsAsArray() {
         if (isEmpty(this.value)) {

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <actionOnInsert>Block</actionOnInsert>
+    <actionOnUpdate>Block</actionOnUpdate>
+    <alertText>Duplicate Contact detected!</alertText>
+    <description>Custom duplicate rule that applies to matched Contacts by criteria</description>
+    <duplicateRuleFilter>
+        <booleanFilter xsi:nil="true" />
+        <duplicateRuleFilterItems>
+            <field>CheckIfDuplicate__c</field>
+            <operation>equals</operation>
+            <value>true</value>
+            <sortOrder>1</sortOrder>
+            <table>
+                Contact
+            </table>
+        </duplicateRuleFilterItems>
+    </duplicateRuleFilter>
+    <duplicateRuleMatchRules>
+        <matchRuleSObjectType>Contact</matchRuleSObjectType>
+        <matchingRule>MatchByNameOrPhone</matchingRule>
+        <objectMapping xsi:nil="true" />
+    </duplicateRuleMatchRules>
+    <isActive>true</isActive>
+    <masterLabel>De-duplicate Contacts</masterLabel>
+    <securityOption>BypassSharingRules</securityOption>
+    <sortOrder>1</sortOrder>
+</DuplicateRule>

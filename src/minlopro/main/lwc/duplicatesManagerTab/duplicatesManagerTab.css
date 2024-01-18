@@ -1,0 +1,7 @@
+.form-container {
+    min-width: 20rem;
+}
+
+lightning-input {
+    margin-bottom: 0.4rem;
+}

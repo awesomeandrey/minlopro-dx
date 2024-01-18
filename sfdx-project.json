@@ -44,6 +44,12 @@
             "glob": "src/**",
             "stringToReplace": "@SF_GITHUB_WEBHOOK_SECRET",
             "replaceWithEnv": "SF_GITHUB_WEBHOOK_SECRET"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_SAMPLE_ACCOUNT_ID",
+            "replaceWithEnv": "SF_SAMPLE_ACCOUNT_ID",
+            "allowUnsetEnvVariable": true
         }
     ]
 }
