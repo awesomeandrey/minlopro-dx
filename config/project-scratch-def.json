@@ -45,6 +45,11 @@
         },
         "languageSettings": {
             "enableTranslationWorkbench": true
+        },
+        "userManagementSettings": {
+            "enableEnhancedPermsetMgmt": true,
+            "enableEnhancedProfileMgmt": true,
+            "enableNewProfileUI": true
         }
     }
 }
