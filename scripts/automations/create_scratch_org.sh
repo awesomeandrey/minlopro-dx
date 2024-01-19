@@ -26,7 +26,6 @@ sf org create scratch \
     --duration-days 30 \
     --wait 10
 sf config list
-sf alias list
 
 # Reset Admin User password
 sf org generate password --target-org "$SCRATCH_ORG_ALIAS"
@@ -45,6 +44,9 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 # Generate project manifest and initiate full deploy to scratch org (this automatically creates Digital Experience Site)
 sf project generate manifest --source-dir "src" --name "manifests/package.xml"
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/deploy.sh
+
+# Create QA user
+echo "$ADMIN_EMAIL" | bash ./scripts/util/create_qa_user.sh
 
 # Run POST-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh

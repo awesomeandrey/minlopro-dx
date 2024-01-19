@@ -39,14 +39,14 @@ git diff --name-only $BASE HEAD > "$changedFilesPath"
 
 # Copy each SRC-changed file into a separate folder preserving folders hierarchy;
 grep "$srcFilePrefix" "$changedFilesPath" | while read -r filepath; do
-  if [ -f $filepath ]; then
+  if [ -f "$filepath" ]; then
     rsync -R "$filepath" "$buildFolderName"
   fi
 done
 
 echo "📜 BUILD FOLDER TREE"
-rm $changedFilesPath
-tree $buildFolderName
+rm "$changedFilesPath"
+tree "$buildFolderName"
 
 if ! [ "$(ls $copiedSrcFolderPath)" ]; then
   echo "⚪ No changed files detected in [$copiedSrcFolderPath] folder!"

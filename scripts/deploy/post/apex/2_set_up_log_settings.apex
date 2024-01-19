@@ -2,7 +2,7 @@ Map<Id, Profile> affectedProfiles = new Map<Id, Profile>(
     [
         SELECT Id, Name
         FROM Profile
-        WHERE Name IN ('System Administrator', 'DigEx Profile')
+        WHERE Name IN ('System Administrator', 'DigEx Profile', 'Minlopro User')
         LIMIT 10
     ]
 );
