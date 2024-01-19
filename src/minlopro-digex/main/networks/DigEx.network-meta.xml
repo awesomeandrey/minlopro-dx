@@ -33,7 +33,7 @@
     <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
     <maxFileSizeKb>10240</maxFileSizeKb>
     <networkMemberGroups>
-        <permissionSet>Minlopro_DigEx</permissionSet>
+        <permissionSet>Minlopro_DigExUser</permissionSet>
         <profile>Admin</profile>
         <profile>DigEx Partner</profile>
     </networkMemberGroups>

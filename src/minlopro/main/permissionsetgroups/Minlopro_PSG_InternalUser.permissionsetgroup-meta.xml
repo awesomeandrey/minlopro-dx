@@ -6,7 +6,6 @@
     <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_Core</permissionSets>
     <permissionSets>Minlopro_CustomAuthProviderAndNC</permissionSets>
-    <permissionSets>Minlopro_DigEx</permissionSets>
     <permissionSets>Minlopro_DuplicatesManager</permissionSets>
     <permissionSets>Minlopro_GithubWebhook</permissionSets>
     <permissionSets>Minlopro_GoogleMaps</permissionSets>

@@ -6,12 +6,7 @@ if (foundUsers.isEmpty()) {
     return;
 }
 
-// Query all Minlopro PSs & PSGs;
-Map<Id, PermissionSet> permissionSetsByIds = new Map<Id, PermissionSet>(
-        [SELECT Id FROM PermissionSet WHERE Name LIKE 'Minlopro_%']
-);
-
-// Assign them to the running user (aka Admin);
+// Assign PSG intended for internal users;
 User qaUser = foundUsers[0];
 PermissionSetService service = PermissionSetService.getInstance();
-service.assign(qaUser.Id, permissionSetsByIds.keySet());
+service.assign(qaUser.Id, Sets.of('Minlopro_PSG_InternalUser'));

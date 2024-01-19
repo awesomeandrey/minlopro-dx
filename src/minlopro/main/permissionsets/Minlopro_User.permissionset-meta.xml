@@ -4,7 +4,7 @@
         <application>Minlopro</application>
         <visible>true</visible>
     </applicationVisibilities>
-    <description>Grants access to Minlopro app</description>
+    <description>Grants access to Minlopro app and its features.</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.AccountNumber</field>
