@@ -13,6 +13,10 @@
         <apexClass>MinloproContactsProvider</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <externalDataSourceAccesses>
+        <enabled>false</enabled>
+        <externalDataSource>MinloproEDS</externalDataSource>
+    </externalDataSourceAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>SalesforceContact__x.Name__c</field>
