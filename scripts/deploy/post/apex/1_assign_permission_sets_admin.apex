@@ -1,8 +1,3 @@
-// Query all Minlopro PSs & PSGs;
-Map<Id, PermissionSet> permissionSetsByIds = new Map<Id, PermissionSet>(
-    [SELECT Id FROM PermissionSet WHERE Name LIKE 'Minlopro_%']
-);
-
-// Assign them to the running user (aka Admin);
+// Assign PSG intended for internal users & admin permission set;
 PermissionSetService service = PermissionSetService.getInstance();
-service.assign(UserInfo.getUserId(), permissionSetsByIds.keySet());
+service.assign(UserInfo.getUserId(), Sets.of('Minlopro_PSG_InternalUser', 'Minlopro_PSG_DigExUser', 'Minlopro_Admin'));
