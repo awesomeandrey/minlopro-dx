@@ -1,32 +1,38 @@
 {
-    "orgName": "minlopro-dx",
     "country": "US",
-    "adminEmail": "andrii.melnichuk@customertimes.com",
-    "edition": "Developer",
     "description": "Minlopro DX Scratch Org",
-    "hasSampleData": false,
-    "language": "en_US",
+    "edition": "Developer",
     "features": [
-        "EnableSetPasswordInApi",
-        "DebugApex",
-        "AuthorApex",
         "API",
-        "StreamingAPI",
-        "StateAndCountryPicklist",
-        "PersonAccounts",
-        "DefaultWorkflowUser",
+        "AuthorApex",
         "Communities",
         "CustomerCommunityPlus",
-        "ForceComPlatform",
+        "DebugApex",
+        "DefaultWorkflowUser",
+        "EnableSetPasswordInApi",
         "FieldAuditTrail",
-        "Knowledge"
+        "ForceComPlatform",
+        "Knowledge",
+        "MultiCurrency",
+        "PersonAccounts",
+        "StateAndCountryPicklist",
+        "StreamingAPI"
     ],
+    "hasSampleData": false,
+    "language": "en_US",
+    "orgName": "minlopro-dx",
     "settings": {
-        "experienceBundleSettings": {
-            "enableExperienceBundleMetadata": true
+        "apexSettings": {
+            "enableCompileOnDeploy": false
         },
         "communitiesSettings": {
             "enableNetworksEnabled": true
+        },
+        "experienceBundleSettings": {
+            "enableExperienceBundleMetadata": true
+        },
+        "languageSettings": {
+            "enableTranslationWorkbench": true
         },
         "lightningExperienceSettings": {
             "enableS1DesktopEnabled": true,
@@ -39,12 +45,6 @@
             "sessionSettings": {
                 "lockerServiceNext": true
             }
-        },
-        "apexSettings": {
-            "enableCompileOnDeploy": false
-        },
-        "languageSettings": {
-            "enableTranslationWorkbench": true
         },
         "userManagementSettings": {
             "enableEnhancedPermsetMgmt": true,

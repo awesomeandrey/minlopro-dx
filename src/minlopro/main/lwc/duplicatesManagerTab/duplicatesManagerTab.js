@@ -284,6 +284,7 @@ export default class DuplicatesManagerTab extends LightningElement {
     handleSwitchToCreateRecordMode(event) {
         if (!this.isCreateRecordMode) {
             this.selectedContactId = null;
+            this.contactDraft = { ...CONTACT_TEMPLATE };
         }
     }
 
