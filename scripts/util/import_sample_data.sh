@@ -13,7 +13,7 @@ echo
 # Import Accounts and Contacts
 sf data import tree \
   --target-org "$TARGET_ORG_ALIAS" \
-  --plan "config/data/sample-Account-Contact-plan.json"
+  --plan "config/data/sample-Account-Contact-Opportunity-plan.json"
 
 # Import CurrencyTypes
  sf data import tree \
