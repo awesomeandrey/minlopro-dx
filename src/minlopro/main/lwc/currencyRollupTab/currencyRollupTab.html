@@ -1,0 +1,65 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-currency-rollup-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+            <lightning-button label="Refresh Wire Adapters" onclick={handleRefreshWireAdapters}></lightning-button>
+            <lightning-button label="Roll Up" onclick={handleRollupOpps}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+        <lightning-layout>
+            <lightning-layout-item flexibility="no-grow" padding="horizontal-small" class="form-container slds-border_right">
+                <lightning-record-picker
+                    lwc:ref="accountPicker"
+                    label="Target Account"
+                    placeholder="Search Accounts..."
+                    object-api-name="Account"
+                    value={selectedAccountId}
+                    display-info={accountDisplayInfo}
+                    matching-info={accountMatchingInfo}
+                    required
+                    onchange={handleAccountLookupChange}
+                ></lightning-record-picker>
+                <div class="slds-m-top_medium">
+                    <c-error-alert value={normalizedErrorObject}></c-error-alert>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="8" padding="horizontal-small">
+                <div class="slds-m-bottom_small">
+                    <c-stats label="Stats" icon-name="standard:contract_line_item" value={stats}></c-stats>
+                </div>
+                <div class="slds-m-bottom_small">
+                    <c-stats label="Rollup Stats" icon-name="standard:attribute_based_pricing" value={rollupStats}></c-stats>
+                </div>
+                <p lwc:if={hasAccountSelected} class="slds-text-title_caps slds-m-vertical_small">
+                    Related Opportunities ({opportunitiesCount})
+                </p>
+                <div lwc:if={hasAccountSelected} class="slds-scrollable">
+                    <c-datatable
+                        key-field="Id"
+                        draft-values={draftValues}
+                        columns={opportunityColumns}
+                        data={opportunityData}
+                        errors={tableErrors}
+                        hide-checkbox-column
+                        show-row-number-column
+                        oncellchange={handleCellChange}
+                        oncellerror={handleCellError}
+                        onsave={handleSave}
+                        oncancel={handleCancel}
+                    ></c-datatable>
+                </div>
+                <p class="slds-text-title_caps slds-m-vertical_small">Currency Types</p>
+                <div class="slds-scrollable">
+                    <c-datatable
+                        key-field="IsoCode"
+                        columns={currencyTypeColumns}
+                        data={currencyTypeData}
+                        hide-checkbox-column
+                        show-row-number-column
+                    ></c-datatable>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

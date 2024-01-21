@@ -128,7 +128,7 @@
                     <c-error-alert value={errorObject}></c-error-alert>
                 </div>
                 <div lwc:if={hasAccountSelected}>
-                    <p class="slds-text-title_caps slds-m-vertical_small">Related Contacts</p>
+                    <p class="slds-text-title_caps slds-m-vertical_small">Related Contacts ({contactCount})</p>
                     <c-datatable
                         key-field="Id"
                         data={contactData}
@@ -140,7 +140,7 @@
                     <div lwc:if={hasNoRelatedContacts} class="slds-align_absolute-center slds-m-vertical_small">
                         <p>No related Contacts found...</p>
                     </div>
-                    <p class="slds-text-title_caps slds-m-vertical_small">Found Duplicates</p>
+                    <p class="slds-text-title_caps slds-m-vertical_small">Found Duplicates ({duplicateCount})</p>
                     <c-datatable
                         key-field="Id"
                         data={duplicateData}

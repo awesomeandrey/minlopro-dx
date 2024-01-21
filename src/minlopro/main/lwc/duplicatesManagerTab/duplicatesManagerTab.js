@@ -2,8 +2,8 @@ import { LightningElement, track, wire } from 'lwc';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 import { createRecord, updateRecord, getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
-import { cloneObject, parseError } from 'c/utilities';
 import $Toastify from 'c/toastify';
+import { cloneObject, parseError } from 'c/utilities';
 
 // Apex Controller Methods;
 import findDuplicatesApex from '@salesforce/apex/DuplicatesManagerController.findDuplicates';
@@ -147,6 +147,10 @@ export default class DuplicatesManagerTab extends LightningElement {
         return [];
     }
 
+    get contactCount() {
+        return this.contactData.length;
+    }
+
     get duplicateColumns() {
         return [
             {
@@ -191,6 +195,10 @@ export default class DuplicatesManagerTab extends LightningElement {
 
     get duplicateData() {
         return cloneObject(this.duplicateContacts || []);
+    }
+
+    get duplicateCount() {
+        return this.duplicateData.length;
     }
 
     get hasNoRelatedContacts() {

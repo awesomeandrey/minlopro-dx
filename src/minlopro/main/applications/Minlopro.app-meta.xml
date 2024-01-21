@@ -12,6 +12,7 @@
     <navType>Standard</navType>
     <tabs>Playground</tabs>
     <tabs>LogsMonitor</tabs>
+    <tabs>CurrencyRollup</tabs>
     <tabs>DuplicatesManager</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
