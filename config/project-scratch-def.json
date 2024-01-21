@@ -28,6 +28,9 @@
         "communitiesSettings": {
             "enableNetworksEnabled": true
         },
+        "currencySettings": {
+            "enableMultiCurrency": true
+        },
         "experienceBundleSettings": {
             "enableExperienceBundleMetadata": true
         },
