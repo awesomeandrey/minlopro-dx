@@ -1,0 +1,37 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "CurrencyType",
+                "referenceId": "CurrencyTypeRef1"
+            },
+            "IsoCode": "EUR",
+            "ConversionRate": 0.92,
+            "DecimalPlaces": 2,
+            "IsActive": true,
+            "IsCorporate": false
+        },
+        {
+            "attributes": {
+                "type": "CurrencyType",
+                "referenceId": "CurrencyTypeRef2"
+            },
+            "IsoCode": "UAH",
+            "ConversionRate": 37.42,
+            "DecimalPlaces": 2,
+            "IsActive": true,
+            "IsCorporate": false
+        },
+        {
+            "attributes": {
+                "type": "CurrencyType",
+                "referenceId": "CurrencyTypeRef3"
+            },
+            "IsoCode": "USD",
+            "ConversionRate": 1,
+            "DecimalPlaces": 2,
+            "IsActive": true,
+            "IsCorporate": true
+        }
+    ]
+}

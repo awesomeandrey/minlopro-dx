@@ -31,6 +31,13 @@
   }, {
     "components" : [ {
       "componentAttributes" : { },
+      "componentName" : "c:currencyRollupTab",
+      "id" : "8c2a0c5b-aca0-477a-a02d-790a4561ab91",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
       "componentName" : "c:runningUserInfoGenerator",
       "id" : "eef51d45-ef83-4dcf-884e-a4d9a42b25a7",
       "renderPriority" : "NEUTRAL",

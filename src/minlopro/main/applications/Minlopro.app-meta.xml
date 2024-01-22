@@ -12,9 +12,11 @@
     <navType>Standard</navType>
     <tabs>Playground</tabs>
     <tabs>LogsMonitor</tabs>
+    <tabs>CurrencyRollup</tabs>
     <tabs>DuplicatesManager</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
+    <tabs>standard-Opportunity</tabs>
     <tabs>SalesforceContact__x</tabs>
     <tabs>GoogleMapsApiPlayground</tabs>
     <uiType>Lightning</uiType>

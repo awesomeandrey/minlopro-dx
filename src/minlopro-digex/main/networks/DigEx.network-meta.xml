@@ -34,8 +34,10 @@
     <maxFileSizeKb>10240</maxFileSizeKb>
     <networkMemberGroups>
         <permissionSet>Minlopro_DigExUser</permissionSet>
-        <profile>Admin</profile>
-        <profile>DigEx Partner</profile>
+        <profile>digex partner</profile>
+        <profile>admin</profile>
+        <profile>customer community user</profile>
+        <profile>customer community plus user</profile>
     </networkMemberGroups>
     <networkPageOverrides>
         <changePasswordPageOverrideSetting>Standard</changePasswordPageOverrideSetting>
@@ -45,7 +47,7 @@
         <selfRegProfilePageOverrideSetting>Designer</selfRegProfilePageOverrideSetting>
     </networkPageOverrides>
     <picassoSite>DigEx1</picassoSite>
-    <selfRegProfile>DigEx Partner</selfRegProfile>
+    <selfRegProfile>digex partner</selfRegProfile>
     <selfRegistration>true</selfRegistration>
     <sendWelcomeEmail>false</sendWelcomeEmail>
     <site>DigEx</site>

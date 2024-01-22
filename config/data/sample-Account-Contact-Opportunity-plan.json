@@ -14,5 +14,13 @@
         "files": [
             "sample-Contacts.json"
         ]
+    },
+    {
+        "sobject": "Opportunity",
+        "saveRefs": false,
+        "resolveRefs": true,
+        "files": [
+            "sample-Opportunities.json"
+        ]
     }
 ]

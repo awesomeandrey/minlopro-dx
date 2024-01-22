@@ -9,9 +9,18 @@ read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 mkdir -p "build"
 echo "🔵 Exporting sample data from [$TARGET_ORG_ALIAS]..."
+
+# Export Accounts, Contacts and Opportunities
 sf data export tree \
-  --target-org $TARGET_ORG_ALIAS \
+  --target-org "$TARGET_ORG_ALIAS" \
   --query "config/data/query.txt" \
   --plan \
   --prefix "export" \
   --output-dir "build"
+
+# Export CurrencyTypes
+sf data export tree \
+    --query "SELECT Id, IsoCode, ConversionRate, DecimalPlaces, IsActive, IsCorporate FROM CurrencyType" \
+    --target-org "$TARGET_ORG_ALIAS" \
+    --prefix "export" \
+    --output-dir "build"

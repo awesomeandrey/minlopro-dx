@@ -1,0 +1,804 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef1"
+            },
+            "AccountId": "@AccountRef1",
+            "Amount": 581.9,
+            "CloseDate": "2023-04-22",
+            "CurrencyIsoCode": "USD",
+            "Description": "Displ unsp condyle fx low end l femr, 7thG",
+            "LeadSource": "Partner",
+            "Name": "Tillman-Pfeffer",
+            "Probability": 37,
+            "StageName": "Qualification",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef2"
+            },
+            "AccountId": "@AccountRef1",
+            "Amount": 1051.9,
+            "CloseDate": "2024-01-08",
+            "CurrencyIsoCode": "USD",
+            "Description": "Ped w convey injured in clsn w nonmtr vehicle in traf, subs",
+            "LeadSource": "Other",
+            "Name": "Kuvalis LLC",
+            "Probability": 15,
+            "StageName": "Negotiation/Review",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef3"
+            },
+            "AccountId": "@AccountRef1",
+            "Amount": 1177.4,
+            "CloseDate": "2023-12-18",
+            "CurrencyIsoCode": "USD",
+            "Description": "Pedl cyc passenger injured in clsn w oth mv in traf, init",
+            "LeadSource": "Advertisement",
+            "Name": "Fritsch-Keeling",
+            "Probability": 37,
+            "StageName": "Qualification",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef4"
+            },
+            "AccountId": "@AccountRef1",
+            "Amount": 645.4,
+            "CloseDate": "2023-10-25",
+            "CurrencyIsoCode": "USD",
+            "Description": "Pecked by turkey, initial encounter",
+            "LeadSource": "Partner",
+            "Name": "Botsford Group",
+            "Probability": 37,
+            "StageName": "Negotiation/Review",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef5"
+            },
+            "AccountId": "@AccountRef1",
+            "Amount": 1784.3,
+            "CloseDate": "2023-10-21",
+            "CurrencyIsoCode": "USD",
+            "Description": "Disp fx of greater trochanter of unsp femr, 7thD",
+            "LeadSource": "Web",
+            "Name": "Boyer, Deckow and White",
+            "Probability": 37,
+            "StageName": "Qualification",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef6"
+            },
+            "AccountId": "@AccountRef2",
+            "Amount": 1286.1,
+            "CloseDate": "2023-11-07",
+            "CurrencyIsoCode": "USD",
+            "Description": "Bent bone of unsp rad, subs for opn fx type I/2 w nonunion",
+            "LeadSource": "Advertisement",
+            "Name": "Lindgren-Funk",
+            "Probability": 37,
+            "StageName": "Qualification",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef7"
+            },
+            "AccountId": "@AccountRef2",
+            "Amount": 567.3,
+            "CloseDate": "2023-04-22",
+            "CurrencyIsoCode": "USD",
+            "Description": "Oth injury of axillary artery, right side, sequela",
+            "LeadSource": "Advertisement",
+            "Name": "Rogahn-Graham",
+            "Probability": 15,
+            "StageName": "Prospecting",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef8"
+            },
+            "AccountId": "@AccountRef2",
+            "Amount": 1898,
+            "CloseDate": "2023-11-01",
+            "CurrencyIsoCode": "USD",
+            "Description": "Postprocedural hemorrhage of ear/mastd following a procedure",
+            "LeadSource": "Advertisement",
+            "Name": "Johnston-Legros",
+            "Probability": 37,
+            "StageName": "Negotiation/Review",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef9"
+            },
+            "AccountId": "@AccountRef2",
+            "Amount": 2498,
+            "CloseDate": "2024-01-29",
+            "CurrencyIsoCode": "USD",
+            "Description": "Laceration of other specified intrathoracic organs",
+            "LeadSource": "Web",
+            "Name": "Welch and Sons",
+            "Probability": 15,
+            "StageName": "Negotiation/Review",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef10"
+            },
+            "AccountId": "@AccountRef2",
+            "Amount": 1851.8,
+            "CloseDate": "2023-10-24",
+            "CurrencyIsoCode": "USD",
+            "Description": "Garden or yard of non-institutional residence as place",
+            "LeadSource": "Partner",
+            "Name": "Swaniawski Group",
+            "Probability": 15,
+            "StageName": "Prospecting",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef11"
+            },
+            "AccountId": "@AccountRef2",
+            "Amount": 170,
+            "CloseDate": "2023-04-07",
+            "CurrencyIsoCode": "USD",
+            "Description": "Corrosions involving 40-49% of body surface",
+            "LeadSource": "Advertisement",
+            "Name": "Fay-Schmidt",
+            "Probability": 15,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef12"
+            },
+            "AccountId": "@AccountRef2",
+            "Amount": 481.8,
+            "CloseDate": "2023-06-21",
+            "CurrencyIsoCode": "USD",
+            "Description": "Displaced intartic fx l calcaneus, subs for fx w malunion",
+            "LeadSource": "Partner",
+            "Name": "Jacobs-Armstrong",
+            "Probability": 37,
+            "StageName": "Needs Analysis",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef13"
+            },
+            "AccountId": "@AccountRef3",
+            "Amount": 1079.1,
+            "CloseDate": "2023-02-26",
+            "CurrencyIsoCode": "USD",
+            "Description": "Laceration without foreign body of unspecified ear, sequela",
+            "LeadSource": "Other",
+            "Name": "Hilll-Bruen",
+            "Probability": 37,
+            "StageName": "Value Proposition",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef14"
+            },
+            "AccountId": "@AccountRef3",
+            "Amount": 472.3,
+            "CloseDate": "2023-12-14",
+            "CurrencyIsoCode": "USD",
+            "Description": "Corrosion of first deg mult sites of left ank/ft, init",
+            "LeadSource": "Other",
+            "Name": "Schmitt-Conroy",
+            "Probability": 37,
+            "StageName": "Prospecting",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef15"
+            },
+            "AccountId": "@AccountRef3",
+            "Amount": 1355.7,
+            "CloseDate": "2023-03-06",
+            "CurrencyIsoCode": "USD",
+            "Description": "Pathological fracture in oth disease, right fibula, init",
+            "LeadSource": "Web",
+            "Name": "Stehr-Gleichner",
+            "Probability": 15,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef16"
+            },
+            "AccountId": "@AccountRef3",
+            "Amount": 1588,
+            "CloseDate": "2023-09-09",
+            "CurrencyIsoCode": "USD",
+            "Description": "Other reduction defects of lower limb, bilateral",
+            "LeadSource": "Partner",
+            "Name": "Bogisich, Purdy and Kuphal",
+            "Probability": 15,
+            "StageName": "Prospecting",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef17"
+            },
+            "AccountId": "@AccountRef3",
+            "Amount": 1320.5,
+            "CloseDate": "2023-02-26",
+            "CurrencyIsoCode": "USD",
+            "Description": "Oth complication of genitourinary prosth dev/grft",
+            "LeadSource": "Advertisement",
+            "Name": "Lowe-Skiles",
+            "Probability": 37,
+            "StageName": "Prospecting",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef18"
+            },
+            "AccountId": "@AccountRef4",
+            "Amount": 777.4,
+            "CloseDate": "2023-11-26",
+            "CurrencyIsoCode": "USD",
+            "Description": "Disorders of copper metabolism",
+            "LeadSource": "Advertisement",
+            "Name": "Romaguera, Konopelski and Pacocha",
+            "Probability": 37,
+            "StageName": "Needs Analysis",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef19"
+            },
+            "AccountId": "@AccountRef4",
+            "Amount": 1282.8,
+            "CloseDate": "2023-11-23",
+            "CurrencyIsoCode": "USD",
+            "Description": "Unsp disp fx of fifth cervical vertebra, init for opn fx",
+            "LeadSource": "Web",
+            "Name": "Waelchi Group",
+            "Probability": 37,
+            "StageName": "Value Proposition",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef20"
+            },
+            "AccountId": "@AccountRef4",
+            "Amount": 1298.1,
+            "CloseDate": "2023-03-28",
+            "CurrencyIsoCode": "USD",
+            "Description": "Unspecified abnormalities of heart beat",
+            "LeadSource": "Other",
+            "Name": "Ruecker LLC",
+            "Probability": 15,
+            "StageName": "Value Proposition",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef21"
+            },
+            "AccountId": "@AccountRef5",
+            "Amount": 472.8,
+            "CloseDate": "2023-02-25",
+            "CurrencyIsoCode": "USD",
+            "Description": "Laceration of musc/fasc/tend prt biceps, right arm, init",
+            "LeadSource": "Other",
+            "Name": "Blick LLC",
+            "Probability": 37,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef22"
+            },
+            "AccountId": "@AccountRef5",
+            "Amount": 2096.2,
+            "CloseDate": "2023-07-23",
+            "CurrencyIsoCode": "USD",
+            "Description": "Loose body in left shoulder",
+            "LeadSource": "Web",
+            "Name": "Sauer-Romaguera",
+            "Probability": 15,
+            "StageName": "Value Proposition",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef23"
+            },
+            "AccountId": "@AccountRef5",
+            "Amount": 1040,
+            "CloseDate": "2023-05-16",
+            "CurrencyIsoCode": "USD",
+            "Description": "Sprain of metacarpophalangeal joint of right thumb, init",
+            "LeadSource": "Advertisement",
+            "Name": "Gerlach, Hahn and Yost",
+            "Probability": 15,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef24"
+            },
+            "AccountId": "@AccountRef5",
+            "Amount": 1296.7,
+            "CloseDate": "2023-12-01",
+            "CurrencyIsoCode": "USD",
+            "Description": "Unspecified fracture of unspecified lumbar vertebra",
+            "LeadSource": "Advertisement",
+            "Name": "Harvey-Greenfelder",
+            "Probability": 37,
+            "StageName": "Qualification",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef25"
+            },
+            "AccountId": "@AccountRef5",
+            "Amount": 988.6,
+            "CloseDate": "2023-09-26",
+            "CurrencyIsoCode": "USD",
+            "Description": "Pathological fracture, unsp shoulder, init for fx",
+            "LeadSource": "Web",
+            "Name": "Bosco, Kautzer and Kovacek",
+            "Probability": 15,
+            "StageName": "Negotiation/Review",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef26"
+            },
+            "AccountId": "@AccountRef5",
+            "Amount": 2498.9,
+            "CloseDate": "2023-10-17",
+            "CurrencyIsoCode": "USD",
+            "Description": "Late congenital syphilitic arthropathy",
+            "LeadSource": "Advertisement",
+            "Name": "Ruecker, Larson and O'Connell",
+            "Probability": 37,
+            "StageName": "Qualification",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef27"
+            },
+            "AccountId": "@AccountRef6",
+            "Amount": 789.6,
+            "CloseDate": "2023-10-16",
+            "CurrencyIsoCode": "USD",
+            "Description": "Contusion of left thigh, subsequent encounter",
+            "LeadSource": "Advertisement",
+            "Name": "Quigley Inc",
+            "Probability": 37,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef28"
+            },
+            "AccountId": "@AccountRef6",
+            "Amount": 1214.4,
+            "CloseDate": "2023-05-14",
+            "CurrencyIsoCode": "USD",
+            "Description": "Displ trimalleol fx unsp low leg, 7thN",
+            "LeadSource": "Advertisement",
+            "Name": "Grant, O'Keefe and Beahan",
+            "Probability": 37,
+            "StageName": "Prospecting",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef29"
+            },
+            "AccountId": "@AccountRef6",
+            "Amount": 1104.9,
+            "CloseDate": "2023-12-14",
+            "CurrencyIsoCode": "USD",
+            "Description": "Maternal care for abnormality of vagina, second trimester",
+            "LeadSource": "Web",
+            "Name": "Olson, Mertz and Zieme",
+            "Probability": 37,
+            "StageName": "Negotiation/Review",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef30"
+            },
+            "AccountId": "@AccountRef7",
+            "Amount": 286.8,
+            "CloseDate": "2023-05-06",
+            "CurrencyIsoCode": "USD",
+            "Description": "Bitten by other rodent",
+            "LeadSource": "Other",
+            "Name": "Connelly-Deckow",
+            "Probability": 15,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef31"
+            },
+            "AccountId": "@AccountRef7",
+            "Amount": 441.4,
+            "CloseDate": "2023-07-13",
+            "CurrencyIsoCode": "USD",
+            "Description": "Other neonatal hypoglycemia",
+            "LeadSource": "Web",
+            "Name": "Will, Blanda and Connelly",
+            "Probability": 15,
+            "StageName": "Negotiation/Review",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef32"
+            },
+            "AccountId": "@AccountRef7",
+            "Amount": 1245.6,
+            "CloseDate": "2023-11-28",
+            "CurrencyIsoCode": "USD",
+            "Description": "Toxic effect of other alcohols, assault",
+            "LeadSource": "Web",
+            "Name": "Walker-Bednar",
+            "Probability": 37,
+            "StageName": "Qualification",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef33"
+            },
+            "AccountId": "@AccountRef7",
+            "Amount": 706.7,
+            "CloseDate": "2023-06-10",
+            "CurrencyIsoCode": "USD",
+            "Description": "Acute embolism and thrombosis of axillary vein",
+            "LeadSource": "Other",
+            "Name": "Moen and Sons",
+            "Probability": 37,
+            "StageName": "Prospecting",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef34"
+            },
+            "AccountId": "@AccountRef7",
+            "Amount": 758.9,
+            "CloseDate": "2024-01-08",
+            "CurrencyIsoCode": "USD",
+            "Description": "Cerebral infrc due to embolism of unsp ant cerebral artery",
+            "LeadSource": "Partner",
+            "Name": "Langworth Inc",
+            "Probability": 15,
+            "StageName": "Value Proposition",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef35"
+            },
+            "AccountId": "@AccountRef7",
+            "Amount": 1840.6,
+            "CloseDate": "2023-05-17",
+            "CurrencyIsoCode": "USD",
+            "Description": "Other diseases of pulmonary vessels",
+            "LeadSource": "Advertisement",
+            "Name": "Treutel, Dickens and Lind",
+            "Probability": 15,
+            "StageName": "Value Proposition",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef36"
+            },
+            "AccountId": "@AccountRef8",
+            "Amount": 2167.9,
+            "CloseDate": "2024-01-04",
+            "CurrencyIsoCode": "USD",
+            "Description": "Other infective (teno)synovitis, multiple sites",
+            "LeadSource": "Advertisement",
+            "Name": "Carroll, Rice and Johns",
+            "Probability": 15,
+            "StageName": "Value Proposition",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef37"
+            },
+            "AccountId": "@AccountRef8",
+            "Amount": 1582.3,
+            "CloseDate": "2023-08-26",
+            "CurrencyIsoCode": "USD",
+            "Description": "Poisoning by oth synthetic narcotics, accidental, subs",
+            "LeadSource": "Web",
+            "Name": "Greenholt, Rempel and Carroll",
+            "Probability": 15,
+            "StageName": "Value Proposition",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef38"
+            },
+            "AccountId": "@AccountRef8",
+            "Amount": 995.6,
+            "CloseDate": "2023-11-30",
+            "CurrencyIsoCode": "USD",
+            "Description": "Poisoning by other parasympathomimetics, assault",
+            "LeadSource": "Partner",
+            "Name": "Thiel Inc",
+            "Probability": 15,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef39"
+            },
+            "AccountId": "@AccountRef9",
+            "Amount": 1570.2,
+            "CloseDate": "2023-03-08",
+            "CurrencyIsoCode": "USD",
+            "Description": "Pathological fracture in other disease, left femur",
+            "LeadSource": "Web",
+            "Name": "Fay, Larson and Adams",
+            "Probability": 15,
+            "StageName": "Negotiation/Review",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef40"
+            },
+            "AccountId": "@AccountRef9",
+            "Amount": 1502,
+            "CloseDate": "2023-09-08",
+            "CurrencyIsoCode": "USD",
+            "Description": "Strain extn musc/fasc/tend r rng fngr at wrs/hnd lv, init",
+            "LeadSource": "Other",
+            "Name": "Rolfson Inc",
+            "Probability": 37,
+            "StageName": "Prospecting",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef41"
+            },
+            "AccountId": "@AccountRef9",
+            "Amount": 1627.6,
+            "CloseDate": "2023-07-13",
+            "CurrencyIsoCode": "USD",
+            "Description": "Driver of bus injured in clsn w 2/3-whl mv nontraf, subs",
+            "LeadSource": "Advertisement",
+            "Name": "Nitzsche, Mueller and Huels",
+            "Probability": 37,
+            "StageName": "Negotiation/Review",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef42"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 2254.9,
+            "CloseDate": "2023-06-05",
+            "CurrencyIsoCode": "USD",
+            "Description": "Displ transverse fx shaft of r tibia, 7thB",
+            "LeadSource": "Advertisement",
+            "Name": "Gottlieb-Lehner",
+            "Probability": 15,
+            "StageName": "Prospecting",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef43"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 411.7,
+            "CloseDate": "2023-07-24",
+            "CurrencyIsoCode": "USD",
+            "Description": "Disp fx of shaft of first metacarpal bone, unsp hand, init",
+            "LeadSource": "Other",
+            "Name": "Shanahan, Ortiz and Jast",
+            "Probability": 37,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef44"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 1809.6,
+            "CloseDate": "2023-11-30",
+            "CurrencyIsoCode": "USD",
+            "Description": "Underdosing of other systemic antibiotics",
+            "LeadSource": "Partner",
+            "Name": "Fahey-Daniel",
+            "Probability": 15,
+            "StageName": "Negotiation/Review",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef45"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 2468.5,
+            "CloseDate": "2023-06-05",
+            "CurrencyIsoCode": "USD",
+            "Description": "Carcinoma in situ of stomach",
+            "LeadSource": "Web",
+            "Name": "Morissette, Kuhlman and Kessler",
+            "Probability": 15,
+            "StageName": "Prospecting",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef46"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 1582.8,
+            "CloseDate": "2023-04-29",
+            "CurrencyIsoCode": "USD",
+            "Description": "Person outside hv veh inj in clsn w statnry object in traf",
+            "LeadSource": "Web",
+            "Name": "Stanton, Adams and Dach",
+            "Probability": 15,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef47"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 1419.8,
+            "CloseDate": "2023-12-15",
+            "CurrencyIsoCode": "USD",
+            "Description": "Poisoning by butyrophen/thiothixen neuroleptc, undet, subs",
+            "LeadSource": "Web",
+            "Name": "Price Group",
+            "Probability": 37,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Upgrade"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef48"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 598.9,
+            "CloseDate": "2023-09-02",
+            "CurrencyIsoCode": "USD",
+            "Description": "Unsp opn wnd abd wall, left lower q w penet perit cav, init",
+            "LeadSource": "Web",
+            "Name": "Hackett-Beier",
+            "Probability": 37,
+            "StageName": "Negotiation/Review",
+            "Type": "New Customer"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef49"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 1010.6,
+            "CloseDate": "2024-02-04",
+            "CurrencyIsoCode": "USD",
+            "Description": "Unsp fracture of unsp foot, init encntr for open fracture",
+            "LeadSource": "Web",
+            "Name": "Witting-Kovacek",
+            "Probability": 15,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Replacement"
+        },
+        {
+            "attributes": {
+                "type": "Opportunity",
+                "referenceId": "OpportunityRef50"
+            },
+            "AccountId": "@AccountRef10",
+            "Amount": 1557.6,
+            "CloseDate": "2023-08-13",
+            "CurrencyIsoCode": "USD",
+            "Description": "Traumatic amputation of other parts of head, init encntr",
+            "LeadSource": "Other",
+            "Name": "Abernathy, McGlynn and Ferry",
+            "Probability": 37,
+            "StageName": "Needs Analysis",
+            "Type": "Existing Customer - Upgrade"
+        }
+    ]
+}

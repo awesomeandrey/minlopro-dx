@@ -4,6 +4,8 @@
     <columns>ACCOUNT.NAME</columns>
     <columns>ACCOUNT.RECORDTYPE</columns>
     <columns>ACCOUNT.TYPE</columns>
+    <columns>CheckIfDuplicate__pc</columns>
+    <columns>ACCOUNT.PHONE1</columns>
     <columns>CORE.USERS.ALIAS</columns>
     <filterScope>Everything</filterScope>
     <label>All Accounts</label>
