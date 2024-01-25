@@ -32,7 +32,7 @@ sf org generate password --target-org "$SCRATCH_ORG_ALIAS"
 
 # Capture scratch org credentials
 mkdir -p "build"
-orgCredentialsFile="build/$ADMIN_EMAIL-scratch-org-credentials.txt"
+orgCredentialsFile="build/$ADMIN_EMAIL-SO-credentials.txt"
 touch $orgCredentialsFile
 echo "📜 Scratch Org Credentials"
 sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json >> $orgCredentialsFile

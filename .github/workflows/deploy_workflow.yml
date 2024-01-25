@@ -68,8 +68,8 @@ jobs:
       - name: 'Run Apex Static Code Analysis (PMD)'
         run: npm run pmd:html || echo "PMD report has been generated!"
       - name: 'Upload PMD Report as Artifact'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: apex-pmd-report
+          name: minlopro-apex-pmd-report
           path: build/apex-pmd-report.html
           retention-days: 5

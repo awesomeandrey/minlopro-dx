@@ -42,9 +42,9 @@ jobs:
           # Initiate scratch org generation
           bash ./scripts/automations/create_scratch_org.sh < $inputsFile
       - name: 'Upload Scratch Org Credentials as Artifact'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: scratch-org-credentials
-          path: build/*scratch-org-credentials.txt
+          name: minlopro-scratch-org-credentials
+          path: build/*-SO-credentials.txt
           if-no-files-found: error
           retention-days: 5
