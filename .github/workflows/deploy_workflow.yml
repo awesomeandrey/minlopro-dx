@@ -24,8 +24,8 @@ jobs:
       SF_CCF_APP_CLIENT_SECRET: ${{ secrets.SF_CCF_APP_CLIENT_SECRET }}
       SF_GITHUB_WEBHOOK_SECRET: ${{ vars.SF_GITHUB_WEBHOOK_SECRET }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
       - name: 'Install Salesforce CLI & Authorize Target Org'
@@ -45,8 +45,8 @@ jobs:
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
       - name: 'Install Salesforce CLI & Authorize Target Org'
@@ -59,8 +59,8 @@ jobs:
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
       - name: 'Install NPM Dependencies'

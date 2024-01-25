@@ -2,6 +2,7 @@
   "activeViewId" : "d5f72039-daad-4e63-936b-933eb79ba4a9",
   "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
   "configurationTags" : [ "too-many-requests", "allow-in-static-site" ],
+  "devName" : "Too_Many_Requests",
   "id" : "79491bdc-e776-4f4d-a017-02fb85464b77",
   "label" : "Too Many Requests",
   "routeType" : "too-many-requests",

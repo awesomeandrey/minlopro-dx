@@ -2,6 +2,7 @@
   "activeViewId" : "0d75b64e-d1c6-4383-827f-efbb9bd84b57",
   "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
   "configurationTags" : [ ],
+  "devName" : "Task_List__c",
   "id" : "2273e816-c5e5-4610-bcc7-c5ccd58e4b73",
   "label" : "Task List",
   "routeType" : "list-00T",
