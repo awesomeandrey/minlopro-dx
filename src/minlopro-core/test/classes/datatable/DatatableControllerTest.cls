@@ -15,8 +15,8 @@ private class DatatableControllerTest {
 
     @IsTest
     static void testGetContactsCount() {
-        Integer contactsCount = DatatableController.getContactsCount();
-        Assert.areEqual(CONTACTS_AMOUNT, contactsCount, 'Total contacts count did not match!');
+        Integer contactsTotalCount = DatatableController.getContactsCount();
+        Assert.areEqual(CONTACTS_AMOUNT, contactsTotalCount, 'Total contacts count did not match!');
     }
 
     @IsTest

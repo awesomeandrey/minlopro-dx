@@ -4,8 +4,8 @@ public without sharing class DatatableController {
     @AuraEnabled(Cacheable=true)
     public static Integer getContactsCount() {
         try {
-            Integer count = [SELECT COUNT() FROM Contact];
-            return count;
+            Integer totalCount = [SELECT COUNT() FROM Contact];
+            return totalCount;
         } catch (Exception ex) {
             Logger.error(ex.getMessage());
             throw new AuraHandledException(ex.getMessage());
