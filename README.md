@@ -41,6 +41,10 @@ _`main`_
 
 Comprises all source code in the repository.
 
+_`release/**`_
+
+Release branch with bundles of features that should be deployed to Production org.
+
 _`develop`_
 
 Used for features development. Descendant of `main` branch. This branch should always be synced up with `main` branch

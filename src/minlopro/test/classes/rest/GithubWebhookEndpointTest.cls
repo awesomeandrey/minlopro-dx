@@ -3,7 +3,7 @@ private class GithubWebhookEndpointTest {
     private static final String TEST_WEBHOOK_SECRET = 'test_secret';
 
     static {
-        // Set the test secret for validation;
+        // Mock webhook secret;
         GithubWebhookEndpoint.GITHUB_WEBHOOK_SECRET = TEST_WEBHOOK_SECRET;
     }
 

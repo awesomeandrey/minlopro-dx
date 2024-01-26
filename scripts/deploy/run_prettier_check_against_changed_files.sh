@@ -5,12 +5,11 @@
 # - echo "develop" | bash ./scripts/deploy/run_prettier_check_against_changed_files.sh
 
 # Define constants;
-buildFolderName="./build"
+buildFolderName="build"
 srcFolderName="src"
 copiedSrcFolderPath="$buildFolderName/$srcFolderName"
 srcFilePrefix="$srcFolderName/"
-changedFiles="changedFiles.txt"
-changedFilesPath="$buildFolderName/$changedFiles"
+changedFilesPath="$buildFolderName/changedFiles.txt"
 
 # Capture target org alias;
 read -p "🔶 Enter target branch name to compare changes against: " baseRef
