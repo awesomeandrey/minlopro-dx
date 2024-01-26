@@ -28,11 +28,11 @@ done
 # Install SF CLI (v2)
 sfCliPackageName="@salesforce/cli"
 if npm ls -g "$sfCliPackageName" &>/dev/null; then
-  echo "$sfCliPackageName is already installed globally."
+  echo "Updating [$sfCliPackageName] globally."
+  npm update @salesforce/cli --global
 else
-  echo "$sfCliPackageName is not installed globally."
+  echo "Installing [$sfCliPackageName] globally."
   npm install @salesforce/cli --global
-  echo 'Installed SF CLI! Hooray!'
 fi
 sf --version
 
@@ -51,4 +51,7 @@ fi
 npm install
 
 # Create '.env' file based on template
-cp -f "scripts/.env.manifest" ".env"
+envFile=".env"
+if ! [ -f "$envFile" ]; then
+  cp -f "scripts/.env.manifest" "$envFile"
+fi
