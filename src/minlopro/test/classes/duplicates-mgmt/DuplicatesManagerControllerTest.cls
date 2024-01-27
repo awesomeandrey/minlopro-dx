@@ -104,7 +104,7 @@ private class DuplicatesManagerControllerTest {
     }
 
     static User createAdmin() {
-        Id profileId = [SELECT Id FROM Profile WHERE Name = 'System Administrator' LIMIT 1].Id;
-        return TestDataFactory.createUser('Admin', 'Minlopro', profileId);
+        Profile adminProfile = TestDataFactory.selectSystemAdminProfile();
+        return TestDataFactory.createUser('Admin', 'Minlopro', adminProfile.Id);
     }
 }
