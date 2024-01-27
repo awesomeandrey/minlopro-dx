@@ -104,7 +104,7 @@
         <objectType>Contact</objectType>
     </variables>
     <variables>
-        <description>Account SObject record to upsert.</description>
+        <description>Account SObject record to Upsert.</description>
         <name>parentAccount</name>
         <dataType>SObject</dataType>
         <isCollection>false</isCollection>
