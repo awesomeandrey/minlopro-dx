@@ -1,5 +1,23 @@
 public class TestDataFactory {
     private final static Integer USERNAME_LENGTH = 10;
+    private final static Map<String, Profile> ORG_PROFILES_BY_NAME = new Map<String, Profile>();
+
+    static {
+        // Select org profiles;
+        for (Profile profileRecord : [SELECT Id, Name FROM Profile]) {
+            ORG_PROFILES_BY_NAME.put(profileRecord.Name, profileRecord);
+        }
+    }
+
+    // User / Profile;
+
+    public static Profile selectSystemAdminProfile() {
+        return ORG_PROFILES_BY_NAME.get('System Administrator');
+    }
+
+    public static Profile selectMinloproUserProfile() {
+        return ORG_PROFILES_BY_NAME.get('Minlopro User');
+    }
 
     public static String generateRandomString(Integer stringLength) {
         final String chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
@@ -31,6 +49,8 @@ public class TestDataFactory {
         );
         return u;
     }
+
+    // Data Generation;
 
     public static List<Contact> createContacts(Integer numOfContacts) {
         List<Contact> contacts = new List<Contact>();
