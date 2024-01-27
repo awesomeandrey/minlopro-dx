@@ -1,62 +1,35 @@
 @IsTest
 private class CurrencyRollupControllerTest {
+    @TestSetup
+    static void testSetup() {
+        Assert.isTrue(UserInfo.isMultiCurrencyOrganization(), 'The org must enable multi-currency feature!');
+    }
+
     @IsTest
     static void testRollupOpportunitiesByAccountId() {
-        // Set up test data
-        Account testAccount = new Account(Name = 'Test Account');
+        Account testAccount = TestDataFactory.createAccounts(1)[0];
         insert testAccount;
-
-        Opportunity testOpportunity = new Opportunity(
-            Name = 'Test Opportunity',
-            StageName = 'Closed Won',
-            CloseDate = Date.today(),
-            Amount = 1000,
-            AccountId = testAccount.Id
-        );
+        Opportunity testOpportunity = TestDataFactory.createOpportunities(1, testAccount.Id)[0];
+        Assert.areEqual(TestDataFactory.CORPORATE_CURRENCY_TYPE.IsoCode, testOpportunity.CurrencyIsoCode);
         insert testOpportunity;
-
-        // Test rollupOpportunitiesByAccountId method
-        Test.startTest();
+        Assert.isTrue(testOpportunity.Amount > 100);
         Decimal totalAmount = CurrencyRollupController.rollupOpportunitiesByAccountId(testAccount.Id);
-        Test.stopTest();
-
-        // Verify the results
-        System.assertEquals(1000, totalAmount, 'The total amount should be equal to the sum of the Opportunity Amounts.');
+        Assert.areEqual(testOpportunity.Amount, totalAmount);
     }
 
     @IsTest
     static void testGetOrgCurrencyTypes() {
-        // Test getOrgCurrencyTypes method
-        Test.startTest();
         List<CurrencyType> currencyTypes = CurrencyRollupController.getOrgCurrencyTypes();
-        Test.stopTest();
-
-        // Assuming multi-currency is enabled and there are active currency types
-        System.assertNotEquals(0, currencyTypes.size(), 'There should be at least one active currency type.');
+        Assert.isFalse(currencyTypes.isEmpty());
     }
 
     @IsTest
     static void testFetchOpportunitiesByAccountId() {
-        // Set up test data
-        Account testAccount = new Account(Name = 'Test Account');
+        Account testAccount = TestDataFactory.createAccounts(1)[0];
         insert testAccount;
-
-        Opportunity testOpportunity = new Opportunity(
-            Name = 'Test Opportunity',
-            StageName = 'Closed Won',
-            CloseDate = Date.today(),
-            Amount = 1000,
-            AccountId = testAccount.Id
-        );
-        insert testOpportunity;
-
-        // Test fetchOpportunitiesByAccountId method
-        Test.startTest();
-        List<Opportunity> opportunities = CurrencyRollupController.fetchOpportunitiesByAccountId(testAccount.Id);
-        Test.stopTest();
-
-        // Verify the results
-        System.assertEquals(1, opportunities.size(), 'There should be one opportunity related to the test account.');
-        System.assertEquals('Test Opportunity', opportunities[0].Name, 'The opportunity name should match.');
+        List<Opportunity> testOpportunities = TestDataFactory.createOpportunities(7, testAccount.Id);
+        insert testOpportunities;
+        List<Opportunity> fetchedOpportunities = CurrencyRollupController.fetchOpportunitiesByAccountId(testAccount.Id);
+        Assert.areEqual(testOpportunities.size(), fetchedOpportunities.size());
     }
 }

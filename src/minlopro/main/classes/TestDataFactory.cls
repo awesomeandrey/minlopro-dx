@@ -1,11 +1,27 @@
 public class TestDataFactory {
+    public final static CurrencyType CORPORATE_CURRENCY_TYPE {
+        get {
+            for (CurrencyType cType : CURRENCY_TYPES_BY_CODE.values()) {
+                if (cType.IsCorporate) {
+                    return cType;
+                }
+            }
+            return null;
+        }
+    }
+
     private final static Integer USERNAME_LENGTH = 10;
     private final static Map<String, Profile> ORG_PROFILES_BY_NAME = new Map<String, Profile>();
+    private final static Map<String, CurrencyType> CURRENCY_TYPES_BY_CODE = new Map<String, CurrencyType>();
 
     static {
         // Select org profiles;
         for (Profile profileRecord : [SELECT Id, Name FROM Profile]) {
             ORG_PROFILES_BY_NAME.put(profileRecord.Name, profileRecord);
+        }
+        // Select currency types;
+        for (CurrencyType cType : [SELECT IsoCode, ConversionRate, IsCorporate, DecimalPlaces, IsActive FROM CurrencyType]) {
+            CURRENCY_TYPES_BY_CODE.put(cType.IsoCode, cType);
         }
     }
 
@@ -66,5 +82,30 @@ public class TestDataFactory {
             );
         }
         return contacts;
+    }
+
+    public static List<Account> createAccounts(Integer numOfAccounts) {
+        List<Account> accounts = new List<Account>();
+        for (Integer i = 0; i < numOfAccounts; i++) {
+            accounts.add(new Account(Name = 'Test #' + i));
+        }
+        return accounts;
+    }
+
+    public static List<Opportunity> createOpportunities(Integer numOfOpps, Id accountId) {
+        List<Opportunity> opportunities = new List<Opportunity>();
+        for (Integer i = 0; i < numOfOpps; i++) {
+            opportunities.add(
+                new Opportunity(
+                    Name = 'Test Opportunity #' + i,
+                    StageName = 'Closed Won',
+                    CloseDate = Date.today(),
+                    Amount = 1000,
+                    AccountId = accountId,
+                    CurrencyIsoCode = CORPORATE_CURRENCY_TYPE.IsoCode
+                )
+            );
+        }
+        return opportunities;
     }
 }
