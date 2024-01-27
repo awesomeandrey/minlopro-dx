@@ -26,6 +26,7 @@ done < <(grep '<members>.*Test<\/members>' "$packageXml")
 testClassNames="${testClassNamesArray[*]}"
 if [ -z "$testClassNames" ]; then
     # Default Apex Test class name;
+    echo "No updates detected in Apex Test classes. Applying default Apex Test class name."
     testClassNames="DatatableControllerTest"
 fi
 echo "Apex Test Class Names: [$testClassNames]"

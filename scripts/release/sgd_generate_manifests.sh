@@ -42,6 +42,12 @@ echo
 echo "📜 RELEASE POST_DESTRUCTIVE_CHANGES.XML (static)"
 cat "$postDestructiveChangesXml"
 
+# Check if any manifest file contains metadata references
+if ! grep -q '<members>' "$sgdPackageXml" && ! grep -q '<members>' "$preDestructiveChangesXml" && ! grep -q '<members>' "$postDestructiveChangesXml"; then
+  echo "🔴 No metadata references were detected in manifests."
+  exit 1
+fi
+
 # Copy manifests to 'build' folder
 echo
 cp -f "$sgdPackageXml" "$buildFolder/package.xml"
