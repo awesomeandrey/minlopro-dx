@@ -1,4 +1,6 @@
 public class TestDataFactory {
+    // Testing ENV variable replacements: '@SF_USERNAME'
+
     public final static CurrencyType CORPORATE_CURRENCY_TYPE {
         get {
             for (CurrencyType cType : CURRENCY_TYPES_BY_CODE.values()) {
