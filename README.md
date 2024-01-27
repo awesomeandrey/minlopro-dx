@@ -1,8 +1,8 @@
 # minlopro-dx
 
-<span>[![Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
-<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
 <span>[![Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)</span>
+<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
+<span>[![Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
 <span>[![Reset Destructive Manifests](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml)</span>
 
 ## About
@@ -36,7 +36,7 @@ Authorize scratch org using [`authorize_org.sh`](scripts/deploy/authorize_org.sh
 Make sure that the changed codebase files are _prettified_ via `npm run prettier:src:write` command.
 Alternatively, you can run `npm run prettier:src:check` in order to identify _non-prettified_ files.
 
-### Branches
+## Branches
 
 _`main`_
 
@@ -44,14 +44,34 @@ Comprises all source code in the repository.
 
 _`release/**`_
 
-Release branch with comprising features that should be deployed to Production org. Descendant of `main` branch.
+Short-living branch which comprises features to be deployed to Production org.
+Descendant of _main_ branch.
 
 _`develop`_
 
-Used for features development. Descendant of `main` branch. This branch should always be synced up with `main` branch
-once the feature(s) has been developed, tested and pushed to release.
+When the features are finished then they are merged into _develop_.
+Descendant of _main_ branch.
 
-### Useful Commands
+### Release Branch Preparation
+
+As part of adherence to Vincent Driessen's Git Flow, the lead developer is responsible for preparing release
+branches. These branches, named `release/**`, serve as buffers for the upcoming release and are created from the `main`
+branch.
+
+Follow the steps below:
+
+1. Create `release/**` branch off of `main`.
+2. Collect merged pull requests from `develop` branch and cherry-pick them into `release/**` branch.
+   For each PR, you can utilize `git cherry-pick -m 1 $COMMIT_SHA` command.
+3. Automated workflow would run quick validation against `release/**` branch.
+4. Introduce bugfixes (if applicable).
+5. Once the `release/**` branch is ready & validated, invoke [Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml) workflow manually.
+   Make sure that **Do Quick Deploy?** checkbox is selected!
+6. The last step is to merge `release/**` branch into `main` and `develop` branches.
+
+This process ensures a structured flow of features into releases, maintaining stability and predictability in release management.
+
+## Useful Commands
 
 _Deploy Codebase_
 
@@ -65,7 +85,7 @@ _Publish Community_
 sf community publish --name "DigEx" --target-org $SCRATCH_ORG_ALIAS
 ```
 
-### Managing Environment Variables
+## Managing Environment Variables
 
 Environment variables are useful for deploying metadata components with secrets or org-specific settings (e.g.
 usernames, URLs, connected app credentials). This project benefits from GitHub Secrets & Environment Variables feature.
@@ -81,7 +101,7 @@ Follow steps below if there is a need to replace specific setting with variable 
 
 As an example, refer to `namedCredentials` or `customMetadata` folders.
 
-### Scripts in `package.json`
+## Scripts in `package.json`
 
 Scripts that start with `sf:...` or `src:...` can be invoked with extra parameters passed to them.
 E.g. you can execute particular script passing in ORG alias:
