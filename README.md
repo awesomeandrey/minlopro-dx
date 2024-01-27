@@ -1,6 +1,7 @@
 # minlopro-dx
 
-<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
+<span>[![Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
+<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
 <span>[![Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)</span>
 <span>[![Reset Destructive Manifests](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml)</span>
 
@@ -24,7 +25,7 @@ Look through the pre-configured GitHub Workflows/Actions located in `.github/wor
 
 Familiarise yourself with Salesforce environments involved and automations built around them:
 
-![Salesforce Development Workflow](assets/Salesforce_Development_Workflow.png)
+![Salesforce Development Workflow](assets/workflows/Salesforce_Development_Workflow.png)
 
 Spin up scratch org by
 running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)
@@ -43,7 +44,7 @@ Comprises all source code in the repository.
 
 _`release/**`_
 
-Release branch with bundles of features that should be deployed to Production org.
+Release branch with comprising features that should be deployed to Production org. Descendant of `main` branch.
 
 _`develop`_
 
@@ -72,10 +73,11 @@ At the same time, there are project-level rules enforced with regards to using/r
 
 Follow steps below if there is a need to replace specific setting with variable value:
 
-1. Define an repository variable(s) in GitHub repository for the given GitHub Environment(s)
-2. Import variable into workflow files affected (see `.github/workflows` folder)
-3. Create replacement configuration in [`sfdx-project.json`](sfdx-project.json) file
-4. Explicitly create reference(s) in metadata components (classes, named credentials etc.) using `@VAR_NAME` format
+1. Define variable in GitHub repository for the given GitHub Environment(s)
+2. Incorporate environment variable into [`.env.manifest`](scripts/.env.manifest) file and provide description
+3. Declare variable in affected workflow files (see `.github/workflows` folder)
+4. Create replacement configuration in [`sfdx-project.json`](sfdx-project.json) file
+5. Create reference(s) in metadata components (classes, named credentials etc.) using `@VAR_NAME` format
 
 As an example, refer to `namedCredentials` or `customMetadata` folders.
 
