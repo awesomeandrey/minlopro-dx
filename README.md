@@ -25,7 +25,7 @@ Look through the pre-configured GitHub Workflows/Actions located in `.github/wor
 
 Familiarise yourself with Salesforce environments involved and automations built around them:
 
-![Salesforce Development Workflow](assets/workflows/Salesforce_Development_Workflow.png)
+![Salesforce Development Workflow](assets/workflows/CI_CD_Workflow.png)
 
 Spin up scratch org by
 running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)
