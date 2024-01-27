@@ -82,7 +82,7 @@ global with sharing class GithubWebhookEndpoint {
             return false;
         }
         // Filter by workflow name;
-        final Set<String> subscribedWorkflowNames = Sets.of('Deploy Source', 'Validate Pull Request');
+        final Set<String> subscribedWorkflowNames = Sets.of('Deploy Source', 'Validate Pull Request', 'Release');
         Iterator<String> it = subscribedWorkflowNames.iterator();
         while (it.hasNext()) {
             if (event.workflow_run.name.startsWithIgnoreCase(it.next())) {
