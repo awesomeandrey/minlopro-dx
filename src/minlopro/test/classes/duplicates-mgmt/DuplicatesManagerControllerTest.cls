@@ -1,5 +1,5 @@
 /**
- * This test class assumes that custom 'Contact.DeduplicateContacts' duplicate rule is active!
+ * This test class assumes that custom 'Contact.DeduplicateContacts' duplicate rule is present & active!
  */
 @IsTest
 private class DuplicatesManagerControllerTest {
