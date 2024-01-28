@@ -1,8 +1,8 @@
 # minlopro-dx
 
 <span>[![Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)</span>
-<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
-<span>[![Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
+<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml)</span>
+<span>[![Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg?branch=main)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml)</span>
 <span>[![Reset Destructive Manifests](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml)</span>
 
 ## About
@@ -25,7 +25,7 @@ Look through the pre-configured GitHub Workflows/Actions located in `.github/wor
 
 Familiarise yourself with Salesforce environments involved and automations built around them:
 
-![Salesforce Development Workflow](assets/workflows/CI_CD_Workflow.png)
+![CI/CD Workflow](assets/workflows/CI_CD_Workflow.png)
 
 Spin up scratch org by
 running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)
@@ -52,9 +52,13 @@ _`develop`_
 When the features are finished then they are merged into _develop_.
 Descendant of _main_ branch.
 
+For visual context, take a look at flowchart below:
+
+![Git Branching Flow](assets/workflows/Git_Branching_Flow.png)
+
 ### Release Branch Preparation
 
-As part of adherence to Vincent Driessen's Git Flow, the lead developer is responsible for preparing release
+Lead developer is responsible for preparing release
 branches. These branches, named `release/**`, serve as buffers for the upcoming release and are created from the `main`
 branch.
 
@@ -62,14 +66,16 @@ Follow the steps below:
 
 1. Create `release/**` branch off of `main`.
 2. Collect merged pull requests from `develop` branch and cherry-pick them into `release/**` branch.
-   For each PR, you can utilize `git cherry-pick -m 1 $COMMIT_SHA` command.
+   For each merge commit, you can utilize `git cherry-pick -m 1 $COMMIT_SHA` command.
 3. Automated workflow would run quick validation against `release/**` branch.
 4. Introduce bugfixes (if applicable).
-5. Once the `release/**` branch is ready & validated, invoke [Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml) workflow manually.
-   Make sure that **Do Quick Deploy?** checkbox is selected!
+5. Once the `release/**` branch is ready & validated,
+   invoke [Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml) workflow
+   manually. Make sure that **Do Quick Deploy?** checkbox is selected!
 6. The last step is to merge `release/**` branch into `main` and `develop` branches.
 
-This process ensures a structured flow of features into releases, maintaining stability and predictability in release management.
+This process ensures a structured flow of features into releases, maintaining stability and predictability in release
+management.
 
 ## Useful Commands
 
