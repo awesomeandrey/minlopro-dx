@@ -1,8 +1,8 @@
 # minlopro-dx
 
 <span>[![Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)</span>
-<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
-<span>[![Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/deploy_workflow.yml)</span>
+<span>[![Deploy Source](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/develop_workflow.yml)</span>
+<span>[![Release 🔫](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg?branch=main)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml)</span>
 <span>[![Reset Destructive Manifests](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml)</span>
 
 ## About
