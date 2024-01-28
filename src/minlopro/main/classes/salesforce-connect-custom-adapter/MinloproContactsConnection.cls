@@ -31,10 +31,13 @@ global class MinloproContactsConnection extends DataSource.Connection {
         Logger.debug('query()');
         Logger.debug(JSON.serialize(cx.queryMoreToken));
         Logger.debug(JSON.serialize(cx.tableSelection));
+        Integer limitValue = cx.maxResults;
+        Integer offsetValue = cx.offset;
+        Logger.debug('Limit = {0} Offset = {1}', new List<Object>{ limitValue, offsetValue });
         if (cx.tableSelection.tableSelected.equalsIgnoreCase('SalesforceContacts')) {
             throw new IllegalArgumentException('Only "SalesforceContacts" table can be queried!');
         }
-        return DataSource.TableResult.get(cx, DataSource.QueryUtils.process(cx, this.fetchContacts(0, 100)));
+        return DataSource.TableResult.get(cx, DataSource.QueryUtils.process(cx, this.fetchContacts(offsetValue, limitValue)));
     }
 
     /**
