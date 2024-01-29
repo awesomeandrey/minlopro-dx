@@ -11,10 +11,17 @@ echo
 
 # Define constants;
 buildFolder="build"
-packageXml="$buildFolder/package.xml"
-preDestructiveChangesXml="$buildFolder/destructiveChangesPre.xml"
-postDestructiveChangesXml="$buildFolder/destructiveChangesPost.xml"
+manifestsFolder="manifests"
+packageXml="$manifestsFolder/package.xml"
+preDestructiveChangesXml="$manifestsFolder/destructiveChangesPre.xml"
+postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
 deploymentJobIdFile="$buildFolder/release_job_id.txt"
+
+# Verify that all 3 manifests exist;
+if ! [[ -f "$packageXml" && -f "$preDestructiveChangesXml" && -f "$postDestructiveChangesXml" ]]; then
+  echo "🔴 'manifests' folder must contain 3 manifest files: package.xml, destructiveChangesPre.xml & destructiveChangesPost.xml."
+  exit 1
+fi
 
 # Extract Apex Test class names (NOTE: extra spaces/quotes in Apex Test class names will lead to failed validation!);
 testClassNamesArray=()
