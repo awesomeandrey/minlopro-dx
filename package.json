@@ -35,9 +35,11 @@
         "clean-css-cli": "^5.6.3",
         "dotenv-cli": "^7.3.0",
         "flush-promises": "^1.0.2",
+        "jsonwebtoken": "^9.0.2",
         "pmd-bin": "^1.37.0",
         "prettier": "^3.1.1",
         "prettier-plugin-apex": "^2.0.1",
-        "xml2js": "^0.6.2"
+        "xml2js": "^0.6.2",
+        "crypto-js": "^4.2.0"
     }
 }
