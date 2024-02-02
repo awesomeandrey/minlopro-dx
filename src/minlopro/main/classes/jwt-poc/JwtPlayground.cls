@@ -12,12 +12,22 @@ public with sharing class JwtPlayground {
     private final String certDevName = 'Minlopro'; // See 'minlopro/main/certs' folder;
     private final String clientId = null;
 
+    private String audience {
+        get {
+            if (String.isBlank(this.audience)) {
+                this.audience = SystemInfoController.isSandbox() ? 'https://test.salesforce.com' : 'https://login.salesforce.com';
+            }
+            return this.audience;
+        }
+        set;
+    }
+
     public JwtPlayground(String clientId) {
         this.clientId = clientId;
     }
 
     public String fetchAccessToken() {
-        final String tokenEndpoint = 'https://test.salesforce.com/services/oauth2/token';
+        final String tokenEndpoint = String.format('{0}/services/oauth2/token', Lists.of(this.audience));
         Auth.JWS jwSignature = this.generateJsonWebSignature();
         // Request access token by JWT OAuth Flow;
         Auth.JWTBearerTokenExchange tokenExchange = new Auth.JWTBearerTokenExchange(tokenEndpoint, jwSignature);
@@ -33,7 +43,7 @@ public with sharing class JwtPlayground {
     private Auth.JWS generateJsonWebSignature() {
         Auth.JWT jwt = new Auth.JWT();
         jwt.setSub(UserInfo.getUserName());
-        jwt.setAud('https://test.salesforce.com');
+        jwt.setAud(this.audience);
         jwt.setIss(this.clientId);
         jwt.setValidityLength(60 * 10);
         // Additional claims to set scope

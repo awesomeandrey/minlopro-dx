@@ -1,5 +1,5 @@
 public class TestDataFactory {
-    // Testing ENV variable replacements: '@SF_USERNAME'
+    // Testing SFDX Replacements: '@SF_USERNAME' < should contain integration user username!
 
     public final static CurrencyType CORPORATE_CURRENCY_TYPE {
         get {
@@ -70,11 +70,24 @@ public class TestDataFactory {
 
     // Data Generation;
 
+    public static List<Account> createAccounts(Integer numOfAccounts) {
+        List<Account> accounts = new List<Account>();
+        for (Integer i = 0; i < numOfAccounts; i++) {
+            accounts.add(new Account(Name = 'Test #' + i));
+        }
+        return accounts;
+    }
+
     public static List<Contact> createContacts(Integer numOfContacts) {
+        return createContacts(numOfContacts, null);
+    }
+
+    public static List<Contact> createContacts(Integer numOfContacts, Id accountId) {
         List<Contact> contacts = new List<Contact>();
         for (Integer i = 0; i < numOfContacts; i++) {
             contacts.add(
                 new Contact(
+                    AccountId = accountId,
                     FirstName = 'TestFirstName' + i,
                     LastName = 'TestLastName' + i,
                     Email = 'test' + i + '@example.com',
@@ -84,14 +97,6 @@ public class TestDataFactory {
             );
         }
         return contacts;
-    }
-
-    public static List<Account> createAccounts(Integer numOfAccounts) {
-        List<Account> accounts = new List<Account>();
-        for (Integer i = 0; i < numOfAccounts; i++) {
-            accounts.add(new Account(Name = 'Test #' + i));
-        }
-        return accounts;
     }
 
     public static List<Opportunity> createOpportunities(Integer numOfOpps, Id accountId) {

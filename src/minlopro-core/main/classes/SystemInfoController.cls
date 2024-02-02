@@ -16,8 +16,8 @@ public without sharing class SystemInfoController {
             }
             return orgLimitsMap;
         } catch (Exception ex) {
+            Logger.error(ex);
             String exceptionDetails = Exceptions.getDetails(ex).toString();
-            Logger.error(exceptionDetails);
             throw new AuraHandledException(exceptionDetails);
         }
     }
@@ -36,15 +36,33 @@ public without sharing class SystemInfoController {
                 LIMIT 1
             ][0];
         } catch (Exception ex) {
+            Logger.error(ex);
             String exceptionDetails = Exceptions.getDetails(ex).toString();
-            Logger.error(exceptionDetails);
             throw new AuraHandledException(exceptionDetails);
         }
     }
 
     @AuraEnabled
     public static String getRunningUserInfoAsPdf() {
-        Blob b = Page.digex_RunningUserInfoAsPdf.getContentAsPDF();
-        return EncodingUtil.base64Encode(b);
+        try {
+            Blob b = Page.digex_RunningUserInfoAsPdf.getContentAsPDF();
+            return EncodingUtil.base64Encode(b);
+        } catch (Exception ex) {
+            Logger.error(ex);
+            String exceptionDetails = Exceptions.getDetails(ex).toString();
+            throw new AuraHandledException(exceptionDetails);
+        }
+    }
+
+    @AuraEnabled(Cacheable=true)
+    public static Boolean isSandbox() {
+        try {
+            Organization org = [SELECT IsSandbox, OrganizationType, InstanceName FROM Organization LIMIT 1];
+            return org.IsSandbox;
+        } catch (Exception ex) {
+            Logger.error(ex);
+            String exceptionDetails = Exceptions.getDetails(ex).toString();
+            throw new AuraHandledException(exceptionDetails);
+        }
     }
 }
