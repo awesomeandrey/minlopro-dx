@@ -1,5 +1,5 @@
 public class TestDataFactory {
-    // Testing ENV variable replacements: '@SF_USERNAME'
+    // Testing SFDX Replacements: '@SF_USERNAME' < should contain integration user username!
 
     public final static CurrencyType CORPORATE_CURRENCY_TYPE {
         get {
