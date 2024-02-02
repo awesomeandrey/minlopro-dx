@@ -42,6 +42,7 @@ echo "Apex Test Class Names: [$testClassNames]"
 jobInfoJson=$(npx dotenv -e '.env' -- sf project deploy validate \
   --target-org "$TARGET_ORG_ALIAS" \
   --manifest "$packageXml" \
+  --purge-on-delete \
   --pre-destructive-changes "$preDestructiveChangesXml" \
   --post-destructive-changes "$postDestructiveChangesXml" \
   --test-level "RunSpecifiedTests" \
