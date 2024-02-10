@@ -73,7 +73,7 @@ public class TestDataFactory {
     public static List<Account> createAccounts(Integer numOfAccounts) {
         List<Account> accounts = new List<Account>();
         for (Integer i = 0; i < numOfAccounts; i++) {
-            accounts.add(new Account(Name = 'Test #' + i));
+            accounts.add(new Account(Name = 'Test #' + i, AnnualRevenue = 0));
         }
         return accounts;
     }
