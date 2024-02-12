@@ -1,6 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>dashboardName</name>
+                    <value>LogsStatistics</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideOnError</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentName>desktopDashboards:embeddedDashboard</componentName>
+                <identifier>desktopDashboards_embeddedDashboard</identifier>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>top</name>
         <type>Region</type>
@@ -26,7 +40,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Minlopro Home Page</masterLabel>
+    <masterLabel>Minlopro Home</masterLabel>
     <parentFlexiPage>home__desktopDefault</parentFlexiPage>
     <template>
         <name>home:desktopTemplate</name>

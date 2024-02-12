@@ -16,6 +16,36 @@
                 <default>true</default>
                 <label>ANONYMOUS</label>
             </value>
+            <value>
+                <fullName>AURA</fullName>
+                <default>false</default>
+                <label>AURA</label>
+            </value>
+            <value>
+                <fullName>BATCH_ACS</fullName>
+                <default>false</default>
+                <label>BATCH_ACS</label>
+            </value>
+            <value>
+                <fullName>BATCH_APEX</fullName>
+                <default>false</default>
+                <label>BATCH_APEX</label>
+            </value>
+            <value>
+                <fullName>FUTURE</fullName>
+                <default>false</default>
+                <label>FUTURE</label>
+            </value>
+            <value>
+                <fullName>QUEUEABLE</fullName>
+                <default>false</default>
+                <label>QUEUEABLE</label>
+            </value>
+            <value>
+                <fullName>SYNCHRONOUS</fullName>
+                <default>false</default>
+                <label>SYNCHRONOUS</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

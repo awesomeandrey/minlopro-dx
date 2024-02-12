@@ -80,7 +80,7 @@ public class LogData {
             this.lineNumber = lineNumber;
         }
 
-        public StackTrace cast(Map<String, Object> dataMap) {
+        private StackTrace cast(Map<String, Object> dataMap) {
             this.className = (String) dataMap.get('Class');
             this.methodName = (String) dataMap.get('Method');
             this.lineNumber = (Integer) dataMap.get('Line');
