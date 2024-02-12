@@ -23,4 +23,32 @@ private class TestDataFactoryTest {
         System.assertEquals('9999999999', testUser.Phone, 'Phone should match');
         System.assertEquals('9999999999', testUser.MobilePhone, 'Mobile phone should match');
     }
+
+    @IsTest
+    static void testDataGeneration() {
+        Integer accountsAmount = 5;
+        Integer contactsAmount = 20;
+        Integer oppAmount = 17;
+        // Test Accounts generation;
+        List<Account> testAccounts = TestDataFactory.createAccounts(accountsAmount);
+        Assert.areEqual(accountsAmount, testAccounts.size());
+        // Test Contacts generation;
+        Account testAccount = testAccounts[0];
+        List<Contact> testContacts = TestDataFactory.createContacts(contactsAmount);
+        Assert.areEqual(contactsAmount, testContacts.size());
+        for (Contact ct : testContacts) {
+            Assert.areEqual(null, ct.AccountId);
+        }
+        List<Contact> contactsWithAccount = TestDataFactory.createContacts(contactsAmount, testAccount.Id);
+        Assert.areEqual(contactsAmount, contactsWithAccount.size());
+        for (Contact ct : contactsWithAccount) {
+            Assert.areEqual(testAccount.Id, ct.AccountId);
+        }
+        // Test Opportunities generation;
+        List<Opportunity> oppsWithAccount = TestDataFactory.createOpportunities(oppAmount, testAccount.Id);
+        Assert.areEqual(oppAmount, oppsWithAccount.size());
+        for (Opportunity opp : oppsWithAccount) {
+            Assert.areEqual(testAccount.Id, opp.AccountId);
+        }
+    }
 }
