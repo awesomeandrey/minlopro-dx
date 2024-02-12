@@ -138,6 +138,7 @@ public with sharing class TriggerDispatcher {
                 selectedHandlersByObjectTypeMap.put(handler.objectType, new Set<TriggerHandler>());
             }
             Set<TriggerHandler> objectHandlers = selectedHandlersByObjectTypeMap.get(handler.objectType);
+            // Augment handler order incrementally;
             handler.order = objectHandlers.size() + 1;
             objectHandlers.add(handler);
         }
@@ -171,24 +172,24 @@ public with sharing class TriggerDispatcher {
         private Integer order;
         private BasicTriggerHandler instance;
 
-        public TriggerHandler(SObjectType objectType, String apexClassName) {
+        private TriggerHandler(SObjectType objectType, String apexClassName) {
             this.objectType = objectType;
             this.apexClassName = apexClassName;
             this.order = 1;
         }
 
-        public TriggerHandler(SObjectType objectType, String apexClassName, Integer order) {
+        private TriggerHandler(SObjectType objectType, String apexClassName, Integer order) {
             this(objectType, apexClassName);
             this.order = order;
         }
 
-        public TriggerHandler(TriggerHandler__mdt handlerCmt) {
+        private TriggerHandler(TriggerHandler__mdt handlerCmt) {
             this.objectType = Schema.getGlobalDescribe().get(handlerCmt.TargetObject__c);
             this.apexClassName = handlerCmt.ApexClassName__c;
             this.order = (Integer) handlerCmt.Order__c;
         }
 
-        public BasicTriggerHandler getInstance() {
+        private BasicTriggerHandler getInstance() {
             if (this.instance == null) {
                 Type typeInfo = Type.forName(this.apexClassName);
                 this.instance = (BasicTriggerHandler) typeInfo.newInstance();
@@ -196,7 +197,7 @@ public with sharing class TriggerDispatcher {
             return this.instance;
         }
 
-        public Boolean isValid() {
+        private Boolean isValid() {
             try {
                 Type typeInfo = Type.forName(this.apexClassName);
                 return BasicTriggerHandler.class.isAssignableFrom(typeInfo);
@@ -208,8 +209,8 @@ public with sharing class TriggerDispatcher {
             }
         }
 
-        public String getName() {
-            return String.format('[{0}:{1}.cls]', Lists.of(this.objectType.toString(), this.apexClassName));
+        private String getName() {
+            return String.format('{0}:{1}.cls', Lists.of(this.objectType.toString(), this.apexClassName));
         }
 
         public Boolean equals(Object obj) {
@@ -238,16 +239,16 @@ public with sharing class TriggerDispatcher {
         private final Integer max;
         private Integer count;
 
-        public LoopCount(Integer max) {
+        private LoopCount(Integer max) {
             this.max = max;
             this.count = 0;
         }
 
-        public void increment() {
+        private void increment() {
             this.count++;
         }
 
-        public Boolean hasExceeded() {
+        private Boolean hasExceeded() {
             return this.max >= 0 && this.count > this.max;
         }
     }
