@@ -60,42 +60,48 @@ public without sharing class Logger {
         }
         // Emit platform event with log payload;
         if (IS_ENABLED) {
-            Map<String, Object> data = new Map<String, Object>{
-                'Message' => message,
-                'Quiddity' => Request.getCurrent().getQuiddity(),
-                /* Limits */
-                'Callouts' => String.format(
-                    '{0} out of {1}',
-                    new List<Object>{ Limits.getCallouts(), Limits.getLimitCallouts() }
-                ),
-                'CpuTime' => String.format('{0} out of {1}', new List<Object>{ Limits.getCpuTime(), Limits.getLimitCpuTime() }),
-                'HeapSize' => String.format(
-                    '{0} out of {1}',
-                    new List<Object>{ Limits.getHeapSize(), Limits.getLimitHeapSize() }
-                ),
-                'Queries' => String.format('{0} out of {1}', new List<Object>{ Limits.getQueries(), Limits.getLimitQueries() }),
-                'DMLRows' => String.format('{0} out of {1}', new List<Object>{ Limits.getDmlRows(), Limits.getLimitDmlRows() }),
-                'FutureCalls' => String.format(
-                    '{0} out of {1}',
-                    new List<Object>{ Limits.getFutureCalls(), Limits.getLimitFutureCalls() }
-                ),
-                'QueryRows' => String.format(
-                    '{0} out of {1}',
-                    new List<Object>{ Limits.getQueryRows(), Limits.getLimitQueryRows() }
-                ),
-                'QueueableJobs' => String.format(
-                    '{0} out of {1}',
-                    new List<Object>{ Limits.getQueueableJobs(), Limits.getLimitQueueableJobs() }
+            LogData logData = new LogData();
+            logData.authorId = UserInfo.getUserId();
+            logData.authorProfileId = UserInfo.getProfileId();
+            logData.context = Request.getCurrent().getRequestId();
+            logData.level = level;
+            logData.quiddity = Request.getCurrent().getQuiddity();
+            logData.stackTrace = captureStackTrace();
+            logData.message = message;
+            logData
+                .addData(
+                    'Callouts',
+                    String.format('{0} out of {1}', new List<Object>{ Limits.getCallouts(), Limits.getLimitCallouts() })
                 )
-            };
-            storeLocation(data);
-            log = new Log__e(
-                AuthorId__c = UserInfo.getUserId(),
-                AuthorProfileId__c = UserInfo.getProfileId(),
-                Context__c = Request.getCurrent().getRequestId(),
-                Level__c = level.name(),
-                Data__c = JSON.serializePretty(data, true)
-            );
+                .addData(
+                    'CpuTime',
+                    String.format('{0} out of {1}', new List<Object>{ Limits.getCpuTime(), Limits.getLimitCpuTime() })
+                )
+                .addData(
+                    'HeapSize',
+                    String.format('{0} out of {1}', new List<Object>{ Limits.getHeapSize(), Limits.getLimitHeapSize() })
+                )
+                .addData(
+                    'Queries',
+                    String.format('{0} out of {1}', new List<Object>{ Limits.getQueries(), Limits.getLimitQueries() })
+                )
+                .addData(
+                    'DMLRows',
+                    String.format('{0} out of {1}', new List<Object>{ Limits.getDmlRows(), Limits.getLimitDmlRows() })
+                )
+                .addData(
+                    'FutureCalls',
+                    String.format('{0} out of {1}', new List<Object>{ Limits.getFutureCalls(), Limits.getLimitFutureCalls() })
+                )
+                .addData(
+                    'QueryRows',
+                    String.format('{0} out of {1}', new List<Object>{ Limits.getQueryRows(), Limits.getLimitQueryRows() })
+                )
+                .addData(
+                    'QueueableJobs',
+                    String.format('{0} out of {1}', new List<Object>{ Limits.getQueueableJobs(), Limits.getLimitQueueableJobs() })
+                );
+            log = logData.castToEvent();
             EventBus.publish(log);
         }
         // Output to debug anyway;
@@ -110,18 +116,16 @@ public without sharing class Logger {
         return result;
     }
 
-    private static void storeLocation(Map<String, Object> data) {
+    private static LogData.StackTrace captureStackTrace() {
         // Note: Idea taken from https://salesforce.stackexchange.com/questions/153835
         List<String> stacktrace = new DmlException().getStackTraceString().split('\n');
         for (String line : stacktrace) {
             Matcher matcher = STACK_LINE.matcher(line);
             if (matcher.find() && !line.startsWith('Class.' + CLASSNAME + '.')) {
-                data.put('Class', className(matcher));
-                data.put('Method', methodName(matcher));
-                data.put('Line', Integer.valueOf(matcher.group(4)));
-                return;
+                return new LogData.StackTrace(className(matcher), methodName(matcher), Integer.valueOf(matcher.group(4)));
             }
         }
+        return new LogData.StackTrace();
     }
 
     private static String className(Matcher matcher) {

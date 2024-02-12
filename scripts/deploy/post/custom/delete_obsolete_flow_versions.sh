@@ -16,7 +16,7 @@ mkdir -p $buildFolderName
 
 sf data query \
   --query "SELECT Id FROM Flow WHERE Status = 'Obsolete'" \
-  --target-org $TARGET_ORG_ALIAS \
+  --target-org "$TARGET_ORG_ALIAS" \
   --use-tooling-api \
   --result-format csv > "$csvFileName"
 
@@ -30,9 +30,9 @@ fi
 while read c; do
   if [[ "$c" != "Id" && "$c" != "Your query returned no results." ]]; then
     sf data delete record \
-      --sobject Flow \
+      --sobject "Flow" \
       --record-id $c \
-      --target-org $TARGET_ORG_ALIAS \
+      --target-org "$TARGET_ORG_ALIAS" \
       --use-tooling-api
   fi
 done < "$csvFileName"

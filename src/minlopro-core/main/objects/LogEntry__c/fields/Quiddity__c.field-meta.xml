@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quiddity__c</fullName>
+    <description>Apex transaction quiddity.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Apex transaction quiddity.</inlineHelpText>
+    <label>Quiddity</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>ANONYMOUS</fullName>
+                <default>true</default>
+                <label>ANONYMOUS</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

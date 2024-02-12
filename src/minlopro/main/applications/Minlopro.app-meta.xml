@@ -18,6 +18,7 @@
     <tabs>standard-Contact</tabs>
     <tabs>standard-Opportunity</tabs>
     <tabs>SalesforceContact__x</tabs>
+    <tabs>LogEntry__c</tabs>
     <tabs>GoogleMapsApiPlayground</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Minlopro_UtilityBar</utilityBar>

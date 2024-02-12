@@ -29,9 +29,9 @@ if (($wordsCount < 10)); then
 fi
 
 sf data delete bulk \
-  --target-org $TARGET_ORG_ALIAS \
-  --sobject ApexLog \
-  --file $apexLogsCsvFilePath \
+  --target-org "$TARGET_ORG_ALIAS" \
+  --sobject "ApexLog" \
+  --file "$apexLogsCsvFilePath" \
   --wait 10
 
 rm $apexLogsCsvFilePath
