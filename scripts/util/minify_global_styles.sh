@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # How to use:
-# - bash ./scripts/deploy/pre/custom/minify_global_styles.sh
+# - bash ./scripts/util/minify_global_styles.sh
 
 CSS_FILE="./src/minlopro-core/main/staticresources/GlobalStyles/globalStyles.css"
 
