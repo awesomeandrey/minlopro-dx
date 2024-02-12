@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApexClassName__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Full apex class name that implements &apos;BasicTriggerHandler.cls&apos; abstract class.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Full apex class name that implements &apos;BasicTriggerHandler.cls&apos; abstract class.</inlineHelpText>
+    <label>Apex Class Name</label>
+    <length>100</length>
+    <required>true</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
