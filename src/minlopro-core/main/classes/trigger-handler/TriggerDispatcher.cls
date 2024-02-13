@@ -184,7 +184,7 @@ public with sharing class TriggerDispatcher {
         }
 
         private TriggerHandler(TriggerHandler__mdt handlerCmt) {
-            this.objectType = Schema.getGlobalDescribe().get(handlerCmt.TargetObject__c);
+            this.objectType = ((SObject) Type.forName(handlerCmt.TargetObject__c).newInstance()).getSObjectType();
             this.apexClassName = handlerCmt.ApexClassName__c;
             this.order = (Integer) handlerCmt.Order__c;
         }

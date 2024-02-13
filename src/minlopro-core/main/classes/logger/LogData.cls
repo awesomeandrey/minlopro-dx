@@ -35,7 +35,7 @@ public class LogData {
     }
 
     public Log__e castToEvent() {
-        // 'Data__c' field must contain 'Message' and 'Quiddity' properties;
+        // 'Data__c' field must contain 'Message' and 'Quiddity' properties (referenced in LWC);
         this.addData('Message', this.message);
         this.addData('Quiddity', this.quiddity.name().toUpperCase());
         // Add stack trace info as well;

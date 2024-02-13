@@ -1,5 +1,6 @@
 public with sharing class LoggerDemo implements Database.Batchable<Integer> {
     public void run() {
+        // Invoke this method ot generate logs from different contexts;
         Logger.debug('before');
         futureMethod();
         Logger.error('after 1={0} 2={1}', Lists.of('str1', 'str2'));
