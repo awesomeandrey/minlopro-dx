@@ -1,4 +1,5 @@
 import { LightningElement, track } from 'lwc';
+import { isEmpty } from 'c/utilities';
 
 // Tab Names;
 const $Playground = 'playground';
@@ -8,8 +9,9 @@ const $DatatableContacts = 'datatableContacts';
 const $CustomCombobox = 'customCombobox';
 const $ModalDemo = 'lwcModalDemo';
 
+// TODO - resolve issue with non-flexible layout!
 export default class Workspace extends LightningElement {
-    @track selectedTabName = $Playground;
+    @track selectedTabName = window.localStorage.getItem('selectedTabName');
     @track doCollapseTabs = window.localStorage.getItem('doCollapseTabs') === 'true';
 
     get tabs() {
@@ -22,6 +24,7 @@ export default class Workspace extends LightningElement {
             { label: 'LWC Modal Demo', name: $ModalDemo, iconName: 'utility:preview' }
         ].map((tabInfo) => {
             tabInfo.label = this.doCollapseTabs ? '' : tabInfo.label;
+            tabInfo.iconName = isEmpty(tabInfo.iconName) ? 'utility:bundle_policy' : tabInfo.iconName;
             return tabInfo;
         });
     }
@@ -53,6 +56,7 @@ export default class Workspace extends LightningElement {
     handleSelectTab(event) {
         const { name } = event.detail;
         this.selectedTabName = name;
+        window.localStorage.setItem('selectedTabName', name);
     }
 
     handleToggleTabs(event) {
