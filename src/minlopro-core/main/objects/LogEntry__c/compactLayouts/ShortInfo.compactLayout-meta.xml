@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ShortInfo</fullName>
+    <fields>Name</fields>
+    <fields>Level__c</fields>
+    <fields>Quiddity__c</fields>
+    <fields>Author__c</fields>
+    <fields>StackTrace__c</fields>
+    <label>Short Info</label>
+</CompactLayout>

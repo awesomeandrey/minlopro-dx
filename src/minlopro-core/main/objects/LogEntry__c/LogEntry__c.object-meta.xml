@@ -141,7 +141,7 @@
         <type>Default</type>
     </actionOverrides>
     <allowInChatterGroups>false</allowInChatterGroups>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>ShortInfo</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Used to capture and persist logs from &apos;Log__e&apos; platform events.</description>
     <enableActivities>false</enableActivities>
