@@ -71,7 +71,7 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <tabSettings>
-        <tab>DuplicatesManager</tab>
+        <tab>Workspace</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>

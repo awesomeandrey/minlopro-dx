@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomTab xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Custom tab comprising playground LWCs.</description>
+    <label>Workspace</label>
+    <lwcComponent>workspace</lwcComponent>
+    <motif>Custom90: Scales</motif>
+</CustomTab>

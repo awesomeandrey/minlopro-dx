@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="Components Workspace" icon-name="standard:dashboard_ea">
+        <lightning-button-group slot="actions">
+            <lightning-button-icon-stateful
+                icon-name="utility:collapse_all"
+                selected={doCollapseTabs}
+                onclick={handleToggleTabs}
+            ></lightning-button-icon-stateful>
+        </lightning-button-group>
+        <lightning-layout>
+            <lightning-layout-item flexibility="no-grow">
+                <lightning-vertical-navigation selected-item={selectedTabName} onselect={handleSelectTab}>
+                    <lightning-vertical-navigation-section>
+                        <template for:each={tabs} for:item="tabItem">
+                            <lightning-vertical-navigation-item-icon
+                                key={tabItem.name}
+                                label={tabItem.label}
+                                name={tabItem.name}
+                                icon-name={tabItem.iconName}
+                            ></lightning-vertical-navigation-item-icon>
+                        </template>
+                    </lightning-vertical-navigation-section>
+                </lightning-vertical-navigation>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="shrink" padding="horizontal-small">
+                <div class="slds-box slds-box_x-small slds-m-top_medium">
+                    <template lwc:if={isPlayground}>
+                        <c-playground></c-playground>
+                    </template>
+                    <template lwc:elseif={isCurrencyRollup}>
+                        <c-currency-rollup-tab></c-currency-rollup-tab>
+                    </template>
+                    <template lwc:elseif={isDuplicatesManager}>
+                        <c-duplicates-manager-tab></c-duplicates-manager-tab>
+                    </template>
+                    <template lwc:elseif={isDatatableContacts}>
+                        <c-datatable-contacts></c-datatable-contacts>
+                    </template>
+                    <template lwc:elseif={isCustomCombobox}>
+                        <c-combobox-playground></c-combobox-playground>
+                    </template>
+                    <template lwc:elseif={isModalDemo}>
+                        <c-modal-playground></c-modal-playground>
+                    </template>
+                    <template lwc:else>
+                        <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
+                    </template>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
