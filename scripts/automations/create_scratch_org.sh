@@ -16,6 +16,9 @@ read -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
 
 echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
 
+# Pre-configure Salesforce CLI
+sf config set org-capitalize-record-types=true
+
 # Create a brand new scratch org AND set it as a DEFAULT ORG!
 sf org create scratch \
     --target-dev-hub "$DEV_HUB_ALIAS" \
