@@ -17,6 +17,7 @@ global without sharing class PublicRestEndpoint {
      */
     @HttpGet
     global static Map<String, String> doGet() {
+        Logger.debug('Entering Public REST Endpoint');
         Map<String, String> transactionData = new Map<String, String>();
         transactionData.put('message', 'echo');
         transactionData.put('transactionId', Request.getCurrent().getRequestId());
@@ -42,6 +43,7 @@ global without sharing class PublicRestEndpoint {
         transactionData.put('networkId', currentNetwork.Id);
         transactionData.put('networkName', currentNetwork.Name);
         transactionData.put('networkUrlPathPrefix', currentNetwork.UrlPathPrefix);
+        Logger.debug('Transaction Data: {0}', Lists.of(JSON.serialize(transactionData)));
         return transactionData;
     }
 }

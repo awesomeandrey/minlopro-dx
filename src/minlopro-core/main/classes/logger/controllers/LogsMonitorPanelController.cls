@@ -8,7 +8,7 @@ public with sharing class LogsMonitorPanelController {
         try {
             return Cache.Session.getPartition(PARTITION_NS) <> null;
         } catch (Cache.Session.SessionCacheException ex) {
-            Logger.error('No SessionPartition allocated: {0}', Lists.of(PARTITION_NS));
+            Logger.error('No "SessionPartition" allocated: {0}', Lists.of(PARTITION_NS));
             return false;
         } catch (Exception ex) {
             String exceptionDetails = Exceptions.getDetails(ex).toString();

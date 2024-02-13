@@ -4,12 +4,12 @@ public without sharing class TH_Log_CaptureAndPersist extends BasicTriggerHandle
     }
 
     public override void afterInsert(List<SObject> newRecords) {
-        List<LogEntry__c> logEntries = new List<LogEntry__c>();
+        List<LogEntry__c> logEntriesToInsert = new List<LogEntry__c>();
         for (Log__e logEvent : (List<Log__e>) newRecords) {
-            logEntries.add(new LogData(logEvent).castToEntry());
+            logEntriesToInsert.add(new LogData(logEvent).castToEntry());
         }
-        if (!logEntries.isEmpty()) {
-            insert logEntries;
+        if (!logEntriesToInsert.isEmpty()) {
+            insert logEntriesToInsert;
         }
     }
 }

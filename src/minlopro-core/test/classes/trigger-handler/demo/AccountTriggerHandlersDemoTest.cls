@@ -3,11 +3,11 @@ private class AccountTriggerHandlersDemoTest {
     private static final Decimal RANDOM_ACCOUNT_REVENUE {
         get {
             if (RANDOM_ACCOUNT_REVENUE == null) {
-                // Generate a random decimal between 0.0 (inclusive) and 1.0 (exclusive)
+                // Generate a random decimal between 0.0 (inclusive) and 1.0 (exclusive);
                 Double randomValue = Math.random();
-                // Scale the random value to the range of 0 to 1000, then shift it to the range of 1000 to 2000
+                // Scale the random value to the range of 0 to 1000, then shift it to the range of 1000 to 2000;
                 Double randomDecimal = 1000 + (randomValue * 1000);
-                // Optional: If you need a specific number of decimal places, you can round the value
+                // Optional: If you need a specific number of decimal places, you can round the value;
                 // For example, rounding to 2 decimal places
                 RANDOM_ACCOUNT_REVENUE = Math.round(randomDecimal * 10.0) / 10.0;
             }
