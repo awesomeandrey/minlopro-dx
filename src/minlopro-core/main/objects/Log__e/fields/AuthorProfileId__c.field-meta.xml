@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AuthorProfileId__c</fullName>
     <defaultValue>$User.ProfileId</defaultValue>
+    <description>Running user profile ID.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Running user profile ID.</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>

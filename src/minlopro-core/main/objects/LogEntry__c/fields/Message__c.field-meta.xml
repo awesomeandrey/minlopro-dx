@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Message__c</fullName>
+    <description>Serialized log information/data.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Serialized log information/data.</inlineHelpText>
+    <label>Message</label>
+    <length>2000</length>
+    <trackTrending>false</trackTrending>
+    <type>LongTextArea</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

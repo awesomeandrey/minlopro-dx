@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApexClassLine__c</fullName>
+    <defaultValue>&apos;0&apos;</defaultValue>
+    <description>Stack trace line inside Apex class the log originated from.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Stack trace line inside Apex class the log originated from.</inlineHelpText>
+    <label>Apex Class Line</label>
+    <length>5</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

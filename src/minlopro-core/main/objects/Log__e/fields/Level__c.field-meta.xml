@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Level__c</fullName>
     <defaultValue>&quot;DEBUG&quot;</defaultValue>
+    <description>Logging level (allowed values are DEBUG and ERROR).</description>
     <externalId>false</externalId>
+    <inlineHelpText>Logging level (allowed values are DEBUG and ERROR).</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
