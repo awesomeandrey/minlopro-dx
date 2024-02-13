@@ -36,6 +36,7 @@ global with sharing class GithubWebhookEndpoint {
             sendNotificationToAdmin(event);
             res.statusCode = 200;
             res.responseBody = Blob.valueOf('Request processed successfully.');
+            Logger.debug('Successfully processed GitHub webhook!');
         } catch (Exception ex) {
             String errorMessage = String.format('Unhandled REST exception: {0}.', Lists.of(Exceptions.getDetails(ex).toString()));
             Logger.error(errorMessage);

@@ -8,22 +8,21 @@
             <axisBinding>y</axisBinding>
             <column>RowCount</column>
         </chartSummaries>
-        <chartType>LineGrouped</chartType>
+        <chartType>Donut</chartType>
         <enableHoverLabels>false</enableHoverLabels>
-        <expandOthers>true</expandOthers>
-        <groupingColumn>CUST_CREATED_DATE</groupingColumn>
+        <expandOthers>false</expandOthers>
+        <groupingColumn>LogEntry__c.Author__c</groupingColumn>
         <legendPosition>Right</legendPosition>
         <location>CHART_BOTTOM</location>
-        <secondaryGroupingColumn>LogEntry__c.Level__c</secondaryGroupingColumn>
         <showAxisLabels>true</showAxisLabels>
-        <showPercentage>false</showPercentage>
-        <showTotal>false</showTotal>
-        <showValues>false</showValues>
+        <showPercentage>true</showPercentage>
+        <showTotal>true</showTotal>
+        <showValues>true</showValues>
         <size>Medium</size>
         <summaryAxisRange>Auto</summaryAxisRange>
         <textColor>#000000</textColor>
         <textSize>12</textSize>
-        <title>Logs By Created Date</title>
+        <title># of logs by Author</title>
         <titleColor>#000000</titleColor>
         <titleSize>18</titleSize>
     </chart>
@@ -31,27 +30,23 @@
         <field>CUST_NAME</field>
     </columns>
     <currency>USD</currency>
-    <description>Logs trends during the last 30 days.</description>
-    <format>Matrix</format>
-    <groupingsAcross>
-        <field>CUST_CREATED_DATE</field>
-        <sortOrder>Asc</sortOrder>
-    </groupingsAcross>
+    <description>Logs grouped by &apos;Author&apos; for the last 30 days.</description>
+    <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>LogEntry__c.Level__c</field>
+        <field>LogEntry__c.Author__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>Logs Trends</name>
+    <name>Logs By Author</name>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
     <reportType>CustomEntity$LogEntry__c</reportType>
     <scope>organization</scope>
-    <showDetails>true</showDetails>
+    <showDetails>false</showDetails>
     <showGrandTotal>true</showGrandTotal>
-    <showSubTotals>true</showSubTotals>
+    <showSubTotals>false</showSubTotals>
     <timeFrameFilter>
         <dateColumn>CUST_CREATED_DATE</dateColumn>
         <interval>INTERVAL_LAST30</interval>

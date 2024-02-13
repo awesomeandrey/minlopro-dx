@@ -42,6 +42,11 @@
                 <label>QUEUEABLE</label>
             </value>
             <value>
+                <fullName>REST</fullName>
+                <default>false</default>
+                <label>REST</label>
+            </value>
+            <value>
                 <fullName>SYNCHRONOUS</fullName>
                 <default>false</default>
                 <label>SYNCHRONOUS</label>
