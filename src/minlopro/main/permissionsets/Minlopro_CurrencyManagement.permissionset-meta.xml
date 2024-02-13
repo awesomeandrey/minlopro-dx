@@ -271,7 +271,7 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>
-        <tab>CurrencyRollup</tab>
+        <tab>Workspace</tab>
         <visibility>Visible</visibility>
     </tabSettings>
 </PermissionSet>
