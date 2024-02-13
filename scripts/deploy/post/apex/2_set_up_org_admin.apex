@@ -12,7 +12,15 @@ update new User(
     ExternalId__c = UserInfo.getUserName()
 );
 User runningUser = [
-    SELECT Name, UserPreferencesUserDebugModePref, Country, UserRole.Name, UserType, UserPermissionsKnowledgeUser, ExternalId__c
+    SELECT
+        Name,
+        UserPreferencesUserDebugModePref,
+        Country,
+        UserRole.Name,
+        UserType,
+        UserPermissionsKnowledgeUser,
+        ExternalId__c,
+        TimeZoneSidKey
     FROM User
     WHERE Id = :userId
     LIMIT 1
@@ -30,7 +38,8 @@ DebugTableFormatter formatter = new DebugTableFormatter(
         'UserPreferencesUserDebugModePref',
         'Country',
         'UserPermissionsKnowledgeUser',
-        'ExternalId__c'
+        'ExternalId__c',
+        'TimeZoneSidKey'
     },
     Lists.of(runningUser)
 );
