@@ -26,7 +26,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize DevHub Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $DEV_HUB_AUTH_URL --orgAlias DevHub
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New Scratch Org'
         continue-on-error: true
@@ -45,6 +45,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: minlopro-scratch-org-credentials
-          path: build/*-SO-credentials.txt
+          path: |
+            build/*-SO-credentials.txt
+            build/.env
           if-no-files-found: error
           retention-days: 5

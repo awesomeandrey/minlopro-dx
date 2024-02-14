@@ -7,18 +7,18 @@
 # Enable errexit option to exit on command failure
 set -e
 
-# Capture target org alias;
+# Capture target org alias
 read -p "🔶 Enter target org alias to generate '.env' file for: " TARGET_ORG_ALIAS
 echo "🔵 Resolving environment variables for [$TARGET_ORG_ALIAS] organization..."
 
-# Copy content of '.env.manifest' file to '.env' in repository root (force overwrite);
+# Copy content of '.env.manifest' file to '.env' in repository root (force overwrite)
 ENV_FILEPATH=".env"
 cp -f "scripts/.env.manifest" "$ENV_FILEPATH"
 
 # Determine OS and define 'sed' command based on OS
 OS="$(uname)"
 if [[ "$OS" == "Darwin" ]]; then
-    # macOS
+    # MacOS
     echo "SED command is adapted for Mac OS."
     SED_COMMAND="sed -i '' "
 else
@@ -27,7 +27,7 @@ else
     SED_COMMAND="sed -i "
 fi
 
-# Function that manipulates with the content of '.env' file;
+# Function that manipulates with the content of '.env' file
 add_or_update_env_var() {
     local var_name=$1
     local var_value=$2
@@ -42,7 +42,7 @@ add_or_update_env_var() {
     echo "- [$var_name] variable was set to [$var_value]."
 }
 
-# Calculate & set static variables;
+# Calculate & set static variables
 targetOrgUsername=$(sf org display user --json --target-org="$TARGET_ORG_ALIAS" | jq -r '.result.username')
 add_or_update_env_var "SF_USERNAME" "$targetOrgUsername"
 targetOrgInstanceUrl=$(sf org display --json --target-org="$TARGET_ORG_ALIAS" | jq -r '.result.instanceUrl')
@@ -57,5 +57,9 @@ for var in $(printenv | grep '^SF_'); do
     # Upsert SF-like variable to '.env' file
     add_or_update_env_var "$var_name" "$var_value"
 done
+
+# Copy '.env' file to 'build' folder
+mkdir -p "build"
+cp -f "$ENV_FILEPATH" "build/$ENV_FILEPATH"
 
 echo "Done!"

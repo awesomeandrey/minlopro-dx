@@ -11,8 +11,8 @@ const $ModalDemo = 'lwcModalDemo';
 
 // TODO - resolve issue with non-flexible layout!
 export default class Workspace extends LightningElement {
-    @track selectedTabName = window.localStorage.getItem('selectedTabName');
-    @track doCollapseTabs = window.localStorage.getItem('doCollapseTabs') === 'true';
+    @track selectedTabName = this.isValidTabName(this.lc_selectedTabName) ? this.lc_selectedTabName : $Playground;
+    @track doCollapseTabs = this.lc_doCollapseTabs;
 
     get tabs() {
         return [
@@ -53,6 +53,14 @@ export default class Workspace extends LightningElement {
         return this.selectedTabName === $ModalDemo;
     }
 
+    get lc_selectedTabName() {
+        return window.localStorage.getItem('selectedTabName');
+    }
+
+    get lc_doCollapseTabs() {
+        return window.localStorage.getItem('doCollapseTabs') === 'true';
+    }
+
     handleSelectTab(event) {
         const { name } = event.detail;
         this.selectedTabName = name;
@@ -62,5 +70,9 @@ export default class Workspace extends LightningElement {
     handleToggleTabs(event) {
         this.doCollapseTabs = !this.doCollapseTabs;
         window.localStorage.setItem('doCollapseTabs', this.doCollapseTabs);
+    }
+
+    isValidTabName(tabNameToCheck) {
+        return this.tabs.some(({ name }) => name === tabNameToCheck);
     }
 }
