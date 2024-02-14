@@ -15,6 +15,7 @@
         "Knowledge",
         "MultiCurrency",
         "PersonAccounts",
+        "SalesforceContentUser",
         "StateAndCountryPicklist",
         "StreamingAPI"
     ],

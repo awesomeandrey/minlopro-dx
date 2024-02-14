@@ -1,0 +1,54 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-files-manager-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+            <lightning-button label="Delete All Files" variant="destructive" onclick={handleDeleteAllFiles}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="x-small"></lightning-spinner>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="4" padding="horizontal-small">
+                <lightning-input
+                    type="toggle"
+                    label="Explicitly link uploaded files to Content Workspace via CDL"
+                    checked={doExplicitlyLinkToFolder}
+                    message-toggle-active="Yes"
+                    message-toggle-inactive="No"
+                    onchange={handleToggleLinkage}
+                ></lightning-input>
+                <lightning-file-upload
+                    lwc:ref="fileUploader"
+                    label="Upload Sample File"
+                    name="fileUploader"
+                    accept={acceptedFormats}
+                    file-field-name="Type__c"
+                    file-field-value="LwcDemo"
+                    onuploadfinished={handleUploadFinished}
+                    multiple
+                ></lightning-file-upload>
+            </lightning-layout-item>
+            <lightning-layout-item size="8" padding="horizontal-small">
+                <c-stats label="Stats" icon-name="standard:catalog" value={stats}></c-stats>
+                <div class="slds-m-vertical_medium">
+                    <c-error-alert value={normalizedErrorObject}></c-error-alert>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+                <p class="slds-text-body_regular">Files Uploaded By Running User</p>
+                <div class="slds-scrollable_x">
+                    <c-datatable
+                        key-field="Id"
+                        data={documentData}
+                        columns={documentColumns}
+                        hide-checkbox-column
+                        show-row-number-column
+                        onrowaction={handleRowAction}
+                    ></c-datatable>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+                <c-stats lwc:if={hasContentDistribution} label="Content Distribution" value={contentDistribution}></c-stats>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

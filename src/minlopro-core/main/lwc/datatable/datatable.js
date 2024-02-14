@@ -43,7 +43,7 @@ export default class Datatable extends LightningDatatable {
             template: customLookupReadonlyTemplate,
             editTemplate: customLookupEditableTemplate,
             standardCellLayout: true,
-            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'objectApiName', 'displayInfo', 'matchingInfo']
+            typeAttributes: [...this.COMMON_TYPE_ATTRIBUTES, 'objectApiName', 'displayInfo', 'matchingInfo', 'nameFieldPath']
         }
     };
 

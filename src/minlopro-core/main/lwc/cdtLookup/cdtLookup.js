@@ -13,6 +13,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     @api displayInfo = null;
     @api matchingInfo = null;
     @api readOnly = false;
+    @api nameFieldPath = null;
 
     @api get validity() {
         if (this.isInputMode) {
@@ -23,7 +24,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     }
 
     get wiredFields() {
-        return [`${this.objectApiName}.Name`];
+        return [`${this.objectApiName}.${this.nameFieldPath || 'Name'}`];
     }
 
     get recordName() {

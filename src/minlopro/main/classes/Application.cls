@@ -4,11 +4,25 @@ public inherited sharing class Application {
     );
 
     public static final fflib_Application.UnitOfWorkFactory UnitOfWork = new fflib_Application.UnitOfWorkFactory(
-        new List<SObjectType>{ User.SObjectType }
+        new List<SObjectType>{
+            ContentDocumentLink.SObjectType,
+            ContentDistribution.SObjectType,
+            ContentVersion.SObjectType,
+            ContentWorkspace.SObjectType,
+            ContentWorkspacePermission.SObjectType,
+            User.SObjectType
+        }
     );
 
     public static final fflib_Application.SelectorFactory Selector = new fflib_Application.SelectorFactory(
-        new Map<SObjectType, Type>{ User.SObjectType => UserSelector.class }
+        new Map<SObjectType, Type>{
+            ContentDocument.SObjectType => ContentDocumentSelector.class,
+            ContentDocumentLink.SObjectType => ContentDocumentLinkSelector.class,
+            ContentDistribution.SObjectType => ContentDistributionSelector.class,
+            ContentWorkspace.SObjectType => ContentWorkspaceSelector.class,
+            ContentWorkspacePermission.SObjectType => ContentWorkspacePermissionSelector.class,
+            User.SObjectType => UserSelector.class
+        }
     );
 
     public static final fflib_Application.DomainFactory Domain = new fflib_Application.DomainFactory(
