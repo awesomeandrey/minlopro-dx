@@ -4,10 +4,10 @@
         <dl class="slds-dl_horizontal">
             <template for:each={statsAsArray} for:item="stat">
                 <dt key={stat.key} lwc:if={stat.isLabel} class="slds-dl_horizontal__label">
-                    <p class="slds-truncate">{stat.value}</p>
+                    <p class="slds-truncate" title={stat.value}>{stat.value}</p>
                 </dt>
                 <dd key={stat.key} lwc:if={stat.isValue} class="slds-dl_horizontal__detail slds-tile__meta">
-                    <p class="slds-truncate">{stat.value}</p>
+                    <p class="slds-truncate" title={stat.value}>{stat.value}</p>
                 </dd>
             </template>
         </dl>

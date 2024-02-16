@@ -37,11 +37,14 @@ echo "🔵 Authorizing [$orgAlias] organization..."
 
 # Save sf auth URL into a text file;
 mkdir -p "$buildFolder"
-touch $sfAuthUrlFile
-echo $sfdxUrl > "$sfAuthUrlFile"
+touch "$sfAuthUrlFile"
+echo "$sfdxUrl" > "$sfAuthUrlFile"
 
 # Authorize Salesforce org and set it as default one;
 sf org login sfdx-url \
   --sfdx-url-file $sfAuthUrlFile \
   --alias "$orgAlias" \
   --set-default
+
+# Purge file with SFDX url;
+rm -rf "$sfAuthUrlFile"
