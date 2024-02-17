@@ -1,15 +1,20 @@
 <template>
     <lightning-tile label={label} href="javascript:void(0)" type="media">
         <lightning-icon slot="media" icon-name={iconName} alternative-text="Stats"></lightning-icon>
-        <dl class="slds-dl_horizontal">
-            <template for:each={statsAsArray} for:item="stat">
-                <dt key={stat.key} lwc:if={stat.isLabel} class="slds-dl_horizontal__label">
-                    <p class="slds-truncate" title={stat.value}>{stat.value}</p>
-                </dt>
-                <dd key={stat.key} lwc:if={stat.isValue} class="slds-dl_horizontal__detail slds-tile__meta">
-                    <p class="slds-truncate" title={stat.value}>{stat.value}</p>
-                </dd>
+        <div class="grid-container">
+            <template for:each={statsAsUniqueEntries} for:item="entryItem">
+                <div key={entryItem.id} class="grid-item">
+                    <template lwc:if={entryItem.isKey}>
+                        <p class="slds-truncate" title={entryItem.content}>{entryItem.content}:</p>
+                    </template>
+                    <template lwc:if={entryItem.isValue}>
+                        <p class="slds-truncate" title={entryItem.content}>{entryItem.content}</p>
+                        <a href="javascript:void(0)" class="slds-text-link" data-value={entryItem.content} onclick={handleCopy}
+                            >Copy</a
+                        >
+                    </template>
+                </div>
             </template>
-        </dl>
+        </div>
     </lightning-tile>
 </template>

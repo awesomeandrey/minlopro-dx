@@ -13,7 +13,6 @@ const $FilesManager = 'filesManager';
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
 
-// TODO - resolve issue with non-flexible layout (root cause: c-stats + c-error-alert)!
 export default class Workspace extends LightningElement {
     @track selectedTabName = this.isValidTabName(this.lc_selectedTabName) ? this.lc_selectedTabName : $Playground;
     @track doCollapseTabs = this.lc_doCollapseTabs;

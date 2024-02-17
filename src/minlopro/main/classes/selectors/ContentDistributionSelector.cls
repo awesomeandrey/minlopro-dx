@@ -9,6 +9,7 @@ public with sharing class ContentDistributionSelector extends fflib_SObjectSelec
         return new List<SObjectField>{
             ContentDistribution.Name,
             ContentDistribution.ContentDocumentId,
+            ContentDistribution.ContentDownloadUrl,
             ContentDistribution.ContentVersionId,
             ContentDistribution.PreferencesAllowViewInBrowser,
             ContentDistribution.PreferencesLinkLatestVersion,

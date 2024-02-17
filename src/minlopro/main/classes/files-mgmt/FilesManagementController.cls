@@ -49,9 +49,10 @@ public with sharing class FilesManagementController {
     }
 
     @AuraEnabled(Cacheable=true)
-    public static List<ContentDocument> getFilesByOwnerId(Id ownerId) {
+    public static List<ContentDocument> getFilesByParentId() {
         try {
-            return documentSelector.selectByOwnerIds(Lists.of(ownerId));
+            ContentWorkspace workspaceFolder = queryOrCreateFolderIfNotExists();
+            return documentSelector.selectByParentIds(Lists.of(null, workspaceFolder.Id));
         } catch (Exception ex) {
             Logger.error(ex);
             throw new AuraHandledException(ex.getMessage());

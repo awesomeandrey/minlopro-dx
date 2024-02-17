@@ -33,7 +33,7 @@
                     <c-error-alert value={normalizedErrorObject}></c-error-alert>
                 </div>
             </lightning-layout-item>
-            <lightning-layout-item size="12" padding="around-small">
+            <lightning-layout-item size="12" padding="horizontal-small">
                 <p class="slds-text-body_regular">Files Uploaded By Running User</p>
                 <div class="slds-scrollable_x">
                     <c-datatable
@@ -46,8 +46,8 @@
                     ></c-datatable>
                 </div>
             </lightning-layout-item>
-            <lightning-layout-item size="12" padding="around-small">
-                <c-stats lwc:if={hasContentDistribution} label="Content Distribution" value={contentDistribution}></c-stats>
+            <lightning-layout-item lwc:if={hasContentDistribution} size="12" padding="around-small">
+                <c-stats label="Content Distribution" value={contentDistribution}></c-stats>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>
