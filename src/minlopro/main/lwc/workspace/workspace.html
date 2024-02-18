@@ -44,6 +44,9 @@
                 <template lwc:elseif={isFilesManager}>
                     <c-files-manager-tab></c-files-manager-tab>
                 </template>
+                <template lwc:elseif={isLeadsManager}>
+                    <c-leads-manager-tab></c-leads-manager-tab>
+                </template>
                 <template lwc:else>
                     <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
                 </template>

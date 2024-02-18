@@ -1,0 +1,70 @@
+<template>
+    <lightning-modal-header label="Convert Lead"></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-is-relative">
+            <c-confetti lwc:ref="confetti"></c-confetti>
+            <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+            <lightning-layout multiple-rows>
+                <lightning-layout-item lwc:if={hasError} size="12" padding="around-small">
+                    <c-error-alert value={errorObj}></c-error-alert>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <p class="slds-text-title_caps">Lead Details</p>
+                    <div class="slds-box slds-box_xx-small slds-theme_shade slds-m-vertical_small">
+                        <lightning-record-form
+                            object-api-name="Lead"
+                            record-id={recordId}
+                            columns="2"
+                            mode="readonly"
+                            layout-type="Compact"
+                        ></lightning-record-form>
+                    </div>
+                    <lightning-button
+                        label="Toggle 'Check If Duplicate?' Checkbox"
+                        variant="brand"
+                        disabled={loading}
+                        onclick={handleToggleLeadCheckbox}
+                    ></lightning-button>
+                </lightning-layout-item>
+                <lightning-layout-item size="6" padding="horizontal-small">
+                    <c-stats label="Stats" icon-name="standard:lead" value={stats}></c-stats>
+                    <lightning-record-picker
+                        label="Existing ACCOUNT to Merge Lead To:"
+                        placeholder="Search Accounts..."
+                        object-api-name="Account"
+                        value={selectedAccountId}
+                        onchange={handleAccountChange}
+                    >
+                    </lightning-record-picker>
+                    <lightning-record-picker
+                        label="Existing CONTACT to Merge Lead To:"
+                        placeholder="Search Contacts..."
+                        object-api-name="Contact"
+                        value={selectedContactId}
+                        onchange={handleContactChange}
+                    >
+                    </lightning-record-picker>
+                    <template for:each={conversionSettings} for:item="settingItem">
+                        <lightning-input
+                            key={settingItem.name}
+                            class="slds-m-vertical_x-small"
+                            type="toggle"
+                            label={settingItem.label}
+                            data-name={settingItem.name}
+                            checked={settingItem.value}
+                            message-toggle-active=""
+                            message-toggle-inactive=""
+                            onchange={handleConversionSettingChange}
+                        ></lightning-input>
+                    </template>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button-group>
+            <lightning-button label="Convert" variant="brand" disabled={loading} onclick={handleConvertBtn}></lightning-button>
+            <lightning-button label="Cancel" disabled={loading} onclick={handleCancelBtn}></lightning-button>
+        </lightning-button-group>
+    </lightning-modal-footer>
+</template>

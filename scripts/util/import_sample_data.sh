@@ -10,12 +10,17 @@ read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 echo "🔵 Importing sample data into [$TARGET_ORG_ALIAS] organization..."
 echo
 
-# Import Accounts and Contacts
+# Import Accounts, Contacts & Opportunities (by plan);
 sf data import tree \
   --target-org "$TARGET_ORG_ALIAS" \
-  --plan "config/data/sample-Account-Contact-Opportunity-plan.json"
+  --plan "config/data/plan-Account-Contact-Opportunity.json"
 
-# Import CurrencyTypes
- sf data import tree \
+# Import Currency Types (by file);
+sf data import tree \
   --target-org "$TARGET_ORG_ALIAS" \
   --files "config/data/sample-CurrencyTypes.json"
+
+# Import Leads (by file);
+sf data import tree \
+  --target-org "$TARGET_ORG_ALIAS" \
+  --files "config/data/sample-Leads.json"

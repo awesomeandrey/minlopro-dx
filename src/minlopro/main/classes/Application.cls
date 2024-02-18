@@ -10,6 +10,7 @@ public inherited sharing class Application {
             ContentVersion.SObjectType,
             ContentWorkspace.SObjectType,
             ContentWorkspacePermission.SObjectType,
+            Lead.SObjectType,
             User.SObjectType
         }
     );
@@ -21,6 +22,7 @@ public inherited sharing class Application {
             ContentDistribution.SObjectType => ContentDistributionSelector.class,
             ContentWorkspace.SObjectType => ContentWorkspaceSelector.class,
             ContentWorkspacePermission.SObjectType => ContentWorkspacePermissionSelector.class,
+            Lead.SObjectType => LeadSelector.class,
             User.SObjectType => UserSelector.class
         }
     );

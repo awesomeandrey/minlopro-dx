@@ -1,0 +1,5 @@
+.leads-table {
+    max-height: 15rem;
+    min-height: 5rem;
+    border: var(--lwc-borderWidthThin, 1px) solid var(--lwc-colorBorder, rgb(229, 229, 229));
+}

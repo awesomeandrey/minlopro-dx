@@ -1,6 +1,6 @@
 # Sample Data
 
-Sample `Accounts`, `Contacts` and `Opportunities` data was generated via [Mockaroo Tool](https://mockaroo.com/).
+Sample data (for `Accounts`, `Contacts`, `Opportunities` and other objects) was generated via [Mockaroo Tool](https://mockaroo.com/).
 
 Refer to bash scripts below in order to export/import sample data:
 

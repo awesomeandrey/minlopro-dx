@@ -71,6 +71,7 @@ public class fflib_QueryFactory { //No explicit sharing declaration - inherit fr
     public Schema.SObjectType table { get; private set; }
     @TestVisible
     private Set<String> fields;
+    private String usingScope;
     private String conditionExpression;
     private Integer limitCount;
     private Integer offsetCount;
@@ -386,6 +387,16 @@ public class fflib_QueryFactory { //No explicit sharing declaration - inherit fr
     public String getCondition() {
         return this.conditionExpression;
     }
+
+    public fflib_QueryFactory setScope(String usingScope) {
+        this.usingScope = usingScope;
+        return this;
+    }
+
+    public String getScope() {
+        return this.usingScope;
+    }
+
     /**
      * @param limitCount if not null causes a LIMIT clause to be added to the resulting query.
      **/
@@ -758,6 +769,10 @@ public class fflib_QueryFactory { //No explicit sharing declaration - inherit fr
             }
         }
         result += ' FROM ' + (relationship != null ? relationship.getRelationshipName() : table.getDescribe().getName());
+
+        if (this.usingScope != null) {
+            result += ' USING SCOPE ' + this.usingScope;
+        }
 
         if (conditionExpression != null) {
             result += ' WHERE ' + conditionExpression;

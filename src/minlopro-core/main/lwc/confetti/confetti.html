@@ -1,0 +1,7 @@
+<template>
+    <div lwc:ref="container" class="confetti-container">
+        <template for:each={items} for:item="confettiItem">
+            <div key={confettiItem.id} class="item" style={confettiItem.style}></div>
+        </template>
+    </div>
+</template>
