@@ -1,6 +1,8 @@
 .table_no_height_defined {
+    width: 100%;
 }
 
 .table_with_height_defined {
     height: 20rem;
+    width: 100%;
 }

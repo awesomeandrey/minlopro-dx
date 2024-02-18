@@ -18,6 +18,16 @@ export default class Playground extends LightningElement {
         };
     }
 
+    get sampleStats() {
+        return {
+            'Display Info': JSON.stringify(this.displayInfo),
+            'Matching Info': JSON.stringify(this.matchingInfo),
+            'Another Long Property': 'Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum;',
+            'Another Really Long Property':
+                'Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum'
+        };
+    }
+
     handleLookupChange(event) {
         console.log('Playground.js', `handleLookupChange() | ${JSON.stringify(event.detail)}`);
         const { recordId } = event.detail;

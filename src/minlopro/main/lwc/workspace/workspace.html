@@ -7,8 +7,8 @@
                 onclick={handleToggleTabs}
             ></lightning-button-icon-stateful>
         </lightning-button-group>
-        <lightning-layout>
-            <lightning-layout-item flexibility="auto,no-grow,no-shrink">
+        <div class="container box">
+            <div class="navigation box">
                 <lightning-vertical-navigation selected-item={selectedTabName} onselect={handleSelectTab}>
                     <lightning-vertical-navigation-section>
                         <template for:each={tabs} for:item="tabItem">
@@ -21,35 +21,33 @@
                         </template>
                     </lightning-vertical-navigation-section>
                 </lightning-vertical-navigation>
-            </lightning-layout-item>
-            <lightning-layout-item flexibility="auto" padding="horizontal-small">
-                <div class="slds-box slds-box_x-small slds-m-top_medium">
-                    <template lwc:if={isPlayground}>
-                        <c-playground></c-playground>
-                    </template>
-                    <template lwc:elseif={isCurrencyRollup}>
-                        <c-currency-rollup-tab></c-currency-rollup-tab>
-                    </template>
-                    <template lwc:elseif={isDuplicatesManager}>
-                        <c-duplicates-manager-tab></c-duplicates-manager-tab>
-                    </template>
-                    <template lwc:elseif={isDatatableContacts}>
-                        <c-datatable-contacts></c-datatable-contacts>
-                    </template>
-                    <template lwc:elseif={isCustomCombobox}>
-                        <c-combobox-playground></c-combobox-playground>
-                    </template>
-                    <template lwc:elseif={isModalDemo}>
-                        <c-modal-playground></c-modal-playground>
-                    </template>
-                    <template lwc:elseif={isFilesManager}>
-                        <c-files-manager-tab></c-files-manager-tab>
-                    </template>
-                    <template lwc:else>
-                        <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
-                    </template>
-                </div>
-            </lightning-layout-item>
-        </lightning-layout>
+            </div>
+            <div class="slds-box slds-box_x-small slds-m-top_medium slds-m-horizontal_small content box">
+                <template lwc:if={isPlayground}>
+                    <c-playground></c-playground>
+                </template>
+                <template lwc:elseif={isCurrencyRollup}>
+                    <c-currency-rollup-tab></c-currency-rollup-tab>
+                </template>
+                <template lwc:elseif={isDuplicatesManager}>
+                    <c-duplicates-manager-tab></c-duplicates-manager-tab>
+                </template>
+                <template lwc:elseif={isDatatableContacts}>
+                    <c-datatable-contacts></c-datatable-contacts>
+                </template>
+                <template lwc:elseif={isCustomCombobox}>
+                    <c-combobox-playground></c-combobox-playground>
+                </template>
+                <template lwc:elseif={isModalDemo}>
+                    <c-modal-playground></c-modal-playground>
+                </template>
+                <template lwc:elseif={isFilesManager}>
+                    <c-files-manager-tab></c-files-manager-tab>
+                </template>
+                <template lwc:else>
+                    <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
+                </template>
+            </div>
+        </div>
     </lightning-card>
 </template>

@@ -1,21 +1,32 @@
 import { LightningElement, api } from 'lwc';
-import { isEmpty, uniqueId } from 'c/utilities';
+import { copyToClipboard, parseError, uniqueId } from 'c/utilities';
+import $Toastify from 'c/toastify';
 
 export default class Stats extends LightningElement {
     @api label = 'Stats';
     @api value = {};
     @api iconName = 'standard:setup_modal';
 
-    get statsAsArray() {
-        if (isEmpty(this.value)) {
-            return [];
-        }
+    get statsAsUniqueEntries() {
         return Object.entries(this.value)
-            .map(([propName, propValue]) => {
-                let statLabel = { isLabel: true, value: propName, key: uniqueId() };
-                let statValue = { isValue: true, value: propValue, key: uniqueId() };
-                return [statLabel, statValue];
+            .map(([key, value]) => {
+                return [
+                    { isKey: true, id: uniqueId(), content: key },
+                    { isValue: true, id: uniqueId(), content: value }
+                ];
             })
-            .flat();
+            .flat(Infinity);
+    }
+
+    async handleCopy(event) {
+        event.preventDefault();
+        let { value } = event.target.dataset;
+        try {
+            await copyToClipboard(value);
+            $Toastify.info({ message: 'Copied to clipboard!' });
+        } catch (error) {
+            let { message } = parseError(error);
+            $Toastify.error({ message });
+        }
     }
 }

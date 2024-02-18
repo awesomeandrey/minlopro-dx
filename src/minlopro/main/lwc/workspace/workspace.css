@@ -1,0 +1,9 @@
+.container {
+    display: grid;
+    grid-template-columns: max-content minmax(60%, 1fr);
+    gap: 10px;
+
+    & .navigation {
+        white-space: nowrap;
+    }
+}

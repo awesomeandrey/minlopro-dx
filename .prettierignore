@@ -1,10 +1,11 @@
 # SFDX folders
-**/experiences
-**/digitalExperiences
 **/certs/
-**/staticresources/
-**/networkBranding/
+**/contentassets/
+**/digitalExperiences
+**/experiences
 **/layouts/
+**/networkBranding/
+**/staticresources/
 
 # Static assets folder
 assets/

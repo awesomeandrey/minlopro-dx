@@ -7,8 +7,8 @@
             <lightning-button label="Roll Up" onclick={handleRollupOpps}></lightning-button>
         </lightning-button-group>
         <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
-        <lightning-layout>
-            <lightning-layout-item flexibility="no-grow" padding="horizontal-small" class="form-container slds-border_right">
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="3" padding="horizontal-small">
                 <lightning-record-picker
                     lwc:ref="accountPicker"
                     label="Target Account"
@@ -24,13 +24,13 @@
                     <c-error-alert value={normalizedErrorObject}></c-error-alert>
                 </div>
             </lightning-layout-item>
-            <lightning-layout-item flexibility="grow" padding="horizontal-small">
-                <div class="slds-m-bottom_small">
-                    <c-stats label="Stats" icon-name="standard:contract_line_item" value={stats}></c-stats>
-                </div>
-                <div class="slds-m-bottom_small">
-                    <c-stats label="Rollup Stats" icon-name="standard:attribute_based_pricing" value={rollupStats}></c-stats>
-                </div>
+            <lightning-layout-item size="5" padding="horizontal-small">
+                <c-stats label="Stats" icon-name="standard:contract_line_item" value={stats}></c-stats>
+            </lightning-layout-item>
+            <lightning-layout-item size="4" padding="horizontal-small">
+                <c-stats label="Rollup Stats" icon-name="standard:attribute_based_pricing" value={rollupStats}></c-stats>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="horizontal-small">
                 <p lwc:if={hasAccountSelected} class="slds-text-title_caps slds-m-vertical_small">
                     Related Opportunities ({opportunitiesCount})
                 </p>

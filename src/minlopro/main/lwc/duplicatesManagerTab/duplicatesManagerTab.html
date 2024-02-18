@@ -18,7 +18,7 @@
             ></lightning-button>
         </lightning-button-group>
         <lightning-layout>
-            <lightning-layout-item flexibility="no-grow" padding="horizontal-small" class="form-container slds-border_right">
+            <lightning-layout-item size="3" padding="horizontal-small" class="slds-border_right">
                 <lightning-record-picker
                     lwc:ref="accountPicker"
                     label="Target Account"
@@ -122,7 +122,7 @@
                     </div>
                 </div>
             </lightning-layout-item>
-            <lightning-layout-item flexibility="grow" padding="horizontal-small">
+            <lightning-layout-item size="9" padding="horizontal-small">
                 <c-stats label="Stats" icon-name="standard:contract_line_item" value={stats}></c-stats>
                 <div class="slds-m-vertical_medium">
                     <c-error-alert value={errorObject}></c-error-alert>
