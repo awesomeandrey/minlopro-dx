@@ -41,4 +41,8 @@ export default class Playground extends LightningElement {
     handleLookupError(event) {
         console.error('Playground.js', `handleLookupError() | ${JSON.stringify(event.detail)}`);
     }
+
+    async handleCelebrateWithConfetti(event) {
+        await this.refs.confetti.celebrate();
+    }
 }

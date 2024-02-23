@@ -14,10 +14,10 @@
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
-    <description>
-        Playground application for both learning and refining Salesforce development skills; tailored for POCs and LWC
-        experimentation.
-    </description>
+    <description
+        >Playground application for both learning and refining Salesforce development skills; tailored for POCs and LWC
+        experimentation.</description
+    >
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
@@ -27,6 +27,7 @@
     <tabs>standard-home</tabs>
     <tabs>Workspace</tabs>
     <tabs>LogsMonitor</tabs>
+    <tabs>standard-Lead</tabs>
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
     <tabs>standard-Opportunity</tabs>

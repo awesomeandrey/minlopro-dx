@@ -13,17 +13,17 @@ const $RuntimeLogDetails = {
   "request.querystring": "{request.querystring}", // +
   "request.header.contentLength": "{request.header.Content-Length}",
   "request.header.contentType": "{request.header.Content-Type}",
-  // --- "request.content": "{request.content}",
+  // "request.content": "{request.content}",
   "response.status.code": "{response.status.code}", // +
   "response.header.contentLength": "{response.header.Content-Length}",
   "response.header.contentType": "{response.header.Content-Type}",
-  // --- "response.content": "{response.content}",
+  // "response.content": "{response.content}",
   "apiproduct.name": "{apiproduct.name}", // +
   "apiproxy.revision": "{apiproxy.revision}", // +
   "proxy.basepath": "{proxy.basepath}", // +
   "proxy.pathsuffix": "{proxy.pathsuffix}", // +
-  // --- "proxy.url": "{proxy.url}",
-  // --- "target.url": "{target.url}",
+  // "proxy.url": "{proxy.url}",
+  // "target.url": "{target.url}",
   "target.response.status.code": "{target.response.status.code}" // +
 };
 

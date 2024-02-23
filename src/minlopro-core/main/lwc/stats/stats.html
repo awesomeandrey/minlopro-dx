@@ -9,7 +9,12 @@
                     </template>
                     <template lwc:if={entryItem.isValue}>
                         <p class="slds-truncate" title={entryItem.content}>{entryItem.content}</p>
-                        <a href="javascript:void(0)" class="slds-text-link" data-value={entryItem.content} onclick={handleCopy}
+                        <a
+                            lwc:if={entryItem.hasContent}
+                            href="javascript:void(0)"
+                            class="slds-text-link"
+                            data-value={entryItem.content}
+                            onclick={handleCopy}
                             >Copy</a
                         >
                     </template>

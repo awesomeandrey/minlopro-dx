@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>New</fullName>
+        <default>true</default>
+        <label>New</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Working</fullName>
+        <default>false</default>
+        <label>Working</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Nurturing</fullName>
+        <default>false</default>
+        <label>Nurturing</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Not Converted</fullName>
+        <default>false</default>
+        <label>Closed - Not Converted</label>
+        <converted>false</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Converted</fullName>
+        <default>false</default>
+        <label>Closed - Converted</label>
+        <converted>true</converted>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Nurturing</fullName>
+        <default>false</default>
+        <label>Closed - Nurturing</label>
+        <converted>true</converted>
+    </standardValue>
+</StandardValueSet>

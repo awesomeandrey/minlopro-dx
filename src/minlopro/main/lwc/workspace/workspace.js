@@ -9,9 +9,11 @@ const $DatatableContacts = 'datatableContacts';
 const $CustomCombobox = 'customCombobox';
 const $ModalDemo = 'lwcModalDemo';
 const $FilesManager = 'filesManager';
+const $LeadsManager = 'leadsManager';
 
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
+import IS_LEADS_MANAGER from '@salesforce/customPermission/IsLeadManager';
 
 export default class Workspace extends LightningElement {
     @track selectedTabName = this.isValidTabName(this.lc_selectedTabName) ? this.lc_selectedTabName : $Playground;
@@ -25,7 +27,8 @@ export default class Workspace extends LightningElement {
             { label: 'Datatable Contacts', name: $DatatableContacts, iconName: 'utility:table', visible: true },
             { label: 'Custom Combobox', name: $CustomCombobox, iconName: 'utility:bundle_policy', visible: true },
             { label: 'LWC Modal Demo', name: $ModalDemo, iconName: 'utility:preview', visible: true },
-            { label: 'Files Manager', name: $FilesManager, iconName: 'utility:share_file', visible: IS_FILES_MANAGER }
+            { label: 'Files Manager', name: $FilesManager, iconName: 'utility:share_file', visible: IS_FILES_MANAGER },
+            { label: 'Leads Conversion', name: $LeadsManager, iconName: 'utility:lead', visible: IS_LEADS_MANAGER }
         ]
             .map((tabInfo) => {
                 tabInfo.label = this.doCollapseTabs ? '' : tabInfo.label;
@@ -61,6 +64,10 @@ export default class Workspace extends LightningElement {
 
     get isFilesManager() {
         return this.selectedTabName === $FilesManager;
+    }
+
+    get isLeadsManager() {
+        return this.selectedTabName === $LeadsManager;
     }
 
     get lc_selectedTabName() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <actionOnInsert>Block</actionOnInsert>
+    <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Block</actionOnUpdate>
     <alertText>Duplicate Contact detected!</alertText>
     <description>Custom duplicate rule that applies to matched Contacts by criteria</description>
@@ -23,6 +23,8 @@
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
     <masterLabel>De-duplicate Contacts</masterLabel>
+    <operationsOnInsert>Alert</operationsOnInsert>
+    <operationsOnInsert>Report</operationsOnInsert>
     <securityOption>BypassSharingRules</securityOption>
     <sortOrder>1</sortOrder>
 </DuplicateRule>

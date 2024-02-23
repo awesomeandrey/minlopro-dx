@@ -1,5 +1,5 @@
 import { LightningElement, api } from 'lwc';
-import { copyToClipboard, parseError, uniqueId } from 'c/utilities';
+import { copyToClipboard, isNotEmpty, parseError, uniqueId } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 export default class Stats extends LightningElement {
@@ -12,7 +12,7 @@ export default class Stats extends LightningElement {
             .map(([key, value]) => {
                 return [
                     { isKey: true, id: uniqueId(), content: key },
-                    { isValue: true, id: uniqueId(), content: value }
+                    { isValue: true, id: uniqueId(), hasContent: isNotEmpty(value), content: value }
                 ];
             })
             .flat(Infinity);

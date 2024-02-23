@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LeadQuickInfo</fullName>
+    <fields>Name</fields>
+    <fields>Title</fields>
+    <fields>CheckIfDuplicate__c</fields>
+    <fields>Company</fields>
+    <fields>Phone</fields>
+    <fields>Email</fields>
+    <fields>AnnualRevenue</fields>
+    <fields>LeadSource</fields>
+    <fields>Status</fields>
+    <fields>Website</fields>
+    <label>Lead Quick Info</label>
+</CompactLayout>

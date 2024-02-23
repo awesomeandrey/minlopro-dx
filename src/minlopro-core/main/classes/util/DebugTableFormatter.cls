@@ -1,10 +1,10 @@
-public inherited sharing class DebugTableFormatter {
+public without sharing class DebugTableFormatter {
     private final String delimiter = ' ︱ ';
     private final Integer maxColumnWidth = 60;
-    private List<String> fieldNames;
-    private List<Map<String, String>> records;
+    private final List<String> fieldNames;
+    private final List<Map<String, String>> records;
 
-    private Map<String, Integer> columnWidths {
+    private final Map<String, Integer> columnWidths {
         get {
             if (this.columnWidths == null) {
                 Map<String, Integer> columnWidths = new Map<String, Integer>();

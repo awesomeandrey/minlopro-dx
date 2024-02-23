@@ -1,7 +1,11 @@
 <template>
     <lightning-card>
         <span slot="title" class="slds-text-title_caps"><code>c-playground</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Celebrate!" onclick={handleCelebrateWithConfetti}></lightning-button>
+        </lightning-button-group>
         <div class="slds-p-horizontal_medium">
+            <c-confetti lwc:ref="confetti"></c-confetti>
             <span class="slds-text-title_caps">lightning-record-picker</span>
             <lightning-record-picker
                 label="Users"
