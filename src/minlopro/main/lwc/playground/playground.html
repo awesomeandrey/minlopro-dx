@@ -4,25 +4,38 @@
         <lightning-button-group slot="actions">
             <lightning-button label="Celebrate!" onclick={handleCelebrateWithConfetti}></lightning-button>
         </lightning-button-group>
-        <div class="slds-p-horizontal_medium">
-            <c-confetti lwc:ref="confetti"></c-confetti>
-            <span class="slds-text-title_caps">lightning-record-picker</span>
-            <lightning-record-picker
-                label="Users"
-                variant="label-hidden"
-                placeholder="Search Users..."
-                object-api-name="User"
-                value={value}
-                display-info={displayInfo}
-                matching-info={matchingInfo}
-                onchange={handleLookupChange}
-                onblur={handleLookupBlur}
-                onerror={handleLookupError}
-            >
-            </lightning-record-picker>
-            <div class="slds-m-vertical_medium">
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="7" padding="horizontal-small">
+                <c-confetti lwc:ref="confetti"></c-confetti>
+                <span class="slds-text-title_caps">lightning-record-picker</span>
+                <lightning-record-picker
+                    label="Users"
+                    variant="label-hidden"
+                    placeholder="Search Users..."
+                    object-api-name="User"
+                    value={selectedUserId}
+                    display-info={displayInfo}
+                    matching-info={matchingInfo}
+                    onchange={handleLookupChange}
+                    onblur={handleLookupBlur}
+                    onerror={handleLookupError}
+                >
+                </lightning-record-picker>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
                 <c-stats label="Stats Demo" value={sampleStats}></c-stats>
-            </div>
-        </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="8" padding="horizontal-small">
+                <span class="slds-text-title_caps slds-m-bottom_x-small">Datatable Lookup/Picklist Value Wrapping</span>
+                <c-datatable
+                    lwc:ref="datatable"
+                    key-field="Id"
+                    data={tableData}
+                    columns={tableColumns}
+                    hide-checkbox-column
+                    show-row-number-column
+                ></c-datatable>
+            </lightning-layout-item>
+        </lightning-layout>
     </lightning-card>
 </template>

@@ -7,6 +7,7 @@ export default class CdtPicklist extends DatatableEditableCdt {
     @api context = null;
     @api fieldName = null;
     @api value = null;
+    @api wrapText = false;
     @api objectApiName = null;
     @api recordTypeId = null;
     @api readOnly = false;

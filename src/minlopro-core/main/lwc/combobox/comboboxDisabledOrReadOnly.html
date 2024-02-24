@@ -3,7 +3,8 @@
         <label lwc:if={label} class="slds-form-element__label">{label}</label>
         <div class="slds-form-element__control">
             <template lwc:if={isReadOnly}>
-                <p class="slds-truncate" title={inputValueLabel}>{inputValueLabel}</p>
+                <p lwc:if={wrapText} class="slds-hyphenate" title={inputValueLabel}>{inputValueLabel}</p>
+                <p lwc:else class="slds-truncate" title={inputValueLabel}>{inputValueLabel}</p>
             </template>
             <template lwc:else>
                 <input

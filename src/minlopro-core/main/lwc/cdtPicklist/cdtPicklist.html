@@ -15,6 +15,13 @@
             value={value}
         ></c-cdt-combobox>
         <!--Read Mode-->
-        <c-combobox lwc:else options={normalizedOptions} multi-select={multi} value={value} read-only></c-combobox>
+        <c-combobox
+            lwc:else
+            options={normalizedOptions}
+            multi-select={multi}
+            value={value}
+            wrap-text={wrapText}
+            read-only
+        ></c-combobox>
     </template>
 </template>

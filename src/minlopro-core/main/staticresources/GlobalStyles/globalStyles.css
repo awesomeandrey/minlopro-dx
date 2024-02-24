@@ -3,13 +3,11 @@
  * - c-datatable
  *
  * LWC also supports nested CSS selectors - https://developer.mozilla.org/en-US/docs/Web/CSS/Nesting_selector
- *
- * Note: this CSS file in minified in scope of CI/CD workflow (see `./scripts/deploy/pre/custom/minify_global_styles.sh`).
  */
 
 .minlopro-custom-container {
     border: 1px solid grey;
-    border-radius: 10%;
+    border-radius: 5px;
     padding: 0.5rem;
     background-color: rgb(243, 243, 243);
 }

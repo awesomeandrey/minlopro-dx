@@ -87,6 +87,12 @@ export default class Combobox extends LightningElement {
     @api mode = 'absolute';
 
     /**
+     * Responsible for text clipping/wrapping in read mode.
+     * @type {boolean}
+     */
+    @api wrapText = false;
+
+    /**
      * Gets the selected value(s) as a string joined by a separator.
      * For multi-select, values are joined by `MULTI_PICKLIST_SEPARATOR`.
      * For single-select, it returns the selected value.

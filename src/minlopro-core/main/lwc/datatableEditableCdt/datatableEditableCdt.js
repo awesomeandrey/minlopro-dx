@@ -1,9 +1,12 @@
 import { LightningElement } from 'lwc';
 
 export default class DatatableEditableCdt extends LightningElement {
+    // Custom properties that identify particuar cell;
     context = null;
     fieldName = null;
     value = null;
+    // Provided by CDT engine;
+    wrapText = false;
 
     debugModeEnabled = false; // Turn on/off to identify bottlenecks;
     cdtClassName = null;
