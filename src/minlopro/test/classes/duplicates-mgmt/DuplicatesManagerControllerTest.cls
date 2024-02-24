@@ -53,15 +53,15 @@ private class DuplicatesManagerControllerTest {
     }
 
     @IsTest
-    static void testUpsertContact() {
+    static void testInsertDuplicateContact() {
         User adminUser = createAdmin();
         insert adminUser;
         System.runAs(adminUser) {
-            // Case #1;
+            // Case #1 - Create brand new contacts record (no matching duplicates expected);
             Contact newContact = createNewContact();
             Id newContactId = DuplicatesManagerController.upsertContact(newContact);
             Assert.isTrue(String.isNotBlank(newContactId), 'NEW Contact should have been created.');
-            // Case #2;
+            // Case #2 - Trying to INSERT another contact which matches duplicate rule should result into exception;
             Exception ex = null;
             Contact uniqueContact = createUniqueContact();
             try {
@@ -70,15 +70,53 @@ private class DuplicatesManagerControllerTest {
                 ex = dmlEx;
             }
             Assert.isTrue(ex != null, 'Exception should have happened.');
-            // Case #3;
+            // Case #3 - Since duplicate rule has 'Allow On Insert' policy enabled, we can force contact insertion;
             Database.DMLOptions options = new Database.DMLOptions();
             options.duplicateRuleHeader.allowSave = true;
             options.optAllOrNone = false;
             Database.SaveResult saveResult = Database.insert(uniqueContact, options);
-            /**
-             * If the rule is marked with 'Block' policy, then Apex cannot overwrite
-             * this setting during transaction level!
-             */
+            Assert.isTrue(saveResult.isSuccess(), 'The duplicated contact should have been inserted successfully.');
+        }
+    }
+
+    @IsTest
+    static void testUpdateDuplicateContact() {
+        User adminUser = createAdmin();
+        insert adminUser;
+        System.runAs(adminUser) {
+            // Query existing Contact;
+            Contact uniqueContactTemplate = createUniqueContact();
+            Contact existingUniqueContact = [
+                SELECT Id, FirstName, LastName, CheckIfDuplicate__c, Phone
+                FROM Contact
+                WHERE
+                    FirstName = :uniqueContactTemplate.FirstName
+                    AND LastName = :uniqueContactTemplate.LastName
+                    AND Phone = :uniqueContactTemplate.Phone
+                LIMIT 1
+            ][0];
+            Assert.isTrue(existingUniqueContact != null, 'Unique contact should exist in database.');
+            // Find another existing & non-unique contact;
+            Contact contactToUpdate = [SELECT Id FROM Contact WHERE Id != :existingUniqueContact.Id LIMIT 1][0];
+            Assert.isTrue(contactToUpdate != null);
+            // Derive field values from unique contact;
+            contactToUpdate.FirstName = existingUniqueContact.FirstName;
+            contactToUpdate.LastName = existingUniqueContact.LastName;
+            contactToUpdate.Phone = existingUniqueContact.Phone;
+            contactToUpdate.CheckIfDuplicate__c = existingUniqueContact.CheckIfDuplicate__c;
+            // Case #1 - Since duplicate rule has 'Block On Update' policy enabled, the update DML should fail;
+            Exception ex = null;
+            try {
+                DuplicatesManagerController.upsertContact(contactToUpdate);
+            } catch (Exception dmlEx) {
+                ex = dmlEx;
+            }
+            Assert.isTrue(ex != null, 'Exception should have happened.');
+            // Case #2: If the rule is marked with 'Block' policy, then Apex cannot overwrite this setting at transaction level!
+            Database.DMLOptions options = new Database.DMLOptions();
+            options.duplicateRuleHeader.allowSave = true;
+            options.optAllOrNone = false;
+            Database.SaveResult saveResult = Database.update(contactToUpdate, options);
             Assert.isFalse(saveResult.isSuccess());
             Database.Error errorItem = saveResult.getErrors()[0];
             Assert.areEqual(StatusCode.DUPLICATES_DETECTED, errorItem.getStatusCode());
