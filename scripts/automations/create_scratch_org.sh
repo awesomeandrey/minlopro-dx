@@ -54,8 +54,8 @@ echo "$ADMIN_EMAIL" | bash ./scripts/util/create_qa_user.sh
 # Run POST-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh
 
-# Publish Digital Experience Site
-sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS"
-
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
+
+# Publish Digital Experience Site
+sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS"

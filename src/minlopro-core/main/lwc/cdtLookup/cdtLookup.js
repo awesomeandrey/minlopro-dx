@@ -8,6 +8,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     @api context;
     @api fieldName;
     @api value;
+    @api wrapText = false;
     @api objectApiName;
     @api required = false;
     @api displayInfo = null;
@@ -61,6 +62,10 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
 
     get doShowSpinner() {
         return !!this.value && this.recordName === Symbol.for(undefined);
+    }
+
+    get linkClassName() {
+        return this.wrapText ? 'slds-hyphenate' : 'slds-truncate';
     }
 
     @wire(getRecord, { recordId: '$value', fields: '$wiredFields' })

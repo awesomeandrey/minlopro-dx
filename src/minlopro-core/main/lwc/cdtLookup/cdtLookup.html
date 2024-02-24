@@ -21,11 +21,12 @@
         </div>
     </template>
     <template lwc:else>
-        <div class="spinner-container" lwc:if={doShowSpinner}>
+        <div lwc:if={doShowSpinner} class="spinner-container">
             <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
         </div>
         <lightning-formatted-url
             lwc:else
+            class={linkClassName}
             label={recordName}
             value={recordLink}
             target="_blank"
