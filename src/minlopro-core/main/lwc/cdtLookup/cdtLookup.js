@@ -68,10 +68,6 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
         return !!this.value && this.recordName === Symbol.for(undefined);
     }
 
-    get linkClassName() {
-        return this.wrapText ? 'slds-hyphenate' : 'slds-truncate';
-    }
-
     @wire(getRecord, { recordId: '$value', fields: '$wiredFields' })
     wiredRecord = {};
 

@@ -26,6 +26,10 @@ export default class DatatableEditableCdt extends LightningElement {
         return null;
     }
 
+    get textClassName() {
+        return this.wrapText ? 'slds-hyphenate' : 'slds-truncate';
+    }
+
     constructor() {
         super();
         // Use environment variable in order to enable/disable debug mode;

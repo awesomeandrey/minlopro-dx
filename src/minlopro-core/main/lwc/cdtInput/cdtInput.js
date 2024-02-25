@@ -6,6 +6,7 @@ export default class CdtInput extends DatatableEditableCdt {
     @api context = null;
     @api fieldName = null;
     @api value = null;
+    @api wrapText = false;
     @api readOnly = false;
 
     @api get validity() {

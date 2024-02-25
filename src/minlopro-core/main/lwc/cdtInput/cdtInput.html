@@ -1,17 +1,9 @@
 <template>
-    <div class="cdt-input">
-        <template lwc:if={readOnly}>
-            <span>{value}</span>
-        </template>
-        <template lwc:else>
-            <lightning-input
-                lwc:ref="input"
-                variant="label-hidden"
-                label=""
-                value={value}
-                onchange={handleChange}
-            ></lightning-input>
-            <span class="slds-text-link slds-text-link_reset" onclick={handleEscape}>Escape</span>
-        </template>
-    </div>
+    <template lwc:if={readOnly}>
+        <span class={textClassName}>{value}</span>
+    </template>
+    <template lwc:else>
+        <lightning-input lwc:ref="input" variant="label-hidden" label="" value={value} onchange={handleChange}></lightning-input>
+        <span class="slds-text-link slds-text-link_reset" onclick={handleEscape}>Escape</span>
+    </template>
 </template>
