@@ -1,7 +1,7 @@
 import { api, track, wire } from 'lwc';
 import { getObjectInfo, getPicklistValues } from 'lightning/uiObjectInfoApi';
 import DatatableEditableCdt from 'c/datatableEditableCdt';
-import { isNotEmpty, isEmpty, cloneObject, isEmptyArray } from 'c/utilities';
+import { isNotEmpty, isEmpty, cloneObject, isEmptyArray, wait } from 'c/utilities';
 
 export default class CdtPicklist extends DatatableEditableCdt {
     @api context = null;
@@ -20,6 +20,10 @@ export default class CdtPicklist extends DatatableEditableCdt {
 
     @api get validity() {
         return this.refs.cdtCombobox?.validity;
+    }
+
+    get $focusedInput() {
+        return this.refs.cdtCombobox;
     }
 
     get targetRecordTypeId() {
@@ -79,12 +83,6 @@ export default class CdtPicklist extends DatatableEditableCdt {
     @track controllerFieldName; // Captured from 'getObjectInfo' wire adapter;
     @track controllerValuesMapping = {}; // // Captured from 'getPicklistValues' wire adapter;
 
-    constructor() {
-        super();
-        this.cdtClassName = 'CdtPicklist';
-        this.debugModeEnabled = false;
-    }
-
     @wire(getObjectInfo, { objectApiName: '$objectApiName' })
     wiredObjectInfo({ data, error }) {
         if (data) {
@@ -97,6 +95,8 @@ export default class CdtPicklist extends DatatableEditableCdt {
             this.multi = dataType === 'MultiPicklist';
             this.required = required;
             this.controllerFieldName = controllerName;
+            // Set focus in underlying input element;
+            this.focusCombobox();
         } else if (error) {
             this.notifyError(error);
         }
@@ -108,22 +108,35 @@ export default class CdtPicklist extends DatatableEditableCdt {
             const { controllerValues, values = [] } = data;
             this.controllerValuesMapping = cloneObject(controllerValues);
             this.options = cloneObject(values).map(({ label, value, validFor }) => ({ label, value, validFor }));
-            this.debugModeEnabled && this.logState();
+            // Log state;
+            this.logState();
+            // Set focus in underlying input element;
+            this.focusCombobox();
         } else if (error) {
             this.notifyError(error);
         }
     }
 
     logState() {
-        console.group(`Picklist [${this.fieldName}]`);
-        console.log('this.required', this.required);
-        console.log('this.multi', this.multi);
-        console.log('this.options', JSON.stringify(this.options));
-        console.log('this.normalizedOptions', JSON.stringify(this.normalizedOptions));
-        console.log('isDependent', this.isDependent);
-        console.log('this.controllerFieldName', this.controllerFieldName);
-        console.log('this.controllerFieldValue', this.controllerFieldValue);
-        console.log('this.controllerValuesMapping', JSON.stringify(this.controllerValuesMapping));
-        console.groupEnd();
+        if (this.debugModeEnabled) {
+            console.group(`Picklist [${this.fieldName}]`);
+            super.log('this.required', this.required);
+            super.log('this.multi', this.multi);
+            super.log('this.options', this.options);
+            super.log('this.normalizedOptions', this.normalizedOptions);
+            super.log('isDependent', this.isDependent);
+            super.log('this.controllerFieldName', this.controllerFieldName);
+            super.log('this.controllerFieldValue', this.controllerFieldValue);
+            super.log('this.controllerValuesMapping', this.controllerValuesMapping);
+            console.groupEnd();
+        }
+    }
+
+    focusCombobox() {
+        if (this.isEditMode) {
+            wait(() => {
+                this.refs.cdtCombobox.focus();
+            });
+        }
     }
 }

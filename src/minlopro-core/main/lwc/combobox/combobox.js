@@ -139,6 +139,12 @@ export default class Combobox extends LightningElement {
         console.log(`Combobox.js | ${this.name}`, 'showHelpMessageIfInvalid()');
     }
 
+    @api focus() {
+        if (!this.isDisabledOrReadOnly) {
+            this.refs.input.querySelector('input').focus();
+        }
+    }
+
     @api open() {
         if (!this.isDisabledOrReadOnly) {
             this.isOpen = true;
@@ -318,6 +324,7 @@ export default class Combobox extends LightningElement {
     }
 
     disconnectedCallback() {
+        window.removeEventListener('click', this.hideDropdownBound, { capture: false });
         this.fixedDropdownMonitor.unobserve();
     }
 
@@ -337,6 +344,8 @@ export default class Combobox extends LightningElement {
         if (this.multiSelect) {
             // For 'multiSelect' mode dropdown panel remains opened (clicking outside of it should hide the panel);
             event.stopPropagation();
+            // Input element should remain focused;
+            this.focus();
         } else {
             this.hideDropdown();
         }
