@@ -14,41 +14,44 @@ export default class CdtCombobox extends DatatableEditableCdt {
         return this.refs.combobox.validity;
     }
 
-    @api
-    showHelpMessageIfInvalid() {
+    @api showHelpMessageIfInvalid() {
         this.refs.combobox.showHelpMessageIfInvalid();
+    }
+
+    @api focus() {
+        this.refs.combobox.focus();
+    }
+
+    get $focusedInput() {
+        return this.refs.combobox;
     }
 
     @track hasRendered = false;
     @track hasChanged = false;
 
-    constructor() {
-        super();
-        this.cdtClassName = 'CdtCombobox';
-        this.debugModeEnabled = false;
-    }
-
     renderedCallback() {
-        this.debugModeEnabled && console.log('CdtCombobox.js | renderedCallback()');
+        super.log(this.renderedCallback);
         if (!this.hasRendered) {
             this.hasRendered = true;
             wait(() => {
-                this.debugModeEnabled && console.log('CdtCombobox.js | open combobox');
+                super.log('open combobox');
+                this.refs.combobox?.focus();
                 this.refs.combobox?.open();
             }, 500);
         }
     }
 
     handleChange(event) {
-        this.debugModeEnabled && console.log('CdtCombobox.js | handleChange()');
+        super.log(this.handleChange);
         event.stopPropagation();
         const { value } = event.detail;
         this.value = value;
         this.hasChanged = true;
+        this.notify();
     }
 
-    handleClose(event) {
-        this.debugModeEnabled && console.log('CdtCombobox.js | handleClose()');
+    handleClose() {
+        super.log(this.handleClose);
         if (!this.hasChanged) {
             this.escape();
         } else {

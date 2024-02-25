@@ -20,6 +20,7 @@ export default class DatatableContacts extends LightningElement {
     @track KEY_FIELD = 'Id';
 
     @track loading = false;
+    @track showCdtColumnsOnly = false;
     @track objectApiName = 'Contact';
     @track recordInfo = (recordId) => this.normalizedRecords.find((record) => record[this.KEY_FIELD] === recordId);
 
@@ -53,8 +54,13 @@ export default class DatatableContacts extends LightningElement {
             {
                 label: 'Title',
                 fieldName: 'Title',
-                type: 'text',
-                editable: true
+                type: 'customInput',
+                editable: true,
+                typeAttributes: {
+                    context: { fieldName: this.KEY_FIELD },
+                    fieldName: 'Title',
+                    value: { fieldName: 'Title' }
+                }
             },
             {
                 label: 'Account',
@@ -154,7 +160,13 @@ export default class DatatableContacts extends LightningElement {
                     minute: '2-digit'
                 }
             }
-        ];
+        ].filter(({ type }) => {
+            if (this.showCdtColumnsOnly && Boolean(type)) {
+                return type.startsWith('custom');
+            } else {
+                return true;
+            }
+        });
     }
 
     get normalizedRecords() {
@@ -198,6 +210,10 @@ export default class DatatableContacts extends LightningElement {
         };
     }
 
+    get cdtOnlyBtnLabel() {
+        return this.showCdtColumnsOnly ? 'Show All Columns' : 'Show CDT Column Only';
+    }
+
     @wire(getContactsCountApex)
     wiredContactsCount = {};
 
@@ -206,7 +222,15 @@ export default class DatatableContacts extends LightningElement {
         this.fetchAndAppendContacts();
     }
 
+    errorCallback(error, stack) {
+        console.error(error, stack);
+    }
+
     // Event Handlers;
+
+    handleToggleCdtsOnly() {
+        this.showCdtColumnsOnly = !this.showCdtColumnsOnly;
+    }
 
     handleReset(event) {
         this.reset();

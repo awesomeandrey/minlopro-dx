@@ -24,6 +24,10 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
         return { valid: true };
     }
 
+    get $focusedInput() {
+        return this.refs.recordPicker;
+    }
+
     get wiredFields() {
         return [`${this.objectApiName}.${this.nameFieldPath || 'Name'}`];
     }
@@ -74,18 +78,12 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     @track hasRendered = false;
     @track boundEscapeFromWindowClick = this.escapeFromWindowClick.bind(this);
 
-    constructor() {
-        super();
-        this.cdtClassName = 'CdtLookup';
-        this.debugModeEnabled = false;
-    }
-
     connectedCallback() {
-        this.debugModeEnabled && console.log('CdtLookup.js | connectedCallback()');
+        super.log(this.connectedCallback);
     }
 
     renderedCallback() {
-        this.debugModeEnabled && console.log('CdtLookup.js | renderedCallback()');
+        super.log(this.renderedCallback);
         window.removeEventListener('click', this.boundEscapeFromWindowClick);
         if (this.isInputMode) {
             wait(() => {
@@ -96,15 +94,20 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
             this.hasRendered = true;
             if (this.isInputMode) {
                 wait(() => {
-                    this.debugModeEnabled && console.log('CdtLookup.js | focus record picker');
+                    super.log('focus record picker');
                     this.refs.recordPicker?.focus();
                 }, 500);
             }
         }
     }
 
+    disconnectedCallback() {
+        super.log(this.disconnectedCallback);
+        window.removeEventListener('click', this.boundEscapeFromWindowClick);
+    }
+
     handleLookupChange(event) {
-        this.debugModeEnabled && console.log('CdtLookup.js | handleLookupChange()', JSON.stringify(event.detail));
+        super.log(this.handleLookupChange, event.detail);
         // Extract lookup record ID;
         const { recordId } = event.detail;
         if (recordId !== null) {
@@ -113,16 +116,16 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     }
 
     handleLookupBlur(event) {
-        this.debugModeEnabled && console.log('CdtLookup.js | handleLookupBlur()', this.context);
+        super.log(this.handleLookupBlur, this.context);
     }
 
     handleClickContainer(event) {
-        this.debugModeEnabled && console.log('CdtLookup.js | handleClickContainer()', this.context);
+        super.log(this.handleClickContainer, this.context);
         event.stopPropagation();
     }
 
     handleClearAndEscape(event) {
-        this.debugModeEnabled && console.log('CdtLookup.js | handleClearAndEscape()');
+        super.log(this.handleClearAndEscape);
         event.preventDefault();
         this.refs.recordPicker?.clearSelection();
         this.value = null;
@@ -134,13 +137,13 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     }
 
     handleLookupError(event) {
-        console.error('CdtLookup.js', `handleLookupError() | ${JSON.stringify(event.detail)}`);
+        super.log(this.handleLookupError, event.detail);
         const { error } = event.detail;
         this.notifyError(error);
     }
 
     handleNavigate(event) {
-        this.debugModeEnabled && console.log('CdtLookup.js | handleNavigate()');
+        super.log(this.handleNavigate);
         event.preventDefault();
         if (!this.value) {
             return;
@@ -164,7 +167,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     // Service Methods;
 
     escapeFromWindowClick(event) {
-        this.debugModeEnabled && console.log('CdtLookup.js | escapeFromWindowClick()', JSON.stringify(event.detail));
+        super.log(this.escapeFromWindowClick, event.detail);
         this.escape();
     }
 }
