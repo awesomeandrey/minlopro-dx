@@ -337,6 +337,9 @@ export default class Combobox extends LightningElement {
         }
         // Open / close dropdown;
         this.isOpen = !this.isOpen;
+        if (!this.isOpen) {
+            this.notifyClose();
+        }
     }
 
     handleDropdownOptionsContainerClick(event) {
@@ -375,13 +378,7 @@ export default class Combobox extends LightningElement {
         this.debugModeEnabled && console.log(`Combobox.js | ${this.name}`, 'hideDropdown()');
         if (this.isOpen) {
             this.isOpen = false;
-            this.dispatchEvent(
-                new CustomEvent('close', {
-                    composed: true,
-                    bubbles: true,
-                    cancelable: true
-                })
-            );
+            this.notifyClose();
         }
     }
 
@@ -397,6 +394,16 @@ export default class Combobox extends LightningElement {
                     multiSelect: this.multiSelect,
                     selectedOptions: this.selectedOptions
                 }
+            })
+        );
+    }
+
+    notifyClose() {
+        this.dispatchEvent(
+            new CustomEvent('close', {
+                composed: true,
+                bubbles: true,
+                cancelable: true
             })
         );
     }
