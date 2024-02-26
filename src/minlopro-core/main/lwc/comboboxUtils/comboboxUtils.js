@@ -31,18 +31,29 @@ export const FocusedStateManager = (function () {
         },
         focus: function (comboboxId) {
             focusedComboboxId = comboboxId;
+        },
+        unfocus: function (comboboxId) {
+            uniqueComboboxIds.delete(comboboxId);
         }
     };
 })();
 
 // Combobox Fixed Mode Monitor;
 export class FixedDropdownMonitor {
-    constructor({ selectInputElement, selectDropdownElement, hideDropdown, isModalContext = false, debugModeEnabled = false }) {
+    constructor({
+        selectInputElement,
+        selectDropdownElement,
+        hideDropdown,
+        isModalContext = false,
+        debugModeEnabled = false,
+        log
+    }) {
         this.selectInputElement = selectInputElement;
         this.selectDropdownElement = selectDropdownElement;
         this.hideDropdown = hideDropdown;
         this.isModalContext = isModalContext;
         this.debugModeEnabled = debugModeEnabled;
+        this.log = log.bind(this);
         // Internal state properties;
         this.originalInputRect = null;
         this.checkIntervalId = null;
@@ -59,7 +70,7 @@ export class FixedDropdownMonitor {
     applyAndObserve() {
         // Already observing;
         if (this.checkIntervalId !== null) return;
-        this.debugModeEnabled && console.log('FixedDropdownMonitor.js', 'applyAndObserve()');
+        this.log(this.applyAndObserve);
 
         // Capture original input coordinates;
         this.originalInputRect = this.$input.getBoundingClientRect();
@@ -91,7 +102,7 @@ export class FixedDropdownMonitor {
         }
         // Launch interval check;
         this.checkIntervalId = setInterval(() => {
-            this.debugModeEnabled && console.log('FixedDropdownMonitor.js', 'running interval function...');
+            this.log('running interval function...');
             const inputRect = this.$input?.getBoundingClientRect();
             if (inputRect.top !== this.originalInputRect.top || inputRect.left !== this.originalInputRect.left) {
                 this.hideDropdown();
@@ -100,7 +111,7 @@ export class FixedDropdownMonitor {
     }
 
     unobserve() {
-        this.debugModeEnabled && console.log('FixedDropdownMonitor.js', 'unobserve()');
+        this.log(this.unobserve);
         clearInterval(this.checkIntervalId);
         this.checkIntervalId = null;
         window.removeEventListener('resize', this.hideDropdown, { capture: false });
