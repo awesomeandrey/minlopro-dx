@@ -1,4 +1,5 @@
 import { LightningElement } from 'lwc';
+import { log as $log } from 'lightning/logger';
 
 export default class DatatableEditableCdt extends LightningElement {
     /**
@@ -41,7 +42,10 @@ export default class DatatableEditableCdt extends LightningElement {
     escape() {
         if (this.$focusedInput) {
             this.log(`escape via "keydown" event`);
-            // Simulate 'Escape' button click on focused input;
+            /**
+             * Simulate 'Escape' button click on focused input.
+             * Open browser developer tools > top/YOUR_ORG_URL/components/lightning/datatable.js file > search for 'ESCAPE' keyword.
+             */
             const escapeEvent = new KeyboardEvent('keydown', {
                 composed: true,
                 bubbles: true,
@@ -55,7 +59,10 @@ export default class DatatableEditableCdt extends LightningElement {
             this.$focusedInput.dispatchEvent(escapeEvent);
         } else {
             this.log(`escape via "ieditfinished" event`);
-            // Force escape from cell edit panel via reserved/unofficial event;
+            /**
+             * Force escape from cell edit panel via reserved/unofficial event.
+             * Open browser developer tools > top/YOUR_ORG_URL/components/lightning/datatable.js file > search for 'ieditfinished' keyword.
+             */
             this.dispatchEvent(
                 new CustomEvent('ieditfinished', {
                     composed: true,
@@ -110,12 +117,20 @@ export default class DatatableEditableCdt extends LightningElement {
 
     log(messageOrFunction, details) {
         if (this.debugModeEnabled) {
-            let itemsToLog = [
+            let logMessage = [
                 `${this.constructor.name}.js`,
                 typeof messageOrFunction === 'function' ? `${messageOrFunction.name}()` : messageOrFunction,
                 JSON.stringify(details)
-            ];
-            console.log(itemsToLog.filter((item) => item !== undefined).join(' | '));
+            ]
+                .filter((item) => item !== undefined)
+                .join(' | ');
+            // Log to browser console;
+            console.log(logMessage);
+            /**
+             * Log via Lightning Logger. All logs are stored in 'EventLogFile' standard object.
+             * See https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventlogfile_lightninglogger.htm
+             */
+            $log(logMessage);
         }
     }
 }
