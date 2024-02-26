@@ -32,8 +32,8 @@ export default class LogMonitor extends LightningElement {
     @track subscription = {};
     @track error = {};
     @track isMuted = false;
-    @track logsByContextId = {};
-    @track lastTimestampByContextId = {};
+    @track logsByTransactionId = {};
+    @track lastTimestampByTransactionId = {};
     @track selectedLogOwnerIds = [];
     /**
      * The list of setup owner definitions for which logger settings are created & active.
@@ -104,7 +104,7 @@ export default class LogMonitor extends LightningElement {
     }
 
     get logsAmountBadge() {
-        return `${this.labels.logsAmountAllLbl}: ${Object.values(this.logsByContextId).flat().length}`;
+        return `${this.labels.logsAmountAllLbl}: ${Object.values(this.logsByTransactionId).flat().length}`;
     }
 
     get muteIconName() {
@@ -120,7 +120,7 @@ export default class LogMonitor extends LightningElement {
     }
 
     get hasLogs() {
-        return isNotEmpty(this.logsByContextId);
+        return isNotEmpty(this.logsByTransactionId);
     }
 
     get backgroundSvgUrl() {
@@ -206,7 +206,7 @@ export default class LogMonitor extends LightningElement {
     }
 
     get normalizedData() {
-        const clonedLogEntries = cloneObject(Object.values(this.logsByContextId));
+        const clonedLogEntries = cloneObject(Object.values(this.logsByTransactionId));
         return clonedLogEntries.reduce((accumulator = [], logs = [], currentIndex) => {
             const firstLog = logs[0];
             // Check whether log should be shown based on predefined log owners;
@@ -360,7 +360,7 @@ export default class LogMonitor extends LightningElement {
             return Promise.resolve(true);
         } else {
             return Promise.reject({
-                message: `EMP API is not enabled/available for the running user [${USER_ID}].`
+                message: `EMP API is not enabled/available for the running user.`
             });
         }
     }
@@ -377,7 +377,7 @@ export default class LogMonitor extends LightningElement {
         }
     }
 
-    handleLogEvent(message) {
+    handleLogEvent(logPlatformEvent) {
         if (this.isMuted) {
             return;
         }
@@ -386,16 +386,16 @@ export default class LogMonitor extends LightningElement {
             AuthorId__c: authorId,
             AuthorProfileId__c: authorProfileId,
             Data__c: dataAsString,
-            Context__c: contextId,
+            TransactionId__c: transactionId,
             CreatedDate: createdDate
-        } = message.data.payload;
+        } = logPlatformEvent.data.payload;
         const matchedLogOwners = this.findMatchedLogOwners({ authorId, authorProfileId });
         if (isNotEmpty(matchedLogOwners)) {
             // Normalize PE payload;
             const data = JSON.parse(dataAsString);
             const logItem = flatten({
                 uid: uniqueId(),
-                contextId,
+                transactionId,
                 debugLevel,
                 authorId,
                 createdDate,
@@ -403,7 +403,10 @@ export default class LogMonitor extends LightningElement {
             });
 
             // Custom attributes;
-            logItem.stacktrace = `${data.Class}.cls > ${data.Method}() > Line #${data.Line}`;
+            logItem.stacktrace = (() => {
+                let dto = JSON.parse(data['StackTrace']) || {};
+                return dto['toString'];
+            })();
             logItem.iconName = debugLevel === 'ERROR' ? 'utility:bug' : 'utility:info';
             logItem.logOwnerIds = matchedLogOwners.map(({ ownerId }) => ownerId);
 
@@ -413,23 +416,23 @@ export default class LogMonitor extends LightningElement {
 
             // Calculate 'elapsed' time for the context;
             const currentTimestamp = new Date(createdDate).getTime();
-            const lastTimestamp = this.lastTimestampByContextId[contextId] || currentTimestamp;
+            const lastTimestamp = this.lastTimestampByTransactionId[transactionId] || currentTimestamp;
             logItem.elapsed = currentTimestamp - lastTimestamp;
-            this.lastTimestampByContextId[contextId] = lastTimestamp;
+            this.lastTimestampByTransactionId[transactionId] = lastTimestamp;
 
             // Push log item into the store;
-            const existingLogs = this.logsByContextId[contextId] || [];
-            this.logsByContextId[contextId] = [...existingLogs, logItem];
+            const existingLogs = this.logsByTransactionId[transactionId] || [];
+            this.logsByTransactionId[transactionId] = [...existingLogs, logItem];
 
             // Render Tree Grid;
-            this.logsByContextId = cloneObject(this.logsByContextId);
+            this.logsByTransactionId = cloneObject(this.logsByTransactionId);
         }
     }
 
     reset() {
         this.error = {};
-        this.logsByContextId = {};
-        this.lastTimestampByContextId = {};
+        this.logsByTransactionId = {};
+        this.lastTimestampByTransactionId = {};
     }
 
     parseErrorAndShow(error) {

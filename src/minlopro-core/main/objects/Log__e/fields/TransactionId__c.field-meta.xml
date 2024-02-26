@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Context__c</fullName>
-    <description>Apex transaction identifier.</description>
+    <fullName>TransactionId__c</fullName>
+    <description>Apex Transaction Identifier.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Apex transaction identifier.</inlineHelpText>
+    <inlineHelpText>Apex Transaction Identifier.</inlineHelpText>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Context</label>
+    <label>Transaction ID</label>
     <length>80</length>
-    <required>false</required>
+    <required>true</required>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>
