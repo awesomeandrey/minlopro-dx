@@ -108,9 +108,12 @@ public class LogData {
     }
 
     public class StackTrace {
-        public String className;
-        public String methodName;
-        public Integer lineNumber;
+        @TestVisible
+        private String className;
+        @TestVisible
+        private String methodName;
+        @TestVisible
+        private Integer lineNumber;
         public String toString {
             get {
                 return String.format(

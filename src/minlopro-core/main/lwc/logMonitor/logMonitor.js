@@ -1,6 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import EMP from 'lightning/empApi';
-import LightningAlert from 'lightning/alert';
+import LogModal from 'c/logModal';
 import $Toastify from 'c/toastify';
 import { isNotEmpty, parseError, to, cloneObject, flatten, uniqueId, wait, isEmptyArray, copyToClipboard } from 'c/utilities';
 import { MULTI_PICKLIST_SEPARATOR } from 'c/comboboxUtils';
@@ -300,23 +300,15 @@ export default class LogMonitor extends LightningElement {
     async handleRowAction(event) {
         const { action, row } = event.detail;
         if (action.name === 'viewDetails') {
-            const strippedLogDetails = Object.keys(row).reduce((_, key) => {
-                if (key.includes('.') && !key.toLowerCase().includes('Message'.toLocaleLowerCase())) {
-                    const normalizedKey = key.split('.')[1];
-                    _[normalizedKey] = row[key];
-                }
-                return _;
-            }, {});
-            await LightningAlert.open({
-                message: JSON.stringify(strippedLogDetails, null, 2),
-                theme: 'info',
-                label: 'Log Details'
+            await LogModal.open({
+                label: 'Log Details',
+                size: 'small',
+                value: cloneObject(row)
             });
         } else if (action.name === 'copyMessage') {
             const logToCopy = row['data.Message'];
             const [error] = await to(copyToClipboard(logToCopy));
             if (!!error) {
-                console.error('LogMonitor.js', error.message);
                 $Toastify.error({ message: `Could not copy log message due to: ${error}` });
             } else {
                 $Toastify.info({ message: 'Copied log message to clipboard.' });
