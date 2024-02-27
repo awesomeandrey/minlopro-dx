@@ -16,7 +16,6 @@ public with sharing class TriggerDispatcher {
                     }
                     activateHandlersByObjectTypeMap.get(handlerItem.objectType).add(handlerItem);
                 }
-                debug('🔵 Loaded handlers info from CMTs.');
             }
             return activateHandlersByObjectTypeMap;
         }
@@ -54,15 +53,12 @@ public with sharing class TriggerDispatcher {
 
     public void run() {
         if (!this.isTriggerContext()) {
-            debug('Trigger context was not matched!');
+            this.debug('Trigger context was not matched!');
             return;
         }
         List<TriggerHandler> objectHandlers = new List<TriggerHandler>(this.getObjectHandlers());
         objectHandlers.sort();
-        debug(
-            'Loaded {0} trigger handlers for [{1}] object.',
-            Lists.of(String.valueOf(objectHandlers.size()), this.currentObjectType.toString())
-        );
+        this.debug('Loaded {0} trigger handlers.', Lists.of(String.valueOf(objectHandlers.size())));
         Iterator<TriggerHandler> handlersIterator = objectHandlers.iterator();
         while (handlersIterator.hasNext()) {
             TriggerHandler handlerToExecute = handlersIterator.next();
@@ -72,11 +68,11 @@ public with sharing class TriggerDispatcher {
                     String.format('Invalid handler implementation detected: {0}', Lists.of(handlerToExecute.getName()))
                 );
             } else if (bypassedHandlers.contains(handlerToExecute)) {
-                debug('Bypassing trigger handler: {0}.', Lists.of(handlerToExecute.getName()));
+                this.debug('Bypassing trigger handler: {0}.', Lists.of(handlerToExecute.getName()));
                 // Bypass particular handler;
                 continue;
             } else {
-                debug('Running {0} trigger handler...', Lists.of(handlerToExecute.getName()));
+                this.debug('Running "{0}" trigger handler.', Lists.of(handlerToExecute.getName()));
                 // Validate max loop count;
                 this.setAndValidateMaxLoopCount(handlerToExecute);
                 // Execute trigger handler logic according to trigger phase;
@@ -155,13 +151,16 @@ public with sharing class TriggerDispatcher {
         }
     }
 
-    private static void debug(String message) {
-        debug(message, new List<String>());
+    private void debug(String message) {
+        this.debug(message, new List<String>());
     }
 
-    private static void debug(String template, List<String> params) {
+    private void debug(String template, List<String> params) {
         if (debugModeEnabled) {
-            String logTemplate = String.format('\n\n ⚪ Trigger > [{0}]:', Lists.of(Trigger.operationType.name().toUpperCase()));
+            String logTemplate = String.format(
+                '⚪ Trigger on [{0} > {1}] | ',
+                Lists.of(this.currentObjectType.toString(), Trigger.operationType.name().toUpperCase())
+            );
             Logger.debug(logTemplate + ' ' + String.format(template, params));
         }
     }
@@ -198,19 +197,12 @@ public with sharing class TriggerDispatcher {
         }
 
         private Boolean isValid() {
-            try {
-                Type typeInfo = Type.forName(this.apexClassName);
-                return BasicTriggerHandler.class.isAssignableFrom(typeInfo);
-            } catch (Exception ex) {
-                debug(ex.getMessage());
-                debug(ex.getTypeName());
-                debug(ex.getStackTraceString());
-                return false;
-            }
+            Type dynamicType = Type.forName(this.apexClassName);
+            return dynamicType == null ? false : BasicTriggerHandler.class.isAssignableFrom(dynamicType);
         }
 
         private String getName() {
-            return String.format('{0}:{1}.cls', Lists.of(this.objectType.toString(), this.apexClassName));
+            return String.format('{0}.cls', Lists.of(this.apexClassName));
         }
 
         public Boolean equals(Object obj) {

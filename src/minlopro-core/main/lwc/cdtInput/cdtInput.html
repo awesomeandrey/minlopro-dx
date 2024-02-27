@@ -1,6 +1,6 @@
 <template>
     <template lwc:if={readOnly}>
-        <span class={textClassName}>{value}</span>
+        <span class={textClassName} title={value}>{value}</span>
     </template>
     <template lwc:else>
         <lightning-input lwc:ref="input" variant="label-hidden" label="" value={value} onchange={handleChange}></lightning-input>

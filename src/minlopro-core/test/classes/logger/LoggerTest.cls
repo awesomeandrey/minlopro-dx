@@ -7,16 +7,16 @@ private class LoggerTest {
         // Execute
         Logger.debug('{0}=={1}:{2}', new List<Object>{ 1, '2', false });
         // Verify
-        Log__e log = Logger.currentEvent();
-        System.assertEquals(UserInfo.getUserId(), log.AuthorId__c);
-        System.assertEquals(LoggingLevel.DEBUG.name(), log.Level__c);
-        System.assertEquals(Request.getCurrent().getRequestId(), log.Context__c);
-        Map<String, Object> data = data(log);
-        System.assertEquals(Request.getCurrent().getQuiddity().name(), (String) data.get('Quiddity'));
-        System.assertEquals('1==2:false', (String) data.get('Message'));
-        System.assertEquals(thisClassName(), (String) data.get('Class'));
-        System.assertEquals('debug', (String) data.get('Method'));
-        System.assert(String.isNotBlank((String) data.get('QueryRows')));
+        Log__e logEvent = Logger.currentEvent();
+        LogData logData = new LogData(logEvent);
+        System.assertEquals(UserInfo.getUserId(), logData.authorId);
+        System.assertEquals(LoggingLevel.DEBUG, logData.level);
+        System.assertEquals(Request.getCurrent().getRequestId(), logData.transactionId);
+        System.assertEquals(Request.getCurrent().getQuiddity(), logData.quiddity);
+        System.assertEquals('1==2:false', logData.message);
+        System.assertEquals(thisClassName(), logData.stackTrace.className);
+        System.assertEquals('debug', logData.stackTrace.methodName);
+        System.assert(String.isNotBlank((String) logData.getData('QueryRows')));
     }
 
     @IsTest
@@ -36,7 +36,7 @@ private class LoggerTest {
         // Execute
         Logger.debug('');
         // Verify
-        System.assertNotEquals(null, Logger.currentEvent().Context__c);
+        System.assertNotEquals(null, Logger.currentEvent().TransactionId__c);
     }
 
     @IsTest
@@ -68,9 +68,5 @@ private class LoggerTest {
     private static String thisClassName() {
         String ns = [SELECT NamespacePrefix FROM Organization].NamespacePrefix + '.';
         return LoggerTest.class.getName().removeStart(ns);
-    }
-
-    private static Map<String, Object> data(Log__e log) {
-        return (Map<String, Object>) JSON.deserializeUntyped(log.Data__c);
     }
 }

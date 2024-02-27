@@ -63,7 +63,7 @@ public without sharing class Logger {
             LogData logData = new LogData();
             logData.authorId = UserInfo.getUserId();
             logData.authorProfileId = UserInfo.getProfileId();
-            logData.context = Request.getCurrent().getRequestId();
+            logData.transactionId = Request.getCurrent().getRequestId();
             logData.level = level;
             logData.quiddity = Request.getCurrent().getQuiddity();
             logData.stackTrace = captureStackTrace();
@@ -104,8 +104,8 @@ public without sharing class Logger {
             log = logData.castToEvent();
             EventBus.publish(log);
         }
-        // Output to debug anyway;
-        System.debug(level, 'LOG  => ' + message + '\n');
+        // Output to system debug anyway;
+        System.debug(level, '⚪ LOG  => ' + message + '\n');
     }
 
     private static List<String> cast(List<Object> values) {

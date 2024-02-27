@@ -1,0 +1,20 @@
+<template>
+    <lightning-modal-header label={label}></lightning-modal-header>
+    <lightning-modal-body>
+        <c-datatable
+            column-widths-mode="auto"
+            key-field={keyFieldName}
+            data={data}
+            columns={columns}
+            min-column-width="150"
+            hide-checkbox-column
+            resize-column-disabled
+        ></c-datatable>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button-group>
+            <lightning-button label="Copy Log Message" variant="brand" onclick={handleCopyLogMessage}></lightning-button>
+            <lightning-button label="Close" onclick={handleClose}></lightning-button>
+        </lightning-button-group>
+    </lightning-modal-footer>
+</template>

@@ -136,7 +136,7 @@ export default class Combobox extends LightningElement {
     }
 
     @api showHelpMessageIfInvalid() {
-        console.log(`Combobox.js | ${this.name}`, 'showHelpMessageIfInvalid()');
+        this.log(this.showHelpMessageIfInvalid, this.name);
     }
 
     @api focus() {
@@ -286,7 +286,8 @@ export default class Combobox extends LightningElement {
             selectDropdownElement: () => this.$dropdown,
             hideDropdown: this.hideDropdownBound,
             isModalContext: this.mode === 'fixed-in-modal',
-            debugModeEnabled: this.debugModeEnabled
+            debugModeEnabled: this.debugModeEnabled,
+            log: this.log
         });
     }
 
@@ -324,6 +325,7 @@ export default class Combobox extends LightningElement {
     }
 
     disconnectedCallback() {
+        FocusedStateManager.unfocus(this.comboboxId);
         window.removeEventListener('click', this.hideDropdownBound, { capture: false });
         this.fixedDropdownMonitor.unobserve();
     }
@@ -337,6 +339,9 @@ export default class Combobox extends LightningElement {
         }
         // Open / close dropdown;
         this.isOpen = !this.isOpen;
+        if (!this.isOpen) {
+            this.notifyClose();
+        }
     }
 
     handleDropdownOptionsContainerClick(event) {
@@ -371,17 +376,11 @@ export default class Combobox extends LightningElement {
 
     // Service Methods;
 
-    hideDropdown(event) {
-        this.debugModeEnabled && console.log(`Combobox.js | ${this.name}`, 'hideDropdown()');
+    hideDropdown() {
+        this.log(this.hideDropdown, `${this.name}`);
         if (this.isOpen) {
             this.isOpen = false;
-            this.dispatchEvent(
-                new CustomEvent('close', {
-                    composed: true,
-                    bubbles: true,
-                    cancelable: true
-                })
-            );
+            this.notifyClose();
         }
     }
 
@@ -399,5 +398,26 @@ export default class Combobox extends LightningElement {
                 }
             })
         );
+    }
+
+    notifyClose() {
+        this.dispatchEvent(
+            new CustomEvent('close', {
+                composed: true,
+                bubbles: true,
+                cancelable: true
+            })
+        );
+    }
+
+    log(messageOrFunction, details) {
+        if (this.debugModeEnabled) {
+            let itemsToLog = [
+                `${this.constructor.name}.js`,
+                typeof messageOrFunction === 'function' ? `${messageOrFunction.name}()` : messageOrFunction,
+                JSON.stringify(details)
+            ];
+            console.log(itemsToLog.filter((item) => item !== undefined).join(' | '));
+        }
     }
 }

@@ -10,6 +10,7 @@
 global class MinloproContactsConnection extends DataSource.Connection {
     private static final String API_VERSION = '58.0';
     private static final String NAMED_CREDENTIAL_API_NAME = 'SalesforceRestApi';
+    private static final String CONTACTS_TABLE_NAME = 'SalesforceContact';
     private DataSource.ConnectionParams connectionParams;
 
     global MinloproContactsConnection() {
@@ -27,43 +28,22 @@ global class MinloproContactsConnection extends DataSource.Connection {
         return new List<DataSource.Table>{ contactsTable };
     }
 
-    override global DataSource.TableResult query(DataSource.QueryContext cx) {
-        Logger.debug('query()');
-        Logger.debug(JSON.serialize(cx.queryMoreToken));
-        Logger.debug(JSON.serialize(cx.tableSelection));
-        Integer limitValue = cx.maxResults;
-        Integer offsetValue = cx.offset;
-        Logger.debug('Limit = {0} Offset = {1}', new List<Object>{ limitValue, offsetValue });
-        if (cx.tableSelection.tableSelected.equalsIgnoreCase('SalesforceContacts')) {
-            throw new IllegalArgumentException('Only "SalesforceContacts" table can be queried!');
-        }
-        return DataSource.TableResult.get(cx, DataSource.QueryUtils.process(cx, this.fetchContacts(offsetValue, limitValue)));
-    }
-
     /**
      * This method is called everytime when SOQL is issued against external Object
      * or while using list view or viewing detail page.
-     *
-     * Note : Ideally searching should be done at server side however for sake of
-     * simplicity, we would be using "DataSource.QueryUtils" class provided by
-     * Salesforce. In this case, filtering and sorting would be done in Salesforce
-     * once response returned by external REST API
      * */
-    //    override global DataSource.TableResult query(DataSource.QueryContext context) {
-    //        if (context.tableSelection.columnsSelected.size() == 1 && context.tableSelection.columnsSelected.get(0).aggregation == DataSource.QueryAggregation.COUNT) {
-    //            List<Map<String, Object>> response = DataSource.QueryUtils.filter(context, getRows());
-    //            List<Map<String, Object>> countResponse = new List<Map<String, Object>>();
-    //            Map<String, Object> countRow = new Map<String, Object>();
-    //            countRow.put(context.tableSelection.columnsSelected.get(0).columnName, response.size());
-    //            countResponse.add(countRow);
-    //            return DataSource.TableResult.get(context, countResponse);
-    //        } else {
-    //            List<Map<String, Object>> filteredRows = DataSource.QueryUtils.filter(context, getRows());
-    //            List<Map<String, Object>> sortedRows = DataSource.QueryUtils.sort(context, filteredRows);
-    //            List<Map<String, Object>> limitedRows = DataSource.QueryUtils.applyLimitAndOffset(context, sortedRows);
-    //            return DataSource.TableResult.get(context, limitedRows);
-    //        }
-    //    }
+    override global DataSource.TableResult query(DataSource.QueryContext cx) {
+        Logger.debug('query()');
+        String targetTableName = cx.tableSelection.tableSelected;
+        Logger.debug('Target Table Name = {0}', Lists.of(targetTableName));
+        if (!targetTableName.equalsIgnoreCase(CONTACTS_TABLE_NAME)) {
+            throw new IllegalArgumentException('Only "SalesforceContact" table can be queried!');
+        }
+        Integer limitValue = cx.maxResults;
+        Integer offsetValue = cx.offset;
+        Logger.debug('Limit = {0} Offset = {1}', new List<Object>{ limitValue, offsetValue });
+        return DataSource.TableResult.get(cx, this.fetchContacts(offsetValue, limitValue));
+    }
 
     // Service Methods;
 
@@ -142,7 +122,7 @@ global class MinloproContactsConnection extends DataSource.Connection {
         DataSource.Table tbl = new DataSource.Table();
         tbl.labelSingular = 'Salesforce Contact';
         tbl.labelPlural = 'Salesforce Contacts';
-        tbl.name = 'SalesforceContact';
+        tbl.name = CONTACTS_TABLE_NAME;
         tbl.description = 'Salesforce Contacts via Apex Connector';
         tbl.nameColumn = 'Name';
         tbl.columns = columns;
