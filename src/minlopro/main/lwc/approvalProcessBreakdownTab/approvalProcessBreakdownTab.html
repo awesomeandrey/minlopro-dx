@@ -1,0 +1,63 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-approval-process-breakdown-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label={toggleLockBtn} disabled={disableActions} onclick={handleToggleLock}></lightning-button>
+            <lightning-button
+                label="Submit For Approval"
+                disabled={disableActions}
+                onclick={handleSubmitForApproval}
+            ></lightning-button>
+            <lightning-button
+                label="Refresh Wire Adapters"
+                disabled={disableActions}
+                onclick={handleRefreshWires}
+            ></lightning-button>
+            <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="3" padding="horizontal-small">
+                <lightning-record-picker
+                    lwc:ref="oppPicker"
+                    label="Opportunity to Submit For Approval"
+                    placeholder="Search Opportunity..."
+                    object-api-name="Opportunity"
+                    value={selectedOpportunityId}
+                    display-info={oppDisplayInfo}
+                    matching-info={oppMatchingInfo}
+                    required
+                    onchange={handleOpportunityChange}
+                ></lightning-record-picker>
+                <div lwc:if={selectedOpportunityId} class="slds-box slds-box_xx-small slds-theme_shade slds-m-vertical_small">
+                    <lightning-record-form
+                        object-api-name="Opportunity"
+                        record-id={selectedOpportunityId}
+                        columns="2"
+                        mode="readonly"
+                        layout-type="Compact"
+                    ></lightning-record-form>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="9" padding="horizontal-small">
+                <c-stats label="Stats" icon-name="standard:buyer_group_qualifier" value={stats}></c-stats>
+                <div lwc:if={hasErrors} class="slds-m-top_medium">
+                    <c-error-alert value={normalizedError}></c-error-alert>
+                </div>
+                <p class="slds-text-title_caps slds-m-vertical_small">Opportunity Process Instances</p>
+                <div class="slds-scrollable_y table-container">
+                    <c-datatable
+                        key-field="Id"
+                        data={processInstanceData}
+                        columns={processInstanceColumns}
+                        hide-checkbox-column
+                        show-row-number-column
+                    ></c-datatable>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+                <p>Tables</p>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

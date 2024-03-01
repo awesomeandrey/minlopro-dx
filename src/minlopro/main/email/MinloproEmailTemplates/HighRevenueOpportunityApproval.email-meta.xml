@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>MinloproLetterhead</letterhead>
+    <name>High-Revenue Opportunity Approval</name>
+    <style>freeForm</style>
+    <subject>High-Revenue Opportunity Approval</subject>
+    <textOnly>Hi {!User.Name}
+
+{!Opportunity.Name} opportunity requires your attention!</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

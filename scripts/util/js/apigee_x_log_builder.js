@@ -23,8 +23,9 @@ const $RuntimeLogDetails = {
   "proxy.basepath": "{proxy.basepath}", // +
   "proxy.pathsuffix": "{proxy.pathsuffix}", // +
   // "proxy.url": "{proxy.url}",
-  // "target.url": "{target.url}",
-  "target.response.status.code": "{target.response.status.code}" // +
+  "target.url": "{target.url}",
+  "target.response.status.code": "{target.response.status.code}", // +
+  "response.content": "{stringifiedResponseContent}" // + custom variable generated at runtime
 };
 
 const $RuntimeErrorDetails = {

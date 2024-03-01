@@ -65,7 +65,7 @@ const COL_LEAD_CONVERTED_ACCOUNT = {
     fieldName: 'ConvertedAccountId',
     type: 'customLookup',
     typeAttributes: {
-        context: { fieldName: 'ConvertedAccountId' },
+        context: { fieldName: 'Id' },
         fieldName: 'ConvertedAccountId',
         objectApiName: 'Account',
         value: { fieldName: 'ConvertedAccountId' }
@@ -76,7 +76,7 @@ const COL_LEAD_CONVERTED_CONTACT = {
     fieldName: 'ConvertedContactId',
     type: 'customLookup',
     typeAttributes: {
-        context: { fieldName: 'ConvertedContactId' },
+        context: { fieldName: 'Id' },
         fieldName: 'ConvertedContactId',
         objectApiName: 'Contact',
         value: { fieldName: 'ConvertedContactId' }
@@ -87,7 +87,7 @@ const COL_LEAD_CONVERTED_OPPORTUNITY = {
     fieldName: 'ConvertedOpportunityId',
     type: 'customLookup',
     typeAttributes: {
-        context: { fieldName: 'ConvertedOpportunityId' },
+        context: { fieldName: 'Id' },
         fieldName: 'ConvertedOpportunityId',
         objectApiName: 'Opportunity',
         value: { fieldName: 'ConvertedOpportunityId' }

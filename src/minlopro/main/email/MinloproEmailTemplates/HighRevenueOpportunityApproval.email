@@ -1,0 +1,17 @@
+<table border="0" cellpadding="5" width="550" cellspacing="5" height="400">
+    <tr valign="top" height="400">
+        <td
+            tEditID="c1r1"
+            style="background-color: #ffffff; beditid: r3st1; color: #000000; blabel: main; font-size: 12pt; font-family: arial"
+            aEditID="c1r1"
+            locked="0"
+        >
+            <![CDATA[<font face="arial"><span style="font-size: 12pt;">Hi&nbsp;</span></font><b style="color: rgb(0, 0, 0);
+            font-family: arial; font-size: 12pt;"><i>{!User.Name}</i></b><div style="color: rgb(0, 0, 0); font-family: arial;
+            font-size: 12pt;"><b><i><br></i></b></div><div style=""><div style=""><font face="arial"><span style="font-size:
+            16px;"><b><i>{!Opportunity.Name}</i></b> opportunity requires your attention!</span></font></div><div style=""><font
+            face="arial"><span style="font-size: 16px;"><br></span></font></div><div style=""><font face="arial"><span
+            style="font-size: 16px;"><br></span></font></div></div>]]>
+        </td>
+    </tr>
+</table>

@@ -11,7 +11,7 @@
             "options": { "parser": "lwc" }
         },
         {
-            "files": "*.{cmp,page,component,app,xml,labels,evt,design}",
+            "files": "*.{cmp,page,component,app,xml,labels,evt,design,email}",
             "options": { "parser": "html" }
         },
         {

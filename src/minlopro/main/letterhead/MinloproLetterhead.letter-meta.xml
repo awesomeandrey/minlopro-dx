@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Letterhead xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <backgroundColor>#336666</backgroundColor>
+    <bodyColor>#FFFFFF</bodyColor>
+    <bottomLine>
+        <color>#AAAAFF</color>
+        <height>5</height>
+    </bottomLine>
+    <description>Basic letterhead of Minlopro company.</description>
+    <footer>
+        <backgroundColor>#339999</backgroundColor>
+        <height>0</height>
+        <horizontalAlignment>Center</horizontalAlignment>
+        <verticalAlignment>Top</verticalAlignment>
+    </footer>
+    <header>
+        <backgroundColor>#339999</backgroundColor>
+        <height>0</height>
+        <horizontalAlignment>Left</horizontalAlignment>
+        <logo>MinloproAssets/LetterheadLogo.png</logo>
+        <verticalAlignment>Top</verticalAlignment>
+    </header>
+    <middleLine>
+        <color>#AAAAFF</color>
+        <height>5</height>
+    </middleLine>
+    <name>Minlopro Letterhead</name>
+    <topLine>
+        <color>#AAAAFF</color>
+        <height>5</height>
+    </topLine>
+</Letterhead>

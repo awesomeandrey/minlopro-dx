@@ -62,6 +62,12 @@
             "stringToReplace": "@SF_SAMPLE_CONTACT_ID",
             "replaceWithEnv": "SF_SAMPLE_CONTACT_ID",
             "allowUnsetEnvVariable": true
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_SAMPLE_OPPORTUNITY_ID",
+            "replaceWithEnv": "SF_SAMPLE_OPPORTUNITY_ID",
+            "allowUnsetEnvVariable": true
         }
     ]
 }
