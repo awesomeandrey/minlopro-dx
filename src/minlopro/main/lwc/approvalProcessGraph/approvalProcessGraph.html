@@ -1,0 +1,13 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title"><code>ProcessInstanceId = {processInstanceId}</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Refresh" onclick={handleRefresh}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+        <c-error-alert lwc:if={error} value={error}></c-error-alert>
+        <div class="slds-box slds-box_x-small">
+            <svg lwc:dom="manual" lwc:ref="svg" width={svgWidth} height={svgHeight}></svg>
+        </div>
+    </lightning-card>
+</template>

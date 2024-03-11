@@ -42,6 +42,9 @@
             "enableS1DesktopEnabled": true,
             "enableUsersAreLightningOnly": false
         },
+        "orgPreferenceSettings": {
+            "apexApprovalLockUnlock": true
+        },
         "mobileSettings": {
             "enableS1EncryptedStoragePref2": false
         },

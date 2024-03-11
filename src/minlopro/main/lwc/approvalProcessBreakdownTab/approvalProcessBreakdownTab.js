@@ -15,6 +15,7 @@ import $UserId from '@salesforce/user/Id';
 
 export default class ApprovalProcessBreakdownTab extends LightningElement {
     @track selectedOpportunityId = '@SF_SAMPLE_OPPORTUNITY_ID';
+    @track selectedProcessInstanceId = null;
     @track loading = false;
     @track errorObj = null;
 
@@ -125,6 +126,12 @@ export default class ApprovalProcessBreakdownTab extends LightningElement {
                     value: { fieldName: 'LastActorId' },
                     objectApiName: 'User'
                 }
+            },
+            {
+                type: 'action',
+                typeAttributes: {
+                    rowActions: [{ label: 'Visualize', name: 'visualize' }]
+                }
             }
         ];
     }
@@ -175,6 +182,7 @@ export default class ApprovalProcessBreakdownTab extends LightningElement {
 
     async handleReset(event) {
         this.selectedOpportunityId = null;
+        this.selectedProcessInstanceId = null;
         this.refs.oppPicker.clearSelection();
         this.errorObj = null;
         this.loading = false;
@@ -201,6 +209,15 @@ export default class ApprovalProcessBreakdownTab extends LightningElement {
         } finally {
             await this.handleRefreshWires();
             this.loading = false;
+        }
+    }
+
+    handleRowAction(event) {
+        const { action, row } = event.detail;
+        switch (action.name) {
+            case 'visualize':
+                this.selectedProcessInstanceId = row['Id'];
+                break;
         }
     }
 }

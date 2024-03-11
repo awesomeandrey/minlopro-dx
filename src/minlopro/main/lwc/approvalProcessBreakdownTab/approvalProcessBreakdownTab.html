@@ -52,11 +52,12 @@
                         columns={processInstanceColumns}
                         hide-checkbox-column
                         show-row-number-column
+                        onrowaction={handleRowAction}
                     ></c-datatable>
                 </div>
-            </lightning-layout-item>
-            <lightning-layout-item size="12" padding="around-small">
-                <p>Tables</p>
+                <div lwc:if={selectedProcessInstanceId} class="slds-m-vertical_small">
+                    <c-approval-process-graph process-instance-id={selectedProcessInstanceId}></c-approval-process-graph>
+                </div>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>

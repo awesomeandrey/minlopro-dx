@@ -29,6 +29,7 @@ private class TestDataFactoryTest {
         Integer accountsAmount = 5;
         Integer contactsAmount = 20;
         Integer oppAmount = 17;
+        Integer leadsAmount = 5;
         // Test Accounts generation;
         List<Account> testAccounts = TestDataFactory.createAccounts(accountsAmount);
         Assert.areEqual(accountsAmount, testAccounts.size());
@@ -50,5 +51,8 @@ private class TestDataFactoryTest {
         for (Opportunity opp : oppsWithAccount) {
             Assert.areEqual(testAccount.Id, opp.AccountId);
         }
+        // Test Leads generation;
+        List<Lead> testLeads = TestDataFactory.createLeads(leadsAmount);
+        Assert.areEqual(leadsAmount, testLeads.size());
     }
 }

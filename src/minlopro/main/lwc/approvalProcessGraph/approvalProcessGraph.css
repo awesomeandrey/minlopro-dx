@@ -1,0 +1,32 @@
+svg .node {
+    cursor: pointer;
+
+    & circle {
+        fill: #fff;
+        stroke: steelblue;
+        stroke-width: 3px;
+        cursor: pointer;
+    }
+
+    & text {
+        font: 12px sans-serif;
+    }
+
+    &[data-object-name='ProcessInstance'] circle {
+        fill: rgb(238, 244, 255);
+    }
+
+    &[data-object-name='ProcessInstanceStep'] circle {
+        fill: rgb(205, 239, 196);
+    }
+
+    &[data-object-name='ProcessInstanceNode'] circle {
+        fill: rgb(254, 185, 165);
+    }
+}
+
+svg .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 2px;
+}
