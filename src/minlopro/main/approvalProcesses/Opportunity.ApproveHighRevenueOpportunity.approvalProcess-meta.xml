@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <type>creator</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <submitter>OrgAdmins</submitter>
+        <type>group</type>
+    </allowedSubmitters>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Owner</field>
+        <field>Account</field>
+        <field>CurrencyIsoCode</field>
+        <field>Amount</field>
+        <field>ExpectedRevenue</field>
+        <field>Probability</field>
+        <field>Type</field>
+        <field>StageName</field>
+        <field>NextStep</field>
+        <field>Description</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>UpdateOppDescriptionToApproved</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <type>adhoc</type>
+            </approver>
+        </assignedApprover>
+        <description>During this step the approver has to look through the Opportunity and make a decision.</description>
+        <label>Analyze Risks</label>
+        <name>AnalyzeRisks</name>
+        <rejectionActions>
+            <action>
+                <name>UpdateOppDescriptionToRejected</name>
+                <type>FieldUpdate</type>
+            </action>
+        </rejectionActions>
+    </approvalStep>
+    <description>Submits opportunity with high-level revenue for approval.</description>
+    <emailTemplate>MinloproEmailTemplates/HighRevenueOpportunityApproval</emailTemplate>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <criteriaItems>
+            <field>Opportunity.ExpectedRevenue</field>
+            <operation>greaterOrEqual</operation>
+            <value>USD 100</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalRecordLock>false</finalApprovalRecordLock>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>Approve High-Revenue Opportunity</label>
+    <nextAutomatedApprover>
+        <useApproverFieldOfRecordOwner>true</useApproverFieldOfRecordOwner>
+        <userHierarchyField>Manager</userHierarchyField>
+    </nextAutomatedApprover>
+    <processOrder>1</processOrder>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

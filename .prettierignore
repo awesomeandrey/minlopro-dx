@@ -6,6 +6,8 @@
 **/layouts/
 **/networkBranding/
 **/staticresources/
+**/documents/
+**/email/
 
 # Static assets folder
 assets/

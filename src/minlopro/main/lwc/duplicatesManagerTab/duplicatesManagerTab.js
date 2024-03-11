@@ -184,7 +184,7 @@ export default class DuplicatesManagerTab extends LightningElement {
                 fieldName: 'AccountId',
                 type: 'customLookup',
                 typeAttributes: {
-                    context: { fieldName: 'AccountId' },
+                    context: { fieldName: this.KEY_FIELD },
                     fieldName: 'AccountId',
                     objectApiName: 'Account',
                     value: { fieldName: 'AccountId' }

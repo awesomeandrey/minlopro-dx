@@ -23,7 +23,8 @@ public inherited sharing class Application {
             ContentWorkspace.SObjectType => ContentWorkspaceSelector.class,
             ContentWorkspacePermission.SObjectType => ContentWorkspacePermissionSelector.class,
             Lead.SObjectType => LeadSelector.class,
-            User.SObjectType => UserSelector.class
+            User.SObjectType => UserSelector.class,
+            ProcessInstance.SObjectType => ProcessInstanceSelector.class
         }
     );
 

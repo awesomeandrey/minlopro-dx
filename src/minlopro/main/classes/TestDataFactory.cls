@@ -115,4 +115,26 @@ public class TestDataFactory {
         }
         return opportunities;
     }
+
+    public static List<Lead> createLeads(Integer numOfLeads) {
+        List<Lead> leads = new List<Lead>();
+        for (Integer i = 0; i < numOfLeads; i++) {
+            leads.add(
+                new Lead(
+                    Company = 'Company #' + i,
+                    AnnualRevenue = 100 * Math.random(),
+                    Email = 'lead_' + i + '@edu.com',
+                    GenderIdentity = 'Male',
+                    LeadSource = 'Web',
+                    Status = 'New',
+                    FirstName = 'FN #' + i,
+                    LastName = 'LN #' + i,
+                    Title = 'Test Lead Data',
+                    Phone = '750-224-9149' + i,
+                    MobilePhone = '750-224-9149' + i
+                )
+            );
+        }
+        return leads;
+    }
 }

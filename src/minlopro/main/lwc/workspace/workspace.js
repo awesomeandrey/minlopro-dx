@@ -10,6 +10,7 @@ const $CustomCombobox = 'customCombobox';
 const $ModalDemo = 'lwcModalDemo';
 const $FilesManager = 'filesManager';
 const $LeadsManager = 'leadsManager';
+const $ApprovalProcess = 'approvalProcessBreakdown';
 
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
@@ -28,7 +29,8 @@ export default class Workspace extends LightningElement {
             { label: 'Custom Combobox', name: $CustomCombobox, iconName: 'utility:bundle_policy', visible: true },
             { label: 'LWC Modal Demo', name: $ModalDemo, iconName: 'utility:preview', visible: true },
             { label: 'Files Manager', name: $FilesManager, iconName: 'utility:share_file', visible: IS_FILES_MANAGER },
-            { label: 'Leads Conversion', name: $LeadsManager, iconName: 'utility:lead', visible: IS_LEADS_MANAGER }
+            { label: 'Leads Conversion', name: $LeadsManager, iconName: 'utility:lead', visible: IS_LEADS_MANAGER },
+            { label: 'Approval Process Breakdown', name: $ApprovalProcess, iconName: 'utility:approval', visible: true }
         ]
             .map((tabInfo) => {
                 tabInfo.label = this.doCollapseTabs ? '' : tabInfo.label;
@@ -68,6 +70,10 @@ export default class Workspace extends LightningElement {
 
     get isLeadsManager() {
         return this.selectedTabName === $LeadsManager;
+    }
+
+    get isApprovalProcessBreakdown() {
+        return this.selectedTabName === $ApprovalProcess;
     }
 
     get lc_selectedTabName() {

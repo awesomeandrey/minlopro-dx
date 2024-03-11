@@ -47,6 +47,9 @@
                 <template lwc:elseif={isLeadsManager}>
                     <c-leads-manager-tab></c-leads-manager-tab>
                 </template>
+                <template lwc:elseif={isApprovalProcessBreakdown}>
+                    <c-approval-process-breakdown-tab></c-approval-process-breakdown-tab>
+                </template>
                 <template lwc:else>
                     <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
                 </template>

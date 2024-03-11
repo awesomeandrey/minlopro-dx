@@ -24,7 +24,7 @@ public with sharing class LeadsManagementController {
     @AuraEnabled
     public static String convertLead(String config, Boolean dryRun) {
         try {
-            // Deserialize convert preferences;
+            // Deserialize conversion preferences;
             ConvertConfig convertConfigDto = (ConvertConfig) JSON.deserialize(config, ConvertConfig.class);
             Logger.debug(JSON.serialize(convertConfigDto));
             // Construct 'LeadConvert' settings;

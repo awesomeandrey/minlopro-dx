@@ -94,7 +94,7 @@ export default class FilesManagerTab extends LightningElement {
                 fieldName: CD_PARENT_ID.fieldApiName,
                 type: 'customLookup',
                 typeAttributes: {
-                    context: { fieldName: CD_PARENT_ID.fieldApiName },
+                    context: { fieldName: 'Id' },
                     fieldName: CD_PARENT_ID.fieldApiName,
                     objectApiName: 'ContentWorkspace',
                     value: { fieldName: CD_PARENT_ID.fieldApiName }
@@ -138,7 +138,7 @@ export default class FilesManagerTab extends LightningElement {
                 fieldName: CD_LATEST_PUBLISHED_VERSION_ID.fieldApiName,
                 type: 'customLookup',
                 typeAttributes: {
-                    context: { fieldName: CD_LATEST_PUBLISHED_VERSION_ID.fieldApiName },
+                    context: { fieldName: 'Id' },
                     fieldName: CD_LATEST_PUBLISHED_VERSION_ID.fieldApiName,
                     objectApiName: 'ContentVersion',
                     value: { fieldName: CD_LATEST_PUBLISHED_VERSION_ID.fieldApiName },
@@ -150,7 +150,7 @@ export default class FilesManagerTab extends LightningElement {
                 fieldName: 'OwnerId',
                 type: 'customLookup',
                 typeAttributes: {
-                    context: { fieldName: 'OwnerId' },
+                    context: { fieldName: 'Id' },
                     fieldName: 'OwnerId',
                     objectApiName: 'User',
                     value: { fieldName: 'OwnerId' }

@@ -5,7 +5,7 @@
             <template for:each={statsAsUniqueEntries} for:item="entryItem">
                 <div key={entryItem.id} class="grid-item">
                     <template lwc:if={entryItem.isKey}>
-                        <p class="slds-truncate" title={entryItem.content}>{entryItem.content}:</p>
+                        <p class="slds-truncate" title={entryItem.content}>{entryItem.content}</p>
                     </template>
                     <template lwc:if={entryItem.isValue}>
                         <p class="slds-truncate" title={entryItem.content}>{entryItem.content}</p>

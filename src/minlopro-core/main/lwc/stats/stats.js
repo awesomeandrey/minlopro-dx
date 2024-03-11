@@ -10,8 +10,9 @@ export default class Stats extends LightningElement {
     get statsAsUniqueEntries() {
         return Object.entries(this.value)
             .map(([key, value]) => {
+                let endsWithPunctuationCharacters = /.*\W+$/.test(key);
                 return [
-                    { isKey: true, id: uniqueId(), content: key },
+                    { isKey: true, id: uniqueId(), content: endsWithPunctuationCharacters ? key : `${key}:` },
                     { isValue: true, id: uniqueId(), hasContent: isNotEmpty(value), content: value }
                 ];
             })
