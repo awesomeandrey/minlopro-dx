@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEV_HUB_AUTH_URL: ${{ secrets.DEV_HUB_AUTH_URL }}
+      SF_ADMIN_EMAIL: ${{ github.event.inputs.adminEmail }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -24,7 +24,7 @@ sf org create scratch \
     --target-dev-hub "$DEV_HUB_ALIAS" \
     --alias "$SCRATCH_ORG_ALIAS" \
     --definition-file "config/project-scratch-def.json" \
-    --admin-email $ADMIN_EMAIL \
+    --admin-email "$ADMIN_EMAIL" \
     --set-default \
     --duration-days 30 \
     --wait 10
