@@ -24,7 +24,8 @@
     "orgName": "minlopro-dx",
     "settings": {
         "apexSettings": {
-            "enableCompileOnDeploy": false
+            "enableCompileOnDeploy": false,
+            "enableApexApprovalLockUnlock": true
         },
         "communitiesSettings": {
             "enableNetworksEnabled": true
@@ -41,9 +42,6 @@
         "lightningExperienceSettings": {
             "enableS1DesktopEnabled": true,
             "enableUsersAreLightningOnly": false
-        },
-        "orgPreferenceSettings": {
-            "apexApprovalLockUnlock": true
         },
         "mobileSettings": {
             "enableS1EncryptedStoragePref2": false
