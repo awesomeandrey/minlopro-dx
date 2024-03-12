@@ -35,7 +35,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Production Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $SF_AUTH_URL --orgAlias Prod
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "Prod"
           git checkout main
           git pull
       - name: "Generate Release Manifests (pull_request)"

@@ -8,6 +8,10 @@ on:
         type: string
         description: "Admin Email Address"
         required: true
+      purgeOnCreate:
+        type: boolean
+        description: 'Purge On Create?'
+        default: false
     branches:
       - main
       - develop
@@ -51,3 +55,6 @@ jobs:
             build/.env
           if-no-files-found: error
           retention-days: 5
+      - name: 'Purge Scratch Org'
+        if: ${{ success() && github.event.inputs.purgeOnCreate == 'true' }}
+        run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
