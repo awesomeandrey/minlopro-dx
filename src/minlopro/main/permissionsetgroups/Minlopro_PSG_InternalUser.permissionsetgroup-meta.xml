@@ -5,6 +5,7 @@
     <label>Minlopro - PSG - Internal User</label>
     <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_ApprovalProcessBreakdown</permissionSets>
+    <permissionSets>Minlopro_Car</permissionSets>
     <permissionSets>Minlopro_Core</permissionSets>
     <permissionSets>Minlopro_CurrencyManagement</permissionSets>
     <permissionSets>Minlopro_CustomAuthProviderAndNC</permissionSets>
