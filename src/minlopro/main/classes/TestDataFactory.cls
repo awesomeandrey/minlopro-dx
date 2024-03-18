@@ -27,24 +27,11 @@ public class TestDataFactory {
         }
     }
 
-    // User / Profile;
+    // User Provisioning;
 
-    public static Profile selectSystemAdminProfile() {
-        return ORG_PROFILES_BY_NAME.get('System Administrator');
-    }
-
-    public static Profile selectMinloproUserProfile() {
-        return ORG_PROFILES_BY_NAME.get('Minlopro User');
-    }
-
-    public static String generateRandomString(Integer stringLength) {
-        final String chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
-        String randStr = '';
-        while (randStr.length() < stringLength) {
-            Integer idx = Math.mod(Math.abs(Crypto.getRandomInteger()), chars.length());
-            randStr += chars.substring(idx, idx + 1);
-        }
-        return randStr;
+    public static User createAdmin() {
+        Profile adminProfile = TestDataFactory.selectSystemAdminProfile();
+        return TestDataFactory.createUser('Admin', 'Minlopro', adminProfile.Id);
     }
 
     public static User createUser(String firstName, String lastName, Id profileId) {
@@ -68,7 +55,7 @@ public class TestDataFactory {
         return u;
     }
 
-    // Data Generation;
+    // Records/Data Generation;
 
     public static List<Account> createAccounts(Integer numOfAccounts) {
         List<Account> accounts = new List<Account>();
@@ -136,5 +123,25 @@ public class TestDataFactory {
             );
         }
         return leads;
+    }
+
+    // Utility Methods;
+
+    public static Profile selectSystemAdminProfile() {
+        return ORG_PROFILES_BY_NAME.get('System Administrator');
+    }
+
+    public static Profile selectMinloproUserProfile() {
+        return ORG_PROFILES_BY_NAME.get('Minlopro User');
+    }
+
+    public static String generateRandomString(Integer stringLength) {
+        final String chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
+        String randStr = '';
+        while (randStr.length() < stringLength) {
+            Integer idx = Math.mod(Math.abs(Crypto.getRandomInteger()), chars.length());
+            randStr += chars.substring(idx, idx + 1);
+        }
+        return randStr;
     }
 }
