@@ -3,6 +3,7 @@
     <fullName>All</fullName>
     <columns>NAME</columns>
     <columns>Brand__c</columns>
+    <columns>SharedWith__c</columns>
     <columns>Contact__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
