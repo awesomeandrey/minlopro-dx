@@ -3,6 +3,7 @@
 **/customindex
 **/profilePasswordPolicies
 **/profileSessionSettings
+**/samlssoconfigs
 
 # DigEx portal related metadata items;
 **/audience/Default_DigEx.audience-meta.xml

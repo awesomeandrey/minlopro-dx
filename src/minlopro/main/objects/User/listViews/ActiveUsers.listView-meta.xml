@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ActiveUsers</fullName>
     <columns>FULL_NAME</columns>
@@ -7,6 +7,8 @@
     <columns>CORE.USERS.USERNAME</columns>
     <columns>CORE.USERS.ACTIVE</columns>
     <columns>CORE.PROFILE.NAME</columns>
+    <columns>ExternalId__c</columns>
+    <columns>STORAGE_USED</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>CORE.USERS.ACTIVE</field>
@@ -14,4 +16,5 @@
         <value>1</value>
     </filters>
     <label>Active Users</label>
+    <language>en_US</language>
 </ListView>

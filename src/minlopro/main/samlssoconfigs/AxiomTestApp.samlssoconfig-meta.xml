@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SamlSsoConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <executionUserId>0057Y00000BiGRZ</executionUserId>
+    <identityLocation>SubjectNameId</identityLocation>
+    <identityMapping>FederationId</identityMapping>
+    <issuer>https://axiomsso.herokuapp.com</issuer>
+    <name>Axiom Test App</name>
+    <oauthTokenEndpoint>https://dream-drive-5660-dev-ed.scratch.my.salesforce.com/services/oauth2/token</oauthTokenEndpoint>
+    <redirectBinding>true</redirectBinding>
+    <requestSignatureMethod>0</requestSignatureMethod>
+    <requestSigningCertId>0P17Y000001t695</requestSigningCertId>
+    <salesforceLoginUrl>https://dream-drive-5660-dev-ed.scratch.my.salesforce.com</salesforceLoginUrl>
+    <samlEntityId>https://dream-drive-5660-dev-ed.scratch.my.salesforce.com</samlEntityId>
+    <samlJitHandlerId>01p7Y00000EjQwx</samlJitHandlerId>
+    <samlVersion>SAML2_0</samlVersion>
+    <useConfigRequestMethod>true</useConfigRequestMethod>
+    <useSameDigestAlgoForSigning>true</useSameDigestAlgoForSigning>
+    <userProvisioning>true</userProvisioning>
+</SamlSsoConfig>
