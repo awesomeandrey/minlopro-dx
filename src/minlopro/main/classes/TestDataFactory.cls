@@ -15,6 +15,8 @@ public class TestDataFactory {
     private final static Integer USERNAME_LENGTH = 10;
     private final static Map<String, Profile> ORG_PROFILES_BY_NAME = new Map<String, Profile>();
     private final static Map<String, CurrencyType> CURRENCY_TYPES_BY_CODE = new Map<String, CurrencyType>();
+    private final static Map<TestDataFactory.PublicGroup, Group> PUBLIC_GROUPS_BY_NAME = new Map<TestDataFactory.PublicGroup, Group>();
+    private final static Map<TestDataFactory.Role, UserRole> ROLES_BY_NAME = new Map<TestDataFactory.Role, UserRole>();
 
     static {
         // Select org profiles;
@@ -22,8 +24,22 @@ public class TestDataFactory {
             ORG_PROFILES_BY_NAME.put(profileRecord.Name, profileRecord);
         }
         // Select currency types;
-        for (CurrencyType cType : [SELECT IsoCode, ConversionRate, IsCorporate, DecimalPlaces, IsActive FROM CurrencyType]) {
+        for (CurrencyType cType : [
+            SELECT IsoCode, ConversionRate, IsCorporate, DecimalPlaces, IsActive
+            FROM CurrencyType
+            WHERE IsActive = TRUE
+        ]) {
             CURRENCY_TYPES_BY_CODE.put(cType.IsoCode, cType);
+        }
+        // Select public groups;
+        List<String> groupNames = new List<String>{ PublicGroup.OrgAdmins.name(), PublicGroup.OrgUsers.name() };
+        for (Group groupItem : [SELECT Id, DeveloperName, Name FROM Group WHERE DeveloperName IN :groupNames]) {
+            PUBLIC_GROUPS_BY_NAME.put(PublicGroup.valueOf(groupItem.DeveloperName), groupItem);
+        }
+        // Select roles;
+        List<String> roleNames = new List<String>{ Role.DX_Admin.name() };
+        for (UserRole userRoleItem : [SELECT Id, DeveloperName, Name FROM UserRole WHERE DeveloperName IN :roleNames]) {
+            ROLES_BY_NAME.put(Role.valueOf(userRoleItem.DeveloperName), userRoleItem);
         }
     }
 
@@ -31,13 +47,51 @@ public class TestDataFactory {
 
     public static User createAdmin() {
         Profile adminProfile = TestDataFactory.selectSystemAdminProfile();
-        return TestDataFactory.createUser('Admin', 'Minlopro', adminProfile.Id);
+        User adminUser = TestDataFactory.createUser('Admin', 'Minlopro', adminProfile.Id);
+        // Assign Role;
+        adminUser.UserRoleId = ROLES_BY_NAME.get(Role.DX_Admin).Id;
+        // Create user;
+        insert adminUser;
+        // Add the user to the corresponding Public Group;
+        GroupMember groupMember = new GroupMember(
+            UserOrGroupId = adminUser.Id,
+            GroupId = PUBLIC_GROUPS_BY_NAME.get(PublicGroup.OrgAdmins).Id
+        );
+        insert groupMember;
+        // Assign PSG to the user;
+        PermissionSetService.getInstance()
+            .enforceAllOrNothing(true)
+            .assign(
+                adminUser.Id,
+                new Set<String>{ PermissionSetOrPSG.Minlopro_PSG_InternalUser.name(), PermissionSetOrPSG.Minlopro_Admin.name() }
+            );
+        return adminUser;
+    }
+
+    public static User createRegularUser() {
+        Profile minloproUserProfile = TestDataFactory.selectMinloproUserProfile();
+        User regularUser = TestDataFactory.createUser('Mike', 'Green', minloproUserProfile.Id);
+        // Assign Role;
+        regularUser.UserRoleId = null;
+        // Create user;
+        insert regularUser;
+        // Add the user to the corresponding Public Group;
+        GroupMember groupMember = new GroupMember(
+            UserOrGroupId = regularUser.Id,
+            GroupId = PUBLIC_GROUPS_BY_NAME.get(PublicGroup.OrgUsers).Id
+        );
+        insert groupMember;
+        // Assign PSG to the user;
+        PermissionSetService.getInstance()
+            .enforceAllOrNothing(true)
+            .assign(regularUser.Id, new Set<String>{ PermissionSetOrPSG.Minlopro_PSG_InternalUser.name() });
+        return regularUser;
     }
 
     public static User createUser(String firstName, String lastName, Id profileId) {
         String username = generateRandomString(USERNAME_LENGTH);
         String orgId = UserInfo.getOrganizationId();
-        User u = new User(
+        return new User(
             FirstName = firstName,
             LastName = lastName,
             Email = username + '@test' + orgId + '.com',
@@ -52,7 +106,6 @@ public class TestDataFactory {
             MobilePhone = '9999999999',
             Phone = '9999999999'
         );
-        return u;
     }
 
     // Records/Data Generation;
@@ -143,5 +196,19 @@ public class TestDataFactory {
             randStr += chars.substring(idx, idx + 1);
         }
         return randStr;
+    }
+
+    public enum PublicGroup {
+        OrgAdmins,
+        OrgUsers
+    }
+
+    public enum Role {
+        DX_Admin
+    }
+
+    public enum PermissionSetOrPSG {
+        Minlopro_PSG_InternalUser,
+        Minlopro_Admin
     }
 }
