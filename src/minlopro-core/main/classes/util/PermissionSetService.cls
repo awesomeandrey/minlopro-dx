@@ -1,5 +1,6 @@
 public inherited sharing class PermissionSetService {
     private static PermissionSetService instance;
+    private Boolean allOrNothing = false;
 
     private Map<Id, PermissionSet> permissionSetByIdMap;
     private Map<String, PermissionSet> permissionSetByNameMap {
@@ -37,6 +38,11 @@ public inherited sharing class PermissionSetService {
         }
     }
 
+    public PermissionSetService enforceAllOrNothing(Boolean allOrNothing) {
+        this.allOrNothing = allOrNothing;
+        return this;
+    }
+
     public List<Database.UpsertResult> assign(Id userId, Set<String> permissionSetOrGroupNames) {
         Set<Id> permissionSetOrGroupIds = new Set<Id>();
         if (Sets.isNotEmpty(permissionSetOrGroupNames)) {
@@ -60,7 +66,7 @@ public inherited sharing class PermissionSetService {
                 throw new IllegalArgumentException('Only permission sets with "Regular" or "Group" types can be assigned!');
             }
         }
-        List<Database.UpsertResult> upsertResults = Database.upsert(assignments, false);
+        List<Database.UpsertResult> upsertResults = Database.upsert(assignments, this.allOrNothing);
         // Log DML results in tabular format;
         this.log(userId, assignments, upsertResults);
         return upsertResults;

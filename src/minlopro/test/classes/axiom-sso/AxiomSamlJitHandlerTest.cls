@@ -26,7 +26,6 @@ private class AxiomSamlJitHandlerTest {
     @IsTest
     static void testUpdateUser() {
         User adminUser = TestDataFactory.createAdmin();
-        insert adminUser;
         // Prepare test data
         Id samlSsoProviderId = UserInfo.getUserId(); // Just an example, replace with actual Id
         Id communityId = null; // Just an example, replace with actual Id if applicable

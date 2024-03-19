@@ -23,7 +23,6 @@ private class DuplicatesManagerControllerTest {
         Assert.areNotEqual(c1.Phone, c2.Phone);
         // Create Contacts;
         User adminUser = TestDataFactory.createAdmin();
-        insert adminUser;
         System.runAs(adminUser) {
             List<Contact> testContacts = TestDataFactory.createContacts(10);
             // Insert unique Contact!
@@ -37,7 +36,6 @@ private class DuplicatesManagerControllerTest {
     @IsTest
     static void testFindDuplicates() {
         User adminUser = TestDataFactory.createAdmin();
-        insert adminUser;
         System.runAs(adminUser) {
             Contact newContact = createNewContact();
             List<Contact> newContactDuplicates = DuplicatesManagerController.findDuplicates(newContact);
@@ -55,7 +53,6 @@ private class DuplicatesManagerControllerTest {
     @IsTest
     static void testInsertDuplicateContact() {
         User adminUser = TestDataFactory.createAdmin();
-        insert adminUser;
         System.runAs(adminUser) {
             // Case #1 - Create brand new contacts record (no matching duplicates expected);
             Contact newContact = createNewContact();
@@ -82,7 +79,6 @@ private class DuplicatesManagerControllerTest {
     @IsTest
     static void testUpdateDuplicateContact() {
         User adminUser = TestDataFactory.createAdmin();
-        insert adminUser;
         System.runAs(adminUser) {
             // Query existing Contact;
             Contact uniqueContactTemplate = createUniqueContact();

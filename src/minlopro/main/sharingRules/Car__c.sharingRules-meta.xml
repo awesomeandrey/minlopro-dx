@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
-    <sharingCriteriaRules>
-        <fullName>AddExplicitShares</fullName>
-        <accessLevel>Edit</accessLevel>
-        <label>Add Explicit Shares</label>
+    <sharingOwnerRules>
+        <fullName>GrantReadOnlyShares</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Used to test whether sharing rules can revoke record-level access.</description>
+        <label>Grant Read Only Shares</label>
         <sharedTo>
             <group>OrgUsers</group>
         </sharedTo>
-        <criteriaItems>
-            <field>SharedWith__c</field>
-            <operation>notEqual</operation>
-            <value></value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
+        <sharedFrom>
+            <group>OrgAdmins</group>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

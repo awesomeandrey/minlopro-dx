@@ -1,27 +1,20 @@
 @IsTest
 private class TestDataFactoryTest {
     @IsTest
-    static void testCreateUser() {
-        // Set up test data
-        String firstName = 'Test';
-        String lastName = 'User';
-
+    static void testCreateAdmin() {
         Profile adminProfile = TestDataFactory.selectSystemAdminProfile();
-        Assert.isNotNull(adminProfile);
-        Profile minloproUserProfile = TestDataFactory.selectMinloproUserProfile();
-        Assert.isNotNull(minloproUserProfile);
-
-        // Call the method to test
-        User testUser = TestDataFactory.createUser(firstName, lastName, adminProfile.Id);
-
-        // Assert that the user has been correctly set up
-        System.assertNotEquals(null, testUser, 'User should not be null');
-        System.assertEquals(firstName, testUser.FirstName, 'First name should match');
-        System.assertEquals(lastName, testUser.LastName, 'Last name should match');
-        System.assertNotEquals(null, testUser.Username, 'Username should not be null');
-        System.assertEquals(adminProfile.Id, testUser.ProfileId, 'Profile ID should match');
-        System.assertEquals('9999999999', testUser.Phone, 'Phone should match');
-        System.assertEquals('9999999999', testUser.MobilePhone, 'Mobile phone should match');
+        User adminUser = TestDataFactory.createAdmin();
+        // Assert that the user has been correctly set up;
+        Assert.isNotNull(adminUser.Id);
+        Assert.isNotNull(adminUser.UserRoleId);
+        Assert.areEqual(adminProfile.Id, adminUser.ProfileId);
+        Assert.isNotNull(adminUser.Username);
+        // Verify that Admin user was added to corresponding Public Group;
+        List<GroupMember> membership = [SELECT Id FROM GroupMember WHERE UserOrGroupId = :adminUser.Id];
+        Assert.isTrue(membership.size() > 0, 'Admin user was not added to any public group.');
+        // Verify that Admin user was assigned valid PSGs / permission sets;
+        List<PermissionSetAssignment> assignments = [SELECT Id FROM PermissionSetAssignment WHERE AssigneeId = :adminUser.Id];
+        Assert.isTrue(assignments.size() > 0, 'Admin user was not assigned any PSGs / permission sets.');
     }
 
     @IsTest
