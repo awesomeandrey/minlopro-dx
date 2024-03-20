@@ -11,10 +11,10 @@ private class TestDataFactoryTest {
         Assert.isNotNull(adminUser.Username);
         // Verify that Admin user was added to corresponding Public Group;
         List<GroupMember> membership = [SELECT Id FROM GroupMember WHERE UserOrGroupId = :adminUser.Id];
-        Assert.isTrue(membership.size() > 0, 'Admin user was not added to any public group.');
+        Assert.isFalse(membership.isEmpty(), 'Admin user was not added to any public group.');
         // Verify that Admin user was assigned valid PSGs / permission sets;
         List<PermissionSetAssignment> assignments = [SELECT Id FROM PermissionSetAssignment WHERE AssigneeId = :adminUser.Id];
-        Assert.isTrue(assignments.size() > 0, 'Admin user was not assigned any PSGs / permission sets.');
+        Assert.isFalse(assignments.isEmpty(), 'Admin user was not assigned any PSGs / permission sets.');
     }
 
     @IsTest
