@@ -25,7 +25,8 @@
     "settings": {
         "apexSettings": {
             "enableCompileOnDeploy": false,
-            "enableApexApprovalLockUnlock": true
+            "enableApexApprovalLockUnlock": true,
+            "enableDisableParallelApexTesting": true
         },
         "communitiesSettings": {
             "enableNetworksEnabled": true
