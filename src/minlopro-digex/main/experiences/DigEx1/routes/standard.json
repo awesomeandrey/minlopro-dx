@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "18d6805c-c4c2-4166-a9d5-11e2fa10f759",
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "configurationTags" : [ ],
+  "devName" : "s__c",
+  "id" : "ded7a7fc-c061-492d-9d38-0671d7161ed7",
+  "label" : "Standard",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-s",
+  "type" : "route",
+  "urlPrefix" : "s"
+}

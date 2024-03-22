@@ -1,6 +1,6 @@
 {
   "defaultCode" : "en_US",
-  "defaultLabel" : "English (US) - edited display label",
+  "defaultLabel" : "English (US)",
   "id" : "e91402d4-ded4-4a8d-965a-56b6e40e8cfe",
   "languages" : [ {
     "countryCode" : "",
@@ -9,14 +9,6 @@
     "isActive" : true,
     "label" : "Ukrainian",
     "languageCode" : "uk",
-    "type" : "language"
-  }, {
-    "countryCode" : "",
-    "fallbackLanguageId" : null,
-    "id" : "9124d5d2-caa3-46db-a642-5196dbf8b30b",
-    "isActive" : true,
-    "label" : "dogs lang",
-    "languageCode" : "ru",
     "type" : "language"
   } ],
   "type" : "languageContainer"

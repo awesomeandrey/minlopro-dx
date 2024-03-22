@@ -11,7 +11,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<div style='text-align: center;'>Invalid Page</div>"
+        "richTextValue" : "<p style=\"text-align: center;\">Invalid Page</p><p style=\"text-align: center;\">Error Occurred</p>"
       },
       "componentName" : "forceCommunity:richTextInline",
       "id" : "9d3211a2-121b-4da5-a5e2-b73ae775bb8c",
@@ -42,7 +42,7 @@
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
-  "themeLayoutType" : "Inner",
+  "themeLayoutType" : "BIGuMbINxUUPKhG01SUcMMJNvZRHRb",
   "type" : "view",
   "viewType" : "error"
 }

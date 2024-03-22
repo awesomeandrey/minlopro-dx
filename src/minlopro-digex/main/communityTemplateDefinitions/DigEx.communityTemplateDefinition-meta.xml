@@ -37,18 +37,6 @@
     <enableExtendedCleanUpOnDelete>true</enableExtendedCleanUpOnDelete>
     <masterLabel>DigEx</masterLabel>
     <pageSetting>
-        <page>DigEx_Practical_Guide_To_EC</page>
-        <themeLayout>DigEx_themeLayout_Default</themeLayout>
-    </pageSetting>
-    <pageSetting>
-        <page>DigEx_Org_Limits</page>
-        <themeLayout>DigEx_themeLayout_Minlopro_Theme</themeLayout>
-    </pageSetting>
-    <pageSetting>
-        <page>DigEx_Task_List</page>
-        <themeLayout>DigEx_themeLayout_Default</themeLayout>
-    </pageSetting>
-    <pageSetting>
         <page>DigEx_Check_Password</page>
         <themeLayout>DigEx_themeLayout_Login</themeLayout>
     </pageSetting>
@@ -81,16 +69,8 @@
         <themeLayout>DigEx_themeLayout_Minlopro_Theme</themeLayout>
     </pageSetting>
     <pageSetting>
-        <page>DigEx_Task_Detail</page>
-        <themeLayout>DigEx_themeLayout_Default</themeLayout>
-    </pageSetting>
-    <pageSetting>
         <page>DigEx_Register</page>
         <themeLayout>DigEx_themeLayout_Login</themeLayout>
-    </pageSetting>
-    <pageSetting>
-        <page>DigEx_Task_Related_List</page>
-        <themeLayout>DigEx_themeLayout_Default</themeLayout>
     </pageSetting>
     <pageSetting>
         <page>DigEx_Canvasapp_Page</page>
@@ -103,10 +83,6 @@
     <pageSetting>
         <page>DigEx_Service_Not_Available</page>
         <themeLayout>DigEx_themeLayout_ServiceNotAvailable</themeLayout>
-    </pageSetting>
-    <pageSetting>
-        <page>DigEx_Google_Maps</page>
-        <themeLayout>DigEx_themeLayout_Minlopro_Theme</themeLayout>
     </pageSetting>
     <pageSetting>
         <page>DigEx_Record_Detail</page>

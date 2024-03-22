@@ -1,0 +1,52 @@
+{
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "componentName" : "siteforce:sldsTwoCol48Layout",
+  "dataProviders" : [ ],
+  "id" : "18d6805c-c4c2-4166-a9d5-11e2fa10f759",
+  "label" : "Standard",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<p style=\"text-align: center;\"><strong style=\"font-size: 16px;\">This is the standard page which comprises all pre-built ones.</strong></p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "c87792af-97cf-427f-93ab-09e5e79eab58",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "dd9ee365-bfd0-4de3-97f5-0c4bfdcce426",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "7adf5c47-8937-4934-937f-1be6583f8c38",
+    "regionName" : "sidebar",
+    "type" : "region"
+  }, {
+    "id" : "74d51d6c-0f73-4415-a64d-e294d072c36e",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "5849953e-d901-4cd7-967f-3a225b0dc545",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Standard"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "45ba4fa3-c81a-4352-ba5f-7315bc49c57c",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "4b796323-13f0-443f-87cc-8f8d42f48fe1",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-s"
+}

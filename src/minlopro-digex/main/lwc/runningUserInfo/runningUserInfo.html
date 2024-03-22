@@ -5,51 +5,11 @@
         </template>
         <template lwc:else>
             <lightning-layout multiple-rows>
-                <lightning-layout-item size="8">
-                    <article class="slds-tile slds-media">
-                        <div class="slds-media__figure">
-                            <lightning-icon icon-name="standard:customer_portal_users" size="medium"></lightning-icon>
-                        </div>
-                        <div class="slds-media__body">
-                            <h3 class="slds-tile__title slds-truncate slds-text-title_caps">General User Info</h3>
-                            <div class="slds-tile__detail">
-                                <template for:each={userInfoItems} for:item="item">
-                                    <dl key={item.name} class="slds-list_horizontal slds-wrap">
-                                        <dt class="slds-item_label slds-text-color_weak slds-truncate">{item.name}:</dt>
-                                        <dd class="slds-item_detail slds-truncate">
-                                            <template lwc:if={item.link}>
-                                                <a href={item.link} target="_blank">{item.value}</a>
-                                            </template>
-                                            <template lwc:else>{item.value}</template>
-                                        </dd>
-                                    </dl>
-                                </template>
-                            </div>
-                        </div>
-                    </article>
+                <lightning-layout-item size="12" class="slds-m-bottom_small">
+                    <c-stats label="General User Info" value={userInfoStats} icon-name="standard:customer_portal_users"></c-stats>
                 </lightning-layout-item>
-                <lightning-layout-item size="8">
-                    <article class="slds-tile slds-media">
-                        <div class="slds-media__figure">
-                            <lightning-icon icon-name="standard:portal" size="medium"></lightning-icon>
-                        </div>
-                        <div class="slds-media__body">
-                            <h3 class="slds-tile__title slds-truncate slds-text-title_caps">Portal Info</h3>
-                            <div class="slds-tile__detail">
-                                <template for:each={communityInfoItems} for:item="item">
-                                    <dl key={item.name} class="slds-list_horizontal slds-wrap">
-                                        <dt class="slds-item_label slds-text-color_weak slds-truncate">{item.name}:</dt>
-                                        <dd class="slds-item_detail slds-truncate">
-                                            <template lwc:if={item.isCheckbox}>
-                                                <lightning-input type="checkbox" checked={item.value} disabled></lightning-input>
-                                            </template>
-                                            <template lwc:else>{item.value}</template>
-                                        </dd>
-                                    </dl>
-                                </template>
-                            </div>
-                        </div>
-                    </article>
+                <lightning-layout-item size="12">
+                    <c-stats label="Portal Info" value={communityInfoStats} icon-name="standard:portal"></c-stats>
                 </lightning-layout-item>
             </lightning-layout>
         </template>

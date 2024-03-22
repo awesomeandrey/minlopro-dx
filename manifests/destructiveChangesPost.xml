@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+<!--    <types>-->
+<!--        <members>DigEx_DigEx_Navigation_Items_Set_Authenticated</members>-->
+<!--        <members>DigEx_Navigation_Items_Set</members>-->
+<!--        <name>NavigationMenu</name>-->
+<!--    </types>-->
+    <types>
+        <members>DigEx_Org_Limits</members>
+        <members>DigEx_Practical_Guide_To_EC</members>
+        <members>DigEx_Task_Detail</members>
+        <members>DigEx_Task_List</members>
+        <members>DigEx_Task_Related_List</members>
+        <members>DigEx_Google_Maps</members>
+        <name>FlexiPage</name>
+    </types>
     <version>58.0</version>
 </Package>

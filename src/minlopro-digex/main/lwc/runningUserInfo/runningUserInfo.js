@@ -18,6 +18,20 @@ export default class RunningUserInfo extends NavigationMixin(LightningElement) {
         return isEmpty(this.userInfoItems) || isEmpty(this.communityInfoItems);
     }
 
+    get userInfoStats() {
+        return this.userInfoItems.reduce((acc, { name, value }) => {
+            acc[name] = value;
+            return acc;
+        }, {});
+    }
+
+    get communityInfoStats() {
+        return this.communityInfoItems.reduce((acc, { name, value }) => {
+            acc[name] = value;
+            return acc;
+        }, {});
+    }
+
     async connectedCallback() {
         const [error, result = []] = await to(getUserInfoByIdApex({ userId: $UserId }));
         if (isNotEmpty(error)) {

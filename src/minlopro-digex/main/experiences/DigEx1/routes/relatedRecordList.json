@@ -8,5 +8,5 @@
   "pageAccess" : "UseParent",
   "routeType" : "relatedlist",
   "type" : "route",
-  "urlPrefix" : "relatedlist"
+  "urlPrefix" : "s/relatedlist"
 }
