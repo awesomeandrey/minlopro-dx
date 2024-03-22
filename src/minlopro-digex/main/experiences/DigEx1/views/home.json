@@ -7,20 +7,10 @@
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
-        "label" : "Preferred Language",
-        "pickerAlignment" : "left"
+        "richTextValue" : "<p style=\"text-align: center;\"><strong style=\"font-size: 20px;\">Hi there! Welcome to my first Experience Cloud implementation!</strong></p>"
       },
-      "componentName" : "forceCommunity:languageSelector43",
-      "id" : "314f39ad-604a-4921-9b83-570b8fe7abf2",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "richTextValue" : "<p>Hi there! Welcome to my first Experience Cloud implementation!</p>"
-      },
-      "componentName" : "forceCommunity:htmlBlock",
-      "id" : "504d3196-8c94-4a2c-a7d1-c0d2a09d8f36",
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "6053d20c-67fd-447e-b288-a98911079bc0",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -30,20 +20,6 @@
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:currencyRollupTab",
-      "id" : "8c2a0c5b-aca0-477a-a02d-790a4561ab91",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : { },
-      "componentName" : "c:runningUserInfoGenerator",
-      "id" : "eef51d45-ef83-4dcf-884e-a4d9a42b25a7",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
       "componentAttributes" : {
         "config" : {
           "contentItemContentKey" : "MCZ5FTE3B525HXNFQ3OISFQIO3DY",

@@ -7,5 +7,5 @@
   "label" : "Create Record",
   "routeType" : "createrecord",
   "type" : "route",
-  "urlPrefix" : "createrecord"
+  "urlPrefix" : "s/createrecord"
 }

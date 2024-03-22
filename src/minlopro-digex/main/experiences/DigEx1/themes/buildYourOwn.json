@@ -127,7 +127,7 @@
     "type" : "view"
   }, {
     "componentAttributes" : {
-      "menuApiName" : "DigEx_Navigation_Items_Set"
+      "menuApiName" : "DigEx_Navigation"
     },
     "componentName" : "c:minloproThemeLayout",
     "id" : "a2f03780-9265-4bd9-9da3-779808f7f34a",

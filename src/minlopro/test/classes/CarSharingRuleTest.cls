@@ -14,7 +14,7 @@ private class CarSharingRuleTest {
         Id testCarId = null;
         // Create 'Car__c' record on behalf of Regular User (sharing rule should not be triggered yet);
         System.runAs(regularUser) {
-            Car__c testCar = new Car__c(Brand__c = 'AUDI', SharedWith__c = null);
+            Car__c testCar = new Car__c(Brand__c = 'AUDI');
             insert testCar;
             testCarId = testCar.Id;
         }

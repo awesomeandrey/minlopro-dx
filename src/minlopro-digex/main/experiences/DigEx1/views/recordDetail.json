@@ -5,53 +5,6 @@
   "id" : "37260f70-cb78-4dd1-9169-619cd3d32e63",
   "label" : "Record Detail",
   "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:runningUserInfo",
-      "id" : "14c204d5-31df-4d44-a419-c0b4aa886bf3",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "canChangeSorting" : true,
-        "defaultFilter" : "",
-        "defaultSortOrderHomeFeed" : "Relevance",
-        "defaultSortOrderTopicsFeed" : "Relevance",
-        "feedDesign" : "DEFAULT",
-        "hasFeedSearch" : true,
-        "subjectId" : "{!recordId}",
-        "type" : "UserProfile"
-      },
-      "componentName" : "forceCommunity:forceCommunityFeed",
-      "id" : "3dfb5303-1377-4f1a-a6ba-91f3cf8feb2e",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "bannerBackgroundColor" : "",
-        "bannerPosition" : "top",
-        "bannerSizePercent" : 35,
-        "borderRadius" : 20,
-        "boxShadow" : true,
-        "haveBanner" : false,
-        "iconBackgroundColor" : "rgb(255,255,255)",
-        "iconSize" : "medium",
-        "noImageColor" : "rgb(212, 212, 212)",
-        "overlay" : "rgba(0,0,0,0.01)",
-        "templateType" : "default",
-        "tileMenuEditor" : "DigEx_Navigation_Items_Set",
-        "titleColor" : "",
-        "titleFontSize" : "medium",
-        "titleHorizontalAlign" : "center"
-      },
-      "componentName" : "community_navigation:tileMenu",
-      "id" : "6a50dc04-3237-4b4f-8d50-494358e5e064",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "259e6635-f2ac-4c1b-9eae-07aca123bc00",
     "regionName" : "header",
     "type" : "region"
@@ -107,7 +60,7 @@
     "regionName" : "sfdcHiddenRegion",
     "type" : "region"
   } ],
-  "themeLayoutType" : "Inner",
+  "themeLayoutType" : "BIGuMbINxUUPKhG01SUcMMJNvZRHRb",
   "type" : "view",
   "viewType" : "detail"
 }

@@ -8,5 +8,5 @@
   "pageAccess" : "UseParent",
   "routeType" : "global-search",
   "type" : "route",
-  "urlPrefix" : "global-search"
+  "urlPrefix" : "s/global-search"
 }

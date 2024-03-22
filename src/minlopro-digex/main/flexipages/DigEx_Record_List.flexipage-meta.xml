@@ -55,7 +55,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tileMenuEditor</name>
-                    <value>DigEx_Navigation_Items_Set</value>
+                    <value>DigEx_Navigation</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>titleColor</name>

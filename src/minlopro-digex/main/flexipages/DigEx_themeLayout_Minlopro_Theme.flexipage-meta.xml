@@ -127,7 +127,7 @@
         <name>minloproThemeLayout</name>
         <properties>
             <name>menuApiName</name>
-            <value>DigEx_Navigation_Items_Set</value>
+            <value>DigEx_Navigation</value>
         </properties>
     </template>
     <type>CommThemeLayoutPage</type>
