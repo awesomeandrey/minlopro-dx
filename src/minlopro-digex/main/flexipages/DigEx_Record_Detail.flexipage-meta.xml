@@ -4,12 +4,6 @@
         <appendable>enabled</appendable>
         <itemInstances>
             <componentInstance>
-                <componentName>runningUserInfo</componentName>
-                <identifier>runningUserInfo</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
                 <componentInstanceProperties>
                     <name>canChangeSorting</name>
                     <value>true</value>

@@ -12,7 +12,7 @@
             </div>
             <div class="slds-col slds-size_1-of-1 slds-small-size_1-of-2 slds-medium-size_4-of-12">
                 <div class="slds-m-around_x-small">
-                    <c:runningUserInfo />
+                    <c:digExRunningUserInfo />
                 </div>
             </div>
         </div>

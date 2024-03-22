@@ -8,9 +8,23 @@
                         <p class="slds-truncate" title={entryItem.content}>{entryItem.content}</p>
                     </template>
                     <template lwc:if={entryItem.isValue}>
-                        <p class="slds-truncate" title={entryItem.content}>{entryItem.content}</p>
+                        <template lwc:if={entryItem.isBoolean}>
+                            <div class="slds-checkbox">
+                                <input lwc:if={entryItem.content} type="checkbox" checked />
+                                <input lwc:else type="checkbox" />
+                                <label class="slds-checkbox__label">
+                                    <span class="slds-checkbox_faux"></span>
+                                </label>
+                            </div>
+                        </template>
+                        <template lwc:elseif={entryItem.isUrl}>
+                            <span class="slds-truncate slds-text-link" title={entryItem.content}>{entryItem.content}</span>
+                        </template>
+                        <template lwc:else>
+                            <span class="slds-truncate" title={entryItem.content}>{entryItem.content}</span>
+                        </template>
                         <a
-                            lwc:if={entryItem.hasContent}
+                            lwc:if={entryItem.canCopy}
                             href="javascript:void(0)"
                             class="slds-text-link"
                             data-value={entryItem.content}

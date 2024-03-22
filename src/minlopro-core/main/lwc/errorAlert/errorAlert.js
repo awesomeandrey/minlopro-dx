@@ -93,6 +93,15 @@ export default class ErrorAlert extends LightningElement {
         return this.hasError ? errorTemplate : emptyTemplate;
     }
 
+    renderedCallback() {
+        if (this.hasError) {
+            console.group(`${this.constructor.name}.js`);
+            console.error('Error occurred!');
+            console.table(cloneObject(this.errorObj));
+            console.groupEnd();
+        }
+    }
+
     handleToggleShowMore() {
         this.refs.detailsPanel.classList.toggle($EXPANDED_CLASSNAME);
     }

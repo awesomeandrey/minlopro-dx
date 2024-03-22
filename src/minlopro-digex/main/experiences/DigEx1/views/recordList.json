@@ -5,14 +5,6 @@
   "id" : "a0872646-dbd5-4a40-971e-b501c78bf090",
   "label" : "Record List",
   "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:runningUserInfo",
-      "id" : "1670c14f-71e2-4a38-afd9-24d4f8effceb",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "ef81019c-2951-4248-8675-19882ff964b7",
     "regionName" : "header",
     "type" : "region"
