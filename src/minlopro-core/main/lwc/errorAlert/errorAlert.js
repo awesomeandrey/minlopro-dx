@@ -63,8 +63,12 @@ export default class ErrorAlert extends LightningElement {
         return this.errorObj.message;
     }
 
+    get hasCode() {
+        return isNotEmpty(this.code);
+    }
+
     get code() {
-        return this.errorObj.code || 'Unknown';
+        return this.errorObj.code;
     }
 
     get details() {

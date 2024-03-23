@@ -1,6 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
 import { isNotEmpty, parseError } from 'c/utilities';
+import { PageReference } from 'c/digExUtil';
 import toastify from 'c/toastify';
 
 // Apex;
@@ -10,7 +11,7 @@ import getNavigationMenuItemsApex from '@salesforce/apex/NavigationMenuItemsCont
 import $IsGuestUser from '@salesforce/user/isGuest';
 import $BasePath from '@salesforce/community/basePath';
 
-export default class NavigationBar extends NavigationMixin(LightningElement) {
+export default class DigExNavigationBar extends NavigationMixin(LightningElement) {
     @api menuApiName;
 
     @track currentUrlPath = '/';
@@ -67,7 +68,6 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
         } else {
             this.siteState = 'Live';
         }
-        console.log('>>> Wired CurrentPageReference', currentPageReference);
         // Update current URL path;
         // https://...site.com/digex/s/org-limits -> /org-limits
         this.currentUrlPath = window.location.pathname.replace($BasePath, '');
@@ -83,7 +83,6 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
             toastify.error({ message }, this);
             return;
         }
-        console.log('>>> Wired Data', data);
         this.navigationItems = (data || []).map((_) => ({
             id: `${_.Target}:${_.Type}`,
             label: _.Label,
@@ -116,10 +115,12 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
 
     handleNavigateLogin(event) {
         event.preventDefault();
-        this.navigate({
-            type: 'Event',
-            target: 'login'
-        });
+        this[NavigationMixin.Navigate](PageReference.Login);
+    }
+
+    handleNavigateLogout(event) {
+        event.preventDefault();
+        this[NavigationMixin.Navigate](PageReference.Logout, true);
     }
 
     navigate(navigationItem) {
@@ -130,7 +131,8 @@ export default class NavigationBar extends NavigationMixin(LightningElement) {
             this.pageReference = {
                 type: 'standard__objectPage',
                 attributes: {
-                    objectApiName: target
+                    objectApiName: target,
+                    actionName: 'list'
                 },
                 state: {
                     filterName: defaultListViewId

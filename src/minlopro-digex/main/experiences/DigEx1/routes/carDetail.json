@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "f1a29ba9-6020-415d-a0a0-01881eea056e",
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "configurationTags" : [ ],
+  "devName" : "Car_Detail__c",
+  "id" : "51933273-2f0e-489b-8704-2634bf18c891",
+  "label" : "Car Detail",
+  "objectApiName" : "Car__c",
+  "routeType" : "detail-a00",
+  "type" : "route",
+  "urlPrefix" : "car"
+}

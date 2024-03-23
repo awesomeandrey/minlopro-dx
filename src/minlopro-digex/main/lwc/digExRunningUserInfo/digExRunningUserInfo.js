@@ -1,10 +1,10 @@
 import { LightningElement, track } from 'lwc';
 import { cloneObject, isEmpty, isNotEmpty, parseError, to } from 'c/utilities';
+import { AuthConfig, getAuthConfigs } from 'c/digExUtil';
 import toastify from 'c/toastify';
 
 // Apex;
 import getUserInfoByIdApex from '@salesforce/apex/SystemInfoController.getUserInfoById';
-import getAuthConfigurationApex from '@salesforce/apex/SystemInfoController.getAuthConfiguration';
 
 // Props;
 import $UserId from '@salesforce/user/Id';
@@ -43,13 +43,13 @@ export default class DigExRunningUserInfo extends LightningElement {
         await this.composeUserInfo(cloneObject(result));
 
         // Pull auth configurations;
-        [error, result = []] = await to(getAuthConfigurationApex());
+        [error, result = []] = await to(getAuthConfigs());
         if (isNotEmpty(error)) {
             const { message } = parseError(error);
             toastify.error({ message }, this);
             return;
         }
-        await this.composePortalInfo(cloneObject(result));
+        await this.composePortalInfo(result);
     }
 
     errorCallback(error, stack) {
@@ -73,10 +73,10 @@ export default class DigExRunningUserInfo extends LightningElement {
 
     async composePortalInfo(authConfigs) {
         this.communityInfoItems = [
-            { name: 'Username/Password Enabled', value: authConfigs['usernamePasswordEnabled'] },
-            { name: 'Self Registration Enabled', value: authConfigs['selfRegistrationEnabled'] },
-            { name: 'Self Registration URL', value: authConfigs['selfRegistrationUrl'] },
-            { name: 'Forgot Password URL', value: authConfigs['forgotPasswordUrl'] }
+            { name: 'Username/Password Enabled', value: authConfigs[AuthConfig.UsernamePasswordEnabled] },
+            { name: 'Self Registration Enabled', value: authConfigs[AuthConfig.SelfRegistrationEnabled] },
+            { name: 'Self Registration URL', value: authConfigs[AuthConfig.SelfRegistrationUrl] },
+            { name: 'Forgot Password URL', value: authConfigs[AuthConfig.ForgotPasswordUrl] }
         ];
     }
 }

@@ -8,7 +8,7 @@
                     label="Username"
                     type="text"
                     value={username}
-                    disabled={loading}
+                    disabled={disableLogin}
                     required
                     onchange={handleUsernameChange}
                 ></lightning-input>
@@ -17,16 +17,26 @@
                     label="Password"
                     type="password"
                     value={password}
-                    disabled={loading}
+                    disabled={disableLogin}
                     required
                     onchange={handlePasswordChange}
                 ></lightning-input>
                 <div lwc:if={hasError} class="slds-m-top_small">
                     <c-error-alert value={error}></c-error-alert>
                 </div>
-                <div class="slds-m-top_small">
-                    <lightning-button variant="brand" label="Login" disabled={loading} onclick={handleLogin}></lightning-button>
-                </div>
+                <lightning-layout class="slds-m-top_small" vertical-align="center" horizontal-align="spread">
+                    <lightning-layout-item>
+                        <lightning-button
+                            variant="brand"
+                            label="Login"
+                            disabled={disableLogin}
+                            onclick={handleLogin}
+                        ></lightning-button>
+                    </lightning-layout-item>
+                    <lightning-layout-item lwc:if={selfRegistrationEnabled}>
+                        <a href={selfRegistrationUrl} class="slds-text-link slds-text-link_reset">Register</a>
+                    </lightning-layout-item>
+                </lightning-layout>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>

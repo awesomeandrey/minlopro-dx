@@ -1,0 +1,66 @@
+{
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "f1a29ba9-6020-415d-a0a0-01881eea056e",
+  "label" : "Car Detail",
+  "regions" : [ {
+    "id" : "414aebf7-5237-4055-9198-f13319e35d59",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "recordId" : "{!recordId}"
+      },
+      "componentName" : "forceCommunity:recordHeadline",
+      "id" : "f150eebb-6bf3-40c0-b70e-454fc939cd9f",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : {
+        "detailsTabLabel" : "Details",
+        "discussionsTabLabel" : "Feed",
+        "recordId" : "{!recordId}",
+        "relatedTabLabel" : "Related",
+        "showLegacyActivityComposer" : false,
+        "tab1Type" : "details",
+        "tab2Type" : "related",
+        "tab3Type" : "chatter",
+        "tab4Type" : "none",
+        "timelineTabLabel" : "Activity"
+      },
+      "componentName" : "forceCommunity:recordHomeTabs",
+      "id" : "94f3c0ab-9240-4d9b-91dc-21cf98e4d6b2",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "b46229a2-f547-4ddf-94d4-48e020ceec86",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "937630ae-c331-4227-aeb4-4e5face93835",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "{!Record._Object}: {!Record._Title}"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "30179311-ac8d-4adb-a6dc-3230c60f28dc",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "2ecc1048-8c07-4da4-ac31-82cd212971c2",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "BIGuMbINxUUPKhG01SUcMMJNvZRHRb",
+  "type" : "view",
+  "viewType" : "detail-a00"
+}
