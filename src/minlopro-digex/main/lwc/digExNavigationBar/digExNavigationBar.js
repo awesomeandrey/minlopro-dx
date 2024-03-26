@@ -62,7 +62,7 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
 
     @wire(CurrentPageReference)
     wireCurrentPageReference(currentPageReference) {
-        const app = currentPageReference && currentPageReference.state && currentPageReference.state.app;
+        const app = currentPageReference?.state?.app;
         if (app === 'commeditor') {
             this.siteState = 'Draft';
         } else {
@@ -70,7 +70,7 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
         }
         // Update current URL path;
         // https://...site.com/digex/s/org-limits -> /org-limits
-        this.currentUrlPath = window.location.pathname.replace($BasePath, '');
+        // this.currentUrlPath = window.location.pathname.replace($BasePath, '');
     }
 
     @wire(getNavigationMenuItemsApex, {
