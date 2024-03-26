@@ -2,7 +2,7 @@
 <Network xmlns="http://soap.sforce.com/2006/04/metadata">
     <allowInternalUserLogin>true</allowInternalUserLogin>
     <allowMembersToFlag>false</allowMembersToFlag>
-    <allowedExtensions>jpg,doc,txt,pdf</allowedExtensions>
+    <allowedExtensions>jpg,doc,txt,pdf,png</allowedExtensions>
     <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
     <communityRoles />
     <disableReputationRecordConversations>false</disableReputationRecordConversations>
