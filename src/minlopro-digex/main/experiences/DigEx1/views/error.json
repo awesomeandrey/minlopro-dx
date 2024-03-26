@@ -11,7 +11,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<p style=\"text-align: center;\">Invalid Page</p><p style=\"text-align: center;\">Error Occurred</p>"
+        "richTextValue" : "<p style=\"text-align: center;\">Invalid Page</p><p style=\"text-align: center;\">Error Occurred</p><p style=\"text-align: center;\">Please report a case</p>"
       },
       "componentName" : "forceCommunity:richTextInline",
       "id" : "9d3211a2-121b-4da5-a5e2-b73ae775bb8c",

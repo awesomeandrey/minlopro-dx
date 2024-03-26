@@ -63,8 +63,12 @@ export default class ErrorAlert extends LightningElement {
         return this.errorObj.message;
     }
 
+    get hasCode() {
+        return isNotEmpty(this.code);
+    }
+
     get code() {
-        return this.errorObj.code || 'Unknown';
+        return this.errorObj.code;
     }
 
     get details() {
@@ -91,6 +95,15 @@ export default class ErrorAlert extends LightningElement {
 
     render() {
         return this.hasError ? errorTemplate : emptyTemplate;
+    }
+
+    renderedCallback() {
+        if (this.hasError) {
+            console.group(`${this.constructor.name}.js`);
+            console.error('Error occurred!');
+            console.table(cloneObject(this.errorObj));
+            console.groupEnd();
+        }
     }
 
     handleToggleShowMore() {

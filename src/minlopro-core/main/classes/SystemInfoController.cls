@@ -65,4 +65,21 @@ public without sharing class SystemInfoController {
             throw new AuraHandledException(exceptionDetails);
         }
     }
+
+    @AuraEnabled
+    public static Map<String, Object> getAuthConfiguration() {
+        try {
+            Id networkId = Network.getNetworkId();
+            Auth.AuthConfiguration authConfig = new Auth.AuthConfiguration(networkId, '');
+            return new Map<String, Object>{
+                'usernamePasswordEnabled' => authConfig.getUsernamePasswordEnabled(),
+                'selfRegistrationEnabled' => authConfig.getSelfRegistrationEnabled(),
+                'selfRegistrationUrl' => authConfig.getSelfRegistrationUrl(),
+                'forgotPasswordUrl' => authConfig.getForgotPasswordUrl()
+            };
+        } catch (Exception ex) {
+            Logger.error(ex);
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
 }

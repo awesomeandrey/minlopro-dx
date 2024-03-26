@@ -11,16 +11,9 @@
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
-        <label>Search</label>
-        <position>2</position>
-        <publiclyAvailable>false</publiclyAvailable>
-        <target>/s/global-search/search</target>
-        <type>InternalLink</type>
-    </navigationMenuItem>
-    <navigationMenuItem>
         <defaultListViewId>All</defaultListViewId>
         <label>Available Cars</label>
-        <position>3</position>
+        <position>2</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>Car__c</target>
         <type>SalesforceObject</type>

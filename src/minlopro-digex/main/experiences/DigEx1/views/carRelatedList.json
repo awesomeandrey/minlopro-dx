@@ -1,0 +1,39 @@
+{
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "224c3ddb-aae1-440e-875d-81df7a711b47",
+  "label" : "Car Related List",
+  "regions" : [ {
+    "id" : "68dfa0e9-4851-4993-8997-cffd9513de53",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customTitle" : "",
+        "parentRecordId" : "{!recordId}",
+        "relatedListName" : "{!relationshipApiName}",
+        "showBreadCrumbs" : true,
+        "showCustomTitle" : false,
+        "showManualRefreshButton" : true,
+        "showRowNumbers" : true
+      },
+      "componentName" : "forceCommunity:relatedList",
+      "id" : "47126c11-9a59-4e55-b6ee-4c2977ed52b9",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "66408ad7-0f12-4bcb-9158-484758a61aa5",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "3280a7b4-6202-44b6-be21-9f3683944ba4",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "BIGuMbINxUUPKhG01SUcMMJNvZRHRb",
+  "type" : "view",
+  "viewType" : "relatedlist-a00"
+}

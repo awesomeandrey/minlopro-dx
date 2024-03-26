@@ -11,9 +11,19 @@ export default class Stats extends LightningElement {
         return Object.entries(this.value)
             .map(([key, value]) => {
                 let endsWithPunctuationCharacters = /.*\W+$/.test(key);
+                let isBoolean = typeof value === 'boolean';
+                let isUrl = this.isUrl(value);
+                let canCopy = isNotEmpty(value) && !isBoolean;
                 return [
                     { isKey: true, id: uniqueId(), content: endsWithPunctuationCharacters ? key : `${key}:` },
-                    { isValue: true, id: uniqueId(), hasContent: isNotEmpty(value), content: value }
+                    {
+                        isValue: true,
+                        id: uniqueId(),
+                        content: value,
+                        canCopy,
+                        isBoolean,
+                        isUrl
+                    }
                 ];
             })
             .flat(Infinity);
@@ -29,5 +39,10 @@ export default class Stats extends LightningElement {
             let { message } = parseError(error);
             $Toastify.error({ message });
         }
+    }
+
+    isUrl(value) {
+        const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+        return urlPattern.test(value);
     }
 }
