@@ -7,7 +7,7 @@
     "ActionColor" : "#2574A9",
     "BorderColor" : "rgb(151, 219, 62)",
     "CardBackgroundColor" : "rgba(255, 255, 255, 0)",
-    "CompanyLogo" : "/file-asset/Minlopro_App_Logomin?v=1&height=300&width=300",
+    "CompanyLogo" : "/file-asset/Minlopro_App_Logomin?v=1&amp;height=300&amp;width=300",
     "DetailTextColor" : "rgb(153, 42, 42)",
     "ErrorFontColor" : "#ff9e9e",
     "HeaderFonts" : "Montserrat",
