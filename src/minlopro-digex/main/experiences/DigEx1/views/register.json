@@ -6,6 +6,13 @@
   "label" : "Register",
   "regions" : [ {
     "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:digExRegisterForm",
+      "id" : "1e1a0d29-9e78-441a-a830-b29eb1d8021e",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
       "componentAttributes" : {
         "confirmPasswordLabel" : "Confirm Password",
         "emailLabel" : "Email",

@@ -5,6 +5,11 @@
 <!--        <members>DigEx_Navigation_Items_Set</members>-->
 <!--        <name>NavigationMenu</name>-->
 <!--    </types>-->
+<!--    <types>-->
+<!--        <members>navigationBar</members>-->
+<!--        <members>runningUserInfo</members>-->
+<!--        <name>LightningComponentBundle</name>-->
+<!--    </types>-->
     <types>
         <members>DigEx_Org_Limits</members>
         <members>DigEx_Practical_Guide_To_EC</members>

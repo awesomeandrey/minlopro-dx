@@ -1,0 +1,41 @@
+<template>
+    <lightning-card>
+        <lightning-layout horizontal-align="center">
+            <lightning-layout-item class="form">
+                <p class="slds-text-title_caps">Registration Form</p>
+                <lightning-input
+                    lwc:ref="firstnameInput"
+                    label="First Name"
+                    type="text"
+                    value={firstName}
+                    onchange={handleFirstnameChange}
+                    required
+                ></lightning-input>
+                <lightning-input
+                    lwc:ref="lastnameInput"
+                    label="Last Name"
+                    type="text"
+                    value={lastName}
+                    onchange={handleLastnameChange}
+                    required
+                ></lightning-input>
+                <lightning-input
+                    lwc:ref="emailInput"
+                    label="Email"
+                    type="email"
+                    value={userEmail}
+                    onchange={handleEmailChange}
+                    required
+                ></lightning-input>
+                <div lwc:if={hasError} class="slds-m-top_small">
+                    <c-error-alert value={error}></c-error-alert>
+                </div>
+                <lightning-layout class="slds-m-top_small" vertical-align="center" horizontal-align="spread">
+                    <lightning-layout-item>
+                        <lightning-button variant="brand" label="Sign Up" onclick={handleSignUp}></lightning-button>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

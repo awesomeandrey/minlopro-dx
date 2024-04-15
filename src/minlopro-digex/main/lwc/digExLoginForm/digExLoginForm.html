@@ -1,0 +1,43 @@
+<template>
+    <lightning-card>
+        <lightning-layout horizontal-align="center">
+            <lightning-layout-item class="form">
+                <p class="slds-text-title_caps">Login Form</p>
+                <lightning-input
+                    lwc:ref="usernameInput"
+                    label="Username"
+                    type="text"
+                    value={username}
+                    disabled={disableLogin}
+                    required
+                    onchange={handleUsernameChange}
+                ></lightning-input>
+                <lightning-input
+                    lwc:ref="passwordInput"
+                    label="Password"
+                    type="password"
+                    value={password}
+                    disabled={disableLogin}
+                    required
+                    onchange={handlePasswordChange}
+                ></lightning-input>
+                <div lwc:if={hasError} class="slds-m-top_small">
+                    <c-error-alert value={error}></c-error-alert>
+                </div>
+                <lightning-layout class="slds-m-top_small" vertical-align="center" horizontal-align="spread">
+                    <lightning-layout-item>
+                        <lightning-button
+                            variant="brand"
+                            label="Login"
+                            disabled={disableLogin}
+                            onclick={handleLogin}
+                        ></lightning-button>
+                    </lightning-layout-item>
+                    <lightning-layout-item lwc:if={selfRegistrationEnabled}>
+                        <a href={selfRegistrationUrl} class="slds-text-link slds-text-link_reset">Register</a>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
