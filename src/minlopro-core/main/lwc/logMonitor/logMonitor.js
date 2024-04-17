@@ -182,7 +182,7 @@ export default class LogMonitor extends LightningElement {
             {
                 fieldName: 'data.Message',
                 label: 'Message',
-                wrapText: false,
+                wrapText: true,
                 iconName: 'utility:apex',
                 visible: true
             },

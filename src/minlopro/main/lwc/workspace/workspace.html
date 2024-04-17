@@ -50,6 +50,9 @@
                 <template lwc:elseif={isApprovalProcessBreakdown}>
                     <c-approval-process-breakdown-tab></c-approval-process-breakdown-tab>
                 </template>
+                <template lwc:elseif={isKeysetPagination}>
+                    <c-keyset-pagination-tab></c-keyset-pagination-tab>
+                </template>
                 <template lwc:else>
                     <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
                 </template>
