@@ -1,0 +1,45 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-keyset-pagination-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button
+                label="First Page"
+                variant="brand-outline"
+                disabled={isFirstPage}
+                onclick={handleFirstPage}
+            ></lightning-button>
+            <lightning-button label="Prev" variant="neutral" disabled={disablePrev} onclick={handlePrev}></lightning-button>
+            <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+            <lightning-button label="Next" variant="neutral" disabled={disableNext} onclick={handleNext}></lightning-button>
+            <lightning-button
+                label="Last Page"
+                variant="brand-outline"
+                disabled={isLastPage}
+                onclick={handleLastPage}
+            ></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="x-small"></lightning-spinner>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" padding="horizontal-small">
+                <c-datatable
+                    lwc:ref="datatable"
+                    key-field="Id"
+                    data={normalizedRecords}
+                    columns={normalizedColumns}
+                    hide-checkbox-column
+                    show-row-number-column
+                    sorted-by={sortedBy}
+                    sorted-direction={sortedDirection}
+                    row-number-offset={rowNumberOffset}
+                    onsort={handleSort}
+                ></c-datatable>
+            </lightning-layout-item>
+            <lightning-layout-item size="8" padding="around-small">
+                <c-stats label="Stats" icon-name="standard:lead" value={stats}></c-stats>
+                <div class="slds-m-vertical_medium">
+                    <c-error-alert value={error}></c-error-alert>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

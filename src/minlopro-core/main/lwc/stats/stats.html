@@ -10,8 +10,8 @@
                     <template lwc:if={entryItem.isValue}>
                         <template lwc:if={entryItem.isBoolean}>
                             <div class="slds-checkbox">
-                                <input lwc:if={entryItem.content} type="checkbox" checked />
-                                <input lwc:else type="checkbox" />
+                                <input lwc:if={entryItem.content} type="checkbox" checked disabled />
+                                <input lwc:else type="checkbox" disabled />
                                 <label class="slds-checkbox__label">
                                     <span class="slds-checkbox_faux"></span>
                                 </label>

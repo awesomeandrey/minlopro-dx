@@ -11,6 +11,7 @@
         "DebugApex",
         "DefaultWorkflowUser",
         "EnableSetPasswordInApi",
+        "SecurityEventEnabled",
         "FieldAuditTrail",
         "ForceComPlatform",
         "Knowledge",

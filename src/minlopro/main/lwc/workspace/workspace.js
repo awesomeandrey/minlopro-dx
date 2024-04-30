@@ -11,6 +11,7 @@ const $ModalDemo = 'lwcModalDemo';
 const $FilesManager = 'filesManager';
 const $LeadsManager = 'leadsManager';
 const $ApprovalProcess = 'approvalProcessBreakdown';
+const $KeysetPagination = 'keysetPagination';
 
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
@@ -30,7 +31,8 @@ export default class Workspace extends LightningElement {
             { label: 'LWC Modal Demo', name: $ModalDemo, iconName: 'utility:preview', visible: true },
             { label: 'Files Manager', name: $FilesManager, iconName: 'utility:share_file', visible: IS_FILES_MANAGER },
             { label: 'Leads Conversion', name: $LeadsManager, iconName: 'utility:lead', visible: IS_LEADS_MANAGER },
-            { label: 'Approval Process Breakdown', name: $ApprovalProcess, iconName: 'utility:approval', visible: true }
+            { label: 'Approval Process Breakdown', name: $ApprovalProcess, iconName: 'utility:approval', visible: true },
+            { label: 'Keyset Pagination', name: $KeysetPagination, iconName: 'utility:breadcrumbs', visible: true }
         ]
             .map((tabInfo) => {
                 tabInfo.label = this.doCollapseTabs ? '' : tabInfo.label;
@@ -74,6 +76,10 @@ export default class Workspace extends LightningElement {
 
     get isApprovalProcessBreakdown() {
         return this.selectedTabName === $ApprovalProcess;
+    }
+
+    get isKeysetPagination() {
+        return this.selectedTabName === $KeysetPagination;
     }
 
     get lc_selectedTabName() {
