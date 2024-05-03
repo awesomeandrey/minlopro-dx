@@ -81,9 +81,8 @@ public with sharing class LogsMonitorPanelController {
             }
             return settingBySetupOwnerId.values();
         } catch (Exception ex) {
-            String exceptionDetails = Exceptions.getDetails(ex).toString();
-            Logger.error(exceptionDetails);
-            throw new AuraHandledException(exceptionDetails);
+            Logger.error(ex);
+            throw new AuraHandledException(Exceptions.getDetails(ex).toString());
         }
     }
 }

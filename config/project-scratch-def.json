@@ -36,6 +36,9 @@
         "currencySettings": {
             "enableMultiCurrency": true
         },
+        "deploymentSettings": {
+            "doesSkipAsyncApexValidation": true
+        },
         "experienceBundleSettings": {
             "enableExperienceBundleMetadata": true
         },
