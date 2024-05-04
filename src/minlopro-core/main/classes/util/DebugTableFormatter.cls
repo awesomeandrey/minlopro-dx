@@ -76,7 +76,7 @@ public without sharing class DebugTableFormatter {
             Map<String, String> recordAsMap = new Map<String, String>();
             Map<String, Object> sObjectAsMap = sObjectItem.getPopulatedFieldsAsMap();
             for (String fieldName : this.fieldNames) {
-                recordAsMap.put(fieldName, '' + sObjectAsMap.get(fieldName));
+                recordAsMap.put(fieldName, this.getFieldValue(sObjectItem, fieldName));
             }
             records.add(recordAsMap);
         }
@@ -94,5 +94,30 @@ public without sharing class DebugTableFormatter {
             }
         }
         return value;
+    }
+
+    private String getFieldValue(SObject record, String fieldApiPath) {
+        // Validate input
+        if (record == null || String.isEmpty(fieldApiPath)) {
+            return null;
+        }
+        // Split the field path into parts to handle nested fields
+        List<String> pathParts = fieldApiPath.split('\\.');
+        Object currentObject = record;
+        // Navigate through the nested fields using getPopulatedFieldsAsMap
+        for (String part : pathParts) {
+            if (currentObject instanceof SObject) {
+                Map<String, Object> populatedFields = ((SObject) currentObject).getPopulatedFieldsAsMap();
+                currentObject = populatedFields.get(part);
+                if (currentObject == null) {
+                    break; // Stop if no value is found at the current level
+                }
+            } else {
+                // If the current part of the path is not an SObject, and more path parts remain, it's a broken path
+                return null;
+            }
+        }
+        // Return the final value as a string if it's not null
+        return currentObject != null ? String.valueOf(currentObject) : null;
     }
 }

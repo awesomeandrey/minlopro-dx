@@ -4,6 +4,10 @@
         <apexClass>LogsMonitorPanelController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>LoggerCleanupBatch</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customSettingAccesses>
         <enabled>true</enabled>
         <name>LoggerSettings__c</name>
