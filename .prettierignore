@@ -9,6 +9,10 @@
 **/documents/
 **/email/
 
+# CRM Analytics (Wave files)
+.wdf
+.wdpr
+
 # Static assets folder
 assets/
 
