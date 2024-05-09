@@ -2,6 +2,6 @@
 <WaveDataset xmlns="http://soap.sforce.com/2006/04/metadata">
     <application>Minlopro_DX_Analytics</application>
     <description>Created from the Recipe_CollectOppsWithAccounts recipe.</description>
-    <masterLabel>Opportunities With Accounts</masterLabel>
+    <masterLabel>OppsWithAccounts</masterLabel>
     <type>default</type>
 </WaveDataset>
