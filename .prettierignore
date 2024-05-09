@@ -1,4 +1,4 @@
-# SFDX folders
+# General Salesforce Medatada & Components
 **/certs/
 **/contentassets/
 **/digitalExperiences
@@ -8,10 +8,7 @@
 **/staticresources/
 **/documents/
 **/email/
-
-# CRM Analytics (Wave files)
-.wdf
-.wdpr
+**/wave/
 
 # Static assets folder
 assets/

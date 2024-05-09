@@ -1,15 +1,18 @@
-# Salesforce medatada & components
+# General Salesforce Medatada & Components
 **/appMenus
 **/customindex
+**/samlssoconfigs
+**/profiles/Admin.profile-meta.xml
 **/profilePasswordPolicies
 **/profileSessionSettings
-**/samlssoconfigs
 
-# DigEx portal related metadata items;
-**/audience/Default_DigEx.audience-meta.xml
-**/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
-**/profiles/DigEx Profile.profile-meta.xml
-**/profiles/Admin.profile-meta.xml
+# DigEx Portal (Experience Cloud)
+**/minlopro-digex/audience/Default_DigEx.audience-meta.xml
+**/minlopro-digex/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
+**/minlopro-digex/profiles/DigEx Profile.profile-meta.xml
 
-# LWC Jest tests
+# CRM Analytics (formely known as Wave Analytics)
+**/minlopro-crma
+
+# LWC Jest Tests
 **/__tests__/**

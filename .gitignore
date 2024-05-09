@@ -11,6 +11,8 @@ temp/
 logs/
 retrieved-src/
 manifests/sgd/
+
+# Default SFDX folder for pulled metadata
 **/minlopro-default/main/
 **/minlopro-default/default/
 
