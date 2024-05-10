@@ -2,7 +2,7 @@ import { LightningElement, track, wire } from 'lwc';
 import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 import { updateRecord, getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
-import { cloneObject, parseError } from 'c/utilities';
+import { cloneObject, parseError, resolveRecordId } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 // Apex Controller Methods;
@@ -22,7 +22,7 @@ import $UserId from '@salesforce/user/Id';
 import $IsGuest from '@salesforce/user/isGuest';
 
 export default class CurrencyRollupTab extends LightningElement {
-    @track selectedAccountId = '@SF_SAMPLE_ACCOUNT_ID';
+    @track selectedAccountId = resolveRecordId('@SF_SAMPLE_ACCOUNT_ID');
     @track draftValues = [];
     @track apexRollupToOrgCurrency = 0;
 

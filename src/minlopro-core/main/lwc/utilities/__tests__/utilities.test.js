@@ -133,4 +133,11 @@ describe('Invoke utilities in "minlopro-core.js"', () => {
         expect(debouncedFunction).toHaveBeenCalledTimes(times);
         expect(counter).toEqual(1);
     });
+
+    it('resolveRecordId()', () => {
+        const validRecordId = '0017a00002Y5ac6AAB';
+        const invalidRecordId = 'null';
+        expect($Utils.resolveRecordId(validRecordId)).toEqual(validRecordId);
+        expect($Utils.resolveRecordId(invalidRecordId)).toEqual(null);
+    });
 });

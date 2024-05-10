@@ -3,7 +3,7 @@ import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
 import { createRecord, updateRecord, getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { refreshApex } from '@salesforce/apex';
 import $Toastify from 'c/toastify';
-import { cloneObject, parseError } from 'c/utilities';
+import { cloneObject, parseError, resolveRecordId } from 'c/utilities';
 
 // Apex Controller Methods;
 import findDuplicatesApex from '@salesforce/apex/DuplicatesManagerController.findDuplicates';
@@ -36,7 +36,7 @@ const CONTACT_TEMPLATE = {
  * - create Contact record bypassing duplicate rules
  */
 export default class DuplicatesManagerTab extends LightningElement {
-    @track selectedAccountId = '@SF_SAMPLE_ACCOUNT_ID';
+    @track selectedAccountId = resolveRecordId('@SF_SAMPLE_ACCOUNT_ID');
     @track selectedContactId;
     @track errorObject = null;
     @track contactDraft = { ...CONTACT_TEMPLATE };
