@@ -36,10 +36,10 @@ sf org generate password --target-org "$SCRATCH_ORG_ALIAS"
 # Capture scratch org credentials
 mkdir -p "build"
 orgCredentialsFile="build/$ADMIN_EMAIL-SO.json"
-touch $orgCredentialsFile
+touch "$orgCredentialsFile"
 echo "📜 Scratch Org Credentials"
-sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json >> $orgCredentialsFile
-cat $orgCredentialsFile
+sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json >> "$orgCredentialsFile"
+cat "$orgCredentialsFile"
 
 # Run PRE-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh

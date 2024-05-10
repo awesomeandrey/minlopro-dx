@@ -13,6 +13,8 @@
 
 # CRM Analytics (formely known as Wave Analytics)
 **/minlopro-crma
+**/force__EinsteinAnalyticsPlusAdmin.permissionset-meta.xml
+**/force__EinsteinAnalyticsPlusUser.permissionset-meta.xml
 
 # LWC Jest Tests
 **/__tests__/**

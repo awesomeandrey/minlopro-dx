@@ -1,0 +1,61 @@
+name: Create CRM Analytics Scratch Org 📘
+
+# Trigger Events
+on:
+  workflow_dispatch:
+    inputs:
+      adminEmail:
+        type: string
+        description: "Admin Email Address"
+        required: true
+      purgeOnCreate:
+        type: boolean
+        description: 'Purge On Create?'
+        default: false
+    branches:
+      - main
+      - develop
+
+# Jobs
+jobs:
+  spin-up-crma-scratch-org:
+    runs-on: ubuntu-latest
+    environment: "CRM Analytics DevHub"
+    env:
+      DEV_HUB_AUTH_URL: ${{ secrets.DEV_HUB_AUTH_URL }}
+      SF_ADMIN_EMAIL: ${{ github.event.inputs.adminEmail }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: 'Install Salesforce CLI & Authorize CRM Analytics DevHub Org'
+        run: |
+          bash ./scripts/deploy/build.sh
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
+          sf config set target-dev-hub=DevHub
+      - name: 'Spin Up Brand New CRMA Scratch Org'
+        continue-on-error: true
+        run: |
+          inputsFile="inputs.txt"
+          touch $inputsFile
+          # Dev Hub Alias
+          echo "DevHub" >> $inputsFile
+          # Scratch Org Alias
+          echo "ScratchOrg" >> $inputsFile
+          # Admin Email Address
+          echo "${{github.event.inputs.adminEmail}}" >> $inputsFile
+          # Initiate CRMA scratch org generation
+          bash ./scripts/automations/create_crma_scratch_org.sh < $inputsFile
+      - name: 'Upload Scratch Org Credentials as Artifact'
+        uses: actions/upload-artifact@v4
+        with:
+          name: minlopro-crma-scratch-org-credentials
+          path: |
+            build/*-CRMA-SO.json
+            build/.env
+          if-no-files-found: error
+          retention-days: 5
+      - name: 'Purge Scratch Org'
+        if: ${{ success() && github.event.inputs.purgeOnCreate == 'true' }}
+        run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
