@@ -184,3 +184,12 @@ export function formatLabel() {
 export async function copyToClipboard(textToCopy) {
     return navigator.clipboard.writeText(textToCopy);
 }
+
+export function resolveRecordId(recordId = null) {
+    // Regex pattern to match a 15 or 18 character Salesforce ID;
+    const regex = /^[a-zA-Z0-9]{15}|[a-zA-Z0-9]{18}$/;
+    if (typeof recordId === 'string' && regex.test(recordId)) {
+        return recordId;
+    }
+    return null;
+}

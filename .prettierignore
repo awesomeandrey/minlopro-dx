@@ -1,4 +1,4 @@
-# SFDX folders
+# General Salesforce Medatada & Components
 **/certs/
 **/contentassets/
 **/digitalExperiences
@@ -8,6 +8,7 @@
 **/staticresources/
 **/documents/
 **/email/
+**/wave/
 
 # Static assets folder
 assets/

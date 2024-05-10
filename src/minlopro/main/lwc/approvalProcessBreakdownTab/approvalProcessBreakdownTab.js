@@ -1,6 +1,6 @@
 import { LightningElement, track, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
-import { cloneObject, isEmpty, isEmptyArray, isNotEmpty, parseError } from 'c/utilities';
+import { cloneObject, isEmpty, resolveRecordId } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 // Apex;
@@ -14,7 +14,7 @@ import getProcessInstancesByRecordIdApex from '@salesforce/apex/ApprovalProcessC
 import $UserId from '@salesforce/user/Id';
 
 export default class ApprovalProcessBreakdownTab extends LightningElement {
-    @track selectedOpportunityId = '@SF_SAMPLE_OPPORTUNITY_ID';
+    @track selectedOpportunityId = resolveRecordId('@SF_SAMPLE_OPPORTUNITY_ID');
     @track selectedProcessInstanceId = null;
     @track loading = false;
     @track errorObj = null;

@@ -1,11 +1,11 @@
 import { LightningElement, track } from 'lwc';
-import { cloneObject, uniqueId } from 'c/utilities';
+import { resolveRecordId, uniqueId } from 'c/utilities';
 
 import USER_ID from '@salesforce/user/Id';
 
 // Constants;
-const SAMPLE_ACCOUNT_ID = '@SF_SAMPLE_ACCOUNT_ID';
-const SF_SAMPLE_CONTACT_ID = '@SF_SAMPLE_CONTACT_ID';
+const SAMPLE_ACCOUNT_ID = resolveRecordId('@SF_SAMPLE_ACCOUNT_ID');
+const SAMPLE_CONTACT_ID = resolveRecordId('@SF_SAMPLE_CONTACT_ID');
 
 export default class Playground extends LightningElement {
     @track selectedUserId = USER_ID;
@@ -96,7 +96,7 @@ export default class Playground extends LightningElement {
     get tableData() {
         return [
             {
-                Id: SF_SAMPLE_CONTACT_ID || uniqueId(),
+                Id: SAMPLE_CONTACT_ID || uniqueId(),
                 AccountId: SAMPLE_ACCOUNT_ID,
                 Title: 'Account Executive',
                 Industry__c: 'Technology',

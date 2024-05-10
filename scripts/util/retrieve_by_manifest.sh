@@ -21,4 +21,5 @@ mkdir -p "$targetDirPath"
 sf project retrieve start \
     --manifest "$manifestPath" \
     --target-org "$TARGET_ORG_ALIAS" \
-    --output-dir "$targetDirPath"
+    --output-dir "$targetDirPath" \
+    --ignore-conflicts

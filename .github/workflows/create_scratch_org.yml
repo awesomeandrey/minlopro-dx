@@ -51,7 +51,7 @@ jobs:
         with:
           name: minlopro-scratch-org-credentials
           path: |
-            build/*-SO-credentials.txt
+            build/*-SO.json
             build/.env
           if-no-files-found: error
           retention-days: 5
