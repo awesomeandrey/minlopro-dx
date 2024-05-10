@@ -19,6 +19,8 @@ for `prettier-plugin-apex` to work as expected. Refer to
 this [link](https://medium.com/@bectorhimanshu/how-to-set-java-home-environment-variable-on-macos-x-10-9-or-later-versions-dd4fa6936899)
 for configuring `$JAVA_HOME` environment variable.
 
+Additionally install [`jq`](https://www.baeldung.com/linux/jq-command-json) utility.
+
 Run `bash ./scripts/deploy/build.sh` in order to load project dependencies.
 
 Look through the pre-configured GitHub Workflows/Actions located in `.github/workflows/` folder.

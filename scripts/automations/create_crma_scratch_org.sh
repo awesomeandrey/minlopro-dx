@@ -52,21 +52,8 @@ echo "CRMA username: $SF_USERNAME"
 sf data update record \
   --sobject "User" \
   --where "Username='$SF_USERNAME'" \
-  --values "FirstName='Admin' LastName='CRMA'" \
+  --values "FirstName='Admin' LastName='CRMA' Country='United States'" \
   --target-org "$SCRATCH_ORG_ALIAS"
-
-# Assign 'CRM Analytics Plus' Permission Set License (PSL) to admin user
-sf org assign permsetlicense \
-  --name "CRM Analytics Plus" \
-  --target-org "$SCRATCH_ORG_ALIAS" \
-  --on-behalf-of "$SF_USERNAME"
-
-# Assign CRM Analytics permission sets (OOB/standard ones)
-sf org assign permset \
-  --name "force__EinsteinAnalyticsPlusAdmin" \
-  --name "force__EinsteinAnalyticsPlusUser" \
-  --target-org "$SCRATCH_ORG_ALIAS" \
-  --on-behalf-of "$SF_USERNAME"
 
 # Determine OS and define 'sed' command based on OS
 OS="$(uname)"
@@ -97,11 +84,8 @@ sf org assign permset \
   --target-org "$SCRATCH_ORG_ALIAS" \
   --on-behalf-of "$SF_USERNAME"
 
-# Deploy standard duplicate rules as inactive
-sf project generate manifest \
-  --source-dir "src/minlopro/main/duplicateRules/standard" \
-  --name "manifests/package.xml"
-echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/deploy.sh
+# Deactivate all duplicate rules
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/automations/deactivate_all_duplicate_rules.sh
 
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
