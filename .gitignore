@@ -25,3 +25,4 @@ export.json
 manifests/package.xml
 .env
 .env''
+.forceignore''

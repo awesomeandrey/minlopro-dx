@@ -8,17 +8,21 @@
         "DebugApex",
         "DefaultWorkflowUser",
         "EnableSetPasswordInApi",
-        "EinsteinAnalyticsPlus",
         "MultiCurrency",
         "StateAndCountryPicklist",
-        "StreamingAPI"
+        "StreamingAPI",
+        "AnalyticsAdminPerms",
+        "InsightsPlatform",
+        "EinsteinAnalyticsPlus",
+        "DevelopmentWave",
+        "WavePlatform"
     ],
     "hasSampleData": true,
     "language": "en_US",
     "orgName": "crm-analytics-dx",
     "settings": {
         "analyticsSettings": {
-            "enableAnalyticsSharingEnable": true
+            "enableWaveReplication": true
         },
         "apexSettings": {
             "enableCompileOnDeploy": false,

@@ -9,7 +9,8 @@ update new User(
     UserPreferencesUserDebugModePref = true,
     Country = 'United States',
     UserPermissionsKnowledgeUser = true,
-    ExternalId__c = UserInfo.getUserName()
+    ExternalId__c = UserInfo.getUserName(),
+    UserPreferencesHasSentWarningEmail = true
 );
 User runningUser = [
     SELECT
