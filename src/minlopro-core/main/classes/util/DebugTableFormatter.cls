@@ -74,7 +74,6 @@ public without sharing class DebugTableFormatter {
         List<Map<String, String>> records = new List<Map<String, String>>();
         for (SObject sObjectItem : sObjects) {
             Map<String, String> recordAsMap = new Map<String, String>();
-            Map<String, Object> sObjectAsMap = sObjectItem.getPopulatedFieldsAsMap();
             for (String fieldName : this.fieldNames) {
                 recordAsMap.put(fieldName, this.getFieldValue(sObjectItem, fieldName));
             }
@@ -86,12 +85,11 @@ public without sharing class DebugTableFormatter {
     private String formatColumn(String value, Integer width) {
         value = value != null ? value : '';
         if (value.length() > width) {
-            value = value.substring(0, width - 1) + '~'; // Truncate and add tilde to indicate more content
+            // Trim the value and add ellipsis at the end ('...')
+            value = value.abbreviate(width);
         } else {
             // Pad the string to maintain column width
-            while (value.length() < width) {
-                value += ' ';
-            }
+            value = value.rightPad(width);
         }
         return value;
     }
