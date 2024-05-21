@@ -15,8 +15,8 @@ apexLogsCsvFilePath="$buildFolderName/apex_logs.csv"
 mkdir -p $buildFolderName
 
 sf data query \
-  --target-org $TARGET_ORG_ALIAS \
-  --query "SELECT Id FROM ApexLog" \
+  --target-org "$TARGET_ORG_ALIAS" \
+  --query "SELECT Id FROM ApexLog WHERE LastModifiedDate < LAST_N_DAYS:7" \
   --result-format "csv" > "$apexLogsCsvFilePath"
 
 # Check if there are logs fetched;
