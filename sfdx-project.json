@@ -17,7 +17,6 @@
             "default": true
         }
     ],
-    "pushPackageDirectoriesSequentially": true,
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
