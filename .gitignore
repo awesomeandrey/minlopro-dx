@@ -16,6 +16,9 @@ manifests/sgd/
 **/minlopro-default/main/
 **/minlopro-default/default/
 
+# CRM Analytics
+**/minlopro-crma/.forceignore
+
 # Project files
 *.log
 npm-debug.log*
