@@ -53,18 +53,20 @@ public class TestDataFactory {
         // Create user;
         insert adminUser;
         // Add the user to the corresponding Public Group;
-        GroupMember groupMember = new GroupMember(
-            UserOrGroupId = adminUser.Id,
-            GroupId = PUBLIC_GROUPS_BY_NAME.get(PublicGroup.OrgAdmins).Id
-        );
-        insert groupMember;
+        insert new GroupMember(UserOrGroupId = adminUser.Id, GroupId = PUBLIC_GROUPS_BY_NAME.get(PublicGroup.OrgAdmins).Id);
         // Assign PSG to the user;
         PermissionSetService.getInstance()
-            .enforceAllOrNothing(true)
+            .enforceAllOrNothing(false)
             .assign(
                 adminUser.Id,
                 new Set<String>{ PermissionSetOrPSG.Minlopro_PSG_InternalUser.name(), PermissionSetOrPSG.Minlopro_Admin.name() }
             );
+        // Log info about user;
+        new DebugTableFormatter(
+                Lists.of('Name', 'Profile.Name', 'Profile.UserLicense.Name'),
+                [SELECT Id, Name, Profile.Name, Profile.UserLicense.Name FROM User WHERE Id = :adminUser.Id]
+            )
+            .log('> Test Admin User');
         return adminUser;
     }
 
@@ -76,15 +78,17 @@ public class TestDataFactory {
         // Create user;
         insert regularUser;
         // Add the user to the corresponding Public Group;
-        GroupMember groupMember = new GroupMember(
-            UserOrGroupId = regularUser.Id,
-            GroupId = PUBLIC_GROUPS_BY_NAME.get(PublicGroup.OrgUsers).Id
-        );
-        insert groupMember;
+        insert new GroupMember(UserOrGroupId = regularUser.Id, GroupId = PUBLIC_GROUPS_BY_NAME.get(PublicGroup.OrgUsers).Id);
         // Assign PSG to the user;
         PermissionSetService.getInstance()
-            .enforceAllOrNothing(true)
+            .enforceAllOrNothing(false)
             .assign(regularUser.Id, new Set<String>{ PermissionSetOrPSG.Minlopro_PSG_InternalUser.name() });
+        // Log info about user;
+        new DebugTableFormatter(
+                Lists.of('Name', 'Profile.Name', 'Profile.UserLicense.Name'),
+                [SELECT Id, Name, Profile.Name, Profile.UserLicense.Name FROM User WHERE Id = :regularUser.Id]
+            )
+            .log('> Test Regular User');
         return regularUser;
     }
 
