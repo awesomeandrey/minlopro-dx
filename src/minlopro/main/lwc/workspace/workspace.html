@@ -53,6 +53,9 @@
                 <template lwc:elseif={isKeysetPagination}>
                     <c-keyset-pagination-tab></c-keyset-pagination-tab>
                 </template>
+                <template lwc:elseif={isDragAndDrop}>
+                    <c-drag-and-drop></c-drag-and-drop>
+                </template>
                 <template lwc:else>
                     <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
                 </template>
