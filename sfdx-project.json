@@ -17,11 +17,10 @@
             "default": true
         }
     ],
-    "pushPackageDirectoriesSequentially": true,
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "60.0",
+    "sourceApiVersion": "59.0",
     "replacements": [
         {
             "glob": "src/**",

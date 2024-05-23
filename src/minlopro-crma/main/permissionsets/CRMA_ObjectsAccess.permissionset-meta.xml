@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This is a PS</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.AccountNumber</field>
@@ -435,7 +436,6 @@
         <field>Opportunity.Type</field>
         <readable>true</readable>
     </fieldPermissions>
-    <description>This is a PS</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CRMA - Objects Access</label>
     <objectPermissions>

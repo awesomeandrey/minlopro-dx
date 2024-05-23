@@ -67,7 +67,7 @@ public without sharing class Logger {
             logData.level = level;
             logData.quiddity = Request.getCurrent().getQuiddity();
             logData.stackTrace = captureStackTrace();
-            logData.message = message;
+            logData.message = message.abbreviate(1000);
             logData
                 .addData(
                     'Callouts',
