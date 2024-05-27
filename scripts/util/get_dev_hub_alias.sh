@@ -4,5 +4,5 @@
 # - bash ./scripts/util/get_dev_hub_alias.sh
 # - varName=$(bash ./scripts/util/get_dev_hub_alias.sh)
 
-targetDevHubAlias=$(sf config get target-dev-hub --json | jq -r '.result[0].value')
-echo $targetDevHubAlias
+devHubAlias=$(sf config get target-dev-hub --json | jq -r '.result[0].value')
+echo "$devHubAlias"
