@@ -6,4 +6,4 @@
 
 devHubAlias=$(bash ./scripts/util/get_dev_hub_alias.sh)
 devHubUsername=$(sf org display user --json --target-org="$devHubAlias" | jq -r '.result.username')
-echo $devHubUsername
+echo "$devHubUsername"
