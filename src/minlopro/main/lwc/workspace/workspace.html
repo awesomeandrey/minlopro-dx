@@ -61,5 +61,16 @@
                 </template>
             </div>
         </div>
+        <div slot="footer">
+            <ltngmu-lwc-messaging-utility
+                message-type="alert"
+                icon-name="utility:info"
+                message-body="This component is served from another managed package -> LTNGMU"
+                show-message
+                allow-close
+                show-icon
+            >
+            </ltngmu-lwc-messaging-utility>
+        </div>
     </lightning-card>
 </template>
