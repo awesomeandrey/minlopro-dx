@@ -12,7 +12,7 @@ read -p "🔶 Enter Scratch Org Alias: " TARGET_ORG_ALIAS
 echo "🔵 Deploying CRM Analytics assets to [$TARGET_ORG_ALIAS] org..."
 
 # Cleanup working directory
-rm -rf "build"
+rm -rf "build/minlopro-crma"
 
 # Copy CRMA assets to 'build' folder
 mkdir -p "build"

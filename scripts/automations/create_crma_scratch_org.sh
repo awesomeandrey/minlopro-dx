@@ -50,39 +50,21 @@ echo "CRMA username: $SF_USERNAME"
 
 # Set custom user name
 sf data update record \
-  --sobject "User" \
-  --where "Username='$SF_USERNAME'" \
-  --values "FirstName='Admin' LastName='CRMA' Country='United States'" \
-  --target-org "$SCRATCH_ORG_ALIAS"
-
-# Determine OS and define 'sed' command based on OS
-OS="$(uname)"
-if [[ "$OS" == "Darwin" ]]; then
-    # MacOS
-    echo "SED command is adapted for Mac OS."
-    SED_COMMAND="sed -i '' "
-else
-    # Linux
-    echo "SED command is adapted for Linux OS."
-    SED_COMMAND="sed -i "
-fi
-
-# Make sure that 'minlopro-crma' folder is un-ignored in '.forceignore' file
-$SED_COMMAND '/minlopro-crma/ s/^/#/' ".forceignore"
+    --sobject "User" \
+    --where "Username='$SF_USERNAME'" \
+    --values "FirstName='Admin' LastName='CRMA' Country='United States'" \
+    --target-org "$SCRATCH_ORG_ALIAS"
 
 # Deploy 'minlopro-crma' folder content
-sf project generate manifest \
-  --source-dir "src/minlopro-crma" \
-  --name "manifests/package.xml"
-echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/deploy.sh
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/deploy.sh
 
 # Assign remaining permission sets
 sf org assign permset \
-  --name "CRMA_ObjectsAccess" \
-  --name "CrmAnalyticsAdmin" \
-  --name "CrmAnalyticsUser" \
-  --target-org "$SCRATCH_ORG_ALIAS" \
-  --on-behalf-of "$SF_USERNAME"
+    --name "CRMA_ObjectsAccess" \
+    --name "CrmAnalyticsAdmin" \
+    --name "CrmAnalyticsUser" \
+    --target-org "$SCRATCH_ORG_ALIAS" \
+    --on-behalf-of "$SF_USERNAME"
 
 # Deactivate all duplicate rules
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/automations/deactivate_all_duplicate_rules.sh
