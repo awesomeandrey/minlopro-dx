@@ -2,8 +2,8 @@
 <WaveLens xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <content xsi:nil="true"/>
     <application>Minlopro_DX_Analytics</application>
-    <datasets>OppsWithAccounts</datasets>
+    <datasets>ds_Opportunities</datasets>
     <dateVersion>1</dateVersion>
-    <masterLabel>TopRevenueAccounts</masterLabel>
+    <masterLabel>My Open Opportunities</masterLabel>
     <visualizationType>hbar</visualizationType>
 </WaveLens>

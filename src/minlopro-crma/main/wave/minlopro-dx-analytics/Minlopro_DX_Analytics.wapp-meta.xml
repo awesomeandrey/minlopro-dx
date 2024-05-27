@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WaveApplication xmlns="http://soap.sforce.com/2006/04/metadata">
-    <assetIcon>/analytics/wave/web/proto/images/app/icons/2.png</assetIcon>
+    <assetIcon>/analytics/wave/web/proto/images/app/icons/12.png</assetIcon>
     <description>This is a sample CRM Analytics app.</description>
     <folder>Minlopro_DX_Analytics</folder>
     <masterLabel>Minlopro DX Analytics</masterLabel>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>CRMA_Users</sharedTo>
+        <sharedToType>Group</sharedToType>
+    </shares>
 </WaveApplication>

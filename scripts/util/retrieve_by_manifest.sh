@@ -22,4 +22,5 @@ sf project retrieve start \
     --manifest "$manifestPath" \
     --target-org "$TARGET_ORG_ALIAS" \
     --output-dir "$targetDirPath" \
-    --ignore-conflicts
+    --ignore-conflicts \
+    --wait 15

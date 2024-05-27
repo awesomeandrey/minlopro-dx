@@ -61,8 +61,6 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/deploy.sh
 # Assign remaining permission sets
 sf org assign permset \
     --name "CRMA_ObjectsAccess" \
-    --name "CrmAnalyticsAdmin" \
-    --name "CrmAnalyticsUser" \
     --target-org "$SCRATCH_ORG_ALIAS" \
     --on-behalf-of "$SF_USERNAME"
 
