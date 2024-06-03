@@ -13,10 +13,8 @@ ORG_ALIAS=$(bash ./scripts/util/get_target_org_alias.sh)
 echo "🔵 Creating QA User at [$ORG_ALIAS] organization with [$QA_EMAIL] email..."
 
 # Create QA User;
-qaUserDefFile="config/users/qa-user-def.json"
-profileName="Minlopro User"
-
 sf org create user \
   --target-org "$ORG_ALIAS" \
-  --definition-file "$qaUserDefFile" \
-  email="$QA_EMAIL" profileName="$profileName"
+  --set-alias "$ORG_ALIAS-qa-user" \
+  --definition-file "config/users/qa-user-def.json" \
+  email="$QA_EMAIL"

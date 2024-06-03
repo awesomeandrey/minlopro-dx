@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveXmd xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dataset xsi:nil="true"/>
+    <dimensions>
+        <field>Expected_Revenue_By__1.Account.Industry</field>
+        <isDerived>false</isDerived>
+        <label>Account Industry</label>
+        <sortIndex>0</sortIndex>
+    </dimensions>
+    <dimensions>
+        <defaultAction>openSfdcRecord</defaultAction>
+        <field>Top_Opportunities_1.Name</field>
+        <isDerived>false</isDerived>
+        <label>Opportunity Name</label>
+        <linkTemplateEnabled>true</linkTemplateEnabled>
+        <recordDisplayFields>
+            <recordDisplayField>Name</recordDisplayField>
+            <sortIndex>0</sortIndex>
+        </recordDisplayFields>
+        <recordDisplayFields>
+            <recordDisplayField>StageName</recordDisplayField>
+            <sortIndex>1</sortIndex>
+        </recordDisplayFields>
+        <recordIdField>Id</recordIdField>
+        <salesforceActionsEnabled>false</salesforceActionsEnabled>
+        <sortIndex>1</sortIndex>
+    </dimensions>
+    <dimensions>
+        <field>Top_Opportunities_1.Account.Name</field>
+        <isDerived>false</isDerived>
+        <label>Account Name</label>
+        <sortIndex>2</sortIndex>
+    </dimensions>
+    <dimensions>
+        <field>Top_Opportunities_1.Account.Industry</field>
+        <isDerived>false</isDerived>
+        <label>Account Industry</label>
+        <sortIndex>3</sortIndex>
+    </dimensions>
+    <dimensions>
+        <field>Top_Opportunities_1.Account.Type</field>
+        <isDerived>false</isDerived>
+        <label>Account Type</label>
+        <sortIndex>4</sortIndex>
+    </dimensions>
+    <type>Asset</type>
+    <waveVisualization>Book_Of_Business</waveVisualization>
+</WaveXmd>

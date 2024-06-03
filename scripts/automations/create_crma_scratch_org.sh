@@ -69,3 +69,8 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/automations/deactivate_all_duplicate_
 
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
+
+# Create sample user (manual action -> add CRMA PSL & PS + add to public group)
+sf org create user \
+  --target-org "crma-so-5" \
+  --definition-file "config/users/std-user-def.json"
