@@ -3,5 +3,5 @@
     <content xsi:nil="true"/>
     <application>WAVE_PUBLIC_DATAFLOWS</application>
     <dataflowType>User</dataflowType>
-    <masterLabel>df_OppsWithOwnersAndAccounts</masterLabel>
+    <masterLabel>df_AccountsWithMultiValuedOppsByType</masterLabel>
 </WaveDataflow>

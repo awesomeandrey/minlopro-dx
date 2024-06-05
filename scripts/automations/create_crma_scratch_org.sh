@@ -44,25 +44,11 @@ cat "$orgCredentialsFile"
 # Resolve ".env" file for the scratch org (this properly resolves 'SF_USERNAME' & 'SF_INSTANCE_URL' variables)
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/custom/resolve_env_variables.sh
 
-# Grab newly created scratch org username
-SF_USERNAME=$(bash ./scripts/util/get_target_org_username.sh)
-echo "CRMA username: $SF_USERNAME"
-
-# Set custom user name
-sf data update record \
-    --sobject "User" \
-    --where "Username='$SF_USERNAME'" \
-    --values "FirstName='Admin' LastName='CRMA' Country='United States'" \
-    --target-org "$SCRATCH_ORG_ALIAS"
-
 # Deploy 'minlopro-crma' folder content
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/deploy.sh
 
-# Assign remaining permission sets
-sf org assign permset \
-    --name "CRMA_ObjectsAccess" \
-    --target-org "$SCRATCH_ORG_ALIAS" \
-    --on-behalf-of "$SF_USERNAME"
+# Set up admin user
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_admin_user.sh
 
 # Deactivate all duplicate rules
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/automations/deactivate_all_duplicate_rules.sh
@@ -70,7 +56,5 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/automations/deactivate_all_duplicate_
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
 
-# Create sample user (manual action -> add CRMA PSL & PS + add to public group)
-sf org create user \
-  --target-org "crma-so-5" \
-  --definition-file "config/users/std-user-def.json"
+# Set up standard user
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_std_user.sh
