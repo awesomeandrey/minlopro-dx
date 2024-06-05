@@ -64,5 +64,5 @@
     <recipePreCachingOptOut>true</recipePreCachingOptOut>
     <recipeStagedDataPref>true</recipeStagedDataPref>
     <replaceBlankMeasuresWithNulls>true</replaceBlankMeasuresWithNulls>
-    <turnOnTimeZones>true</turnOnTimeZones>
+    <turnOnTimeZones>false</turnOnTimeZones>
 </AnalyticsSettings>

@@ -1,0 +1,10 @@
+{
+    "Alias": "sdtuser",
+    "FirstName": "John",
+    "LastName": "Doe",
+    "TimeZoneSidKey": "America/Denver",
+    "LocaleSidKey": "en_US",
+    "EmailEncodingKey": "UTF-8",
+    "LanguageLocaleKey": "en_US",
+    "generatePassword": true
+}
