@@ -12,13 +12,22 @@ sf org create user \
   --target-org "$SCRATCH_ORG_ALIAS" \
   --definition-file "config/users/std-user-def.json"
 
-# Fetch standard user ID
-stdUserId=$(sf data get record \
+# Fetch standard user ID/username
+stdUserDef=$(sf data get record \
   --target-org "$SCRATCH_ORG_ALIAS" \
   --sobject "User" \
   --where "Alias='stduser' IsActive=TRUE" \
-  --json | jq -r '.result.Id')
+  --json)
+stdUserId=$(echo "$stdUserDef" | jq -r '.result.Id')
 echo "Standard User ID: $stdUserId"
+stdUserUsername=$(echo "$stdUserDef" | jq -r '.result.Username')
+echo "Standard User Username: $stdUserUsername"
+
+# Assign OOO permission set(s)
+sf org assign permset \
+    --name "EinsteinAnalyticsPlusUser" \
+    --target-org "$SCRATCH_ORG_ALIAS" \
+    --on-behalf-of "$stdUserUsername"
 
 # Fetch 'CRMA_Users' public group ID
 publicGroupId=$(sf data get record \

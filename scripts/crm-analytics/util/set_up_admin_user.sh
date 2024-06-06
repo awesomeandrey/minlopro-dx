@@ -27,7 +27,7 @@ sf data update record \
     --values "FirstName='Admin' LastName='CRMA' Country='United States'" \
     --target-org "$SCRATCH_ORG_ALIAS"
 
-# Assign remaining permission sets
+# Assign custom permission set(s)
 sf org assign permset \
     --name "CRMA_ObjectsAccess" \
     --target-org "$SCRATCH_ORG_ALIAS" \
