@@ -2,17 +2,42 @@
     <lightning-card>
         <span slot="title" class="slds-text-title_caps"><code>c-pdf-lib-demo</code></span>
         <lightning-button-group slot="actions">
+            <lightning-button
+                label="Merge"
+                variant="brand"
+                disabled={doDisableMergeBtn}
+                onclick={handleMergeDocuments}
+            ></lightning-button>
             <lightning-button label="Reset" variant="neutral" onclick={handleReset}></lightning-button>
         </lightning-button-group>
         <lightning-spinner lwc:if={loading} alternative-text="Loading" size="x-small"></lightning-spinner>
-        <lightning-layout>
-            <lightning-layout-item size="4" padding="horizontal-small">
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="6" padding="horizontal-small">
                 <c-stats label="Stats" icon-name="standard:catalog" value={stats}></c-stats>
                 <div class="slds-m-vertical_medium">
                     <c-error-alert value={errorObj}></c-error-alert>
                 </div>
             </lightning-layout-item>
-            <lightning-layout-item size="8" padding="horizontal-small"> </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <c-datatable
+                    lwc:ref="datatable"
+                    key-field="id"
+                    data={documentsData}
+                    columns={documentsColumns}
+                    show-row-number-column
+                    onrowselection={handleSelectDocument}
+                ></c-datatable>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="horizontal-small">
+                <div class="slds-box slds-box_small">
+                    <template lwc:if={filePreviewUrl}>
+                        <iframe src={filePreviewUrl} width="100%" height="500px"></iframe>
+                    </template>
+                    <template lwc:else>
+                        <p>Select PDF documents & run 'Merge' operation.</p>
+                    </template>
+                </div>
+            </lightning-layout-item>
         </lightning-layout>
     </lightning-card>
 </template>

@@ -20,6 +20,7 @@ public inherited sharing class Application {
             ContentDocument.SObjectType => ContentDocumentSelector.class,
             ContentDocumentLink.SObjectType => ContentDocumentLinkSelector.class,
             ContentDistribution.SObjectType => ContentDistributionSelector.class,
+            ContentVersion.SObjectType => ContentVersionSelector.class,
             ContentWorkspace.SObjectType => ContentWorkspaceSelector.class,
             ContentWorkspacePermission.SObjectType => ContentWorkspacePermissionSelector.class,
             Lead.SObjectType => LeadSelector.class,
