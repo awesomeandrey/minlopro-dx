@@ -1,0 +1,29 @@
+<apex:page title="Merged Files Result" readOnly="true" docType="html-5.0">
+    <!--
+        Lightning message service doesn’t work in Visualforce pages
+        that are included in Lightning Experience via iframes, including <wave:dashboard>, <apex:iframe>,
+        and the standard HTML <iframe> tag. Instead, add Visualforce pages through
+        the Lightning App Builder or as a utility bar item.
+        https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/message_channel_considerations.htm
+    -->
+    <script>
+        const lightningDomain = '@SF_INSTANCE_URL'.replace('my.salesforce.com', 'lightning.force.com');
+        window.addEventListener('message', (event) => {
+            const origin = event.origin;
+            if (origin !== lightningDomain) {
+                console.error('PDF preview should be framed within Lightning context only!');
+                return;
+            }
+            const base64EncodedPdfContent = event.data;
+            const iframeElement = document.querySelector('iframe');
+            if (!!base64EncodedPdfContent) {
+                iframeElement.src = 'data:application/pdf;base64,' + base64EncodedPdfContent;
+                iframeElement.style.display = 'block';
+            } else {
+                iframeElement.src = null;
+                iframeElement.style.display = 'none';
+            }
+        });
+    </script>
+    <iframe title="Merged Files Result" width="100%" height="550px"></iframe>
+</apex:page>

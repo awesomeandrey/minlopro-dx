@@ -13,6 +13,7 @@ const $LeadsManager = 'leadsManager';
 const $ApprovalProcess = 'approvalProcessBreakdown';
 const $KeysetPagination = 'keysetPagination';
 const $DragAndDrop = 'Drag&Drop';
+const $PdfLibDemo = 'PDF-Lib';
 
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
@@ -34,7 +35,8 @@ export default class Workspace extends LightningElement {
             { label: 'Leads Conversion', name: $LeadsManager, iconName: 'utility:lead', visible: IS_LEADS_MANAGER },
             { label: 'Approval Process Breakdown', name: $ApprovalProcess, iconName: 'utility:approval', visible: true },
             { label: 'Keyset Pagination', name: $KeysetPagination, iconName: 'utility:breadcrumbs', visible: true },
-            { label: 'Drag & Drop', name: $DragAndDrop, iconName: 'utility:drag', visible: true }
+            { label: 'Drag & Drop', name: $DragAndDrop, iconName: 'utility:drag', visible: true },
+            { label: 'PDF-Lib Demo', name: $PdfLibDemo, iconName: 'utility:pdf_ext', visible: true }
         ]
             .map((tabInfo) => {
                 tabInfo.label = this.doCollapseTabs ? '' : tabInfo.label;
@@ -86,6 +88,10 @@ export default class Workspace extends LightningElement {
 
     get isDragAndDrop() {
         return this.selectedTabName === $DragAndDrop;
+    }
+
+    get isPdfLibDemo() {
+        return this.selectedTabName === $PdfLibDemo;
     }
 
     get lc_selectedTabName() {
