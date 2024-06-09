@@ -18,7 +18,8 @@ touch "src/minlopro-crma/.forceignore"
 sf project retrieve start \
   --target-org "$TARGET_ORG_ALIAS" \
   --source-dir "src/minlopro-crma" \
-  --ignore-conflicts
+  --ignore-conflicts \
+  --wait 15
 
 # Remove CRMA ignore file in order to let standard SF CLI push/pull commands ignore WAVE metadata
 rm -f "src/minlopro-crma/.forceignore"
