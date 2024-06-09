@@ -6,7 +6,7 @@
     </applicationVisibilities>
     <classAccesses>
         <apexClass>PdfLibDemoController</apexClass>
-        <enabled>true </enabled>
+        <enabled>true</enabled>
     </classAccesses>
     <description>Grants access to Minlopro app and its features.</description>
     <fieldPermissions>
@@ -274,6 +274,10 @@
         <recordType>PersonAccount.PersonAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <pageAccesses>
+        <apexPage>PdfPreview</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
     <tabSettings>
         <tab>Workspace</tab>
         <visibility>Visible</visibility>

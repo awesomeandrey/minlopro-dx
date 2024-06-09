@@ -1,6 +1,5 @@
 import { LightningElement, track, wire } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
-import { deleteRecord } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 import { isNotEmpty, isEmpty, cloneObject } from 'c/utilities';
@@ -10,13 +9,11 @@ import $PdfLibResource from '@salesforce/resourceUrl/pdfLib';
 
 // Apex Controller Methods;
 import getPdfFilesApex from '@salesforce/apex/PdfLibDemoController.getPdfFiles';
-import saveFileApex from '@salesforce/apex/PdfLibDemoController.saveFile';
 
 export default class PdfLibDemo extends NavigationMixin(LightningElement) {
     @track pdfLibInstance = null;
     @track selectedDocuments = [];
-    @track filePreviewUrl = null;
-    @track fileDocumentId = null;
+    @track mergedPdfAsBase64 = null;
     @track loading = false;
     @track errorObj = null;
 
@@ -50,11 +47,7 @@ export default class PdfLibDemo extends NavigationMixin(LightningElement) {
     }
 
     get doDisableMergeBtn() {
-        return this.selectedDocuments.length < 2 || !this.pdfLibInstance;
-    }
-
-    get doDisableDownloadBtn() {
-        return isEmpty(this.filePreviewUrl) || !this.pdfLibInstance;
+        return this.selectedDocuments.length < 1 || !this.pdfLibInstance;
     }
 
     get hasErrors() {
@@ -66,13 +59,16 @@ export default class PdfLibDemo extends NavigationMixin(LightningElement) {
             'PDF-Lib Loaded': !!this.pdfLibInstance,
             'Files Amount': this.documentsData.length,
             'Selected Files Amount': this.selectedDocuments.length,
-            'File Preview URL': this.filePreviewUrl,
             'Has Errors': this.hasErrors
         };
     }
 
     get $datatable() {
         return this.refs.datatable;
+    }
+
+    get $iframe() {
+        return this.refs.iframe;
     }
 
     @wire(getPdfFilesApex)
@@ -97,8 +93,8 @@ export default class PdfLibDemo extends NavigationMixin(LightningElement) {
     }
 
     handleSelectDocument(event) {
-        const selectedRows = event.detail.selectedRows;
-        this.selectedDocuments = selectedRows.map(({ id, name, base64Encoded }) => ({ id, name, base64Encoded }));
+        const { selectedRows = [] } = event.detail;
+        this.selectedDocuments = selectedRows.map((_) => ({ ..._ }));
     }
 
     async handleMergeDocuments(event) {
@@ -116,8 +112,8 @@ export default class PdfLibDemo extends NavigationMixin(LightningElement) {
             }
             const mergedPdfBytes = await mergedPdf.save();
 
-            // Save newly generated Blob as a file;
-            const mergedPdfAsBase64 = await ((byteArray) => {
+            // Cast to Base64 encoded string;
+            this.mergedPdfAsBase64 = await ((byteArray) => {
                 return new Promise((resolve, reject) => {
                     const blob = new Blob([byteArray], { type: 'application/pdf' });
                     const reader = new FileReader();
@@ -130,36 +126,31 @@ export default class PdfLibDemo extends NavigationMixin(LightningElement) {
                     reader.readAsDataURL(blob);
                 });
             })(mergedPdfBytes);
-            const { Id: fileId, ContentDocumentId: fileDocumentId } = await saveFileApex({ base64Encoded: mergedPdfAsBase64 });
-            this.fileDocumentId = fileDocumentId;
-            console.log(`Id = ${fileId} and ContentDocumentId = ${fileDocumentId}`);
-
-            // Generate preview URL pointing to the file;
-            this.filePreviewUrl = await this[NavigationMixin.GenerateUrl]({
-                type: 'standard__namedPage',
-                attributes: { pageName: 'filePreview' },
-                state: { recordIds: fileDocumentId }
-            });
-            console.log('Preview Url', this.filePreviewUrl);
+            // Pass Base64 encoded PDF file to custom Visualforce page;
+            this.postMessageToIframe(this.mergedPdfAsBase64);
         } catch (error) {
             this.errorObj = error;
-            this.filePreviewUrl = null;
         } finally {
             this.loading = false;
         }
     }
 
     async handleReset(event) {
-        this.selectedDocuments = [];
-        this.filePreviewUrl = null;
-        this.errorObj = null;
+        this.postMessageToIframe(null);
         this.$datatable.selectedRows = [];
+        this.selectedDocuments = [];
+        this.errorObj = null;
+        this.mergedPdfAsBase64 = null;
         this.loading = true;
-        if (isNotEmpty(this.fileDocumentId)) {
-            await deleteRecord(this.fileDocumentId);
-            this.fileDocumentId = null;
-        }
         await refreshApex(this.wiredPdfFiles);
         this.loading = false;
+    }
+
+    // Service methods;
+
+    postMessageToIframe(message) {
+        // The origin validity is verified at Visualforce page level;
+        const targetOrigin = '*';
+        this.$iframe.contentWindow.postMessage(message, targetOrigin);
     }
 }

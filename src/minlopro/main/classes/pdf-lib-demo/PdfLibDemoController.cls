@@ -7,7 +7,7 @@ public with sharing class PdfLibDemoController {
     public static List<PdfLibDemoController.Document> getPdfFiles() {
         try {
             List<PdfLibDemoController.Document> documentDtos = new List<PdfLibDemoController.Document>();
-            for (ContentVersion cvRecord : cvSelector.selectByTypeWithLimit(Lists.of('PDF'), 5)) {
+            for (ContentVersion cvRecord : cvSelector.selectByTypeWithLimit(Lists.of('PDF'), 7)) {
                 PdfLibDemoController.Document documentDto = new PdfLibDemoController.Document();
                 documentDto.id = cvRecord.Id;
                 documentDto.name = cvRecord.Title;
@@ -16,23 +16,6 @@ public with sharing class PdfLibDemoController {
                 documentDtos.add(documentDto);
             }
             return documentDtos;
-        } catch (Exception ex) {
-            Logger.error(ex);
-            throw new AuraHandledException(ex.getMessage());
-        }
-    }
-
-    @AuraEnabled
-    public static ContentVersion saveFile(String base64Encoded) {
-        try {
-            ContentVersion cv = new ContentVersion(
-                Title = 'Merged Files Result',
-                PathOnClient = 'merged_files_result.pdf',
-                VersionData = EncodingUtil.base64Decode(base64Encoded),
-                IsMajorVersion = true
-            );
-            insert cv;
-            return (ContentVersion) cvSelector.selectSObjectsById(Sets.of(cv.Id))[0];
         } catch (Exception ex) {
             Logger.error(ex);
             throw new AuraHandledException(ex.getMessage());
