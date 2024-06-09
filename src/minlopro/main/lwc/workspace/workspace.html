@@ -56,6 +56,9 @@
                 <template lwc:elseif={isDragAndDrop}>
                     <c-drag-and-drop></c-drag-and-drop>
                 </template>
+                <template lwc:elseif={isPdfLibDemo}>
+                    <c-pdf-lib-demo></c-pdf-lib-demo>
+                </template>
                 <template lwc:else>
                     <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
                 </template>

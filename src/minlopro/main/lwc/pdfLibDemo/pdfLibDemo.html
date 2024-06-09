@@ -1,0 +1,18 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-pdf-lib-demo</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Reset" variant="neutral" onclick={handleReset}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="x-small"></lightning-spinner>
+        <lightning-layout>
+            <lightning-layout-item size="4" padding="horizontal-small">
+                <c-stats label="Stats" icon-name="standard:catalog" value={stats}></c-stats>
+                <div class="slds-m-vertical_medium">
+                    <c-error-alert value={errorObj}></c-error-alert>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="8" padding="horizontal-small"> </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
