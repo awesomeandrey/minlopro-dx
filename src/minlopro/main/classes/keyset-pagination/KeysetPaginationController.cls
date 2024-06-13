@@ -14,6 +14,11 @@ public with sharing class KeysetPaginationController {
 
     @AuraEnabled
     public static List<Contact> getContactRecords(QueryRequest queryRequest) {
+        /**
+         * TODO - switch to 'Database.Cursor' when it becomes GA:
+         * - https://salesforceable.medium.com/apex-cursors-enhancing-soql-query-processing-27c59403efe1
+         * - https://help.salesforce.com/s/articleView?id=release-notes.rn_apex_ApexCursors.htm&release=250&type=5
+         */
         try {
             return queryRequest.fetch();
         } catch (Exception ex) {

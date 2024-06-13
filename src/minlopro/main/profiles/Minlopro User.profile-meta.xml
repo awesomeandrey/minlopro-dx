@@ -42,4 +42,8 @@
         <layout>User-User Layout</layout>
     </layoutAssignments>
     <userLicense>Salesforce</userLicense>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>LightningExperienceUser</name>
+    </userPermissions>
 </Profile>

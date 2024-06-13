@@ -10,6 +10,9 @@ import $PdfLibResource from '@salesforce/resourceUrl/pdfLib';
 // Apex Controller Methods;
 import getPdfFilesApex from '@salesforce/apex/PdfLibDemoController.getPdfFiles';
 
+/**
+ * Originally inspired by https://automationchampion.com/2024/05/27/a-step-by-step-guide-to-merging-and-displaying-pdfs-in-salesforce-2
+ */
 export default class PdfLibDemo extends NavigationMixin(LightningElement) {
     @track pdfLibInstance = null;
     @track selectedDocuments = [];
