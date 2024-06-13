@@ -258,6 +258,10 @@
         <object>Opportunity</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <pageAccesses>
+        <apexPage>PdfPreview</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
     <recordTypeVisibilities>
         <recordType>Account.Company</recordType>
         <visible>true</visible>
@@ -274,12 +278,12 @@
         <recordType>PersonAccount.PersonAccount</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
-    <pageAccesses>
-        <apexPage>PdfPreview</apexPage>
-        <enabled>true</enabled>
-    </pageAccesses>
     <tabSettings>
         <tab>Workspace</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>standard-report</tab>
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
@@ -289,6 +293,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>EmailSingle</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ExportReport</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
