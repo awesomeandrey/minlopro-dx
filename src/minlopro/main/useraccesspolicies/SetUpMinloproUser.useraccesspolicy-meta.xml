@@ -8,6 +8,11 @@
     <triggerType>CreateAndUpdate</triggerType>
     <userAccessPolicyActions>
         <action>Grant</action>
+        <target>OrgUsers</target>
+        <type>Group</type>
+    </userAccessPolicyActions>
+    <userAccessPolicyActions>
+        <action>Grant</action>
         <target>Minlopro_PSG_InternalUser</target>
         <type>PermissionSetGroup</type>
     </userAccessPolicyActions>
