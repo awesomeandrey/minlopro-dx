@@ -10,7 +10,7 @@ echo "🔵 Purging Apex Logs from [$TARGET_ORG_ALIAS] organization..."
 
 # Define constants;
 buildFolderName="build"
-apexLogsCsvFilePath="$buildFolderName/apex_logs.csv"
+apexLogsCsvFilePath="$buildFolderName/apex_logs_to_delete.csv"
 
 mkdir -p $buildFolderName
 
@@ -21,7 +21,7 @@ sf data query \
 
 # Check if there are logs fetched;
 wordsCount=$(wc -w < $apexLogsCsvFilePath)
-if (($wordsCount < 10)); then
+if (("$wordsCount" < 10)); then
   echo 'There are not so many Apex Logs to delete so far.'
   echo
   rm $apexLogsCsvFilePath
