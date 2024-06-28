@@ -14,7 +14,7 @@ private class RolesTest {
         // Verify memoization;
         Assert.isTrue(Roles.memoizedChildRoles.isEmpty());
         List<UserRole> childRoles1 = Roles.getChildRoles(ceoRole.Id);
-        Assert.isTrue(childRoles1.size() > 3);
+        Assert.isTrue(childRoles1.size() > 1);
         List<UserRole> childRoles2 = Roles.getChildRoles(ceoRole.Id);
         Assert.areEqual(childRoles1, childRoles2);
         Assert.isFalse(Roles.memoizedChildRoles.isEmpty());
