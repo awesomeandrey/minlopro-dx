@@ -21,6 +21,7 @@ public without sharing class Roles {
         set;
     }
     // Memoization technique;
+    @TestVisible
     private static final Map<Id, List<UserRole>> memoizedChildRoles = new Map<Id, List<UserRole>>();
 
     // Public API;
