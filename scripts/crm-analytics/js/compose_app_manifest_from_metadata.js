@@ -74,7 +74,7 @@ const main = async () => {
                 return str;
             })
             .join('\n');
-        str += '\n<version>59.0</version>';
+        str += '\n<version>60.0</version>';
         str += '\n</Package>';
 
         // Write to file
