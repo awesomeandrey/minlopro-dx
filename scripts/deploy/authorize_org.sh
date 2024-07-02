@@ -45,6 +45,7 @@ sf org login sfdx-url \
   --sfdx-url-file $sfAuthUrlFile \
   --alias "$orgAlias" \
   --set-default
+sf org list auth
 
 # Purge file with SFDX url;
 rm -rf "$sfAuthUrlFile"

@@ -39,7 +39,7 @@ sf --version
 # Install SF CLI plugins
 echo 'Installing SF CLI plugins...'
 # https://github.com/scolladon/sfdx-git-delta
-echo y | sf plugins:install "sfdx-git-delta@stable"
+echo y | sf plugins:install "sfdx-git-delta@latest"
 if [ "$INSTALL_ALL_MODULES" = true ]; then
   # https://help.sfdmu.com/get-started
   echo y | sf plugins:install "sfdmu"

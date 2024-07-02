@@ -59,7 +59,9 @@
         "userManagementSettings": {
             "enableEnhancedPermsetMgmt": true,
             "enableEnhancedProfileMgmt": true,
-            "enableNewProfileUI": true
+            "enableNewProfileUI": true,
+            "enableEnhcUiUserAccessPolicies": true,
+            "userAccessPoliciesEnabled": true
         }
     }
 }
