@@ -181,7 +181,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Lead Record Page</masterLabel>
+    <masterLabel>Lead Default Page</masterLabel>
     <parentFlexiPage>runtime_sales_lead__Lead_rec_L</parentFlexiPage>
     <sobjectType>Lead</sobjectType>
     <template>
