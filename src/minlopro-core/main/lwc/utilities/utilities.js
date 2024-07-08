@@ -193,3 +193,16 @@ export function resolveRecordId(recordId = null) {
     }
     return null;
 }
+
+export async function readFileAsBlob(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            resolve(new Blob([reader.result], { type: file.type }));
+        };
+        reader.onerror = (error) => {
+            reject(error);
+        };
+        reader.readAsArrayBuffer(file);
+    });
+}

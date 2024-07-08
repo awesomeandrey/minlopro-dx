@@ -102,7 +102,7 @@ export class FixedDropdownMonitor {
         }
         // Launch interval check;
         this.checkIntervalId = setInterval(() => {
-            this.log('running interval function...');
+            this.log('Running interval function...');
             const inputRect = this.$input?.getBoundingClientRect();
             if (inputRect.top !== this.originalInputRect.top || inputRect.left !== this.originalInputRect.left) {
                 this.hideDropdown();

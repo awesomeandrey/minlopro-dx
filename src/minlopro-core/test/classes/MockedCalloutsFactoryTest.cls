@@ -2,7 +2,7 @@
 private class MockedCalloutsFactoryTest {
     private static final String HTTP_METHOD_GET = 'GET';
     private static final String HTTP_METHOD_POST = 'POST';
-    private static final String HTTP_REQUEST_URL = 'https://test.salesforce.com';
+    private static final String HTTP_REQUEST_URL = 'https://login.salesforce.com';
 
     @IsTest
     static void verifyCalloutMocks() {
