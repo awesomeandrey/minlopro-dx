@@ -7,10 +7,13 @@
         https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/message_channel_considerations.htm
     -->
     <script>
-        const lightningDomain = '@SF_INSTANCE_URL'.replace('my.salesforce.com', 'lightning.force.com');
+        const allowedOrigins = [
+            new URL(document.referrer).origin, // e.g. "https://connect-innovation-7252-dev-ed.scratch.lightning.force.com"
+            window.location.origin // e.g. "https://connect-innovation-7252-dev-ed--c.scratch.vf.force.com"
+        ];
         window.addEventListener('message', (event) => {
-            const origin = event.origin;
-            if (origin !== lightningDomain) {
+            const eventOrigin = event.origin;
+            if (!allowedOrigins.includes(eventOrigin)) {
                 console.error('PDF preview should be framed within Lightning context only!');
                 return;
             }
