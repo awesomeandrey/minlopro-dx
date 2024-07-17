@@ -32,7 +32,6 @@ echo "🔵 Deploying to [$TARGET_ORG_ALIAS] organization..."
 npx dotenv -e ".env" -- sf project deploy start \
   --target-org "$TARGET_ORG_ALIAS" \
   --manifest "$packageXml" \
-  --purge-on-delete \
   --pre-destructive-changes "$preDestructiveChangesXml" \
   --post-destructive-changes "$postDestructiveChangesXml" \
   --verbose \

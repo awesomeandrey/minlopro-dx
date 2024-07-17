@@ -1,0 +1,55 @@
+<template>
+    <lightning-card title="OCR File Upload" icon-name="custom:custom14">
+        <lightning-button-group slot="actions">
+            <lightning-button label="Reset" variant="neutral" onclick={handleReset}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={doShowSpinner} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item flexibility="no-grow" padding="around-small">
+                <lightning-input
+                    type="file"
+                    label="Upload Image or PDF"
+                    accept={acceptedFormats}
+                    multiple
+                    onchange={handleFilesUpload}
+                ></lightning-input>
+                <iframe lwc:ref="ocrIframe" src="/apex/TesseractVF" style="display: none"></iframe>
+                <c-pdf-to-png-converter lwc:ref="pdfConverter"></c-pdf-to-png-converter>
+                <div class="slds-m-top_small">
+                    <lightning-button
+                        variant="neutral"
+                        label="Recognize Text"
+                        onclick={handleRecognizeText}
+                        disabled={doDisableBtn}
+                    ></lightning-button>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="8" padding="around-small">
+                <p lwc:if={files.length} class="slds-text-title">Recognized Text</p>
+                <template for:each={files} for:item="file">
+                    <div key={file.id} class="slds-box slds-box_x-small slds-size_4-of-4 slds-m-vertical_x-small">
+                        <div class="slds-media">
+                            <div class="slds-media__body">
+                                <span class="slds-text-title_bold">{file.name}</span><code>({file.id})</code>
+                                <p lwc:if={file.result} class="slds-text-body_regular slds-text-color_weak">
+                                    <code>Status</code>:&nbsp;{file.result.status}
+                                </p>
+                                <p lwc:if={file.result} class="slds-text-body_regular slds-text-color_weak">
+                                    <code>Text</code>:&nbsp;{file.result.text}
+                                </p>
+                                <p lwc:if={file.result} class="slds-text-body_regular slds-text-color_weak">
+                                    <code>Error Message</code>:&nbsp;<span class="slds-text-color_error"
+                                        >{file.result.errorMessage}</span
+                                    >
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+                <c-error-alert value={error}></c-error-alert>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

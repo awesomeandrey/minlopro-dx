@@ -59,6 +59,9 @@
                 <template lwc:elseif={isPdfLibDemo}>
                     <c-pdf-lib-demo></c-pdf-lib-demo>
                 </template>
+                <template lwc:elseif={isOcrDemo}>
+                    <c-ocr-demo></c-ocr-demo>
+                </template>
                 <template lwc:else>
                     <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
                 </template>

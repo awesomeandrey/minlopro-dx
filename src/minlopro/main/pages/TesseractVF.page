@@ -1,0 +1,50 @@
+<apex:page>
+    <apex:includeScript value="{!$Resource.TesseractJs}" />
+    <script>
+        function hasInitializedTesseractJsLib() {
+            return typeof window['Tesseract'] !== 'undefined';
+        }
+
+        async function recognizeText(fileAsBlob) {
+            const worker = await Tesseract.createWorker('eng');
+            let ocrResult = { status: null, text: null };
+            try {
+                const result = await worker.recognize(fileAsBlob);
+                ocrResult = {
+                    status: 'success',
+                    text: result.data.text
+                };
+            } catch (error) {
+                ocrResult = {
+                    status: 'failure',
+                    text: null,
+                    errorMessage: JSON.stringify(error)
+                };
+            } finally {
+                await worker.terminate();
+            }
+            return ocrResult;
+        }
+
+        window.addEventListener('message', async function (event) {
+            // Verify event origin;
+            const referrerOrigin = new URL(document.referrer).origin;
+            const allowedOrigins = [referrerOrigin, window.location.origin];
+            console.log('Allowed Origins:', allowedOrigins);
+            if (!allowedOrigins.includes(event.origin)) {
+                console.warn('Ignoring message from unexpected origin:', event.origin);
+                return;
+            }
+            // Check whether TesseractJs library was loaded;
+            if (!hasInitializedTesseractJsLib()) {
+                console.warn('TesseractJs was not loaded!', window['Tesseract']);
+                return;
+            }
+            // Parse event payload and start processing;
+            const { id, blob } = event.data;
+            const ocrResult = await recognizeText(blob);
+            // Notify origin;
+            window.parent.postMessage({ id, ...ocrResult }, referrerOrigin);
+        });
+    </script>
+</apex:page>

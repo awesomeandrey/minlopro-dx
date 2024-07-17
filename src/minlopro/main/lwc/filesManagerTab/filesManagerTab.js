@@ -255,6 +255,7 @@ export default class FilesManagerTab extends LightningElement {
     async handleRowAction(event) {
         const { action, row } = event.detail;
         this.loading = true;
+        // TODO - memory leak detected?!!
         try {
             if (action.name === 'createPublicLink') {
                 let contentVersionId = row[CD_LATEST_PUBLISHED_VERSION_ID.fieldApiName];
@@ -264,6 +265,7 @@ export default class FilesManagerTab extends LightningElement {
                  * Invoke cURL command in order to download the file from bash:
                  * curl -o 'sf_downloaded_file.png' "{this.contentDistribution.ContentDownloadUrl}"
                  */
+                console.log('end of execution!');
             }
         } catch (error) {
             this.errorObject = cloneObject(error);

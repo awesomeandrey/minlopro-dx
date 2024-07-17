@@ -14,10 +14,12 @@ const $ApprovalProcess = 'approvalProcessBreakdown';
 const $KeysetPagination = 'keysetPagination';
 const $DragAndDrop = 'Drag&Drop';
 const $PdfLibDemo = 'PDF-Lib';
+const $OcrDemo = 'tesseract-js-ocr';
 
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
 import IS_LEADS_MANAGER from '@salesforce/customPermission/IsLeadManager';
+import IS_OCR_USER from '@salesforce/customPermission/IsOcrUser';
 
 export default class Workspace extends LightningElement {
     @track selectedTabName = this.isValidTabName(this.lc_selectedTabName) ? this.lc_selectedTabName : $Playground;
@@ -36,7 +38,8 @@ export default class Workspace extends LightningElement {
             { label: 'Approval Process Breakdown', name: $ApprovalProcess, iconName: 'utility:approval', visible: true },
             { label: 'Keyset Pagination', name: $KeysetPagination, iconName: 'utility:breadcrumbs', visible: true },
             { label: 'Drag & Drop', name: $DragAndDrop, iconName: 'utility:drag', visible: true },
-            { label: 'PDF-Lib Demo', name: $PdfLibDemo, iconName: 'utility:pdf_ext', visible: true }
+            { label: 'PDF-Lib Demo', name: $PdfLibDemo, iconName: 'utility:pdf_ext', visible: true },
+            { label: 'TesseractJS-OCR', name: $OcrDemo, iconName: 'utility:scan', visible: IS_OCR_USER }
         ]
             .map((tabInfo) => {
                 tabInfo.label = this.doCollapseTabs ? '' : tabInfo.label;
@@ -92,6 +95,10 @@ export default class Workspace extends LightningElement {
 
     get isPdfLibDemo() {
         return this.selectedTabName === $PdfLibDemo;
+    }
+
+    get isOcrDemo() {
+        return this.selectedTabName === $OcrDemo;
     }
 
     get lc_selectedTabName() {

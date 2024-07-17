@@ -14,10 +14,6 @@
                 <behavior>Edit</behavior>
                 <field>Brand__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SharedWith__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
