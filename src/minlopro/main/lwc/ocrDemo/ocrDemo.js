@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import { readFileAsBlob, uniqueId, parseError, cloneObject, isNotEmpty, isEmpty } from 'c/utilities';
+import { readFileAsBlob, uniqueId, parseError, cloneObject, isNotEmpty, isEmpty, pipe } from 'c/utilities';
 
 // Originally inspired by https://github.com/mirkomutic/SalesforceOcr
 export default class OcrDemo extends LightningElement {
@@ -54,9 +54,7 @@ export default class OcrDemo extends LightningElement {
             if (uploadedFile.type === 'application/pdf') {
                 // Convert PDF to PNG image(s);
                 let pdfAsPngFiles = await this.$pdfConverter.convert({ file: uploadedFile });
-                pdfAsPngFiles.forEach((_) => {
-                    files.push(this.captureFileInfo(_));
-                });
+                pdfAsPngFiles.forEach(pipe(this.captureFileInfo.bind(this), files.push.bind(files)));
             } else {
                 files.push(this.captureFileInfo(uploadedFile));
             }
