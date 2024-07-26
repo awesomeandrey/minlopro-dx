@@ -40,6 +40,11 @@
                 <default>false</default>
                 <label>Log Entry</label>
             </value>
+            <value>
+                <fullName>BatchApexErrorEvent</fullName>
+                <default>false</default>
+                <label>BatchApexErrorEvent (Platform Event)</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

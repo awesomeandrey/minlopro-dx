@@ -35,6 +35,10 @@ public without sharing class Logger {
         error('', new List<Object>());
     }
 
+    public static void error(String message) {
+        error(message, new List<Object>());
+    }
+
     public static void error(List<Object> values) {
         error('', values);
     }
@@ -42,10 +46,6 @@ public without sharing class Logger {
     public static void error(Exception ex) {
         Map<String, String> exceptionInfo = Exceptions.getDetails(ex);
         error(JSON.serialize(exceptionInfo));
-    }
-
-    public static void error(String message) {
-        error(message, new List<Object>());
     }
 
     public static void error(String message, List<Object> values) {

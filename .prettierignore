@@ -10,7 +10,7 @@
 **/email/
 **/wave/
 **/settings/
-**/dataWeave/
+**/dw/
 
 # Static assets folder
 assets/
