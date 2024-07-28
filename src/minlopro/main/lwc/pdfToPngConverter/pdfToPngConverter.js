@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
-import { isNotEmpty } from 'c/utilities';
+import { isNotEmpty, parseError } from 'c/utilities';
 
 // Static Resources;
 import PDF_JS_ZIP from '@salesforce/resourceUrl/pdfJs';
@@ -59,13 +59,13 @@ export default class PdfToPngConverter extends LightningElement {
                 this.isPdfJsInitialized = isNotEmpty(window['pdfjsLib']);
             })
             .catch((error) => {
-                console.error('Error loading "pdf.js":', error);
                 this.isPdfJsInitialized = false;
+                console.error('Error loading "pdf.js":', parseError(error));
             });
     }
 
     async canvasToPngFile({ canvas, mimeType = 'image/png', fileName }) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             canvas.toBlob((blob) => {
                 if (blob) {
                     resolve(new File([blob], fileName, { type: mimeType }));

@@ -4,7 +4,7 @@ Map<Id, Profile> affectedProfiles = new Map<Id, Profile>(
         SELECT Id, Name
         FROM Profile
         WHERE Name IN ('System Administrator', 'DigEx Profile', 'Minlopro User')
-        LIMIT 10
+        LIMIT 5
     ]
 );
 Map<Id, User> affectedUsers = new Map<Id, User>(
@@ -12,7 +12,7 @@ Map<Id, User> affectedUsers = new Map<Id, User>(
         SELECT Id, Name
         FROM User
         WHERE Alias IN ('autoproc')
-        LIMIT 10
+        LIMIT 1
     ]
 );
 Set<Id> affectedProfilesAndUsers = new Set<Id>();
