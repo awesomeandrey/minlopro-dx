@@ -23,6 +23,6 @@ jobs:
       - name: 'Reset Manifests & Commit Changes'
         run: |
           # Set Git user info (required step)
-          git config --global user.name "${{github.actor}}"
+          git config user.name "${{github.actor}}"
           # Invoke script that resets content of destructive manifests, commits changes & pushes them to remote branch
           bash ./scripts/automations/reset_and_commit_destructive_manifests.sh
