@@ -1,4 +1,4 @@
-public without sharing class LoggerCleanupBatch implements Schedulable, Database.Batchable<LogEntry__c> {
+public without sharing class LoggerCleanupBatch implements Schedulable, Database.Batchable<LogEntry__c>, Database.RaisesPlatformEvents {
     private static final String JOB_NAME = 'Minlopro - Logger Cleanup Batch';
     private static final String CRON_EXP = '0 0 10 * * ?'; // Runs everyday at 10 AM;
 
