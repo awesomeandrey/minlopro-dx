@@ -5,7 +5,7 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
     private final Date deleteBeforeDate;
 
     public LoggerCleanupBatch() {
-        this.deleteBeforeDate = Date.today().addDays(-10);
+        this.deleteBeforeDate = Date.today().addDays(-5);
     }
 
     public LoggerCleanupBatch(Date deleteBeforeDate) {
