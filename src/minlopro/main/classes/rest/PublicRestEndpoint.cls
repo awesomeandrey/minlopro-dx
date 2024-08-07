@@ -17,7 +17,7 @@ global without sharing class PublicRestEndpoint {
      */
     @HttpGet
     global static Map<String, String> doGet() {
-        Logger.debug('Entering Public REST Endpoint');
+        Logger.debug('Entering Public REST Endpoint (GET)');
         Map<String, String> transactionData = new Map<String, String>();
         transactionData.put('message', 'echo');
         transactionData.put('transactionId', Request.getCurrent().getRequestId());
@@ -43,7 +43,38 @@ global without sharing class PublicRestEndpoint {
         transactionData.put('networkId', currentNetwork.Id);
         transactionData.put('networkName', currentNetwork.Name);
         transactionData.put('networkUrlPathPrefix', currentNetwork.UrlPathPrefix);
+        transactionData.put('requestParameters', JSON.serialize(RestContext.request.params));
         Logger.debug('Transaction Data: {0}', Lists.of(JSON.serialize(transactionData)));
         return transactionData;
+    }
+
+    @HttpPost
+    global static void doPost() {
+        RestRequest req = RestContext.request;
+        RestResponse res = RestContext.response;
+        try {
+            Logger.debug('Entering Public REST Endpoint (POST)');
+
+            // Process request;
+            Logger.debug('Request Body = {0}', Lists.of(req.requestBody.toString()));
+            Logger.debug('Request Params = {0}', Lists.of(req.params.toString()));
+
+            // Verify request by key;
+            String verificationKey = req.params.get('verificationKey');
+            Logger.debug('Verifications Key = {0}', Lists.of(verificationKey));
+            if (String.isBlank(verificationKey) || !verificationKey.equals('wow_ooha')) {
+                res.statusCode = 401;
+                res.responseBody = Blob.valueOf('Verification Key is not confirmed!');
+                return;
+            }
+
+            // Redirect to the new URL;
+            res.addHeader('Location', 'https://www.google.com');
+            res.addHeader('http-equiv', 'refresh');
+            res.statusCode = 301;
+        } catch (Exception ex) {
+            Logger.error(ex);
+            res.statusCode = 500;
+        }
     }
 }

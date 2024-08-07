@@ -1,0 +1,49 @@
+<template>
+    <div class="slds-box slds-theme_alert-texture slds-is-relative">
+        <lightning-spinner lwc:if={isProcessing} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+        <lightning-layout multiple-rows="true">
+            <lightning-layout-item size="12" class="slds-text-align_center" padding="around-medium">
+                <lightning-icon
+                    lwc:if={hasError}
+                    icon-name="utility:error"
+                    alternative-text="error"
+                    title="Error"
+                    size="large"
+                    variant="error"
+                ></lightning-icon>
+                <lightning-icon
+                    lwc:if={isProcessing}
+                    icon-name="utility:campaign"
+                    alternative-text="Loading"
+                    title="Loading"
+                    size="large"
+                ></lightning-icon>
+                <lightning-icon
+                    lwc:if={hasProcessed}
+                    icon-name="utility:success"
+                    alternative-text="success"
+                    title="Success"
+                    size="large"
+                    variant="success"
+                ></lightning-icon>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="slds-text-align_center" padding="around-medium">
+                <p class="slds-text-heading_small">{message}</p>
+                <p class="slds-text-body_regular slds-m-top_medium">
+                    URL Parameters: <code class="slds-text-color_weak">{urlParameters}</code>
+                </p>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="slds-text-align_center" padding="around-small">
+                <lightning-button
+                    variant="neutral"
+                    label="Close Page"
+                    disabled={isProcessing}
+                    onclick={handleClosePage}
+                ></lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+    </div>
+    <div lwc:if={hasError} class="slds-m-top_medium">
+        <c-error-alert value={error}></c-error-alert>
+    </div>
+</template>
