@@ -1,11 +1,11 @@
-public without sharing class LoggerCleanupBatch implements Schedulable, Database.Batchable<LogEntry__c> {
+public without sharing class LoggerCleanupBatch implements Schedulable, Database.Batchable<LogEntry__c>, Database.RaisesPlatformEvents {
     private static final String JOB_NAME = 'Minlopro - Logger Cleanup Batch';
     private static final String CRON_EXP = '0 0 10 * * ?'; // Runs everyday at 10 AM;
 
     private final Date deleteBeforeDate;
 
     public LoggerCleanupBatch() {
-        this.deleteBeforeDate = Date.today().addDays(-10);
+        this.deleteBeforeDate = Date.today().addDays(-5);
     }
 
     public LoggerCleanupBatch(Date deleteBeforeDate) {

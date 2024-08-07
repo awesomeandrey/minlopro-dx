@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Person</fullName>
+    <active>true</active>
+    <businessProcess>Minlopro Lead Sales</businessProcess>
+    <label>Person</label>
+    <picklistValues>
+        <picklist>SrcCode__c</picklist>
+        <values>
+            <fullName>pom-max</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

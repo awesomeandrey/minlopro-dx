@@ -9,5 +9,13 @@
         </mappingFields>
         <outputObject>Contact</outputObject>
     </objectMapping>
+    <objectMapping>
+        <inputObject>Lead</inputObject>
+        <mappingFields>
+            <inputField>SrcCode__c</inputField>
+            <outputField>SrcCode__c</outputField>
+        </mappingFields>
+        <outputObject>Opportunity</outputObject>
+    </objectMapping>
     <opportunityCreationOptions>VisibleOptional</opportunityCreationOptions>
 </LeadConvertSettings>
