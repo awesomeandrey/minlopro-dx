@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "90e16ea7-d1e2-4804-a8f6-89b3f64bf032",
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "configurationTags" : [ ],
+  "devName" : "OptInConfirmation__c",
+  "id" : "2bba9317-2ced-4599-8e75-e3cd81329524",
+  "label" : "Opt-In Confirmation",
+  "pageAccess" : "Public",
+  "routeType" : "custom-opt-in-confirmation",
+  "type" : "route",
+  "urlPrefix" : "opt-in-confirmation"
+}
