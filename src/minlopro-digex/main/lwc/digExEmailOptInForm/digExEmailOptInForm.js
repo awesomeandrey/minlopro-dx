@@ -6,7 +6,7 @@ import markAccountAsOptInApex from '@salesforce/apex/DigExOptInController.markAc
 
 // Constants;
 const ACCOUNT_ID_PARAM = 'accountId';
-const SIGNATURE_PARAM = 'sig';
+const MAC_PARAM = 'code';
 
 export default class DigExEmailOptInForm extends LightningElement {
     @track loading = false;
@@ -43,8 +43,8 @@ export default class DigExEmailOptInForm extends LightningElement {
         return this.urlParameters.get(ACCOUNT_ID_PARAM);
     }
 
-    get signature() {
-        return this.urlParameters.get(SIGNATURE_PARAM);
+    get mac() {
+        return this.urlParameters.get(MAC_PARAM);
     }
 
     get urlParameters() {
@@ -56,18 +56,18 @@ export default class DigExEmailOptInForm extends LightningElement {
         try {
             debugger;
             console.log('Account ID', this.accountId);
-            console.log('Signature', this.signature);
+            console.log('Code', this.mac);
             if (isEmpty(this.accountId)) {
                 this.error = { message: 'Account not found!' };
                 return;
             }
-            if (isEmpty(this.signature)) {
+            if (isEmpty(this.mac)) {
                 this.error = { message: 'Signature missing!' };
                 return;
             }
             await waitAsync(2000);
             debugger;
-            const saveResult = await markAccountAsOptInApex({ accountId: this.accountId, signature: this.signature });
+            const saveResult = await markAccountAsOptInApex({ accountId: this.accountId, code: this.mac });
             console.log('SaveResult', saveResult);
             debugger;
             const { success, errorMessage } = JSON.parse(saveResult);

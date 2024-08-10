@@ -37,10 +37,10 @@ public inherited sharing class OptInEmailService {
             // Save as activity item (common error > `saveAsActivity must be false when sending mail to users`)
             emailItem.setSaveAsActivity(true);
             // Build & resolve confirmation page link (with signature!);
-            String signature = this.generateSignature(Blob.valueOf(accountItem.Id));
+            String code = this.generateMac(Blob.valueOf(accountItem.Id));
             String accountConfirmationUrl = String.format(
-                '{0}?accountId={1}&sig={2}',
-                Lists.of(confirmationPageUrl, accountItem.Id, signature)
+                '{0}?accountId={1}&code={2}',
+                Lists.of(confirmationPageUrl, accountItem.Id, code)
             );
             Logger.debug('Account Confirmation URL = {0}', Lists.of(accountConfirmationUrl));
             emailItem.setHtmlBody(emailItem.htmlBody.replace('@OPT_IN_CONFIRMATION_LINK', accountConfirmationUrl));
@@ -49,14 +49,14 @@ public inherited sharing class OptInEmailService {
         return emailMessages;
     }
 
-    public String generateSignature(Blob content) {
-        Blob mac = Crypto.generateMac('hmacMD5', content, Blob.valueOf(this.SIGNATURE_KEY));
+    public String generateMac(Blob content) {
+        Blob mac = Crypto.generateMac('hmacSHA256', content, Blob.valueOf(this.SIGNATURE_KEY));
         return EncodingUtil.convertToHex(mac);
     }
 
-    public Boolean verifySignature(Blob content, String signatureToVerify) {
-        String computedSignature = this.generateSignature(content);
-        return signatureToVerify.equals(computedSignature);
+    public Boolean verifyMac(Blob content, String macToCheck) {
+        String computedSignature = this.generateMac(content);
+        return macToCheck.equals(computedSignature);
     }
 
     private String resolveOptInPageUrl() {

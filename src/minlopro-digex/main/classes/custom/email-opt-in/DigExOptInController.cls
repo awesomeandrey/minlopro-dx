@@ -10,10 +10,10 @@ public without sharing class DigExOptInController {
     );
 
     @AuraEnabled
-    public static String markAccountAsOptIn(Id accountId, String signature) {
+    public static String markAccountAsOptIn(Id accountId, String code) {
         try {
-            if (!optInService.verifySignature(Blob.valueOf(accountId), signature)) {
-                throw new IllegalArgumentException('Invalid signature!');
+            if (!optInService.verifyMac(Blob.valueOf(accountId), code)) {
+                throw new IllegalArgumentException('Invalid MAC!');
             }
             Logger.debug('Opt-In Account ID = {0}', Lists.of(accountId));
             Account foundAccount = findAccount(accountId);
