@@ -3,7 +3,7 @@ name: Deploy Source 🎯
 # Trigger Events
 on:
   schedule:
-    # Runs "At 07:00 on every day-of-week from Monday through Friday"
+    # Runs at 07:00 UTC every Monday through Friday.
     - cron: '0 7 * * 1-5'
   workflow_dispatch:
     branches:
