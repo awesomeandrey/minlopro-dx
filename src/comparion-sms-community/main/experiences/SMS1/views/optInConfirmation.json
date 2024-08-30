@@ -14,11 +14,9 @@
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<p style=\"text-align: center;\"><strong>This is where a custom LWC will appear.</strong></p>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "108c7b0e-3b9e-4585-bd34-be87a786835c",
+      "componentAttributes" : { },
+      "componentName" : "c:optInConsentPanel",
+      "id" : "f90f64c9-6d56-472f-b0c4-8021a205007c",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
