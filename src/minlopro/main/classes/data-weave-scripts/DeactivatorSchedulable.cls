@@ -1,4 +1,5 @@
 public without sharing class DeactivatorSchedulable implements Schedulable, Database.RaisesPlatformEvents {
+    @ReadOnly
     public void execute(SchedulableContext context) {
         Logger.debug('SchedulableContext');
         this.run();

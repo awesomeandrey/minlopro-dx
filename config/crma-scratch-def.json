@@ -7,7 +7,9 @@
         "AuthorApex",
         "DebugApex",
         "DefaultWorkflowUser",
+        "Communities",
         "EnableSetPasswordInApi",
+        "Sites",
         "StateAndCountryPicklist",
         "StreamingAPI",
         "AnalyticsAdminPerms",
@@ -27,6 +29,9 @@
             "enableCompileOnDeploy": false,
             "enableApexApprovalLockUnlock": true,
             "enableDisableParallelApexTesting": true
+        },
+        "communitiesSettings": {
+            "enableNetworksEnabled": true
         },
         "currencySettings": {
             "enableMultiCurrency": true
