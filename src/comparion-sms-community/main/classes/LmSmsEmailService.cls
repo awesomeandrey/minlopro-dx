@@ -33,6 +33,6 @@ public inherited sharing class LmSmsEmailService {
     public String resolveOptInConsentLink() {
         Network siteNetwork = [SELECT Id, UrlPathPrefix FROM Network WHERE Name = :this.EXPERIENCE_SITE_NAME LIMIT 1];
         String siteBaseUrl = Network.getLoginUrl(siteNetwork.Id).removeEnd('/login');
-        return String.format('{0}/s/{1}', Lists.of(siteBaseUrl, this.EXPERIENCE_SITE_PAGE_SUFFIX));
+        return String.format('{0}/s/{1}', new List<String>{ siteBaseUrl, this.EXPERIENCE_SITE_PAGE_SUFFIX });
     }
 }
