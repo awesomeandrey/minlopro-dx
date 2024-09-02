@@ -28,7 +28,8 @@
                 ></lightning-icon>
             </lightning-layout-item>
             <lightning-layout-item size="12" class="slds-text-align_center" padding="around-medium">
-                <p class="slds-text-heading_small">{message}</p>
+                <p class="slds-text-heading_small">{message.title}</p>
+                <p class="slds-text-body_regular"><span class={message.textClass}>{message.text}</span></p>
             </lightning-layout-item>
             <lightning-layout-item size="12" class="slds-text-align_center" padding="around-small">
                 <lightning-button

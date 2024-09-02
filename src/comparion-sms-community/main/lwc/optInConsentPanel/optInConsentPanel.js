@@ -1,4 +1,4 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, track } from 'lwc';
 
 // Apex;
 import validateAndCaptureOptInConsentApex from '@salesforce/apex/LmSmsOptInConsentController.validateAndCaptureOptInConsent';
@@ -10,6 +10,7 @@ const CODE_PARAM = 'code';
 export default class OptInConsentPanel extends LightningElement {
     @track hasProcessed = false;
     @track errorMessage = null;
+    @track successMessage = null;
 
     get accountId() {
         return this.urlParameters.get(ACCOUNT_ID_PARAM);
@@ -29,11 +30,22 @@ export default class OptInConsentPanel extends LightningElement {
 
     get message() {
         if (this.hasError) {
-            return 'Failed to process Opt-In consent.';
+            return {
+                title: 'Failed to process Opt-In consent.',
+                text: this.errorMessage,
+                textClass: 'slds-text-color_error'
+            };
         } else if (this.hasProcessed) {
-            return 'Thank you!';
+            return {
+                title: 'Thank you!',
+                text: this.successMessage,
+                textClass: 'slds-text-color_success'
+            };
         } else {
-            return 'Processing...';
+            return {
+                title: 'Processing...',
+                text: 'Please wait until we handle your request.'
+            };
         }
     }
 
@@ -50,24 +62,23 @@ export default class OptInConsentPanel extends LightningElement {
     }
 
     async connectedCallback() {
-        /**
-         * TODO - invoke custom Apex controller, validate code & capture opt-in consent;
-         * TODO - to be implemented as a separate ticket/work item;
-         */
-        console.log('accountId > ', this.accountId);
-        console.log('code > ', this.code);
-        debugger;
         try {
+            // TODO - added to testing purpose (to remove in scope of another task);
+            await new Promise((resolve) => setTimeout(resolve, 2000));
             if (!this.accountId || !this.code) {
                 throw new Error('Invalid request detected!');
             }
-            let success = await validateAndCaptureOptInConsentApex({ accountId: this.accountId, codeToVerify: this.code });
-            if (!success) {
-                throw new Error('Server error occurred!');
+            let { success, message } = await validateAndCaptureOptInConsentApex({
+                accountId: this.accountId,
+                codeToVerify: this.code
+            });
+            if (success) {
+                this.successMessage = message;
+            } else {
+                throw new Error(message);
             }
         } catch (error) {
-            console.error(error);
-            debugger;
+            console.error('Error detected:', error);
             this.errorMessage = error?.message || error?.body?.message || JSON.stringify(error);
         } finally {
             this.hasProcessed = true;
