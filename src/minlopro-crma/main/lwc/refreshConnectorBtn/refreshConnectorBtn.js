@@ -13,6 +13,10 @@ export default class RefreshConnectorBtn extends LightningElement {
         return this.wiredConnectors?.data?.dataConnectors[0].id;
     }
 
+    get helpText() {
+        return "By clicking on this button you will trigger the whole data sync for the SFDC_LOCAL connection. Please, click on this button once you've completed updates of the records in the table(s) below.";
+    }
+
     @wire(getDataConnectors, { connectorType: ['SfdcLocal'] })
     wiredConnectors = {};
 
@@ -22,29 +26,13 @@ export default class RefreshConnectorBtn extends LightningElement {
             this.loading = true;
             const result = await ingestDataConnector({ connectorIdOrApiName: this.sfdcLocalConnectorId });
             console.log('Connector Ingestion Response', JSON.stringify(result));
-            if (Array.isArray(result)) {
-                console.log('IsArray');
-                // The connector has already been triggered;
-                let { message, errorCode } = result[0];
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: 'Success',
-                        message: `${message} (${errorCode})`,
-                        variant: 'warning'
-                    })
-                );
-            } else {
-                console.log('NOT IsArray');
-                // New connector refresh;
-                let { message } = result;
-                this.dispatchEvent(
-                    new ShowToastEvent({
-                        title: 'Success',
-                        message: message,
-                        variant: 'success'
-                    })
-                );
-            }
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: result.message,
+                    variant: 'warning'
+                })
+            );
         } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
