@@ -12,7 +12,7 @@
 **/minlopro-digex/**/profiles/DigEx Profile.profile-meta.xml
 
 # CRM Analytics (formely known as Wave Analytics)
-**/minlopro-crma
+#**/minlopro-crma
 
 # LWC Jest Tests
 **/__tests__/**

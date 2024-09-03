@@ -1,3 +1,7 @@
 <template>
-    <lightning-button label="Refresh 'SFDC_LOCAL' Connector" disabled={doDisableBtn} onclick={handleClick}></lightning-button>
+    <lightning-layout vertical-align="stretch">
+        <lightning-layout-item alignment-bump="left">
+            <lightning-button label="Refresh Connector" disabled={doDisableBtn} onclick={handleClick}></lightning-button>
+        </lightning-layout-item>
+    </lightning-layout>
 </template>
