@@ -1,5 +1,6 @@
 import { LightningElement, track, wire } from 'lwc';
 import { getDataConnectors, ingestDataConnector } from 'lightning/analyticsWaveApi';
+import LightningConfirm from 'lightning/confirm';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class RefreshConnectorBtn extends LightningElement {
@@ -23,6 +24,15 @@ export default class RefreshConnectorBtn extends LightningElement {
     async handleClick(event) {
         console.log(`Refreshing data connector with ID = ${this.sfdcLocalConnectorId} ...`);
         try {
+            const hasConfirmed = await LightningConfirm.open({
+                label: 'Run Data Sync',
+                message: this.helpText,
+                variant: 'header',
+                theme: 'warning'
+            });
+            if (!hasConfirmed) {
+                return;
+            }
             this.loading = true;
             const result = await ingestDataConnector({ connectorIdOrApiName: this.sfdcLocalConnectorId });
             console.log('Connector Ingestion Response', JSON.stringify(result));
