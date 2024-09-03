@@ -18,6 +18,10 @@ export default class RefreshConnectorBtn extends LightningElement {
         return "By clicking on this button you will trigger the whole data sync for the SFDC_LOCAL connection. Please, click on this button once you've completed updates of the records in the table(s) below.";
     }
 
+    get connectorError() {
+        return JSON.stringify(this.wiredConnectors?.error);
+    }
+
     @wire(getDataConnectors, { connectorType: ['SfdcLocal'] })
     wiredConnectors = {};
 
