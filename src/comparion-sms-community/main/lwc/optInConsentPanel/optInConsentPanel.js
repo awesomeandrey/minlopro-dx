@@ -1,11 +1,8 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
+import { CurrentPageReference } from 'lightning/navigation';
 
 // Apex;
 import validateAndCaptureOptInConsentApex from '@salesforce/apex/LmSmsOptInConsentController.validateAndCaptureOptInConsent';
-
-// Constants;
-const ACCOUNT_ID_PARAM = 'accountId';
-const CODE_PARAM = 'code';
 
 export default class OptInConsentPanel extends LightningElement {
     @track hasProcessed = false;
@@ -13,15 +10,11 @@ export default class OptInConsentPanel extends LightningElement {
     @track successMessage = null;
 
     get accountId() {
-        return this.urlParameters.get(ACCOUNT_ID_PARAM);
+        return this.wiredPageReference.state['accountId'];
     }
 
     get code() {
-        return this.urlParameters.get(CODE_PARAM);
-    }
-
-    get urlParameters() {
-        return new URLSearchParams(document.location.search);
+        return this.wiredPageReference.state['code'];
     }
 
     get hasError() {
@@ -60,6 +53,9 @@ export default class OptInConsentPanel extends LightningElement {
     get isSuccessful() {
         return !this.isLoading && !this.hasError;
     }
+
+    @wire(CurrentPageReference)
+    wiredPageReference = {};
 
     async connectedCallback() {
         try {
