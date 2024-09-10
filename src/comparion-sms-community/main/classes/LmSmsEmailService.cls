@@ -1,8 +1,8 @@
 public inherited sharing class LmSmsEmailService {
     @TestVisible
-    private final String EXPERIENCE_SITE_NAME = 'SMS'; // Digital Experience Site API name;
+    private final String EXPERIENCE_SITE_NAME = 'Comparion CRM'; // Digital Experience Site API name;
     @TestVisible
-    private final String EXPERIENCE_SITE_PAGE_SUFFIX = 'opt-in-confirmation'; // Custom page URL suffix that captures & processes opt-in requests;
+    private final String EXPERIENCE_SITE_PAGE_SUFFIX = 'sms-opt-in-consent'; // Custom page URL suffix that captures & processes opt-in requests;
 
     /**
      * @description Generates a HMAC SHA-256 based code for the given content using a private key. The generated code is in hexadecimal format.
@@ -33,6 +33,6 @@ public inherited sharing class LmSmsEmailService {
     public String resolveOptInConsentLink() {
         Network siteNetwork = [SELECT Id, UrlPathPrefix FROM Network WHERE Name = :this.EXPERIENCE_SITE_NAME LIMIT 1];
         String siteBaseUrl = Network.getLoginUrl(siteNetwork.Id).removeEnd('/login');
-        return String.format('{0}/s/{1}', new List<String>{ siteBaseUrl, this.EXPERIENCE_SITE_PAGE_SUFFIX });
+        return String.format('{0}/{1}', new List<String>{ siteBaseUrl, this.EXPERIENCE_SITE_PAGE_SUFFIX });
     }
 }
