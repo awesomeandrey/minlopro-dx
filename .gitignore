@@ -27,8 +27,8 @@ export.json
 .DS_Store
 
 # Default SFDX folder for pulled metadata
-**/minlopro-default/main/
 **/minlopro-default/default/
+**/minlopro-default/main/
 
 # CRM Analytics
 **/minlopro-crma/.forceignore
