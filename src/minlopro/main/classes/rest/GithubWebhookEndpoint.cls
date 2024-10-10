@@ -27,7 +27,6 @@ global with sharing class GithubWebhookEndpoint {
             );
             if (!isSubscribedEvent(event)) {
                 String infoMessage = String.format('Unsubscribed event: {0}.', Lists.of(requestBody));
-                Logger.error(infoMessage);
                 res.statusCode = 202;
                 res.responseBody = Blob.valueOf(infoMessage);
                 return;
@@ -36,7 +35,7 @@ global with sharing class GithubWebhookEndpoint {
             sendNotificationToAdmin(event);
             res.statusCode = 200;
             res.responseBody = Blob.valueOf('Request processed successfully.');
-            Logger.debug('Successfully processed GitHub webhook!');
+            // Logger.debug('Successfully processed GitHub webhook!');
         } catch (Exception ex) {
             String errorMessage = String.format('Unhandled REST exception: {0}.', Lists.of(Exceptions.getDetails(ex).toString()));
             Logger.error(errorMessage);
@@ -46,7 +45,7 @@ global with sharing class GithubWebhookEndpoint {
     }
 
     private static Boolean isValidRequest(RestRequest req) {
-        Logger.debug('{0}: {1}', Lists.of(GITHUB_SIGNATURE_HEADER, req.headers.get(GITHUB_SIGNATURE_HEADER)));
+        // Logger.debug('{0}: {1}', Lists.of(GITHUB_SIGNATURE_HEADER, req.headers.get(GITHUB_SIGNATURE_HEADER)));
         if (!req.headers.containsKey(GITHUB_SIGNATURE_HEADER)) {
             return false;
         }
@@ -94,10 +93,10 @@ global with sharing class GithubWebhookEndpoint {
     }
 
     private static void sendNotificationToAdmin(GithubWebhookEndpoint.Event event) {
-        Logger.debug('Notification for [{0}] github event.', Lists.of(event.workflow_run?.name));
-        Logger.debug('Event Action: {0}', Lists.of(event.action));
-        Logger.debug('WF Status: {0}', Lists.of(event.workflow_run.status));
-        Logger.debug('WF Conclusion: {0}', Lists.of(event.workflow_run.conclusion));
+        // Logger.debug('Notification for [{0}] github event.', Lists.of(event.workflow_run?.name));
+        // Logger.debug('Event Action: {0}', Lists.of(event.action));
+        // Logger.debug('WF Status: {0}', Lists.of(event.workflow_run.status));
+        // Logger.debug('WF Conclusion: {0}', Lists.of(event.workflow_run.conclusion));
         // Prepare the Flow input variables;
         Group adminsGroup = [
             SELECT Id, Name, DeveloperName

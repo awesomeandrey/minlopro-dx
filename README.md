@@ -90,7 +90,7 @@ npm run sf:manifest:create && npm run src:deploy:full
 _Publish Community_
 
 ```
-sf community publish --name "DigEx" --target-org $SCRATCH_ORG_ALIAS
+sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS"
 ```
 
 ## Managing Environment Variables
@@ -116,7 +116,7 @@ E.g. you can execute particular script passing in ORG alias:
 
 ```
 // Push source to target org
-npm run src:push -- -o $SCRATCH_ORG_ALIAS
+npm run src:push -- -o "$SCRATCH_ORG_ALIAS"
 ```
 
 Please, refer

@@ -31,6 +31,9 @@ public inherited sharing class OptInEmailService {
         for (Account accountItem : targetAccounts) {
             // Render template (counts against SOQL limits);
             Messaging.SingleEmailMessage emailItem = Messaging.renderStoredEmailTemplate(targetTemplate.Id, null, accountItem.Id);
+            // Specify org-wide email address (this resolves 'Sender Display Name' automatically);
+            // OrgWideEmailAddress oweAddress = [SELECT Id FROM OrgWideEmailAddress LIMIT 1];
+            // emailItem.setOrgWideEmailAddressId(oweAddress.Id);
             // Specify TO email address;
             emailItem.setToAddresses(Lists.of(accountItem.PersonEmail));
             emailItem.setSenderDisplayName('Minlopro Opt-In Engagement');
