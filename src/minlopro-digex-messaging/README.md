@@ -16,10 +16,8 @@ Originally inspired by the following articles:
 The following files leverage SFDX Replacements in scope of deployments:
 
 -   [ESW_Minlopro_DigExMessaging Site](src/minlopro-digex-messaging/main/sites/ESW_Minlopro_DigExMessaging.site-meta.xml)
--   [DogEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
+-   [DigEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
 
 ### Questions to resolve
 
-1. Replace org url in "src/minlopro-digex/main/experiences/DigEx1/views/home.json" (see messaging component) 2. See https://lwc-lake-6472-dev-ed.scratch.my.salesforce-scrt.com
-2. Identify root cause of Flow Error coming to inbox when new work item is created
-3. Incorporate EDS into CI/CD workflow completely (looks like another custom post script would be needed)
+1. Identify root cause of Flow Error coming to inbox when new work item is created

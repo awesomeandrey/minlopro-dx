@@ -42,6 +42,11 @@
         },
         {
             "glob": "src/**",
+            "stringToReplace": "@SF_SITE_DOMAIN_NAME",
+            "replaceWithEnv": "SF_SITE_DOMAIN_NAME"
+        },
+        {
+            "glob": "src/**",
             "stringToReplace": "@SF_CCF_APP_CLIENT_ID",
             "replaceWithEnv": "SF_CCF_APP_CLIENT_ID"
         },

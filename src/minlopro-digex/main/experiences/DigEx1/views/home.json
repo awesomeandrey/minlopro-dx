@@ -37,7 +37,7 @@
       "componentAttributes" : {
         "deploymentName" : "Minlopro_DigExMessagingESD",
         "hideChatButtonOnLoad" : "Visible",
-        "scrtUrl" : "https://lwc-lake-6472-dev-ed.scratch.my.salesforce-scrt.com",
+        "scrtUrl" : "https://@SF_SITE_DOMAIN_NAME.my.salesforce-scrt.com",
         "siteEndpoint" : "@SF_SITE_URL/eswminloprodigexmessaging"
       },
       "componentName" : "experience_messaging:embeddedMessaging",
