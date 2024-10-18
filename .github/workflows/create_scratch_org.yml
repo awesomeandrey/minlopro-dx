@@ -12,6 +12,10 @@ on:
         type: boolean
         description: 'Purge On Create?'
         default: false
+      runApexTests:
+        type: boolean
+        description: 'Run Apex Tests?'
+        default: true
     branches:
       - main
       - develop
@@ -55,6 +59,9 @@ jobs:
             build/.env
           if-no-files-found: error
           retention-days: 5
+      - name: 'Run Apex Tests With Coverage'
+        if: ${{ success() && github.event.inputs.runApexTests == 'true' }}
+        run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Purge Scratch Org'
         if: ${{ success() && github.event.inputs.purgeOnCreate == 'true' }}
         run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
