@@ -1,11 +1,16 @@
 #!/bin/bash
 
 # How to use:
-# - bash ./scripts/util/get_target_org_site_url.sh
-# - varName=$(bash ./scripts/util/get_target_org_site_url.sh)
+# - bash ./scripts/util/get_site_url.sh
+# - echo $ORG_ALIAS | bash ./scripts/util/get_site_url.sh
 
-# Get the input Salesforce instance URL
-targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
+# Enable errexit option to exit on command failure
+set -e
+
+# Capture target org alias;
+read -p "🔶 Enter target org alias: " targetOrgAlias
+
+# Get Salesforce Instance URL
 targetOrgInstanceUrl=$(sf org display --json --target-org="$targetOrgAlias" | jq -r '.result.instanceUrl')
 
 # Extract the protocol (http or https)
