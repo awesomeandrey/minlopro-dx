@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>The default utility bar for the Service Console application.</description>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>runtime_service_omnichannel:omniWidget</componentName>
+                <identifier>runtime_service_omnichannel_omniWidget</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>utilityItems</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <name>backgroundComponents</name>
+        <type>Background</type>
+    </flexiPageRegions>
+    <masterLabel>Service Console App Utility Bar</masterLabel>
+    <template>
+        <name>one:utilityBarTemplateDesktop</name>
+        <properties>
+            <name>isLeftAligned</name>
+            <value>true</value>
+        </properties>
+    </template>
+    <type>UtilityBar</type>
+</FlexiPage>
