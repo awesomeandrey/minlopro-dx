@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueueRoutingConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <capacityPercentage>50.0</capacityPercentage>
+    <capacityType>INHERITED</capacityType>
+    <isAttributeBased>false</isAttributeBased>
+    <label>Minlopro Routing Configuration</label>
+    <pushTimeout>20</pushTimeout>
+    <routingModel>MOST_AVAILABLE</routingModel>
+    <routingPriority>1</routingPriority>
+    <userOverflowAssignee>@SF_USERNAME</userOverflowAssignee>
+</QueueRoutingConfig>

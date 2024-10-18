@@ -18,7 +18,11 @@
         "PersonAccounts",
         "SalesforceContentUser",
         "StateAndCountryPicklist",
-        "StreamingAPI"
+        "StreamingAPI",
+        "LiveAgent",
+        "LiveMessage",
+        "ServiceCloud",
+        "LightningServiceConsole"
     ],
     "hasSampleData": false,
     "language": "en_US",
@@ -44,12 +48,19 @@
         "languageSettings": {
             "enableTranslationWorkbench": true
         },
+        "omniChannelSettings": {
+            "enableOmniAutoLoginPrompt": true,
+            "enableOmniChannel": true
+        },
         "lightningExperienceSettings": {
             "enableS1DesktopEnabled": true,
             "enableUsersAreLightningOnly": false
         },
         "mobileSettings": {
             "enableS1EncryptedStoragePref2": false
+        },
+        "liveMessageSettings": {
+            "enableLiveMessage": true
         },
         "securitySettings": {
             "sessionSettings": {

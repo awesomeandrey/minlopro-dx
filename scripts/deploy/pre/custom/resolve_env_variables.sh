@@ -47,6 +47,10 @@ targetOrgUsername=$(sf org display user --json --target-org="$TARGET_ORG_ALIAS" 
 add_or_update_env_var "SF_USERNAME" "$targetOrgUsername"
 targetOrgInstanceUrl=$(sf org display --json --target-org="$TARGET_ORG_ALIAS" | jq -r '.result.instanceUrl')
 add_or_update_env_var "SF_INSTANCE_URL" "$targetOrgInstanceUrl"
+targetOrgSiteUrl=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_url.sh)
+add_or_update_env_var "SF_SITE_URL" "$targetOrgSiteUrl"
+targetOrgSiteDomainName=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_domain_name.sh)
+add_or_update_env_var "SF_SITE_DOMAIN_NAME" "$targetOrgSiteDomainName"
 
 # Capture environment variables in current shell and upsert them to '.env' file (used within GitHub actions);
 for var in $(printenv | grep '^SF_'); do

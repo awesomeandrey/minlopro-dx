@@ -7,6 +7,9 @@
             "path": "src/minlopro"
         },
         {
+            "path": "src/minlopro-digex-messaging"
+        },
+        {
             "path": "src/minlopro-digex"
         },
         {
@@ -31,6 +34,16 @@
             "glob": "src/**",
             "stringToReplace": "@SF_INSTANCE_URL",
             "replaceWithEnv": "SF_INSTANCE_URL"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_SITE_URL",
+            "replaceWithEnv": "SF_SITE_URL"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "@SF_SITE_DOMAIN_NAME",
+            "replaceWithEnv": "SF_SITE_DOMAIN_NAME"
         },
         {
             "glob": "src/**",

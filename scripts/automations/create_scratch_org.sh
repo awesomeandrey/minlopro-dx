@@ -56,6 +56,3 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh
 
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
-
-# Publish Digital Experience Site
-#sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS"

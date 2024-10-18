@@ -6,10 +6,13 @@
 **/profilePasswordPolicies
 **/profileSessionSettings
 
-# DigEx Portal (Experience Cloud)
+# DigEx Experiece Site (Experience Cloud)
 **/minlopro-digex/**/audience/Default_DigEx.audience-meta.xml
 **/minlopro-digex/**/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
 **/minlopro-digex/**/profiles/DigEx Profile.profile-meta.xml
+
+# ESW_Minlopro_DigExMessaging (Experience Cloud) - Experience Site for Messaging for Web deployment for 'DigEx' site
+**/minlopro-digex-messaging/**/profiles/**
 
 # CRM Analytics (formely known as Wave Analytics)
 **/minlopro-crma
