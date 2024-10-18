@@ -1,0 +1,13 @@
+{
+  "type" : "sfdc_cms__themeLayout",
+  "title" : "Frame",
+  "contentBody" : {
+    "component" : {
+      "attributes" : { },
+      "definition" : "embedded_service_iframe:iframeWrapper",
+      "id" : "e1157edd-0dfe-4ba7-b62a-351c8886166e",
+      "type" : "component"
+    }
+  },
+  "urlName" : "frame"
+}
