@@ -32,8 +32,10 @@
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
-    <description>Playground application for both learning and refining Salesforce development skills; tailored for POCs and LWC
-        experimentation.</description>
+    <description
+        >Playground application for both learning and refining Salesforce development skills; tailored for POCs and LWC
+        experimentation.</description
+    >
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
