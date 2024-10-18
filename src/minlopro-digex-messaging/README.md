@@ -12,19 +12,11 @@ Manual step is required:
 
 ### CI/CD Considerations
 
-TODO
+TODO -- replace scratch url nosoftware-connect-8298-dev-ed.scratch.my.site.com
 
-URL to replace
+### Questions to resolve
 
--   urls
-
-Replacements
-
--   cors url
--   network
--   site
--   DigEx experience bundle (messaging component)
-
-Flow issue -- why?
-
-Custom post deployment process
+1. Replace org url in "src/minlopro-digex/main/experiences/DigEx1/views/home.json" (see messaging component)
+2. Identify root cause of Flow Error coming to inbox when new work item is created
+3. Incorporate EDS into CI/CD workflow completely (looks like another custom post script would be needed)
+4. CORS?

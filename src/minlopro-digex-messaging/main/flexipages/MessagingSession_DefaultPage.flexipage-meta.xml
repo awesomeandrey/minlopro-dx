@@ -188,7 +188,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>Messaging Session Record Page</masterLabel>
+    <masterLabel>Messaging Session Default Page</masterLabel>
     <parentFlexiPage>runtime_service_livemessage__MS_rec_L</parentFlexiPage>
     <sobjectType>MessagingSession</sobjectType>
     <template>
