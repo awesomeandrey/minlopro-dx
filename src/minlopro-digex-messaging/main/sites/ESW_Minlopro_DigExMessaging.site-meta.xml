@@ -26,10 +26,10 @@
     <siteAdmin>@SF_USERNAME</siteAdmin>
     <siteGuestRecordDefaultOwner>@SF_USERNAME</siteGuestRecordDefaultOwner>
     <siteIframeWhiteListUrls>
-        <url>nosoftware-connect-8298-dev-ed.scratch.my.site.com</url>
+        <url>lwc-lake-6472-dev-ed.scratch.my.site.com</url>
     </siteIframeWhiteListUrls>
     <siteIframeWhiteListUrls>
-        <url>*.nosoftware-connect-8298-dev-ed.scratch.my.site.com</url>
+        <url>*.lwc-lake-6472-dev-ed.scratch.my.site.com</url>
     </siteIframeWhiteListUrls>
     <siteType>ChatterNetwork</siteType>
     <urlPathPrefix>eswminloprodigexmessagingvfo</urlPathPrefix>

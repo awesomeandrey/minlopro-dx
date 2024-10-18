@@ -37,8 +37,8 @@
       "componentAttributes" : {
         "deploymentName" : "Minlopro_DigExMessagingESD",
         "hideChatButtonOnLoad" : "Visible",
-        "scrtUrl" : "https://nosoftware-connect-8298-dev-ed.scratch.my.salesforce-scrt.com",
-        "siteEndpoint" : "https://nosoftware-connect-8298-dev-ed.scratch.my.site.com/ESWMinloproDigExMessagin1729266866774"
+        "scrtUrl" : "https://lwc-lake-6472-dev-ed.scratch.my.salesforce-scrt.com",
+        "siteEndpoint" : "@SF_SITE_URL/eswminloprodigexmessaging"
       },
       "componentName" : "experience_messaging:embeddedMessaging",
       "id" : "cfd19ff6-6be4-4596-be8c-6b9dd91c1a75",
