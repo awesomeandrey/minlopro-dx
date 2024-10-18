@@ -5,7 +5,7 @@
     <allowedExtensions>jpg,doc,txt,pdf,png</allowedExtensions>
     <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
     <communityRoles />
-    <description>Sample Digital Experience Site built for POC purposes.</description>
+    <description>Digital Experience Site built for POC purposes.</description>
     <disableReputationRecordConversations>false</disableReputationRecordConversations>
     <emailSenderAddress>@SF_ADMIN_EMAIL</emailSenderAddress>
     <emailSenderName>Minlopro DigEx</emailSenderName>

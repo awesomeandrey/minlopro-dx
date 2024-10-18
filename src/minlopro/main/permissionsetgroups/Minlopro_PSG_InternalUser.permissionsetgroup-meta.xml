@@ -9,6 +9,7 @@
     <permissionSets>Minlopro_Core</permissionSets>
     <permissionSets>Minlopro_CurrencyManagement</permissionSets>
     <permissionSets>Minlopro_CustomAuthProviderAndNC</permissionSets>
+    <permissionSets>Minlopro_DigEx_InAppAndWebMessaging</permissionSets>
     <permissionSets>Minlopro_DuplicatesManager</permissionSets>
     <permissionSets>Minlopro_FilesManager</permissionSets>
     <permissionSets>Minlopro_GithubWebhook</permissionSets>
@@ -16,7 +17,6 @@
     <permissionSets>Minlopro_LeadsManager</permissionSets>
     <permissionSets>Minlopro_Logger</permissionSets>
     <permissionSets>Minlopro_SalesforceConnectCustomAdapter</permissionSets>
-    <permissionSets>Minlopro_SalesforceMessaging</permissionSets>
     <permissionSets>Minlopro_TesseractJsOcr</permissionSets>
     <permissionSets>Minlopro_User</permissionSets>
     <status>Updated</status>
