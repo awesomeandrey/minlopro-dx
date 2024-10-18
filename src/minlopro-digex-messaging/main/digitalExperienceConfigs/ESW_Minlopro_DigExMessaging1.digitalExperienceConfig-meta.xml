@@ -2,7 +2,7 @@
 <DigitalExperienceConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>ESW_Minlopro_DigExMessaging</label>
     <site>
-        <urlPathPrefix>ESWMinloproDigExMessagin1729266866774</urlPathPrefix>
+        <urlPathPrefix>eswminloprodigexmessaging</urlPathPrefix>
     </site>
     <space>site/ESW_Minlopro_DigExMessaging1</space>
 </DigitalExperienceConfig>

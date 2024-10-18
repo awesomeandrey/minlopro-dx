@@ -4,7 +4,7 @@
     <allowMembersToFlag>false</allowMembersToFlag>
     <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
     <communityRoles />
-    <description>Site for Messaging for Web deployment: Minlopro_DigExMessagingESD.</description>
+    <description>Site for Messaging for Web deployment: Minlopro_DigExMessagingESD</description>
     <disableReputationRecordConversations>true</disableReputationRecordConversations>
     <emailSenderAddress>@SF_ADMIN_EMAIL</emailSenderAddress>
     <emailSenderName>ESW_Minlopro_DigExMessaging</emailSenderName>
@@ -54,6 +54,6 @@
         <defaultTab>home</defaultTab>
         <standardTab>Chatter</standardTab>
     </tabs>
-    <urlPathPrefix>ESWMinloproDigExMessagin1729266866774vfo</urlPathPrefix>
+    <urlPathPrefix>eswminloprodigexmessagingvfo</urlPathPrefix>
     <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
 </Network>
