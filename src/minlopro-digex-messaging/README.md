@@ -31,7 +31,3 @@ Leverage this page to resolve configuration issues or verify messaging functiona
 Page URL = `https://[org_domain]--c[.scratch].vf.force.com/apex/eswminloprodigexmessaging`.
 
 ![Visualforce Page for Messaging Tests.png](../../assets/demo/messaging-for-in-app-and-web/Visualforce_Page_for_Messaging_Tests.png)
-
-### TODOs
-
--   CI/CD -- setup guest user for new site
