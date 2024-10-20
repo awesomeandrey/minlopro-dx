@@ -13,6 +13,8 @@
 
 # ESW_Minlopro_DigExMessaging (Experience Cloud) - Experience Site for Messaging for Web deployment for 'DigEx' site
 **/minlopro-digex-messaging/**/profiles/**
+**/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page
+**/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page-meta.xml
 
 # CRM Analytics (formely known as Wave Analytics)
 **/minlopro-crma
