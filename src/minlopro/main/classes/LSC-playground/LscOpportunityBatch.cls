@@ -1,7 +1,7 @@
 public without sharing class LscOpportunityBatch implements Database.Batchable<Opportunity> {
     public Iterable<Opportunity> start(Database.BatchableContext context) {
         Logger.debug('Batch Start');
-        return [SELECT Id, Name, OwnerId, Owner.Name FROM Opportunity];
+        return [SELECT Id, Name, OwnerId, Owner.Name, StageName, CloseDate FROM Opportunity LIMIT 100];
     }
 
     public void execute(Database.BatchableContext context, List<Opportunity> records) {
@@ -26,6 +26,10 @@ public without sharing class LscOpportunityBatch implements Database.Batchable<O
         update firstChunk;
         Logger.debug('Second chunk size = ' + firstChunk.size());
         update secondChunk;
+
+        List<Opportunity> clonedOpps = firstChunk.deepClone(false);
+        Logger.debug('Opps created from batch = ' + clonedOpps.size());
+        insert clonedOpps;
     }
 
     public void finish(Database.BatchableContext context) {

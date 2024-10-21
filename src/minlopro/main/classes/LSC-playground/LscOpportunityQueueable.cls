@@ -11,12 +11,6 @@ public inherited sharing class LscOpportunityQueueable implements Queueable, Fin
         this.flagAction = flagAction;
     }
 
-    @Future
-    public static void launchAsFuture(List<Id> oppIds) {
-        Logger.debug('Future - RUN');
-        System.enqueueJob(new LscOpportunityQueueable(oppIds));
-    }
-
     public void execute(QueueableContext context) {
         Logger.debug('Queueable - Execute');
         System.attachFinalizer(this);
