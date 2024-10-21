@@ -16,6 +16,9 @@
             "path": "src/minlopro-crma"
         },
         {
+            "path": "src/lsc-comparion-playground"
+        },
+        {
             "path": "src/minlopro-default",
             "default": true
         }
