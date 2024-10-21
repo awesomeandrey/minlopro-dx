@@ -53,10 +53,6 @@
                 <behavior>Edit</behavior>
                 <field>SrcCode__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsDrcSfmcJourney__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
