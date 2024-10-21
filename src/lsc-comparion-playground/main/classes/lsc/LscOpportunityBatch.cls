@@ -28,8 +28,12 @@ public without sharing class LscOpportunityBatch implements Database.Batchable<O
         update secondChunk;
 
         List<Opportunity> clonedOpps = firstChunk.deepClone(false);
-        Logger.debug('Opps created from batch = ' + clonedOpps.size());
+        Logger.debug('Opps created from batch (FC) = ' + clonedOpps.size());
         insert clonedOpps;
+
+        List<Opportunity> clonedOpps2 = secondChunk.deepClone(false);
+        Logger.debug('Opps created from batch (SC) = ' + clonedOpps2.size());
+        insert clonedOpps2;
     }
 
     public void finish(Database.BatchableContext context) {
