@@ -12,7 +12,7 @@ public inherited sharing class LscOpportunityQueueable implements Queueable, Fin
     }
 
     public void execute(QueueableContext context) {
-        Logger.debug('Queueable - Execute');
+        Logger.debug('Queueable - Execute: {0} flag', Lists.of(this.flagAction == Action.ENABLE ? 'enabling' : 'disabling'));
         System.attachFinalizer(this);
         List<Opportunity> oppsToUpdate = new List<Opportunity>();
         for (Opportunity opp : [SELECT Id FROM Opportunity WHERE Id IN :this.opportunityIds]) {
@@ -32,7 +32,7 @@ public inherited sharing class LscOpportunityQueueable implements Queueable, Fin
 
         // Reset flag to FALSE in 10 minutes;
         if (this.flagAction == Action.ENABLE) {
-            System.enqueueJob(new LscOpportunityQueueable(this.opportunityIds, Action.DISABLE));
+            System.enqueueJob(new LscOpportunityQueueable(this.opportunityIds, Action.DISABLE), 1);
         }
     }
 
