@@ -32,7 +32,7 @@ public inherited sharing class LscOpportunityQueueable implements Queueable, Fin
 
         // Reset flag to FALSE in 10 minutes;
         if (this.flagAction == Action.ENABLE) {
-            System.enqueueJob(new LscOpportunityQueueable(this.opportunityIds, Action.DISABLE), 1);
+            System.enqueueJob(new LscOpportunityQueueable(this.opportunityIds, Action.DISABLE));
         }
     }
 
