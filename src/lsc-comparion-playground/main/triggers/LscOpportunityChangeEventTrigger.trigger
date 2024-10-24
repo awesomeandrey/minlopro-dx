@@ -18,9 +18,10 @@ trigger LscOpportunityChangeEventTrigger on OpportunityChangeEvent(after insert)
         Logger.debug('Total Opps Count = ' + totalOppIds.size());
         Logger.debug('Created Opps Count = ' + createdOppIds.size());
         if (!createdOppIds.isEmpty()) {
-            for (Id oppId : createdOppIds) {
-                Logger.debug('Enqueued Job!');
-                System.enqueueJob(new LscOpportunityQueueable(Lists.of(oppId)));
+            List<List<Id>> createdOppIdsInChunks = LscOpportunityBatch.splitIdList(Lists.of(createdOppIds), 100);
+            for (List<Id> oppIds : createdOppIdsInChunks) {
+                Logger.debug('Enqueued Job to process {0} opps', Lists.of(oppIds.size().toString()));
+                System.enqueueJob(new LscOpportunityQueueable(oppIds));
             }
         }
     } catch (Exception ex) {
