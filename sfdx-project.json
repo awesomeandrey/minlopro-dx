@@ -7,10 +7,10 @@
             "path": "src/minlopro"
         },
         {
-            "path": "src/minlopro-digex-messaging"
+            "path": "src/minlopro-digex"
         },
         {
-            "path": "src/minlopro-digex"
+            "path": "src/minlopro-digex-messaging"
         },
         {
             "path": "src/minlopro-crma"

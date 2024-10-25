@@ -9,7 +9,7 @@ private class TH_BatchApexErrorEventTest {
         TriggerDispatcher.enableObjectHandler(BatchApexErrorEvent.SObjectType, TH_BatchApexErrorEvent.class.getName());
         try {
             Test.startTest();
-            Database.executeBatch(new TestFailingBatch(), 200);
+            Database.executeBatch(new SampleFailingBatch(), 200);
             Test.getEventBus().deliver();
             Test.stopTest();
         } catch (Exception ex) {

@@ -45,6 +45,11 @@
                 <default>false</default>
                 <label>BatchApexErrorEvent (Platform Event)</label>
             </value>
+            <value>
+                <fullName>AccountChangeEvent</fullName>
+                <default>false</default>
+                <label>AccountChangeEvent (CDC)</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
