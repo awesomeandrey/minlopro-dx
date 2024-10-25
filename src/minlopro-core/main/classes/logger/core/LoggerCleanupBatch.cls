@@ -35,10 +35,8 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
     }
 
     public void execute(Database.BatchableContext ctx, List<LogEntry__c> logEntriesToDelete) {
-        if (!logEntriesToDelete.isEmpty()) {
-            delete logEntriesToDelete;
-            Database.emptyRecycleBin(logEntriesToDelete);
-        }
+        delete logEntriesToDelete;
+        Database.emptyRecycleBin(logEntriesToDelete);
     }
 
     public void finish(Database.BatchableContext ctx) {
