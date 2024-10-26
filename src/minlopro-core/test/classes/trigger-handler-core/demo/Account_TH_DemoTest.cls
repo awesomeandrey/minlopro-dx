@@ -1,5 +1,5 @@
 @IsTest
-private class AccountTriggerHandlersDemoTest {
+private class Account_TH_DemoTest {
     private static final Decimal RANDOM_ACCOUNT_REVENUE {
         get {
             if (RANDOM_ACCOUNT_REVENUE == null) {
@@ -19,10 +19,11 @@ private class AccountTriggerHandlersDemoTest {
     @TestSetup
     static void setup() {
         // Assert that sample Account trigger handlers exist;
+        List<String> handlerApexClassNames = Lists.of(TH_Account_Sample1.class.getName(), TH_Account_Sample2.class.getName());
         List<TriggerHandler__mdt> accountHandlers = [
             SELECT Id, ApexClassName__c, Active__c
             FROM TriggerHandler__mdt
-            WHERE ApexClassName__c IN ('TH_Account_Sample1', 'TH_Account_Sample2') AND Active__c = TRUE
+            WHERE ApexClassName__c IN :handlerApexClassNames AND Active__c = TRUE
         ];
         Assert.areEqual(2, accountHandlers.size(), 'Sample Account trigger handlers should exist and be active!');
     }

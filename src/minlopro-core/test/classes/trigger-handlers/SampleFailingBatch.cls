@@ -1,5 +1,6 @@
+// Used in test only!
 @IsTest
-public class TestFailingBatch implements Database.Batchable<String>, Database.RaisesPlatformEvents {
+public class SampleFailingBatch implements Database.Batchable<String>, Database.RaisesPlatformEvents {
     public List<String> start(Database.BatchableContext context) {
         return new List<String>{ 'Minlopro!' };
     }
