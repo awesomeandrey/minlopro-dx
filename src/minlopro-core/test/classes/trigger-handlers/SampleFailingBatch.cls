@@ -4,7 +4,7 @@ public class SampleFailingBatch implements Database.Batchable<String>, Database.
     public List<String> start(Database.BatchableContext context) {
         return new List<String>{ 'Minlopro!' };
     }
-    public void execute(Database.BatchableContext context, List<String> phoneNumbersToCheck) {
+    public void execute(Database.BatchableContext context, List<String> records) {
         if (2 > 1) {
             throw new IllegalArgumentException('This batch should fail!');
         }
