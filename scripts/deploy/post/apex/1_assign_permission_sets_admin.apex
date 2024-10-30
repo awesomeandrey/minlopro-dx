@@ -12,3 +12,6 @@ Set<String> psOrPsgNames = new Set<String>{
 };
 PermissionSetService service = PermissionSetService.getInstance();
 service.assign(UserInfo.getUserId(), psOrPsgNames);
+
+// TODO - review
+

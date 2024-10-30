@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Used to grant access to rollup summary fields calculated by DRLS.</description>
+    <description>Used to grant access to rollup summary fields calculated by DLRS.</description>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.AvgOpportunitiesAmount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Minlopro - DRLS</label>
+    <label>Minlopro - DLRS</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>AvgOpportunitiesAmount__c</fullName>
-    <description>Custom field populated by DRLS.</description>
+    <description>Custom field populated by DLRS.</description>
     <externalId>false</externalId>
-    <inlineHelpText>Custom field populated by DRLS.</inlineHelpText>
+    <inlineHelpText>Custom field populated by DLRS.</inlineHelpText>
     <label>AVG Opportunities Amount</label>
     <precision>18</precision>
     <required>false</required>
