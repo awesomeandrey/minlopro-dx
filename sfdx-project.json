@@ -19,6 +19,9 @@
             "path": "src/minlopro-survey-force"
         },
         {
+            "path": "src/minlopro-dlrs"
+        },
+        {
             "path": "src/minlopro-default",
             "default": true
         }
