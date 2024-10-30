@@ -41,7 +41,7 @@
     <values>
         <field>dlrs__Description__c</field>
         <value xsi:type="xsd:string"
-            >Custom DRLS rollup configuration that calculate AVG of child Opportunities Amount at parent Account level.</value
+            >Custom DLRS rollup configuration that calculate AVG of child Opportunities Amount at parent Account level.</value
         >
     </values>
     <values>
