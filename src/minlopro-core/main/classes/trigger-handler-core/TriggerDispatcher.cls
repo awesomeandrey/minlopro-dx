@@ -147,7 +147,13 @@ public with sharing class TriggerDispatcher {
         }
         loopCountMap.get(handler).increment();
         if (loopCountMap.get(handler).hasExceeded()) {
-            throw new TriggerDispatcherException(String.format('Max loop count reached: {0}', Lists.of(handler.getName())));
+            Integer loopCounterValue = loopCountMap.get(handler).count;
+            throw new TriggerDispatcherException(
+                String.format(
+                    'Max loop count reached: {0} ({1} iterations)',
+                    Lists.of(handler.getName(), loopCounterValue.toString())
+                )
+            );
         }
     }
 

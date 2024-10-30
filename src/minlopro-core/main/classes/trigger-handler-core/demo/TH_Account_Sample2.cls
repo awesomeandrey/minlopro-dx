@@ -3,7 +3,7 @@ public inherited sharing class TH_Account_Sample2 extends BasicTriggerHandler {
     public static Integer MAX_LOOP_COUNT = 10;
 
     public override Integer getMaxLoopCount() {
-        return MAX_LOOP_COUNT;
+        return MAX_LOOP_COUNT * 3; // Multiply by 2 to allow DLRS rollup triggers pass;
     }
 
     public override void afterUpdate(Map<Id, SObject> oldMap, Map<Id, SObject> newMap) {
