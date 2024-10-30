@@ -63,5 +63,5 @@ jobs:
         if: ${{ success() && github.event.inputs.runApexTests == 'true' }}
         run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Purge Scratch Org'
-        if: ${{ success() && github.event.inputs.purgeOnCreate == 'true' }}
+        if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
         run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
