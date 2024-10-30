@@ -5,3 +5,7 @@ This folder contains metadata related to [Declarative Lookup Rollup Relationship
 ## Configuration Guide
 
 Here is sophisticated guide of DLRS package functionality - https://sfdo-community-sprints.github.io/DLRS-Documentation.
+Make sure to assign the following permission sets to Admun user(s):
+
+-   `dlrs__LookupRollupSummariesFull`
+-   `dlrs__LookupRollupSummariesReadOnly`
