@@ -9,6 +9,7 @@
     <permissionSets>Minlopro_Core</permissionSets>
     <permissionSets>Minlopro_CurrencyManagement</permissionSets>
     <permissionSets>Minlopro_CustomAuthProviderAndNC</permissionSets>
+    <permissionSets>Minlopro_DRLS</permissionSets>
     <permissionSets>Minlopro_DigEx_InAppAndWebMessaging</permissionSets>
     <permissionSets>Minlopro_DuplicatesManager</permissionSets>
     <permissionSets>Minlopro_FilesManager</permissionSets>
