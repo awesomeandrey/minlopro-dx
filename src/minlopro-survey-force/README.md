@@ -2,6 +2,8 @@
 
 This folder contains metadata related to [Survey Force](https://github.com/SalesforceLabs/survey-force) **unmanaged** package.
 
+Package ID: `04t6S00000160LFQAY`.
+
 ## Setup Steps
 
 -   Install unmanaged package in DevHub environment
