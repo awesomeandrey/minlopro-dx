@@ -14,13 +14,13 @@
     <cachePublicVisualforcePagesInProxyServers>true</cachePublicVisualforcePagesInProxyServers>
     <clickjackProtectionLevel>SameOriginOnly</clickjackProtectionLevel>
     <contentSniffingProtection>true</contentSniffingProtection>
-    <description>Custom Force.com site created to host pages for &apos;Survey Force&apos; unmanaged package.</description>
+    <description>Custom Force.com site created to host pages for &apos;Survey Force&apos; unmanaged package</description>
     <enableAuraRequests>true</enableAuraRequests>
     <fileNotFoundPage>FileNotFound</fileNotFoundPage>
     <genericErrorPage>Exception</genericErrorPage>
     <inMaintenancePage>InMaintenance</inMaintenancePage>
     <inactiveIndexPage>InMaintenance</inactiveIndexPage>
-    <indexPage>IdeasHome</indexPage>
+    <indexPage>TakeSurvey</indexPage>
     <masterLabel>Minlopro Survey Force</masterLabel>
     <redirectToCustomDomain>true</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
@@ -28,5 +28,4 @@
     <siteGuestRecordDefaultOwner>@SF_USERNAME</siteGuestRecordDefaultOwner>
     <siteTemplate>SiteTemplate</siteTemplate>
     <siteType>Visualforce</siteType>
-    <urlPathPrefix>surveys</urlPathPrefix>
 </CustomSite>
