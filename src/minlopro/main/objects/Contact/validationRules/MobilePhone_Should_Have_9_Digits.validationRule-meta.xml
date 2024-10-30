@@ -3,7 +3,7 @@
     <fullName>MobilePhone_Should_Have_9_Digits</fullName>
     <active>true</active>
     <description>Mobile Phone should have 9 digits at least!</description>
-    <errorConditionFormula>LEN(MobilePhone) &lt; 9</errorConditionFormula>
+    <errorConditionFormula>AND( NOT(ISBLANK(MobilePhone)), LEN(MobilePhone) &lt; 9 )</errorConditionFormula>
     <errorDisplayField>MobilePhone</errorDisplayField>
     <errorMessage>Mobile Phone should have 9 digits at least!</errorMessage>
 </ValidationRule>

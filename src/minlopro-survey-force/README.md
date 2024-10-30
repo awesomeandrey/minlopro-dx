@@ -4,7 +4,8 @@ This folder contains metadata related to [Survey Force](https://github.com/Sales
 
 ## Post-Deployment Steps
 
-1. Assign `Survey_Force_SuperAdmin` permission set to Admin user(s)
+1. Assign `Survey_Force_SuperAdmin` & `Survey_Force_Admin` permission set to Admin user(s)
+2. Create `Force.com` site and assign `Survey_Force_Guest` permission set to guest user
 
 ## TODOs
 
