@@ -2,8 +2,13 @@
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Used to grant access to rollup summary fields calculated by DLRS.</description>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.AvgOpportunitiesAmount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.CountOfContacts__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

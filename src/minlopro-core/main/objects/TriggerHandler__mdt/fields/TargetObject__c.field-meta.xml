@@ -50,6 +50,11 @@
                 <default>false</default>
                 <label>AccountChangeEvent (CDC)</label>
             </value>
+            <value>
+                <fullName>User</fullName>
+                <default>false</default>
+                <label>User</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

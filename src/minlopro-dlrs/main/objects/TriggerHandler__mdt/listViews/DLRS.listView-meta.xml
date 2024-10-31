@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>DetailedView</fullName>
+    <fullName>DLRS</fullName>
     <columns>MasterLabel</columns>
     <columns>DeveloperName</columns>
     <columns>Active__c</columns>
@@ -9,6 +9,11 @@
     <columns>Description__c</columns>
     <columns>ApexClassName__c</columns>
     <filterScope>Everything</filterScope>
-    <label>Detailed View</label>
+    <filters>
+        <field>ApexClassName__c</field>
+        <operation>contains</operation>
+        <value>_DLRS_</value>
+    </filters>
+    <label>DLRS</label>
     <language>en_US</language>
 </ListView>

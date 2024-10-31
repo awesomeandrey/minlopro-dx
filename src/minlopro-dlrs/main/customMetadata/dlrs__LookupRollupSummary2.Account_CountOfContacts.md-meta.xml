@@ -4,7 +4,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 >
-    <label>Account - AVG of Opportunities Amount</label>
+    <label>Account - COUNT Of Contacts</label>
     <protected>false</protected>
     <values>
         <field>dlrs__Active__c</field>
@@ -16,11 +16,11 @@
     </values>
     <values>
         <field>dlrs__AggregateOperation__c</field>
-        <value xsi:type="xsd:string">Avg</value>
+        <value xsi:type="xsd:string">Count</value>
     </values>
     <values>
         <field>dlrs__AggregateResultField__c</field>
-        <value xsi:type="xsd:string">AvgOpportunitiesAmount__c</value>
+        <value xsi:type="xsd:string">CountOfContacts__c</value>
     </values>
     <values>
         <field>dlrs__CalculationMode__c</field>
@@ -32,7 +32,7 @@
     </values>
     <values>
         <field>dlrs__ChildObject__c</field>
-        <value xsi:type="xsd:string">Opportunity</value>
+        <value xsi:type="xsd:string">Contact</value>
     </values>
     <values>
         <field>dlrs__ConcatenateDelimiter__c</field>
@@ -41,12 +41,12 @@
     <values>
         <field>dlrs__Description__c</field>
         <value xsi:type="xsd:string"
-            >Custom DLRS rollup configuration that calculate AVG of child Opportunities Amount at parent Account level.</value
+            >Custom DLRS rollup configuration that calculates COUNT of child Contacts at parent Account level.</value
         >
     </values>
     <values>
         <field>dlrs__FieldToAggregate__c</field>
-        <value xsi:type="xsd:string">Amount</value>
+        <value xsi:type="xsd:string">Id</value>
     </values>
     <values>
         <field>dlrs__FieldToOrderBy__c</field>

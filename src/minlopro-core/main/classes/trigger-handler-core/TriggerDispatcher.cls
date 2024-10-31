@@ -77,15 +77,25 @@ public with sharing class TriggerDispatcher {
                 this.setAndValidateMaxLoopCount(handlerToExecute);
                 // Execute trigger handler logic according to trigger phase;
                 BasicTriggerHandler handlerImpl = handlerToExecute.getInstance();
+                handlerImpl.setObjectType(this.currentObjectType);
                 switch on Trigger.operationType {
+                    when BEFORE_DELETE {
+                        handlerImpl.beforeDelete(Trigger.old);
+                    }
                     when BEFORE_INSERT {
                         handlerImpl.beforeInsert(Trigger.new);
                     }
                     when BEFORE_UPDATE {
                         handlerImpl.beforeUpdate(Trigger.oldMap, Trigger.newMap);
                     }
+                    when AFTER_DELETE {
+                        handlerImpl.afterDelete(Trigger.old);
+                    }
                     when AFTER_INSERT {
                         handlerImpl.afterInsert(Trigger.new);
+                    }
+                    when AFTER_UNDELETE {
+                        handlerImpl.afterUndelete(Trigger.new);
                     }
                     when AFTER_UPDATE {
                         handlerImpl.afterUpdate(Trigger.oldMap, Trigger.newMap);
