@@ -10,5 +10,5 @@ trigger dlrs_AccountTrigger on Account(
     after undelete,
     after update
 ) {
-    dlrs.RollupService.triggerHandler();
+    dlrs.RollupService.triggerHandler(Account.SObjectType);
 }
