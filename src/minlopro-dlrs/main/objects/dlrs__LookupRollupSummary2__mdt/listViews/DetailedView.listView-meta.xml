@@ -10,6 +10,7 @@
     <columns>dlrs__FieldToAggregate__c</columns>
     <columns>dlrs__AggregateResultField__c</columns>
     <columns>dlrs__Description__c</columns>
+    <columns>dlrs__CalculationMode__c</columns>
     <filterScope>Everything</filterScope>
     <label>Detailed View</label>
     <language>en_US</language>

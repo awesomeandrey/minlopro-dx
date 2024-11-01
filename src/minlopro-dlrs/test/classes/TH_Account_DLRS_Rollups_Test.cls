@@ -31,15 +31,26 @@ private class TH_Account_DLRS_Rollups_Test {
             Assert.areEqual(
                 calculateAverageOfAmount(testChildOpportunities),
                 testAccount?.AvgOpportunitiesAmount__c?.setScale(2, RoundingMode.HALF_UP),
-                'Rolled-up Opportunities Amount average is wrong'
+                'Rolled-up Opportunities Amount average is wrong (INSERT)'
             );
-            Opportunity testLastOpportunity = testChildOpportunities.remove(testChildOpportunities.size() - 1);
+
+            Opportunity testLastOpportunity = testChildOpportunities.get(testChildOpportunities.size() - 1);
+            testLastOpportunity.Amount = TestDataFactory.generateRandomDecimal(100, 500);
+            update testLastOpportunity;
+            testAccount = selectAccountWithDlrsFieldsById(testAccount.Id);
+            Assert.areEqual(
+                calculateAverageOfAmount(testChildOpportunities),
+                testAccount?.AvgOpportunitiesAmount__c?.setScale(2, RoundingMode.HALF_UP),
+                'Rolled-up Opportunities Amount average is wrong (UPDATE)'
+            );
+
+            testLastOpportunity = testChildOpportunities.remove(testChildOpportunities.size() - 1);
             delete testLastOpportunity;
             testAccount = selectAccountWithDlrsFieldsById(testAccount.Id);
             Assert.areEqual(
                 calculateAverageOfAmount(testChildOpportunities),
                 testAccount?.AvgOpportunitiesAmount__c?.setScale(2, RoundingMode.HALF_UP),
-                'Rolled-up Opportunities Amount average is wrong'
+                'Rolled-up Opportunities Amount average is wrong (DELETE)'
             );
         }
     }
@@ -56,11 +67,36 @@ private class TH_Account_DLRS_Rollups_Test {
             List<Contact> testChildContacts = TestDataFactory.createContacts(childContactsCount, testAccount.Id);
             insert testChildContacts;
             testAccount = selectAccountWithDlrsFieldsById(testAccount.Id);
-            Assert.areEqual(childContactsCount, testAccount.CountOfContacts__c, 'Rolled-up Contacts count did not match');
-            delete testChildContacts[testChildContacts.size() - 1];
+            Assert.areEqual(
+                childContactsCount,
+                testAccount.CountOfContacts__c,
+                'Rolled-up Contacts count did not match (INSERT)'
+            );
+
+            Contact contactToDelete = testChildContacts[testChildContacts.size() - 1];
+            delete contactToDelete;
             testAccount = selectAccountWithDlrsFieldsById(testAccount.Id);
-            Assert.areEqual(childContactsCount - 1, testAccount.CountOfContacts__c, 'Rolled-up Contacts count did not match');
+            Assert.areEqual(
+                childContactsCount - 1,
+                testAccount.CountOfContacts__c,
+                'Rolled-up Contacts count did not match (DELETE)'
+            );
+
+            undelete contactToDelete;
+            testAccount = selectAccountWithDlrsFieldsById(testAccount.Id);
+            Assert.areEqual(
+                childContactsCount,
+                testAccount.CountOfContacts__c,
+                'Rolled-up Contacts count did not match (UNDELETE)'
+            );
         }
+    }
+
+    @IsTest
+    static void testWithDlrsApi() {
+        dlrs.RollupService.testHandler(TestDataFactory.createAccounts(1)[0]);
+        dlrs.RollupService.testHandler(TestDataFactory.createOpportunities(1, null)[0]);
+        dlrs.RollupService.testHandler(TestDataFactory.createContacts(1)[0]);
     }
 
     static Account selectAccountWithDlrsFieldsById(Id accountId) {
