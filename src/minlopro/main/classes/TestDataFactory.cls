@@ -1,6 +1,4 @@
 public class TestDataFactory {
-    // Testing SFDX Replacements: '@SF_USERNAME' < should contain integration user username!
-
     public final static CurrencyType CORPORATE_CURRENCY_TYPE {
         get {
             for (CurrencyType cType : CURRENCY_TYPES_BY_CODE.values()) {
@@ -117,7 +115,7 @@ public class TestDataFactory {
     public static List<Account> createAccounts(Integer numOfAccounts) {
         List<Account> accounts = new List<Account>();
         for (Integer i = 0; i < numOfAccounts; i++) {
-            accounts.add(new Account(Name = 'Test #' + i, AnnualRevenue = 0));
+            accounts.add(new Account(Name = 'Test #' + i, AnnualRevenue = generateRandomDecimal()));
         }
         return accounts;
     }
@@ -151,7 +149,7 @@ public class TestDataFactory {
                     Name = 'Test Opportunity #' + i,
                     StageName = 'Closed Won',
                     CloseDate = Date.today(),
-                    Amount = 1000,
+                    Amount = generateRandomDecimal(),
                     AccountId = accountId,
                     CurrencyIsoCode = CORPORATE_CURRENCY_TYPE.IsoCode
                 )
@@ -200,6 +198,19 @@ public class TestDataFactory {
             randStr += chars.substring(idx, idx + 1);
         }
         return randStr;
+    }
+
+    public static Decimal generateRandomDecimal() {
+        final Integer min = 15000;
+        final Integer max = 50000;
+        return generateRandomDecimal(150, 20000);
+    }
+
+    public static Decimal generateRandomDecimal(Integer min, Integer max) {
+        // Generate a random integer between min and max
+        Integer randomInt = Math.round(Math.random() * (max - min) + min);
+        // Convert to Decimal
+        return Decimal.valueOf(randomInt);
     }
 
     public enum PublicGroup {
