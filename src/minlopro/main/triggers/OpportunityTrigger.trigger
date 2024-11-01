@@ -1,4 +1,4 @@
-trigger UserTrigger on User(
+trigger OpportunityTrigger on Opportunity(
     before insert,
     before update,
     before delete,
@@ -7,6 +7,5 @@ trigger UserTrigger on User(
     after delete,
     after undelete
 ) {
-    // Leverage FFLIB Object Domain approach;
-    fflib_SObjectDomain.triggerHandler(Users.class);
+    TriggerDispatcher.setContext(Opportunity.SObjectType).run();
 }

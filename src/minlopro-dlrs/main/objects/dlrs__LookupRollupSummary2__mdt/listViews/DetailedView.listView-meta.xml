@@ -3,11 +3,13 @@
     <fullName>DetailedView</fullName>
     <columns>MasterLabel</columns>
     <columns>DeveloperName</columns>
-    <columns>Active__c</columns>
-    <columns>TargetObject__c</columns>
-    <columns>Order__c</columns>
-    <columns>Description__c</columns>
-    <columns>ApexClassName__c</columns>
+    <columns>dlrs__Active__c</columns>
+    <columns>dlrs__ParentObject__c</columns>
+    <columns>dlrs__ChildObject__c</columns>
+    <columns>dlrs__AggregateOperation__c</columns>
+    <columns>dlrs__FieldToAggregate__c</columns>
+    <columns>dlrs__AggregateResultField__c</columns>
+    <columns>dlrs__Description__c</columns>
     <filterScope>Everything</filterScope>
     <label>Detailed View</label>
     <language>en_US</language>

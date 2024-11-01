@@ -1,20 +1,6 @@
 @IsTest
 private class Account_TH_DemoTest {
-    private static final Decimal RANDOM_ACCOUNT_REVENUE {
-        get {
-            if (RANDOM_ACCOUNT_REVENUE == null) {
-                // Generate a random decimal between 0.0 (inclusive) and 1.0 (exclusive);
-                Double randomValue = Math.random();
-                // Scale the random value to the range of 0 to 1000, then shift it to the range of 1000 to 2000;
-                Double randomDecimal = 1000 + (randomValue * 1000);
-                // Optional: If you need a specific number of decimal places, you can round the value;
-                // For example, rounding to 2 decimal places
-                RANDOM_ACCOUNT_REVENUE = Math.round(randomDecimal * 10.0) / 10.0;
-            }
-            return RANDOM_ACCOUNT_REVENUE;
-        }
-        set;
-    }
+    private static final Decimal RANDOM_ACCOUNT_REVENUE = TestDataFactory.generateRandomDecimal(500, 1500);
 
     @TestSetup
     static void setup() {
@@ -33,7 +19,7 @@ private class Account_TH_DemoTest {
         // Enable 'debug' mode within trigger module;
         TriggerDispatcher.debugModeEnabled = true;
         // Generate and verify test data;
-        List<Account> testAccounts = TestDataFactory.createAccounts(5);
+        List<Account> testAccounts = createAccountsWithEmptyAnnualRevenue(5);
         Assert.isFalse(testAccounts.isEmpty());
         for (Account accountItem : testAccounts) {
             Assert.isTrue(accountItem.AnnualRevenue < TH_Account_Sample1.DEFAULT_ANNUAL_REVENUE);
@@ -50,7 +36,7 @@ private class Account_TH_DemoTest {
         TriggerDispatcher.clearAllBypass();
         Database.rollback(sp);
         // Re-generate tests Accounts and re-insert them;
-        testAccounts = TestDataFactory.createAccounts(5);
+        testAccounts = createAccountsWithEmptyAnnualRevenue(5);
         insert testAccounts;
         Assert.isFalse(testAccounts.isEmpty());
         for (Account accountItem : [SELECT Id, Name, AnnualRevenue FROM Account WHERE Id IN :testAccounts]) {
@@ -63,7 +49,7 @@ private class Account_TH_DemoTest {
         // Enable 'debug' mode within trigger module;
         TriggerDispatcher.debugModeEnabled = true;
         // Generate and verify test data;
-        List<Account> testAccounts = TestDataFactory.createAccounts(5);
+        List<Account> testAccounts = createAccountsWithEmptyAnnualRevenue(5);
         Assert.isFalse(testAccounts.isEmpty());
         for (Account accountItem : testAccounts) {
             Assert.isTrue(accountItem.AnnualRevenue < TH_Account_Sample1.DEFAULT_ANNUAL_REVENUE);
@@ -96,7 +82,7 @@ private class Account_TH_DemoTest {
         // Synthetically enforce max loop count for trigger handler;
         TH_Account_Sample2.MAX_LOOP_COUNT = 2;
         // Insert test Accounts and run 'update' DML;
-        List<Account> testAccounts = TestDataFactory.createAccounts(5);
+        List<Account> testAccounts = createAccountsWithEmptyAnnualRevenue(5);
         insert testAccounts;
         List<Account> accountsToUpdate = new List<Account>();
         for (Account accountItem : [SELECT Id, Name, AnnualRevenue FROM Account WHERE Id IN :testAccounts]) {
@@ -125,7 +111,7 @@ private class Account_TH_DemoTest {
         // Enable 'debug' mode within trigger module;
         TriggerDispatcher.debugModeEnabled = true;
         // Generate and verify test data;
-        List<Account> testAccounts = TestDataFactory.createAccounts(5);
+        List<Account> testAccounts = createAccountsWithEmptyAnnualRevenue(5);
         for (Account accountItem : testAccounts) {
             Assert.areNotEqual(RANDOM_ACCOUNT_REVENUE, accountItem.AnnualRevenue);
         }
@@ -147,7 +133,7 @@ private class Account_TH_DemoTest {
         TriggerDispatcher.debugModeEnabled = true;
         // Generate and verify test data;
         try {
-            insert TestDataFactory.createAccounts(5);
+            insert createAccountsWithEmptyAnnualRevenue(5);
             throw new IllegalArgumentException('Trigger handler MUST exist and extend "BasicTriggerHandler" class!');
         } catch (Exception ex) {
             Assert.isInstanceOfType(ex, System.DmlException.class);
@@ -155,6 +141,14 @@ private class Account_TH_DemoTest {
         }
         List<Account> testAccounts = [SELECT Id, Name, AnnualRevenue FROM Account];
         Assert.isTrue(testAccounts.isEmpty());
+    }
+
+    static List<Account> createAccountsWithEmptyAnnualRevenue(Integer count) {
+        List<Account> accounts = TestDataFactory.createAccounts(count);
+        for (Account record : accounts) {
+            record.AnnualRevenue = 0;
+        }
+        return accounts;
     }
 
     // Note: this class should be 'public' in order to let 'TriggerDispatcher' to instantiate it;

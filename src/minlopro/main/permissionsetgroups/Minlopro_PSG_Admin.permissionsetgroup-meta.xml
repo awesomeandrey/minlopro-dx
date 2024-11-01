@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>PSG for admin users only.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Minlopro - PSG - Admin</label>
+    <permissionSets>Minlopro_Admin</permissionSets>
+    <permissionSets>Survey_Force_SuperAdmin</permissionSets>
+    <permissionSets>Survey_Force_Admin</permissionSets>
+    <permissionSets>dlrs__LookupRollupSummariesFull</permissionSets>
+    <permissionSets>dlrs__LookupRollupSummariesReadOnly</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

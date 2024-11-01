@@ -20,5 +20,6 @@
     <permissionSets>Minlopro_SalesforceConnectCustomAdapter</permissionSets>
     <permissionSets>Minlopro_TesseractJsOcr</permissionSets>
     <permissionSets>Minlopro_User</permissionSets>
+    <permissionSets>Survey_Force_Guest</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
