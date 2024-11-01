@@ -1,5 +1,5 @@
 @IsTest
-private class DlrsAccountRollupsTest {
+private class TH_Account_DLRS_Rollups_Test {
     @TestSetup
     static void setup() {
         final List<String> rollupConfigsNames = Lists.of('Account_AvgOfOpportunitiesAmount', 'Account_CountOfContacts');
@@ -30,7 +30,7 @@ private class DlrsAccountRollupsTest {
             testAccount = selectAccountWithDlrsFieldsById(testAccount.Id);
             Assert.areEqual(
                 calculateAverageOfAmount(testChildOpportunities),
-                testAccount.AvgOpportunitiesAmount__c.setScale(2, RoundingMode.HALF_UP),
+                testAccount?.AvgOpportunitiesAmount__c?.setScale(2, RoundingMode.HALF_UP),
                 'Rolled-up Opportunities Amount average is wrong'
             );
             Opportunity testLastOpportunity = testChildOpportunities.remove(testChildOpportunities.size() - 1);
@@ -38,7 +38,7 @@ private class DlrsAccountRollupsTest {
             testAccount = selectAccountWithDlrsFieldsById(testAccount.Id);
             Assert.areEqual(
                 calculateAverageOfAmount(testChildOpportunities),
-                testAccount.AvgOpportunitiesAmount__c.setScale(2, RoundingMode.HALF_UP),
+                testAccount?.AvgOpportunitiesAmount__c?.setScale(2, RoundingMode.HALF_UP),
                 'Rolled-up Opportunities Amount average is wrong'
             );
         }

@@ -3,6 +3,8 @@
     <types>
         <members>AccountChangeEventDemoTrigger</members>
         <members>AccountDemoTrigger</members>
+        <members>dlrs_AccountTrigger</members>
+        <members>dlrs_OpportunityTrigger</members>
         <name>ApexTrigger</name>
     </types>
     <version>60.0</version>

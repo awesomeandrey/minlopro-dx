@@ -24,7 +24,7 @@
     </values>
     <values>
         <field>dlrs__CalculationMode__c</field>
-        <value xsi:type="xsd:string">Realtime</value>
+        <value xsi:type="xsd:string">Developer</value>
     </values>
     <values>
         <field>dlrs__CalculationSharingMode__c</field>
