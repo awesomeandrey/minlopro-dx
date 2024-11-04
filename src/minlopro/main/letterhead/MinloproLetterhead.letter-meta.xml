@@ -10,15 +10,16 @@
     <description>Basic letterhead of Minlopro company.</description>
     <footer>
         <backgroundColor>#339999</backgroundColor>
-        <height>0</height>
-        <horizontalAlignment>Center</horizontalAlignment>
+        <height>50</height>
+        <horizontalAlignment>Left</horizontalAlignment>
+        <logo>MinloproAssets/Letterhead_Footer_Logo.png</logo>
         <verticalAlignment>Top</verticalAlignment>
     </footer>
     <header>
         <backgroundColor>#339999</backgroundColor>
-        <height>0</height>
+        <height>50</height>
         <horizontalAlignment>Left</horizontalAlignment>
-        <logo>MinloproAssets/LetterheadLogo.png</logo>
+        <logo>MinloproAssets/Letterhead_Header_Logo.png</logo>
         <verticalAlignment>Top</verticalAlignment>
     </header>
     <middleLine>
