@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Sample template with &apos;HTML (using Classic Letterhead)&apos; type</description>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>MinloproLetterhead</letterhead>
+    <name>T - HTML</name>
+    <style>formalLetter</style>
+    <subject>Sample template with &apos;HTML (using Classic Letterhead)&apos; type</subject>
+    <textOnly>Content at top 
+
+MAIN content goes here! 
+
+Thanks,
+Yours {!User.Name}</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

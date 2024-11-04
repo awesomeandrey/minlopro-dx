@@ -49,7 +49,7 @@
         </rejectionActions>
     </approvalStep>
     <description>Submits opportunity with high-level revenue for approval.</description>
-    <emailTemplate>MinloproEmailTemplates/HighRevenueOpportunityApproval</emailTemplate>
+    <emailTemplate>Minlopro_EmailTemplates/HighRevenueOpportunityApproval</emailTemplate>
     <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
     <entryCriteria>
         <criteriaItems>
