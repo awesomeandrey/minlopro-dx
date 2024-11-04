@@ -1,1 +1,10 @@
-This is Custom template
+<table border="0" cellpadding="5" width="600" cellspacing="5" height="400">
+  <tr valign="top" height="100">
+    <td tEditID="c1r3"
+        style=" background-color:yellowgreen; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;"
+        aEditID="c1r3" locked="0">
+      <h2>This is Custom template</h2>
+      <p>Sample paragraph with <i>italic</i> text -- TXT_T_R</p>
+    </td>
+  </tr>
+</table>

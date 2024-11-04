@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Email template with &apos;HTML&apos; type</description>
+    <encodingKey>UTF-8</encodingKey>
+    <letterhead>MinloproLetterhead</letterhead>
+    <name>Opt-In Confirmation (with Letterhead)</name>
+    <style>formalLetter</style>
+    <subject>Confirm your Opt-In with Minlopro</subject>
+    <textOnly>Hello {!Account.Name}
+
+Please click a button below to confirm your engagement with Minlopro.
+
+*** LINK REDACTED ***</textOnly>
+    <type>html</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>
