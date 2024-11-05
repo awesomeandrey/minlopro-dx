@@ -24,6 +24,7 @@ private class AccountChangeEvent_TH_DemoTest {
         List<Account> testAccounts = TestDataFactory.createAccounts(50);
         Assert.isFalse(testAccounts.isEmpty());
         for (Account accountItem : testAccounts) {
+            accountItem.Description = null;
             Assert.isTrue(String.isBlank(accountItem.Description), 'Account Description field should be blank');
         }
         // Override datetime stamp to verify field change in test;
@@ -39,8 +40,11 @@ private class AccountChangeEvent_TH_DemoTest {
         for (Account accountItem : [SELECT Id, Name, Description FROM Account WHERE Id IN :testAccounts]) {
             Assert.isTrue(String.isNotBlank(accountItem.Description), 'Account Description field should have been populated');
             Assert.isTrue(
-                accountItem.Description.contains(datetimeStamp),
-                'Account Description field should contain datetime stamp in this format: ' + datetimeFormat
+                accountItem.Description.containsIgnoreCase(datetimeStamp),
+                String.format(
+                    'Account Description field should contain datetime stamp in this format: {0}. The actual value is: {1}',
+                    Lists.of(datetimeFormat, accountItem.Description)
+                )
             );
         }
     }
