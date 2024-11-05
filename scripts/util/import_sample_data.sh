@@ -32,4 +32,5 @@ sf org list sobject record-counts \
   --sobject Contact \
   --sobject Lead \
   --sobject Opportunity \
-  --sobject CurrencyType
+  --sobject CurrencyType \
+  --sobject EmailTemplate
