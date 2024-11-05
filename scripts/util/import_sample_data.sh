@@ -24,13 +24,3 @@ sf data import tree \
 sf data import tree \
   --target-org "$TARGET_ORG_ALIAS" \
   --files "config/data/sample-Leads.json"
-
-# Display record counts;
-sf org list sobject record-counts \
-  --target-org "$TARGET_ORG_ALIAS" \
-  --sobject Account \
-  --sobject Contact \
-  --sobject Lead \
-  --sobject Opportunity \
-  --sobject CurrencyType \
-  --sobject EmailTemplate
