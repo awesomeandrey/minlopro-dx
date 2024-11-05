@@ -115,7 +115,9 @@ public class TestDataFactory {
     public static List<Account> createAccounts(Integer numOfAccounts) {
         List<Account> accounts = new List<Account>();
         for (Integer i = 0; i < numOfAccounts; i++) {
-            accounts.add(new Account(Name = 'Test #' + i, AnnualRevenue = generateRandomDecimal()));
+            accounts.add(
+                new Account(Name = 'Test #' + i, AnnualRevenue = generateRandomDecimal(), Description = generateRandomString(100))
+            );
         }
         return accounts;
     }
@@ -134,7 +136,8 @@ public class TestDataFactory {
                     LastName = 'TestLastName' + i,
                     Email = 'test' + i + '@example.com',
                     Phone = '777-' + i,
-                    MobilePhone = '1234567890'
+                    MobilePhone = '1234567890',
+                    Description = generateRandomString(100)
                 )
             );
         }
@@ -151,7 +154,8 @@ public class TestDataFactory {
                     CloseDate = Date.today(),
                     Amount = generateRandomDecimal(),
                     AccountId = accountId,
-                    CurrencyIsoCode = CORPORATE_CURRENCY_TYPE.IsoCode
+                    CurrencyIsoCode = CORPORATE_CURRENCY_TYPE.IsoCode,
+                    Description = generateRandomString(100)
                 )
             );
         }
@@ -173,7 +177,8 @@ public class TestDataFactory {
                     LastName = 'LN #' + i,
                     Title = 'Test Lead Data',
                     Phone = '750-224-9149' + i,
-                    MobilePhone = '750-224-9149' + i
+                    MobilePhone = '750-224-9149' + i,
+                    Description = generateRandomString(100)
                 )
             );
         }
@@ -201,8 +206,6 @@ public class TestDataFactory {
     }
 
     public static Decimal generateRandomDecimal() {
-        final Integer min = 15000;
-        final Integer max = 50000;
         return generateRandomDecimal(150, 20000);
     }
 

@@ -85,7 +85,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>OptInConfirmation</stringValue>
+                <stringValue>OptInConfirmationWithLetterhead</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>

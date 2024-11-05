@@ -1,0 +1,22 @@
+<table border="0" cellpadding="5" width="600" cellspacing="5" height="400" >
+<tr valign="top" height="50" >
+<td tEditID="c1r1" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r1" locked="0" >
+<![CDATA[<h3>Hello {!Account.Name}</h3>
+  <p
+    style="font-family: Arial, sans-serif; font-size: 16px; color: #333333; margin-bottom: 20px;">
+    Please click a button below to confirm your engagement with Minlopro.
+  </p>
+  <a href="@OPT_IN_CONFIRMATION_LINK" target="_blank"
+     style="background-color: #007bff; color: #ffffff; padding: 15px 25px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; font-family: Arial, sans-serif; border-radius: 5px;">
+    CONFIRM
+  </a>]]></td>
+</tr>
+<tr valign="top" height="300" >
+<td tEditID="c1r2" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r2" locked="0" >
+<![CDATA[]]></td>
+</tr>
+<tr valign="top" height="50" >
+<td tEditID="c1r3" style=" background-color:#FFFFFF; color:#000000; bEditID:r3st1; bLabel:main; font-size:12pt; font-family:arial;" aEditID="c1r3" locked="0" >
+<![CDATA[]]></td>
+</tr>
+</table>

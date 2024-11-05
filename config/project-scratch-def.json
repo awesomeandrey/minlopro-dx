@@ -45,6 +45,9 @@
         "experienceBundleSettings": {
             "enableExperienceBundleMetadata": true
         },
+        "emailAdministrationSettings": {
+            "enableEnhancedEmailEnabled": true
+        },
         "languageSettings": {
             "enableTranslationWorkbench": true
         },

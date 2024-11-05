@@ -7,6 +7,7 @@
 # Input variables;
 orgAlias="TARGET_ORG"
 sfdxUrl=""
+
 # Parse command-line arguments;
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -25,6 +26,7 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
 # Check if sfdxUrl was provided;
 if [ -z "$sfdxUrl" ]; then
     echo "Error: sfdxUrl parameter is mandatory"
@@ -49,3 +51,7 @@ sf org list auth
 
 # Purge file with SFDX url;
 rm -rf "$sfAuthUrlFile"
+
+# List Target Org API Limits
+echo "🔵 Listing [$orgAlias] organization API limits"
+sf limits api display --target-org "$orgAlias"

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>AccountChangeEventDemoTrigger</members>
-        <members>AccountDemoTrigger</members>
-        <members>dlrs_AccountTrigger</members>
-        <members>dlrs_OpportunityTrigger</members>
-        <name>ApexTrigger</name>
+        <members>MinloproAssets/LetterheadLogo</members>
+        <name>Document</name>
+    </types>
+    <types>
+        <members>MinloproEmailTemplates</members>
+        <name>EmailTemplate</name>
     </types>
     <version>60.0</version>
 </Package>
