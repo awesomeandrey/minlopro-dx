@@ -11,14 +11,17 @@
         <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/authcallback/Custom_Salesforce_Auth_Provider</value>
     </values>
     <values>
+        <!--Contains a reference to External Credential parameter-->
         <field>ClientId__c</field>
         <value xsi:type="xsd:string">{!$Credential.Minlopro.ClientId}</value>
     </values>
     <values>
+        <!--Contains a reference to External Credential parameter-->
         <field>ClientSecret__c</field>
         <value xsi:type="xsd:string">{!$Credential.Minlopro.ClientSecret}</value>
     </values>
     <values>
+        <!--Contains a dedicated Named Credential callout expression-->
         <field>TokenEndpoint__c</field>
         <value xsi:type="xsd:string">callout:MinloproLogin/services/oauth2/token</value>
     </values>

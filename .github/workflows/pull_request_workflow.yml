@@ -63,7 +63,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $SF_AUTH_URL --orgAlias TargetOrg
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "TargetOrg"
       - name: 'Generate Delta Manifests'
         run: |
           git checkout ${{github.base_ref}}

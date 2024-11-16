@@ -36,7 +36,7 @@ private class AccountChangeEvent_TH_DemoTest {
         Test.startTest();
         insert testAccounts;
         Test.stopTest();
-        // Verify that the AnnualRevenue field was NOT updated!;
+        // Verify 'Description' field changes;
         for (Account accountItem : [SELECT Id, Name, Description FROM Account WHERE Id IN :testAccounts]) {
             Assert.isTrue(String.isNotBlank(accountItem.Description), 'Account Description field should have been populated');
             Assert.isTrue(

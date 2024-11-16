@@ -13,7 +13,6 @@ echo "🔵 Installing packages in [$TARGET_ORG_ALIAS] organization..."
 
 # Capture connected DevHub username
 DEV_HUB_ALIAS=$(bash ./scripts/util/get_dev_hub_username.sh)
-echo "DevHub Username = [$DEV_HUB_ALIAS]"
 
 # Check if DevHub is connected
 if [ -z "${DEV_HUB_ALIAS+x}" ] || [ -z "$DEV_HUB_ALIAS" ] || [ "$DEV_HUB_ALIAS" = "null" ]; then
@@ -21,8 +20,10 @@ if [ -z "${DEV_HUB_ALIAS+x}" ] || [ -z "$DEV_HUB_ALIAS" ] || [ "$DEV_HUB_ALIAS" 
   exit 0
 fi
 
+echo "DevHub Username = [$DEV_HUB_ALIAS]"
+
 # Fetch packages info
-echo "Fetching installed packages in the DevHub org..."
+echo "Fetching installed packages from the DevHub org..."
 installedPackagesAsJson=$(sf package installed list --target-org "$DEV_HUB_ALIAS" --json)
 echo "$installedPackagesAsJson"
 

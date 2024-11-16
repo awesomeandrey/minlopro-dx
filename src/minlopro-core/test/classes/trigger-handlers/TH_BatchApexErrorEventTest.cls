@@ -10,12 +10,12 @@ private class TH_BatchApexErrorEventTest {
         try {
             Test.startTest();
             Database.executeBatch(new SampleFailingBatch(), 200);
-            Test.getEventBus().deliver();
-            Test.stopTest();
+            Test.stopTest(); // This line causes exception to occur;
+            Assert.fail('The code should have failed earlier');
         } catch (Exception ex) {
-            Assert.isNotNull(ex);
+            Assert.isNotNull(ex, 'Exception should have been caught');
         }
-        Test.getEventBus().deliver();
+        Test.getEventBus().deliver(); // Deliver events;
         LogData log = new LogData(Logger.currentEvent());
         Assert.areEqual(
             TH_BatchApexErrorEvent.class.getName(),
