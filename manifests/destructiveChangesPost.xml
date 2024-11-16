@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>CCF_Configurations__mdt.TokenEndpointUrl__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>MinloproExtCCF</members>
+        <name>ExternalCredential</name>
+    </types>
+    <types>
+        <members>MinloproContacts</members>
+        <name>NamedCredential</name>
+    </types>
     <version>60.0</version>
 </Package>
