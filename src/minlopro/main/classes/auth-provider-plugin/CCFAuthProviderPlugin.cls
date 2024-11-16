@@ -7,7 +7,7 @@ public class CCFAuthProviderPlugin extends Auth.AuthProviderPluginClass {
     @TestVisible
     private final static String CALLBACK_URL = CCF_Configurations__mdt.CallbackUrl__c.getDescribe().getName();
     @TestVisible
-    private final static String TOKEN_ENDPOINT_URL = CCF_Configurations__mdt.TokenEndpointUrl__c.getDescribe().getName();
+    private final static String TOKEN_ENDPOINT_URL = CCF_Configurations__mdt.TokenEndpoint__c.getDescribe().getName();
     @TestVisible
     private final static String CLIENT_ID = CCF_Configurations__mdt.ClientId__c.getDescribe().getName();
     @TestVisible

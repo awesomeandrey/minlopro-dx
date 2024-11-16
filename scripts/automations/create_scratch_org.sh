@@ -45,7 +45,7 @@ cat "$orgCredentialsFile"
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 
 # Generate project manifest and initiate full deploy to scratch org (this automatically creates Digital Experience Site)
-sf project generate manifest --source-dir "src" --name "manifests/package.xml"
+npm run sf:manifest:create
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/deploy.sh
 
 # Create QA user
@@ -62,3 +62,6 @@ sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS" || true
 
 # Publish Experience Site for Enhanced Messaging for In-App & Web Experience
 sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$SCRATCH_ORG_ALIAS" || true
+
+# Reset Metadata Tracking
+npm run sf:tracking:reset

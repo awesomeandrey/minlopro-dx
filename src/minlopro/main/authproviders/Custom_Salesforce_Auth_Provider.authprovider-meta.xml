@@ -4,6 +4,7 @@
     <executionUser>@SF_USERNAME</executionUser>
     <friendlyName>Custom Salesforce Auth Provider</friendlyName>
     <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
+    <isPkceEnabled>false</isPkceEnabled>
     <plugin>CCFAuthProviderPlugin</plugin>
     <providerType>Custom</providerType>
     <requireMfa>false</requireMfa>

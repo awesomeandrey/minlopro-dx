@@ -7,9 +7,11 @@
     <name>T - HTML</name>
     <style>formalLetter</style>
     <subject>Sample template with &apos;HTML (using Classic Letterhead)&apos; type</subject>
-    <textOnly>Content at top 
+    <textOnly>MAIN content goes here!
 
-MAIN content goes here! 
+This is custom HTML-formatted text TXT_T_R
+
+Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s
 
 Thanks,
 Yours {!User.Name}</textOnly>

@@ -53,16 +53,6 @@
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_CCF_APP_CLIENT_ID",
-            "replaceWithEnv": "SF_CCF_APP_CLIENT_ID"
-        },
-        {
-            "glob": "src/**",
-            "stringToReplace": "@SF_CCF_APP_CLIENT_SECRET",
-            "replaceWithEnv": "SF_CCF_APP_CLIENT_SECRET"
-        },
-        {
-            "glob": "src/**",
             "stringToReplace": "@SF_ADMIN_EMAIL",
             "replaceWithEnv": "SF_ADMIN_EMAIL"
         },

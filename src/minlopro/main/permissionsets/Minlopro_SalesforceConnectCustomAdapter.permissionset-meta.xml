@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <externalCredentialPrincipalAccesses>
-        <enabled>true</enabled>
-        <externalCredentialPrincipal>MinloproExtCCF-Admin</externalCredentialPrincipal>
-    </externalCredentialPrincipalAccesses>
     <classAccesses>
         <apexClass>MinloproContactsConnection</apexClass>
         <enabled>true</enabled>
@@ -12,10 +8,10 @@
         <apexClass>MinloproContactsProvider</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <externalDataSourceAccesses>
-        <enabled>false</enabled>
-        <externalDataSource>MinloproEDS</externalDataSource>
-    </externalDataSourceAccesses>
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
+        <externalCredentialPrincipal>Minlopro-Default</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
     <fieldPermissions>
         <editable>false</editable>
         <field>SalesforceContact__x.Name__c</field>
@@ -41,6 +37,15 @@
         <modifyAllRecords>false</modifyAllRecords>
         <object>SalesforceContact__x</object>
         <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>UserExternalCredential</object>
+        <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
     <tabSettings>
         <tab>SalesforceContact__x</tab>
