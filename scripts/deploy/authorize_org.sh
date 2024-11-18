@@ -35,7 +35,7 @@ if [ -z "$sfdxUrl" ]; then
 fi
 buildFolder="build"
 sfAuthUrlFile="$buildFolder/target-org-auth-url.txt"
-echo "🔵 Authorizing [$orgAlias] organization..."
+npx cowsay -W 100 "🔵 Authorizing [$orgAlias] organization..."
 
 # Save sf auth URL into a text file;
 mkdir -p "$buildFolder"

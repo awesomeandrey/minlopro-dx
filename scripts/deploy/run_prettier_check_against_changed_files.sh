@@ -52,10 +52,10 @@ if ! [ "$(ls $copiedSrcFolderPath)" ]; then
   exit 0
 fi
 
-echo "node version = $(node --version)"
-echo "npm version = $(npm --version)"
-echo "java version = $(java --version)"
-echo "prettier version = $(npx prettier --version)"
+echo "node = $(node --version)"
+echo "npm = $(npm --version)"
+echo "java = $(java --version)"
+echo "prettier = $(npx prettier --version)"
 
 # Invoke prettier;
 npx prettier --check "$copiedSrcFolderPath/**" --ignore-path "./.prettierignore"
