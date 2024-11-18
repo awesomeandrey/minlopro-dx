@@ -16,7 +16,7 @@ DEV_HUB_ALIAS=$(bash ./scripts/util/get_dev_hub_username.sh)
 
 # Check if DevHub is connected
 if [ -z "${DEV_HUB_ALIAS+x}" ] || [ -z "$DEV_HUB_ALIAS" ] || [ "$DEV_HUB_ALIAS" = "null" ]; then
-  echo "DevHub org connection is undefined; skipping packages installation."
+  npx cowsay -W 100 "DevHub org connection is undefined; skipping packages installation"
   exit 0
 fi
 

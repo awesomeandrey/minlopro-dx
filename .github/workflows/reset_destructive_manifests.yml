@@ -6,6 +6,7 @@ on:
     branches:
       - main
       - develop
+      - feature/**
 
 # Jobs
 jobs:
@@ -18,8 +19,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
-      - name: 'Install NPM Dependencies'
-        run: npm install
+      - name: 'Install Dependencies'
+        run: bash ./scripts/deploy/build.sh
       - name: 'Reset Manifests & Commit Changes'
         run: |
           # Set Git user info (required step)

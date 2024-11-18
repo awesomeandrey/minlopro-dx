@@ -50,6 +50,13 @@ fi
 # Install the rest of dependencies via NPM
 npm install
 
+# Install Ubuntu OS utility tools (`xmllint`, `xmlstarlet` and others)
+if [[ -f /etc/os-release ]] && grep -qi "ubuntu" /etc/os-release; then
+    echo "Detected Ubuntu OS. Installing utility tools..."
+    sudo apt-get install -y libxml2-utils
+    sudo apt-get install -y xmlstarlet
+fi
+
 # Create '.env' file based on template
 envFile=".env"
 if ! [ -f "$envFile" ]; then

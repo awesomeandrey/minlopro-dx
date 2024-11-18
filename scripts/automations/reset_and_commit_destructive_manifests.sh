@@ -10,16 +10,26 @@ echo "🔵 Resetting destructive manifests..."
 # Enable errexit option to exit on command failure
 set -e
 
-# Reset XML files content via custom JS script
-node scripts/util/js/reset_destructive_manifests.js
+# Define constants
+buildFolder="build"
+manifestsFolder="manifests"
+preDestructiveChangesXml="$manifestsFolder/destructiveChangesPre.xml"
+postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
+tempManifestXml="$buildFolder/tempManifest.xml"
+
+# Reset XML files content via utility command
+mkdir -p "$buildFolder"
+touch "$tempManifestXml"
+xmlstarlet ed -d "//*[local-name()='types']" "$preDestructiveChangesXml" > "$tempManifestXml" && mv "$tempManifestXml" "$preDestructiveChangesXml"
+xmlstarlet ed -d "//*[local-name()='types']" "$postDestructiveChangesXml" > "$tempManifestXml" && mv "$tempManifestXml" "$postDestructiveChangesXml"
 
 # Prettify XML files content
 echo "prettier version = $(npx prettier --version)"
-npx prettier --write "manifests/**"
+npx prettier --write "$manifestsFolder/**"
 
 # Define the files to track
-file1="manifests/destructiveChangesPre.xml"
-file2="manifests/destructiveChangesPost.xml"
+file1="$preDestructiveChangesXml"
+file2="$postDestructiveChangesXml"
 
 # Function to check if a file is modified
 is_file_modified() {

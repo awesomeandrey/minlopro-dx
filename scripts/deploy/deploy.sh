@@ -13,8 +13,9 @@ packageXml="$manifestsFolder/package.xml"
 preDestructiveChangesXml="$manifestsFolder/destructiveChangesPre.xml"
 postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
 
-# Verify that all 3 manifests exist;
-if ! [[ -f "$packageXml" && -f "$preDestructiveChangesXml" && -f "$postDestructiveChangesXml" ]]; then
+# Verify that all 3 manifests exist and are valid;
+xmllint --noout "$packageXml" "$preDestructiveChangesXml" "$postDestructiveChangesXml"
+if [ $? -ne 0 ]; then
   echo "🔴 'manifests' folder must contain 3 manifest files: package.xml, destructiveChangesPre.xml & destructiveChangesPost.xml."
   exit 1
 fi
