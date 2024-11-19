@@ -18,7 +18,7 @@ public with sharing class CCFPlayground {
         req.setEndpoint(endpoint);
         // Invoke callout and parse response;
         HttpResponse resp = new Http().send(req);
-        Logger.debug(String.valueOf(resp.getStatusCode()));
+        Logger.debug('HTTP Response Status Code = {0}', Lists.of(String.valueOf(resp.getStatusCode())));
         Assert.areEqual(200, resp.getStatusCode());
         OrganizationsPayload responsePayload = (OrganizationsPayload) JSON.deserialize(
             resp.getBody(),

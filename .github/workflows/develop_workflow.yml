@@ -30,7 +30,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $SF_AUTH_URL --orgAlias TargetOrg
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "TargetOrg"
       - name: "Run PRE-Deploy Scripts"
         run: echo "TargetOrg" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Deploy Source to Target Org'
@@ -51,7 +51,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl $SF_AUTH_URL
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
       - name: 'Run All Apex Tests with Coverage'
         run: npm run sf:apex:tests:coverage
   run-pmd-checks:

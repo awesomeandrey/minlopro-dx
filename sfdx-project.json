@@ -1,30 +1,13 @@
 {
     "packageDirectories": [
-        {
-            "path": "src/minlopro-core"
-        },
-        {
-            "path": "src/minlopro"
-        },
-        {
-            "path": "src/minlopro-digex"
-        },
-        {
-            "path": "src/minlopro-digex-messaging"
-        },
-        {
-            "path": "src/minlopro-crma"
-        },
-        {
-            "path": "src/minlopro-survey-force"
-        },
-        {
-            "path": "src/minlopro-dlrs"
-        },
-        {
-            "path": "src/minlopro-default",
-            "default": true
-        }
+        { "path": "src/minlopro-default", "default": true },
+        { "path": "src/minlopro-core" },
+        { "path": "src/minlopro" },
+        { "path": "src/minlopro-digex" },
+        { "path": "src/minlopro-digex-messaging" },
+        { "path": "src/minlopro-crma" },
+        { "path": "src/minlopro-survey-force" },
+        { "path": "src/minlopro-dlrs" }
     ],
     "name": "minlopro-dx",
     "namespace": "",

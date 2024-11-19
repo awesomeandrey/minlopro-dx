@@ -5,6 +5,8 @@ import xml2js from 'xml2js';
 /**
  * How to use:
  * - node scripts/util/js/reset_destructive_manifests.js
+ *
+ * UPD - replaced with `xmlstarlet` command!
  */
 
 const $Parser = new xml2js.Parser();

@@ -19,7 +19,7 @@ for `prettier-plugin-apex` to work as expected. Refer to
 this [link](https://medium.com/@bectorhimanshu/how-to-set-java-home-environment-variable-on-macos-x-10-9-or-later-versions-dd4fa6936899)
 for configuring `$JAVA_HOME` environment variable.
 
-Additionally install [`jq`](https://www.baeldung.com/linux/jq-command-json) utility.
+Additionally install utility tools as follows: [`jq`](https://www.baeldung.com/linux/jq-command-json), [`xmllint`](https://www.baeldung.com/linux/xmllint), [`xmlstarlet`](https://xmlstar.sourceforge.net).
 
 Run `bash ./scripts/deploy/build.sh` in order to load project dependencies.
 
