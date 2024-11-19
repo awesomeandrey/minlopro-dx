@@ -38,7 +38,6 @@ jobs:
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New Scratch Org'
-        continue-on-error: true
         run: |
           inputsFile="inputs.txt"
           touch $inputsFile
@@ -63,5 +62,5 @@ jobs:
         if: ${{ success() && github.event.inputs.runApexTests == 'true' }}
         run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Purge Scratch Org'
-        if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
+        if: ${{ always() && github.event.inputs.purgeOnCreate == 'true' }}
         run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
