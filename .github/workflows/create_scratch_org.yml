@@ -38,6 +38,7 @@ jobs:
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New Scratch Org'
+        continue-on-error: true
         run: |
           inputsFile="inputs.txt"
           touch $inputsFile
@@ -50,6 +51,7 @@ jobs:
           # Initiate scratch org generation
           bash ./scripts/automations/create_scratch_org.sh < $inputsFile
       - name: 'Upload Scratch Org Credentials as Artifact'
+        if: ${{ success() && github.event.inputs.purgeOnCreate == 'false' }}
         uses: actions/upload-artifact@v4
         with:
           name: minlopro-scratch-org-credentials
@@ -59,6 +61,7 @@ jobs:
           if-no-files-found: error
           retention-days: 5
       - name: 'Run Apex Tests With Coverage'
+        continue-on-error: true
         if: ${{ success() && github.event.inputs.runApexTests == 'true' }}
         run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Purge Scratch Org'
