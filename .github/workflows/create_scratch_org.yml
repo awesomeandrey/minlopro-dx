@@ -50,6 +50,10 @@ jobs:
           echo "${{github.event.inputs.adminEmail}}" >> $inputsFile
           # Initiate scratch org generation
           bash ./scripts/automations/create_scratch_org.sh < $inputsFile
+      - name: 'Run Apex Tests With Coverage'
+        continue-on-error: true
+        if: ${{ github.event.inputs.runApexTests == 'true' }}
+        run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Upload Scratch Org Credentials as Artifact'
         if: ${{ success() && github.event.inputs.purgeOnCreate == 'false' }}
         uses: actions/upload-artifact@v4
@@ -60,10 +64,6 @@ jobs:
             build/.env
           if-no-files-found: error
           retention-days: 5
-      - name: 'Run Apex Tests With Coverage'
-        continue-on-error: true
-        if: ${{ success() && github.event.inputs.runApexTests == 'true' }}
-        run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Purge Scratch Org'
         if: ${{ always() && github.event.inputs.purgeOnCreate == 'true' }}
         run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
