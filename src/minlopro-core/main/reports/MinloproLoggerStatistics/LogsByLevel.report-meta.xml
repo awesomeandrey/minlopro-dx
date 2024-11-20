@@ -30,7 +30,17 @@
         <field>CUST_NAME</field>
     </columns>
     <currency>USD</currency>
-    <description>Logs grouped by &apos;Level&apos; for the last 30 days.</description>
+    <description>Logs grouped by &apos;Level&apos;.</description>
+    <filter>
+        <criteriaItems>
+            <column>CUST_CREATED_DATE</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>LAST_N_DAYS:7</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
@@ -49,6 +59,6 @@
     <showSubTotals>false</showSubTotals>
     <timeFrameFilter>
         <dateColumn>CUST_CREATED_DATE</dateColumn>
-        <interval>INTERVAL_LAST30</interval>
+        <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
