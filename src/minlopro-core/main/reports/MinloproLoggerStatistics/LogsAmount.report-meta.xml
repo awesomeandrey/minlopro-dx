@@ -75,16 +75,6 @@
         <scale>0</scale>
     </customDetailFormulas>
     <description>Calculates the total amount of log entries.</description>
-    <filter>
-        <criteriaItems>
-            <column>CUST_CREATED_DATE</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
-            <operator>equals</operator>
-            <value>LAST_N_DAYS:7</value>
-        </criteriaItems>
-        <language>en_US</language>
-    </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>

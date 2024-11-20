@@ -16,6 +16,10 @@
             <operator>equals</operator>
             <values>LAST_N_DAYS:7</values>
         </dashboardFilterOptions>
+        <dashboardFilterOptions>
+            <operator>equals</operator>
+            <values>TODAY</values>
+        </dashboardFilterOptions>
         <name>Log Created Date</name>
     </dashboardFilters>
     <dashboardGridLayout>
