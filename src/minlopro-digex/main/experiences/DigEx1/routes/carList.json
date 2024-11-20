@@ -6,7 +6,7 @@
   "id" : "883da7e1-0418-4f44-9bd2-4660bc3e6250",
   "label" : "Car List",
   "objectApiName" : "Car__c",
-  "routeType" : "list-a00",
+  "routeType" : "list-a0B",
   "type" : "route",
   "urlPrefix" : "car"
 }

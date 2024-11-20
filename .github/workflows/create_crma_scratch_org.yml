@@ -48,6 +48,7 @@ jobs:
           # Initiate CRMA scratch org generation
           bash ./scripts/automations/create_crma_scratch_org.sh < $inputsFile
       - name: 'Upload Scratch Org Credentials as Artifact'
+        if: ${{ success() && github.event.inputs.purgeOnCreate == 'false' }}
         uses: actions/upload-artifact@v4
         with:
           name: minlopro-crma-scratch-org-credentials
@@ -57,5 +58,5 @@ jobs:
           if-no-files-found: error
           retention-days: 5
       - name: 'Purge Scratch Org'
-        if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
+        if: ${{ always() && github.event.inputs.purgeOnCreate == 'true' }}
         run: sf org delete scratch --target-org "ScratchOrg" --no-prompt

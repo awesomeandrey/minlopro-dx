@@ -39,12 +39,14 @@ sf --version
 # Install SF CLI plugins
 echo 'Installing SF CLI plugins...'
 # https://github.com/scolladon/sfdx-git-delta
-echo y | sf plugins:install "sfdx-git-delta@latest"
+echo y | sf plugins install "sfdx-git-delta@latest"
 if [ "$INSTALL_ALL_MODULES" = true ]; then
+  # https://sfdx-hardis.cloudity.com
+  echo y | sf plugins install "sfdx-hardis"
   # https://help.sfdmu.com/get-started
-  echo y | sf plugins:install "sfdmu"
+  echo y | sf plugins install "sfdmu"
   # https://forcedotcom.github.io/sfdx-scanner/en/v3.x/scanner-commands/run/
-  echo y | sf plugins:install "@salesforce/sfdx-scanner"
+  echo y | sf plugins install "@salesforce/sfdx-scanner"
 fi
 
 # Install the rest of dependencies via NPM
