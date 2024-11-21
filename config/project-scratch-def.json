@@ -52,7 +52,7 @@
             "enableTranslationWorkbench": true
         },
         "omniChannelSettings": {
-            "enableOmniAutoLoginPrompt": true,
+            "enableOmniAutoLoginPrompt": false,
             "enableOmniChannel": true
         },
         "lightningExperienceSettings": {
