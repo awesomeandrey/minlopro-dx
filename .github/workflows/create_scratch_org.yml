@@ -11,7 +11,7 @@ on:
       purgeOnCreate:
         type: boolean
         description: 'Purge On Create?'
-        default: false
+        default: true
       runApexTests:
         type: boolean
         description: 'Run Apex Tests?'

@@ -3,15 +3,21 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>runtime_service_omnichannel:omniWidget</componentName>
+                <identifier>runtime_service_omnichannel_omniWidget</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>eager</name>
                     <type>decorator</type>
-                    <value>true</value>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>height</name>
                     <type>decorator</type>
-                    <value>580</value>
+                    <value>550</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>icon</name>
@@ -31,7 +37,7 @@
                 <componentInstanceProperties>
                     <name>width</name>
                     <type>decorator</type>
-                    <value>700</value>
+                    <value>800</value>
                 </componentInstanceProperties>
                 <componentName>logMonitor</componentName>
                 <identifier>logMonitor</identifier>
@@ -44,7 +50,7 @@
         <name>backgroundComponents</name>
         <type>Background</type>
     </flexiPageRegions>
-    <masterLabel>Minlopro UtilityBar</masterLabel>
+    <masterLabel>Minlopro Console - Utility Bar</masterLabel>
     <template>
         <name>one:utilityBarTemplateDesktop</name>
         <properties>

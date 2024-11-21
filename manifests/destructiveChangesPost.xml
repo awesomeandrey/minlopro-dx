@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Minlopro</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
+        <members>Minlopro_UtilityBar</members>
+        <name>FlexiPage</name>
+    </types>
     <version>60.0</version>
 </Package>

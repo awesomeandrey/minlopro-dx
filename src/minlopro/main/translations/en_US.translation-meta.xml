@@ -2,8 +2,8 @@
 <Translations xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <customApplications>
         <description xsi:nil="true" />
-        <label><!-- Minlopro --></label>
-        <name>Minlopro</name>
+        <label><!-- Minlopro Console --></label>
+        <name>MinloproConsole</name>
     </customApplications>
     <customLabels>
         <label><!-- Error --></label>

@@ -12,6 +12,15 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Contact_DefaultPage</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Contact</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Lead_DefaultPage</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
@@ -35,32 +44,24 @@
         <type>Flexipage</type>
         <pageOrSobjectType>Opportunity</pageOrSobjectType>
     </actionOverrides>
-    <actionOverrides>
-        <actionName>View</actionName>
-        <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>Contact_DefaultPage</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>Contact</pageOrSobjectType>
-    </actionOverrides>
     <brand>
-        <headerColor>#0070D2</headerColor>
+        <headerColor>#F59F1D</headerColor>
         <logo>MinloproAppLogo</logo>
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
     <description
-        >Playground application for both learning and refining Salesforce development skills; tailored for POCs and LWC
+        >Playground console application for both learning and refining Salesforce development skills; tailored for POCs and LWC
         experimentation.</description
     >
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
-    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <isNavTabPersistenceDisabled>true</isNavTabPersistenceDisabled>
     <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
-    <label>Minlopro</label>
-    <navType>Standard</navType>
+    <label>Minlopro Console</label>
+    <navType>Console</navType>
+    <setupExperience>all</setupExperience>
     <tabs>standard-home</tabs>
     <tabs>Workspace</tabs>
     <tabs>LogsMonitor</tabs>
@@ -71,7 +72,41 @@
     <tabs>SalesforceContact__x</tabs>
     <tabs>standard-report</tabs>
     <tabs>Car__c</tabs>
-    <tabs>GoogleMapsApiPlayground</tabs>
     <uiType>Lightning</uiType>
-    <utilityBar>Minlopro_UtilityBar</utilityBar>
+    <utilityBar>MinloproConsole_UtilityBar</utilityBar>
+    <workspaceConfig>
+        <mappings>
+            <fieldName>Contact__c</fieldName>
+            <tab>Car__c</tab>
+        </mappings>
+        <mappings>
+            <tab>LogsMonitor</tab>
+        </mappings>
+        <mappings>
+            <tab>SalesforceContact__x</tab>
+        </mappings>
+        <mappings>
+            <tab>Workspace</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Account</tab>
+        </mappings>
+        <mappings>
+            <fieldName>AccountId</fieldName>
+            <tab>standard-Contact</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Lead</tab>
+        </mappings>
+        <mappings>
+            <fieldName>AccountId</fieldName>
+            <tab>standard-Opportunity</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-home</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-report</tab>
+        </mappings>
+    </workspaceConfig>
 </CustomApplication>
