@@ -28,6 +28,8 @@
 # Added by Illuminated Cloud plugin
 .illuminatedCloud/
 **/*.ts
-**/tsconfig*.json
 **/*.tsbuildinfo
+**/tsconfig*.json
+**/jsconfig.json
 **/eslint.config.mjs
+**/.eslintrc.json
