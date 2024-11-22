@@ -47,6 +47,8 @@ targetOrgUsername=$(sf org display user --json --target-org="$TARGET_ORG_ALIAS" 
 add_or_update_env_var "SF_USERNAME" "$targetOrgUsername"
 targetOrgInstanceUrl=$(sf org display --json --target-org="$TARGET_ORG_ALIAS" | jq -r '.result.instanceUrl')
 add_or_update_env_var "SF_INSTANCE_URL" "$targetOrgInstanceUrl"
+targetOrgInstanceId=$(sf org display --json --target-org="$TARGET_ORG_ALIAS" | jq -r '.result.id')
+add_or_update_env_var "SF_INSTANCE_ID" "$targetOrgInstanceId"
 targetOrgSiteUrl=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_url.sh)
 add_or_update_env_var "SF_SITE_URL" "$targetOrgSiteUrl"
 targetOrgSiteDomainName=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_domain_name.sh)

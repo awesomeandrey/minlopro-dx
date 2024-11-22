@@ -26,6 +26,11 @@
         },
         {
             "glob": "src/**",
+            "stringToReplace": "@SF_INSTANCE_ID",
+            "replaceWithEnv": "SF_INSTANCE_ID"
+        },
+        {
+            "glob": "src/**",
             "stringToReplace": "@SF_SITE_URL",
             "replaceWithEnv": "SF_SITE_URL"
         },

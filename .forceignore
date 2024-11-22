@@ -24,3 +24,10 @@
 
 # LWC Jest Tests
 **/__tests__/**
+
+# Added by Illuminated Cloud plugin
+.illuminatedCloud/
+**/*.ts
+**/tsconfig*.json
+**/*.tsbuildinfo
+**/eslint.config.mjs

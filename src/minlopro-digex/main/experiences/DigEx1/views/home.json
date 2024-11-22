@@ -21,10 +21,17 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<p style=\"text-align: center;\"><em style=\"font-size: 10px;\">Use chat button at the bottom right corner for support.</em></p>"
+        "richTextValue" : "<p style=\"text-align: center;\"><em style=\"font-size: 10px;\">Use chat button at the bottom right corner for support</em></p><p style=\"text-align: center;\"><em style=\"font-size: 10px;\">OR</em></p><p style=\"text-align: center;\"><em style=\"font-size: 10px;\">Submit lead form below</em></p>"
       },
       "componentName" : "forceCommunity:richTextInline",
       "id" : "007af66c-ed1d-4440-ac28-a3ab1ad871de",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
+      "componentAttributes" : { },
+      "componentName" : "c:digExWebToLeadForm",
+      "id" : "3dc9566d-a769-4147-99bb-ca0cc2f20a78",
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
@@ -52,7 +59,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "customHeadTags" : "",
+        "customHeadTags" : "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\">",
         "description" : "",
         "title" : "Home"
       },

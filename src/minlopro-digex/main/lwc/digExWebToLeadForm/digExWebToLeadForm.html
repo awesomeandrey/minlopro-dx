@@ -1,0 +1,45 @@
+<template>
+    <div class="slds-box slds-box_small">
+        <form action="@SF_INSTANCE_URL/servlet/servlet.WebToLead?encoding=UTF-8&orgId=@SF_INSTANCE_ID" method="POST">
+            <input type="hidden" name="oid" value="@SF_INSTANCE_ID" />
+            <input type="hidden" name="retURL" value="https://www.youtube.com/watch?v=sxoFEN9kz6c" />
+            <!-- Lead custom fields can be passed by field API name as a hidden form parameter -->
+            <input type="hidden" name="SrcCode__c" value="digex-site" />
+            <!--  ----------------------------------------------------------------------  -->
+            <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+            <!--  these lines if you wish to test in debug mode.                          -->
+            <!--            <input type="hidden" name="debug" value="1" />-->
+            <!--            <input type="hidden" name="debugEmail" value="@SF_ADMIN_EMAIL" />-->
+            <!--  ----------------------------------------------------------------------  -->
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="first_name">
+                    <abbr class="slds-required" title="required">* </abbr>First Name</label
+                >
+                <div class="slds-form-element__control">
+                    <input id="first_name" maxlength="40" name="first_name" size="20" type="text" class="slds-input" required />
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="last_name">
+                    <abbr class="slds-required" title="required">* </abbr>Last Name</label
+                >
+                <div class="slds-form-element__control">
+                    <input id="last_name" maxlength="40" name="last_name" size="20" type="text" class="slds-input" required />
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="email">Email</label>
+                <div class="slds-form-element__control">
+                    <input id="email" maxlength="40" name="email" size="20" type="email" class="slds-input" />
+                </div>
+            </div>
+            <div class="slds-form-element">
+                <label class="slds-form-element__label" for="company">Company</label>
+                <div class="slds-form-element__control">
+                    <input id="company" maxlength="40" name="company" size="20" type="text" class="slds-input" />
+                </div>
+            </div>
+            <button class="slds-button slds-button_brand slds-m-top_x-small" type="submit">Submit</button>
+        </form>
+    </div>
+</template>

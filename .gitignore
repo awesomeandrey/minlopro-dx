@@ -1,20 +1,26 @@
 # Project Folders
+.localdev/
 .vscode/
 .idea/
 .sf/
 .sfdx/
 node_modules/
 IlluminatedCloud/
+.illuminatedCloud/
 coverage/
 build/
 temp/
 logs/
+out/
+target/
 retrieved-src/
 
 # Project Files
 manifests/package.xml
 **/jsconfig.json
+**/tsconfig*.json
 **/.eslintrc.json
+**/*.tsbuildinfo
 *.log
 npm-debug.log*
 yarn-debug.log*
