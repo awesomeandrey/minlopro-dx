@@ -11,9 +11,9 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
-                <fullName>pom-max</fullName>
+                <fullName>digex-site</fullName>
                 <default>false</default>
-                <label>pom-max</label>
+                <label>digex-site</label>
             </value>
         </valueSetDefinition>
     </valueSet>

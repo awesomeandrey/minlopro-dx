@@ -7,7 +7,7 @@
     <picklistValues>
         <picklist>SrcCode__c</picklist>
         <values>
-            <fullName>pom-max</fullName>
+            <fullName>digex-site</fullName>
             <default>false</default>
         </values>
     </picklistValues>
