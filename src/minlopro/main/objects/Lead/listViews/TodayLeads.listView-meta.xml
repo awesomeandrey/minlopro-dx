@@ -15,8 +15,8 @@
         <operation>equals</operation>
         <value>TODAY</value>
     </filters>
-    <label>Today Leads</label>
     <sharedTo>
         <allInternalUsers></allInternalUsers>
     </sharedTo>
+    <label>Today&apos;s Leads</label>
 </ListView>

@@ -16,7 +16,7 @@ if [ -d "$targetDirPath" ]; then
   rm -rf "$targetDirPath"
 fi
 
-mkdir -p "$targetDirPath"
+mkdir -p "$targetDirPath/main/default"
 
 sf project retrieve start \
     --manifest "$manifestPath" \

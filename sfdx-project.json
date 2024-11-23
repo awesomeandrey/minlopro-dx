@@ -5,9 +5,8 @@
         { "path": "src/minlopro" },
         { "path": "src/minlopro-digex" },
         { "path": "src/minlopro-digex-messaging" },
-        { "path": "src/minlopro-crma" },
-        { "path": "src/minlopro-survey-force" },
-        { "path": "src/minlopro-dlrs" }
+        { "path": "src/minlopro-dlrs" },
+        { "path": "src/minlopro-crma" }
     ],
     "name": "minlopro-dx",
     "namespace": "",
