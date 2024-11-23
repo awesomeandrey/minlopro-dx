@@ -7,5 +7,17 @@
         <members>Lead.ViewCustom2</members>
         <name>ListView</name>
     </types>
+    <types>
+        <members>MinloproSurveyForce</members>
+        <name>CustomSite</name>
+    </types>
+    <types>
+        <members>Minlopro Survey Force Profile</members>
+        <name>Profile</name>
+    </types>
+    <types>
+        <members>Survey__c.Share_Surveys</members>
+        <name>SharingGuestRule</name>
+    </types>
     <version>61.0</version>
 </Package>
