@@ -13,9 +13,6 @@
         <recordType>Account.IndividualEntrepreneur</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>ApiKey__mdt-API Key Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>CCF_Configurations__mdt-Client Credentials Flow Configuration Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

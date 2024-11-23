@@ -48,7 +48,6 @@ jobs:
           # Initiate CRMA scratch org generation
           bash ./scripts/automations/create_crma_scratch_org.sh < $inputsFile
       - name: 'Upload Scratch Org Credentials as Artifact'
-        if: ${{ success() && github.event.inputs.purgeOnCreate == 'false' }}
         uses: actions/upload-artifact@v4
         with:
           name: minlopro-crma-scratch-org-credentials

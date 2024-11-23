@@ -49,6 +49,11 @@
             "replaceWithEnv": "SF_GITHUB_WEBHOOK_SECRET"
         },
         {
+            "glob": "src/**",
+            "stringToReplace": "@SF_GOOGLE_API_KEY",
+            "replaceWithEnv": "SF_GOOGLE_API_KEY"
+        },
+        {
             "glob": "src/**/lwc/**",
             "stringToReplace": "@SF_LWC_CDT_DEBUG_MODE_ENABLED",
             "replaceWithEnv": "SF_LWC_CDT_DEBUG_MODE_ENABLED",

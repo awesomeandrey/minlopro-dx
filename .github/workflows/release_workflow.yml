@@ -24,6 +24,7 @@ jobs:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
       SF_GITHUB_WEBHOOK_SECRET: ${{ vars.SF_GITHUB_WEBHOOK_SECRET }}
+      SF_GOOGLE_API_KEY: ${{ vars.SF_GOOGLE_API_KEY }}
     outputs:
       job_id: ${{ steps.validate_deployment_step.outputs.job_id }}
     steps:
