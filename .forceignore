@@ -6,6 +6,9 @@
 **/profilePasswordPolicies
 **/profileSessionSettings
 
+# Sample Force.com Site
+**/minlopro/**/profiles/Minlopro Force%2Ecom Site Profile.profile-meta.xml
+
 # DigEx Experiece Site (Experience Cloud)
 **/minlopro-digex/**/audience/Default_DigEx.audience-meta.xml
 **/minlopro-digex/**/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
@@ -15,9 +18,6 @@
 **/minlopro-digex-messaging/**/profiles/**
 **/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page
 **/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page-meta.xml
-
-# Minlopro Survey Force Site (Force.com Site)
-**/minlopro-survey-force/main/profiles/Minlopro Survey Force Profile.profile-meta.xml
 
 # CRM Analytics (formely known as Wave Analytics)
 **/minlopro-crma

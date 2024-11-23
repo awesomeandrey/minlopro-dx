@@ -23,4 +23,4 @@ update new User(Id = qaUser.Id, ProfileId = minloproProfile.Id);
 
 // Assign PSG intended for internal users;
 PermissionSetService service = PermissionSetService.getInstance();
-service.assign(qaUser.Id, Sets.of('Minlopro_PSG_InternalUser', 'Survey_Force_Guest'));
+service.assign(qaUser.Id, Sets.of('Minlopro_PSG_InternalUser'));

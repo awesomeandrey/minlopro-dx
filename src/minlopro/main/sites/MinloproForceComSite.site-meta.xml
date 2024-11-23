@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomSite xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>true</active>
+    <active>false</active>
     <allowGuestPaymentsApi>false</allowGuestPaymentsApi>
     <allowHomePage>false</allowHomePage>
     <allowStandardAnswersPages>false</allowStandardAnswersPages>
@@ -14,14 +14,14 @@
     <cachePublicVisualforcePagesInProxyServers>true</cachePublicVisualforcePagesInProxyServers>
     <clickjackProtectionLevel>SameOriginOnly</clickjackProtectionLevel>
     <contentSniffingProtection>true</contentSniffingProtection>
-    <description>Custom Force.com site created to host pages for &apos;Survey Force&apos; unmanaged package</description>
+    <description>Custom Force.com site created for POC purposes</description>
     <enableAuraRequests>true</enableAuraRequests>
     <fileNotFoundPage>FileNotFound</fileNotFoundPage>
     <genericErrorPage>Exception</genericErrorPage>
     <inMaintenancePage>InMaintenance</inMaintenancePage>
     <inactiveIndexPage>InMaintenance</inactiveIndexPage>
-    <indexPage>TakeSurvey</indexPage>
-    <masterLabel>Minlopro Survey Force</masterLabel>
+    <indexPage>MyProfilePage</indexPage>
+    <masterLabel>Minlopro Force.com Site</masterLabel>
     <redirectToCustomDomain>true</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
     <siteAdmin>@SF_USERNAME</siteAdmin>
