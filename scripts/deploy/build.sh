@@ -48,6 +48,7 @@ if [ "$INSTALL_ALL_MODULES" = true ]; then
   # https://forcedotcom.github.io/sfdx-scanner/en/v3.x/scanner-commands/run/
   echo y | sf plugins install "@salesforce/sfdx-scanner"
 fi
+sf plugins
 
 # Install the rest of dependencies via NPM
 npm install
