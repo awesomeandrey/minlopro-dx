@@ -1,25 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>ApiKey__mdt</members>
-        <name>CustomObject</name>
-    </types>
-    <types>
-        <members>ContactLockingTest</members>
-        <members>GoogleMapsPocController</members>
-        <name>ApexClass</name>
-    </types>
-    <types>
-        <members>ApiKey__mdt.Key__c</members>
-        <name>CustomField</name>
-    </types>
-    <types>
-        <members>ApiKey.GoogleMapsApi</members>
-        <name>CustomMetadata</name>
-    </types>
-    <types>
-        <members>ApiKey__mdt-API Key Layout</members>
-        <name>Layout</name>
-    </types>
     <version>61.0</version>
 </Package>
