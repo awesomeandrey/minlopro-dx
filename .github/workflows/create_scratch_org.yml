@@ -24,9 +24,12 @@ on:
 jobs:
   spin-up-scratch-org:
     runs-on: ubuntu-latest
+    environment: "Minlopro DevHub"
     env:
-      DEV_HUB_AUTH_URL: ${{ secrets.DEV_HUB_AUTH_URL }}
+      SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_ADMIN_EMAIL: ${{ github.event.inputs.adminEmail }}
+      SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
+      SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -35,7 +38,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize DevHub Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New Scratch Org'
         continue-on-error: true
@@ -55,7 +58,6 @@ jobs:
         if: ${{ github.event.inputs.runApexTests == 'true' }}
         run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Upload Scratch Org Credentials as Artifact'
-        if: ${{ success() && github.event.inputs.purgeOnCreate == 'false' }}
         uses: actions/upload-artifact@v4
         with:
           name: minlopro-scratch-org-credentials

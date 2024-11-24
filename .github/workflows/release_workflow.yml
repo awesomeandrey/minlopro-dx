@@ -23,7 +23,8 @@ jobs:
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
-      SF_GITHUB_WEBHOOK_SECRET: ${{ vars.SF_GITHUB_WEBHOOK_SECRET }}
+      SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
+      SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
     outputs:
       job_id: ${{ steps.validate_deployment_step.outputs.job_id }}
     steps:
@@ -79,6 +80,9 @@ jobs:
     environment: "Minlopro Prod"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
+      SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
+      SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
+      SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: 'Install Salesforce CLI & Authorize Production Org'

@@ -1,6 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import { subscribeToEvent, publishEvent } from 'c/bridge';
-import { isNotEmpty, isEmpty, uniqueId, debounce, cloneObject } from 'c/utilities';
+import { uniqueId, debounce, cloneObject } from 'c/utilities';
 import * as MarkerLabel from 'c/gMarkerLabelMgr';
 
 export default class GMap extends LightningElement {

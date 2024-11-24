@@ -1,4 +1,4 @@
-<apex:page controller="GoogleMapsPocController">
+<apex:page>
     <!--If a Visualforce page contains an Aura component, you can’t render the Visualforce page as a PDF!-->
 
     <!--Includes the Lightning Components for Visualforce JavaScript library, lightning.out.js, from the correct Salesforce domain-->
@@ -51,7 +51,11 @@
                 ? console.warn(p + ' only loads once. Ignoring:', g)
                 : (d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)));
         })({
-            key: '{!apiKey}'
+            /**
+             * Google API key is a unique identifier that Google Cloud provides to authenticate requests to its APIs.
+             * The API key is granted under a dedicated project created in https://console.cloud.google.com.
+             */
+            key: '@SF_GOOGLE_API_KEY'
         });
         // Render Map upon page load;
         window.addEventListener('load', async (event) => {

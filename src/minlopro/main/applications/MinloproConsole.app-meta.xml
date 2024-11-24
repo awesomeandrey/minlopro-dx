@@ -70,14 +70,18 @@
     <tabs>standard-Contact</tabs>
     <tabs>standard-Opportunity</tabs>
     <tabs>SalesforceContact__x</tabs>
-    <tabs>standard-report</tabs>
+    <tabs>GoogleMapsApiPlayground</tabs>
     <tabs>Car__c</tabs>
+    <tabs>standard-report</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>MinloproConsole_UtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
             <fieldName>Contact__c</fieldName>
             <tab>Car__c</tab>
+        </mappings>
+        <mappings>
+            <tab>GoogleMapsApiPlayground</tab>
         </mappings>
         <mappings>
             <tab>LogsMonitor</tab>
