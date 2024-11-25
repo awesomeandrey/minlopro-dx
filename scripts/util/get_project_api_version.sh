@@ -6,4 +6,4 @@
 
 FILE="sfdx-project.json"
 apiVersion=$(jq -r '.sourceApiVersion' "$FILE")
-echo $apiVersion
+echo "$apiVersion"
