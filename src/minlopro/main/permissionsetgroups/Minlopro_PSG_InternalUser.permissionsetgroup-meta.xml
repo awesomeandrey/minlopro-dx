@@ -13,6 +13,7 @@
     <permissionSets>Minlopro_DigEx_InAppAndWebMessaging</permissionSets>
     <permissionSets>Minlopro_DuplicatesManager</permissionSets>
     <permissionSets>Minlopro_FilesManager</permissionSets>
+    <permissionSets>Minlopro_ForceComSite</permissionSets>
     <permissionSets>Minlopro_GithubWebhook</permissionSets>
     <permissionSets>Minlopro_GoogleMaps</permissionSets>
     <permissionSets>Minlopro_LeadsManager</permissionSets>

@@ -2,11 +2,15 @@
 <ContentAsset xmlns="http://soap.sforce.com/2006/04/metadata">
     <isVisibleByExternalUsers>true</isVisibleByExternalUsers>
     <language>en_US</language>
-    <masterLabel>Minlopro - App Logo (min).png</masterLabel>
+    <masterLabel>Minlopro - App Logo.png</masterLabel>
     <relationships>
         <organization>
             <access>VIEWER</access>
         </organization>
+        <network>
+            <access>VIEWER</access>
+            <name>DigEx</name>
+        </network>
         <workspace>
             <access>INFERRED</access>
             <isManagingWorkspace>true</isManagingWorkspace>
@@ -16,7 +20,7 @@
     <versions>
         <version>
             <number>1</number>
-            <pathOnClient>Minlopro - App Logo (min).png</pathOnClient>
+            <pathOnClient>Minlopro - App Logo.png</pathOnClient>
         </version>
     </versions>
 </ContentAsset>
