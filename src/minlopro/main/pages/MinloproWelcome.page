@@ -1,0 +1,46 @@
+<apex:page
+    title="Minlopro - Welcome"
+    controller="MinloproWelcomeController"
+    lightningStylesheets="true"
+    showHeader="false"
+    sideBar="false"
+    cache="false"
+>
+    <head>
+        <!-- Includes the Lightning Components for Visualforce JavaScript library, lightning.out.js, from the correct Salesforce domain -->
+        <apex:includeLightning />
+        <!-- SLDS Styles -->
+        <apex:slds />
+        <!-- Custom CSS styles -->
+        <style type="text/css">
+            body {
+                background-color: #d8e6fe;
+                animation: colorCycle 3s infinite alternate;
+            }
+
+            @keyframes colorCycle {
+                0% {
+                    background-color: #d8e6fe;
+                }
+                100% {
+                    background-color: #f3f3f3;
+                }
+            }
+        </style>
+    </head>
+    <body class="slds-scope">
+        <div class="slds-grid slds-align_absolute-center slds-wrap slds-m-around_medium">
+            <div class="slds-col slds-large-size_1-of-6 slds-size_1-of-12"></div>
+            <div class="slds-col slds-large-size_4-of-6 slds-size_10-of-12">
+                <div class="slds-text-align_center slds-m-top_large">
+                    <apex:image url="{!URLFOR($Resource.images, 'MinloproAppLogo.png')}" width="100" height="100" />
+                    <p class="slds-text-heading_medium slds-p-vertical_xx-small">Minlopro</p>
+                    <p class="slds-text-body_regular">
+                        This is a blueprint for typical Salesforce org-based project which is accompanied with CI/CD automations.
+                    </p>
+                </div>
+            </div>
+            <div class="slds-col slds-large-size_1-of-6 slds-size_1-of-12"></div>
+        </div>
+    </body>
+</apex:page>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomSite xmlns="http://soap.sforce.com/2006/04/metadata">
-    <active>false</active>
+    <active>true</active>
     <allowGuestPaymentsApi>false</allowGuestPaymentsApi>
     <allowHomePage>false</allowHomePage>
     <allowStandardAnswersPages>false</allowStandardAnswersPages>
@@ -20,7 +20,7 @@
     <genericErrorPage>Exception</genericErrorPage>
     <inMaintenancePage>InMaintenance</inMaintenancePage>
     <inactiveIndexPage>InMaintenance</inactiveIndexPage>
-    <indexPage>MyProfilePage</indexPage>
+    <indexPage>MinloproWelcome</indexPage>
     <masterLabel>Minlopro Force.com Site</masterLabel>
     <redirectToCustomDomain>true</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
@@ -28,4 +28,5 @@
     <siteGuestRecordDefaultOwner>@SF_USERNAME</siteGuestRecordDefaultOwner>
     <siteTemplate>SiteTemplate</siteTemplate>
     <siteType>Visualforce</siteType>
+    <urlPathPrefix>minlopro</urlPathPrefix>
 </CustomSite>
