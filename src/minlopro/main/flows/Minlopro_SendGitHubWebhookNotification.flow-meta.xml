@@ -41,7 +41,7 @@
         <nameSegment>customNotificationAction</nameSegment>
         <versionSegment>1</versionSegment>
     </actionCalls>
-    <apiVersion>60.0</apiVersion>
+    <apiVersion>61.0</apiVersion>
     <constants>
         <name>customNotificationTypeName</name>
         <dataType>String</dataType>
@@ -83,7 +83,7 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
-        <description>DeveloperName = &apos;GitHubWebhookEvent&apos;</description>
+        <description>DeveloperName = 'GitHubWebhookEvent'</description>
         <name>Get_Custom_Notification_Type</name>
         <label>Get Custom Notification Type</label>
         <locationX>176</locationX>
