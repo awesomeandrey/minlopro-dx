@@ -11,7 +11,6 @@ baseApiVersion=${baseApiVersion:-$currentApiVersion}
 read -p "🔶 Provide folder path to sources [default: 'src']: " baseSourcesFolderPath
 sourcesFolder=${baseSourcesFolderPath:-"src"}
 
-# Ask if the user wants to update the files
 read -p "🔶 Do you want to update files with a lower API version? (y/n) [default: n]: " doUpdateFiles
 doUpdateFiles=${doUpdateFiles:-n}
 

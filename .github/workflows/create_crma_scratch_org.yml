@@ -22,7 +22,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: "CRM Analytics DevHub"
     env:
-      SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
+      # This env variable does not have 'SF_' prefix which excludes it from '.env' file
+      DEV_HUB_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_ADMIN_EMAIL: ${{ github.event.inputs.adminEmail }}
     steps:
       - uses: actions/checkout@v4
@@ -32,7 +33,7 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize CRM Analytics DevHub Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "DevHub"
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New CRMA Scratch Org'
         continue-on-error: true
