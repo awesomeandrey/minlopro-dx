@@ -3,6 +3,8 @@
 # How to use:
 # - bash ./scripts/deploy/post/custom/delete_obsolete_flow_versions.sh
 
+# Note: there can be a dependency on existing flow interviews. They can be deleted manually from Salesforce UI (see App Launcher > Paused Flows).
+
 # Capture target org alias;
 read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
@@ -13,6 +15,7 @@ buildFolderName="build"
 csvFileName="$buildFolderName/flow_version_IDs_to_delete.csv"
 
 mkdir -p $buildFolderName
+rm -f $csvFileName
 
 sf data query \
   --query "SELECT Id FROM Flow WHERE Status = 'Obsolete'" \
@@ -36,5 +39,3 @@ while read c; do
       --use-tooling-api
   fi
 done < "$csvFileName"
-
-rm $csvFileName

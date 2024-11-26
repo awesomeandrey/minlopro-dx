@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apiVersion>60.0</apiVersion>
+    <apiVersion>61.0</apiVersion>
     <assignments>
         <name>Create_PSA_Prototype</name>
         <label>Create PSA Prototype</label>
@@ -25,9 +25,9 @@
         </connector>
     </assignments>
     <decisions>
-        <description>Check if the running user&apos;s profile is &apos;DigEx Partner&apos;</description>
+        <description>Check if the running user's profile is 'DigEx Partner'</description>
         <name>Is_DigEx_Partner_Profile_User</name>
-        <label>Is &apos;DigEx Partner&apos; Profile User?</label>
+        <label>Is 'DigEx Partner' Profile User?</label>
         <locationX>182</locationX>
         <locationY>335</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>

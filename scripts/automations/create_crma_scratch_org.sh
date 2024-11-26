@@ -51,7 +51,7 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/deploy.sh
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_admin_user.sh
 
 # Deactivate all duplicate rules
-echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/automations/deactivate_all_duplicate_rules.sh
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/deactivate_all_duplicate_rules.sh
 
 # Import sample data
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
