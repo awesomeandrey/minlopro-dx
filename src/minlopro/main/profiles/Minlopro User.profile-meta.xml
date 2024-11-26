@@ -46,14 +46,13 @@
     <layoutAssignments>
         <layout>User-User Layout</layout>
     </layoutAssignments>
-    <tabVisibilities>
-        <tab>standard-Account</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>standard-Opportunity</tab>
-        <visibility>DefaultOn</visibility>
-    </tabVisibilities>
+    <loginFlows>
+        <flow>Minlopro_DefaultLoginFlow</flow>
+        <flowType>UI</flowType>
+        <friendlyName>Minlopro - User Flow</friendlyName>
+        <uiLoginFlowType>VisualWorkflow</uiLoginFlowType>
+        <useLightningRuntime>true</useLightningRuntime>
+    </loginFlows>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <enabled>true</enabled>

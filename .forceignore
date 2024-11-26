@@ -1,12 +1,12 @@
-# General Salesforce Medatada & Components
+# General medatada & components
 **/appMenus
 **/customindex
 **/samlssoconfigs
-**/profiles/Admin.profile-meta.xml
 **/profilePasswordPolicies
 **/profileSessionSettings
 
-# Sample Force.com Site
+# Minlopro
+**/minlopro/**/profiles/Admin.profile-meta.xml
 **/minlopro/**/profiles/Minlopro Force%2Ecom Site Profile.profile-meta.xml
 
 # DigEx Experiece Site (Experience Cloud)
@@ -15,9 +15,9 @@
 **/minlopro-digex/**/profiles/DigEx Profile.profile-meta.xml
 
 # ESW_Minlopro_DigExMessaging (Experience Cloud) - Experience Site for Messaging for Web deployment for 'DigEx' site
-**/minlopro-digex-messaging/**/profiles/**
 **/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page
 **/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page-meta.xml
+**/minlopro-digex-messaging/**/profiles/ESW_Minlopro_DigExMessaging Profile.profile-meta.xml
 
 # CRM Analytics (formely known as Wave Analytics)
 **/minlopro-crma

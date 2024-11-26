@@ -7,7 +7,10 @@
 
 ## About
 
-This is a blueprint repository for typical Salesforce org-based project which is accompanied with CI/CD automations.
+<span style="display: inline-flex; align-items: center;">
+  <img src="assets/images/MinloproAppLogoMin.png" alt="Minlopro" width="50" style="margin-right: 8px;">
+  This is a blueprint repository for a typical Salesforce org-based project which is accompanied with CI/CD automations.
+</span>
 
 ## Prerequisites
 
