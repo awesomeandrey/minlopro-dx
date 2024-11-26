@@ -58,3 +58,6 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
 
 # Set up standard user
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_std_user.sh
+
+# Reset Metadata Tracking
+npm run sf:tracking:reset

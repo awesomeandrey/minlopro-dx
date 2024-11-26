@@ -15,12 +15,13 @@ echo "🔵 Deactivating all duplicate rules in [$ORG_ALIAS] org..."
 # Get project API version
 PROJECT_API_VERSION=$(bash ./scripts/util/get_project_api_version.sh)
 
+workingDir="build/deactivated-duplicate-rules"
+rm -rf "$workingDir"
+mkdir -p "$workingDir"
+
 # Create manifest file
 echo "Generating manifest file..."
-MANIFEST_FILE="build/package.xml"
-
-rm -rf "build"
-mkdir -p "build"
+MANIFEST_FILE="$workingDir/package.xml"
 
 touch "$MANIFEST_FILE"
 cat <<EOL > "$MANIFEST_FILE"
@@ -39,40 +40,28 @@ echo "Retrieving duplicate rules metadata from [$ORG_ALIAS] org..."
 sf project retrieve start \
  --target-org "$ORG_ALIAS" \
  --manifest "$MANIFEST_FILE" \
- --target-metadata-dir "build" \
+ --target-metadata-dir "$workingDir" \
  --unzip \
  --zip-file-name "package" \
  --wait 10
 
 # Check if duplicate rules folder exists
-if [ ! -d "./build/package/unpackaged/duplicateRules" ]; then
+if [ ! -d "./$workingDir/package/unpackaged/duplicateRules" ]; then
     echo "No Duplicate Rules found in the org."
     exit 0
 fi
 
-# Determine OS and define 'sed' command based on OS
-OS="$(uname)"
-if [[ "$OS" == "Darwin" ]]; then
-    # MacOS
-    echo "SED command is adapted for Mac OS."
-    SED_COMMAND="sed -i '' "
-else
-    # Linux
-    echo "SED command is adapted for Linux OS."
-    SED_COMMAND="sed -i "
-fi
-
 # Deactivate each Duplicate Rule
 echo "Deactivating duplicate rules..."
-for file in ./build/package/unpackaged/duplicateRules/*; do
-    $SED_COMMAND 's/<isActive>true<\/isActive>/<isActive>false<\/isActive>/' "$file"
+for file in "$workingDir/package/unpackaged/duplicateRules"/*; do
+    xmlstarlet ed -L -u "//*[local-name()='isActive']" -v "false" "$file"
 done
 
 # Deploying deactivated Duplicate Rules back to the Salesforce Org
 echo "Deploying deactivated duplicate rules back to the [$ORG_ALIAS] org..."
 sf project deploy start \
    --target-org "$ORG_ALIAS" \
-   --metadata-dir "./build/package/unpackaged" \
+   --metadata-dir "./$workingDir/package/unpackaged" \
    --verbose \
    --ignore-warnings \
    --ignore-conflicts \
