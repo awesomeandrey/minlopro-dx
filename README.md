@@ -104,7 +104,7 @@ At the same time, there are project-level rules enforced with regards to using/r
 
 Follow steps below if there is a need to replace specific setting with variable value:
 
-1. Define variable in GitHub repository for the given GitHub Environment(s)
+1. Define variable/secret in GitHub repository for the given GitHub Environment(s)
 2. Incorporate environment variable into [`.env.manifest`](scripts/.env.manifest) file and provide description
 3. Declare variable in affected workflow files (see `.github/workflows` folder)
 4. Create replacement configuration in [`sfdx-project.json`](sfdx-project.json) file
@@ -123,5 +123,5 @@ npm run src:push -- -o "$SCRATCH_ORG_ALIAS"
 ```
 
 Please, refer
-to [SF CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_unified.htm)
+to [Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_unified.htm)
 for more information.
