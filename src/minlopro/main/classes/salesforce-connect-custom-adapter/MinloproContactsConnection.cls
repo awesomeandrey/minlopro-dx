@@ -107,7 +107,7 @@ global class MinloproContactsConnection extends DataSource.Connection {
         columns.add(
             DataSource.Column.get(
                 'SalesforceOwnerId',
-                'Salesforce Owner Id',
+                'Salesforce Owner ID',
                 '',
                 true,
                 true,
