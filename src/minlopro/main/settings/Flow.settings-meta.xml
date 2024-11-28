@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlowSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <canDebugFlowAsAnotherUser>true</canDebugFlowAsAnotherUser>
+    <doesEnforceApexCpuTimeLimit>true</doesEnforceApexCpuTimeLimit>
+    <enableFlowCustomPropertyEditor>true</enableFlowCustomPropertyEditor>
+    <enableFlowDeployAsActiveEnabled>false</enableFlowDeployAsActiveEnabled>
+    <enableFlowPauseEnabled>false</enableFlowPauseEnabled>
+    <enableFlowViaRestUsesUserCtxt>true</enableFlowViaRestUsesUserCtxt>
+    <enableLightningRuntimeEnabled>true</enableLightningRuntimeEnabled>
+    <isEnhancedFlowListViewVisible>true</isEnhancedFlowListViewVisible>
+    <isSupportRollbackOnErrorForApexInvocableActionsEnabled>true</isSupportRollbackOnErrorForApexInvocableActionsEnabled>
+</FlowSettings>
