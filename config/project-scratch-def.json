@@ -59,6 +59,9 @@
             "enableS1DesktopEnabled": true,
             "enableUsersAreLightningOnly": false
         },
+        "knowledgeSettings": {
+            "enableKnowledge": true
+        },
         "mobileSettings": {
             "enableS1EncryptedStoragePref2": false
         },
