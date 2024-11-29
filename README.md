@@ -5,12 +5,20 @@
 <span>[![Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg?branch=main)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml)</span>
 <span>[![Reset Destructive Manifests](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml)</span>
 
+-   [About](#about)
+-   [Prerequisites](#prerequisites)
+-   [Branches](#branches)
+    -   [Release Branch Preparation](#release-branch-preparation)
+-   [Managing Environment Variables](#managing-environment-variables)
+-   [Scripts in `package.json`](#scripts-in-packagejson)
+-   [Useful Commands](#useful-commands)
+-   [Code Convention](#code-convention)
+
 ## About
 
-<span style="display: inline-flex; align-items: center;">
-  <img src="assets/images/MinloproAppLogoMin.png" alt="Minlopro" width="50" style="margin-right: 8px;">
-  This is a blueprint repository for a typical Salesforce org-based project which is accompanied with CI/CD automations.
-</span>
+<img src="assets/images/MinloproAppLogoMin.png" alt="Minlopro" width="50">
+
+This is a blueprint repository for a typical Salesforce org-based project which is accompanied with CI/CD automations.
 
 ## Prerequisites
 
@@ -24,7 +32,7 @@ for configuring `$JAVA_HOME` environment variable.
 
 Additionally install utility tools as follows: [`jq`](https://www.baeldung.com/linux/jq-command-json), [`xmllint`](https://www.baeldung.com/linux/xmllint), [`xmlstarlet`](https://xmlstar.sourceforge.net).
 
-Run `bash ./scripts/deploy/build.sh` in order to load project dependencies.
+Run `bash ./scripts/deploy/build.sh` in order to load project dependencies (including [Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_unified.htm)).
 
 Look through the pre-configured GitHub Workflows/Actions located in `.github/workflows/` folder.
 
@@ -82,20 +90,6 @@ Follow the steps below:
 This process ensures a structured flow of features into releases, maintaining stability and predictability in release
 management.
 
-## Useful Commands
-
-_Deploy Codebase_
-
-```
-npm run sf:manifest:create && npm run src:deploy:full
-```
-
-_Publish Community_
-
-```
-sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS"
-```
-
 ## Managing Environment Variables
 
 Environment variables are useful for deploying metadata components with secrets or org-specific settings (e.g.
@@ -122,6 +116,16 @@ E.g. you can execute particular script passing in ORG alias:
 npm run src:push -- -o "$SCRATCH_ORG_ALIAS"
 ```
 
-Please, refer
-to [Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_unified.htm)
-for more information.
+## Useful Commands
+
+_Deploy Codebase_
+
+```
+npm run sf:manifest:create && npm run src:deploy:full
+```
+
+_Publish Community_
+
+```
+sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS"
+```

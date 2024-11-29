@@ -12,13 +12,17 @@
         <isIntrospectAllTokens>false</isIntrospectAllTokens>
         <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
         <isPkceRequired>false</isPkceRequired>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
         <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
+        <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+        <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
         <oauthClientCredentialUser>@SF_USERNAME</oauthClientCredentialUser>
         <scopes>Full</scopes>
         <scopes>RefreshToken</scopes>
     </oauthConfig>
     <oauthPolicy>
         <ipRelaxation>BYPASS</ipRelaxation>
+        <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
         <refreshTokenPolicy>specific_lifetime:1:HOURS</refreshTokenPolicy>
     </oauthPolicy>
     <permissionSetName>Minlopro - Custom Auth. Provider &amp; NC</permissionSetName>

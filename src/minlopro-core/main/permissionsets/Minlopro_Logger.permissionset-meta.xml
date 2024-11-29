@@ -12,6 +12,10 @@
         <enabled>true</enabled>
         <name>LoggerSettings__c</name>
     </customSettingAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ViewLogs</name>
+    </customPermissions>
     <description>Grants access to logger module features. This PS should be primarily used by developer(s).</description>
     <fieldPermissions>
         <editable>false</editable>

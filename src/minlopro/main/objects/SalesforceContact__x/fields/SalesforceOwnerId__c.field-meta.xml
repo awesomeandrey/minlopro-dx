@@ -6,7 +6,7 @@
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Salesforce Owner Id</label>
+    <label>Salesforce Owner ID</label>
     <length>18</length>
     <referenceTargetField>User.ExternalId__c</referenceTargetField>
     <referenceTo>User</referenceTo>

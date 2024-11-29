@@ -6,7 +6,7 @@
   "id" : "250ff930-16dc-476c-ab11-1a8f96b26b53",
   "label" : "Car Related List",
   "objectApiName" : "Car__c",
-  "routeType" : "relatedlist-a0B",
+  "routeType" : "relatedlist-a07",
   "type" : "route",
   "urlPrefix" : "car"
 }
