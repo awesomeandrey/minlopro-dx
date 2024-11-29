@@ -5,6 +5,9 @@
 **/profilePasswordPolicies
 **/profileSessionSettings
 
+# Intentionally excluded metadata (i.e. problematic or managed package metadata)
+**/unpackaged
+
 # Minlopro
 **/minlopro/**/profiles/Admin.profile-meta.xml
 **/minlopro/**/profiles/Minlopro Force%2Ecom Site Profile.profile-meta.xml

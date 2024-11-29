@@ -11,8 +11,7 @@
     -   [Release Branch Preparation](#release-branch-preparation)
 -   [Managing Environment Variables](#managing-environment-variables)
 -   [Scripts in `package.json`](#scripts-in-packagejson)
--   [Useful Commands](#useful-commands)
--   [Code Convention](#code-convention)
+    -   [Useful Commands](#useful-commands)
 
 ## About
 
@@ -116,7 +115,7 @@ E.g. you can execute particular script passing in ORG alias:
 npm run src:push -- -o "$SCRATCH_ORG_ALIAS"
 ```
 
-## Useful Commands
+### Useful Commands
 
 _Deploy Codebase_
 
