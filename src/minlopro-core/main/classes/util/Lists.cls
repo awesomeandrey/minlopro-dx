@@ -15,15 +15,15 @@ public inherited sharing class Lists {
         return !isEmpty(values);
     }
 
-    public static Boolean isEmpty(List<SObject> values) {
-        if (values == null) {
-            return true;
-        }
-        return values.isEmpty();
-    }
+    // Randomizer;
 
-    public static Boolean isNotEmpty(List<SObject> values) {
-        return !isEmpty(values);
+    public static Object getRandomItem(List<Object> values) {
+        if (isEmpty(values)) {
+            return null;
+        }
+        // Generate a random index between 0 and items.size() - 1
+        Integer randomIndex = Math.floor(Math.random() * values.size()).intValue();
+        return values[randomIndex];
     }
 
     // Working with 'String's;
