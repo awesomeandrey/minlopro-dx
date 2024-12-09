@@ -49,7 +49,7 @@ public without sharing class Logger {
     }
 
     public static void error(String message, List<Object> values) {
-        emit(message, values, LoggingLevel.ERROR);
+        emit(message, values, LoggingLevel.FINE);
     }
 
     private static void emit(String message, List<Object> values, LoggingLevel level) {
