@@ -170,15 +170,22 @@ public class TestDataFactory {
                     Company = 'Company #' + i,
                     AnnualRevenue = 100 * Math.random(),
                     Email = 'lead_' + i + '@edu.com',
-                    GenderIdentity = 'Male',
-                    LeadSource = 'Web',
+                    GenderIdentity = (String) Lists.getRandomItem(Lists.of('Male', 'Female')),
+                    LeadSource = (String) Lists.getRandomItem(Lists.of('Web', 'Partner')),
                     Status = 'New',
                     FirstName = 'FN #' + i,
                     LastName = 'LN #' + i,
                     Title = 'Test Lead Data',
                     Phone = '750-224-9149' + i,
                     MobilePhone = '750-224-9149' + i,
-                    Description = generateRandomString(100)
+                    Description = generateRandomString(100),
+                    Products__c = String.format(
+                        '{0}; {1}',
+                        Lists.of(
+                            (String) Lists.getRandomItem(Lists.of('Auto', 'Home')),
+                            (String) Lists.getRandomItem(Lists.of('Life', 'Umbrella'))
+                        )
+                    )
                 )
             );
         }

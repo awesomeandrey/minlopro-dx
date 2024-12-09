@@ -10,6 +10,7 @@ echo "🔵 Displaying Records Count from [$TARGET_ORG_ALIAS] organization..."
 
 # Display record counts;
 sf org list sobject record-counts \
+  --target-org "$TARGET_ORG_ALIAS" \
   --sobject Account \
   --sobject Contact \
   --sobject Lead \
@@ -17,5 +18,4 @@ sf org list sobject record-counts \
   --sobject CurrencyType \
   --sobject EmailTemplate \
   --sobject Task \
-  --sobject LogEntry__c \
-  --target-org "$TARGET_ORG_ALIAS"
+  --sobject LogEntry__c

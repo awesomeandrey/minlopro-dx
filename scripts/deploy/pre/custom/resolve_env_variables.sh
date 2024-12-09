@@ -39,7 +39,9 @@ add_or_update_env_var() {
         # Variable not found; add it
         echo "$var_name=$var_value" >> "$ENV_FILEPATH"
     fi
-    echo "- [$var_name] variable was set to [$var_value]."
+    BlueColor='\033[38;2;158;169;241m'
+    NoColor='\033[0m'
+    echo -e "- ${BlueColor}$var_name${NoColor} variable was set to ${BlueColor}$var_value${NoColor}"
 }
 
 # Calculate & set static variables
