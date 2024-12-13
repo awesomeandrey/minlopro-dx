@@ -3,24 +3,18 @@
         "sobject": "Account",
         "saveRefs": true,
         "resolveRefs": false,
-        "files": [
-            "sample-Accounts.json"
-        ]
+        "files": ["sample-Accounts.json"]
     },
     {
         "sobject": "Contact",
         "saveRefs": false,
         "resolveRefs": true,
-        "files": [
-            "sample-Contacts.json"
-        ]
+        "files": ["sample-Contacts.json"]
     },
     {
         "sobject": "Opportunity",
         "saveRefs": false,
         "resolveRefs": true,
-        "files": [
-            "sample-Opportunities.json"
-        ]
+        "files": ["sample-Opportunities.json"]
     }
 ]

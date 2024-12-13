@@ -55,13 +55,17 @@ echo "$ADMIN_EMAIL" | bash ./scripts/util/create_qa_user.sh
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh
 
 # Import sample data
-echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/data-seeding/import_sample_data.sh
 
 # Publish Digital Experience Site
 sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS" || true
 
 # Publish Experience Site for Enhanced Messaging for In-App & Web Experience
 sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$SCRATCH_ORG_ALIAS" || true
+
+# Import & publish Knowledge Articles from DevHub org (leveraging SFDMU plugin)
+inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
+bash ./scripts/util/data-seeding/migrate_knowledge_articles.sh < $inputsFile
 
 # Reset Metadata Tracking
 npm run sf:tracking:reset

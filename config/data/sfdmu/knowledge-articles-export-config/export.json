@@ -1,0 +1,17 @@
+{
+    "objects": [
+        {
+            "object": "Knowledge__kav",
+            "operation": "Insert",
+            "externalId": "UrlName",
+            "query": "SELECT Content__c, Language, Summary, Title, UrlName, IsVisibleInApp, IsVisibleInCsp, IsVisibleInPrm, IsVisibleInPkb FROM Knowledge__kav WHERE PublishStatus IN ('Online') AND IsLatestVersion = TRUE LIMIT 50"
+        },
+        {
+            "object": "Knowledge__DataCategorySelection",
+            "operation": "Insert",
+            "query": "SELECT ParentId, DataCategoryGroupName, DataCategoryName FROM Knowledge__DataCategorySelection LIMIT 100",
+            "master": false
+        }
+    ],
+    "bulkApiVersion": "2.0"
+}

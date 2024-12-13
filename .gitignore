@@ -25,7 +25,6 @@ manifests/package.xml
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-export.json
 .env
 .env''
 **/.env

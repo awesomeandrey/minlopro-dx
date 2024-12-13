@@ -54,7 +54,7 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_admin_user.
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/deactivate_all_duplicate_rules.sh
 
 # Import sample data
-echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/data-seeding/import_sample_data.sh
 
 # Set up standard user
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_std_user.sh
