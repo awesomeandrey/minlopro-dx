@@ -60,7 +60,8 @@
             "enableUsersAreLightningOnly": false
         },
         "knowledgeSettings": {
-            "enableKnowledge": true
+            "enableKnowledge": true,
+            "enableLightningKnowledge": true
         },
         "mobileSettings": {
             "enableS1EncryptedStoragePref2": false

@@ -49,7 +49,7 @@ public without sharing class Logger {
     }
 
     public static void error(String message, List<Object> values) {
-        emit(message, values, LoggingLevel.FINE);
+        emit(message, values, LoggingLevel.ERROR);
     }
 
     private static void emit(String message, List<Object> values, LoggingLevel level) {
@@ -104,7 +104,7 @@ public without sharing class Logger {
             log = logData.castToEvent();
             EventBus.publish(log);
         }
-        // Output to system debug anyway;
+        // Output to system debug anyway (use `JSON.serializePretty()` to log ALL message content in multiline fashion);
         System.debug(level, '⚪ LOG  => ' + message + '\n');
     }
 
