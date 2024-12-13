@@ -1,5 +1,5 @@
 {
-    "plugins": ["prettier-plugin-apex", "@prettier/plugin-xml"],
+    "plugins": ["prettier-plugin-apex", "@prettier/plugin-xml", "prettier-plugin-sql"],
     "trailingComma": "none",
     "tabWidth": 4,
     "semi": true,
@@ -17,6 +17,10 @@
         {
             "files": "*.{cls,trigger}",
             "options": { "parser": "apex" }
+        },
+        {
+            "files": "*.soql",
+            "options": { "parser": "sql" }
         }
     ]
 }

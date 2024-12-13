@@ -27,7 +27,7 @@ sf org create scratch \
     --admin-email "$ADMIN_EMAIL" \
     --set-default \
     --duration-days 30 \
-    --wait 10
+    --wait 15
 sf config list
 
 # Reset Admin User password
@@ -40,6 +40,10 @@ touch "$orgCredentialsFile"
 echo "📜 Scratch Org Credentials"
 sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json >> "$orgCredentialsFile"
 cat "$orgCredentialsFile"
+
+# Install packages from DevHub
+inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
+bash ./scripts/util/install_packages.sh < $inputsFile
 
 # Run PRE-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
@@ -55,13 +59,17 @@ echo "$ADMIN_EMAIL" | bash ./scripts/util/create_qa_user.sh
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh
 
 # Import sample data
-echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/import_sample_data.sh
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/data-seeding/import_sample_data.sh
 
 # Publish Digital Experience Site
 sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS" || true
 
 # Publish Experience Site for Enhanced Messaging for In-App & Web Experience
 sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$SCRATCH_ORG_ALIAS" || true
+
+# Import & publish Knowledge Articles from DevHub org (leveraging SFDMU plugin)
+inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
+bash ./scripts/util/data-seeding/migrate_knowledge_articles.sh < $inputsFile
 
 # Reset Metadata Tracking
 npm run sf:tracking:reset

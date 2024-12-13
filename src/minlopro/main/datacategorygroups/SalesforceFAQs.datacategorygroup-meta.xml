@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataCategoryGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <dataCategory>
+        <dataCategory>
+            <label>Development</label>
+            <name>Development</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Administration</label>
+            <name>Administration</name>
+        </dataCategory>
+        <dataCategory>
+            <label>Configuration</label>
+            <name>Configuration</name>
+        </dataCategory>
+        <dataCategory>
+            <label>CI/CD</label>
+            <name>CI_CD</name>
+        </dataCategory>
+        <label>All</label>
+        <name>All</name>
+    </dataCategory>
+    <label>Salesforce FAQs</label>
+    <objectUsage>
+        <object>KnowledgeArticleVersion</object>
+    </objectUsage>
+</DataCategoryGroup>

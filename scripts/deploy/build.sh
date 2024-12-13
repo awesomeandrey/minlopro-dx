@@ -42,9 +42,9 @@ echo 'Installing SF CLI plugins...'
 echo y | sf plugins install "sfdx-git-delta@latest"
 if [ "$INSTALL_ALL_MODULES" = true ]; then
   # https://sfdx-hardis.cloudity.com
-  echo y | sf plugins install "sfdx-hardis"
+  echo y | sf plugins install "sfdx-hardis@latest"
   # https://help.sfdmu.com/get-started
-  echo y | sf plugins install "sfdmu"
+  echo y | sf plugins install "sfdmu@latest"
   # https://forcedotcom.github.io/sfdx-scanner/en/v3.x/scanner-commands/run/
   echo y | sf plugins install "@salesforce/sfdx-scanner"
 fi

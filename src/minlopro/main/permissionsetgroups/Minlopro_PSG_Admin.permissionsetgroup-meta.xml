@@ -4,7 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - PSG - Admin</label>
     <permissionSets>Minlopro_Admin</permissionSets>
-    <permissionSets>SH2__Storage_Helper</permissionSets>
+    <permissionSets>Minlopro_KnowledgeAdmin</permissionSets>
     <permissionSets>dlrs__LookupRollupSummariesFull</permissionSets>
     <permissionSets>dlrs__LookupRollupSummariesReadOnly</permissionSets>
     <status>Updated</status>

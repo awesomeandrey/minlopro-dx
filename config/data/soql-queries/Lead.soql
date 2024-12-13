@@ -1,16 +1,19 @@
 SELECT
-        Id,
-        Company,
-        AnnualRevenue,
-        Email,
-        GenderIdentity,
-        CurrencyIsoCode,
-        LeadSource,
-        Status,
-        Phone,
-        MobilePhone,
-        FirstName,
-        LastName,
-        Title,
-        Website
-FROM Lead
+    Id,
+    Company,
+    AnnualRevenue,
+    Email,
+    GenderIdentity,
+    CurrencyIsoCode,
+    LeadSource,
+    Status,
+    Phone,
+    MobilePhone,
+    FirstName,
+    LastName,
+    Title,
+    Website
+FROM
+    Lead
+LIMIT
+    50

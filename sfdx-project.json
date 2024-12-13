@@ -6,7 +6,6 @@
         { "path": "src/minlopro-digex" },
         { "path": "src/minlopro-digex-messaging" },
         { "path": "src/minlopro-dlrs" },
-        { "path": "src/minlopro-storage-helper" },
         { "path": "src/minlopro-crma" }
     ],
     "name": "minlopro-dx",
