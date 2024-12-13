@@ -104,7 +104,7 @@ public without sharing class Logger {
             log = logData.castToEvent();
             EventBus.publish(log);
         }
-        // Output to system debug anyway;
+        // Output to system debug anyway (use `JSON.serializePretty()` to log ALL message content in multiline fashion);
         System.debug(level, '⚪ LOG  => ' + message + '\n');
     }
 

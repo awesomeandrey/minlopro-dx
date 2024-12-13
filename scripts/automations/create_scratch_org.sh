@@ -27,7 +27,7 @@ sf org create scratch \
     --admin-email "$ADMIN_EMAIL" \
     --set-default \
     --duration-days 30 \
-    --wait 10
+    --wait 15
 sf config list
 
 # Reset Admin User password

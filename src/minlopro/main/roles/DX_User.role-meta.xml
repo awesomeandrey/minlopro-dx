@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>DX Admin</name>
+    <name>DX User</name>
+    <parentRole>DX_Admin</parentRole>
 </Role>

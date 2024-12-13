@@ -12,12 +12,26 @@ public inherited sharing class Sets {
         return !isEmpty(recordIds);
     }
 
-    public static Boolean isEmpty(Set<String> values) {
+    public static Boolean isEmpty(Set<String> stringValues) {
+        return stringValues == null || stringValues.isEmpty();
+    }
+
+    public static Boolean isNotEmpty(Set<String> stringValues) {
+        return !isEmpty(stringValues);
+    }
+
+    public static Boolean isEmpty(Set<Object> values) {
         return values == null || values.isEmpty();
     }
 
-    public static Boolean isNotEmpty(Set<String> values) {
+    public static Boolean isNotEmpty(Set<Object> values) {
         return !isEmpty(values);
+    }
+
+    // Randomizer;
+
+    public static Object getRandomItem(Set<Object> values) {
+        return Lists.getRandomItem(new List<Object>(values));
     }
 
     // Working with 'Id's;
