@@ -1,11 +1,12 @@
-# Sample Data
+# Seeding Org With Sample Data
 
 Sample data (for `Accounts`, `Contacts`, `Opportunities` and other objects) was generated via [Mockaroo Tool](https://mockaroo.com/).
 
-Refer to bash scripts below in order to export/import sample data:
+Use scripts below in order to seed/export/import sample data:
 
--   [`import_sample_data.sh`](../../scripts/util/import_sample_data.sh)
--   [`export_sample_data.sh`](../../scripts/util/export_sample_data.sh)
+-   [`import_sample_data.sh`](../../scripts/util/data-seeding/import_sample_data.sh)
+-   [`export_sample_data.sh`](../../scripts/util/data-seeding/export_sample_data.sh)
+-   [`migrate_knowledge_articles.sh`](../../scripts/util/data-seeding/migrate_knowledge_articles.sh)
 
 See [Salesforce Docs](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_test_data_example.htm)
 for more.

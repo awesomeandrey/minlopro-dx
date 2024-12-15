@@ -1,0 +1,23 @@
+SELECT
+    Title,
+    UrlName,
+    Content__c,
+    Summary,
+    Language,
+    IsVisibleInApp,
+    IsVisibleInCsp,
+    IsVisibleInPrm,
+    IsVisibleInPkb,
+    (
+        SELECT
+            DataCategoryGroupName,
+            DataCategoryName
+        FROM
+            DataCategorySelections
+    )
+FROM
+    Knowledge__kav
+WHERE
+    IsLatestVersion = TRUE
+LIMIT
+    50

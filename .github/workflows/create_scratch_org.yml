@@ -38,7 +38,7 @@ jobs:
           node-version: '20.x'
       - name: 'Install Salesforce CLI & Authorize DevHub Org'
         run: |
-          bash ./scripts/deploy/build.sh
+          bash ./scripts/deploy/build.sh -a
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New Scratch Org'

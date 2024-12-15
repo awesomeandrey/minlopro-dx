@@ -20,12 +20,7 @@ Profile minloproProfile = foundProfiles.get(0);
 
 // Switch to custom profile + update QA user details;
 UserRole qaUserRole = [SELECT Id FROM UserRole WHERE DeveloperName = 'DX_User' LIMIT 1][0];
-update new User(
-        Id = qaUser.Id,
-        UserRoleId = qaUserRole.Id,
-        ProfileId = minloproProfile.Id,
-        UserPermissionsKnowledgeUser = true
-);
+update new User(Id = qaUser.Id, UserRoleId = qaUserRole.Id, ProfileId = minloproProfile.Id, UserPermissionsKnowledgeUser = true);
 
 // Assign PSG intended for internal users;
 PermissionSetService service = PermissionSetService.getInstance();

@@ -1,0 +1,148 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef1"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Development",
+            "ParentId": "@Knowledge__kavRef1"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef2"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Development",
+            "ParentId": "@Knowledge__kavRef2"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef3"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Administration",
+            "ParentId": "@Knowledge__kavRef3"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef4"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Configuration",
+            "ParentId": "@Knowledge__kavRef3"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef5"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Development",
+            "ParentId": "@Knowledge__kavRef4"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef6"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Administration",
+            "ParentId": "@Knowledge__kavRef4"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef7"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Configuration",
+            "ParentId": "@Knowledge__kavRef4"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef8"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Development",
+            "ParentId": "@Knowledge__kavRef5"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef9"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Development",
+            "ParentId": "@Knowledge__kavRef6"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef10"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Administration",
+            "ParentId": "@Knowledge__kavRef6"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef11"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "CI_CD",
+            "ParentId": "@Knowledge__kavRef6"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef12"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Development",
+            "ParentId": "@Knowledge__kavRef7"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef13"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "CI_CD",
+            "ParentId": "@Knowledge__kavRef7"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef14"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Development",
+            "ParentId": "@Knowledge__kavRef8"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef15"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "Administration",
+            "ParentId": "@Knowledge__kavRef8"
+        },
+        {
+            "attributes": {
+                "type": "Knowledge__DataCategorySelection",
+                "referenceId": "Knowledge__DataCategorySelectionRef16"
+            },
+            "DataCategoryGroupName": "SalesforceFAQs",
+            "DataCategoryName": "CI_CD",
+            "ParentId": "@Knowledge__kavRef8"
+        }
+    ]
+}
