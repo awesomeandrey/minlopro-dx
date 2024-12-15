@@ -41,6 +41,10 @@ echo "📜 Scratch Org Credentials"
 sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json >> "$orgCredentialsFile"
 cat "$orgCredentialsFile"
 
+# Install packages from DevHub
+inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
+bash ./scripts/util/install_packages.sh < $inputsFile
+
 # Run PRE-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 

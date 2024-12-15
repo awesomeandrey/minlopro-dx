@@ -7,6 +7,10 @@
     <columns>URL_NAME</columns>
     <columns>PUBLISH_STATUS</columns>
     <columns>LAST_PUBLISHED_DATE</columns>
+    <columns>IS_CHANNEL_APP</columns>
+    <columns>IS_CHANNEL_PKB</columns>
+    <columns>IS_CHANNEL_CSP</columns>
+    <columns>IS_CHANNEL_PRM</columns>
     <filterScope>Everything</filterScope>
     <label>Detailed</label>
 </ListView>
