@@ -40,9 +40,11 @@ public without sharing class SendOptInEmailAction {
     }
 
     public class EmailRequest {
-        @InvocableVariable(Label='Account ID')
+        @InvocableVariable(Label='Account ID' Required=true)
         public Id accountId;
-        @InvocableVariable(Label='Email Template ID')
+        @InvocableVariable(Label='Email Template ID' Required=true)
         public Id templateId;
+        @InvocableVariable(Label='Temporary Variable' Required=false DefaultValue='Some Default Value')
+        public String temporaryVariable;
     }
 }
