@@ -4,6 +4,9 @@ public with sharing class digex_RunningUserInfoAsPdfController {
 
     public digex_RunningUserInfoAsPdfController() {
         this.userInfoItems = new List<UserInfoItem>();
+
+        // Specify the name for the PDF file generated;
+        ApexPages.currentPage().getHeaders().put('Content-Disposition', 'inline; filename=Minlopro_DigEx_UserInfo_VF.pdf');
     }
 
     public void doLoadCurrentUserInfo() {

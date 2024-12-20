@@ -29,9 +29,84 @@
       "renditionMap" : { },
       "type" : "component"
     }, {
-      "componentAttributes" : { },
-      "componentName" : "c:digExWebToLeadForm",
-      "id" : "3dc9566d-a769-4147-99bb-ca0cc2f20a78",
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "c4fb8407-94c2-455b-841b-f31f32bfcd88",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "Web-To-Lead"
+          }, {
+            "UUID" : "578368a5-3ef7-44fa-88b8-c45bbaa5f45e",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "2",
+            "tabName" : "Download Running User Info (VF)"
+          }, {
+            "UUID" : "d9ac2986-0384-4e44-8f79-c2e5729821c8",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "4becd",
+            "tabName" : "Dowload Running User Info (LWC)"
+          } ],
+          "useOverflowMenu" : true
+        }
+      },
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:digExWebToLeadForm",
+          "id" : "3dc9566d-a769-4147-99bb-ca0cc2f20a78",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "c4fb8407-94c2-455b-841b-f31f32bfcd88",
+        "regionLabel" : "Web-To-Lead",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "height" : "600",
+            "pageName" : "digex_RunningUserInfoAsPdf",
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:visualforcePage",
+          "id" : "a2463df7-2409-46ee-937b-23243c0ea26a",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "578368a5-3ef7-44fa-88b8-c45bbaa5f45e",
+        "regionLabel" : "Download Running User Info (VF)",
+        "regionName" : "2",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:runningUserInfoGenerator",
+          "id" : "67408ae3-8fb1-45c7-9e99-fa1b1d346a87",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "d9ac2986-0384-4e44-8f79-c2e5729821c8",
+        "regionLabel" : "Download Running User Info (LWC)",
+        "regionName" : "4becd",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"

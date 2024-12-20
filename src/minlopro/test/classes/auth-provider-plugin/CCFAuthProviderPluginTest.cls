@@ -38,7 +38,7 @@ private class CCFAuthProviderPluginTest {
             MOCKED_ACCESS_TOKEN
         );
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
-        factory.mockUnknownRequest().withResponseStatusCode(200).withResponseBody(JSON.serialize(responsePayload));
+        factory.mockDefaultRequest().withResponseStatusCode(200).withResponseBody(JSON.serialize(responsePayload));
         factory.mock();
         Auth.AuthProviderCallbackState cbState = new Auth.AuthProviderCallbackState(
             null,
@@ -59,7 +59,7 @@ private class CCFAuthProviderPluginTest {
         final String errorResponse = '{"errorMessage": "Bad Request"}';
         Map<String, String> authProviderConfig = getAuthProviderConfigMock();
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
-        factory.mockUnknownRequest().withResponseStatusCode(400).withResponseBody(errorResponse);
+        factory.mockDefaultRequest().withResponseStatusCode(400).withResponseBody(errorResponse);
         factory.mock();
         try {
             CCFAuthProviderPlugin plugin = new CCFAuthProviderPlugin();
