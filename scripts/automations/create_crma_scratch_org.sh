@@ -38,7 +38,7 @@ mkdir -p "build"
 orgCredentialsFile="build/$ADMIN_EMAIL-CRMA-SO.json"
 touch "$orgCredentialsFile"
 echo "📜 CRMA Scratch Org Credentials"
-sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json >> "$orgCredentialsFile"
+sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json > "$orgCredentialsFile"
 cat "$orgCredentialsFile"
 
 # Resolve ".env" file for the scratch org (this properly resolves 'SF_USERNAME' & 'SF_INSTANCE_URL' variables)

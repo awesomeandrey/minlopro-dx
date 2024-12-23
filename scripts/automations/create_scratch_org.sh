@@ -38,7 +38,7 @@ mkdir -p "build"
 orgCredentialsFile="build/$ADMIN_EMAIL-SO.json"
 touch "$orgCredentialsFile"
 echo "📜 Scratch Org Credentials"
-sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json >> "$orgCredentialsFile"
+sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json > "$orgCredentialsFile"
 cat "$orgCredentialsFile"
 
 # Install packages from DevHub
