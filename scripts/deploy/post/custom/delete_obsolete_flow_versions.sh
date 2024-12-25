@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/deploy/post/custom/delete_obsolete_flow_versions.sh

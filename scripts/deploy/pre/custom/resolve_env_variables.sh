@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/deploy/pre/custom/resolve_env_variables.sh

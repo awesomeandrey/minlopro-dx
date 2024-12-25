@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/util/minify_global_styles.sh

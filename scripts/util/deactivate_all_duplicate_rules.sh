@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/util/deactivate_all_duplicate_rules.sh

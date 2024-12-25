@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/util/create_qa_user.sh

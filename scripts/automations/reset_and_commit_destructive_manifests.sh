@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Prerequisites:
 #   Enable 'read/write' permission for GitHub workflows in Settings > Actions > General > Workflow Permissions.

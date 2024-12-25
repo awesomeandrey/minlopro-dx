@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Inspired by https://medium.com/git-happy/navigating-git-branches-like-a-pro-the-git-branch-command-f190eb7eb7b6
 # How to use:
