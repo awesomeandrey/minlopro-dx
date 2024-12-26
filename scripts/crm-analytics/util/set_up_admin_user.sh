@@ -4,7 +4,7 @@
 # - bash ./scripts/crm-analytics/util/set_up_admin_user.sh
 # - echo "ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_admin_user.sh
 
-read -p "🔶 Enter target org alias: " SCRATCH_ORG_ALIAS
+read -r -p "🔶 Enter target org alias: " SCRATCH_ORG_ALIAS
 echo "🔵 Setting up ADMIN user at [$SCRATCH_ORG_ALIAS] organization..."
 
 # Grab newly created scratch org username

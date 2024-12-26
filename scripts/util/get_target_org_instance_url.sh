@@ -6,4 +6,4 @@
 
 targetOrgAlias=$(bash ./scripts/util/get_target_org_alias.sh)
 targetOrgInstanceUrl=$(sf org display --json --target-org="$targetOrgAlias" | jq -r '.result.instanceUrl')
-echo $targetOrgInstanceUrl
+echo "$targetOrgInstanceUrl"

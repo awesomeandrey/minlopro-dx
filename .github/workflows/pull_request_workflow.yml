@@ -45,8 +45,16 @@ jobs:
         run: npm install
       - name: 'Run Jest Tests with Coverage'
         run: npm run jest:coverage
+  run-shell-check:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ludeeus/action-shellcheck@master
+        with:
+          ignore_paths: src
   validate-deployment-to-org:
-    needs: [ run-prettier-checks, run-jest-tests ]
+    needs: [ run-prettier-checks, run-jest-tests, run-shell-check ]
     environment: "Minlopro DevHub"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}

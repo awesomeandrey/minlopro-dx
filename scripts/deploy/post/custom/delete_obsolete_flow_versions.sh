@@ -6,7 +6,7 @@
 # Note: there can be a dependency on existing flow interviews. They can be deleted manually from Salesforce UI (see App Launcher > Paused Flows).
 
 # Capture target org alias;
-read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 echo "🔵 Purging obsolete Flow Versions from [$TARGET_ORG_ALIAS] organization..."
 
@@ -14,8 +14,8 @@ echo "🔵 Purging obsolete Flow Versions from [$TARGET_ORG_ALIAS] organization.
 buildFolderName="build"
 csvFileName="$buildFolderName/flow_version_IDs_to_delete.csv"
 
-mkdir -p $buildFolderName
-rm -f $csvFileName
+mkdir -p "$buildFolderName"
+rm -f "$csvFileName"
 
 sf data query \
   --query "SELECT Id FROM Flow WHERE Status = 'Obsolete'" \
@@ -26,15 +26,15 @@ sf data query \
 if ! grep -q Id "$csvFileName"; then
   echo 'No obsolete flow versions to delete.'
   echo
-  rm $csvFileName
+  rm "$csvFileName"
   exit 0
 fi
 
-while read c; do
+while read -r c; do
   if [[ "$c" != "Id" && "$c" != "Your query returned no results." ]]; then
     sf data delete record \
       --sobject "Flow" \
-      --record-id $c \
+      --record-id "$c" \
       --target-org "$TARGET_ORG_ALIAS" \
       --use-tooling-api
   fi

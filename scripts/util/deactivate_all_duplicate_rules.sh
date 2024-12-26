@@ -8,7 +8,7 @@
 set -e
 
 # Capture Org alias
-read -p "🔶 Enter Org Alias: " ORG_ALIAS
+read -r -p "🔶 Enter Org Alias: " ORG_ALIAS
 
 echo "🔵 Deactivating all duplicate rules in [$ORG_ALIAS] org..."
 

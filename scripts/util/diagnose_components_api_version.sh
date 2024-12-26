@@ -5,13 +5,13 @@
 
 # Capture inputs
 currentApiVersion=$(bash ./scripts/util/get_project_api_version.sh)
-read -p "🔶 Enter base API version [default: $currentApiVersion]: " baseApiVersion
+read -r -p "🔶 Enter base API version [default: $currentApiVersion]: " baseApiVersion
 baseApiVersion=${baseApiVersion:-$currentApiVersion}
 
-read -p "🔶 Provide folder path to sources [default: 'src']: " baseSourcesFolderPath
+read -r -p "🔶 Provide folder path to sources [default: 'src']: " baseSourcesFolderPath
 sourcesFolder=${baseSourcesFolderPath:-"src"}
 
-read -p "🔶 Do you want to update files with a lower API version? (y/n) [default: n]: " doUpdateFiles
+read -r -p "🔶 Do you want to update files with a lower API version? (y/n) [default: n]: " doUpdateFiles
 doUpdateFiles=${doUpdateFiles:-n}
 
 echo "🔵 Checking sources with API version lower than $baseApiVersion in '$sourcesFolder' folder..."

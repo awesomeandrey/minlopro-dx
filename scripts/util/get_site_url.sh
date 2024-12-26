@@ -8,7 +8,7 @@
 set -e
 
 # Capture target org alias;
-read -p "🔶 Enter target org alias: " targetOrgAlias
+read -r -p "🔶 Enter target org alias: " targetOrgAlias
 
 # Get Salesforce Instance URL
 targetOrgInstanceUrl=$(sf org display --json --target-org="$targetOrgAlias" | jq -r '.result.instanceUrl')

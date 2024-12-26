@@ -8,11 +8,11 @@
 set -e
 
 # Capture DevHub org alias;
-read -p "🔶 Enter DevHub Alias: " DEV_HUB_ALIAS
+read -r -p "🔶 Enter DevHub Alias: " DEV_HUB_ALIAS
 # Capture Scratch Org alias;
-read -p "🔶 Enter Scratch Org Alias: " SCRATCH_ORG_ALIAS
+read -r -p "🔶 Enter Scratch Org Alias: " SCRATCH_ORG_ALIAS
 # Capture Admin email address alias;
-read -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
+read -r -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
 
 echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
 

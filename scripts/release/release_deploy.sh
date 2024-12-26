@@ -5,8 +5,8 @@
 # - echo 'ORG_ALIAS' | bash ./scripts/release/release_deploy.sh
 
 # Capture inputs;
-read -p "🔶 Enter target org alias to run QUICK DEPLOY against: " TARGET_ORG_ALIAS
-read -p "🔶 Enter Job ID: " JOB_ID
+read -r -p "🔶 Enter target org alias to run QUICK DEPLOY against: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter Job ID: " JOB_ID
 echo "🔵 Running quick deploy by [$JOB_ID] job ID against [$TARGET_ORG_ALIAS] organization..."
 echo
 

@@ -5,7 +5,7 @@
 # - echo $ORG_ALIAS | bash ./scripts/util/data-seeding/import_sample_data.sh
 
 # Capture target org alias;
-read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 echo "🔵 Importing sample data into [$TARGET_ORG_ALIAS] organization..."
 echo

@@ -8,7 +8,7 @@
 set -e
 
 # Capture Scratch Org alias;
-read -p "🔶 Enter Scratch Org Alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter Scratch Org Alias: " TARGET_ORG_ALIAS
 echo "🔵 Refreshing CRM Analytics assets from [$TARGET_ORG_ALIAS] org..."
 
 # Add folder-level ignore file to make sure the retrieval operation succeeds

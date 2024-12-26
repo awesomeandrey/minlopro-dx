@@ -8,7 +8,7 @@
 set -e
 
 # Capture target org alias
-read -p "🔶 Enter target org alias to generate '.env' file for: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias to generate '.env' file for: " TARGET_ORG_ALIAS
 echo "🔵 Resolving environment variables for [$TARGET_ORG_ALIAS] organization..."
 
 # Copy content of '.env.manifest' file to '.env' in repository root (force overwrite)

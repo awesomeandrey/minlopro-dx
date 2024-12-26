@@ -4,7 +4,7 @@
 # - bash ./scripts/deploy/post/run_post.sh
 # - echo "ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh
 
-read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 npx cowsay -W 100 "📗 Running POST-Deploy Scripts against [$TARGET_ORG_ALIAS] organization..."
 
 # Step 1: Run Custom Apex Scripts;

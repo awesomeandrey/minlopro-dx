@@ -5,7 +5,7 @@
 # - echo $ORG_ALIAS | bash ./scripts/util/retrieve_by_manifest.sh
 
 # Capture target org alias;
-read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 manifestPath="manifests/package.xml"
 targetDirPath="retrieved-src"

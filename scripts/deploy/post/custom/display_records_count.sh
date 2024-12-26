@@ -4,7 +4,7 @@
 # - bash ./scripts/deploy/post/custom/display_records_count.sh
 
 # Capture target org alias;
-read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 echo "🔵 Displaying Records Count from [$TARGET_ORG_ALIAS] organization..."
 
