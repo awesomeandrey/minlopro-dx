@@ -81,4 +81,21 @@ public without sharing class SystemInfoController {
             throw new AuraHandledException(ex.getMessage());
         }
     }
+
+    public static List<User> getAdmins() {
+        Id adminsGroupId = getAdminsGroup()?.Id;
+        return [
+            SELECT Id, Name, Email, Username, Alias
+            FROM User
+            WHERE Id IN (SELECT UserOrGroupId FROM GroupMember WHERE GroupId = :adminsGroupId)
+        ];
+    }
+
+    public static Set<Id> getAdminIds() {
+        return new Map<Id, User>(getAdmins()).keySet();
+    }
+
+    public static Group getAdminsGroup() {
+        return [SELECT Id, Name, DeveloperName FROM Group WHERE DeveloperName = 'OrgAdmins' LIMIT 1];
+    }
 }

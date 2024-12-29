@@ -59,19 +59,22 @@ global without sharing class PublicRestEndpoint {
             Logger.debug('Request Body = {0}', Lists.of(req.requestBody.toString()));
             Logger.debug('Request Params = {0}', Lists.of(req.params.toString()));
 
-            // Verify request by key;
-            String verificationKey = req.params.get('verificationKey');
-            Logger.debug('Verifications Key = {0}', Lists.of(verificationKey));
-            if (String.isBlank(verificationKey) || !verificationKey.equals('wow_ooha')) {
-                res.statusCode = 401;
-                res.responseBody = Blob.valueOf('Verification Key is not confirmed!');
-                return;
+            CustomNotificationType notificationType = [
+                SELECT Id, DeveloperName
+                FROM CustomNotificationType
+                WHERE DeveloperName = 'Minlopro'
+                LIMIT 1
+            ];
+            Messaging.CustomNotification notification = new Messaging.CustomNotification();
+            notification.setNotificationTypeId(notificationType.Id);
+            notification.setTitle('New Host Detected');
+            notification.setBody('Body = ' + req.requestBody.toString());
+            notification.setTargetId(UserInfo.getUserId());
+            Set<String> usernames = new Set<String>();
+            for (Id userId : SystemInfoController.getAdminIds()) {
+                usernames.add(String.valueOf(userId));
             }
-
-            // Redirect to the new URL;
-            res.addHeader('Location', 'https://www.google.com');
-            res.addHeader('http-equiv', 'refresh');
-            res.statusCode = 301;
+            notification.send(usernames);
         } catch (Exception ex) {
             Logger.error(ex);
             res.statusCode = 500;
