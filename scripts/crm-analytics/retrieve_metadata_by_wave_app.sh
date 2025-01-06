@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/crm-analytics/retrieve_metadata_by_wave_app.sh
@@ -7,8 +7,8 @@
 set -e
 
 # Capture Scratch Org alias;
-read -p "🔶 Enter target org alias to pull WAVE metadata from: " TARGET_ORG_ALIAS
-read -p "🔶 Enter Wave application API name: " WAVE_APP_NAME
+read -r -p "🔶 Enter target org alias to pull WAVE metadata from: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter Wave application API name: " WAVE_APP_NAME
 
 # Override input variables manually for testing purposes!
 # TARGET_ORG_ALIAS="crma-devhub"

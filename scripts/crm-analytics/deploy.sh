@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/crm-analytics/deploy.sh
@@ -8,7 +8,7 @@
 set -e
 
 # Capture Scratch Org alias;
-read -p "🔶 Enter Scratch Org Alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter Scratch Org Alias: " TARGET_ORG_ALIAS
 echo "🔵 Deploying CRM Analytics assets to [$TARGET_ORG_ALIAS] org..."
 
 # Cleanup working directory

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/util/authorize_org_jwt.sh --orgAlias "ORG_ALIAS"

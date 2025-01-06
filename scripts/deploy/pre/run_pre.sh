@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/deploy/pre/run_pre.sh
 # - echo "ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 
-read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 npx cowsay -W 100 "📗 Running PRE-Deploy Scripts against [$TARGET_ORG_ALIAS] organization..."
 
 # Step 1: Run Custom Shell Scripts;

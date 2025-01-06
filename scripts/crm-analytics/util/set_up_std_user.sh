@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/crm-analytics/util/set_up_std_user.sh
 # - echo "ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_std_user.sh
 
-read -p "🔶 Enter CRMA scratch org alias: " SCRATCH_ORG_ALIAS
+read -r -p "🔶 Enter CRMA scratch org alias: " SCRATCH_ORG_ALIAS
 echo "🔵 Setting up STD user at [$SCRATCH_ORG_ALIAS] organization..."
 
 # Create standard user

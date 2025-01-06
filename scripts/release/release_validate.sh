@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/release/release_validate.sh
 # - echo 'ORG_ALIAS' | bash ./scripts/release/release_validate.sh
 
 # Capture target org alias;
-read -p "🔶 Enter target org alias to run QUICK VALIDATION against: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias to run QUICK VALIDATION against: " TARGET_ORG_ALIAS
 echo "🔵 Running quick validation against [$TARGET_ORG_ALIAS] organization..."
 echo
 
@@ -17,26 +17,28 @@ preDestructiveChangesXml="$manifestsFolder/destructiveChangesPre.xml"
 postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
 deploymentJobIdFile="$buildFolder/release_job_id.txt"
 
-# Verify that all 3 manifests exist;
-if ! [[ -f "$packageXml" && -f "$preDestructiveChangesXml" && -f "$postDestructiveChangesXml" ]]; then
+# Verify that all 3 manifests exist and are valid;
+if ! xmllint --noout "$packageXml" "$preDestructiveChangesXml" "$postDestructiveChangesXml"; then
   echo "🔴 'manifests' folder must contain 3 manifest files: package.xml, destructiveChangesPre.xml & destructiveChangesPost.xml."
   exit 1
 fi
 
-# Extract Apex Test class names (NOTE: extra spaces/quotes in Apex Test class names will lead to failed validation!);
+# Collect Apex Test Class names to run;
 testClassNamesArray=()
+
 while IFS= read -r line; do
-    className="${line#*<members>}"
-    className="${className%</members>}"
-    testClassNamesArray+=("$className")
+  className="${line#*<members>}"
+  className="${className%</members>}"
+  testClassNamesArray+=("$className")
 done < <(grep '<members>.*Test<\/members>' "$packageXml")
-testClassNames="${testClassNamesArray[*]}"
-if [ -z "$testClassNames" ]; then
-    # Default Apex Test class name;
-    echo "No updates detected in Apex Test classes. Applying stub/mock keyword."
-    testClassNames="MOCKED"
+
+if [ -z "${testClassNamesArray[*]}" ]; then
+  # Default Apex Test class name;
+  echo "No updates detected in Apex Test classes. Applying stub/mock keyword."
+  testClassNamesArray+=("MOCKED")
 fi
-echo "Apex Test Class Names: [$testClassNames]"
+
+echo "Apex Test Class Names: ${testClassNamesArray[*]}"
 
 # Initiate deployment validation;
 jobInfoJson=$(npx dotenv -e '.env' -- sf project deploy validate \
@@ -45,7 +47,7 @@ jobInfoJson=$(npx dotenv -e '.env' -- sf project deploy validate \
   --pre-destructive-changes "$preDestructiveChangesXml" \
   --post-destructive-changes "$postDestructiveChangesXml" \
   --test-level "RunSpecifiedTests" \
-  --tests $testClassNames \
+  --tests "${testClassNamesArray[@]}" \
   --verbose \
   --async \
   --ignore-warnings \

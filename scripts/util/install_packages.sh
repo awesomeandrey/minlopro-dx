@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/util/install_packages.sh
 
-read -p "🔶 Enter source org alias to read installed packaged from: " SOURCE_ORG_ALIAS
-read -p "🔶 Enter target org alias to install packages in: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter source org alias to read installed packaged from: " SOURCE_ORG_ALIAS
+read -r -p "🔶 Enter target org alias to install packages in: " TARGET_ORG_ALIAS
 
 echo "🔵 Fetching installed packages from [$SOURCE_ORG_ALIAS] org and installing them in [$TARGET_ORG_ALIAS] org..."
 

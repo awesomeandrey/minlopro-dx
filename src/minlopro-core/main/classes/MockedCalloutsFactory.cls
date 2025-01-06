@@ -6,7 +6,7 @@
  * Usage:
  * - Instantiate the factory using the singleton pattern via `getInstance()`.
  * - Use `mockRequestTo()` to set up expected responses for specific HTTP requests.
- * - Utilize `mockUnknownRequest()` to set a default response for any unmocked requests.
+ * - Utilize `mockDefaultRequest()` to set a default response for any unmocked requests.
  * - Call `mock()` to set the factory as the mock provider for HTTP callouts in test context.
  * - The `respond()` method is used internally to provide responses to the mocked requests.
  *
@@ -15,7 +15,7 @@
 public class MockedCalloutsFactory implements HttpCalloutMock {
     private static MockedCalloutsFactory instance = null;
     private final Map<String, HttpCalloutMockBuilder> mockedResponsesByRequestKeysMap = null;
-    private final String UNKNOWN_REQUEST_KEY = 'unknown_request';
+    private final String DEFAULT_REQUEST_KEY = 'default_request';
 
     private MockedCalloutsFactory() {
         this.mockedResponsesByRequestKeysMap = new Map<String, HttpCalloutMockBuilder>();
@@ -28,9 +28,9 @@ public class MockedCalloutsFactory implements HttpCalloutMock {
         return instance;
     }
 
-    public HttpCalloutMockBuilder mockUnknownRequest() {
+    public HttpCalloutMockBuilder mockDefaultRequest() {
         HttpCalloutMockBuilder builderInstance = new HttpCalloutMockBuilder();
-        this.mockedResponsesByRequestKeysMap.put(this.UNKNOWN_REQUEST_KEY, builderInstance);
+        this.mockedResponsesByRequestKeysMap.put(this.DEFAULT_REQUEST_KEY, builderInstance);
         return builderInstance;
     }
 
@@ -54,8 +54,8 @@ public class MockedCalloutsFactory implements HttpCalloutMock {
         String requestKey = this.computeRequestKey(request);
         if (this.mockedResponsesByRequestKeysMap.containsKey(requestKey)) {
             return this.mockedResponsesByRequestKeysMap.get(requestKey).buildHttpResponse();
-        } else if (this.mockedResponsesByRequestKeysMap.containsKey(UNKNOWN_REQUEST_KEY)) {
-            return this.mockedResponsesByRequestKeysMap.get(UNKNOWN_REQUEST_KEY).buildHttpResponse();
+        } else if (this.mockedResponsesByRequestKeysMap.containsKey(DEFAULT_REQUEST_KEY)) {
+            return this.mockedResponsesByRequestKeysMap.get(DEFAULT_REQUEST_KEY).buildHttpResponse();
         }
         throw new IllegalArgumentException(String.format('Http Request was not mocked: [{0}]', Lists.of(request.toString())));
     }

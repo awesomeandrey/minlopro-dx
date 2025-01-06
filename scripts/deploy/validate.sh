@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/deploy/validate.sh
 # - echo 'ORG_ALIAS' | bash ./scripts/deploy/validate.sh
 
 # Capture target org alias;
-read -p "🔶 Enter target org alias to validate deploy against: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias to validate deploy against: " TARGET_ORG_ALIAS
 
 # Define constants;
 manifestsFolder="manifests"
@@ -14,8 +14,7 @@ preDestructiveChangesXml="$manifestsFolder/destructiveChangesPre.xml"
 postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
 
 # Verify that all 3 manifests exist and are valid;
-xmllint --noout "$packageXml" "$preDestructiveChangesXml" "$postDestructiveChangesXml"
-if [ $? -ne 0 ]; then
+if ! xmllint --noout "$packageXml" "$preDestructiveChangesXml" "$postDestructiveChangesXml"; then
   echo "🔴 'manifests' folder must contain 3 manifest files: package.xml, destructiveChangesPre.xml & destructiveChangesPost.xml."
   exit 1
 fi

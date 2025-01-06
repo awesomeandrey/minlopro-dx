@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/deploy/sgd_generate_manifests.sh
 # - echo $TXT_FILE_WITH_BRANCH_NAMES | bash ./scripts/deploy/sgd_generate_manifests.sh
 
-read -p "🔶 Enter branch name / commit SHA to capture changes FROM: " FROM_REF
-read -p "🔶 Enter branch name / commit SHA to capture changes UP TO: " TO_REF
+read -r -p "🔶 Enter branch name / commit SHA to capture changes FROM: " FROM_REF
+read -r -p "🔶 Enter branch name / commit SHA to capture changes UP TO: " TO_REF
 
 echo "🔵 Generating XML manifests from [$FROM_REF] to [$TO_REF]..."
 echo

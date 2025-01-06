@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Prerequisites:
 #   Enable 'read/write' permission for GitHub workflows in Settings > Actions > General > Workflow Permissions.
@@ -33,7 +33,9 @@ file2="$postDestructiveChangesXml"
 
 # Function to check if a file is modified
 is_file_modified() {
-    [[ $(git status --porcelain | grep "^ M $1$") ]] && return 0 || return 1
+  # Return 0 (success) if file is modified, else return 1.
+  # Using `grep -q` to check the output of `git status --porcelain` directly.
+  git status --porcelain | grep -q "^ M $1$"
 }
 
 # Track changes in files

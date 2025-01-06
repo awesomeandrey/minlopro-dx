@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/deploy/run_prettier_check_against_changed_files.sh
@@ -12,7 +12,7 @@ srcFilePrefix="$srcFolderName/"
 changedFilesPath="$buildFolderName/changedFiles.txt"
 
 # Capture target org alias;
-read -p "🔶 Enter target branch name to compare changes against: " baseRef
+read -r -p "🔶 Enter target branch name to compare changes against: " baseRef
 
 # Delete 'build' folder if it exists;
 if [ -d "$buildFolderName" ]; then
@@ -28,13 +28,13 @@ mkdir -p "$buildFolderName"
 mkdir -p "$copiedSrcFolderPath"
 
 # Grab HEAD commit SHA from source branch;
-BASE=$(git merge-base $baseRef HEAD)
+BASE=$(git merge-base "$baseRef" HEAD)
 
 echo "BASE commit in [$baseRef] is [$BASE]"
 
 # Extract changed files and save those names into the text file;
 touch "$changedFilesPath"
-git diff --name-only $BASE HEAD > "$changedFilesPath"
+git diff --name-only "$BASE" HEAD > "$changedFilesPath"
 
 # Copy each SRC-changed file into a separate folder preserving folders hierarchy;
 grep "$srcFilePrefix" "$changedFilesPath" | while read -r filepath; do

@@ -53,7 +53,7 @@ private class MockedCalloutsFactoryTest {
         // Mock HTTP responses for 2 callouts;
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
         factory.mockRequestTo(HTTP_METHOD_GET, HTTP_REQUEST_URL).withResponseStatusCode(expectedResponseStatusCode1);
-        factory.mockUnknownRequest().withResponseStatusCode(expectedResponseStatusCode2).withResponseBody(expectedResponseBody2);
+        factory.mockDefaultRequest().withResponseStatusCode(expectedResponseStatusCode2).withResponseBody(expectedResponseBody2);
         factory.mock();
 
         // Invoke 2 unique HTTP callouts;

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/util/deactivate_all_duplicate_rules.sh
@@ -8,7 +8,7 @@
 set -e
 
 # Capture Org alias
-read -p "🔶 Enter Org Alias: " ORG_ALIAS
+read -r -p "🔶 Enter Org Alias: " ORG_ALIAS
 
 echo "🔵 Deactivating all duplicate rules in [$ORG_ALIAS] org..."
 

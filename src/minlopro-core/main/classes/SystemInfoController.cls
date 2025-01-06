@@ -1,7 +1,6 @@
 public without sharing class SystemInfoController {
     @AuraEnabled
     public static List<Map<String, Object>> getOrgLimits() {
-        Logger.debug('Requesting Org Limits');
         try {
             List<Map<String, Object>> orgLimitsMap = new List<Map<String, Object>>();
             if (Test.isRunningTest()) {
@@ -16,15 +15,14 @@ public without sharing class SystemInfoController {
             }
             return orgLimitsMap;
         } catch (Exception ex) {
-            Logger.error(ex);
-            String exceptionDetails = Exceptions.getDetails(ex).toString();
-            throw new AuraHandledException(exceptionDetails);
+            AuraHandledException ahe = new AuraHandledException(ex.getMessage());
+            ahe.initCause(ex);
+            throw ahe;
         }
     }
 
     @AuraEnabled(Cacheable=true)
     public static User getUserInfoById(Id userId) {
-        Logger.debug('Requesting User Info');
         if (String.isBlank(userId)) {
             userId = UserInfo.getUserId();
         }
@@ -37,8 +35,9 @@ public without sharing class SystemInfoController {
             ][0];
         } catch (Exception ex) {
             Logger.error(ex);
-            String exceptionDetails = Exceptions.getDetails(ex).toString();
-            throw new AuraHandledException(exceptionDetails);
+            AuraHandledException ahe = new AuraHandledException(ex.getMessage());
+            ahe.initCause(ex);
+            throw ahe;
         }
     }
 
@@ -48,9 +47,9 @@ public without sharing class SystemInfoController {
             Blob b = Page.digex_RunningUserInfoAsPdf.getContentAsPDF();
             return EncodingUtil.base64Encode(b);
         } catch (Exception ex) {
-            Logger.error(ex);
-            String exceptionDetails = Exceptions.getDetails(ex).toString();
-            throw new AuraHandledException(exceptionDetails);
+            AuraHandledException ahe = new AuraHandledException(ex.getMessage());
+            ahe.initCause(ex);
+            throw ahe;
         }
     }
 
@@ -60,9 +59,9 @@ public without sharing class SystemInfoController {
             Organization org = [SELECT IsSandbox, OrganizationType, InstanceName FROM Organization LIMIT 1];
             return org.IsSandbox;
         } catch (Exception ex) {
-            Logger.error(ex);
-            String exceptionDetails = Exceptions.getDetails(ex).toString();
-            throw new AuraHandledException(exceptionDetails);
+            AuraHandledException ahe = new AuraHandledException(ex.getMessage());
+            ahe.initCause(ex);
+            throw ahe;
         }
     }
 
@@ -81,5 +80,22 @@ public without sharing class SystemInfoController {
             Logger.error(ex);
             throw new AuraHandledException(ex.getMessage());
         }
+    }
+
+    public static List<User> getAdmins() {
+        Id adminsGroupId = getAdminsGroup()?.Id;
+        return [
+            SELECT Id, Name, Email, Username, Alias
+            FROM User
+            WHERE Id IN (SELECT UserOrGroupId FROM GroupMember WHERE GroupId = :adminsGroupId)
+        ];
+    }
+
+    public static Set<Id> getAdminIds() {
+        return new Map<Id, User>(getAdmins()).keySet();
+    }
+
+    public static Group getAdminsGroup() {
+        return [SELECT Id, Name, DeveloperName FROM Group WHERE DeveloperName = 'OrgAdmins' LIMIT 1];
     }
 }

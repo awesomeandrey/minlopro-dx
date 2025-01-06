@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/util/data-seeding/migrate_knowledge_articles.sh
 
-read -p "🔶 Enter source org alias to fetch KAVs from: " SOURCE_ORG_ALIAS
-read -p "🔶 Enter target org alias to import KAVs to: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter source org alias to fetch KAVs from: " SOURCE_ORG_ALIAS
+read -r -p "🔶 Enter target org alias to import KAVs to: " TARGET_ORG_ALIAS
 
 echo "🔵 Exporting knowledge articles from [$SOURCE_ORG_ALIAS] and importing them into [$TARGET_ORG_ALIAS] via SFDMU CLI..."
 

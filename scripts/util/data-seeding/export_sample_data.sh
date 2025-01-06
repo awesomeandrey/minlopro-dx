@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # How to use:
 # - bash ./scripts/util/data-seeding/export_sample_data.sh
 # - echo $ORG_ALIAS | bash ./scripts/util/data-seeding/export_sample_data.sh
 
 # Capture target org alias;
-read -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 mkdir -p "build"
 echo "🔵 Exporting sample data from [$TARGET_ORG_ALIAS]..."

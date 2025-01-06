@@ -47,7 +47,7 @@ jobs:
           inputsFile="inputs.txt"
           touch $inputsFile
           # Dev Hub Alias
-          echo "DevHub" >> $inputsFile
+          echo "DevHub" > $inputsFile
           # Scratch Org Alias
           echo "ScratchOrg" >> $inputsFile
           # Admin Email Address

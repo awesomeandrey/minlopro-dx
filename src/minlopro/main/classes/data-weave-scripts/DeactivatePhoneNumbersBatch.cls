@@ -10,7 +10,7 @@ public without sharing class DeactivatePhoneNumbersBatch implements Database.Bat
     public List<String> start(Database.BatchableContext context) {
         Logger.debug('Running START method');
 
-        // Step #1 - Fetch deactivated phones numbers from Twilio;
+        // Step #1 - Fetch deactivated phones numbers from Twilio (add 'Database.AllowsCallouts' interface);
         // ... moved to private method!
 
         // Step #2 - Invoke Data Weave script to parse huuuuge amount of phones;
