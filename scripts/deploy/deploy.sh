@@ -37,4 +37,5 @@ npx dotenv -e ".env" -- sf project deploy start \
   --verbose \
   --ignore-conflicts \
   --ignore-warnings \
+  --concise \
   --wait 20
