@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <AuthProvider xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customMetadataTypeRecord>CCF_Configurations__mdt.Custom_Salesforce_Auth_Provider</customMetadataTypeRecord>
+    <customMetadataTypeRecord>AuthProviderSetting__mdt.Loopback_WSPKCE</customMetadataTypeRecord>
     <executionUser>@SF_USERNAME</executionUser>
-    <friendlyName>Custom Salesforce Auth Provider</friendlyName>
+    <friendlyName>Loopback - WSPKCE</friendlyName>
     <includeOrgIdInIdentifier>false</includeOrgIdInIdentifier>
-    <isPkceEnabled>false</isPkceEnabled>
-    <plugin>CCFAuthProviderPlugin</plugin>
+    <isPkceEnabled>true</isPkceEnabled>
+    <plugin>OAuthWebServerWithPkceAuthProviderPlugin</plugin>
     <providerType>Custom</providerType>
     <requireMfa>false</requireMfa>
     <sendAccessTokenInHeader>false</sendAccessTokenInHeader>
     <sendClientCredentialsInHeader>false</sendClientCredentialsInHeader>
-    <sendSecretInApis>false</sendSecretInApis>
+    <sendSecretInApis>true</sendSecretInApis>
 </AuthProvider>

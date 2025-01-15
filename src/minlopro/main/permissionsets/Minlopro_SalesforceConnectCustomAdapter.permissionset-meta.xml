@@ -10,7 +10,7 @@
     </classAccesses>
     <externalCredentialPrincipalAccesses>
         <enabled>true</enabled>
-        <externalCredentialPrincipal>Minlopro-Default</externalCredentialPrincipal>
+        <externalCredentialPrincipal>MinloproSalesforceLoopback-Default</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <fieldPermissions>
         <editable>false</editable>

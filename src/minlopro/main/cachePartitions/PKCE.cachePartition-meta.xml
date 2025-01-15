@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PlatformCachePartition xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Holds user preferences with regards to LOG module-related components.</description>
+    <description>Stores temporary PKCE state.</description>
     <isDefaultPartition>false</isDefaultPartition>
-    <masterLabel>LogsMonitor</masterLabel>
+    <masterLabel>PKCE</masterLabel>
     <platformCachePartitionTypes>
-        <allocatedCapacity>0</allocatedCapacity>
-        <allocatedPartnerCapacity>0</allocatedPartnerCapacity>
+        <allocatedCapacity>1</allocatedCapacity>
+        <allocatedPartnerCapacity>1</allocatedPartnerCapacity>
         <allocatedPurchasedCapacity>0</allocatedPurchasedCapacity>
         <allocatedTrialCapacity>0</allocatedTrialCapacity>
         <cacheType>Organization</cacheType>
     </platformCachePartitionTypes>
     <platformCachePartitionTypes>
-        <allocatedCapacity>1</allocatedCapacity>
-        <allocatedPartnerCapacity>1</allocatedPartnerCapacity>
+        <allocatedCapacity>0</allocatedCapacity>
+        <allocatedPartnerCapacity>0</allocatedPartnerCapacity>
         <allocatedPurchasedCapacity>0</allocatedPurchasedCapacity>
         <allocatedTrialCapacity>0</allocatedTrialCapacity>
         <cacheType>Session</cacheType>

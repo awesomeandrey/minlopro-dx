@@ -19,7 +19,7 @@
         <recordType>Account.IndividualEntrepreneur</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>CCF_Configurations__mdt-Client Credentials Flow Configuration Layout</layout>
+        <layout>AuthProviderSetting__mdt-Auth%2E Provider Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Car__c-Car Layout</layout>

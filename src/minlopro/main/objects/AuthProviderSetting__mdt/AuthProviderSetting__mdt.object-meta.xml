@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description
+        >Holds connected app settings used for accessing external systems via OAuth 2.0 flows &amp; custom Auth. Provider
+        plugins.</description
+    >
+    <label>Auth. Provider Setting</label>
+    <pluralLabel>Auth. Provider Settings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>
