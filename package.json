@@ -23,7 +23,7 @@
         "sf:tracking:reset": "sf project reset tracking --no-prompt",
         "sf:hardis:diagnose:legacyapi": "sf hardis:org:diagnose:legacyapi",
         "src:retrieve": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/util/retrieve_by_manifest.sh",
-        "src:deploy:full": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/deploy/deploy.sh",
+        "src:deploy": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/deploy/deploy.sh",
         "src:deploy:check": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/deploy/validate.sh",
         "src:push": "dotenv -e '.env' -- sf project deploy start --verbose --ignore-conflicts --ignore-warnings --wait 10",
         "src:pull": "sf project retrieve start --source-dir 'src' --ignore-conflicts --wait 10",

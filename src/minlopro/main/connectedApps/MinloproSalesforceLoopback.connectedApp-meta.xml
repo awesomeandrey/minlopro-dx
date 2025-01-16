@@ -2,10 +2,14 @@
 <ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
     <contactEmail>@SF_ADMIN_EMAIL</contactEmail>
     <description>Sample loopback connected app used for Salesforce integrations POC/playground.</description>
-    <label>Minlopro (Salesforce Loopback)</label>
+    <label>Minlopro (Salesforce Loopback) 🔵</label>
     <oauthConfig>
         <callbackUrl>@SF_INSTANCE_URL/services/authcallback/Loopback_WSPKCE</callbackUrl>
-        <isAdminApproved>false</isAdminApproved>
+        <!--The PEM-encoded certificate string-->
+        <certificate
+            >MIIEYTCCA0mgAwIBAgIOAZRwM8ViAAAAAAKkFXYwDQYJKoZIhvcNAQELBQAweTERMA8GA1UEAwwITWlubG9wcm8xGDAWBgNVBAsMDzAwREtGMDAwMDAwQXJxejEXMBUGA1UECgwOU2FsZXNmb3JjZS5jb20xFjAUBgNVBAcMDVNhbiBGcmFuY2lzY28xCzAJBgNVBAgMAkNBMQwwCgYDVQQGEwNVU0EwHhcNMjUwMTE2MTc0MDI4WhcNMjYwMTE2MTIwMDAwWjB5MREwDwYDVQQDDAhNaW5sb3BybzEYMBYGA1UECwwPMDBES0YwMDAwMDBBcnF6MRcwFQYDVQQKDA5TYWxlc2ZvcmNlLmNvbTEWMBQGA1UEBwwNU2FuIEZyYW5jaXNjbzELMAkGA1UECAwCQ0ExDDAKBgNVBAYTA1VTQTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAMDLoxeHt977cIkdhUn6V6TRX7a3WC5xCd3dTK+eSb8Nx6rmZbeGBzKEq+yZrs17Bw+QnUCy7ADswC9oIjrkbBOOLczsf9wpXvNDmlIBYMKUoPC5ASKzeY2ocfLPMyxAmU35LCbY0f55b+2WDqWAskHwmoiglEyyrcQ24pfWor5E4cSuMFR172ygznvNKiEHFnSf5y+8m5g73Ra2BaOgKtuT+K6ZQjZB75DHr4zcoUiBUbAz/hEoSrEtQPCys1PzP9mDnn3JG3NicJo6o/5Eioth8xjovXqJxWhiqPh2Ye1KPvQVc94pfeG3V2VXEs6SMrE/6rwPZwccljvnAdmeIOUCAwEAAaOB5jCB4zAdBgNVHQ4EFgQU+NJyiMXP96/t/12oS9zq26lXSscwDwYDVR0TAQH/BAUwAwEB/zCBsAYDVR0jBIGoMIGlgBT40nKIxc/3r+3/XahL3OrbqVdKx6F9pHsweTERMA8GA1UEAwwITWlubG9wcm8xGDAWBgNVBAsMDzAwREtGMDAwMDAwQXJxejEXMBUGA1UECgwOU2FsZXNmb3JjZS5jb20xFjAUBgNVBAcMDVNhbiBGcmFuY2lzY28xCzAJBgNVBAgMAkNBMQwwCgYDVQQGEwNVU0GCDgGUcDPFYgAAAAACpBV2MA0GCSqGSIb3DQEBCwUAA4IBAQCU4PeKQ9yzaDd4mU4hMzknC69zpuEWw8Ga3jcJGhfk2X/r7VqVfnvHM+pLyH/SkAZsQoMA0JQ+o2ACvEy5Tl6lxzGPX32O/ZTAtxclnu+EC6RyYou2hfe1QJ9EfJUlgO8sBllJMM3+5OlUHfoKNfUZRWoe3jw86abNB8N26kIqyz09YIcIkai+4ikl3VPz+7SocIwxHnS5kY/cM3aTefj7Sd4Xso/x2lRxo+mWI0mKEWwDmPZV8VuCVgmb/EDHuI4xfDZ/rOOHFNKfn/JsihqzW+wTIDKNKBEabAoV7vUE/93+iLKY05UVEePfEo9IUwQNE7v1tNsG42IZDX53amp8</certificate
+        >
+        <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>true</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
         <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
@@ -29,4 +33,7 @@
         <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
         <refreshTokenPolicy>infinite</refreshTokenPolicy>
     </oauthPolicy>
+    <permissionSetName>Minlopro - Admin</permissionSetName>
+    <permissionSetName>Minlopro - Salesforce Connect Custom Adapter</permissionSetName>
+    <permissionSetName>Minlopro - Custom Auth.Providers And Named Credentials</permissionSetName>
 </ConnectedApp>

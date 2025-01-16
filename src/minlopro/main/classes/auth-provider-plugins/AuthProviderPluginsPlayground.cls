@@ -4,17 +4,22 @@ public with sharing class AuthProviderPluginsPlayground {
     /**
      * Authentication is handled by custom Auth. Provider plugins.
      */
-    public void run() {
-        this.runCCF();
-        this.runWSPKCE();
+    public void runAll() {
+        this.runClientCredentialsFlow();
+        this.runWedServerWithPkceFlow();
+        this.runJwtFlow();
     }
 
-    private void runCCF() {
+    public void runClientCredentialsFlow() {
         this.run('SalesforceRestApi');
     }
 
-    private void runWSPKCE() {
+    public void runWedServerWithPkceFlow() {
         this.run('SalesforceRestApi2');
+    }
+
+    public void runJwtFlow() {
+        this.run('SalesforceRestApi3');
     }
 
     private void run(String namedCredentialApiName) {
@@ -25,7 +30,6 @@ public with sharing class AuthProviderPluginsPlayground {
             'callout:{0}/services/data/v{1}/query?q={2}',
             Lists.of(namedCredentialApiName, API_VERSION, encodedQuery)
         );
-        Logger.debug(endpoint);
         req.setMethod('GET');
         req.setEndpoint(endpoint);
         // Invoke callout and parse response;
