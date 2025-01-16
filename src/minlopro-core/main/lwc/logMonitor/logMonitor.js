@@ -176,7 +176,7 @@ export default class LogMonitor extends LightningElement {
             {
                 fieldName: 'stacktrace',
                 label: 'Class > Method > Line',
-                wrapText: false,
+                wrapText: true,
                 visible: true
             },
             {

@@ -4,5 +4,46 @@
         <members>Car__c.TEMP</members>
         <name>ListView</name>
     </types>
+    <types>
+        <members>CCF_Configurations__mdt</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>CCFAuthProviderPlugin</members>
+        <members>CCFAuthProviderPluginTest</members>
+        <members>CCFPlayground</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>Custom_Salesforce_Auth_Provider</members>
+        <name>AuthProvider</name>
+    </types>
+    <types>
+        <members>SFDC_CCF_Echo</members>
+        <name>ConnectedApp</name>
+    </types>
+    <types>
+        <members>CCF_Configurations__mdt.CallbackUrl__c</members>
+        <members>CCF_Configurations__mdt.ClientId__c</members>
+        <members>CCF_Configurations__mdt.ClientSecret__c</members>
+        <members>CCF_Configurations__mdt.TokenEndpoint__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>CCF_Configurations.Custom_Salesforce_Auth_Provider</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>Minlopro</members>
+        <name>ExternalCredential</name>
+    </types>
+    <types>
+        <members>CCF_Configurations__mdt-Client Credentials Flow Configuration Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>MinloproLogin</members>
+        <name>NamedCredential</name>
+    </types>
     <version>61.0</version>
 </Package>

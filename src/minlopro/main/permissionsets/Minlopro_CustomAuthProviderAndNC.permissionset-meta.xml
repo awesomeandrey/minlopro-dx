@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
-        <apexClass>CCFAuthProviderPlugin</apexClass>
+        <apexClass>OAuthClientCredentialsAuthProviderPlugin</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OAuthWebServerWithPkceAuthProviderPlugin</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <externalCredentialPrincipalAccesses>
         <enabled>true</enabled>
-        <externalCredentialPrincipal>Minlopro-Default</externalCredentialPrincipal>
+        <externalCredentialPrincipal>MinloproSalesforceLoopback-Default</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - Custom Auth. Provider &amp; NC</label>

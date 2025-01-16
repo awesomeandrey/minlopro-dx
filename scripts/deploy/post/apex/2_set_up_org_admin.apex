@@ -4,8 +4,9 @@ UserRole adminRole = [SELECT Id FROM UserRole WHERE DeveloperName = 'DX_Admin' L
 update new User(
     Id = userId,
     UserRoleId = adminRole.Id,
-    FirstName = 'Org',
+    FirstName = 'Minlopro',
     LastName = 'Admin',
+    Title = 'Administrator',
     UserPreferencesUserDebugModePref = true,
     Country = 'United States',
     ExternalId__c = UserInfo.getUserName(),

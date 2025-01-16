@@ -98,4 +98,17 @@ public without sharing class SystemInfoController {
     public static Group getAdminsGroup() {
         return [SELECT Id, Name, DeveloperName FROM Group WHERE DeveloperName = 'OrgAdmins' LIMIT 1];
     }
+
+    public static String getDomainHostname() {
+        /**
+         * Example #1 - Scratch Org:
+         * - Instance URL = https://flow-energy-74122-dev-ed.scratch.my.salesforce.com
+         * - Domain Name = flow-energy-74122-dev-ed.scratch.my.salesforce.com
+         *
+         * Example #2 - Dev Org:
+         * - Instance URL = https://sfpractises-dev-ed.my.salesforce.com
+         * - Domain Name = sfpractises-dev-ed.my.salesforce.com
+         */
+        return System.DomainCreator.getOrgMyDomainHostname();
+    }
 }

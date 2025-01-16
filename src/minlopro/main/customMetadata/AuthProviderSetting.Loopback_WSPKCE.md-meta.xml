@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata
+    xmlns="http://soap.sforce.com/2006/04/metadata"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+>
+    <label>Loopback_WSPKCE</label>
+    <protected>false</protected>
+    <values>
+        <field>AuthorizeUrl__c</field>
+        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/oauth2/authorize</value>
+    </values>
+    <!--
+        Note: External Credential can be used to securely store/apply secrets ONLY during actual callout/http request.
+        You won't be able to 'read' secure parameter directly. Only via direct HTTP callout.
+        Therefore, for this specific use case 'ClientId__c' and 'ClientSecret' fields should be configured manually.
+    -->
+    <values>
+        <field>RedirectUri__c</field>
+        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/authcallback/Loopback_WSPKCE</value>
+    </values>
+    <values>
+        <field>SalesforceAuthProviderName__c</field>
+        <value xsi:type="xsd:string">Loopback_WSPKCE</value>
+    </values>
+    <values>
+        <field>TokenUrl__c</field>
+        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/oauth2/token</value>
+    </values>
+</CustomMetadata>
