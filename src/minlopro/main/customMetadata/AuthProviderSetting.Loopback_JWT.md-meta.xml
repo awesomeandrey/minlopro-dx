@@ -4,11 +4,15 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
 >
-    <label>Loopback_WSPKCE</label>
+    <label>Loopback_JWT</label>
     <protected>false</protected>
     <values>
         <field>AuthorizeUrl__c</field>
-        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/oauth2/authorize</value>
+        <value xsi:nil="true" />
+    </values>
+    <values>
+        <field>CertificateName__c</field>
+        <value xsi:type="xsd:string">Minlopro</value>
     </values>
     <!--
         Note: External Credential can be used to securely store/apply secrets ONLY during actual callout/http request.
@@ -17,11 +21,11 @@
     -->
     <values>
         <field>RedirectUri__c</field>
-        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/authcallback/Loopback_WSPKCE</value>
+        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/authcallback/Loopback_JWT</value>
     </values>
     <values>
         <field>SalesforceAuthProviderName__c</field>
-        <value xsi:type="xsd:string">Loopback_WSPKCE</value>
+        <value xsi:type="xsd:string">Loopback_JWT</value>
     </values>
     <values>
         <field>TokenUrl__c</field>

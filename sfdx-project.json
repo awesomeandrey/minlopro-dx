@@ -30,6 +30,12 @@
         },
         {
             "glob": "src/**",
+            "stringToReplace": "@SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT",
+            "replaceWithEnv": "SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT",
+            "allowUnsetEnvVariable": true
+        },
+        {
+            "glob": "src/**",
             "stringToReplace": "@SF_SITE_URL",
             "replaceWithEnv": "SF_SITE_URL"
         },

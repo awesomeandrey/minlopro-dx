@@ -12,6 +12,9 @@
 **/settings/
 **/dw/
 
+# GA workflows
+.github/workflows/
+
 # Static assets folder
 assets/
 

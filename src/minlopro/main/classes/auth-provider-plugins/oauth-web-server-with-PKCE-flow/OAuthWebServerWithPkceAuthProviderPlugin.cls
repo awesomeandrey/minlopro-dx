@@ -7,7 +7,7 @@
  */
 public class OAuthWebServerWithPkceAuthProviderPlugin extends Auth.AuthProviderPluginClass {
     @TestVisible
-    private final static String PKCE_CACHE_KEY = 'minlopro';
+    private final static String PKCE_CACHE_KEY = 'minloproPKCE';
 
     public String getCustomMetadataType() {
         return AuthProviderSetting__mdt.SObjectType.getDescribe().getName();
@@ -57,7 +57,7 @@ public class OAuthWebServerWithPkceAuthProviderPlugin extends Auth.AuthProviderP
                 OAuthTokenResponsePayload.class
             );
             return new Auth.AuthProviderTokenResponse(
-                authSettings.authProviderName,
+                authSettings.auth_provider_name,
                 responsePayload.access_token,
                 responsePayload.refresh_token,
                 state.queryParameters.get('state')

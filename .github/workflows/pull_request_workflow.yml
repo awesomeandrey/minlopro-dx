@@ -61,6 +61,7 @@ jobs:
       SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
       SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
       SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
+      SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT: ${{ secrets.SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

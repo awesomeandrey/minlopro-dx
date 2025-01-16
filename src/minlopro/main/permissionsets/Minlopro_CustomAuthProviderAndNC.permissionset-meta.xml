@@ -13,7 +13,7 @@
         <externalCredentialPrincipal>MinloproSalesforceLoopback-Default</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Minlopro - Custom Auth. Provider &amp; NC</label>
+    <label>Minlopro - Custom Auth.Providers And Named Credentials</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
