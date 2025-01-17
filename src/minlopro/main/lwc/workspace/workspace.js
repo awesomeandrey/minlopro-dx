@@ -15,6 +15,7 @@ const $KeysetPagination = 'keysetPagination';
 const $DragAndDrop = 'Drag&Drop';
 const $PdfLibDemo = 'PDF-Lib';
 const $OcrDemo = 'tesseract-js-ocr';
+const $PerUserNamedCredentialDemo = 'perUserNamedCredential';
 
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
@@ -39,7 +40,13 @@ export default class Workspace extends LightningElement {
             { label: 'Keyset Pagination', name: $KeysetPagination, iconName: 'utility:breadcrumbs', visible: true },
             { label: 'Drag & Drop', name: $DragAndDrop, iconName: 'utility:drag', visible: true },
             { label: 'PDF-Lib Demo', name: $PdfLibDemo, iconName: 'utility:pdf_ext', visible: true },
-            { label: 'TesseractJS-OCR', name: $OcrDemo, iconName: 'utility:scan', visible: IS_OCR_USER }
+            { label: 'TesseractJS-OCR', name: $OcrDemo, iconName: 'utility:scan', visible: IS_OCR_USER },
+            {
+                label: 'Per-User Named Credential Demo',
+                name: $PerUserNamedCredentialDemo,
+                iconName: 'utility:integration',
+                visible: true
+            }
         ]
             .map((tabInfo) => {
                 tabInfo.label = this.doCollapseTabs ? '' : tabInfo.label;
@@ -99,6 +106,10 @@ export default class Workspace extends LightningElement {
 
     get isOcrDemo() {
         return this.selectedTabName === $OcrDemo;
+    }
+
+    get isPerUserNamedCredential() {
+        return this.selectedTabName === $PerUserNamedCredentialDemo;
     }
 
     get lc_selectedTabName() {

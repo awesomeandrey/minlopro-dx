@@ -31,7 +31,7 @@ global class MinloproContactsConnection extends DataSource.Connection {
     /**
      * This method is called everytime when SOQL is issued against external Object
      * or while using list view or viewing detail page.
-     * */
+     */
     override global DataSource.TableResult query(DataSource.QueryContext cx) {
         Logger.debug('query()');
         String targetTableName = cx.tableSelection.tableSelected;

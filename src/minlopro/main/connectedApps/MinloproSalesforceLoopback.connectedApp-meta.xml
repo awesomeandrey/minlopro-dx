@@ -32,5 +32,5 @@
     </oauthPolicy>
     <permissionSetName>Minlopro - Admin</permissionSetName>
     <permissionSetName>Minlopro - Salesforce Connect Custom Adapter</permissionSetName>
-    <permissionSetName>Minlopro - Custom Auth.Providers And Named Credentials</permissionSetName>
+    <permissionSetName>Minlopro - Custom Auth. Providers And Named Credentials</permissionSetName>
 </ConnectedApp>

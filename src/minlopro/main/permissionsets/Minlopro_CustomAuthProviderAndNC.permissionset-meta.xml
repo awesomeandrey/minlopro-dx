@@ -5,7 +5,15 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>OAuthJwtAuthProviderPlugin</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>OAuthWebServerWithPkceAuthProviderPlugin</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PerUserNamedCredentialController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <externalCredentialPrincipalAccesses>
@@ -13,7 +21,7 @@
         <externalCredentialPrincipal>MinloproSalesforceLoopback-Default</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Minlopro - Custom Auth.Providers And Named Credentials</label>
+    <label>Minlopro - Custom Auth. Providers And Named Credentials</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

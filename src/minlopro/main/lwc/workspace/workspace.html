@@ -62,6 +62,9 @@
                 <template lwc:elseif={isOcrDemo}>
                     <c-ocr-demo></c-ocr-demo>
                 </template>
+                <template lwc:elseif={isPerUserNamedCredential}>
+                    <c-per-user-named-credential-tab></c-per-user-named-credential-tab>
+                </template>
                 <template lwc:else>
                     <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
                 </template>

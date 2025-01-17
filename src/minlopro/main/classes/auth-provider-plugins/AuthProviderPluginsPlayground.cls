@@ -8,6 +8,10 @@ public with sharing class AuthProviderPluginsPlayground {
         this.runClientCredentialsFlow();
         this.runWedServerWithPkceFlow();
         this.runJwtFlow();
+        Logger.debug(
+            'Consumed {0} callouts out of {1} limit.',
+            Lists.of(Limits.getCallouts().toString(), Limits.getLimitCallouts().toString())
+        );
     }
 
     public void runClientCredentialsFlow() {
