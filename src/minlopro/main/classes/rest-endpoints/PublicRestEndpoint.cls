@@ -10,7 +10,7 @@ global without sharing class PublicRestEndpoint {
      * Alternatively, use bash script "scripts/util/get_digex_site_url.sh" in order to get valid site URL.
      *
      * cURL command to use: [curl https://[your-site-domain]/services/apexrest/echo | jq .]
-     * e.g. curl https://energy-nosoftware-598.scratch.my.site.com/services/apexrest/echo | jq .
+     * e.g. curl @SF_SITE_URL/services/apexrest/echo | jq .
      * Note 'jq' utility usage - it simply prettifies output value to the console.
      *
      * @return Transaction information.
