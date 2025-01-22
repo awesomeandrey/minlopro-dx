@@ -1,4 +1,4 @@
-public without sharing class AuthProviderSettingParser {
+public without sharing class AuthProviderSettings {
     public String auth_provider_name { get; private set; }
     public String client_id { get; private set; }
     public String client_secret { get; private set; }
@@ -7,11 +7,11 @@ public without sharing class AuthProviderSettingParser {
     public String redirect_uri { get; private set; }
     public String certificate_name { get; private set; }
 
-    private AuthProviderSettingParser() {
+    private AuthProviderSettings() {
     }
 
-    public static AuthProviderSettingParser build(Map<String, String> configsMap) {
-        AuthProviderSettingParser authSettings = new AuthProviderSettingParser();
+    public static AuthProviderSettings build(Map<String, String> configsMap) {
+        AuthProviderSettings authSettings = new AuthProviderSettings();
         authSettings.auth_provider_name = configsMap.get(
             AuthProviderSetting__mdt.SalesforceAuthProviderName__c.getDescribe().getName()
         );

@@ -14,8 +14,8 @@ private class OAuthWebServerWithPkceAuthProvPluginTest {
 
     @IsTest
     static void initiate() {
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
-        AuthProviderSettingParser authSettings = AuthProviderSettingParser.build(authProviderConfig);
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
+        AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfig);
         OAuthWebServerWithPkceAuthProviderPlugin plugin = new OAuthWebServerWithPkceAuthProviderPlugin();
         String actualUrl = plugin.initiate(authProviderConfig, MOCKED_AUTH_STATE).getUrl();
         PKCE.State pkceState = PKCE.get(OAuthWebServerWithPkceAuthProviderPlugin.PKCE_CACHE_KEY);
@@ -27,7 +27,7 @@ private class OAuthWebServerWithPkceAuthProvPluginTest {
 
     @IsTest
     static void handleCallback() {
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
         OAuthTokenResponsePayload responsePayload = new OAuthTokenResponsePayload(MOCKED_ACCESS_TOKEN, MOCKED_REFRESH_TOKEN);
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
         factory.mockDefaultRequest().withResponseStatusCode(200).withResponseBody(JSON.serialize(responsePayload));
@@ -48,7 +48,7 @@ private class OAuthWebServerWithPkceAuthProvPluginTest {
     @IsTest
     static void handleCallbackWithException() {
         final String errorResponse = '{"errorMessage": "Bad Request"}';
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
         factory.mockDefaultRequest().withResponseStatusCode(400).withResponseBody(errorResponse);
         factory.mock();
@@ -64,7 +64,7 @@ private class OAuthWebServerWithPkceAuthProvPluginTest {
 
     @IsTest
     static void handleRefresh() {
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
         OAuthTokenResponsePayload responsePayload = new OAuthTokenResponsePayload(MOCKED_ACCESS_TOKEN, MOCKED_REFRESH_TOKEN);
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
         factory.mockDefaultRequest().withResponseStatusCode(200).withResponseBody(JSON.serialize(responsePayload));
@@ -77,7 +77,7 @@ private class OAuthWebServerWithPkceAuthProvPluginTest {
 
     @IsTest
     static void getUserInfo() {
-        Map<String, String> authProviderConfiguration = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfiguration = AuthProviderSettings.mock();
         OAuthWebServerWithPkceAuthProviderPlugin plugin = new OAuthWebServerWithPkceAuthProviderPlugin();
         Auth.UserData actualUserData = plugin.getUserInfo(authProviderConfiguration, null);
         Assert.areEqual(UserInfo.getUserName(), actualUserData.username);

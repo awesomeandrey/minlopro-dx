@@ -10,7 +10,7 @@ private class OAuthJwtAuthProvPluginTest {
     @IsTest
     static void initiate() {
         final String MOCKED_AUTH_STATE = 'done';
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
         String redirectUriFieldName = AuthProviderSetting__mdt.RedirectUri__c.getDescribe().getName();
         PageReference expectedUrl = new PageReference(
             String.format('{0}?state={1}', Lists.of(authProviderConfig.get(redirectUriFieldName), MOCKED_AUTH_STATE))
@@ -22,7 +22,7 @@ private class OAuthJwtAuthProvPluginTest {
 
     @IsTest
     static void handleCallbackAndRefreshWithException() {
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
         OAuthJwtAuthProviderPlugin plugin = new OAuthJwtAuthProviderPlugin();
         String errorMessageSubstring = 'Data Not Available';
         try {
@@ -45,7 +45,7 @@ private class OAuthJwtAuthProvPluginTest {
 
     @IsTest
     static void getUserInfo() {
-        Map<String, String> authProviderConfiguration = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfiguration = AuthProviderSettings.mock();
         OAuthJwtAuthProviderPlugin plugin = new OAuthJwtAuthProviderPlugin();
         Auth.UserData actualUserData = plugin.getUserInfo(authProviderConfiguration, null);
         Assert.areEqual(UserInfo.getUserName(), actualUserData.username);

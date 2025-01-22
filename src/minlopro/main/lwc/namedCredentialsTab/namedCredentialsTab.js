@@ -3,21 +3,25 @@ import { NavigationMixin } from 'lightning/navigation';
 import $Toastify from 'c/toastify';
 import { cloneObject, isEmpty, isNotEmpty } from 'c/utilities';
 
-// Apex Controller Methods;
-import getNamedCredentialsApex from '@salesforce/apex/PerUserNamedCredentialController.getNamedCredentials';
-import getDataUserAuthUrlApex from '@salesforce/apex/PerUserNamedCredentialController.getDataUserAuthUrl';
-import invokeApex from '@salesforce/apex/PerUserNamedCredentialController.invoke';
+// Constants;
+import $UserId from '@salesforce/user/Id';
 
-export default class PerUserNamedCredentialTab extends NavigationMixin(LightningElement) {
-    @track selectedValue = 'SalesforceRestApi';
+// Apex Controller Methods;
+import getNamedCredentialsApex from '@salesforce/apex/NamedCredentialsController.getNamedCredentials';
+import getAuthenticationUrlApex from '@salesforce/apex/NamedCredentialsController.getAuthenticationUrl';
+import invokeApex from '@salesforce/apex/NamedCredentialsController.invoke';
+
+export default class NamedCredentialsTab extends NavigationMixin(LightningElement) {
+    @track selectedValue = 'SalesforceRestApi1'; // CCF;
     @track loading = true;
     @track calloutStats = null;
     @track error = null;
 
     get namedCredentialOptions() {
         return this.namedCredentials.map(({ MasterLabel, DeveloperName, PrincipalType }) => ({
-            label: `${MasterLabel} (${PrincipalType})`,
-            value: DeveloperName
+            label: MasterLabel,
+            value: DeveloperName,
+            iconName: isNotEmpty(PrincipalType) ? 'utility:anywhere_alert' : 'utility:events'
         }));
     }
 
@@ -32,6 +36,14 @@ export default class PerUserNamedCredentialTab extends NavigationMixin(Lightning
         return this.namedCredentials.find(({ DeveloperName }) => DeveloperName === this.selectedValue);
     }
 
+    get selectedNamedCredentialType() {
+        if (this.selectedNamedCredential) {
+            let principalType = this.selectedNamedCredential['PrincipalType'];
+            return isNotEmpty(principalType) ? `Legacy (${principalType})` : `Secured Endpoint`;
+        }
+        return null;
+    }
+
     get doDisableBtn() {
         return this.loading || isEmpty(this.selectedValue);
     }
@@ -42,6 +54,10 @@ export default class PerUserNamedCredentialTab extends NavigationMixin(Lightning
 
     get hasError() {
         return isNotEmpty(this.error);
+    }
+
+    get browserTabName() {
+        return `${this.selectedValue}-${$UserId}`;
     }
 
     @wire(getNamedCredentialsApex)
@@ -78,19 +94,11 @@ export default class PerUserNamedCredentialTab extends NavigationMixin(Lightning
     }
 
     async handleRedirectToAuthPage() {
-        // this[NavigationMixin.Navigate](
-        //     {
-        //         type: 'standard__webPage',
-        //         attributes: {
-        //             url: 'https://@SF_SITE_DOMAIN_NAME.my.salesforce-setup.com/lightning/settings/personal/ExternalObjectUserSettings/home'
-        //         }
-        //     },
-        //     false
-        // );
         this.loading = true;
         try {
-            const url = await getDataUserAuthUrlApex({ namedCredentialApiName: this.selectedValue });
-            window.open(url, 'Enter Login Details', 'width=900,height=600');
+            const url = await getAuthenticationUrlApex({ namedCredentialApiName: this.selectedValue });
+            // When 'this.browserTabName' is used then consecutive link clicks navigate to the same browser tab;
+            window.open(url, this.browserTabName, 'width=900,height=600');
         } catch (error) {
             this.error = error;
         } finally {

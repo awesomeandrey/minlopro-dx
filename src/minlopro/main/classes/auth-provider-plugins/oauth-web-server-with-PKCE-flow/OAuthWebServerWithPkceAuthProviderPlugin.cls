@@ -7,7 +7,11 @@
  */
 public class OAuthWebServerWithPkceAuthProviderPlugin extends Auth.AuthProviderPluginClass {
     @TestVisible
-    private final static String PKCE_CACHE_KEY = 'minloproPKCE';
+    private final static String PKCE_CACHE_KEY {
+        get {
+            return String.format('{0}{1}', Lists.of('pkce', UserInfo.getUserId()));
+        }
+    }
 
     public String getCustomMetadataType() {
         return AuthProviderSetting__mdt.SObjectType.getDescribe().getName();
@@ -15,7 +19,7 @@ public class OAuthWebServerWithPkceAuthProviderPlugin extends Auth.AuthProviderP
 
     public PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {
         try {
-            AuthProviderSettingParser authSettings = AuthProviderSettingParser.build(authProviderConfiguration);
+            AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             PKCE.State pkceState = PKCE.generate(PKCE_CACHE_KEY);
             String authorizeUrl = authSettings.authorize_url + '?';
             authorizeUrl += String.format('{0}={1}&', Lists.of('client_id', authSettings.client_id));
@@ -36,7 +40,7 @@ public class OAuthWebServerWithPkceAuthProviderPlugin extends Auth.AuthProviderP
     ) {
         try {
             String code = state?.queryParameters?.get('code');
-            AuthProviderSettingParser authSettings = AuthProviderSettingParser.build(authProviderConfiguration);
+            AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             PKCE.State pkceState = PKCE.get(PKCE_CACHE_KEY);
             // Exchange code for access token;
             String body = String.format('{0}={1}&', Lists.of('grant_type', 'authorization_code'));
@@ -70,7 +74,7 @@ public class OAuthWebServerWithPkceAuthProviderPlugin extends Auth.AuthProviderP
 
     public override Auth.OAuthRefreshResult refresh(Map<String, String> authProviderConfiguration, String refreshToken) {
         try {
-            AuthProviderSettingParser authSettings = AuthProviderSettingParser.build(authProviderConfiguration);
+            AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             String body = String.format('{0}={1}&', Lists.of('grant_type', 'refresh_token'));
             body += String.format('{0}={1}&', Lists.of('client_id', authSettings.client_id));
             body += String.format('{0}={1}&', Lists.of('client_secret', authSettings.client_secret));

@@ -138,6 +138,7 @@ export function parseError(err) {
             code = err.body[0].errorCode;
         } else if (err.body && err.body.message) {
             message = err.body.message;
+            code = err.statusText;
         } else if (err.body) {
             message = err.body;
         } else if (err.statusText) {

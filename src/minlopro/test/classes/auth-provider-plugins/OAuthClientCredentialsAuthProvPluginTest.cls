@@ -12,7 +12,7 @@ private class OAuthClientCredentialsAuthProvPluginTest {
 
     @IsTest
     static void initiate() {
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
         String redirectUriFieldName = AuthProviderSetting__mdt.RedirectUri__c.getDescribe().getName();
         PageReference expectedUrl = new PageReference(
             String.format('{0}?state={1}', Lists.of(authProviderConfig.get(redirectUriFieldName), MOCKED_AUTH_STATE))
@@ -24,7 +24,7 @@ private class OAuthClientCredentialsAuthProvPluginTest {
 
     @IsTest
     static void handleCallbackAndRefresh() {
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
         OAuthTokenResponsePayload responsePayload = new OAuthTokenResponsePayload(MOCKED_ACCESS_TOKEN);
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
         factory.mockDefaultRequest().withResponseStatusCode(200).withResponseBody(JSON.serialize(responsePayload));
@@ -46,7 +46,7 @@ private class OAuthClientCredentialsAuthProvPluginTest {
     @IsTest
     static void handleCallbackWithException() {
         final String errorResponse = '{"errorMessage": "Bad Request"}';
-        Map<String, String> authProviderConfig = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfig = AuthProviderSettings.mock();
         MockedCalloutsFactory factory = MockedCalloutsFactory.getInstance();
         factory.mockDefaultRequest().withResponseStatusCode(400).withResponseBody(errorResponse);
         factory.mock();
@@ -62,7 +62,7 @@ private class OAuthClientCredentialsAuthProvPluginTest {
 
     @IsTest
     static void getUserInfo() {
-        Map<String, String> authProviderConfiguration = AuthProviderSettingParser.mock();
+        Map<String, String> authProviderConfiguration = AuthProviderSettings.mock();
         OAuthClientCredentialsAuthProviderPlugin plugin = new OAuthClientCredentialsAuthProviderPlugin();
         Auth.UserData actualUserData = plugin.getUserInfo(authProviderConfiguration, null);
         Assert.areEqual(UserInfo.getUserName(), actualUserData.username);

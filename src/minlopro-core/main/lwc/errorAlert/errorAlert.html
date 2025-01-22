@@ -7,12 +7,10 @@
             <h3 class="slds-tile__title slds-text-title_caps slds-truncate">Error Occurred</h3>
             <div class="slds-tile__detail">
                 <dl class="slds-list_horizontal slds-wrap">
-                    <dt class="slds-item_label slds-text-color_weak slds-truncate slds-text-title_bold">Message:</dt>
-                    <dd class="slds-item_detail slds-text-color_error slds-truncate" title={message}>{message}</dd>
-                    <dt lwc:if={hasCode} class="slds-item_label slds-text-color_weak slds-truncate slds-text-title_bold">
-                        Code:
-                    </dt>
-                    <dd lwc:if={hasCode} class="slds-item_detail slds-text-color_error slds-truncate" title={code}>{code}</dd>
+                    <dt lwc:if={hasCode} class="slds-item_label slds-text-color_weak slds-text-title_bold">Code:</dt>
+                    <dd lwc:if={hasCode} class="slds-item_detail slds-text-color_error" title={code}>{code}</dd>
+                    <dt class="slds-item_label slds-text-color_weak slds-text-title_bold">Message:</dt>
+                    <dd class="slds-item_detail slds-text-color_error" title={message}>{message}</dd>
                 </dl>
                 <div lwc:if={hasDetails} lwc:ref="detailsPanel" class="error-details__container">
                     <span class="slds-text-link slds-text-link_reset" onclick={handleToggleShowMore}></span>

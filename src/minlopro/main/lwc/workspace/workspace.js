@@ -34,8 +34,8 @@ export default class Workspace extends LightningElement {
             { label: 'PDF-Lib Demo', name: 'pdfLibDemo', iconName: 'utility:pdf_ext', visible: true },
             { label: 'TesseractJS-OCR', name: 'ocrDemo', iconName: 'utility:scan', visible: IS_OCR_USER },
             {
-                label: 'Per-User Named Credential Demo',
-                name: 'perUserNamedCredentialTab',
+                label: 'Named Credentials Demo',
+                name: 'namedCredentialsTab',
                 iconName: 'utility:integration',
                 visible: true
             }

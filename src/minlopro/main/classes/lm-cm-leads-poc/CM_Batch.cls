@@ -39,7 +39,7 @@ public without sharing class CM_Batch implements Database.Batchable<CM_DTO>, Dat
         );
         String endpoint = String.format(
             'callout:{0}/services/data/v{1}/query?q={2}',
-            Lists.of('SalesforceRestApi', '60.0', encodedQuery)
+            Lists.of('SalesforceRestApi1', '60.0', encodedQuery)
         );
         req.setMethod('GET');
         req.setEndpoint(endpoint);

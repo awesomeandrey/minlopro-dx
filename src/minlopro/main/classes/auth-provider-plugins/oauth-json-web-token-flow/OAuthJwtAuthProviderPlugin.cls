@@ -13,7 +13,7 @@ public class OAuthJwtAuthProviderPlugin extends Auth.AuthProviderPluginClass {
 
     public PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {
         try {
-            AuthProviderSettingParser authSettings = AuthProviderSettingParser.build(authProviderConfiguration);
+            AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             String redirectUri = String.format('{0}?state={1}', Lists.of(authSettings.redirect_uri, stateToPropagate));
             return new PageReference(redirectUri);
         } catch (Exception rootException) {
@@ -29,7 +29,7 @@ public class OAuthJwtAuthProviderPlugin extends Auth.AuthProviderPluginClass {
         Auth.AuthProviderCallbackState state
     ) {
         try {
-            AuthProviderSettingParser authSettings = AuthProviderSettingParser.build(authProviderConfiguration);
+            AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             OAuthTokenResponsePayload responsePayload = this.fetchAccessToken(authSettings);
             return new Auth.AuthProviderTokenResponse(
                 authSettings.auth_provider_name,
@@ -47,7 +47,7 @@ public class OAuthJwtAuthProviderPlugin extends Auth.AuthProviderPluginClass {
 
     public override Auth.OAuthRefreshResult refresh(Map<String, String> authProviderConfiguration, String refreshToken) {
         try {
-            AuthProviderSettingParser authSettings = AuthProviderSettingParser.build(authProviderConfiguration);
+            AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             OAuthTokenResponsePayload responsePayload = this.fetchAccessToken(authSettings);
             return new Auth.OAuthRefreshResult(
                 responsePayload.access_token,
@@ -78,7 +78,7 @@ public class OAuthJwtAuthProviderPlugin extends Auth.AuthProviderPluginClass {
         );
     }
 
-    private OAuthTokenResponsePayload fetchAccessToken(AuthProviderSettingParser authSettings) {
+    private OAuthTokenResponsePayload fetchAccessToken(AuthProviderSettings authSettings) {
         /**
          * Make sure self-signed 'Minlopro' certificate is generated/deployed via 'Certificate and Key Management' Setup menu.
          * On top of it, manually add this certificate to 'MinloproSalesforceLoopback' connected app.
