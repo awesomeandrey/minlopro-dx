@@ -7,8 +7,8 @@
                 onclick={handleToggleTabs}
             ></lightning-button-icon-stateful>
         </lightning-button-group>
-        <div class="container box">
-            <div class="navigation box">
+        <div class="container">
+            <div class="navigation">
                 <lightning-vertical-navigation selected-item={selectedTabName} onselect={handleSelectTab}>
                     <lightning-vertical-navigation-section>
                         <template for:each={tabs} for:item="tabItem">
@@ -22,52 +22,9 @@
                     </lightning-vertical-navigation-section>
                 </lightning-vertical-navigation>
             </div>
-            <div class="slds-box slds-box_x-small slds-m-top_medium slds-m-horizontal_small content box">
-                <template lwc:if={isPlayground}>
-                    <c-playground></c-playground>
-                </template>
-                <template lwc:elseif={isCurrencyRollup}>
-                    <c-currency-rollup-tab></c-currency-rollup-tab>
-                </template>
-                <template lwc:elseif={isDuplicatesManager}>
-                    <c-duplicates-manager-tab></c-duplicates-manager-tab>
-                </template>
-                <template lwc:elseif={isDatatableContacts}>
-                    <c-datatable-contacts></c-datatable-contacts>
-                </template>
-                <template lwc:elseif={isCustomCombobox}>
-                    <c-combobox-playground></c-combobox-playground>
-                </template>
-                <template lwc:elseif={isModalDemo}>
-                    <c-modal-playground></c-modal-playground>
-                </template>
-                <template lwc:elseif={isFilesManager}>
-                    <c-files-manager-tab></c-files-manager-tab>
-                </template>
-                <template lwc:elseif={isLeadsManager}>
-                    <c-leads-manager-tab></c-leads-manager-tab>
-                </template>
-                <template lwc:elseif={isApprovalProcessBreakdown}>
-                    <c-approval-process-breakdown-tab></c-approval-process-breakdown-tab>
-                </template>
-                <template lwc:elseif={isKeysetPagination}>
-                    <c-keyset-pagination-tab></c-keyset-pagination-tab>
-                </template>
-                <template lwc:elseif={isDragAndDrop}>
-                    <c-drag-and-drop></c-drag-and-drop>
-                </template>
-                <template lwc:elseif={isPdfLibDemo}>
-                    <c-pdf-lib-demo></c-pdf-lib-demo>
-                </template>
-                <template lwc:elseif={isOcrDemo}>
-                    <c-ocr-demo></c-ocr-demo>
-                </template>
-                <template lwc:elseif={isPerUserNamedCredential}>
-                    <c-per-user-named-credential-tab></c-per-user-named-credential-tab>
-                </template>
-                <template lwc:else>
-                    <c-error-alert value="Unknown Demo LWC Mapping!"></c-error-alert>
-                </template>
+            <div class="slds-box slds-box_x-small slds-m-top_medium slds-m-horizontal_small">
+                <lwc:component lwc:if={componentConstructor} lwc:is={componentConstructor}></lwc:component>
+                <c-error-alert value={error}></c-error-alert>
             </div>
         </div>
         <div slot="footer">
@@ -78,8 +35,7 @@
                 show-message
                 allow-close
                 show-icon
-            >
-            </ltngmu-lwc-messaging-utility>
+            ></ltngmu-lwc-messaging-utility>
         </div>
     </lightning-card>
 </template>

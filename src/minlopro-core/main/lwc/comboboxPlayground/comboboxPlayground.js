@@ -32,13 +32,14 @@ export default class ComboboxPlayground extends LightningElement {
     }
 
     get containers() {
+        // Property names should correspond to 'c-combobox' attributes to use 'lwc:spread';
         return [
-            { label: 'Single Select #1', columnsSize: 3, componentName: 'single_1' },
-            { label: 'Single Select #2', columnsSize: 4, componentName: 'single_2' },
-            { label: 'Single Select #3', columnsSize: 5, componentName: 'single_3' },
-            { label: 'Multi Select #1', columnsSize: 3, componentName: 'multi_1', multi: true },
-            { label: 'Multi Select #2', columnsSize: 4, componentName: 'multi_2', multi: true },
-            { label: 'Multi Select #3', columnsSize: 5, componentName: 'multi_3', multi: true }
+            { label: 'Single Select #1', columnsSize: 3, name: 'single_1' },
+            { label: 'Single Select #2', columnsSize: 4, name: 'single_2' },
+            { label: 'Single Select #3', columnsSize: 5, name: 'single_3' },
+            { label: 'Multi Select #1', columnsSize: 3, name: 'multi_1', multiSelect: true },
+            { label: 'Multi Select #2', columnsSize: 4, name: 'multi_2', multiSelect: true },
+            { label: 'Multi Select #3', columnsSize: 5, name: 'multi_3', multiSelect: true }
         ];
     }
 

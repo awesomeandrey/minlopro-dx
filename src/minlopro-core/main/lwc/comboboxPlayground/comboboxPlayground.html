@@ -17,11 +17,9 @@
                 <lightning-layout-item key={container.label} size={container.columnsSize} padding="around-small">
                     <div class="slds-box slds-box_x-small slds-m-bottom_xx-small">
                         <c-combobox
-                            name={container.componentName}
-                            label={container.label}
+                            lwc:spread={container}
                             value={selectedValueAsStr}
                             options={dynamicOptions}
-                            multi-select={container.multi}
                             required={required}
                             read-only={readOnly}
                             onchange={handleChange}

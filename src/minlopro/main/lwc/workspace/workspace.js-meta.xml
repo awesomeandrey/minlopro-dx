@@ -7,4 +7,7 @@
     <targets>
         <target>lightning__Tab</target>
     </targets>
+    <capabilities>
+        <capability>lightning__dynamicComponent</capability>
+    </capabilities>
 </LightningComponentBundle>
