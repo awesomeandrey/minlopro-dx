@@ -5,13 +5,21 @@ public with sharing class AuthProviderPluginsPlayground {
      * Authentication is handled by custom Auth. Provider plugins.
      */
     public void runAll() {
+        // Legacy Named Credential(s);
         this.runClientCredentialsFlow();
         this.runWedServerWithPkceFlow();
         this.runJwtFlow();
+        this.runPerUserNamedCredentials();
+        // Secured Endpoint Named Credential(s);
+        this.runSecuredEndpoint();
+        Logger.debug(
+            'Total HTTP callouts consumed: {0}/{1}.',
+            Lists.of(Limits.getCallouts().toString(), Limits.getLimitCallouts().toString())
+        );
     }
 
     public void runClientCredentialsFlow() {
-        this.run('OAuth 2.0 Client Credentials Flow', 'SalesforceRestApi');
+        this.run('OAuth 2.0 Client Credentials Flow', 'SalesforceRestApi1');
     }
 
     public void runWedServerWithPkceFlow() {
@@ -20,6 +28,14 @@ public with sharing class AuthProviderPluginsPlayground {
 
     public void runJwtFlow() {
         this.run('OAuth 2.0 JWT Bearer Flow', 'SalesforceRestApi3');
+    }
+
+    public void runPerUserNamedCredentials() {
+        this.run('Named Credential (Per-User)', 'SalesforceRestApiPerUser');
+    }
+
+    public void runSecuredEndpoint() {
+        this.run('Secured Endpoint', 'SalesforceRestApi');
     }
 
     private void run(String oauthFlowToTest, String namedCredentialApiName) {
@@ -47,6 +63,7 @@ public with sharing class AuthProviderPluginsPlayground {
             Assert.isFalse(String.isBlank(responsePayload.records[0].Name));
         } catch (Exception ex) {
             Logger.error(oauthFlowToTest + ': FAILED');
+            Logger.error(ex);
         } finally {
             Logger.debug('Consumed {0} HTTP callout(s).', Lists.of((Limits.getCallouts() - currentCalloutsConsumed).toString()));
         }

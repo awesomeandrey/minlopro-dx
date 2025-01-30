@@ -9,7 +9,7 @@
  */
 global class MinloproContactsConnection extends DataSource.Connection {
     private static final String API_VERSION = '58.0';
-    private static final String NAMED_CREDENTIAL_API_NAME = 'SalesforceRestApi';
+    private static final String NAMED_CREDENTIAL_API_NAME = 'SalesforceRestApi1';
     private static final String CONTACTS_TABLE_NAME = 'SalesforceContact';
     private DataSource.ConnectionParams connectionParams;
 
@@ -19,7 +19,7 @@ global class MinloproContactsConnection extends DataSource.Connection {
     global MinloproContactsConnection(DataSource.ConnectionParams connectionParams) {
         this.connectionParams = connectionParams;
         // Sample output: {"username":null,"repository":null,"protocol":"NONE","principalType":"ANONYMOUS","password":null,"oauthToken":null,"endpoint":null,"certificateName":null}
-        Logger.debug(JSON.serialize(connectionParams));
+        // Logger.debug(JSON.serialize(connectionParams));
     }
 
     override global List<DataSource.Table> sync() {

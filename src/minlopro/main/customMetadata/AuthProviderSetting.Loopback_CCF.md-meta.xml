@@ -12,11 +12,11 @@
     </values>
     <values>
         <field>ClientId__c</field>
-        <value xsi:type="xsd:string">{!$Credential.MinloproSalesforceLoopback.ClientId}</value>
+        <value xsi:type="xsd:string">{!$Credential.MinloproSalesforceLoopbackCustom.ClientId}</value>
     </values>
     <values>
         <field>ClientSecret__c</field>
-        <value xsi:type="xsd:string">{!$Credential.MinloproSalesforceLoopback.ClientSecret}</value>
+        <value xsi:type="xsd:string">{!$Credential.MinloproSalesforceLoopbackCustom.ClientSecret}</value>
     </values>
     <values>
         <field>RedirectUri__c</field>
@@ -28,6 +28,6 @@
     </values>
     <values>
         <field>TokenUrl__c</field>
-        <value xsi:type="xsd:string">callout:MinloproSalesforceLoopback/services/oauth2/token</value>
+        <value xsi:type="xsd:string">callout:MinloproSalesforceLoopbackCustom/services/oauth2/token</value>
     </values>
 </CustomMetadata>

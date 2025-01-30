@@ -2,7 +2,7 @@
 private class PKCETest {
     @IsTest
     static void generateAndGetStateTest() {
-        String cacheKey = 'pkcetest';
+        String cacheKey = String.format('{0}{1}', Lists.of('pkce', UserInfo.getUserId()));
         PKCE.State generatedState = PKCE.generate(cacheKey);
         Assert.isNotNull(generatedState, 'PKCE state was not generated');
         Assert.isNotNull(generatedState.code_challenge_method);
