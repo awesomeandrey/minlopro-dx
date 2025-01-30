@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>AuthProviderSettingParser</members>
-        <members>PerUserNamedCredentialController</members>
-        <name>ApexClass</name>
-    </types>
-    <types>
-        <members>MinloproSalesforceLoopback</members>
-        <name>ExternalCredential</name>
-    </types>
-    <types>
-        <members>perUserNamedCredentialTab</members>
-        <name>LightningComponentBundle</name>
-    </types>
-    <types>
-        <members>MinloproSalesforceLoopback</members>
-        <name>NamedCredential</name>
-    </types>
     <version>61.0</version>
 </Package>
