@@ -2,7 +2,10 @@
 private class KeysetPaginationControllerTest {
     @IsTest
     static void testGetTotalContactsCount() {
+        Integer recordsCount = 15;
+        insert TestDataFactory.createContacts(recordsCount);
         Integer expectedCount = [SELECT COUNT() FROM Contact];
+        Assert.areEqual(recordsCount, expectedCount);
         Integer actualCount = KeysetPaginationController.getTotalContactsCount();
         Assert.areEqual(expectedCount, actualCount, 'Total contacts count is incorrect');
     }

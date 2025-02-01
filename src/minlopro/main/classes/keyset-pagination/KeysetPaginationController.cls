@@ -6,9 +6,11 @@ public with sharing class KeysetPaginationController {
     public static Integer getTotalContactsCount() {
         try {
             return Database.countQuery('SELECT COUNT() FROM Contact');
-        } catch (Exception ex) {
-            Logger.error(ex);
-            throw new AuraHandledException(ex.getMessage());
+        } catch (Exception rootException) {
+            Logger.error(rootException);
+            Auth.AuthProviderPluginException ex = new Auth.AuthProviderPluginException(rootException.getMessage());
+            ex.initCause(rootException);
+            throw ex;
         }
     }
 
@@ -21,9 +23,11 @@ public with sharing class KeysetPaginationController {
          */
         try {
             return queryRequest.fetch();
-        } catch (Exception ex) {
-            Logger.error(ex);
-            throw new AuraHandledException(ex.getMessage());
+        } catch (Exception rootException) {
+            Logger.error(rootException);
+            Auth.AuthProviderPluginException ex = new Auth.AuthProviderPluginException(rootException.getMessage());
+            ex.initCause(rootException);
+            throw ex;
         }
     }
 
