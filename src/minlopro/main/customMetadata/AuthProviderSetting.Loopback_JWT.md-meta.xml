@@ -21,7 +21,7 @@
     -->
     <values>
         <field>RedirectUri__c</field>
-        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/authcallback/Loopback_JWT</value>
+        <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/authcallback/Loopback_JWT</value>
     </values>
     <values>
         <field>SalesforceAuthProviderName__c</field>
@@ -29,6 +29,6 @@
     </values>
     <values>
         <field>TokenUrl__c</field>
-        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/oauth2/token</value>
+        <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/oauth2/token</value>
     </values>
 </CustomMetadata>

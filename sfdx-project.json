@@ -15,71 +15,71 @@
     "replacements": [
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_USERNAME",
+            "stringToReplace": "${SF_USERNAME}",
             "replaceWithEnv": "SF_USERNAME"
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_INSTANCE_URL",
+            "stringToReplace": "${SF_INSTANCE_URL}",
             "replaceWithEnv": "SF_INSTANCE_URL"
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_INSTANCE_ID",
+            "stringToReplace": "${SF_INSTANCE_ID}",
             "replaceWithEnv": "SF_INSTANCE_ID"
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT",
+            "stringToReplace": "${SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT}",
             "replaceWithEnv": "SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT",
             "allowUnsetEnvVariable": true
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_SITE_URL",
+            "stringToReplace": "${SF_SITE_URL}",
             "replaceWithEnv": "SF_SITE_URL"
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_SITE_DOMAIN_NAME",
+            "stringToReplace": "${SF_SITE_DOMAIN_NAME}",
             "replaceWithEnv": "SF_SITE_DOMAIN_NAME"
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_ADMIN_EMAIL",
+            "stringToReplace": "${SF_ADMIN_EMAIL}",
             "replaceWithEnv": "SF_ADMIN_EMAIL"
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_GITHUB_WEBHOOK_SECRET",
+            "stringToReplace": "${SF_GITHUB_WEBHOOK_SECRET}",
             "replaceWithEnv": "SF_GITHUB_WEBHOOK_SECRET"
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_GOOGLE_API_KEY",
+            "stringToReplace": "${SF_GOOGLE_API_KEY}",
             "replaceWithEnv": "SF_GOOGLE_API_KEY"
         },
         {
             "glob": "src/**/lwc/**",
-            "stringToReplace": "@SF_LWC_CDT_DEBUG_MODE_ENABLED",
+            "stringToReplace": "${SF_LWC_CDT_DEBUG_MODE_ENABLED}",
             "replaceWithEnv": "SF_LWC_CDT_DEBUG_MODE_ENABLED",
             "allowUnsetEnvVariable": true
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_SAMPLE_ACCOUNT_ID",
+            "stringToReplace": "${SF_SAMPLE_ACCOUNT_ID}",
             "replaceWithEnv": "SF_SAMPLE_ACCOUNT_ID",
             "allowUnsetEnvVariable": true
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_SAMPLE_CONTACT_ID",
+            "stringToReplace": "${SF_SAMPLE_CONTACT_ID}",
             "replaceWithEnv": "SF_SAMPLE_CONTACT_ID",
             "allowUnsetEnvVariable": true
         },
         {
             "glob": "src/**",
-            "stringToReplace": "@SF_SAMPLE_OPPORTUNITY_ID",
+            "stringToReplace": "${SF_SAMPLE_OPPORTUNITY_ID}",
             "replaceWithEnv": "SF_SAMPLE_OPPORTUNITY_ID",
             "allowUnsetEnvVariable": true
         }

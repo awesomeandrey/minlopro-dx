@@ -14,7 +14,7 @@ import getProcessInstancesByRecordIdApex from '@salesforce/apex/ApprovalProcessC
 import $UserId from '@salesforce/user/Id';
 
 export default class ApprovalProcessBreakdownTab extends LightningElement {
-    @track selectedOpportunityId = resolveRecordId('@SF_SAMPLE_OPPORTUNITY_ID');
+    @track selectedOpportunityId = resolveRecordId('${SF_SAMPLE_OPPORTUNITY_ID}');
     @track selectedProcessInstanceId = null;
     @track loading = false;
     @track errorObj = null;

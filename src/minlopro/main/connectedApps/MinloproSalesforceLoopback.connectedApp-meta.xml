@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
-    <contactEmail>@SF_ADMIN_EMAIL</contactEmail>
+    <contactEmail>${SF_ADMIN_EMAIL}</contactEmail>
     <description>Salesforce loopback connected app used for integrations POC/playground.</description>
-    <iconUrl>@SF_INSTANCE_URL/logos/Salesforce/Salesforce/icon.png</iconUrl>
+    <iconUrl>${SF_INSTANCE_URL}/logos/Salesforce/Salesforce/icon.png</iconUrl>
     <infoUrl>https://www.salesforce.com/company/our-story/</infoUrl>
     <label>Minlopro (Salesforce Loopback) 🔵</label>
-    <logoUrl>@SF_INSTANCE_URL/logos/Salesforce/Salesforce/logo.png</logoUrl>
+    <logoUrl>${SF_INSTANCE_URL}/logos/Salesforce/Salesforce/logo.png</logoUrl>
     <oauthConfig>
-        <callbackUrl>@SF_INSTANCE_URL/services/authcallback/Loopback_WSPKCE</callbackUrl>
-        <certificate>@SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT</certificate>
+        <callbackUrl>${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE</callbackUrl>
+        <certificate>${SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT}</certificate>
         <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>true</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
@@ -21,7 +21,7 @@
         <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
         <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
         <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
-        <oauthClientCredentialUser>@SF_USERNAME</oauthClientCredentialUser>
+        <oauthClientCredentialUser>${SF_USERNAME}</oauthClientCredentialUser>
         <scopes>Basic</scopes>
         <scopes>Api</scopes>
         <scopes>Web</scopes>

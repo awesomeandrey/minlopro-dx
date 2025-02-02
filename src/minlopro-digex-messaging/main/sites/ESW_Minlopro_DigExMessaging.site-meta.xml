@@ -23,13 +23,13 @@
     <redirectToCustomDomain>false</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
     <selfRegPage>CommunitiesSelfReg</selfRegPage>
-    <siteAdmin>@SF_USERNAME</siteAdmin>
-    <siteGuestRecordDefaultOwner>@SF_USERNAME</siteGuestRecordDefaultOwner>
+    <siteAdmin>${SF_USERNAME}</siteAdmin>
+    <siteGuestRecordDefaultOwner>${SF_USERNAME}</siteGuestRecordDefaultOwner>
     <siteIframeWhiteListUrls>
-        <url>@SF_SITE_DOMAIN_NAME.my.site.com</url>
+        <url>${SF_SITE_DOMAIN_NAME}.my.site.com</url>
     </siteIframeWhiteListUrls>
     <siteIframeWhiteListUrls>
-        <url>*.@SF_SITE_DOMAIN_NAME.my.site.com</url>
+        <url>*.${SF_SITE_DOMAIN_NAME}.my.site.com</url>
     </siteIframeWhiteListUrls>
     <siteType>ChatterNetwork</siteType>
     <urlPathPrefix>eswminloprodigexmessagingvfo</urlPathPrefix>

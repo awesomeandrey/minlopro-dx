@@ -34,7 +34,7 @@ export default class DatatableEditableCdt extends LightningElement {
     constructor() {
         super();
         // Use environment variable in order to enable/disable debug mode;
-        this.debugModeEnabled = '@SF_LWC_CDT_DEBUG_MODE_ENABLED'.toLowerCase() === 'true';
+        this.debugModeEnabled = '${SF_LWC_CDT_DEBUG_MODE_ENABLED}'.toLowerCase() === 'true';
     }
 
     // Service Methods;

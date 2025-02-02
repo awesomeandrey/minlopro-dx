@@ -16,7 +16,7 @@ public without sharing class PKCE {
     private static State generate() {
         HttpRequest pkceRequest = new HttpRequest();
         pkceRequest.setMethod('GET');
-        pkceRequest.setEndpoint(String.format('{0}/{1}', Lists.of('@SF_INSTANCE_URL', 'services/oauth2/pkce/generator')));
+        pkceRequest.setEndpoint(String.format('{0}/{1}', Lists.of('${SF_INSTANCE_URL}', 'services/oauth2/pkce/generator')));
         HttpResponse pkceResponse = new Http().send(pkceRequest);
         return (State) JSON.deserialize(pkceResponse.getBody(), State.class);
     }

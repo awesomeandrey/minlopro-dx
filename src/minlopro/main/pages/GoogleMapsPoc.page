@@ -55,7 +55,7 @@
              * Google API key is a unique identifier that Google Cloud provides to authenticate requests to its APIs.
              * The API key is granted under a dedicated project created in https://console.cloud.google.com.
              */
-            key: '@SF_GOOGLE_API_KEY'
+            key: '${SF_GOOGLE_API_KEY}'
         });
         // Render Map upon page load;
         window.addEventListener('load', async (event) => {

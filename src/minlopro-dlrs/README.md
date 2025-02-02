@@ -1,4 +1,4 @@
-# Declarative Lookup Rollup Relationships (DLRS)
+# Declarative Lookup Rollup Summaries (DLRS)
 
 This folder contains metadata related to [Declarative Lookup Rollup Relationships (DLRS)](https://github.com/SFDO-Community/declarative-lookup-rollup-summaries) **managed** package.
 
