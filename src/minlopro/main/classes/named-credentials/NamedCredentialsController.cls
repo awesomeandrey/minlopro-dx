@@ -34,7 +34,7 @@ public with sharing class NamedCredentialsController {
     public static CalloutResponse invoke(String namedCredentialApiName) {
         try {
             HttpRequest req = new HttpRequest();
-            String encodedQuery = EncodingUtil.urlEncode('SELECT Id, Name, InstanceName FROM Organization', 'UTF-8');
+            String encodedQuery = EncodingUtil.urlEncode('SELECT Id, Name, Owner.Name FROM Account LIMIT 1', 'UTF-8');
             String endpoint = String.format(
                 'callout:{0}/services/data/v{1}/query?q={2}',
                 Lists.of(namedCredentialApiName, '60.0', encodedQuery)

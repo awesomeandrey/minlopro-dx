@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
     <contactEmail>@SF_ADMIN_EMAIL</contactEmail>
-    <description>Sample loopback connected app used for Salesforce integrations POC/playground.</description>
+    <description>Salesforce loopback connected app used for integrations POC/playground.</description>
+    <iconUrl>@SF_INSTANCE_URL/logos/Salesforce/Salesforce/icon.png</iconUrl>
+    <infoUrl>https://www.salesforce.com/company/our-story/</infoUrl>
     <label>Minlopro (Salesforce Loopback) 🔵</label>
+    <logoUrl>@SF_INSTANCE_URL/logos/Salesforce/Salesforce/logo.png</logoUrl>
     <oauthConfig>
         <callbackUrl>@SF_INSTANCE_URL/services/authcallback/Loopback_WSPKCE</callbackUrl>
         <certificate>@SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT</certificate>

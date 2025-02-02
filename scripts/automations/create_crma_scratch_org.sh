@@ -2,19 +2,23 @@
 
 # How to use:
 # - bash ./scripts/automations/create_crma_scratch_org.sh
+# - bash ./scripts/automations/create_crma_scratch_org.sh "$DEV_HUB_ALIAS" "$SCRATCH_ORG_ALIAS" "$ADMIN_EMAIL"
 # - echo $TXT_WITH_INPUTS | bash ./scripts/automations/create_crma_scratch_org.sh
 
 # Enable errexit option to exit on command failure
 set -e
 
-# Capture DevHub org alias;
-read -r -p "🔶 Enter CRM Analytics DevHub Alias: " DEV_HUB_ALIAS
-# Capture Scratch Org alias;
-read -r -p "🔶 Enter Scratch Org Alias: " SCRATCH_ORG_ALIAS
-# Capture Admin email address alias;
-read -r -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
+DEV_HUB_ALIAS=$1
+SCRATCH_ORG_ALIAS=$2
+ADMIN_EMAIL=$3
 
-echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
+if [ -z "$DEV_HUB_ALIAS" ] || [ -z "$SCRATCH_ORG_ALIAS" ] || [ -z "$ADMIN_EMAIL" ]; then
+  read -r -p "🔶 Enter CRM Analytics DevHub Alias: " DEV_HUB_ALIAS
+  read -r -p "🔶 Enter Scratch Org Alias: " SCRATCH_ORG_ALIAS
+  read -r -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
+fi
+
+echo "🔵 Spinning up CRMA scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
 
 # Pre-configure Salesforce CLI
 sf config set org-capitalize-record-types=true
