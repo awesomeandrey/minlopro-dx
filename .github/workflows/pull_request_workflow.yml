@@ -76,18 +76,12 @@ jobs:
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "TargetOrg"
       - name: 'Generate Delta Manifests'
         run: |
-          git checkout ${{github.base_ref}}
-          git pull
-          git checkout ${{github.head_ref}}
-          git pull
+          # From Branch
+          git checkout "${{github.base_ref}}"; git pull 
+          # To Branch
+          git checkout "${{github.head_ref}}"; git pull
           # Generate manifests via SGD plugin;          
-          branchesInfoFile="build/branches-info.txt"
-          touch "$branchesInfoFile"
-          # From
-          echo ${{github.base_ref}} >> $branchesInfoFile
-          # To
-          echo ${{github.head_ref}} >> $branchesInfoFile
-          bash ./scripts/deploy/sgd_generate_manifests.sh < "$branchesInfoFile"
+          bash ./scripts/deploy/sgd_generate_manifests.sh "${{github.base_ref}}" "${{github.head_ref}}"
       - name: "Run PRE-Deploy Scripts"
         run: echo "TargetOrg" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Check-Only Deploy Source to Target Org'

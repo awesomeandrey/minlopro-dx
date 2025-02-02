@@ -36,36 +36,19 @@ jobs:
         run: |
           bash ./scripts/deploy/build.sh
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "Prod"
-          git checkout main
-          git pull
+          git checkout main; git pull
       - name: "Generate Release Manifests (pull_request)"
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           releaseBranchName="${{github.head_ref}}"
-          git checkout "$releaseBranchName"
-          git pull
-          # Generate manifests via SGD plugin;          
-          branchesInfoFile="build/branches-info.txt"
-          touch "$branchesInfoFile"
-          # From = 'main' branch ALWAYS;
-          echo "main" >> "$branchesInfoFile"
-          # To = 'release/**' branch;
-          echo "$releaseBranchName" >> "$branchesInfoFile"
-          bash ./scripts/deploy/sgd_generate_manifests.sh < "$branchesInfoFile"
+          git checkout "$releaseBranchName"; git pull
+          bash ./scripts/deploy/sgd_generate_manifests.sh "main" "$releaseBranchName"
       - name: "Generate Release Manifests (workflow_dispatch)"
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           releaseBranchName="${GITHUB_REF#refs/heads/}"
-          git checkout "$releaseBranchName"
-          git pull
-          # Generate manifests via SGD plugin;          
-          branchesInfoFile="build/branches-info.txt"
-          touch "$branchesInfoFile"
-          # From = 'main' branch ALWAYS;
-          echo "main" >> "$branchesInfoFile"
-          # To = 'release/**' branch;
-          echo "$releaseBranchName" >> "$branchesInfoFile"
-          bash ./scripts/deploy/sgd_generate_manifests.sh < "$branchesInfoFile"
+          git checkout "$releaseBranchName"; git pull
+          bash ./scripts/deploy/sgd_generate_manifests.sh "main" "$releaseBranchName"
       - name: "Run PRE-Deploy Scripts"
         run: echo "Prod" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Validate Deployment And Extract Job ID'

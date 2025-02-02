@@ -44,17 +44,7 @@ jobs:
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New Scratch Org'
         continue-on-error: true
-        run: |
-          inputsFile="inputs.txt"
-          touch $inputsFile
-          # Dev Hub Alias
-          echo "DevHub" > $inputsFile
-          # Scratch Org Alias
-          echo "ScratchOrg" >> $inputsFile
-          # Admin Email Address
-          echo "${{github.event.inputs.adminEmail}}" >> $inputsFile
-          # Initiate scratch org generation
-          bash ./scripts/automations/create_scratch_org.sh < $inputsFile
+        run: bash ./scripts/automations/create_scratch_org.sh "DevHub" "ScratchOrg" "${{github.event.inputs.adminEmail}}"
       - name: 'Run Apex Tests With Coverage'
         continue-on-error: true
         if: ${{ github.event.inputs.runApexTests == 'true' }}

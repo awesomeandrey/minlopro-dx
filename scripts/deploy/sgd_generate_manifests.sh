@@ -2,10 +2,16 @@
 
 # How to use:
 # - bash ./scripts/deploy/sgd_generate_manifests.sh
+# - bash ./scripts/deploy/sgd_generate_manifests.sh "$FROM_REF" "$TO_REF"
 # - echo $TXT_FILE_WITH_BRANCH_NAMES | bash ./scripts/deploy/sgd_generate_manifests.sh
 
-read -r -p "🔶 Enter branch name / commit SHA to capture changes FROM: " FROM_REF
-read -r -p "🔶 Enter branch name / commit SHA to capture changes UP TO: " TO_REF
+FROM_REF=$1
+TO_REF=$2
+
+if [ -z "$FROM_REF" ] || [ -z "$TO_REF" ]; then
+  read -r -p "🔶 Enter branch name / commit SHA to capture changes FROM: " FROM_REF
+  read -r -p "🔶 Enter branch name / commit SHA to capture changes UP TO: " TO_REF
+fi
 
 echo "🔵 Generating XML manifests from [$FROM_REF] to [$TO_REF]..."
 echo
