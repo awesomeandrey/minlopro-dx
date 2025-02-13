@@ -11,7 +11,7 @@
   }, {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<div style=\"text-align: center;\">Invalid Page</div>"
+        "richTextValue" : "<p style=\"text-align: center;\">LOGIN ERROR PAGE</p>"
       },
       "componentName" : "forceCommunity:richTextInline",
       "id" : "36137980-fd9d-40b8-a30b-23e889018ec8",

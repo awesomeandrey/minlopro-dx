@@ -6,27 +6,70 @@
   "label" : "Register",
   "regions" : [ {
     "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:digExRegisterForm",
-      "id" : "1e1a0d29-9e78-441a-a830-b29eb1d8021e",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
       "componentAttributes" : {
-        "confirmPasswordLabel" : "Confirm Password",
-        "emailLabel" : "Email",
-        "extraFieldsFieldSet" : "",
-        "firstnameLabel" : "First Name",
-        "includePasswordField" : false,
-        "lastnameLabel" : "Last Name",
-        "passwordLabel" : "Create Password",
-        "regConfirmUrl" : "./CheckPasswordResetEmail",
-        "startUrl" : "",
-        "submitButtonLabel" : "Sign Up"
+        "tabsetConfig" : {
+          "UUID" : "d72f9694-8e2d-4f80-8024-885cd4ec8194",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "c5295efc-7127-4df3-9dde-2e8509fa2a35",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "Custom (LWC)"
+          }, {
+            "UUID" : "e28aacde-5dc7-4005-98f7-bd2aa5e44847",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "2",
+            "tabName" : "Out-Of-Box (Aura)"
+          } ],
+          "useOverflowMenu" : true
+        }
       },
-      "componentName" : "c:selfRegister",
-      "id" : "cbdf4019-1ed5-4d8a-9a82-f2d102f56ac7",
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "d72f9694-8e2d-4f80-8024-885cd4ec8194",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:digExRegisterForm",
+          "id" : "1e1a0d29-9e78-441a-a830-b29eb1d8021e",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "c5295efc-7127-4df3-9dde-2e8509fa2a35",
+        "regionLabel" : "Custom (LWC)",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "confirmPasswordLabel" : "Confirm Password",
+            "emailLabel" : "Email",
+            "extraFieldsFieldSet" : "",
+            "firstnameLabel" : "First Name",
+            "includePasswordField" : false,
+            "lastnameLabel" : "Last Name",
+            "passwordLabel" : "Create Password",
+            "regConfirmUrl" : "./CheckPasswordResetEmail",
+            "startUrl" : "",
+            "submitButtonLabel" : "Sign Up"
+          },
+          "componentName" : "c:selfRegister",
+          "id" : "cbdf4019-1ed5-4d8a-9a82-f2d102f56ac7",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "e28aacde-5dc7-4005-98f7-bd2aa5e44847",
+        "regionLabel" : "Out-Of-Box (Aura)",
+        "regionName" : "2",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
