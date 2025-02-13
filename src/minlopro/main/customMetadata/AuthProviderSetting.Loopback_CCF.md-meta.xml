@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>RedirectUri__c</field>
-        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/authcallback/Loopback_CCF</value>
+        <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/authcallback/Loopback_CCF</value>
     </values>
     <values>
         <field>SalesforceAuthProviderName__c</field>

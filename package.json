@@ -2,7 +2,7 @@
     "name": "minlopro",
     "type": "module",
     "private": true,
-    "version": "2.1.4",
+    "version": "2.1.5",
     "engines": {
         "node": ">=20.x",
         "npm": ">=10.x"
@@ -35,11 +35,13 @@
     "devDependencies": {
         "@prettier/plugin-xml": "^2.0.1",
         "@salesforce/sfdx-lwc-jest": "^1.4.0",
+        "@salesforce/wire-service-jest-util": "^4.1.5",
         "clean-css-cli": "^5.6.3",
         "cowsay": "^1.6.0",
         "crypto-js": "^4.2.0",
         "dotenv-cli": "^7.3.0",
         "flush-promises": "^1.0.2",
+        "jest-unit": "^0.0.2",
         "jsonwebtoken": "^9.0.2",
         "pmd-bin": "^1.37.0",
         "prettier": "^3.1.1",

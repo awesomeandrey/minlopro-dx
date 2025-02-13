@@ -101,7 +101,7 @@ Follow steps below if there is a need to replace specific setting with variable 
 2. Incorporate environment variable into [`.env.manifest`](scripts/.env.manifest) file and provide description
 3. Declare variable in affected workflow files (see `.github/workflows` folder)
 4. Create replacement configuration in [`sfdx-project.json`](sfdx-project.json) file
-5. Create reference(s) in metadata components (classes, named credentials etc.) using `@VAR_NAME` format
+5. Create reference(s) in metadata components (classes, named credentials etc.) using `${VAR_NAME}` format
 
 As an example, refer to `namedCredentials` or `customMetadata` folders.
 

@@ -1,7 +1,7 @@
 @RestResource(UrlMapping='/github')
 global with sharing class GithubWebhookEndpoint {
     @TestVisible
-    private static String GITHUB_WEBHOOK_SECRET = '@SF_GITHUB_WEBHOOK_SECRET';
+    private static String GITHUB_WEBHOOK_SECRET = '${SF_GITHUB_WEBHOOK_SECRET}';
     @TestVisible
     private static final String GITHUB_SIGNATURE_HEADER = 'X-Hub-Signature-256';
     @TestVisible

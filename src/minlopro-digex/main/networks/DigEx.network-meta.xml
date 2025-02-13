@@ -7,7 +7,7 @@
     <communityRoles />
     <description>Digital Experience Site built for POC/playground purposes.</description>
     <disableReputationRecordConversations>false</disableReputationRecordConversations>
-    <emailSenderAddress>@SF_ADMIN_EMAIL</emailSenderAddress>
+    <emailSenderAddress>${SF_ADMIN_EMAIL}</emailSenderAddress>
     <emailSenderName>Minlopro DigEx</emailSenderName>
     <enableApexCDNCaching>false</enableApexCDNCaching>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>

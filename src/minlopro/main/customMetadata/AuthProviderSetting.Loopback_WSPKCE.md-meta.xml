@@ -8,7 +8,7 @@
     <protected>false</protected>
     <values>
         <field>AuthorizeUrl__c</field>
-        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/oauth2/authorize</value>
+        <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/oauth2/authorize</value>
     </values>
     <!--
         Note: External Credential can be used to securely store/apply secrets ONLY during actual callout/http request.
@@ -17,7 +17,7 @@
     -->
     <values>
         <field>RedirectUri__c</field>
-        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/authcallback/Loopback_WSPKCE</value>
+        <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE</value>
     </values>
     <values>
         <field>SalesforceAuthProviderName__c</field>
@@ -25,6 +25,6 @@
     </values>
     <values>
         <field>TokenUrl__c</field>
-        <value xsi:type="xsd:string">@SF_INSTANCE_URL/services/oauth2/token</value>
+        <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/oauth2/token</value>
     </values>
 </CustomMetadata>

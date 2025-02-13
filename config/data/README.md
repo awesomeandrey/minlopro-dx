@@ -2,7 +2,7 @@
 
 Sample data (for `Accounts`, `Contacts`, `Opportunities` and other objects) was generated via [Mockaroo Tool](https://mockaroo.com/).
 
-Use scripts below in order to seed/export/import sample data:
+Use scripts below to seed/export/import sample data:
 
 -   [`import_sample_data.sh`](../../scripts/util/data-seeding/import_sample_data.sh)
 -   [`export_sample_data.sh`](../../scripts/util/data-seeding/export_sample_data.sh)

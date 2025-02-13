@@ -36,7 +36,7 @@ const CONTACT_TEMPLATE = {
  * - create Contact record bypassing duplicate rules
  */
 export default class DuplicatesManagerTab extends LightningElement {
-    @track selectedAccountId = resolveRecordId('@SF_SAMPLE_ACCOUNT_ID');
+    @track selectedAccountId = resolveRecordId('${SF_SAMPLE_ACCOUNT_ID}');
     @track selectedContactId;
     @track errorObject = null;
     @track contactDraft = { ...CONTACT_TEMPLATE };

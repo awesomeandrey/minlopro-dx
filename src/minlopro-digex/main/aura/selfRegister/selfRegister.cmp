@@ -49,7 +49,6 @@
     <aura:dependency resource="c:setExpId" type="EVENT" />
 
     <div>
-        <h2>Custom Aura component</h2>
         <aura:renderIf isTrue="{!v.showError}">
             <div id="error">
                 <ui:outputRichText value="{!v.errorMessage}" />

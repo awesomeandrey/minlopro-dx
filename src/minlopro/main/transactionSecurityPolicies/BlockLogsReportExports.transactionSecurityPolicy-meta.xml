@@ -7,7 +7,7 @@
         <notifications>
             <inApp>true</inApp>
             <sendEmail>false</sendEmail>
-            <user>@SF_USERNAME</user>
+            <user>${SF_USERNAME}</user>
         </notifications>
         <twoFactorAuthentication>false</twoFactorAuthentication>
     </action>

@@ -6,7 +6,7 @@
     <communityRoles />
     <description>Automatically generated Experience Site for Messaging for Web deployment for 'DigEx' site.</description>
     <disableReputationRecordConversations>true</disableReputationRecordConversations>
-    <emailSenderAddress>@SF_ADMIN_EMAIL</emailSenderAddress>
+    <emailSenderAddress>${SF_ADMIN_EMAIL}</emailSenderAddress>
     <emailSenderName>ESW_Minlopro_DigExMessaging</emailSenderName>
     <enableApexCDNCaching>true</enableApexCDNCaching>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>

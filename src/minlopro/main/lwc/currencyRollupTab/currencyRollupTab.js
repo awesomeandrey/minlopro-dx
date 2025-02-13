@@ -22,7 +22,7 @@ import $UserId from '@salesforce/user/Id';
 import $IsGuest from '@salesforce/user/isGuest';
 
 export default class CurrencyRollupTab extends LightningElement {
-    @track selectedAccountId = resolveRecordId('@SF_SAMPLE_ACCOUNT_ID');
+    @track selectedAccountId = resolveRecordId('${SF_SAMPLE_ACCOUNT_ID}');
     @track draftValues = [];
     @track apexRollupToOrgCurrency = 0;
 
