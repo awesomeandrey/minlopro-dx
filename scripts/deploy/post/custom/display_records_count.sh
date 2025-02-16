@@ -13,9 +13,8 @@ sf org list sobject record-counts \
   --target-org "$TARGET_ORG_ALIAS" \
   --sobject Account \
   --sobject Contact \
-  --sobject Lead \
-  --sobject Opportunity \
   --sobject CurrencyType \
   --sobject EmailTemplate \
-  --sobject Task \
-  --sobject LogEntry__c
+  --sobject Lead \
+  --sobject LogEntry__c \
+  --sobject Opportunity
