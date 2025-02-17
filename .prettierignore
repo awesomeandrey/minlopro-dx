@@ -1,16 +1,17 @@
 # General Salesforce Medatada & Components
 **/certs/
 **/contentassets/
-**/digitalExperiences
-**/experiences
+**/digitalExperiences/
+**/documents/
+**/dw/
+**/email/
+**/experiences/
 **/layouts/
 **/networkBranding/
-**/staticresources/
-**/documents/
-**/email/
-**/wave/
+**/reportTypes/
 **/settings/
-**/dw/
+**/staticresources/
+**/wave/
 
 # GA workflows
 .github/workflows/

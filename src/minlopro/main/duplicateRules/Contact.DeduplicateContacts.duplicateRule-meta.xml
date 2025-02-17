@@ -3,7 +3,7 @@
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Block</actionOnUpdate>
     <alertText>Duplicate Contact detected!</alertText>
-    <description>Custom duplicate rule that applies to matched Contacts by criteria</description>
+    <description>Custom duplicate rule that applies to matched Contacts by criteria.</description>
     <duplicateRuleFilter>
         <booleanFilter xsi:nil="true" />
         <duplicateRuleFilterItems>
@@ -22,7 +22,7 @@
         <objectMapping xsi:nil="true" />
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
-    <masterLabel>De-duplicate Contacts</masterLabel>
+    <masterLabel>De-Duplicate Contacts</masterLabel>
     <operationsOnInsert>Alert</operationsOnInsert>
     <operationsOnInsert>Report</operationsOnInsert>
     <securityOption>BypassSharingRules</securityOption>

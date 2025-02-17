@@ -3,7 +3,7 @@
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Allow</actionOnUpdate>
     <alertText xsi:nil="true" />
-    <description>Custom duplicate rule that reports duplicate PersonAccounts</description>
+    <description>Custom duplicate rule that reports duplicate PersonAccounts.</description>
     <duplicateRuleFilter>
         <booleanFilter xsi:nil="true" />
         <duplicateRuleFilterItems>
@@ -22,7 +22,7 @@
         <objectMapping xsi:nil="true" />
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
-    <masterLabel>DeduplicatePersonAccounts</masterLabel>
+    <masterLabel>De-Duplicate PersonAccounts</masterLabel>
     <operationsOnInsert>Report</operationsOnInsert>
     <operationsOnUpdate>Report</operationsOnUpdate>
     <securityOption>BypassSharingRules</securityOption>
