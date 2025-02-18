@@ -5,13 +5,13 @@
 <span>[![Release](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml/badge.svg?branch=main)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/release_workflow.yml)</span>
 <span>[![Reset Destructive Manifests](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml/badge.svg)](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/reset_destructive_manifests.yml)</span>
 
--   [About](#about)
--   [Prerequisites](#prerequisites)
--   [Branches](#branches)
-    -   [Release Branch Preparation](#release-branch-preparation)
--   [Managing Environment Variables](#managing-environment-variables)
--   [Scripts in `package.json`](#scripts-in-packagejson)
-    -   [Useful Commands](#useful-commands)
+- [About](#about)
+- [Prerequisites](#prerequisites)
+- [Branches](#branches)
+    - [Release Branch Preparation](#release-branch-preparation)
+- [Managing Environment Variables](#managing-environment-variables)
+- [Scripts in `package.json`](#scripts-in-packagejson)
+    - [Useful Commands](#useful-commands)
 
 ## About
 

@@ -1,5 +1,10 @@
 #!/bin/bash
+
 # export_orgs.sh: Exports a separate JSON auth file for each authenticated org.
+# Inspired by https://medium.com/@sgorla/effortlessly-transfer-salesforce-org-authentication-between-machines-using-shell-scripts-074c4fc12622
+
+# How to use:
+# - bash scripts/util/migrate-orgs-auth/export_orgs.sh
 
 # Directory to store exported files
 EXPORT_DIR="org_auth_files"

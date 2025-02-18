@@ -2,8 +2,8 @@
 
 Originally inspired by the following articles:
 
--   https://medium.com/@rjallu01/salesforce-how-to-setup-messaging-for-in-app-and-web-user-verification-for-communities-eb77ebd96b85
--   https://medium.com/@rjallu01/salesforce-messaging-miaw-how-to-setup-pre-chat-form-for-communities-6886ec58d7c9
+- https://medium.com/@rjallu01/salesforce-how-to-setup-messaging-for-in-app-and-web-user-verification-for-communities-eb77ebd96b85
+- https://medium.com/@rjallu01/salesforce-messaging-miaw-how-to-setup-pre-chat-form-for-communities-6886ec58d7c9
 
 Functionality Preview:
 
@@ -20,8 +20,8 @@ Functionality Preview:
 
 The following files leverage SFDX Replacements in scope of deployments:
 
--   [ESW_Minlopro_DigExMessaging Site](src/minlopro-digex-messaging/main/sites/ESW_Minlopro_DigExMessaging.site-meta.xml)
--   [DigEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
+- [ESW_Minlopro_DigExMessaging Site](src/minlopro-digex-messaging/main/sites/ESW_Minlopro_DigExMessaging.site-meta.xml)
+- [DigEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
 
 ### Troubleshooting
 

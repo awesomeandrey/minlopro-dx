@@ -1,16 +1,16 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/deactivate_all_duplicate_rules.sh
-# - echo $ORG_ALIAS | bash ./scripts/util/deactivate_all_duplicate_rules.sh
+# - bash ./scripts/util/duplicates-mgmt/deactivate_all_duplicate_rules.sh
+# - echo $TARGET_ORG_ALIAS | bash ./scripts/util/duplicates-mgmt/deactivate_all_duplicate_rules.sh
 
 # Enable errexit option to exit on command failure
 set -e
 
 # Capture Org alias
-read -r -p "🔶 Enter Org Alias: " ORG_ALIAS
+read -r -p "🔶 Enter Org Alias: " TARGET_ORG_ALIAS
 
-echo "🔵 Deactivating all duplicate rules in [$ORG_ALIAS] org..."
+echo "🔵 Deactivating all duplicate rules in [$TARGET_ORG_ALIAS] org..."
 
 # Get project API version
 PROJECT_API_VERSION=$(bash ./scripts/util/get_project_api_version.sh)
@@ -36,9 +36,9 @@ cat <<EOL > "$MANIFEST_FILE"
 EOL
 
 # Retrieve Duplicate Rules metadata from the Salesforce Org
-echo "Retrieving duplicate rules metadata from [$ORG_ALIAS] org..."
+echo "Retrieving duplicate rules metadata from [$TARGET_ORG_ALIAS] org..."
 sf project retrieve start \
- --target-org "$ORG_ALIAS" \
+ --target-org "$TARGET_ORG_ALIAS" \
  --manifest "$MANIFEST_FILE" \
  --target-metadata-dir "$workingDir" \
  --unzip \
@@ -58,9 +58,9 @@ for file in "$workingDir/package/unpackaged/duplicateRules"/*; do
 done
 
 # Deploying deactivated Duplicate Rules back to the Salesforce Org
-echo "Deploying deactivated duplicate rules back to the [$ORG_ALIAS] org..."
+echo "Deploying deactivated duplicate rules back to the [$TARGET_ORG_ALIAS] org..."
 sf project deploy start \
-   --target-org "$ORG_ALIAS" \
+   --target-org "$TARGET_ORG_ALIAS" \
    --metadata-dir "./$workingDir/package/unpackaged" \
    --verbose \
    --ignore-warnings \

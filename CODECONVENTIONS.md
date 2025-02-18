@@ -1,19 +1,19 @@
 # Code Conventions
 
--   [Introduction](#introduction)
--   [General Best Practices](#general-best-practices)
--   [Code Conventions](#code-conventions)
-    -   [Apex Classes](#apex-classes)
-        -   [Naming Conventions](#naming-conventions)
-        -   [Critical Coding Standards](#critical-coding-standards)
-        -   [Class Design](#class-design)
-        -   [Unit Tests](#unit-tests)
-    -   [LWC (Lightning Web Components)](#lwc-lightning-web-components)
-        -   [Naming Conventions](#naming-conventions-1)
-        -   [Critical Coding Standards](#critical-coding-standards-1)
-    -   [Aura Components](#aura-components)
-        -   [Naming Conventions](#naming-conventions-2)
-        -   [Critical Coding Standards](#critical-coding-standards-2)
+- [Introduction](#introduction)
+- [General Best Practices](#general-best-practices)
+- [Code Conventions](#code-conventions)
+    - [Apex Classes](#apex-classes)
+        - [Naming Conventions](#naming-conventions)
+        - [Critical Coding Standards](#critical-coding-standards)
+        - [Class Design](#class-design)
+        - [Unit Tests](#unit-tests)
+    - [LWC (Lightning Web Components)](#lwc-lightning-web-components)
+        - [Naming Conventions](#naming-conventions-1)
+        - [Critical Coding Standards](#critical-coding-standards-1)
+    - [Aura Components](#aura-components)
+        - [Naming Conventions](#naming-conventions-2)
+        - [Critical Coding Standards](#critical-coding-standards-2)
 
 ## Introduction
 
@@ -23,11 +23,11 @@ This guide serves as a comprehensive reference for Salesforce developers, coveri
 
 ## General Best Practices
 
--   Every declarative metadata component (flow, custom object, custom field etc.) must have clear & meaningful description provided.
--   Configure/wWrite polite, user-friendly error messages.
-    -   Example: Prefer “Please provide a value for the Status field” over “Missing required field.”
--   Avoid hardcoding sensitive data like IDs or credentials.
--   Design your logic to handle large data sets and avoid hitting Salesforce's governor limits.
+- Every declarative metadata component (flow, custom object, custom field etc.) must have clear & meaningful description provided.
+- Configure/wWrite polite, user-friendly error messages.
+    - Example: Prefer “Please provide a value for the Status field” over “Missing required field.”
+- Avoid hardcoding sensitive data like IDs or credentials.
+- Design your logic to handle large data sets and avoid hitting Salesforce's governor limits.
 
 ---
 
@@ -70,9 +70,9 @@ This guide serves as a comprehensive reference for Salesforce developers, coveri
 
 Follow the separation of concerns (SoC) principle:
 
--   **Controller Classes**: Handle UI-related logic.
--   **Service Classes**: Contain business logic.
--   **Selector Classes**: Perform SOQL queries.
+- **Controller Classes**: Handle UI-related logic.
+- **Service Classes**: Contain business logic.
+- **Selector Classes**: Perform SOQL queries.
 
 Example Class Structure:
 

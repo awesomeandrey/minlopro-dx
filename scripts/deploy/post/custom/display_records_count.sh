@@ -14,6 +14,8 @@ sf org list sobject record-counts \
   --sobject Account \
   --sobject Contact \
   --sobject CurrencyType \
+  --sobject DuplicateRecordSet \
+  --sobject DuplicateRecordItem \
   --sobject EmailTemplate \
   --sobject Lead \
   --sobject LogEntry__c \

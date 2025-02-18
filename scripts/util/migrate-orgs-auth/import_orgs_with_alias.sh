@@ -1,5 +1,10 @@
 #!/bin/bash
+
 # import_orgs_with_alias.sh: Authenticates each org using its corresponding JSON file and assigns aliases.
+# Inspired by https://medium.com/@sgorla/effortlessly-transfer-salesforce-org-authentication-between-machines-using-shell-scripts-074c4fc12622
+
+# How to use:
+# - bash scripts/util/migrate-orgs-auth/export_orgs.sh
 
 # Directory containing JSON auth files
 IMPORT_DIR="org_auth_files"
