@@ -1,0 +1,16 @@
+SELECT
+    Id,
+    RecordTypeId,
+    FirstName,
+    LastName,
+    Industry,
+    Site,
+    Type,
+    PersonEmail,
+    Phone
+FROM
+    Account
+WHERE
+    IsPersonAccount = TRUE
+LIMIT
+    100

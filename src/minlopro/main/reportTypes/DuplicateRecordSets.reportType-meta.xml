@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>DuplicateRecordSet</baseObject>
+    <category>admin</category>
+    <deployed>true</deployed>
+    <description>DRSs</description>
+    <join>
+        <outerJoin>false</outerJoin>
+        <relationship>DuplicateRecordItems</relationship>
+    </join>
+    <label>Duplicate Record Sets (DRSs)</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Duplicate Record Set ID</displayNameOverride>
+            <field>Id</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Duplicate Record Set Name</displayNameOverride>
+            <field>Name</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Currency ISO Code</displayNameOverride>
+            <field>CurrencyIsoCode</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Duplicate Rule</displayNameOverride>
+            <field>DuplicateRule</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Record Count</displayNameOverride>
+            <field>RecordCount</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <masterLabel>Duplicate Record Sets</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Duplicate Record Item ID</displayNameOverride>
+            <field>Id</field>
+            <table>DuplicateRecordSet.DuplicateRecordItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Duplicate Record Item Name</displayNameOverride>
+            <field>Name</field>
+            <table>DuplicateRecordSet.DuplicateRecordItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Currency ISO Code</displayNameOverride>
+            <field>CurrencyIsoCode</field>
+            <table>DuplicateRecordSet.DuplicateRecordItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>DuplicateRecordSet.DuplicateRecordItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>DuplicateRecordSet.DuplicateRecordItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>DuplicateRecordSet.DuplicateRecordItems</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>DuplicateRecordSet.DuplicateRecordItems</table>
+        </columns>
+        <masterLabel>Duplicate Record Items</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>DuplicateRule.MasterLabel</field>
+            <table>DuplicateRecordSet</table>
+        </columns>
+        <masterLabel>Duplicate Rule</masterLabel>
+    </sections>
+</ReportType>

@@ -3,10 +3,10 @@
     <fullName>PersonAccounts</fullName>
     <columns>ACCOUNT.NAME</columns>
     <columns>ACCOUNT.SITE</columns>
-    <columns>ACCOUNT.ADDRESS1_STATE_CODE</columns>
     <columns>ACCOUNT.PHONE1</columns>
     <columns>ACCOUNT.TYPE</columns>
-    <columns>CORE.USERS.ALIAS</columns>
+    <columns>PC_EMAIL</columns>
+    <columns>ACCOUNT.INDUSTRY</columns>
     <filterScope>Everything</filterScope>
     <filters>
         <field>IS_PERSON_ACCOUNT</field>

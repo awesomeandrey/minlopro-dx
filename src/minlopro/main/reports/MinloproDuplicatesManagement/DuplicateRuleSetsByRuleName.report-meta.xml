@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <aggregateTypes>Unique</aggregateTypes>
+        <field>DuplicateRecordSet$Name</field>
+    </columns>
+    <columns>
+        <field>DuplicateRecordSet$CreatedDate</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>DuplicateRecordSet$RecordCount</field>
+    </columns>
+    <currency>USD</currency>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>DuplicateRecordSet$DuplicateRule.MasterLabel</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Duplicate Rule Sets By Rule Name</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>DuplicateRecordSets__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>DuplicateRecordSet$CreatedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
