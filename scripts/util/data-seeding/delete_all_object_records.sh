@@ -18,17 +18,17 @@ fi
 echo "🔵 Deleting all [$OBJECT_API_NAME] records in [$TARGET_ORG_ALIAS] org..."
 
 mkdir -p "build"
-duplicateRecordSetsCsv="build/${TARGET_ORG_ALIAS}-${OBJECT_API_NAME}.csv"
+recordsToDeleteCsv="build/${TARGET_ORG_ALIAS}-${OBJECT_API_NAME}.csv"
 
 # Bulk export DRSs records
 sf data export bulk \
   --target-org "$TARGET_ORG_ALIAS" \
-  --query "SELECT Id FROM DuplicateRecordSet" \
-  --output-file "$duplicateRecordSetsCsv" \
+  --query "SELECT Id FROM $OBJECT_API_NAME LIMIT 10000" \
+  --output-file "$recordsToDeleteCsv" \
   --result-format "csv" \
   --wait 20
 
-if [[ $(wc -w < "$duplicateRecordSetsCsv") -lt 5 ]]; then
+if [[ $(wc -w < "$recordsToDeleteCsv") -lt 5 ]]; then
     echo "No data to delete."
     exit 0
 fi
@@ -36,7 +36,7 @@ fi
 # Bulk delete DRSs records
 sf data delete bulk \
   --target-org "$TARGET_ORG_ALIAS" \
-  --sobject "DuplicateRecordSet" \
-  --file "$duplicateRecordSetsCsv" \
+  --sobject "$OBJECT_API_NAME" \
+  --file "$recordsToDeleteCsv" \
   --wait 20 \
   

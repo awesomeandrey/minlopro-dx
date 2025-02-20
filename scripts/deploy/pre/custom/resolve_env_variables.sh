@@ -55,6 +55,8 @@ targetOrgSiteUrl=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_url.s
 add_or_update_env_var "SF_SITE_URL" "$targetOrgSiteUrl"
 targetOrgSiteDomainName=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_domain_name.sh)
 add_or_update_env_var "SF_SITE_DOMAIN_NAME" "$targetOrgSiteDomainName"
+targetOrgMessagingServiceChannelId=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_messaging_service_channel_id.sh)
+add_or_update_env_var "SF_MESSAGING_SERVICE_CHANNEL_ID" "$targetOrgMessagingServiceChannelId"
 
 # Capture environment variables in current shell and upsert them to '.env' file (used within GitHub actions);
 for var in $(printenv | grep '^SF_'); do

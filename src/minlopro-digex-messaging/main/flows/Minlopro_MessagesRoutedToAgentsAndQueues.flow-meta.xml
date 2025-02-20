@@ -17,7 +17,7 @@
         <inputParameters>
             <name>serviceChannelId</name>
             <value>
-                <stringValue>0N909000000HiUfCAK</stringValue>
+                <stringValue>${SF_MESSAGING_SERVICE_CHANNEL_ID}</stringValue>
             </value>
         </inputParameters>
         <inputParameters>
@@ -47,7 +47,7 @@
         <inputParameters>
             <name>queueId</name>
             <value>
-                <stringValue>00GKM0000016llF2AQ</stringValue>
+                <elementReference>GetDigExOmniQueue.Id</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -58,9 +58,6 @@
         </inputParameters>
         <inputParameters>
             <name>queueLabel</name>
-            <value>
-                <stringValue>Minlopro - DigEx Messaging Requests</stringValue>
-            </value>
         </inputParameters>
         <inputParameters>
             <name>skillOption</name>
@@ -80,8 +77,14 @@
         <inputParameters>
             <name>copilotLabel</name>
         </inputParameters>
+        <inputParameters>
+            <name>isQueueVariable</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
         <nameSegment>routeWork</nameSegment>
-        <versionSegment>1</versionSegment>
+        <offset>0</offset>
     </actionCalls>
     <apiVersion>62.0</apiVersion>
     <description>Routes each message to an agent or queue based on conditions that you define.</description>
@@ -102,12 +105,9 @@
     </processMetadataValues>
     <processType>RoutingFlow</processType>
     <recordLookups>
-        <description
-            >This example action is used to load the Contact, using the Messaging User linked to the inbound Messaging Session
-            record. This contact can later be used to inform the decision on where to route the call.</description
-        >
-        <name>GetContact</name>
-        <label>Get Contact by Contact ID</label>
+        <description>DeveloperName=&apos;Minlopro_DigExMessagingRequests&apos;</description>
+        <name>GetDigExOmniQueue</name>
+        <label>Get DigEx Omni Queue</label>
         <locationX>176</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
@@ -116,14 +116,21 @@
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Id</field>
+            <field>Type</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>input_record.MessagingEndUser.ContactId</elementReference>
+                <stringValue>Queue</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Minlopro_DigExMessagingRequests</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>Contact</object>
+        <object>Group</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <runInMode>DefaultMode</runInMode>
@@ -132,7 +139,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetContact</targetReference>
+            <targetReference>GetDigExOmniQueue</targetReference>
         </connector>
     </start>
     <status>Active</status>
@@ -148,7 +155,10 @@
         <objectType>MessagingSession</objectType>
     </variables>
     <variables>
-        <description>The ID of the record being inputted into the flow. Necessary for the flow to run.</description>
+        <description
+            >The ID of the record being inputted into the flow. Necessary for the flow to run. It&apos;s a
+            &apos;MessagingSession&apos; record ID.</description
+        >
         <name>recordId</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
