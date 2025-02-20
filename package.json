@@ -44,8 +44,8 @@
         "jest-unit": "^0.0.2",
         "jsonwebtoken": "^9.0.2",
         "pmd-bin": "^1.37.0",
-        "prettier": "^3.1.1",
-        "prettier-plugin-apex": "^2.0.1",
+        "prettier": "^3.5.1",
+        "prettier-plugin-apex": "^2.2.4",
         "prettier-plugin-sql": "^0.18.1",
         "xml2js": "^0.6.2"
     }

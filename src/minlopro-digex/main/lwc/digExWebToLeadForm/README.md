@@ -54,15 +54,15 @@ There are rules to the HTTP request payload to follow:
 
 1. the payload must contain Salesforce organization ID parameter (see `oid` form parameter)
 
--   this parameter is used to route the Lead to the right Salesforce organization
--   `oid` accepts either 15 or 18 digit Salesforce instance ID (both work, but the latter one is preferred)
+- this parameter is used to route the Lead to the right Salesforce organization
+- `oid` accepts either 15 or 18 digit Salesforce instance ID (both work, but the latter one is preferred)
 
 2. form parameter names must correspond to valid custom/standard fields on **Lead** object in target Salesforce organization:
 
--   if the form contains a parameter that does not match Lead standard/custom field then the value of this parameter will be lost
--   the form parameters can be mapped by _Salesforce Field API Name_ and/or by its _Salesforce Field ID_:
-    -   `<input name="SomeCustomField__c" ...` – is a valid approach to map form parameter by Salesforce field API name
-    -   `<input name="00N34000005KYzq" ...` – is a valid approach to map form parameter by Salesforce field ID (i.e. `00N34000005KYzq` corresponds to `SomeCustomField__c` field ID in Salesforce)
+- if the form contains a parameter that does not match Lead standard/custom field then the value of this parameter will be lost
+- the form parameters can be mapped by _Salesforce Field API Name_ and/or by its _Salesforce Field ID_:
+    - `<input name="SomeCustomField__c" ...` – is a valid approach to map form parameter by Salesforce field API name
+    - `<input name="00N34000005KYzq" ...` – is a valid approach to map form parameter by Salesforce field ID (i.e. `00N34000005KYzq` corresponds to `SomeCustomField__c` field ID in Salesforce)
 
 **Salesforce Field IDs are preserved between Salesforce instances**. Therefore the same field IDs can be defined as form parameter names in counterpart environments (dev, test & prod envs).
 

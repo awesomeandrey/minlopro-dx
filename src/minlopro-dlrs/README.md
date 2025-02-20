@@ -9,8 +9,8 @@ Package ID: `04t5p000001E8vdAAC`.
 Here is sophisticated guide of DLRS package functionality - https://sfdo-community-sprints.github.io/DLRS-Documentation.
 Make sure to assign the following permission sets to Admun user(s):
 
--   `dlrs__LookupRollupSummariesFull`
--   `dlrs__LookupRollupSummariesReadOnly`
+- `dlrs__LookupRollupSummariesFull`
+- `dlrs__LookupRollupSummariesReadOnly`
 
 ## Trigger Handler Framework Compatibility
 

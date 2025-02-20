@@ -70,7 +70,8 @@ public class TestDataFactory {
 
     public static User createRegularUser() {
         Profile minloproUserProfile = TestDataFactory.selectMinloproUserProfile();
-        User regularUser = TestDataFactory.createUser('Mike', 'Green', minloproUserProfile.Id);
+        String randomUsername = generateRandomString(8);
+        User regularUser = TestDataFactory.createUser('Mike', 'Green-' + randomUsername, minloproUserProfile.Id);
         // Assign Role;
         regularUser.UserRoleId = null;
         // Create user;

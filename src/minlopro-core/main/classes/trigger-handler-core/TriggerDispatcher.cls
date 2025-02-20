@@ -1,9 +1,9 @@
 public with sharing class TriggerDispatcher {
     // Static properties;
-    private static final Map<SObjectType, Set<TriggerHandler>> activateHandlersByObjectTypeMap {
+    private static final Map<SObjectType, Set<TriggerHandler>> activeHandlersByObjectTypeMap {
         get {
-            if (activateHandlersByObjectTypeMap == null) {
-                activateHandlersByObjectTypeMap = new Map<SObjectType, Set<TriggerHandler>>();
+            if (activeHandlersByObjectTypeMap == null) {
+                activeHandlersByObjectTypeMap = new Map<SObjectType, Set<TriggerHandler>>();
                 for (TriggerHandler__mdt handlerCmt : [
                     SELECT Id, TargetObject__c, ApexClassName__c, Order__c, Active__c
                     FROM TriggerHandler__mdt
@@ -11,13 +11,13 @@ public with sharing class TriggerDispatcher {
                     ORDER BY Order__c ASC
                 ]) {
                     TriggerHandler handlerItem = new TriggerHandler(handlerCmt);
-                    if (!activateHandlersByObjectTypeMap.containsKey(handlerItem.objectType)) {
-                        activateHandlersByObjectTypeMap.put(handlerItem.objectType, new Set<TriggerHandler>());
+                    if (!activeHandlersByObjectTypeMap.containsKey(handlerItem.objectType)) {
+                        activeHandlersByObjectTypeMap.put(handlerItem.objectType, new Set<TriggerHandler>());
                     }
-                    activateHandlersByObjectTypeMap.get(handlerItem.objectType).add(handlerItem);
+                    activeHandlersByObjectTypeMap.get(handlerItem.objectType).add(handlerItem);
                 }
             }
-            return activateHandlersByObjectTypeMap;
+            return activeHandlersByObjectTypeMap;
         }
         set;
     }
@@ -124,8 +124,8 @@ public with sharing class TriggerDispatcher {
             } else {
                 return new Set<TriggerHandler>();
             }
-        } else if (activateHandlersByObjectTypeMap.containsKey(this.currentObjectType)) {
-            return activateHandlersByObjectTypeMap.get(this.currentObjectType);
+        } else if (activeHandlersByObjectTypeMap.containsKey(this.currentObjectType)) {
+            return activeHandlersByObjectTypeMap.get(this.currentObjectType);
         } else {
             return new Set<TriggerHandler>();
         }
