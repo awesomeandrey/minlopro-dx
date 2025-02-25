@@ -46,6 +46,11 @@
         },
         {
             "glob": "src/**",
+            "stringToReplace": "${SF_MESSAGING_SERVICE_CHANNEL_ID}",
+            "replaceWithEnv": "SF_MESSAGING_SERVICE_CHANNEL_ID"
+        },
+        {
+            "glob": "src/**",
             "stringToReplace": "${SF_ADMIN_EMAIL}",
             "replaceWithEnv": "SF_ADMIN_EMAIL"
         },
