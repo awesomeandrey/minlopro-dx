@@ -1,0 +1,73 @@
+name: Playground 🐚
+run-name: "GHA workflow run on behalf of '${{ github.actor }}'"
+
+# Trigger Events
+on:
+  workflow_dispatch:
+    branches:
+      - develop
+      - main
+      - feature/**
+    inputs:
+      environment:
+        description: "Target Environment"
+        required: true
+        type: choice
+        default: "Minlopro Prod"
+        options:
+          - "Minlopro Prod"
+          - "Minlopro DevHub"
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+    inputs:
+      environment:
+        description: "Target Environment"
+        required: true
+        type: choice
+        default: "Minlopro Prod"
+        options:
+          - "Minlopro Prod"
+          - "Minlopro DevHub"
+
+permissions:
+  contents: read
+  id-token: write
+
+env:
+  SF_CLI_VERSION: "2.77.6"
+
+# Jobs
+jobs:
+  playground-run:
+    timeout-minutes: 10
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: 'GHA Playground - Step #1'
+        run: |
+          echo "〽️ Selected Environment"
+          echo "ENV=${{ inputs.environment }}"
+          echo "〽️ Environment Details"
+          printenv | column -t -s "=" | sort
+          echo "〽️ Installing Salesforce CLI (v${{ env.SF_CLI_VERSION }})"
+          npm install @salesforce/cli@${{ env.SF_CLI_VERSION }} --global
+          sf --version
+          echo "〽️ Setting custom env variable"
+          MINLOPRO_STATUS="Haha I'm playing with GHAs! Cool 💯!"
+          echo "Value: ${MINLOPRO_STATUS}"
+          echo "MINLOPRO_STATUS=${MINLOPRO_STATUS}" >> "${GITHUB_ENV}"
+      - name: 'GHA Playground - Step #2'
+        run: |
+          echo "〽️ Getting custom env variable"
+          echo "Env variable value: ${MINLOPRO_STATUS}"
+          echo "〽️ Listing Salesforce CLI Plugins & Adding Them As Summary"
+          echo "### Salesforce CLI Plugins" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          sf plugins --json | jq '[.[].name]' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
