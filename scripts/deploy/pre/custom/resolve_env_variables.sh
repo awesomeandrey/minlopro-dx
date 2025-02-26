@@ -7,13 +7,19 @@
 # Enable errexit option to exit on command failure
 set -e
 
+# Color themes
+BlueColor='\033[38;2;158;169;241m'
+NoColor='\033[0m'
+
 # Capture target org alias
 read -r -p "🔶 Enter target org alias to generate '.env' file for: " TARGET_ORG_ALIAS
 echo "🔵 Resolving environment variables for [$TARGET_ORG_ALIAS] organization..."
 
 # Copy content of '.env.manifest' file to '.env' in repository root (force overwrite)
 ENV_FILEPATH=".env"
-cp -f "scripts/.env.manifest" "$ENV_FILEPATH"
+if ! [ -f "$ENV_FILEPATH" ]; then
+  cp -f "scripts/.env.manifest" "$ENV_FILEPATH"
+fi
 
 # Determine OS and define 'sed' command based on OS
 OS="$(uname)"
@@ -39,9 +45,7 @@ add_or_update_env_var() {
         # Variable not found; add it
         echo "$var_name=$var_value" >> "$ENV_FILEPATH"
     fi
-    BlueColor='\033[38;2;158;169;241m'
-    NoColor='\033[0m'
-    echo -e "- ${BlueColor}$var_name${NoColor} variable was set to ${BlueColor}$var_value${NoColor}"
+    # echo -e "- ${BlueColor}$var_name${NoColor} variable was set to ${BlueColor}$var_value${NoColor}"
 }
 
 # Calculate & set static variables
@@ -55,8 +59,10 @@ targetOrgSiteUrl=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_url.s
 add_or_update_env_var "SF_SITE_URL" "$targetOrgSiteUrl"
 targetOrgSiteDomainName=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_domain_name.sh)
 add_or_update_env_var "SF_SITE_DOMAIN_NAME" "$targetOrgSiteDomainName"
+targetOrgMessagingServiceChannelId=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_messaging_service_channel_id.sh)
+add_or_update_env_var "SF_MESSAGING_SERVICE_CHANNEL_ID" "$targetOrgMessagingServiceChannelId"
 
-# Capture environment variables in current shell and upsert them to '.env' file (used within GitHub actions);
+# Capture environment variables in current shell and upsert them to '.env' file (used within GitHub actions)
 for var in $(printenv | grep '^SF_'); do
     # Extract the variable name
     var_name="${var%%=*}"
@@ -65,6 +71,10 @@ for var in $(printenv | grep '^SF_'); do
     # Upsert SF-like variable to '.env' file
     add_or_update_env_var "$var_name" "$var_value"
 done
+
+# Display variables
+echo -e "${BlueColor}Environment Variables:${NoColor}"
+(grep -v "^#" | grep -v '^$' | column -t -s "=" | sort) < "$ENV_FILEPATH"
 
 # Copy '.env' file to 'build' folder
 mkdir -p "build"

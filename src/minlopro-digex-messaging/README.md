@@ -14,7 +14,6 @@ Functionality Preview:
 1. Activate `Minlopro - DigEx Messaging Channel` messaging channel (see `Setup > Messaging Settings`)
 2. Publish `Minlopro - DigEx Messaging` ESD (see `Setup > Embedded Service Deployments`)
 3. Assign _Service Presence Statuses_ to `Minlopro - DigEx In-App & Web Messaging` permission set
-4. Open `Minlopro - Messages Routed to Agents and Queues` omni-channel flow, update `Route To Queue` element by re-selecting `Service Channel` field, save flow as new version and active the flow
 
 ### CI/CD Considerations
 
@@ -22,6 +21,7 @@ The following files leverage SFDX Replacements in scope of deployments:
 
 - [ESW_Minlopro_DigExMessaging Site](src/minlopro-digex-messaging/main/sites/ESW_Minlopro_DigExMessaging.site-meta.xml)
 - [DigEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
+- [Minlopro - Messages Routed to Agents and Queues](src/minlopro-digex-messaging/main/flows/Minlopro_MessagesRoutedToAgentsAndQueues.flow-meta.xml)
 
 ### Troubleshooting
 
