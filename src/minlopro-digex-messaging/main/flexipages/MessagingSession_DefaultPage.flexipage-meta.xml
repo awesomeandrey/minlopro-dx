@@ -32,7 +32,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>agentInactivityAlertConfigTime</name>
-                    <value>5</value>
+                    <value>10</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideAudioNoteRecorderButton</name>
