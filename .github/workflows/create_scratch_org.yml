@@ -12,10 +12,6 @@ on:
         type: boolean
         description: 'Purge On Create?'
         default: true
-      runApexTests:
-        type: boolean
-        description: 'Run Apex Tests?'
-        default: true
     branches:
       - main
       - develop
@@ -23,7 +19,7 @@ on:
 # Jobs
 jobs:
   spin-up-scratch-org:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: "Minlopro DevHub"
     env:
       # This env variable does not have 'SF_' prefix which excludes it from '.env' file
@@ -43,13 +39,15 @@ jobs:
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New Scratch Org'
+        id: spin_scratch_org
         continue-on-error: true
         run: bash ./scripts/automations/create_scratch_org.sh "DevHub" "ScratchOrg" "${{github.event.inputs.adminEmail}}"
       - name: 'Run Apex Tests With Coverage'
+        id: run_apex_tests
         continue-on-error: true
-        if: ${{ github.event.inputs.runApexTests == 'true' }}
         run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Upload Scratch Org Credentials as Artifact'
+        id: upload_scratch_credentials
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
@@ -60,6 +58,11 @@ jobs:
           if-no-files-found: error
           include-hidden-files: true
           retention-days: 5
+      - name: 'Purge Scratch Org If Any Step Failed'
+        if: ${{ steps.spin_scratch_org.outcome == 'failure' || steps.run_apex_tests.outcome == 'failure' || steps.upload_scratch_credentials.outcome == 'failure' }}
+        run: |
+          sf org delete scratch --target-org "ScratchOrg" --no-prompt
+          exit 1
       - name: 'Purge Scratch Org'
-        if: ${{ always() && github.event.inputs.purgeOnCreate == 'true' }}
+        if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
         run: sf org delete scratch --target-org "ScratchOrg" --no-prompt

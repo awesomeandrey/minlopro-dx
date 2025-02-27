@@ -18,7 +18,7 @@ on:
 # Jobs
 jobs:
   sf-validate-deployment:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: "Minlopro Prod"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
@@ -60,7 +60,7 @@ jobs:
   sf-quick-deploy:
     if: ${{ github.event.inputs.doQuickDeploy == 'true' }}
     needs: [ sf-validate-deployment ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: "Minlopro Prod"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}

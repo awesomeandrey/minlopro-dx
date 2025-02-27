@@ -11,7 +11,7 @@ on:
 jobs:
   # Event = 'Pull Request'
   run-prettier-checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     continue-on-error: false
     steps:
       - uses: actions/checkout@v4
@@ -34,7 +34,7 @@ jobs:
           git pull
           echo ${{github.base_ref}} | bash ./scripts/deploy/run_prettier_check_against_changed_files.sh
   run-jest-tests:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     continue-on-error: false
     steps:
       - uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
       - name: 'Run Jest Tests with Coverage'
         run: npm run jest:coverage
   run-shell-checks:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
@@ -62,7 +62,7 @@ jobs:
       SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
       SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
       SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT: ${{ secrets.SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         with:

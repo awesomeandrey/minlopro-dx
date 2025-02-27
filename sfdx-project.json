@@ -87,6 +87,12 @@
             "stringToReplace": "${SF_SAMPLE_OPPORTUNITY_ID}",
             "replaceWithEnv": "SF_SAMPLE_OPPORTUNITY_ID",
             "allowUnsetEnvVariable": true
+        },
+        {
+            "glob": "src/**/staticresources/**",
+            "regexToReplace": "<searchLayouts>[\\s\\S]*?</searchLayouts>",
+            "replaceWithEnv": "SF_EMPTY_STRING",
+            "allowUnsetEnvVariable": true
         }
     ]
 }
