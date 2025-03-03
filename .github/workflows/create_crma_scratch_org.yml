@@ -19,7 +19,7 @@ on:
 # Jobs
 jobs:
   spin-up-crma-scratch-org:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: "CRM Analytics DevHub"
     env:
       # This env variable does not have 'SF_' prefix which excludes it from '.env' file

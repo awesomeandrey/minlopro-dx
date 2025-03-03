@@ -16,7 +16,7 @@ on:
 jobs:
   # Event = 'Push'
   deploy-source-to-org:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: "Minlopro DevHub"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
@@ -41,7 +41,7 @@ jobs:
         run: echo "TargetOrg" | bash ./scripts/deploy/post/run_post.sh
   run-apex-tests:
     needs: [ deploy-source-to-org ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: "Minlopro DevHub"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
@@ -58,7 +58,7 @@ jobs:
         run: npm run sf:apex:tests:coverage
   run-pmd-checks:
     needs: [ deploy-source-to-org ]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

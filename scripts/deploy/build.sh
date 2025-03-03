@@ -4,6 +4,9 @@
 # - bash ./scripts/deploy/build.sh
 # - bash ./scripts/deploy/build.sh -a
 
+# Enable errexit option to exit on command failure
+set -e
+
 echo "🔵 Building environment and installing dependencies..."
 echo
 
@@ -56,9 +59,11 @@ npm install
 # Install Ubuntu OS utility tools (`xmllint`, `xmlstarlet` and others)
 if [[ -f /etc/os-release ]] && grep -qi "ubuntu" /etc/os-release; then
     echo "Detected Ubuntu OS. Installing utility tools..."
-    sudo apt-get install -y libxml2-utils
+    sudo apt-get update
     sudo apt-get install -y xmlstarlet
+    sudo apt-get install -y libxml2-utils
 fi
+xmlstarlet --version
 xmllint --version
 
 # Create '.env' file based on template
