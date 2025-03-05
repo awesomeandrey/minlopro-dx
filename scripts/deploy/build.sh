@@ -55,6 +55,7 @@ sf plugins
 
 # Install the rest of dependencies via NPM
 npm install
+npm list
 
 # Install Ubuntu OS utility tools (`xmllint`, `xmlstarlet` and others)
 if [[ -f /etc/os-release ]] && grep -qi "ubuntu" /etc/os-release; then
