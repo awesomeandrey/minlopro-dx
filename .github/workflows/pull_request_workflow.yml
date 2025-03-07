@@ -73,7 +73,9 @@ jobs:
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
           bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "TargetOrg"
+          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
+          SF_TARGET_ORG_ALIAS="$(bash ./scripts/util/set_target_org_compound_alias.sh)"; sf alias list
+          echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_ENV
       - name: 'Generate Delta Manifests'
         run: |
           # From Branch
@@ -83,6 +85,6 @@ jobs:
           # Generate manifests via SGD plugin;          
           bash ./scripts/deploy/sgd_generate_manifests.sh "${{github.base_ref}}" "${{github.head_ref}}"
       - name: "Run PRE-Deploy Scripts"
-        run: echo "TargetOrg" | bash ./scripts/deploy/pre/run_pre.sh
+        run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Check-Only Deploy Source to Target Org'
-        run: echo "TargetOrg" | bash ./scripts/deploy/validate.sh
+        run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/validate.sh
