@@ -64,8 +64,17 @@ if [[ -f /etc/os-release ]] && grep -qi "ubuntu" /etc/os-release; then
     sudo apt-get install -y xmlstarlet
     sudo apt-get install -y libxml2-utils
 fi
-xmlstarlet --version
-xmllint --version
+
+# Verify tools installation/presence
+{
+  echo "xmlstarlet = $(xmlstarlet --version)"
+  echo "xmllint = $(xmllint --version)"
+  echo "node = $(node --version)"
+  echo "npm = $(npm --version)"
+  echo "java = $(java --version)"
+  echo "prettier = $(prettier --version)"
+  echo "rsync = $(rsync --version)"
+} 2> /dev/null
 
 # Create '.env' file based on template
 envFile=".env"

@@ -74,8 +74,7 @@ jobs:
         run: |
           bash ./scripts/deploy/build.sh
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
-          SF_TARGET_ORG_ALIAS="$(bash ./scripts/util/set_target_org_compound_alias.sh)"
-          sf alias list
+          SF_TARGET_ORG_ALIAS="$(bash ./scripts/util/set_target_org_compound_alias.sh)"; sf alias list
           echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_ENV
       - name: 'Generate Delta Manifests'
         run: |
