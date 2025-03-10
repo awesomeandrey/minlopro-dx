@@ -1,4 +1,4 @@
-# General Salesforce Medatada & Components
+# General Salesforce Metadata & Components
 **/certs/
 **/contentassets/
 **/digitalExperiences/
@@ -13,7 +13,7 @@
 **/staticresources/
 **/wave/
 
-# GA workflows
+# GHA workflows
 .github/workflows/
 
 # Static assets folder

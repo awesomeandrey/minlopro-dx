@@ -1,5 +1,5 @@
 name: Playground 🐚
-run-name: "Deploy to [${{ inputs.environment }}] on behalf of '${{ github.actor }}'"
+run-name: "Playground [${{ inputs.environment }}] / '${{ github.actor }}'"
 
 # Trigger Events
 on:
@@ -60,3 +60,10 @@ jobs:
           echo '```json' >> $GITHUB_STEP_SUMMARY
           sf plugins --json | jq '[.[].name]' >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+      - name: 'GHA Playground - Step #3'
+        run: |
+          echo "〽️ Getting custom env variable (cross-step)"
+          echo "Env variable value: ${MINLOPRO_STATUS}"
+          echo "PWD as cli tool: $(pwd)"
+          echo "PWD as GHA env variable: ${{ env.PWD }}"
+          echo "PWD as regular env variable: $PWD"
