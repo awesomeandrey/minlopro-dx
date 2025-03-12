@@ -11,9 +11,7 @@
             <operation>equals</operation>
             <value>true</value>
             <sortOrder>1</sortOrder>
-            <table>
-                PersonAccount
-            </table>
+            <table>PersonAccount</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>

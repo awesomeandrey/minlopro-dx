@@ -30,6 +30,7 @@ sf org create scratch \
     --duration-days 30 \
     --wait 15
 sf config list
+sf org enable tracking --target-org "$SCRATCH_ORG_ALIAS"
 
 # Reset Admin User password
 sf org generate password --target-org "$SCRATCH_ORG_ALIAS"

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Custom override!</description>
+    <label>New Contact (Custom)</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
@@ -32,7 +34,6 @@
         </quickActionLayoutColumns>
         <quickActionLayoutColumns />
     </quickActionLayout>
-    <standardLabel>New</standardLabel>
     <targetObject>Contact</targetObject>
     <targetParentField>Account</targetParentField>
     <type>Create</type>
