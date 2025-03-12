@@ -103,12 +103,12 @@
                 </dashboardFilterColumns>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
-                <gaugeMax>10000.0</gaugeMax>
+                <gaugeMax>5000.0</gaugeMax>
                 <gaugeMin>0.0</gaugeMin>
                 <groupingSortProperties />
                 <header>Logs Amount</header>
-                <indicatorBreakpoint1>1000.0</indicatorBreakpoint1>
-                <indicatorBreakpoint2>2500.0</indicatorBreakpoint2>
+                <indicatorBreakpoint1>500.0</indicatorBreakpoint1>
+                <indicatorBreakpoint2>1000.0</indicatorBreakpoint2>
                 <indicatorHighColor>#C23934</indicatorHighColor>
                 <indicatorLowColor>#1E8449</indicatorLowColor>
                 <indicatorMiddleColor>#FFC107</indicatorMiddleColor>

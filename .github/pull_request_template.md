@@ -6,10 +6,10 @@
 
 ## Type Of Change
 
--   ✏️ New Feature
--   ✏️ Bug Fix
--   ✏️ Enhancement
--   ✏️ POC / Investigation / Research
+- ✏️ New Feature
+- ✏️ Bug Fix
+- ✏️ Enhancement
+- ✏️ POC / Investigation / Research
 
 ## Details 🔎
 

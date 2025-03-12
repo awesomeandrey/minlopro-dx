@@ -24,7 +24,8 @@ public without sharing class AuthProviderSettings {
         return authSettings;
     }
 
-    public static Map<String, String> mock() {
+    @TestVisible
+    private static Map<String, String> mock() {
         return new Map<String, String>{
             AuthProviderSetting__mdt.SalesforceAuthProviderName__c.getDescribe().getName() => 'LOOPBACK',
             AuthProviderSetting__mdt.ClientId__c.getDescribe().getName() => '***client_id***',

@@ -3,7 +3,7 @@ public with sharing class LogsMonitorPanelController {
     private final static String RATIO_KEY = 'leftDivRatio';
     private final static Integer DEFAULT_RATIO = 75;
 
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled
     public static Boolean hasPartitionDefined() {
         return LOGS_PARTITION != null;
     }

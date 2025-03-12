@@ -9,6 +9,10 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
     }
 
     public LoggerCleanupBatch(Date deleteBeforeDate) {
+        /**
+         * Sample ad-hoc run:
+         * `Database.executeBatch(new LoggerCleanupBatch(Date.today().addDays(-3)));`
+         */
         this.deleteBeforeDate = deleteBeforeDate;
     }
 
@@ -35,8 +39,10 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
     }
 
     public void execute(Database.BatchableContext ctx, List<LogEntry__c> logEntriesToDelete) {
-        delete logEntriesToDelete;
-        Database.emptyRecycleBin(logEntriesToDelete);
+        if (!logEntriesToDelete.isEmpty()) {
+            delete logEntriesToDelete;
+            Database.emptyRecycleBin(logEntriesToDelete);
+        }
     }
 
     public void finish(Database.BatchableContext ctx) {
