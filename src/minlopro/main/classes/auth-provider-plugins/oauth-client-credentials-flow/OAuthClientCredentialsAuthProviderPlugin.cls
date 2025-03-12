@@ -13,6 +13,9 @@ public class OAuthClientCredentialsAuthProviderPlugin extends Auth.AuthProviderP
 
     public PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {
         try {
+            /**
+             * Note: records CAN be inserted/updated from within this method.
+             */
             AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             String redirectUri = String.format('{0}?state={1}', Lists.of(authSettings.redirect_uri, stateToPropagate));
             return new PageReference(redirectUri);
@@ -27,6 +30,10 @@ public class OAuthClientCredentialsAuthProviderPlugin extends Auth.AuthProviderP
         Auth.AuthProviderCallbackState state
     ) {
         try {
+            /**
+             * Note: records CANNOT be inserted/updated from within this method.
+             * Technically, the record is assigned ID upon insertion, but the record is then unreachable/non-queryable.
+             */
             AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             OAuthTokenResponsePayload responsePayload = this.fetchAccessToken(authSettings);
             return new Auth.AuthProviderTokenResponse(

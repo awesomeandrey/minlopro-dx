@@ -1,12 +1,14 @@
 <template>
     <template lwc:if={hasOrgLimitsData}>
         <div class="slds-p-around_x-small slds-border_bottom slds-theme_shade">
-            <div class="slds-grid slds-grid_align-spread slds-grid_vertical-align-center">
-                <lightning-badge label={orgLimitsAmountBadge} class="slds-badge_inverse"></lightning-badge>
-                <div if:true={hasError}>
-                    <span class="slds-text-color_error">{errorObj.message}</span>
-                </div>
-                <div>
+            <lightning-layout horizontal-align="spread" vertical-align="center">
+                <lightning-layout-item>
+                    <lightning-badge label={orgLimitsAmountBadge} class="slds-badge_inverse"></lightning-badge>
+                    <div if:true={hasError}>
+                        <span class="slds-text-color_error">{errorObj.message}</span>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item>
                     <lightning-button-group>
                         <lightning-button
                             label={toggleFilterBtnLabel}
@@ -14,10 +16,16 @@
                             icon-name="utility:filter"
                             variant={toggleFilterBtnVariant}
                         ></lightning-button>
-                        <lightning-button label="Refresh" onclick={handleRefresh} icon-name="utility:refresh"></lightning-button>
+                        <lightning-button-menu menu-alignment="right">
+                            <lightning-menu-item
+                                label="Refresh"
+                                onclick={handleRefresh}
+                                icon-name="utility:refresh"
+                            ></lightning-menu-item>
+                        </lightning-button-menu>
                     </lightning-button-group>
-                </div>
-            </div>
+                </lightning-layout-item>
+            </lightning-layout>
         </div>
         <div class="slds-container_fluid slds-scrollable_x slds-scrollable_y">
             <lightning-datatable
