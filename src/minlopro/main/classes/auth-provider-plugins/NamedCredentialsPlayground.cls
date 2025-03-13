@@ -1,4 +1,4 @@
-public with sharing class AuthProviderPluginsPlayground {
+public with sharing class NamedCredentialsPlayground {
     private final static String API_VERSION = '58.0';
 
     /**
@@ -12,6 +12,7 @@ public with sharing class AuthProviderPluginsPlayground {
         this.runPerUserNamedCredentials();
         // Secured Endpoint Named Credential(s);
         this.runSecuredEndpoint();
+        this.runSecuredEndpointWithEAIP();
         Logger.debug(
             'Total HTTP callouts consumed: {0}/{1}.',
             Lists.of(Limits.getCallouts().toString(), Limits.getLimitCallouts().toString())
@@ -38,6 +39,10 @@ public with sharing class AuthProviderPluginsPlayground {
         this.run('Secured Endpoint', 'SalesforceRestApi');
     }
 
+    public void runSecuredEndpointWithEAIP() {
+        this.run('Secured Endpoint (EAIP)', 'SalesforceRestApiEAIP');
+    }
+
     private void run(String oauthFlowToTest, String namedCredentialApiName) {
         Integer currentCalloutsConsumed = Limits.getCallouts();
         try {
@@ -52,18 +57,19 @@ public with sharing class AuthProviderPluginsPlayground {
             req.setEndpoint(endpoint);
             // Invoke callout and parse response;
             HttpResponse resp = new Http().send(req);
+            if (resp.getStatusCode() != 200) {
+                throw new IllegalArgumentException('Unsuccessful status code returned: ' + resp.getStatusCode().toString());
+            }
             Logger.debug('{0} ({1}) > HTTP Status = {2}', Lists.of(namedCredentialApiName, oauthFlowToTest, resp.getStatus()));
-            Assert.areEqual(200, resp.getStatusCode());
             OrganizationsPayload responsePayload = (OrganizationsPayload) JSON.deserialize(
                 resp.getBody(),
                 OrganizationsPayload.class
             );
-            Assert.areEqual(1, responsePayload.totalSize);
-            Assert.areEqual(1, responsePayload.records.size());
-            Assert.isFalse(String.isBlank(responsePayload.records[0].Name));
+            if (responsePayload.records.isEmpty()) {
+                throw new IllegalArgumentException('Empty payload returned: ' + responsePayload.toString());
+            }
         } catch (Exception ex) {
-            Logger.error(oauthFlowToTest + ': FAILED');
-            Logger.error(ex);
+            Logger.error('{0} ({1}) : FAILED', Lists.of(oauthFlowToTest, namedCredentialApiName));
         } finally {
             Logger.debug('Consumed {0} HTTP callout(s).', Lists.of((Limits.getCallouts() - currentCalloutsConsumed).toString()));
         }

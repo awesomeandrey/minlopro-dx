@@ -1,12 +1,15 @@
 # General Salesforce Metadata & Components
 **/certs/
+**/connectedApps/
 **/contentassets/
 **/digitalExperiences/
 **/documents/
+**/duplicateRules/
 **/dw/
 **/email/
 **/experiences/
 **/layouts/
+**/matchingRules/
 **/networkBranding/
 **/reportTypes/
 **/settings/

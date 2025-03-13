@@ -7,7 +7,9 @@
     <label>Minlopro (Salesforce Loopback) 🔵</label>
     <logoUrl>${SF_INSTANCE_URL}/logos/Salesforce/Salesforce/logo.png</logoUrl>
     <oauthConfig>
-        <callbackUrl>${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE</callbackUrl>
+        <callbackUrl>${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE
+https://test.salesforce.com/services/extidp/callback
+https://login.salesforce.com/services/extidp/callback</callbackUrl>
         <certificate>${SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT}</certificate>
         <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>true</isClientCredentialEnabled>
@@ -34,6 +36,6 @@
         <refreshTokenPolicy>infinite</refreshTokenPolicy>
     </oauthPolicy>
     <permissionSetName>Minlopro - Admin</permissionSetName>
-    <permissionSetName>Minlopro - Salesforce Connect Custom Adapter</permissionSetName>
     <permissionSetName>Minlopro - Custom Auth. Providers And Named Credentials</permissionSetName>
+    <permissionSetName>Minlopro - Salesforce Connect Custom Adapter</permissionSetName>
 </ConnectedApp>

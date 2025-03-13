@@ -5,21 +5,19 @@
     <alertText>Duplicate Contact detected!</alertText>
     <description>Custom duplicate rule that applies to matched Contacts by criteria.</description>
     <duplicateRuleFilter>
-        <booleanFilter xsi:nil="true" />
+        <booleanFilter xsi:nil="true"/>
         <duplicateRuleFilterItems>
             <field>CheckIfDuplicate__c</field>
             <operation>equals</operation>
             <value>true</value>
             <sortOrder>1</sortOrder>
-            <table>
-                Contact
-            </table>
+            <table>Contact</table>
         </duplicateRuleFilterItems>
     </duplicateRuleFilter>
     <duplicateRuleMatchRules>
         <matchRuleSObjectType>Contact</matchRuleSObjectType>
         <matchingRule>Contact_NameOrPhone</matchingRule>
-        <objectMapping xsi:nil="true" />
+        <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
     <masterLabel>De-Duplicate Contacts</masterLabel>

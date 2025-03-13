@@ -6,21 +6,22 @@
 **/profileSessionSettings
 
 # Intentionally excluded metadata (i.e. problematic or managed package metadata)
-**/unpackaged
+src/**/unpackaged
 
 # Minlopro
-**/minlopro/**/profiles/Admin.profile-meta.xml
-**/minlopro/**/profiles/Minlopro Force%2Ecom Site Profile.profile-meta.xml
+src/minlopro/**/profiles/Admin.profile-meta.xml
+src/minlopro/**/profiles/Minlopro Force%2Ecom Site Profile.profile-meta.xml
 
 # DigEx Experiece Site (Experience Cloud)
-**/minlopro-digex/**/audience/Default_DigEx.audience-meta.xml
-**/minlopro-digex/**/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
-**/minlopro-digex/**/profiles/DigEx Profile.profile-meta.xml
+src/minlopro-digex/**/audience/Default_DigEx.audience-meta.xml
+src/minlopro-digex/**/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
+src/minlopro-digex/**/profiles/DigEx Profile.profile-meta.xml
 
 # ESW_Minlopro_DigExMessaging (Experience Cloud) - Experience Site for Messaging for Web deployment for 'DigEx' site
-**/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page
-**/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page-meta.xml
-**/minlopro-digex-messaging/**/profiles/ESW_Minlopro_DigExMessaging Profile.profile-meta.xml
+src/minlopro-digex-messaging/**/audience/Default_ESW_Minlopro_DigExMessaging.audience-meta.xml
+src/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page
+src/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page-meta.xml
+src/minlopro-digex-messaging/**/profiles/ESW_Minlopro_DigExMessaging Profile.profile-meta.xml
 
 # CRM Analytics (formely known as Wave Analytics)
 **/minlopro-crma

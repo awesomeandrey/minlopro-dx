@@ -1,5 +1,5 @@
 try {
-    new AuthProviderPluginsPlayground().runAll();
+    new NamedCredentialsPlayground().runAll();
 } catch (Exception ex) {
     Logger.error(ex);
 }

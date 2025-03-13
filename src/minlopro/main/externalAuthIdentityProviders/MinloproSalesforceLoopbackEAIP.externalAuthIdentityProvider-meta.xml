@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalAuthIdentityProvider xmlns="http://soap.sforce.com/2006/04/metadata">
+    <authenticationFlow>AuthorizationCode</authenticationFlow>
+    <authenticationProtocol>OAuth</authenticationProtocol>
+    <description>Sample External Auth Identity Provider for Salesforce Loopback connected app</description>
+    <externalAuthIdentityProviderParameters>
+        <parameterName>AuthorizeUrl</parameterName>
+        <parameterType>AuthorizeUrl</parameterType>
+        <parameterValue>${SF_INSTANCE_URL}/services/oauth2/authorize</parameterValue>
+    </externalAuthIdentityProviderParameters>
+    <externalAuthIdentityProviderParameters>
+        <parameterName>ClientAuthentication</parameterName>
+        <parameterType>ClientAuthentication</parameterType>
+        <parameterValue>ClientSecretBasic</parameterValue>
+    </externalAuthIdentityProviderParameters>
+    <externalAuthIdentityProviderParameters>
+        <parameterName>PkceEnabled</parameterName>
+        <parameterType>IdentityProviderOptions</parameterType>
+        <parameterValue>true</parameterValue>
+    </externalAuthIdentityProviderParameters>
+    <externalAuthIdentityProviderParameters>
+        <parameterName>TokenUrl</parameterName>
+        <parameterType>TokenUrl</parameterType>
+        <parameterValue>${SF_INSTANCE_URL}/services/oauth2/token</parameterValue>
+    </externalAuthIdentityProviderParameters>
+    <label>Minlopro (Salesforce Loopback - EAIP)</label>
+</ExternalAuthIdentityProvider>
