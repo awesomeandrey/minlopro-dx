@@ -2,10 +2,10 @@
 <DuplicateRule xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <actionOnInsert>Allow</actionOnInsert>
     <actionOnUpdate>Allow</actionOnUpdate>
-    <alertText xsi:nil="true" />
+    <alertText xsi:nil="true"/>
     <description>Custom duplicate rule that reports duplicate PersonAccounts.</description>
     <duplicateRuleFilter>
-        <booleanFilter xsi:nil="true" />
+        <booleanFilter xsi:nil="true"/>
         <duplicateRuleFilterItems>
             <field>IsPersonAccount</field>
             <operation>equals</operation>
@@ -17,7 +17,7 @@
     <duplicateRuleMatchRules>
         <matchRuleSObjectType>PersonAccount</matchRuleSObjectType>
         <matchingRule>PersonAccount_NameAndEmailOrPhone</matchingRule>
-        <objectMapping xsi:nil="true" />
+        <objectMapping xsi:nil="true"/>
     </duplicateRuleMatchRules>
     <isActive>true</isActive>
     <masterLabel>De-Duplicate PersonAccounts</masterLabel>

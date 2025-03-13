@@ -17,7 +17,13 @@ This document provides details on the integration setup for the Salesforce org, 
 | `SalesforceRestApiPerUser`         | _Named Credential (Legacy)_           | Sample 'Per-User' legacy named credential.                                                                                                                                                                                                                                      |
 | `MinloproSalesforceLoopbackOAuth`  | _External Credential_                 | Sample external credential configured with OAuth authentication provider.                                                                                                                                                                                                       |
 | `SalesforceRestApi`                | _Named Credential (Secured Endpoint)_ | New named credential linked to `MinloproSalesforceLoopbackOAuth` external credential.                                                                                                                                                                                           |
+| `MinloproSalesforceLoopbackEAIP`   | _External Auth Identity Provider_     | EAIP that holds credentials for OAuth 2.0 Browser Flow.                                                                                                                                                                                                                         |
+| `MinloproSalesforceLoopbackEAIP`   | _External Credential_                 | Tied to External Auth Identity Provider.                                                                                                                                                                                                                                        |
+| `SalesforceRestApiEAIP`            | _Named Credential (Secured Endpoint)_ | Secured Endpoint driven by external credential and External Auth Identity Provider.                                                                                                                                                                                             |
 
 ### Notes
 
-This setup was originally inspired by this article - https://apexlibra.org/apex/secure-auth-provider-secrets.
+This setup was originally inspired by these articles:
+
+- https://apexlibra.org/apex/secure-auth-provider-secrets
+- https://unofficialsf.com/understanding-named-credentials
