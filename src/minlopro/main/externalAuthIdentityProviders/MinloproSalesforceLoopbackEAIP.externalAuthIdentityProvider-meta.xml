@@ -2,7 +2,7 @@
 <ExternalAuthIdentityProvider xmlns="http://soap.sforce.com/2006/04/metadata">
     <authenticationFlow>AuthorizationCode</authenticationFlow>
     <authenticationProtocol>OAuth</authenticationProtocol>
-    <description>Sample External Auth Identity Provider for Salesforce Loopback connected app</description>
+    <description>Sample External Auth Identity Provider for Salesforce Loopback connected app.</description>
     <externalAuthIdentityProviderParameters>
         <parameterName>AuthorizeUrl</parameterName>
         <parameterType>AuthorizeUrl</parameterType>
