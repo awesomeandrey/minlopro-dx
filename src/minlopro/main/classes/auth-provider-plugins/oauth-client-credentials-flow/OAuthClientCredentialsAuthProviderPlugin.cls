@@ -13,9 +13,6 @@ public class OAuthClientCredentialsAuthProviderPlugin extends Auth.AuthProviderP
 
     public PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {
         try {
-            /**
-             * Note: records CAN be inserted/updated from within this method.
-             */
             AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             String redirectUri = String.format('{0}?state={1}', Lists.of(authSettings.redirect_uri, stateToPropagate));
             return new PageReference(redirectUri);
@@ -33,6 +30,8 @@ public class OAuthClientCredentialsAuthProviderPlugin extends Auth.AuthProviderP
             /**
              * Note: records CANNOT be inserted/updated from within this method.
              * Technically, the record is assigned ID upon insertion, but the record is then unreachable/non-queryable.
+             * On top of that, you can't even enqueue async job!
+             * Looks like Salesforce simply rollbacks all DMLs and/or job enqueue attempts silently.
              */
             AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             OAuthTokenResponsePayload responsePayload = this.fetchAccessToken(authSettings);
@@ -92,8 +91,10 @@ public class OAuthClientCredentialsAuthProviderPlugin extends Auth.AuthProviderP
         HttpResponse response = new Http().send(request);
         final Set<Integer> allowedStatusCodes = new Set<Integer>{ 200, 201 };
         if (!allowedStatusCodes.contains(response.getStatusCode())) {
-            String errorMessage = String.format('Authentication error occurred: {0}', Lists.of(response.getBody()));
-            Logger.error(errorMessage);
+            String errorMessage = String.format(
+                'Authentication error occurred: {0} {1}',
+                Lists.of(response.getStatusCode().toString(), response.getBody())
+            );
             throw new Auth.AuthProviderPluginException(errorMessage);
         }
         return (OAuthTokenResponsePayload) JSON.deserialize(response.getBody(), OAuthTokenResponsePayload.class);

@@ -58,6 +58,7 @@ public with sharing class NamedCredentialsPlayground {
             // Invoke callout and parse response;
             HttpResponse resp = new Http().send(req);
             if (resp.getStatusCode() != 200) {
+                Logger.error('Response Body: {0}', Lists.of(resp.getBody()));
                 throw new IllegalArgumentException('Unsuccessful status code returned: ' + resp.getStatusCode().toString());
             }
             Logger.debug('{0} ({1}) > HTTP Status = {2}', Lists.of(namedCredentialApiName, oauthFlowToTest, resp.getStatus()));
@@ -68,10 +69,10 @@ public with sharing class NamedCredentialsPlayground {
             if (responsePayload.records.isEmpty()) {
                 throw new IllegalArgumentException('Empty payload returned: ' + responsePayload.toString());
             }
+            Logger.debug('Consumed {0} HTTP callout(s).', Lists.of((Limits.getCallouts() - currentCalloutsConsumed).toString()));
         } catch (Exception ex) {
             Logger.error('{0} ({1}) : FAILED', Lists.of(oauthFlowToTest, namedCredentialApiName));
-        } finally {
-            Logger.debug('Consumed {0} HTTP callout(s).', Lists.of((Limits.getCallouts() - currentCalloutsConsumed).toString()));
+            Logger.error(ex);
         }
     }
 
