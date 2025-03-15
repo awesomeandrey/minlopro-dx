@@ -33,6 +33,8 @@ public class OAuthClientCredentialsAuthProviderPlugin extends Auth.AuthProviderP
             /**
              * Note: records CANNOT be inserted/updated from within this method.
              * Technically, the record is assigned ID upon insertion, but the record is then unreachable/non-queryable.
+             * On top of that, you can't even enqueue async job!
+             * Looks like Salesforce simply rollbacks all DMLs and/or job enqueue attempts silently.
              */
             AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
             OAuthTokenResponsePayload responsePayload = this.fetchAccessToken(authSettings);
