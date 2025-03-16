@@ -97,8 +97,10 @@ public class OAuthJwtAuthProviderPlugin extends Auth.AuthProviderPluginClass {
         HttpResponse response = tokenExchange.getHttpResponse();
         final Set<Integer> allowedStatusCodes = new Set<Integer>{ 200, 201 };
         if (!allowedStatusCodes.contains(response.getStatusCode())) {
-            String errorMessage = String.format('Authentication error occurred: {0}', Lists.of(response.getBody()));
-            Logger.error(errorMessage);
+            String errorMessage = String.format(
+                'Authentication error occurred: {0} {1}',
+                Lists.of(response.getStatusCode().toString(), response.getBody())
+            );
             throw new Auth.AuthProviderPluginException(errorMessage);
         }
         return (OAuthTokenResponsePayload) JSON.deserialize(response.getBody(), OAuthTokenResponsePayload.class);
