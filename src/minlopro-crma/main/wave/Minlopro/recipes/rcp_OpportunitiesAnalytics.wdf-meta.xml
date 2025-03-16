@@ -2,6 +2,7 @@
 <WaveDataflow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <content xsi:nil="true"/>
     <application>WAVE_PUBLIC_DATAFLOWS</application>
-    <dataflowType>User</dataflowType>
-    <masterLabel>df_AccountsWithMultiValuedOppsByType</masterLabel>
+    <dataflowType>RecipeV3</dataflowType>
+    <description>Recipe Opportunities Analytics_recipe</description>
+    <masterLabel>Opportunities Analytics_recipe</masterLabel>
 </WaveDataflow>

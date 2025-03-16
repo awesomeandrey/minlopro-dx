@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveXmd xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <dataset xsi:nil="true"/>
+    <measures>
+        <field>aggregateflex.A</field>
+        <isDerived>false</isDerived>
+        <label>Opps #</label>
+        <sortIndex>0</sortIndex>
+    </measures>
+    <type>Asset</type>
+    <waveVisualization>lns_TopOpenOpportunityIndustries</waveVisualization>
+</WaveXmd>

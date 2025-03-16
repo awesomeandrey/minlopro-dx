@@ -4,20 +4,22 @@
     <analyticsAdoptionMetadata>false</analyticsAdoptionMetadata>
     <autoInstallApps>false</autoInstallApps>
     <bundleCachingOptOut>false</bundleCachingOptOut>
-    <canAccessAnalyticsViaAPI>false</canAccessAnalyticsViaAPI>
+    <canAccessAnalyticsViaAPI>true</canAccessAnalyticsViaAPI>
     <canAnnotateDashboards>false</canAnnotateDashboards>
     <canEnableSavedView>true</canEnableSavedView>
-    <canExploreDataConversationally>false</canExploreDataConversationally>
-    <canShareAppsWithCommunities>false</canShareAppsWithCommunities>
-    <canViewThumbnailAssets>false</canViewThumbnailAssets>
+    <canExploreDataConversationally>true</canExploreDataConversationally>
+    <canShareAppsWithCommunities>true</canShareAppsWithCommunities>
+    <canViewThumbnailAssets>true</canViewThumbnailAssets>
     <concurrencyLimitSharing>false</concurrencyLimitSharing>
     <enableAmazonRedshiftOutputConnector>false</enableAmazonRedshiftOutputConnector>
     <enableAnalyticsSharingEnable>true</enableAnalyticsSharingEnable>
     <enableAutoCompleteCombo>true</enableAutoCompleteCombo>
+    <enableAutonomousExperience>true</enableAutonomousExperience>
     <enableAzureDLGen2OutputConnector>false</enableAzureDLGen2OutputConnector>
     <enableCreateLegacyDataflows>true</enableCreateLegacyDataflows>
     <enableDashboardComponentSnapshot>false</enableDashboardComponentSnapshot>
     <enableDashboardFlexiTable>true</enableDashboardFlexiTable>
+    <enableDataCloudReportingPref>true</enableDataCloudReportingPref>
     <enableEmailReportsToPortalUsers>false</enableEmailReportsToPortalUsers>
     <enableFirebirdEditor>false</enableFirebirdEditor>
     <enableFloatingReportHeaders>true</enableFloatingReportHeaders>
@@ -38,6 +40,7 @@
     <enableReportHideXlsExportPref>false</enableReportHideXlsExportPref>
     <enableReportInlineEditPref>true</enableReportInlineEditPref>
     <enableReportNotificationsEnable>true</enableReportNotificationsEnable>
+    <enableReportSubOrgEmailPref>false</enableReportSubOrgEmailPref>
     <enableRequestPrioritySchdl>false</enableRequestPrioritySchdl>
     <enableS1AnalyticsEclairEnable>true</enableS1AnalyticsEclairEnable>
     <enableS3OutputConnector>false</enableS3OutputConnector>
@@ -50,20 +53,20 @@
     <enableUseOldChartsLookAndFeel>false</enableUseOldChartsLookAndFeel>
     <enableWaveAssetsNewDateVersion>false</enableWaveAssetsNewDateVersion>
     <enableWaveIndexMVDim>true</enableWaveIndexMVDim>
-    <enableWaveIndexMVDimV2>true</enableWaveIndexMVDimV2>
+    <enableWaveIndexMVDimV2>false</enableWaveIndexMVDimV2>
     <enableWaveRecordNavigation>false</enableWaveRecordNavigation>
     <enableWaveReplication>true</enableWaveReplication>
     <enableWaveSharingInheritance>false</enableWaveSharingInheritance>
     <enableWaveSqlCFIndexing>false</enableWaveSqlCFIndexing>
-    <enableWaveTrendedDatasetCleanup>true</enableWaveTrendedDatasetCleanup>
-    <isDiscoveryOptimizationEnabled>true</isDiscoveryOptimizationEnabled>
+    <enableWaveTrendedDatasetCleanup>false</enableWaveTrendedDatasetCleanup>
+    <isDiscoveryOptimizationEnabled>false</isDiscoveryOptimizationEnabled>
     <isHighVolumePushbackEnabled>false</isHighVolumePushbackEnabled>
     <maxHoursAppInProgress>48</maxHoursAppInProgress>
-    <queryCachingOptOut>true</queryCachingOptOut>
+    <queryCachingOptOut>false</queryCachingOptOut>
     <recipeDirectDataPref>true</recipeDirectDataPref>
-    <recipeFiscalPref>true</recipeFiscalPref>
-    <recipePreCachingOptOut>true</recipePreCachingOptOut>
-    <recipeStagedDataPref>true</recipeStagedDataPref>
-    <replaceBlankMeasuresWithNulls>true</replaceBlankMeasuresWithNulls>
+    <recipeFiscalPref>false</recipeFiscalPref>
+    <recipePreCachingOptOut>false</recipePreCachingOptOut>
+    <recipeStagedDataPref>false</recipeStagedDataPref>
+    <replaceBlankMeasuresWithNulls>false</replaceBlankMeasuresWithNulls>
     <turnOnTimeZones>false</turnOnTimeZones>
 </AnalyticsSettings>

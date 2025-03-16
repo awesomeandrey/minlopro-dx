@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WaveLens xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <content xsi:nil="true"/>
-    <application>Minlopro_DX_Analytics</application>
-    <datasets>ds_Opportunities</datasets>
+    <application>Minlopro</application>
+    <datasets>ds_OpportunitiesAnalytics</datasets>
     <dateVersion>1</dateVersion>
-    <masterLabel>My Open Opportunities</masterLabel>
+    <masterLabel>Top Open Opportunity Industries</masterLabel>
     <visualizationType>hbar</visualizationType>
 </WaveLens>
