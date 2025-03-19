@@ -44,6 +44,6 @@
     </quickActionLayout>
     <targetObject>Opportunity</targetObject>
     <targetParentField>Account</targetParentField>
-    <targetRecordType>Opportunity.Record_Type</targetRecordType>
+    <targetRecordType>Opportunity.Customer</targetRecordType>
     <type>Create</type>
 </QuickAction>

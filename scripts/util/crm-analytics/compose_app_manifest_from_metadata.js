@@ -3,8 +3,8 @@ import fs from 'fs';
 
 /**
  * How to use:
- * - node ./scripts/crm-analytics/js/compose_app_manifest_from_metadata.js
- * - echo "FOLDER_PATH_WITH_WAVE_METADATA" | node ./scripts/crm-analytics/js/compose_app_manifest_from_metadata.js
+ * - node ./scripts/util/crm-analytics/compose_app_manifest_from_metadata.js
+ * - echo "FOLDER_PATH_WITH_WAVE_METADATA" | node ./scripts/util/crm-analytics/compose_app_manifest_from_metadata.js
  */
 
 // Create an interface for reading inputs
@@ -78,7 +78,7 @@ const main = async () => {
         str += '\n</Package>';
 
         // Write to file
-        fs.writeFileSync('temp/crma-package.xml', str);
+        fs.writeFileSync('temp/crm-analytics/package.xml', str);
     } catch (error) {
         console.error('An error occurred:', error);
     } finally {

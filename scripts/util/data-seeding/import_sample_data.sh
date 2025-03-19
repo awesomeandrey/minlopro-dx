@@ -28,6 +28,10 @@ sf data import tree \
 # Import PersonAccounts (by CSV file);
 personAccountRecordTypeIdQuery="SELECT Id FROM RecordType WHERE SobjectType = 'Account' AND IsPersonType = TRUE AND DeveloperName = 'Customer' LIMIT 1"
 personAccountRecordTypeId=$(sf data query --query "$personAccountRecordTypeIdQuery" --target-org "$TARGET_ORG_ALIAS" --json | jq -r '.result.records[0].Id')
+if [ -z "$personAccountRecordTypeId" ] || [ "$personAccountRecordTypeId" = "null" ]; then
+  echo "PersonAccount (PA) record type was not found. Skipping PAs load."
+  exit 0
+fi
 echo "Importing PersonAccounts with Record Type ID: $personAccountRecordTypeId"
 
 mkdir -p "build"

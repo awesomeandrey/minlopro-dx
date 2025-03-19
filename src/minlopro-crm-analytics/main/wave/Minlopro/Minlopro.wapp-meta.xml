@@ -4,11 +4,6 @@
     <folder>Minlopro</folder>
     <masterLabel>Minlopro</masterLabel>
     <shares>
-        <accessLevel>Manage</accessLevel>
-        <sharedTo>crm.analytics.admin@edu.com</sharedTo>
-        <sharedToType>User</sharedToType>
-    </shares>
-    <shares>
         <accessLevel>EditAllContents</accessLevel>
         <sharedTo>CEO</sharedTo>
         <sharedToType>Role</sharedToType>

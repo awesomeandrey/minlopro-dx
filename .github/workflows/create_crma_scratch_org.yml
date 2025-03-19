@@ -36,19 +36,26 @@ jobs:
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub=DevHub
       - name: 'Spin Up Brand New CRMA Scratch Org'
+        id: spin_scratch_org
         continue-on-error: true
-        run: bash ./scripts/automations/create_crma_scratch_org.sh "DevHub" "ScratchOrg" "${{github.event.inputs.adminEmail}}"
+        run: bash ./scripts/automations/create_crma_scratch_org.sh "DevHub" "CRMAScratchOrg" "${{github.event.inputs.adminEmail}}"
       - name: 'Upload Scratch Org Credentials as Artifact'
+        id: upload_scratch_credentials
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
-          name: minlopro-crma-scratch-org-credentials
+          name: minlopro-crm-analytics-scratch-org-credentials
           path: |
             build/*-CRMA-SO.json
             build/.env
           if-no-files-found: error
           include-hidden-files: true
           retention-days: 5
+      - name: 'Purge Scratch Org If Any Step Failed'
+        if: ${{ steps.spin_scratch_org.outcome == 'failure' || steps.upload_scratch_credentials.outcome == 'failure' }}
+        run: |
+          sf org delete scratch --target-org "CRMAScratchOrg" --no-prompt
+          exit 1
       - name: 'Purge Scratch Org'
-        if: ${{ always() && github.event.inputs.purgeOnCreate == 'true' }}
-        run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
+        if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
+        run: sf org delete scratch --target-org "CRMAScratchOrg" --no-prompt

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/crm-analytics/retrieve_metadata_by_wave_app.sh
+# - bash ./scripts/util/crm-analytics/retrieve_metadata_by_wave_app.sh
 
 # Enable errexit option to exit on command failure
 set -e
@@ -23,7 +23,7 @@ mkdir -p "$metadataDir"
 
 # Retrieve metadata by manifest
 sf project retrieve start \
-    --manifest "./scripts/crm-analytics/assets/crma-package.xml" \
+    --manifest "./scripts/util/crm-analytics/all-wave-metadata-package.xml" \
     --target-org "$TARGET_ORG_ALIAS" \
     --output-dir "$metadataDir" \
     --ignore-conflicts \
@@ -43,7 +43,7 @@ done
 echo "Files have been filtered based on the keyword."
 
 # Compose manifest file with metadata for the WAVE application
-tempManifest="temp/crma-package.xml"
+tempManifest="temp/crm-analytics/package.xml"
 touch "$tempManifest"
 echo "$metadataDir/wave" | node ./scripts/crm-analytics/js/compose_app_manifest_from_metadata.js
 cat "$tempManifest"
