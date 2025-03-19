@@ -45,7 +45,7 @@ cat "$orgCredentialsFile"
 # Resolve ".env" file for the scratch org (this properly resolves 'SF_USERNAME' & 'SF_INSTANCE_URL' variables)
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/custom/resolve_env_variables.sh
 
-# Deploy 'minlopro-crma' folder content
+# Deploy 'minlopro-crm-analytics' folder content
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/deploy.sh
 
 # Set up admin user

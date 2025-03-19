@@ -24,7 +24,7 @@ src/minlopro-digex-messaging/**/pages/eswminloprodigexmessaging.page-meta.xml
 src/minlopro-digex-messaging/**/profiles/ESW_Minlopro_DigExMessaging Profile.profile-meta.xml
 
 # CRM Analytics (formely known as Wave Analytics)
-**/minlopro-crma
+**/minlopro-crm-analytics
 
 # LWC Jest Tests
 **/__tests__/**

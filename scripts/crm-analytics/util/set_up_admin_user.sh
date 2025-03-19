@@ -29,7 +29,8 @@ sf data update record \
 
 # Assign custom permission set(s)
 sf org assign permset \
-    --name "CRMA_ObjectsAccess" \
+    --name "CrmAnalyticsAdmin" \
+    --name "CrmAnalyticsReadOnlyAccess" \
     --target-org "$SCRATCH_ORG_ALIAS" \
     --on-behalf-of "$adminUsername"
 
@@ -37,7 +38,7 @@ sf org assign permset \
 publicGroupId=$(sf data get record \
   --target-org "$SCRATCH_ORG_ALIAS" \
   --sobject "Group" \
-  --where "DeveloperName='CRMA_Users'" \
+  --where "DeveloperName='CrmAnalyticsUsers'" \
   --json | jq -r '.result.Id')
 echo "Public Group ID: $publicGroupId"
 

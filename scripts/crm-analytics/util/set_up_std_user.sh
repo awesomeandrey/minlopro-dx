@@ -33,7 +33,7 @@ sf org assign permset \
 publicGroupId=$(sf data get record \
   --target-org "$SCRATCH_ORG_ALIAS" \
   --sobject "Group" \
-  --where "DeveloperName='CRMA_Users'" \
+  --where "DeveloperName='CrmAnalyticsUsers'" \
   --json | jq -r '.result.Id')
 echo "Public Group ID: $publicGroupId"
 

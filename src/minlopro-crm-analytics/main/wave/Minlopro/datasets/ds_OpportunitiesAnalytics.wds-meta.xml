@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveDataset xmlns="http://soap.sforce.com/2006/04/metadata">
+    <application>Minlopro</application>
+    <description>Created from the rcp_OpportunitiesAnalytics recipe.</description>
+    <masterLabel>Opportunities Analytics</masterLabel>
+    <type>default</type>
+</WaveDataset>
