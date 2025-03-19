@@ -74,3 +74,13 @@ jobs:
           name: minlopro-apex-pmd-report
           path: build/apex-pmd-report.html
           retention-days: 5
+  create-git-tag:
+    if: ${{ github.event_name == 'push' }}
+    needs: [ deploy-source-to-org, run-apex-tests ]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: 'Create Tag & Push'
+        run: |
+          git config user.name "${{github.actor}}"
+          bash ./scripts/deploy/create_tag_and_push.sh
