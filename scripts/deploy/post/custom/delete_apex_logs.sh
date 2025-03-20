@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/post/custom/delete_all_apex_logs.sh
+# - bash ./scripts/deploy/post/custom/delete_apex_logs.sh
 
 # Capture target org alias;
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS

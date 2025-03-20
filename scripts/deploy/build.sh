@@ -2,77 +2,64 @@
 
 # How to use:
 # - bash ./scripts/deploy/build.sh
-# - bash ./scripts/deploy/build.sh -a
 
-# Enable errexit option to exit on command failure
 set -e
-
 echo "🔵 Building environment and installing dependencies..."
 echo
-
 mkdir -p "build"
 
-# Flag that forces installation of mandatory modules only
-INSTALL_ALL_MODULES=false
-while getopts "a" opt; do
-  case $opt in
-    a)
-      # Set flag_a to true when -a is specified
-      INSTALL_ALL_MODULES=true
-      ;;
-    \?)
-      # Invalid option
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-  esac
-done
-
-# Install SF CLI (v2)
+# Install Salesforce CLI (v2)
 sfCliPackageName="@salesforce/cli"
-if npm ls -g "$sfCliPackageName" &>/dev/null; then
-  echo "Updating [$sfCliPackageName] globally."
-  npm update @salesforce/cli --global
-else
+if ! npm ls -g "$sfCliPackageName" &> /dev/null; then
   echo "Installing [$sfCliPackageName] globally."
-  npm install @salesforce/cli --global
+  npm install @salesforce/cli --global --silent
 fi
-sf --version
+echo "Salesforce CLI: $(sf --version)"
 
-# Install SF CLI plugins
-echo 'Installing SF CLI plugins...'
+# Install Salesforce CLI Plugins
+installedPluginNames=$(sf plugins --json | jq 'map(.name)')
+install_sf_plugin() {
+  local name="$1"
+  if echo "$installedPluginNames" | grep -q "$name"; then
+    echo "[$name] plugin is already installed."
+  else
+    echo y | sf plugins install "$name" > /dev/null
+  fi
+}
+
+echo "Installing Salesforce CLI Plugins..."
 # https://github.com/scolladon/sfdx-git-delta
-echo y | sf plugins install "sfdx-git-delta@latest"
-if [ "$INSTALL_ALL_MODULES" = true ]; then
-  # https://sfdx-hardis.cloudity.com
-  echo y | sf plugins install "sfdx-hardis@latest"
-  # https://help.sfdmu.com/get-started
-  echo y | sf plugins install "sfdmu@latest"
-  # https://forcedotcom.github.io/sfdx-scanner/en/v3.x/scanner-commands/run/
-  echo y | sf plugins install "@salesforce/sfdx-scanner"
-fi
-sf plugins
+install_sf_plugin "sfdx-git-delta"
+# https://sfdx-hardis.cloudity.com
+install_sf_plugin "sfdx-hardis"
+# https://help.sfdmu.com/get-started
+install_sf_plugin "sfdmu"
+# https://forcedotcom.github.io/sfdx-scanner/en/v3.x/scanner-commands/run/
+install_sf_plugin "@salesforce/sfdx-scanner"
+# https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_cli_reference.meta/bi_dev_guide_cli_reference/bi_cli_reference.htm
+install_sf_plugin "@salesforce/analytics"
 
 # Install the rest of dependencies via NPM
-npm install
-npm list
+npm install --silent; echo
+echo "NPM global packages: $(npm list -g)"
+echo "NPM local packages: $(npm list)"
 
 # Install Ubuntu OS utility tools (`xmllint`, `xmlstarlet` and others)
 if [[ -f /etc/os-release ]] && grep -qi "ubuntu" /etc/os-release; then
     echo "Detected Ubuntu OS. Installing utility tools..."
-    sudo apt-get update
-    sudo apt-get install -y xmlstarlet
-    sudo apt-get install -y libxml2-utils
+    sudo apt-get update > /dev/null
+    sudo apt-get install -y xmlstarlet libxml2-utils > /dev/null
 fi
 
 # Verify tools installation/presence
 {
+  echo; echo "===== CLI Tools ====="
   echo "xmlstarlet = $(xmlstarlet --version)"
   echo "xmllint = $(xmllint --version)"
   echo "node = $(node --version)"
   echo "npm = $(npm --version)"
   echo "java = $(java --version)"
-  echo "prettier = $(prettier --version)"
+  echo "npx prettier = $(npx prettier --version)"
   echo "rsync = $(rsync --version)"
 } 2> /dev/null
 

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/crm-analytics/util/set_up_admin_user.sh
-# - echo "ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_admin_user.sh
+# - bash ./scripts/crm-analytics/set_up_admin_user.sh
+# - echo "ORG_ALIAS" | bash ./scripts/crm-analytics/set_up_admin_user.sh
 
 read -r -p "🔶 Enter target org alias: " SCRATCH_ORG_ALIAS
 echo "🔵 Setting up ADMIN user at [$SCRATCH_ORG_ALIAS] organization..."

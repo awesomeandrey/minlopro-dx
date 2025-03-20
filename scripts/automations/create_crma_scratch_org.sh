@@ -49,7 +49,7 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/custom/resolve_env_variabl
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/deploy.sh
 
 # Set up admin user
-echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_admin_user.sh
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/set_up_admin_user.sh
 
 # Deactivate all duplicate rules
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/duplicates-mgmt/deactivate_all_duplicate_rules.sh
@@ -58,7 +58,16 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/duplicates-mgmt/deactivate_all_d
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/util/data-seeding/import_sample_data.sh
 
 # Set up standard user
-echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/util/set_up_std_user.sh
+echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/set_up_std_user.sh
 
 # Reset Metadata Tracking
 npm run sf:tracking:reset
+
+# List CRMA assets via Salesforce CLI plugin
+sf config set target-org "$SCRATCH_ORG_ALIAS"
+sf analytics app list; echo
+sf analytics dashboard list; echo
+sf analytics dataflow list; echo
+sf analytics dataset list; echo
+sf analytics lens list; echo
+sf analytics recipe list

@@ -19,7 +19,7 @@ on:
           - "Minlopro DevHub"
 
 permissions:
-  contents: read
+  contents: write
   id-token: write
 
 env:
@@ -38,6 +38,25 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
+      - name: "Cache Environment Tools"
+        id: cache-env-tools
+        uses: actions/cache@v4
+        env:
+          cache-name: "minlopro-env-tools"
+        with:
+          path: |
+            /opt/hostedtoolcache/node/20.19.0/x64
+            ~/.local/share/sf
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      - name: "Check Cached Environment Tools"
+        if: ${{ steps.cache-env-tools.outputs.cache-hit == 'true' }}
+        continue-on-error: true
+        run: |
+          echo "cache-hit=${{ steps.cache-env-tools.outputs.cache-hit }}"
+          sf --version
+          sf plugins
+      - name: "Install Environment Tools"
+        run: bash ./scripts/deploy/build.sh
       - name: 'GHA Playground - Step #1'
         run: |
           echo "〽️ Target Environment"
@@ -51,6 +70,10 @@ jobs:
           MINLOPRO_STATUS="Haha I'm playing with GHAs! Cool 💯!"
           echo "Value: ${MINLOPRO_STATUS}"
           echo "MINLOPRO_STATUS=${MINLOPRO_STATUS}" >> $GITHUB_ENV
+          echo "〽️ Get Salesforce CLI installation path"
+          which sf
+          echo "〽️ Get Global NPM Directory"
+          npm config get prefix
       - name: 'GHA Playground - Step #2'
         run: |
           echo "〽️ Getting custom env variable"
@@ -67,3 +90,7 @@ jobs:
           echo "PWD as cli tool: $(pwd)"
           echo "PWD as GHA env variable: ${{ env.PWD }}"
           echo "PWD as regular env variable: $PWD"
+      - name: 'Create Tag & Push'
+        run: |
+          git config user.name "${{github.actor}}"
+          bash ./scripts/deploy/create_tag_and_push.sh

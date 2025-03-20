@@ -34,7 +34,7 @@ jobs:
         run: |
           bash ./scripts/deploy/build.sh
           bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
-          sf config set target-dev-hub=DevHub
+          sf config set target-dev-hub "DevHub"
       - name: 'Spin Up Brand New CRMA Scratch Org'
         id: spin_scratch_org
         continue-on-error: true
