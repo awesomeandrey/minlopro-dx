@@ -14,14 +14,14 @@ START(["START"]):::startClass
 click START "#general-information" "3814342414"
 
 RouteToQueue("⚡ <em></em><br/>Route To Queue"):::actionCalls
-click RouteToQueue "#routetoqueue" "723890422"
+click RouteToQueue "#routetoqueue" "3322854737"
 
-GetContact[("🔍 <em></em><br/>Get Contact by Contact ID")]:::recordLookups
-click GetContact "#getcontact" "2972708455"
+GetDigExOmniQueue[("🔍 <em></em><br/>Get DigEx Omni Queue")]:::recordLookups
+click GetDigExOmniQueue "#getdigexomniqueue" "1353578166"
 
 RouteToQueue --> END_RouteToQueue
-GetContact --> RouteToQueue
-START -->  GetContact
+GetDigExOmniQueue --> RouteToQueue
+START -->  GetDigExOmniQueue
 END_RouteToQueue(( END )):::endClass
 
 
@@ -43,6 +43,8 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 
 ```
 
+<!-- Flow description -->
+
 ## General Information
 
 |<!-- -->|<!-- -->|
@@ -57,8 +59,8 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 |Source Template|omnichannel_messaging__MsgRouting|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-|Connector|[GetContact](#getcontact)|
-|Next Node|[GetContact](#getcontact)|
+|Connector|[GetDigExOmniQueue](#getdigexomniqueue)|
+|Next Node|[GetDigExOmniQueue](#getdigexomniqueue)|
 
 
 ## Variables
@@ -66,7 +68,7 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
 |input_record|SObject|⬜|✅|⬜|MessagingSession|The messaging session record that is being inputted into the flow. Necessary for the flow to run.|
-|recordId|String|⬜|✅|⬜|<!-- -->|The ID of the record being inputted into the flow. Necessary for the flow to run.|
+|recordId|String|⬜|✅|⬜|<!-- -->|The ID of the record being inputted into the flow. Necessary for the flow to run. It's a<br/>            'MessagingSession' record ID.|
 
 
 ## Flow Nodes Details
@@ -81,34 +83,35 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 |Action Name|routeWork|
 |Flow Transaction Model|CurrentTransaction|
 |Name Segment|routeWork|
-|Version Segment|1|
+|Offset|0|
 |Record Id (input)|recordId|
-|Service Channel Id (input)|0N909000000HiUfCAK|
+|Service Channel Id (input)|${SF_MESSAGING_SERVICE_CHANNEL_ID}|
 |Service Channel Label (input)|Messaging|
 |Service Channel Dev Name (input)|sfdc_livemessage|
 |Routing Type (input)|QueueBased|
 |Routing Config Id (input)|<!-- -->|
 |Routing Config Label (input)|<!-- -->|
-|Queue Id (input)|00GKM0000016llF2AQ|
+|Queue Id (input)|GetDigExOmniQueue.Id|
 |Agent Id (input)|<!-- -->|
 |Agent Label (input)|<!-- -->|
-|Queue Label (input)|Minlopro - DigEx Messaging Requests|
+|Queue Label (input)|<!-- -->|
 |Skill Option (input)|<!-- -->|
 |Skill Requirements Resource Item (input)|<!-- -->|
 |Bot Id (input)|<!-- -->|
 |Bot Label (input)|<!-- -->|
 |Copilot Id (input)|<!-- -->|
 |Copilot Label (input)|<!-- -->|
+|Is Queue Variable (input)|✅|
 
 
-### GetContact
+### GetDigExOmniQueue
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Record Lookup|
-|Object|Contact|
-|Label|Get Contact by Contact ID|
-|Description|This example action is used to load the Contact, using the Messaging User linked to the inbound Messaging Session<br/>            record. This contact can later be used to inform the decision on where to route the call.|
+|Object|Group|
+|Label|Get DigEx Omni Queue|
+|Description|DeveloperName='Minlopro_DigExMessagingRequests'|
 |Assign Null Values If No Records Found|⬜|
 |Get First Record Only|✅|
 |Store Output Automatically|✅|
@@ -119,7 +122,8 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|Id| Equal To|input_record.MessagingEndUser.ContactId|
+|1|Type| Equal To|Queue|
+|2|DeveloperName| Equal To|Minlopro_DigExMessagingRequests|
 
 
 
@@ -130,4 +134,4 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 
 ___
 
-_Documentation generated from branch feature/dev-poc-research by [sfdx-hardis](https://sfdx-hardis.cloudity.com), featuring [salesforce-flow-visualiser](https://github.com/toddhalfpenny/salesforce-flow-visualiser)_
+_Documentation generated from branch feature/poc by [sfdx-hardis](https://sfdx-hardis.cloudity.com), featuring [salesforce-flow-visualiser](https://github.com/toddhalfpenny/salesforce-flow-visualiser)_
