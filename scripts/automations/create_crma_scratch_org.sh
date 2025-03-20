@@ -65,9 +65,9 @@ npm run sf:tracking:reset
 
 # List CRMA assets via Salesforce CLI plugin
 sf config set target-org "$SCRATCH_ORG_ALIAS"
-sf analytics app list
-sf analytics dashboard list
-sf analytics dataflow list
-sf analytics dataset list
-sf analytics lens list
+sf analytics app list; echo
+sf analytics dashboard list; echo
+sf analytics dataflow list; echo
+sf analytics dataset list; echo
+sf analytics lens list; echo
 sf analytics recipe list
