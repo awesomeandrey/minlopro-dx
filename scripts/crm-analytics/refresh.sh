@@ -2,7 +2,7 @@
 
 # How to use:
 # - bash ./scripts/crm-analytics/refresh.sh
-# - echo $TXT_WITH_INPUTS | bash ./scripts/crm-analytics/refresh.sh
+# - echo "ORG_ALIAS" | bash ./scripts/crm-analytics/refresh.sh
 
 # Enable errexit option to exit on command failure
 set -e
@@ -10,16 +10,13 @@ set -e
 # Capture Scratch Org alias;
 read -r -p "🔶 Enter Scratch Org Alias: " TARGET_ORG_ALIAS
 echo "🔵 Refreshing CRM Analytics assets from [$TARGET_ORG_ALIAS] org..."
+rootDir="src/minlopro-crm-analytics"
 
 # Add folder-level ignore file to make sure the retrieval operation succeeds
-touch "src/minlopro-crm-analytics/.forceignore"
+touch "$rootDir/.forceignore"
 
 # Initiate retrieval
-sf project retrieve start \
-  --target-org "$TARGET_ORG_ALIAS" \
-  --source-dir "src/minlopro-crm-analytics" \
-  --ignore-conflicts \
-  --wait 15
+bash ./scripts/util/refresh.sh "$TARGET_ORG_ALIAS" "$rootDir"
 
 # Remove CRMA ignore file in order to let standard SF CLI push/pull commands ignore WAVE metadata
-rm -f "src/minlopro-crm-analytics/.forceignore"
+rm -f "$rootDir/.forceignore"

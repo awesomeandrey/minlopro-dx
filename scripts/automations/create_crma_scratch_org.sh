@@ -62,3 +62,12 @@ echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/crm-analytics/set_up_std_user.sh
 
 # Reset Metadata Tracking
 npm run sf:tracking:reset
+
+# List CRMA assets via Salesforce CLI plugin
+sf config set target-org "$SCRATCH_ORG_ALIAS"
+sf analytics app list
+sf analytics dashboard list
+sf analytics dataflow list
+sf analytics dataset list
+sf analytics lens list
+sf analytics recipe list

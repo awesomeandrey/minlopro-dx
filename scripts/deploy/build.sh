@@ -2,33 +2,13 @@
 
 # How to use:
 # - bash ./scripts/deploy/build.sh
-# - bash ./scripts/deploy/build.sh -a
 
-# Enable errexit option to exit on command failure
 set -e
-
 echo "🔵 Building environment and installing dependencies..."
 echo
-
 mkdir -p "build"
 
-# Flag that forces installation of mandatory modules only
-INSTALL_ALL_MODULES=false
-while getopts "a" opt; do
-  case $opt in
-    a)
-      # Set flag_a to true when -a is specified
-      INSTALL_ALL_MODULES=true
-      ;;
-    \?)
-      # Invalid option
-      echo "Invalid option: -$OPTARG" >&2
-      exit 1
-      ;;
-  esac
-done
-
-# Install SF CLI (v2)
+# Install Salesforce CLI (v2)
 sfCliPackageName="@salesforce/cli"
 if npm ls -g "$sfCliPackageName" &>/dev/null; then
   echo "Updating [$sfCliPackageName] globally."
@@ -39,18 +19,18 @@ else
 fi
 sf --version
 
-# Install SF CLI plugins
+# Install core Salesforce CLI plugins
 echo 'Installing SF CLI plugins...'
 # https://github.com/scolladon/sfdx-git-delta
 echo y | sf plugins install "sfdx-git-delta@latest"
-if [ "$INSTALL_ALL_MODULES" = true ]; then
-  # https://sfdx-hardis.cloudity.com
-  echo y | sf plugins install "sfdx-hardis@latest"
-  # https://help.sfdmu.com/get-started
-  echo y | sf plugins install "sfdmu@latest"
-  # https://forcedotcom.github.io/sfdx-scanner/en/v3.x/scanner-commands/run/
-  echo y | sf plugins install "@salesforce/sfdx-scanner"
-fi
+# https://sfdx-hardis.cloudity.com
+echo y | sf plugins install "sfdx-hardis@latest"
+# https://help.sfdmu.com/get-started
+echo y | sf plugins install "sfdmu@latest"
+# https://forcedotcom.github.io/sfdx-scanner/en/v3.x/scanner-commands/run/
+echo y | sf plugins install "@salesforce/sfdx-scanner"
+# https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_cli_reference.meta/bi_dev_guide_cli_reference/bi_cli_reference.htm
+echo y | sf plugins install "@salesforce/analytics"
 sf plugins
 
 # Install the rest of dependencies via NPM
