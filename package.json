@@ -2,7 +2,7 @@
     "name": "minlopro",
     "type": "module",
     "private": true,
-    "version": "2.2.9",
+    "version": "2.3.0",
     "engines": {
         "node": ">=20.x",
         "npm": ">=10.x"
@@ -23,8 +23,8 @@
         "sf:tracking:reset": "sf project reset tracking --no-prompt",
         "sf:hardis:diagnose:legacyapi": "sf hardis:org:diagnose:legacyapi",
         "src:retrieve": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/util/retrieve_by_manifest.sh",
-        "src:deploy": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/deploy/deploy.sh",
-        "src:deploy:check": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/deploy/validate.sh",
+        "src:deploy": "bash ./scripts/deploy/deploy.sh $(bash ./scripts/util/get_target_org_alias.sh) 'hard'",
+        "src:deploy:check": "bash ./scripts/deploy/deploy.sh $(bash ./scripts/util/get_target_org_alias.sh) 'dry-run'",
         "src:push": "dotenv -e '.env' -- sf project deploy start --verbose --ignore-conflicts --ignore-warnings --wait 10",
         "src:pull": "sf project retrieve start --ignore-conflicts --wait 10",
         "src:pull:preview": "sf project retrieve preview",

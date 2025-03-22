@@ -10,8 +10,7 @@ public class TestDataFactory {
         }
     }
 
-    private final static Integer USERNAME_LENGTH = 10;
-    private final static Map<String, Profile> ORG_PROFILES_BY_NAME = new Map<String, Profile>();
+    private final static Map<String, Profile> PROFILES_BY_NAME = new Map<String, Profile>();
     private final static Map<String, CurrencyType> CURRENCY_TYPES_BY_CODE = new Map<String, CurrencyType>();
     private final static Map<TestDataFactory.PublicGroup, Group> PUBLIC_GROUPS_BY_NAME = new Map<TestDataFactory.PublicGroup, Group>();
     private final static Map<TestDataFactory.Role, UserRole> ROLES_BY_NAME = new Map<TestDataFactory.Role, UserRole>();
@@ -19,7 +18,7 @@ public class TestDataFactory {
     static {
         // Select org profiles;
         for (Profile profileRecord : [SELECT Id, Name FROM Profile]) {
-            ORG_PROFILES_BY_NAME.put(profileRecord.Name, profileRecord);
+            PROFILES_BY_NAME.put(profileRecord.Name, profileRecord);
         }
         // Select currency types;
         for (CurrencyType cType : [
@@ -92,6 +91,7 @@ public class TestDataFactory {
     }
 
     public static User createUser(String firstName, String lastName, Id profileId) {
+        final Integer USERNAME_LENGTH = 5;
         String username = generateRandomString(USERNAME_LENGTH);
         String orgId = UserInfo.getOrganizationId();
         return new User(
@@ -196,11 +196,11 @@ public class TestDataFactory {
     // Utility Methods;
 
     public static Profile selectSystemAdminProfile() {
-        return ORG_PROFILES_BY_NAME.get('System Administrator');
+        return PROFILES_BY_NAME.get('System Administrator');
     }
 
     public static Profile selectMinloproUserProfile() {
-        return ORG_PROFILES_BY_NAME.get('Minlopro User');
+        return PROFILES_BY_NAME.get('Minlopro User');
     }
 
     public static String generateRandomString(Integer stringLength) {
