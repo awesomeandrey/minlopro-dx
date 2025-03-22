@@ -94,4 +94,4 @@ jobs:
       - name: "Run PRE-Deploy Scripts"
         run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Check-Only Deploy Source to Target Org'
-        run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/validate.sh
+        run: bash ./scripts/deploy/deploy.sh "$SF_TARGET_ORG_ALIAS" "dry-run"
