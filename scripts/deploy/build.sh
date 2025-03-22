@@ -34,8 +34,6 @@ install_sf_plugin "sfdx-git-delta"
 install_sf_plugin "sfdx-hardis"
 # https://help.sfdmu.com/get-started
 install_sf_plugin "sfdmu"
-# https://forcedotcom.github.io/sfdx-scanner/en/v3.x/scanner-commands/run/
-install_sf_plugin "@salesforce/sfdx-scanner"
 # https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_cli_reference.meta/bi_dev_guide_cli_reference/bi_cli_reference.htm
 install_sf_plugin "@salesforce/analytics"
 

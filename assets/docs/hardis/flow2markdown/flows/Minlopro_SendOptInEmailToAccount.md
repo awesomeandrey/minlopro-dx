@@ -57,6 +57,8 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 
 ```
 
+<!-- Flow description -->
+
 ## General Information
 
 |<!-- -->|<!-- -->|
@@ -278,4 +280,4 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 
 ___
 
-_Documentation generated from branch feature/dev-poc-research by [sfdx-hardis](https://sfdx-hardis.cloudity.com), featuring [salesforce-flow-visualiser](https://github.com/toddhalfpenny/salesforce-flow-visualiser)_
+_Documentation generated from branch feature/poc by [sfdx-hardis](https://sfdx-hardis.cloudity.com), featuring [salesforce-flow-visualiser](https://github.com/toddhalfpenny/salesforce-flow-visualiser)_

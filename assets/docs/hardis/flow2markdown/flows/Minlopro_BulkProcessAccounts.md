@@ -1,4 +1,4 @@
-# PolicyCondition_BlockLogsReportExports
+# Minlopro - Bulk Process Accounts
 
 ## Flow Diagram
 
@@ -10,25 +10,19 @@
 %% - At last resort, you can copy-paste this MermaidJS code in https://mermaid.live/ to see the Flow Diagram
 
 flowchart TB
-START(["START"]):::startClass
-click START "#general-information" "1213287078"
+START(["START<br/><b>Screen Flow</b>"]):::startClass
+click START "#general-information" "2357971593"
 
-START --> myDecision
-EvaluationOutcomeAssignment[\"🟰 <em></em><br/>EvaluationOutcomeAssignment"/]:::assignments
-click EvaluationOutcomeAssignment "#evaluationoutcomeassignment" "2371366659"
+Query_Accounts[("🔍 <em></em><br/>Query Accounts")]:::recordLookups
+click Query_Accounts "#query_accounts" "3748561175"
 
-EvaluationOutcomeAssignmentFalse[\"🟰 <em></em><br/>EvaluationOutcomeAssignmentFalse"/]:::assignments
-click EvaluationOutcomeAssignmentFalse "#evaluationoutcomeassignmentfalse" "2773223783"
+Selected_Records_Confirmation(["💻 <em></em><br/>Selected Records Confirmation"]):::screens
+click Selected_Records_Confirmation "#selected_records_confirmation" "1129526031"
 
-myDecision{"🔀 <em></em><br/>myDecision"}:::decisions
-click myDecision "#mydecision" "2570881858"
-
-EvaluationOutcomeAssignment --> END_EvaluationOutcomeAssignment
-EvaluationOutcomeAssignmentFalse --> END_EvaluationOutcomeAssignmentFalse
-myDecision --> |""| EvaluationOutcomeAssignment
-myDecision --> |"default"| EvaluationOutcomeAssignmentFalse
-END_EvaluationOutcomeAssignment(( END )):::endClass
-END_EvaluationOutcomeAssignmentFalse(( END )):::endClass
+Query_Accounts --> END_Query_Accounts
+Selected_Records_Confirmation --> Query_Accounts
+START -->  Selected_Records_Confirmation
+END_Query_Accounts(( END )):::endClass
 
 
 classDef actionCalls fill:#D4E4FC,color:black,text-decoration:none,max-height:100px
@@ -55,81 +49,71 @@ classDef endClass fill:#F9BABA,color:black,text-decoration:none,max-height:100px
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Transaction Security Flow|
-|Label|PolicyCondition_BlockLogsReportExports|
-|Status|⚠️ Draft|
-|Interview Label|PolicyCondition_BlockLogsReportExports|
-|Start Element Reference|[myDecision](#mydecision)|
+|Process Type| Flow|
+|Label|Minlopro - Bulk Process Accounts|
+|Status|Active|
+|Environments|Default|
+|Interview Label|Minlopro - Bulk Process Accounts {!$Flow.CurrentDateTime}|
+|Run In Mode| Default Mode|
+| Builder Type (PM)|LightningFlowBuilder|
+| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
+| Origin Builder Type (PM)|LightningFlowBuilder|
+|Connector|[Selected_Records_Confirmation](#selected_records_confirmation)|
+|Next Node|[Selected_Records_Confirmation](#selected_records_confirmation)|
 
 
 ## Variables
 
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
-|EvaluationOutcome|Boolean|⬜|⬜|✅|<!-- -->|<!-- -->|
-|myVariable_myEvent|SObject|⬜|✅|⬜|ReportEvent|<!-- -->|
+|ids|String|✅|✅|⬜|<!-- -->|Input record IDs selected from the list view|
 
 
 ## Flow Nodes Details
 
-### EvaluationOutcomeAssignment
+### Query_Accounts
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Type|Assignment|
-|Label|[EvaluationOutcomeAssignment](#evaluationoutcomeassignment)|
+|Type|Record Lookup|
+|Object|Account|
+|Label|Query Accounts|
+|Description|Retrieve Accounts by IDs|
+|Assign Null Values If No Records Found|⬜|
+|Get First Record Only|⬜|
+|Store Output Automatically|✅|
 
 
-#### Assignments
+#### Filters (logic: **and**)
 
-|Assign To Reference|Operator|Value|
-|:-- |:--:|:--: |
-|EvaluationOutcome| Assign|myRule|
-
-
-
-
-### EvaluationOutcomeAssignmentFalse
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Type|Assignment|
-|Label|[EvaluationOutcomeAssignmentFalse](#evaluationoutcomeassignmentfalse)|
-
-
-#### Assignments
-
-|Assign To Reference|Operator|Value|
-|:-- |:--:|:--: |
-|EvaluationOutcome| Assign|myRule|
-
-
-
-
-### myDecision
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Type|Decision|
-|Label|[myDecision](#mydecision)|
-|Default Connector|[EvaluationOutcomeAssignmentFalse](#evaluationoutcomeassignmentfalse)|
-|Default Connector Label|default|
-
-
-#### Rule myRule ()
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Connector|[EvaluationOutcomeAssignment](#evaluationoutcomeassignment)|
-|Condition Logic|and|
-
-
-
-
-|Condition Id|Left Value Reference|Operator|Right Value|
+|Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|myVariable_myEvent.Name| Equal To|Logs By Transaction|
-|2|myVariable_myEvent.Operation| Equal To|ReportExported|
+|1|Id| In|ids|
+
+
+
+
+### Selected_Records_Confirmation
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Screen|
+|Label|Selected Records Confirmation|
+|Description|Desc|
+|Allow Back|⬜|
+|Allow Finish|✅|
+|Allow Pause|⬜|
+|Show Footer|✅|
+|Show Header|✅|
+|Connector|[Query_Accounts](#query_accounts)|
+
+
+#### IdsAsText
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Field Text|<p>Selected Record IDs: <strong>{!ids}</strong></p>|
+|Field Type| Display Text|
 
 
 
