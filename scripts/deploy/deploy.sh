@@ -2,10 +2,35 @@
 
 # How to use:
 # - bash ./scripts/deploy/deploy.sh
-# - echo 'ORG_ALIAS' | bash ./scripts/deploy/deploy.sh
+# - bash ./scripts/deploy/deploy.sh "ORG_ALIAS" "hard"
+# - bash ./scripts/deploy/deploy.sh "ORG_ALIAS" "dry-run"
 
-# Capture target org alias;
-read -r -p "🔶 Enter target org alias to run hard deploy against: " TARGET_ORG_ALIAS
+TARGET_ORG_ALIAS=$1
+MODE=$2
+if [ -z "$TARGET_ORG_ALIAS" ] || [ -z "$MODE" ]; then
+  read -r -p "🔶 Enter target org alias to deploy against: " TARGET_ORG_ALIAS
+  read -r -p "🔶 Specify deployment mode (default: dry-run): " MODE
+  MODE=${MODE:-dry-run}
+fi
+
+FLAGS_DIR=$(mktemp -d) && trap 'rm -rf $FLAGS_DIR' EXIT
+
+case $MODE in
+  hard)
+    echo "🔵 Deploying to [$TARGET_ORG_ALIAS] organization..."
+    touch "$FLAGS_DIR/concise" # --concise
+    ;;
+  dry-run)
+    echo "🔵 Validating deployment against [$TARGET_ORG_ALIAS] organization..."
+    touch "$FLAGS_DIR/verbose" # --verbose
+    touch "$FLAGS_DIR/dry-run" # --dry-run
+    touch "$FLAGS_DIR/test-level"; echo "NoTestRun" > "$FLAGS_DIR/test-level" # --test-level "NoTestRun"
+    ;;
+  *)
+    echo "🔴 Invalid deployment mode specified. Allowed values are: hard, dry-run."
+    exit 1
+    ;;
+esac
 
 # Define constants;
 manifestsFolder="manifests"
@@ -25,10 +50,6 @@ if ! grep -q '<members>' "$packageXml" && ! grep -q '<members>' "$preDestructive
   exit 0
 fi
 
-# Invoke source deploy to target org;
-echo "🔵 Deploying to [$TARGET_ORG_ALIAS] organization..."
-
-# Ingest environment variables & deploy;
 npx dotenv -e ".env" -- sf project deploy start \
   --target-org "$TARGET_ORG_ALIAS" \
   --manifest "$packageXml" \
@@ -36,5 +57,5 @@ npx dotenv -e ".env" -- sf project deploy start \
   --post-destructive-changes "$postDestructiveChangesXml" \
   --ignore-conflicts \
   --ignore-warnings \
-  --concise \
-  --wait 20
+  --wait 20 \
+  --flags-dir "$FLAGS_DIR"
