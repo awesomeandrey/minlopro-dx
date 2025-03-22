@@ -32,8 +32,6 @@ case $MODE in
     ;;
 esac
 
-tree "$FLAGS_DIR"
-
 # Define constants;
 manifestsFolder="manifests"
 packageXml="$manifestsFolder/package.xml"

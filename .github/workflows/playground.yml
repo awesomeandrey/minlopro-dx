@@ -56,7 +56,11 @@ jobs:
           sf --version
           sf plugins
       - name: "Install Environment Tools"
-        run: bash ./scripts/deploy/build.sh
+        run: |
+          bash ./scripts/deploy/build.sh
+          echo "====="
+          echo "which xmlstarlet $(which xmlstarlet)"
+          echo "which xmllint $(which xmllint)"
       - name: 'GHA Playground - Step #1'
         run: |
           echo "〽️ Target Environment"
