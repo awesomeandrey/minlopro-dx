@@ -43,7 +43,7 @@ jobs:
       - name: "Run PRE-Deploy Scripts"
         run: echo "TargetOrg" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Deploy Source to Target Org'
-        run: npm run sf:manifest:create && echo "TargetOrg" | bash ./scripts/deploy/deploy.sh
+        run: npm run sf:manifest:create && bash ./scripts/deploy/deploy.sh "TargetOrg" "hard"
       - name: 'Run POST-Deploy Scripts'
         run: echo "TargetOrg" | bash ./scripts/deploy/post/run_post.sh
   run-apex-tests:

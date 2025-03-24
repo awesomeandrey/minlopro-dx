@@ -2,13 +2,12 @@
 
 # How to use:
 # - bash ./scripts/crm-analytics/deploy.sh
-# - echo $TXT_WITH_INPUTS | bash ./scripts/crm-analytics/deploy.sh
 
 # Enable errexit option to exit on command failure
 set -e
 
 # Capture Scratch Org alias;
-read -r -p "🔶 Enter Scratch Org Alias: " TARGET_ORG_ALIAS
+read -r -p "🔶 Enter CRMA Org Alias: " TARGET_ORG_ALIAS
 echo "🔵 Deploying CRM Analytics assets to [$TARGET_ORG_ALIAS] org..."
 
 # Cleanup working directory
