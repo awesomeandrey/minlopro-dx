@@ -12,6 +12,7 @@ if [ -z "$TARGET_ORG_ALIAS" ] || [ -z "$MODE" ]; then
   read -r -p "🔶 Specify deployment mode (default: dry-run): " MODE
   MODE=${MODE:-dry-run}
 fi
+MODE=$(echo "$MODE" | awk '{print tolower($0)}')
 
 FLAGS_DIR=$(mktemp -d) && trap 'rm -rf $FLAGS_DIR' EXIT
 
