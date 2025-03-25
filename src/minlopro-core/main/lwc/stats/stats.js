@@ -1,5 +1,5 @@
 import { LightningElement, api } from 'lwc';
-import { copyToClipboard, isNotEmpty, parseError, uniqueId } from 'c/utilities';
+import { cloneObject, copyToClipboard, isNotEmpty, parseError, uniqueId } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 export default class Stats extends LightningElement {
@@ -8,7 +8,7 @@ export default class Stats extends LightningElement {
     @api iconName = 'standard:setup_modal';
 
     get statsAsUniqueEntries() {
-        return Object.entries(this.value)
+        return Object.entries(cloneObject(this.value || {}))
             .map(([key, value]) => {
                 let endsWithPunctuationCharacters = /.*\W+$/.test(key);
                 let isBoolean = typeof value === 'boolean';
@@ -42,7 +42,11 @@ export default class Stats extends LightningElement {
     }
 
     isUrl(value) {
-        const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-        return urlPattern.test(value);
+        try {
+            new URL(value);
+            return true;
+        } catch (_) {
+            return false;
+        }
     }
 }

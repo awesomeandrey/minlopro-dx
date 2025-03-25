@@ -54,7 +54,6 @@ export default class DigExEmailOptInForm extends LightningElement {
     async connectedCallback() {
         this.loading = true;
         try {
-            debugger;
             console.log('Account ID', this.accountId);
             console.log('Code', this.mac);
             if (isEmpty(this.accountId)) {
@@ -66,12 +65,9 @@ export default class DigExEmailOptInForm extends LightningElement {
                 return;
             }
             await waitAsync(2000);
-            debugger;
             const saveResult = await markAccountAsOptInApex({ accountId: this.accountId, code: this.mac });
             console.log('SaveResult', saveResult);
-            debugger;
             const { success, errorMessage } = JSON.parse(saveResult);
-            debugger;
             this.isSuccessfulUpdate = success === 'true';
             if (this.isSuccessfulUpdate) {
                 wait(() => {
@@ -81,10 +77,8 @@ export default class DigExEmailOptInForm extends LightningElement {
                 this.error = { message: errorMessage };
             }
         } catch (error) {
-            debugger;
             this.error = cloneObject(error);
         } finally {
-            debugger;
             this.loading = false;
         }
     }

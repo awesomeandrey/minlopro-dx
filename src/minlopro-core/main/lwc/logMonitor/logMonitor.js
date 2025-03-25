@@ -341,8 +341,9 @@ export default class LogMonitor extends LightningElement {
     async subscribeToEvent() {
         this.isEmpEnabled = await EMP.isEmpEnabled();
         if (this.isEmpEnabled) {
-            // Call this method with `true` parameter in order to enable EMP API debug mode;
-            EMP.setDebugFlag(false);
+            debugger;
+            // Control EMP API debug mode;
+            EMP.setDebugFlag(true);
             // Subscribe to PE channel;
             const channel = '/event/Log__e';
             // Store 'subscription';
@@ -351,6 +352,7 @@ export default class LogMonitor extends LightningElement {
             EMP.onError(this.parseErrorAndShow.bind(this));
             return Promise.resolve(true);
         } else {
+            debugger;
             return Promise.reject({
                 message: `EMP API is not enabled/available for the running user.`
             });
@@ -370,6 +372,7 @@ export default class LogMonitor extends LightningElement {
     }
 
     handleLogEvent(logPlatformEvent) {
+        debugger;
         if (this.isMuted) {
             return;
         }
