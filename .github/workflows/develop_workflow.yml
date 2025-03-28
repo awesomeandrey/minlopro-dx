@@ -1,5 +1,5 @@
 name: Deploy Source 🚛
-run-name: "Deploy Source (${{ inputs.mode }}) 🚛"
+run-name: "Deploy Source (${{ inputs.mode == 'Dry-Run' && 'Dry-Run' || 'Hard' }}) 🚛"
 
 # Trigger Events
 on:
@@ -11,7 +11,7 @@ on:
       - develop
     inputs:
       mode:
-        description: "Mode"
+        description: "Deployment Mode"
         required: true
         type: choice
         default: "Hard"
@@ -21,6 +21,9 @@ on:
   push:
     branches:
       - develop
+
+env:
+  SF_DEPLOYMENT_MODE: "${{ inputs.mode == 'Dry-Run' && 'Dry-Run' || 'Hard' }}"
 
 # Jobs
 jobs:
@@ -54,13 +57,13 @@ jobs:
           echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_ENV
       - name: "Run PRE-Deploy Scripts"
         run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
-      - name: 'Deploy Source to Target Org (${{ inputs.mode }})'
-        run: npm run sf:manifest:create && bash ./scripts/deploy/deploy.sh "$SF_TARGET_ORG_ALIAS" "${{ inputs.mode }}"
+      - name: 'Deploy Source to Target Org'
+        run: npm run sf:manifest:create && bash ./scripts/deploy/deploy.sh "$SF_TARGET_ORG_ALIAS" "${{ env.SF_DEPLOYMENT_MODE }}"
       - name: 'Run POST-Deploy Scripts'
-        if: ${{ inputs.mode == 'Hard' }}
+        if: ${{ env.SF_DEPLOYMENT_MODE == 'Hard' }}
         run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh
   run-apex-tests:
-    if: ${{ inputs.mode == 'Hard' }}
+    if: ${{ inputs.mode != 'Dry-Run' }}
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-22.04
     environment: "Minlopro DevHub"
