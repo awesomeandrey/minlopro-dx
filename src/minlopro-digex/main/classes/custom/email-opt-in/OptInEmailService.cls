@@ -26,17 +26,25 @@ public inherited sharing class OptInEmailService {
         final String confirmationPageUrl = this.resolveOptInPageUrl();
         Logger.debug('Confirmation Page URL = {0}', Lists.of(confirmationPageUrl));
 
+        // Capture org-wide email address (if configured);
+        List<OrgWideEmailAddress> oweAddresses = [SELECT Id, Address, DisplayName FROM OrgWideEmailAddress LIMIT 1];
+        OrgWideEmailAddress oweAddress = oweAddresses.isEmpty() ? null : oweAddresses.get(0);
+
         // Generate email messages;
         List<Messaging.SingleEmailMessage> emailMessages = new List<Messaging.SingleEmailMessage>();
         for (Account accountItem : targetAccounts) {
             // Render template (counts against SOQL limits);
             Messaging.SingleEmailMessage emailItem = Messaging.renderStoredEmailTemplate(targetTemplate.Id, null, accountItem.Id);
             // Specify org-wide email address (this resolves 'Sender Display Name' automatically);
-            // OrgWideEmailAddress oweAddress = [SELECT Id FROM OrgWideEmailAddress LIMIT 1];
-            // emailItem.setOrgWideEmailAddressId(oweAddress.Id);
+            if (oweAddress != null) {
+                Logger.debug('Used Org-Wide Email Address: {0}', oweAddresses);
+                emailItem.setOrgWideEmailAddressId(oweAddresses.get(0).Id);
+            } else {
+                // Logger.debug('Overrode sender name manually');
+                emailItem.setSenderDisplayName('Minlopro Opt-In Engagement');
+            }
             // Specify TO email address;
             emailItem.setToAddresses(Lists.of(accountItem.PersonEmail));
-            emailItem.setSenderDisplayName('Minlopro Opt-In Engagement');
             // Save as activity item (common error > `saveAsActivity must be false when sending mail to users`)
             emailItem.setSaveAsActivity(true);
             // Build & resolve confirmation page link (with signature!);

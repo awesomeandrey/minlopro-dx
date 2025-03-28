@@ -255,7 +255,6 @@ export default class FilesManagerTab extends LightningElement {
     async handleRowAction(event) {
         const { action, row } = event.detail;
         this.loading = true;
-        // TODO - memory leak detected?!!
         try {
             if (action.name === 'createPublicLink') {
                 let contentVersionId = row[CD_LATEST_PUBLISHED_VERSION_ID.fieldApiName];
