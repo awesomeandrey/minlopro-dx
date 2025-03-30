@@ -1,40 +1,102 @@
 <template>
+    <c-confetti lwc:ref="confetti"></c-confetti>
     <lightning-card>
         <span slot="title" class="slds-text-title_caps"><code>c-playground</code></span>
         <lightning-button-group slot="actions">
             <lightning-button label="Celebrate!" onclick={handleCelebrateWithConfetti}></lightning-button>
         </lightning-button-group>
-        <lightning-layout multiple-rows>
-            <lightning-layout-item size="7" padding="horizontal-small">
-                <c-confetti lwc:ref="confetti"></c-confetti>
-                <span class="slds-text-title_caps">lightning-record-picker</span>
-                <lightning-record-picker
-                    label="Users"
-                    variant="label-hidden"
-                    placeholder="Search Users..."
-                    object-api-name="User"
-                    value={selectedUserId}
-                    display-info={displayInfo}
-                    matching-info={matchingInfo}
-                    onchange={handleLookupChange}
-                    onblur={handleLookupBlur}
-                    onerror={handleLookupError}
-                >
-                </lightning-record-picker>
+        <lightning-layout>
+            <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
+                <div class="sms slds-box slds-box_x-small">
+                    <lightning-card title="SMS" icon-name="standard:sms">
+                        <lightning-spinner
+                            lwc:if={loading}
+                            alternative-text="Loading"
+                            size="small"
+                            variant="brand"
+                        ></lightning-spinner>
+                        <div slot="actions" class="slds-text-align_right">
+                            <p><b>Phone Number:</b></p>
+                            <p><lightning-formatted-phone value="18005551212"></lightning-formatted-phone></p>
+                        </div>
+                        <div class="slds-m-horizontal_medium">
+                            <p class="slds-text-align_center slds-m-vertical_x-small">
+                                <b>SMS Opt-In Status:</b>&nbsp;
+                                <span>not started</span>
+                            </p>
+                            <lightning-progress-indicator current-step="1" type="base" variant="base">
+                                <lightning-progress-step label="Step 1" value="1"></lightning-progress-step>
+                                <lightning-progress-step label="Step 2" value="2"></lightning-progress-step>
+                                <lightning-progress-step label="Step 3" value="3"></lightning-progress-step>
+                            </lightning-progress-indicator>
+                            <p class="slds-m-vertical_small"></p>
+                            <lightning-textarea
+                                class="slds-m-vertical_small"
+                                label="Opt-In Text to Customer"
+                                value={optInTemplateText}
+                                read-only
+                            ></lightning-textarea>
+                            <lightning-layout lwc:if={hasAnyOptInChannelAvailable} vertical-align="center">
+                                <lightning-layout-item flexibility="grow">
+                                    <lightning-button-group>
+                                        <lightning-button-icon-stateful
+                                            icon-name="utility:answer"
+                                            selected={isSmsChannel}
+                                            data-name="sms"
+                                            tooltip="Opt-In Request will be delivered through SMS channel."
+                                            disabled={doDisableSmsChannel}
+                                            onclick={handleSelectDeliveryChannel}
+                                        ></lightning-button-icon-stateful>
+                                        <lightning-button-icon-stateful
+                                            icon-name="utility:email"
+                                            selected={isEmailChannel}
+                                            data-name="email"
+                                            tooltip="Opt-In Request will be delivered through E-MAIL channel."
+                                            disabled={doDisableEmailChannel}
+                                            onclick={handleSelectDeliveryChannel}
+                                        ></lightning-button-icon-stateful>
+                                    </lightning-button-group>
+                                </lightning-layout-item>
+                                <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
+                                    <lightning-button-icon
+                                        icon-name="utility:phone_portrait"
+                                        disabled={loading}
+                                    ></lightning-button-icon>
+                                </lightning-layout-item>
+                                <lightning-layout-item flexibility="no-grow">
+                                    <lightning-button
+                                        label="Send Opt-In Message"
+                                        variant="brand"
+                                        disabled={loading}
+                                        onclick={handleSendOptInMessage}
+                                    ></lightning-button>
+                                </lightning-layout-item>
+                            </lightning-layout>
+                        </div>
+                    </lightning-card>
+                </div>
             </lightning-layout-item>
-            <lightning-layout-item size="12" padding="around-small">
-                <c-stats label="Stats Demo" value={sampleStats}></c-stats>
-            </lightning-layout-item>
-            <lightning-layout-item size="8" padding="horizontal-small">
-                <span class="slds-text-title_caps slds-m-bottom_x-small">Datatable Lookup/Picklist Value Wrapping</span>
-                <c-datatable
-                    lwc:ref="datatable"
-                    key-field="Id"
-                    data={tableData}
-                    columns={tableColumns}
-                    hide-checkbox-column
-                    show-row-number-column
-                ></c-datatable>
+            <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
+                <lightning-input
+                    class="slds-m-vertical_x-small"
+                    type="toggle"
+                    label="Is SMS Opt-In Eligible?"
+                    checked={isSmsOptInEligible}
+                    data-name="isSmsOptInEligible"
+                    message-toggle-active=""
+                    message-toggle-inactive=""
+                    onchange={handleToggleChange}
+                ></lightning-input>
+                <lightning-input
+                    class="slds-m-vertical_x-small"
+                    type="toggle"
+                    label="Is E-MAIL Opt-In Eligible?"
+                    checked={isEmailOptInEligible}
+                    data-name="isEmailOptInEligible"
+                    message-toggle-active=""
+                    message-toggle-inactive=""
+                    onchange={handleToggleChange}
+                ></lightning-input>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>
