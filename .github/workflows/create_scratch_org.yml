@@ -25,9 +25,6 @@ jobs:
       # This env variable does not have 'SF_' prefix which excludes it from '.env' file
       DEV_HUB_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_ADMIN_EMAIL: ${{ github.event.inputs.adminEmail }}
-      SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
-      SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
-      SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT: ${{ secrets.SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

@@ -55,7 +55,7 @@ jobs:
           ignore_paths: src
   validate-deployment-to-org:
     needs: [ run-prettier-checks, run-jest-tests, run-shell-checks ]
-    environment: "Minlopro DevHub"
+    environment: "Minlopro Prod"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}

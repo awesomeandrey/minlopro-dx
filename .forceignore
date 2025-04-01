@@ -12,6 +12,9 @@ src/**/unpackaged
 src/minlopro/**/profiles/Admin.profile-meta.xml
 src/minlopro/**/profiles/Minlopro Force%2Ecom Site Profile.profile-meta.xml
 
+# Email-To-Case Setup
+src/minlopro/**/emailservices/EmailToCase.xml-meta.xml
+
 # DigEx Experiece Site (Experience Cloud)
 src/minlopro-digex/**/audience/Default_DigEx.audience-meta.xml
 src/minlopro-digex/**/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
