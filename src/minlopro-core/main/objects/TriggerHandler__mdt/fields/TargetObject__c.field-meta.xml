@@ -55,6 +55,11 @@
                 <default>false</default>
                 <label>User</label>
             </value>
+            <value>
+                <fullName>Lead</fullName>
+                <default>false</default>
+                <label>Lead</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

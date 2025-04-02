@@ -36,7 +36,7 @@
             <caseOwnerType>Queue</caseOwnerType>
             <casePriority>Medium</casePriority>
             <createTask>false</createTask>
-            <emailAddress>awispack+minloprocases@gmail.com</emailAddress>
+            <emailAddress>awispack+minlopro@gmail.com</emailAddress>
             <isPermsetControlled>false</isPermsetControlled>
             <isVerified>true</isVerified>
             <routingName>Route To Queue</routingName>
