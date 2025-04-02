@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import { resolveRecordId, uniqueId } from 'c/utilities';
+import { cloneObject, resolveRecordId, uniqueId, waitAsync } from 'c/utilities';
 
 import USER_ID from '@salesforce/user/Id';
 
@@ -9,117 +9,62 @@ const SAMPLE_CONTACT_ID = resolveRecordId('${SF_SAMPLE_CONTACT_ID}');
 
 export default class Playground extends LightningElement {
     @track selectedUserId = USER_ID;
+    @track selectedChannel = 'sms'; // values [sms, email]
+    @track loading = false;
 
-    get displayInfo() {
-        return {
-            additionalFields: ['Phone']
-        };
+    @track isSmsOptInEligible = true;
+    @track isEmailOptInEligible = true;
+
+    get optInTemplateText() {
+        return 'Hi John,We hope this message finds you well! We are reaching out to ask for your permission to receive [specific information, services, or updates, e.g., marketing communications, newsletters, etc.] from us. Your consent is important, and we would like to ensure you are comfortable with receiving communications from [Your Company Name].';
     }
 
-    get matchingInfo() {
-        return {
-            primaryField: { fieldPath: 'Name' },
-            additionalFields: [{ fieldPath: 'Phone' }]
-        };
+    get isSmsChannel() {
+        return this.selectedChannel === 'sms';
     }
 
-    get sampleStats() {
-        return {
-            'Display Info': JSON.stringify(this.displayInfo),
-            'Matching Info': JSON.stringify(this.matchingInfo),
-            'Another Long Property': 'Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum;',
-            'Another Really Long Property':
-                'Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum; Lorem ip sum',
-            'Contacts #': this.tableData.length
-        };
+    get doDisableSmsChannel() {
+        return this.loading || !this.isSmsOptInEligible;
     }
 
-    get tableColumns() {
-        return [
-            {
-                label: 'Name',
-                fieldName: 'Id',
-                type: 'customLookup',
-                typeAttributes: {
-                    context: { fieldName: 'Id' },
-                    fieldName: 'Id',
-                    objectApiName: 'Contact',
-                    value: { fieldName: 'Id' }
-                }
-            },
-            {
-                label: 'Title',
-                fieldName: 'Title',
-                type: 'text'
-            },
-            {
-                label: 'Account',
-                fieldName: 'AccountId',
-                type: 'customLookup',
-                typeAttributes: {
-                    context: { fieldName: 'Id' },
-                    fieldName: 'AccountId',
-                    objectApiName: 'Account',
-                    value: { fieldName: 'AccountId' }
-                }
-            },
-            {
-                label: 'Industry',
-                fieldName: 'Industry__c',
-                type: 'customPicklist',
-                typeAttributes: {
-                    context: { fieldName: 'Id' },
-                    fieldName: 'Industry__c',
-                    value: { fieldName: 'Industry__c' },
-                    objectApiName: 'Contact'
-                }
-            },
-            {
-                label: 'Job Function',
-                fieldName: 'JobFunction__c',
-                type: 'customPicklist',
-                typeAttributes: {
-                    context: { fieldName: 'Id' },
-                    fieldName: 'JobFunction__c',
-                    value: { fieldName: 'JobFunction__c' },
-                    objectApiName: 'Contact'
-                }
-            },
-            {
-                label: 'Title',
-                fieldName: 'Title',
-                type: 'text'
-            }
-        ];
+    get isEmailChannel() {
+        return this.selectedChannel === 'email';
     }
 
-    get tableData() {
-        return [
-            {
-                Id: SAMPLE_CONTACT_ID || uniqueId(),
-                AccountId: SAMPLE_ACCOUNT_ID,
-                Title: 'Account Executive',
-                Industry__c: 'Technology',
-                JobFunction__c: 'SoftwareDeveloper'
-            }
-        ];
+    get doDisableEmailChannel() {
+        return this.loading || !this.isEmailOptInEligible;
     }
 
-    handleLookupChange(event) {
-        console.log('Playground.js', `handleLookupChange() | ${JSON.stringify(event.detail)}`);
-        const { recordId } = event.detail;
-        this.selectedUserId = recordId || null;
-    }
-
-    handleLookupBlur(event) {
-        console.log('Playground.js', `handleLookupBlur() | ${JSON.stringify(event.detail)}`);
-    }
-
-    handleLookupError(event) {
-        console.error('Playground.js', `handleLookupError() | ${JSON.stringify(event.detail)}`);
+    get hasAnyOptInChannelAvailable() {
+        return this.isSmsOptInEligible || this.isEmailOptInEligible;
     }
 
     async handleCelebrateWithConfetti(event) {
         await this.refs.confetti.celebrate();
+    }
+
+    async handleSendOptInMessage() {
+        this.loading = true;
+        await waitAsync(2000);
+        this.loading = false;
+    }
+
+    handleSelectDeliveryChannel(event) {
+        if (event.target.disabled) {
+            return;
+        }
+        this.selectedChannel = event.target.dataset.name;
+    }
+
+    handleToggleChange(event) {
+        const { name } = event.target.dataset;
+        const { checked } = event.detail;
+        this[name] = checked;
+        // Reset channel;
+        if (this.isSmsOptInEligible) {
+            this.selectedChannel = 'sms';
+        } else {
+            this.selectedChannel = 'email';
+        }
     }
 }

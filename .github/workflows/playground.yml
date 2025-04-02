@@ -94,7 +94,3 @@ jobs:
           echo "PWD as cli tool: $(pwd)"
           echo "PWD as GHA env variable: ${{ env.PWD }}"
           echo "PWD as regular env variable: $PWD"
-      - name: 'Create Tag & Push'
-        run: |
-          git config user.name "${{github.actor}}"
-          bash ./scripts/deploy/create_tag_and_push.sh
