@@ -76,4 +76,9 @@
         <default>false</default>
         <label>Public Relations</label>
     </standardValue>
+    <standardValue>
+        <fullName>Contact2Lead</fullName>
+        <default>false</default>
+        <label>Contact-2-Lead</label>
+    </standardValue>
 </StandardValueSet>

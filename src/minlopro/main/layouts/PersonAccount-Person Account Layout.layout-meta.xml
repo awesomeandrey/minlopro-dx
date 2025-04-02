@@ -39,6 +39,10 @@
                 <behavior>Edit</behavior>
                 <field>Description</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IsCastToLead__pc</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
