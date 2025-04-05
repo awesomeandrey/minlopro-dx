@@ -5,7 +5,7 @@
         <name>Create_Lead_via_HTTP_POST</name>
         <label>Create Lead via HTTP POST</label>
         <locationX>490</locationX>
-        <locationY>782</locationY>
+        <locationY>890</locationY>
         <actionName>Minlopro.Create Lead</actionName>
         <actionType>externalService</actionType>
         <connector>
@@ -37,7 +37,7 @@
     <assignments>
         <name>Calculate_Contacts_Count</name>
         <label>Calculate Contacts Count</label>
-        <locationX>226</locationX>
+        <locationX>412</locationX>
         <locationY>242</locationY>
         <assignmentItems>
             <assignToReference>contactsSize</assignToReference>
@@ -55,7 +55,7 @@
         <name>Update_Contact_Fields</name>
         <label>Update Contact Fields</label>
         <locationX>490</locationX>
-        <locationY>890</locationY>
+        <locationY>998</locationY>
         <assignmentItems>
             <assignToReference>Iterate_Through_Contacts.IsCastToLead__c</assignToReference>
             <operator>Assign</operator>
@@ -67,6 +67,22 @@
             <targetReference>Update_Contact</targetReference>
         </connector>
     </assignments>
+    <choices>
+        <name>dataSyncChoiceBulk</name>
+        <choiceText>Sync records in bulk (via Composite API)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>dataSyncChoiceBulk</stringValue>
+        </value>
+    </choices>
+    <choices>
+        <name>dataSyncChoiceIndividual</name>
+        <choiceText>Sync records 1-by-1 (via SObject REST API)</choiceText>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>dataSyncChoiceIndividual</stringValue>
+        </value>
+    </choices>
     <customProperties>
         <name>ScreenProgressIndicator</name>
         <value>
@@ -74,9 +90,31 @@
         </value>
     </customProperties>
     <decisions>
+        <name>Check_Data_Sync_Mode</name>
+        <label>Check Data Sync Mode</label>
+        <locationX>774</locationX>
+        <locationY>566</locationY>
+        <defaultConnectorLabel>Bulk Sync</defaultConnectorLabel>
+        <rules>
+            <name>Individual_Sync</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>dataSyncChoiceIndividual</leftValueReference>
+                <operator>WasSelected</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Iterate_Through_Contacts</targetReference>
+            </connector>
+            <label>Individual Sync (1-by-1)</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Verify_Records_Selection_And_User_Permissions</name>
         <label>Verify Records Selection &amp; User Permissions</label>
-        <locationX>226</locationX>
+        <locationX>412</locationX>
         <locationY>350</locationY>
         <defaultConnector>
             <targetReference>PreviewAndConfirmationScreen</targetReference>
@@ -100,7 +138,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>SuspendFlow</targetReference>
+                <targetReference>Warning_Screen</targetReference>
             </connector>
             <label>Ineligible</label>
         </rules>
@@ -113,7 +151,7 @@
         <name>Iterate_Through_Contacts</name>
         <label>Iterate Through Contacts</label>
         <locationX>402</locationX>
-        <locationY>566</locationY>
+        <locationY>674</locationY>
         <collectionReference>Select_Contacts</collectionReference>
         <iterationOrder>Asc</iterationOrder>
         <nextValueConnector>
@@ -145,7 +183,7 @@
     <recordLookups>
         <name>Select_Contacts</name>
         <label>Select Contacts</label>
-        <locationX>226</locationX>
+        <locationX>412</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -174,7 +212,7 @@
         <name>Select_Failed_Contacts</name>
         <label>Select Failed Contacts</label>
         <locationX>402</locationX>
-        <locationY>1388</locationY>
+        <locationY>1496</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>ResultssScreen</targetReference>
@@ -202,7 +240,7 @@
         <name>Update_Contact</name>
         <label>Update Contact</label>
         <locationX>490</locationX>
-        <locationY>998</locationY>
+        <locationY>1106</locationY>
         <connector>
             <targetReference>Iterate_Through_Contacts</targetReference>
         </connector>
@@ -215,7 +253,7 @@
         <name>Callout_Error_Screen</name>
         <label>Callout Error Screen</label>
         <locationX>1018</locationX>
-        <locationY>890</locationY>
+        <locationY>998</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -262,7 +300,7 @@
         <name>FailedContactUpdateScreen</name>
         <label>Failed Contact Update Screen</label>
         <locationX>754</locationX>
-        <locationY>1106</locationY>
+        <locationY>1214</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -282,13 +320,13 @@
     <screens>
         <name>PreviewAndConfirmationScreen</name>
         <label>Preview &amp; Confirmation Screen</label>
-        <locationX>402</locationX>
+        <locationX>774</locationX>
         <locationY>458</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Iterate_Through_Contacts</targetReference>
+            <targetReference>Check_Data_Sync_Mode</targetReference>
         </connector>
         <fields>
             <name>InfoText</name>
@@ -296,58 +334,97 @@
             <fieldType>DisplayText</fieldType>
         </fields>
         <fields>
-            <name>ContactsDatatable</name>
-            <dataTypeMappings>
-                <typeName>T</typeName>
-                <typeValue>Contact</typeValue>
-            </dataTypeMappings>
-            <extensionName>flowruntime:datatable</extensionName>
-            <fieldType>ComponentInstance</fieldType>
-            <inputParameters>
-                <name>label</name>
-                <value>
-                    <stringValue>Contacts to Cast</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>selectionMode</name>
-                <value>
-                    <stringValue>NO_SELECTION</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>minRowSelection</name>
-                <value>
-                    <numberValue>0.0</numberValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>tableData</name>
-                <value>
-                    <elementReference>Select_Contacts</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>shouldDisplayLabel</name>
-                <value>
-                    <booleanValue>true</booleanValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>columns</name>
-                <value>
-                    <stringValue>[{&quot;apiName&quot;:&quot;Name&quot;,&quot;guid&quot;:&quot;column-a951&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:0,&quot;label&quot;:&quot;Full Name&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Title&quot;,&quot;guid&quot;:&quot;column-6a6e&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:1,&quot;label&quot;:&quot;Title&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Email&quot;,&quot;guid&quot;:&quot;column-9ba6&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:2,&quot;label&quot;:&quot;Email&quot;,&quot;type&quot;:&quot;email&quot;},{&quot;apiName&quot;:&quot;MobilePhone&quot;,&quot;guid&quot;:&quot;column-88e4&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:3,&quot;label&quot;:&quot;Mobile Phone&quot;,&quot;type&quot;:&quot;phone&quot;},{&quot;apiName&quot;:&quot;IsCastToLead__c&quot;,&quot;guid&quot;:&quot;column-34b8&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:4,&quot;label&quot;:&quot;Cast To Lead?&quot;,&quot;type&quot;:&quot;boolean&quot;}]</stringValue>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>maxRowSelection</name>
-                <value>
-                    <numberValue>0.0</numberValue>
-                </value>
-            </inputParameters>
-            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-            <isRequired>true</isRequired>
-            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <name>PreviewAndConfirmationScreen_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>PreviewAndConfirmationScreen_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Select_Data_Sync_Mode</name>
+                    <choiceReferences>dataSyncChoiceIndividual</choiceReferences>
+                    <choiceReferences>dataSyncChoiceBulk</choiceReferences>
+                    <dataType>String</dataType>
+                    <defaultSelectedChoiceReference>dataSyncChoiceIndividual</defaultSelectedChoiceReference>
+                    <fieldText>Select Data Sync Mode</fieldText>
+                    <fieldType>RadioButtons</fieldType>
+                    <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>3</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>PreviewAndConfirmationScreen_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>ContactsDatatable</name>
+                    <dataTypeMappings>
+                        <typeName>T</typeName>
+                        <typeValue>Contact</typeValue>
+                    </dataTypeMappings>
+                    <extensionName>flowruntime:datatable</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>label</name>
+                        <value>
+                            <stringValue>Contacts to Cast</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>selectionMode</name>
+                        <value>
+                            <stringValue>NO_SELECTION</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>minRowSelection</name>
+                        <value>
+                            <numberValue>0.0</numberValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>tableData</name>
+                        <value>
+                            <elementReference>Select_Contacts</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>shouldDisplayLabel</name>
+                        <value>
+                            <booleanValue>true</booleanValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>columns</name>
+                        <value>
+                            <stringValue>[{&quot;apiName&quot;:&quot;Name&quot;,&quot;guid&quot;:&quot;column-a951&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:0,&quot;label&quot;:&quot;Full Name&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Title&quot;,&quot;guid&quot;:&quot;column-6a6e&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:1,&quot;label&quot;:&quot;Title&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Email&quot;,&quot;guid&quot;:&quot;column-9ba6&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:2,&quot;label&quot;:&quot;Email&quot;,&quot;type&quot;:&quot;email&quot;},{&quot;apiName&quot;:&quot;MobilePhone&quot;,&quot;guid&quot;:&quot;column-88e4&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:3,&quot;label&quot;:&quot;Mobile Phone&quot;,&quot;type&quot;:&quot;phone&quot;},{&quot;apiName&quot;:&quot;IsCastToLead__c&quot;,&quot;guid&quot;:&quot;column-34b8&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:4,&quot;label&quot;:&quot;Cast To Lead?&quot;,&quot;type&quot;:&quot;boolean&quot;}]</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>maxRowSelection</name>
+                        <value>
+                            <numberValue>0.0</numberValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>9</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <nextOrFinishButtonLabel>Cast To Leads</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -360,7 +437,7 @@
         <name>ResultssScreen</name>
         <label>Results Screen</label>
         <locationX>402</locationX>
-        <locationY>1496</locationY>
+        <locationY>1604</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -462,8 +539,8 @@
         </stageReference>
     </screens>
     <screens>
-        <name>SuspendFlow</name>
-        <label>Suspend Flow</label>
+        <name>Warning_Screen</name>
+        <label>Warning Screen</label>
         <locationX>50</locationX>
         <locationY>458</locationY>
         <allowBack>false</allowBack>
@@ -497,7 +574,7 @@
         <stageOrder>2</stageOrder>
     </stages>
     <start>
-        <locationX>100</locationX>
+        <locationX>286</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Select_Contacts</targetReference>
@@ -508,7 +585,7 @@
         <name>Transform_Contact_To_Lead_Payload</name>
         <label>Transform Contact To Lead Payload</label>
         <locationX>490</locationX>
-        <locationY>674</locationY>
+        <locationY>782</locationY>
         <apexClass>ExternalService__Minlopro_Createx20Lead_IN_body</apexClass>
         <connector>
             <targetReference>Create_Lead_via_HTTP_POST</targetReference>
