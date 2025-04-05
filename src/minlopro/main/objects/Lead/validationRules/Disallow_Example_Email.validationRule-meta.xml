@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disallow_Example_Email</fullName>
+    <active>true</active>
+    <errorConditionFormula>CONTAINS(Email,&apos;example&apos;)</errorConditionFormula>
+    <errorDisplayField>Email</errorDisplayField>
+    <errorMessage>Unable to create Lead with &apos;example&apos;-like Email.</errorMessage>
+</ValidationRule>
