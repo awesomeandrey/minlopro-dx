@@ -13,4 +13,6 @@ if git status --short "$docs_dir" | grep -q "$docs_dir"; then
   git status --porcelain
   git commit -m "Automation: Generated Flows Docs 📑"
   git push origin HEAD
+else
+  echo "⚪ No changes detected, flows docs are up-to-date."
 fi

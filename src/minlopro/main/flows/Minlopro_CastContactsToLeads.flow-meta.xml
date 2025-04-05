@@ -121,7 +121,7 @@
             <label>Ineligible</label>
         </rules>
     </decisions>
-    <description>Casts user-selected Contacts to Leads through Salesforce REST API.</description>
+    <description>Casts user-selected Contacts to Leads through standard Salesforce REST API.</description>
     <environments>Default</environments>
     <interviewLabel>Minlopro - Send Contacts To Leads {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Cast Contacts To Leads</label>
