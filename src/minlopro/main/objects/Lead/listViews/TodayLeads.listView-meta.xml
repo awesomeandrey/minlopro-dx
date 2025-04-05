@@ -6,6 +6,7 @@
     <columns>LEAD.COMPANY</columns>
     <columns>LEAD.STATUS</columns>
     <columns>Products__c</columns>
+    <columns>LEAD.LEAD_SOURCE</columns>
     <columns>SrcCode__c</columns>
     <columns>LEAD.CREATED_DATE</columns>
     <columns>LEAD.UNREAD</columns>

@@ -3,7 +3,6 @@
     <fullName>CheckIfDuplicate__c</fullName>
     <defaultValue>false</defaultValue>
     <description>Flag that indicates that custom duplicate rule(s) on Contact object should de-duplicate the record.</description>
-    <externalId>false</externalId>
     <inlineHelpText
         >Flag that indicates that custom duplicate rule(s) on Contact object should de-duplicate the record.</inlineHelpText
     >
