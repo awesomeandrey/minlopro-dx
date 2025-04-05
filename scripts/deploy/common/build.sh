@@ -13,6 +13,7 @@ sfCliPackageName="@salesforce/cli"
 if ! npm ls -g "$sfCliPackageName" &> /dev/null; then
   echo "Installing [$sfCliPackageName] globally."
   npm install @salesforce/cli --global --silent
+  # Run `npm update @salesforce/cli --global` to update CLI locally
 fi
 echo "Salesforce CLI: $(sf --version)"
 
