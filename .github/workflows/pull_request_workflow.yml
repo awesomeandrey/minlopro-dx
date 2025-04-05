@@ -32,7 +32,7 @@ jobs:
           git pull
           git checkout ${{github.head_ref}}
           git pull
-          echo ${{github.base_ref}} | bash ./scripts/deploy/run_prettier_check_against_changed_files.sh
+          echo ${{github.base_ref}} | bash ./scripts/deploy/validations/run_prettier_check_against_changed_files.sh
   run-jest-tests:
     runs-on: ubuntu-22.04
     continue-on-error: false
@@ -79,8 +79,8 @@ jobs:
           key: ${{ runner.os }}-minlopro-dx-tools-${{ hashFiles('**/package-lock.json') }}
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
-          bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
+          bash ./scripts/deploy/common/build.sh
+          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
           SF_TARGET_ORG_ALIAS="$(bash ./scripts/util/set_target_org_compound_alias.sh)"; sf alias list
           echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_ENV
       - name: 'Generate Delta Manifests'
@@ -90,7 +90,7 @@ jobs:
           # To Branch
           git checkout "${{github.head_ref}}"; git pull
           # Generate manifests via SGD plugin;          
-          bash ./scripts/deploy/sgd_generate_manifests.sh "${{github.base_ref}}" "${{github.head_ref}}"
+          bash ./scripts/deploy/common/sgd_generate_manifests.sh "${{github.base_ref}}" "${{github.head_ref}}"
       - name: "Run PRE-Deploy Scripts"
         run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Check-Only Deploy Source to Target Org'

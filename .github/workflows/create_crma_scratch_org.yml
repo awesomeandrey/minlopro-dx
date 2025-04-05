@@ -32,8 +32,8 @@ jobs:
           node-version: '20.x'
       - name: 'Install Salesforce CLI & Authorize CRM Analytics DevHub Org'
         run: |
-          bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
+          bash ./scripts/deploy/common/build.sh
+          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
           sf config set target-dev-hub "DevHub"
       - name: 'Spin Up Brand New CRMA Scratch Org'
         id: spin_scratch_org

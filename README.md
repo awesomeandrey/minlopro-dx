@@ -31,7 +31,7 @@ for configuring `$JAVA_HOME` environment variable.
 
 Additionally install utility tools as follows: [`jq`](https://www.baeldung.com/linux/jq-command-json), [`xmllint`](https://www.baeldung.com/linux/xmllint), [`xmlstarlet`](https://xmlstar.sourceforge.net).
 
-Run `bash ./scripts/deploy/build.sh` in order to load project dependencies (including [Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_unified.htm)).
+Run `bash ./scripts/deploy/common/build.sh` in order to load project dependencies (including [Salesforce CLI](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_unified.htm)).
 
 Look through the pre-configured GitHub Workflows/Actions located in `.github/workflows/` folder.
 
@@ -43,7 +43,7 @@ Spin up scratch org by
 running [Create Scratch Org](https://github.com/awesomeandrey/minlopro-dx/actions/workflows/create_scratch_org.yml)
 GitHub Action Workflow.
 
-Authorize scratch org using [`authorize_org.sh`](scripts/deploy/authorize_org.sh) command.
+Authorize scratch org using [`authorize_org.sh`](scripts/deploy/common/authorize_org.sh) command.
 
 Make sure that the changed codebase files are _prettified_ via `npm run prettier:src:write` command.
 Alternatively, you can run `npm run prettier:src:check` in order to identify _non-prettified_ files.

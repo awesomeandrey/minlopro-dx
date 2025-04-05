@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/sgd_generate_manifests.sh
-# - bash ./scripts/deploy/sgd_generate_manifests.sh "$FROM_REF" "$TO_REF"
-# - echo $TXT_FILE_WITH_BRANCH_NAMES | bash ./scripts/deploy/sgd_generate_manifests.sh
+# - bash ./scripts/deploy/common/sgd_generate_manifests.sh
+# - bash ./scripts/deploy/common/sgd_generate_manifests.sh "$FROM_REF" "$TO_REF"
+# - echo $TXT_FILE_WITH_BRANCH_NAMES | bash ./scripts/deploy/common/sgd_generate_manifests.sh
 
 FROM_REF=$1
 TO_REF=$2

@@ -57,7 +57,7 @@ jobs:
           sf plugins
       - name: "Install Environment Tools"
         run: |
-          bash ./scripts/deploy/build.sh
+          bash ./scripts/deploy/common/build.sh
           echo "====="
           echo "which xmlstarlet $(which xmlstarlet)"
           echo "which xmllint $(which xmllint)"

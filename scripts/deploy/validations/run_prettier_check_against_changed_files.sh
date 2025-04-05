@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/run_prettier_check_against_changed_files.sh
-# - echo "develop" | bash ./scripts/deploy/run_prettier_check_against_changed_files.sh
+# - bash ./scripts/deploy/validations/run_prettier_check_against_changed_files.sh
+# - echo "develop" | bash ./scripts/deploy/validations/run_prettier_check_against_changed_files.sh
 
 # Define constants;
 buildFolderName="build"

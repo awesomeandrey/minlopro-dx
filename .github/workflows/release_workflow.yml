@@ -34,21 +34,21 @@ jobs:
           fetch-depth: 0
       - name: 'Install Salesforce CLI & Authorize Production Org'
         run: |
-          bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "Prod"
+          bash ./scripts/deploy/common/build.sh
+          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "Prod"
           git checkout main; git pull
       - name: "Generate Release Manifests (pull_request)"
         if: ${{ github.event_name == 'pull_request' }}
         run: |
           releaseBranchName="${{github.head_ref}}"
           git checkout "$releaseBranchName"; git pull
-          bash ./scripts/deploy/sgd_generate_manifests.sh "main" "$releaseBranchName"
+          bash ./scripts/deploy/common/sgd_generate_manifests.sh "main" "$releaseBranchName"
       - name: "Generate Release Manifests (workflow_dispatch)"
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           releaseBranchName="${GITHUB_REF#refs/heads/}"
           git checkout "$releaseBranchName"; git pull
-          bash ./scripts/deploy/sgd_generate_manifests.sh "main" "$releaseBranchName"
+          bash ./scripts/deploy/common/sgd_generate_manifests.sh "main" "$releaseBranchName"
       - name: "Run PRE-Deploy Scripts"
         run: echo "Prod" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Validate Deployment And Extract Job ID'
@@ -72,8 +72,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: 'Install Salesforce CLI & Authorize Production Org'
         run: |
-          bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "Prod"
+          bash ./scripts/deploy/common/build.sh
+          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "Prod"
       - name: 'Quick Deploy By Job ID'
         run: |
           jobId="${{ needs.sf-validate-deployment.outputs.job_id }}"
