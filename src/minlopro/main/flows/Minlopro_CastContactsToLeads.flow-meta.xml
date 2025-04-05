@@ -206,6 +206,16 @@
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>Contact</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>LastName</queriedFields>
+        <queriedFields>FirstName</queriedFields>
+        <queriedFields>Title</queriedFields>
+        <queriedFields>Phone</queriedFields>
+        <queriedFields>Email</queriedFields>
+        <queriedFields>LeadSource</queriedFields>
+        <queriedFields>MobilePhone</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>IsCastToLead__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
@@ -234,6 +244,15 @@
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>Contact</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Title</queriedFields>
+        <queriedFields>FirstName</queriedFields>
+        <queriedFields>LastName</queriedFields>
+        <queriedFields>Phone</queriedFields>
+        <queriedFields>Email</queriedFields>
+        <queriedFields>LeadSource</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>IsCastToLead__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
