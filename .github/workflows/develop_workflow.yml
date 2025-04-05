@@ -111,13 +111,20 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - name: "Cache Environment Tools"
+        uses: actions/cache@v4
+        with:
+          path: |
+            /opt/hostedtoolcache/node/20.19.0/x64
+            ~/.local/share/sf
+          key: ${{ runner.os }}-minlopro-dx-tools-${{ hashFiles('**/package-lock.json') }}
       - name: 'Install Salesforce CLI'
         run: bash ./scripts/deploy/common/build.sh
-      - name: 'Create Tag & Push'
-        run: |
-          git config user.name "${{github.actor}}"
-          bash ./scripts/deploy/post-merge-actions/create_tag_and_push.sh
       - name: 'Generate Flows Docs & Push'
         run: |
           git config user.name "${{github.actor}}"
           bash ./scripts/deploy/post-merge-actions/generate_flow_docs_and_push.sh
+      - name: 'Create Tag & Push'
+        run: |
+          git config user.name "${{github.actor}}"
+          bash ./scripts/deploy/post-merge-actions/create_tag_and_push.sh
