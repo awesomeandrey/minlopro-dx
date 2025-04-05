@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/authorize_org.sh --sfdxUrl "force://..."
-# - bash ./scripts/deploy/authorize_org.sh --sfdxUrl "force://..." --orgAlias "ORG_ALIAS"
+# - bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "force://..."
+# - bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "force://..." --orgAlias "ORG_ALIAS"
 
 # Input variables;
 orgAlias="TARGET_ORG"

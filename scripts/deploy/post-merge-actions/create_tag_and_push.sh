@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/create_tag_and_push.sh
+# - bash ./scripts/deploy/post-merge-actions/create_tag_and_push.sh
 
 set -e
 

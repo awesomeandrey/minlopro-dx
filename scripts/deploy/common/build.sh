@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/build.sh
+# - bash ./scripts/deploy/common/build.sh
 
 set -e
 echo "🔵 Building environment and installing dependencies..."

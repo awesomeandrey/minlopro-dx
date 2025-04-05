@@ -51,8 +51,8 @@ jobs:
           key: ${{ runner.os }}-minlopro-dx-tools-${{ hashFiles('**/package-lock.json') }}
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
-          bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
+          bash ./scripts/deploy/common/build.sh
+          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
           SF_TARGET_ORG_ALIAS="$(bash ./scripts/util/set_target_org_compound_alias.sh)"; sf alias list
           echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_ENV
       - name: "Run PRE-Deploy Scripts"
@@ -83,8 +83,8 @@ jobs:
           key: ${{ runner.os }}-minlopro-dx-tools-${{ hashFiles('**/package-lock.json') }}
       - name: 'Install Salesforce CLI & Authorize Target Org'
         run: |
-          bash ./scripts/deploy/build.sh
-          bash ./scripts/deploy/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
+          bash ./scripts/deploy/common/build.sh
+          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
       - name: 'Run All Apex Tests with Coverage'
         run: npm run sf:apex:tests:coverage
   run-pmd-checks:
@@ -105,13 +105,19 @@ jobs:
           name: minlopro-apex-pmd-report
           path: build/apex-pmd-report.html
           retention-days: 5
-  create-git-tag:
+  run-post-merge-actions:
     if: ${{ github.event_name == 'push' }}
     needs: [ deploy-source-to-org, run-apex-tests ]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - name: 'Install Salesforce CLI'
+        run: bash ./scripts/deploy/common/build.sh
       - name: 'Create Tag & Push'
         run: |
           git config user.name "${{github.actor}}"
-          bash ./scripts/deploy/create_tag_and_push.sh
+          bash ./scripts/deploy/post-merge-actions/create_tag_and_push.sh
+      - name: 'Generate Flows Docs & Push'
+        run: |
+          git config user.name "${{github.actor}}"
+          bash ./scripts/deploy/post-merge-actions/generate_flow_docs_and_push.sh

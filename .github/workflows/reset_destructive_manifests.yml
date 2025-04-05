@@ -20,7 +20,7 @@ jobs:
         with:
           node-version: '20.x'
       - name: 'Install Dependencies'
-        run: bash ./scripts/deploy/build.sh
+        run: bash ./scripts/deploy/common/build.sh
       - name: 'Reset Manifests & Commit Changes'
         run: |
           # Set Git user info (required step)
