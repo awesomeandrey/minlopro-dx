@@ -1,7 +1,6 @@
 name: Playground 🐚
 run-name: "Playground [${{ inputs.environment }}] / '${{ github.actor }}'"
 
-# Trigger Events
 on:
   workflow_dispatch:
     branches:
