@@ -111,6 +111,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
       - name: "Cache Environment Tools"
         uses: actions/cache@v4
         with:

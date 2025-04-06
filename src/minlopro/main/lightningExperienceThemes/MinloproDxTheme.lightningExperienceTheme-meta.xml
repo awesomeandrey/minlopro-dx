@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningExperienceTheme xmlns="http://soap.sforce.com/2006/04/metadata">
+    <defaultBrandingSet>LEXTHEMINGMinloproDxTheme</defaultBrandingSet>
+    <description>Custom theme compatible with SLDS-1.</description>
+    <designSystemVersion>SLDS_v1</designSystemVersion>
+    <masterLabel>Minlopro DX Theme</masterLabel>
+    <shouldOverrideLoadingImage>false</shouldOverrideLoadingImage>
+</LightningExperienceTheme>
