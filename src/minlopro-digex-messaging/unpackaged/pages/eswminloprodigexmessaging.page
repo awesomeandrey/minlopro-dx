@@ -1,0 +1,8 @@
+<apex:page showHeader="false" applyHtmlTag="false" applyBodyTag="false" lightningStylesheets="true">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <head>
+            <title>Test Messaging | Salesforce</title>
+            <!--Automatically generated content will go here-->
+        </head>
+    </html>
+</apex:page>

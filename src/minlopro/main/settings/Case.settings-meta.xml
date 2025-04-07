@@ -38,7 +38,6 @@
             <createTask>false</createTask>
             <emailAddress>awispack+minlopro@gmail.com</emailAddress>
             <isPermsetControlled>false</isPermsetControlled>
-            <isVerified>true</isVerified>
             <routingName>Route To Queue</routingName>
             <saveEmailHeaders>true</saveEmailHeaders>
         </routingAddresses>
