@@ -4,6 +4,8 @@
 # - bash ./scripts/deploy/pre/run_pre.sh
 # - echo "ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 
+set -e
+
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 npx cowsay -W 100 "📗 Running PRE-Deploy Scripts against [$TARGET_ORG_ALIAS] organization..."
 

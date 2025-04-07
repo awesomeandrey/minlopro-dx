@@ -10,7 +10,7 @@
         <callbackUrl>${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE
 https://test.salesforce.com/services/extidp/callback
 https://login.salesforce.com/services/extidp/callback</callbackUrl>
-        <certificate>${SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT}</certificate>
+        <certificate>${SF_MINLOPRO_CERT_BASE64_VALUE}</certificate>
         <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>true</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>

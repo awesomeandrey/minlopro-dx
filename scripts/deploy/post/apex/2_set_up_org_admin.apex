@@ -9,6 +9,7 @@ update new User(
     Title = 'Administrator',
     UserPreferencesUserDebugModePref = true,
     Country = 'United States',
+    FederationIdentifier = UserInfo.getUserName(),
     ExternalId__c = UserInfo.getUserName(),
     UserPreferencesHasSentWarningEmail = true,
     UserPermissionsKnowledgeUser = true
@@ -21,6 +22,7 @@ User runningUser = [
         UserRole.Name,
         UserType,
         UserPermissionsKnowledgeUser,
+        FederationIdentifier,
         ExternalId__c,
         TimeZoneSidKey
     FROM User
@@ -34,15 +36,7 @@ GroupMember gm = new GroupMember(GroupId = targetGroup.Id, UserOrGroupId = userI
 Database.insert(gm, false);
 
 DebugTableFormatter formatter = new DebugTableFormatter(
-    new List<String>{
-        'Id',
-        'Name',
-        'UserPreferencesUserDebugModePref',
-        'Country',
-        'UserPermissionsKnowledgeUser',
-        'ExternalId__c',
-        'TimeZoneSidKey'
-    },
+    new List<String>{ 'Id', 'Name', 'UserRole.Name', 'Country', 'FederationIdentifier', 'ExternalId__c', 'TimeZoneSidKey' },
     Lists.of(runningUser)
 );
 formatter.log(String.format('⚪ Successfully set up [{0}] user:\n', Lists.of(runningUser.Name)));

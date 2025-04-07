@@ -14,40 +14,10 @@
     "sourceApiVersion": "63.0",
     "replacements": [
         {
-            "glob": "src/**",
-            "stringToReplace": "${SF_USERNAME}",
-            "replaceWithEnv": "SF_USERNAME"
-        },
-        {
-            "glob": "src/**",
-            "stringToReplace": "${SF_INSTANCE_URL}",
-            "replaceWithEnv": "SF_INSTANCE_URL"
-        },
-        {
-            "glob": "src/**",
-            "stringToReplace": "${SF_INSTANCE_ID}",
-            "replaceWithEnv": "SF_INSTANCE_ID"
-        },
-        {
-            "glob": "src/**",
-            "stringToReplace": "${SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT}",
-            "replaceWithEnv": "SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT",
+            "glob": "src/**/staticresources/**",
+            "regexToReplace": "<searchLayouts>[\\s\\S]*?</searchLayouts>",
+            "replaceWithEnv": "SF_EMPTY_STRING",
             "allowUnsetEnvVariable": true
-        },
-        {
-            "glob": "src/**",
-            "stringToReplace": "${SF_SITE_URL}",
-            "replaceWithEnv": "SF_SITE_URL"
-        },
-        {
-            "glob": "src/**",
-            "stringToReplace": "${SF_SITE_DOMAIN_NAME}",
-            "replaceWithEnv": "SF_SITE_DOMAIN_NAME"
-        },
-        {
-            "glob": "src/**",
-            "stringToReplace": "${SF_MESSAGING_SERVICE_CHANNEL_ID}",
-            "replaceWithEnv": "SF_MESSAGING_SERVICE_CHANNEL_ID"
         },
         {
             "glob": "src/**",
@@ -63,6 +33,32 @@
             "glob": "src/**",
             "stringToReplace": "${SF_GOOGLE_API_KEY}",
             "replaceWithEnv": "SF_GOOGLE_API_KEY"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_INSTANCE_ID}",
+            "replaceWithEnv": "SF_INSTANCE_ID"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_INSTANCE_URL}",
+            "replaceWithEnv": "SF_INSTANCE_URL"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_MESSAGING_SERVICE_CHANNEL_ID}",
+            "replaceWithEnv": "SF_MESSAGING_SERVICE_CHANNEL_ID"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_MINLOPRO_CERT_ID}",
+            "replaceWithEnv": "SF_MINLOPRO_CERT_ID"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_MINLOPRO_CERT_BASE64_VALUE}",
+            "replaceWithEnv": "SF_MINLOPRO_CERT_BASE64_VALUE",
+            "allowUnsetEnvVariable": true
         },
         {
             "glob": "src/**/lwc/**",
@@ -89,10 +85,19 @@
             "allowUnsetEnvVariable": true
         },
         {
-            "glob": "src/**/staticresources/**",
-            "regexToReplace": "<searchLayouts>[\\s\\S]*?</searchLayouts>",
-            "replaceWithEnv": "SF_EMPTY_STRING",
-            "allowUnsetEnvVariable": true
+            "glob": "src/**",
+            "stringToReplace": "${SF_SITE_DOMAIN_NAME}",
+            "replaceWithEnv": "SF_SITE_DOMAIN_NAME"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_SITE_URL}",
+            "replaceWithEnv": "SF_SITE_URL"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_USERNAME}",
+            "replaceWithEnv": "SF_USERNAME"
         }
     ]
 }

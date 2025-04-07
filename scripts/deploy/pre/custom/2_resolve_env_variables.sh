@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/pre/custom/resolve_env_variables.sh
-# - echo 'ORG_ALIAS' | bash ./scripts/deploy/pre/custom/resolve_env_variables.sh
+# - bash ./scripts/deploy/pre/custom/2_resolve_env_variables.sh
+# - echo 'ORG_ALIAS' | bash ./scripts/deploy/pre/custom/2_resolve_env_variables.sh
 
-# Enable errexit option to exit on command failure
 set -e
 
 # Color themes
@@ -18,7 +17,8 @@ echo "🔵 Resolving environment variables for [$TARGET_ORG_ALIAS] organization.
 # Copy content of '.env.manifest' file to '.env' in repository root (force overwrite)
 ENV_FILEPATH=".env"
 if ! [ -f "$ENV_FILEPATH" ]; then
-  cp -f "scripts/.env.manifest" "$ENV_FILEPATH"
+  # Create new '.env' file excluding empty & comment lines
+  grep -v "^#" "scripts/.env.manifest" | grep -v '^$' | sort > "$ENV_FILEPATH"
 fi
 
 # Determine OS and define 'sed' command based on OS
@@ -35,32 +35,29 @@ fi
 
 # Function that manipulates with the content of '.env' file
 add_or_update_env_var() {
-    local var_name=$1
-    local var_value=$2
+    local var_name="$1"
+    local var_value="$2"
     # Check if the variable exists in the file
     if grep -q "^$var_name=" "$ENV_FILEPATH"; then
         # Variable found; update it
-        $SED_COMMAND "s|^$var_name=.*$|$var_name=$var_value|" "$ENV_FILEPATH"
+        $SED_COMMAND "s|^${var_name}=.*$|${var_name}=${var_value}|" "$ENV_FILEPATH"
     else
         # Variable not found; add it
         echo "$var_name=$var_value" >> "$ENV_FILEPATH"
     fi
-    # echo -e "- ${BlueColor}$var_name${NoColor} variable was set to ${BlueColor}$var_value${NoColor}"
+    echo -e "- ${BlueColor}$var_name${NoColor} variable was set to ${BlueColor}$var_value${NoColor}"
 }
 
 # Calculate & set static variables
-targetOrgUsername=$(sf org display user --json --target-org="$TARGET_ORG_ALIAS" | jq -r '.result.username')
-add_or_update_env_var "SF_USERNAME" "$targetOrgUsername"
-targetOrgInstanceUrl=$(sf org display --json --target-org="$TARGET_ORG_ALIAS" | jq -r '.result.instanceUrl')
-add_or_update_env_var "SF_INSTANCE_URL" "$targetOrgInstanceUrl"
-targetOrgInstanceId=$(sf org display --json --target-org="$TARGET_ORG_ALIAS" | jq -r '.result.id')
-add_or_update_env_var "SF_INSTANCE_ID" "$targetOrgInstanceId"
-targetOrgSiteUrl=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_url.sh)
-add_or_update_env_var "SF_SITE_URL" "$targetOrgSiteUrl"
-targetOrgSiteDomainName=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_site_domain_name.sh)
-add_or_update_env_var "SF_SITE_DOMAIN_NAME" "$targetOrgSiteDomainName"
-targetOrgMessagingServiceChannelId=$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/util/get_messaging_service_channel_id.sh)
-add_or_update_env_var "SF_MESSAGING_SERVICE_CHANNEL_ID" "$targetOrgMessagingServiceChannelId"
+orgInfoJson=$(sf org display --json --target-org="$TARGET_ORG_ALIAS")
+add_or_update_env_var "SF_INSTANCE_ID" "$(echo "$orgInfoJson" | jq -r '.result.id')"
+add_or_update_env_var "SF_INSTANCE_URL" "$(echo "$orgInfoJson" | jq -r '.result.instanceUrl')"
+add_or_update_env_var "SF_MESSAGING_SERVICE_CHANNEL_ID" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_messaging_service_channel_id.sh)"
+add_or_update_env_var "SF_MINLOPRO_CERT_ID" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_minlopro_cert_id.sh)"
+add_or_update_env_var "SF_MINLOPRO_CERT_BASE64_VALUE" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_minlopro_cert_base64_value.sh)"
+add_or_update_env_var "SF_SITE_DOMAIN_NAME" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_site_domain_name.sh)"
+add_or_update_env_var "SF_SITE_URL" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_site_url.sh)"
+add_or_update_env_var "SF_USERNAME" "$(echo "$orgInfoJson" | jq -r '.result.username')"
 
 # Capture environment variables in current shell and upsert them to '.env' file (used within GitHub actions)
 for var in $(printenv | grep '^SF_'); do
@@ -74,7 +71,7 @@ done
 
 # Display variables
 echo -e "${BlueColor}Environment Variables:${NoColor}"
-(grep -v "^#" | grep -v '^$' | column -t -s "=" | sort) < "$ENV_FILEPATH"
+grep -v "^#" "$ENV_FILEPATH" | grep -v '^$' | column -t -s "=" | sort
 
 # Copy '.env' file to 'build' folder
 mkdir -p "build"

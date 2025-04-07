@@ -3,6 +3,7 @@
     <description>PSG for internal users only.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - PSG - Internal User</label>
+    <mutingPermissionSets>DangerousPermissions</mutingPermissionSets>
     <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_ApprovalProcessBreakdown</permissionSets>
     <permissionSets>Minlopro_Car</permissionSets>
