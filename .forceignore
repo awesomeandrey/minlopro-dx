@@ -6,13 +6,6 @@
 # Intentionally excluded metadata (i.e. problematic or managed package metadata)
 src/**/unpackaged
 
-# DigEx Experiece Site (Experience Cloud)
-src/minlopro-digex/**/audience/Default_DigEx.audience-meta.xml
-src/minlopro-digex/**/navigationMenus/SFDC_Default_Navigation_DigEx.navigationMenu-meta.xml
-
-# ESW_Minlopro_DigExMessaging (Experience Cloud) - Experience Site for Messaging for Web deployment for 'DigEx' site
-src/minlopro-digex-messaging/**/audience/Default_ESW_Minlopro_DigExMessaging.audience-meta.xml
-
 # CRM Analytics (formely known as Wave Analytics)
 **/minlopro-crm-analytics
 

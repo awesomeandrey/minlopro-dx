@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/pre/custom/1_deploy_minlopro_certificate.sh
-# - echo 'ORG_ALIAS' | bash ./scripts/deploy/pre/custom/1_deploy_minlopro_certificate.sh
+# - bash ./scripts/deploy/pre/custom/1_deploy_dependent_metadata.sh
+# - echo 'ORG_ALIAS' | bash ./scripts/deploy/pre/custom/1_deploy_dependent_metadata.sh
 
 set -e
 
@@ -11,7 +11,8 @@ echo "🔵 Deploying 'Minlopro' certificate to [$TARGET_ORG_ALIAS] organization.
 
 sf project generate manifest \
   --name 'manifests/package.xml' \
-  --metadata Certificate:Minlopro
+  --metadata Certificate:Minlopro \
+  --metadata ApexClass:AxiomSamlJitHandler
 
 npx dotenv -e "scripts/.env.manifest" -- sf project deploy start \
   --target-org "$TARGET_ORG_ALIAS" \

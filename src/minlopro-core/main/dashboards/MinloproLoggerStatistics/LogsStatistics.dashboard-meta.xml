@@ -221,8 +221,8 @@
     <dashboardType>SpecifiedUser</dashboardType>
     <description>Overall logs statistics.</description>
     <isGridLayout>true</isGridLayout>
-    <owner>${SF_USERNAME}</owner>
-    <runningUser>${SF_USERNAME}</runningUser>
+    <owner>${SF_ADMIN_USERNAME}</owner>
+    <runningUser>${SF_ADMIN_USERNAME}</runningUser>
     <textColor>#000000</textColor>
     <title>Logs Statistics</title>
     <titleColor>#000000</titleColor>

@@ -23,8 +23,8 @@
     <redirectToCustomDomain>false</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
     <selfRegPage>CommunitiesSelfReg</selfRegPage>
-    <siteAdmin>${SF_USERNAME}</siteAdmin>
-    <siteGuestRecordDefaultOwner>${SF_USERNAME}</siteGuestRecordDefaultOwner>
+    <siteAdmin>${SF_ADMIN_USERNAME}</siteAdmin>
+    <siteGuestRecordDefaultOwner>${SF_ADMIN_USERNAME}</siteGuestRecordDefaultOwner>
     <siteIframeWhiteListUrls>
         <url>${SF_SITE_DOMAIN_NAME}.my.site.com</url>
     </siteIframeWhiteListUrls>

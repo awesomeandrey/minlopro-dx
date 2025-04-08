@@ -7,5 +7,5 @@
     <pushTimeout>20</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>1</routingPriority>
-    <userOverflowAssignee>${SF_USERNAME}</userOverflowAssignee>
+    <userOverflowAssignee>${SF_ADMIN_USERNAME}</userOverflowAssignee>
 </QueueRoutingConfig>

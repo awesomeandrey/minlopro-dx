@@ -4,7 +4,7 @@
  * - Trailhead Module: https://trailhead.salesforce.com/content/learn/modules/identity_login/identity_login_sso
  * - Axiom (SSO Tools): https://axiomsso.herokuapp.com.
  */
-public class AxiomSoap {
+public class AxiomSoapApi {
     public class AxiomSamlRequest {
         public String samlVersion;
         public String issuer;
@@ -62,7 +62,7 @@ public class AxiomSoap {
         private String[] field_order_type_info = new List<String>{ 'generateSamlResponseReturn' };
     }
     public class generateSamlResponse_element {
-        public AxiomSoap.AxiomSamlRequest axiomSamlRequest;
+        public AxiomSoapApi.AxiomSamlRequest axiomSamlRequest;
         private String[] axiomSamlRequest_type_info = new List<String>{
             'axiomSamlRequest',
             'urn:axiom.soap',
@@ -82,12 +82,12 @@ public class AxiomSoap {
         public String clientCert_x;
         public String clientCertPasswd_x;
         public Integer timeout_x;
-        private String[] ns_map_type_info = new List<String>{ 'urn:axiom.soap', 'AxiomSoap' };
-        public String generateSamlResponse(AxiomSoap.AxiomSamlRequest axiomSamlRequest) {
-            AxiomSoap.generateSamlResponse_element request_x = new AxiomSoap.generateSamlResponse_element();
+        private String[] ns_map_type_info = new List<String>{ 'urn:axiom.soap', 'AxiomSoapApi' };
+        public String generateSamlResponse(AxiomSoapApi.AxiomSamlRequest axiomSamlRequest) {
+            AxiomSoapApi.generateSamlResponse_element request_x = new AxiomSoapApi.generateSamlResponse_element();
             request_x.axiomSamlRequest = axiomSamlRequest;
-            AxiomSoap.generateSamlResponseResponse_element response_x;
-            Map<String, AxiomSoap.generateSamlResponseResponse_element> response_map_x = new Map<String, AxiomSoap.generateSamlResponseResponse_element>();
+            AxiomSoapApi.generateSamlResponseResponse_element response_x;
+            Map<String, AxiomSoapApi.generateSamlResponseResponse_element> response_map_x = new Map<String, AxiomSoapApi.generateSamlResponseResponse_element>();
             response_map_x.put('response_x', response_x);
             WebServiceCallout.invoke(
                 this,
@@ -100,7 +100,7 @@ public class AxiomSoap {
                     'generateSamlResponse',
                     'urn:axiom.soap',
                     'generateSamlResponseResponse',
-                    'AxiomSoap.generateSamlResponseResponse_element'
+                    'AxiomSoapApi.generateSamlResponseResponse_element'
                 }
             );
             response_x = response_map_x.get('response_x');

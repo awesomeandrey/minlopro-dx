@@ -23,7 +23,7 @@ https://login.salesforce.com/services/extidp/callback</callbackUrl>
         <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
         <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
         <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
-        <oauthClientCredentialUser>${SF_USERNAME}</oauthClientCredentialUser>
+        <oauthClientCredentialUser>${SF_ADMIN_USERNAME}</oauthClientCredentialUser>
         <scopes>Basic</scopes>
         <scopes>Api</scopes>
         <scopes>Web</scopes>

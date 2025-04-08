@@ -54,6 +54,11 @@ public inherited sharing class PermissionSetService {
         return this.assign(userId, permissionSetOrGroupIds);
     }
 
+    public Id assignAsync(Id userId, Set<String> permissionSetOrGroupNames) {
+        // Used to overcome 'MIXED_DML_OPERATION' errors;
+        return System.enqueueJob(new PermissionSetServiceWorker(instance, userId, permissionSetOrGroupNames));
+    }
+
     public List<Database.UpsertResult> assign(Id userId, Set<Id> permissionSetOrGroupIds) {
         List<PermissionSetAssignment> assignments = new List<PermissionSetAssignment>();
         for (Id psOrPsgId : permissionSetOrGroupIds) {
@@ -120,5 +125,25 @@ public inherited sharing class PermissionSetService {
             return String.format('{0} = {1}', Lists.of(error.getStatusCode().name(), error.getMessage()));
         }
         return '';
+    }
+
+    private class PermissionSetServiceWorker implements Queueable {
+        private final PermissionSetService instance;
+        private final Id userId;
+        private final Set<String> permissionSetOrGroupNames;
+
+        private PermissionSetServiceWorker(PermissionSetService instance, Id userId, Set<String> permissionSetOrGroupNames) {
+            this.instance = instance;
+            this.userId = userId;
+            this.permissionSetOrGroupNames = permissionSetOrGroupNames;
+        }
+
+        public void execute(QueueableContext context) {
+            try {
+                this.instance.assign(this.userId, this.permissionSetOrGroupNames);
+            } catch (Exception ex) {
+                Logger.error(ex);
+            }
+        }
     }
 }

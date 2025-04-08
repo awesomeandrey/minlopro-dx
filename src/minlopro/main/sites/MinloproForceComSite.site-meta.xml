@@ -24,8 +24,8 @@
     <masterLabel>Minlopro Force.com Site</masterLabel>
     <redirectToCustomDomain>true</redirectToCustomDomain>
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
-    <siteAdmin>${SF_USERNAME}</siteAdmin>
-    <siteGuestRecordDefaultOwner>${SF_USERNAME}</siteGuestRecordDefaultOwner>
+    <siteAdmin>${SF_ADMIN_USERNAME}</siteAdmin>
+    <siteGuestRecordDefaultOwner>${SF_ADMIN_USERNAME}</siteGuestRecordDefaultOwner>
     <siteTemplate>SiteTemplate</siteTemplate>
     <siteType>Visualforce</siteType>
     <urlPathPrefix>minlopro</urlPathPrefix>
