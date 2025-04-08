@@ -29,5 +29,5 @@ curl -s -X GET "$instanceUrl/$downloadUrl" \
   -H "Accept: text/plain" \
   -o "$tempFile"
 
-result=$(base64 < "$tempFile")
-echo "$result"
+result=$(base64 -w 0 < "$tempFile")
+echo "\"$result\""

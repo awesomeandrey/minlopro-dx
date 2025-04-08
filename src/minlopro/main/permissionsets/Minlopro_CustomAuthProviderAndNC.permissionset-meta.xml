@@ -26,6 +26,10 @@
     </externalCredentialPrincipalAccesses>
     <externalCredentialPrincipalAccesses>
         <enabled>true</enabled>
+        <externalCredentialPrincipal>MinloproSalesforceLoopbackEAIP-USER</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
         <externalCredentialPrincipal>MinloproSalesforceLoopbackOAuth-ADMIN</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <externalCredentialPrincipalAccesses>
@@ -41,6 +45,7 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>UserExternalCredential</object>
+        <viewAllFields>false</viewAllFields>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
 </PermissionSet>

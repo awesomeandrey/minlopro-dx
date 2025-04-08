@@ -21,31 +21,19 @@ if ! [ -f "$ENV_FILEPATH" ]; then
   grep -v "^#" "scripts/.env.manifest" | grep -v '^$' | sort > "$ENV_FILEPATH"
 fi
 
-# Determine OS and define 'sed' command based on OS
-OS="$(uname)"
-if [[ "$OS" == "Darwin" ]]; then
-    # MacOS
-    echo "SED command is adapted for Mac OS."
-    SED_COMMAND="sed -i '' "
-else
-    # Linux
-    echo "SED command is adapted for Linux OS."
-    SED_COMMAND="sed -i "
-fi
-
 # Function that manipulates with the content of '.env' file
 add_or_update_env_var() {
     local var_name="$1"
     local var_value="$2"
-    # Check if the variable exists in the file
-    if grep -q "^$var_name=" "$ENV_FILEPATH"; then
-        # Variable found; update it
-        $SED_COMMAND "s|^${var_name}=.*$|${var_name}=${var_value}|" "$ENV_FILEPATH"
-    else
-        # Variable not found; add it
-        echo "$var_name=$var_value" >> "$ENV_FILEPATH"
-    fi
-    echo -e "- ${BlueColor}$var_name${NoColor} variable was set to ${BlueColor}$var_value${NoColor}"
+    local content
+
+    content=$(cat "$ENV_FILEPATH")
+    # Remove variable from .env file
+    echo "$content" | grep -v "^$var_name=" > "$ENV_FILEPATH"
+    # Append variable with value
+    echo "$var_name=$var_value" >> "$ENV_FILEPATH"
+    # echo -e "- ${BlueColor}$var_name${NoColor} variable was set to ${BlueColor}$var_value${NoColor}"
+    content=$(cat "$ENV_FILEPATH"); echo "$content" | sort > "$ENV_FILEPATH"
 }
 
 # Calculate & set static variables
@@ -71,7 +59,13 @@ done
 
 # Display variables
 echo -e "${BlueColor}Environment Variables:${NoColor}"
-grep -v "^#" "$ENV_FILEPATH" | grep -v '^$' | column -t -s "=" | sort
+grep -v "^#" "$ENV_FILEPATH" | grep -v '^$' | \
+awk -F '=' '{
+    key=$1
+    val=substr($0, index($0,"=")+1)
+    if (length(val) > 250) val = substr(val, 1, 30) "..." substr(val, length(val)-29, 30)
+    print key "=" val
+}' | column -t -s '='
 
 # Copy '.env' file to 'build' folder
 mkdir -p "build"

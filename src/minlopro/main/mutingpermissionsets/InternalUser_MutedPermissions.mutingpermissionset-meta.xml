@@ -11,16 +11,4 @@
         <viewAllFields>false</viewAllFields>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>DebugApex</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>InstallPackaging</name>
-    </userPermissions>
-    <userPermissions>
-        <enabled>true</enabled>
-        <name>ModifyAllData</name>
-    </userPermissions>
 </MutingPermissionSet>

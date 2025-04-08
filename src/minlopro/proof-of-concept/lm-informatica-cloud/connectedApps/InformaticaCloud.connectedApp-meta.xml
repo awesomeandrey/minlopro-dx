@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ConnectedApp xmlns="http://soap.sforce.com/2006/04/metadata">
-    <contactEmail>emu_the_guardian_squad@libertymutual.com</contactEmail>
-    <description>This Connected App enables integration between LSC and Informatica Data Management Cloud (IDMC) using the OAuth 2.0 Flow. It allows IDMC to retrieve data from Salesforce and ingest it into external systems via a dedicated integration user.</description>
+    <contactEmail>${SF_ADMIN_EMAIL}</contactEmail>
+    <description>Custom connected app adapted for Informatica Cloud integration user only.</description>
     <label>Informatica Cloud</label>
     <oauthConfig>
         <callbackUrl>http://localhost:8090/salesforce</callbackUrl>
