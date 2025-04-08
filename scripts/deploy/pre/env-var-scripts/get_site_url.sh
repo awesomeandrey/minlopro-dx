@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/get_site_url.sh
-# - echo $ORG_ALIAS | bash ./scripts/util/get_site_url.sh
+# - bash ./scripts/deploy/pre/env-var-scripts/get_site_url.sh
+# - echo $ORG_ALIAS | bash ./scripts/deploy/pre/env-var-scripts/get_site_url.sh
 
 # Enable errexit option to exit on command failure
 set -e

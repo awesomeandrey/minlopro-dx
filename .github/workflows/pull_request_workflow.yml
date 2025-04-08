@@ -61,7 +61,6 @@ jobs:
       SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
       SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
       SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
-      SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT: ${{ secrets.SF_MINLOPRO_SALESFORCE_LOOPBACK_APP_CERT }}
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -83,6 +82,8 @@ jobs:
           bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$SF_AUTH_URL"
           SF_TARGET_ORG_ALIAS="$(bash ./scripts/util/set_target_org_compound_alias.sh)"; sf alias list
           echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_ENV
+      - name: "Run PRE-Deploy Scripts"
+        run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Generate Delta Manifests'
         run: |
           # From Branch
@@ -91,7 +92,5 @@ jobs:
           git checkout "${{github.head_ref}}"; git pull
           # Generate manifests via SGD plugin;          
           bash ./scripts/deploy/common/sgd_generate_manifests.sh "${{github.base_ref}}" "${{github.head_ref}}"
-      - name: "Run PRE-Deploy Scripts"
-        run: echo "$SF_TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Check-Only Deploy Source to Target Org'
         run: bash ./scripts/deploy/deploy.sh "$SF_TARGET_ORG_ALIAS" "dry-run"
