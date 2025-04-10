@@ -12,7 +12,7 @@ echo "🔵 Deploying 'Minlopro' certificate to [$TARGET_ORG_ALIAS] organization.
 sf project generate manifest \
   --name 'manifests/package.xml' \
   --metadata Certificate:Minlopro \
-  --metadata ApexClass:AxiomSamlJitHandler
+  --metadata ApexClass:AxiomSamlJitHandlerStub
 
 npx dotenv -e "scripts/.env.manifest" -- sf project deploy start \
   --target-org "$TARGET_ORG_ALIAS" \

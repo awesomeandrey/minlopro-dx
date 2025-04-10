@@ -9,11 +9,22 @@ set -e
 
 read -r -p "🔶 Enter target org alias: " targetOrgAlias
 
-apexClassId=$(
+stubApexClassId=$(
   sf data query \
-    --query "SELECT Id, Name FROM ApexClass WHERE Name = 'AxiomSamlJitHandler' LIMIT 1" \
+    --query "SELECT Id, Name FROM ApexClass WHERE Name = 'AxiomSamlJitHandlerStub' LIMIT 1" \
     --target-org "$targetOrgAlias" \
     --json | jq -r '.result.records[0].Id'
 )
+
+apexClassId=$(
+  sf data query \
+  --query "SELECT Id, Name FROM ApexClass WHERE Name = 'AxiomSamlJitHandler' LIMIT 1" \
+  --target-org "$targetOrgAlias" \
+  --json | jq -r '.result.records[0].Id'
+)
+
+if [ -z "$apexClassId" ] || [ "null" == "$apexClassId" ]; then
+  apexClassId="$stubApexClassId"
+fi
 
 echo "${apexClassId:0:15}"

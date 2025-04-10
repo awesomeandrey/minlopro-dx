@@ -68,11 +68,11 @@
         <useLocalStorageForLogoutUrl>true</useLocalStorageForLogoutUrl>
     </sessionSettings>
     <singleSignOnSettings>
-        <enableCaseInsensitiveFederationID>false</enableCaseInsensitiveFederationID>
+        <enableCaseInsensitiveFederationID>true</enableCaseInsensitiveFederationID>
         <enableForceDelegatedCallout>false</enableForceDelegatedCallout>
         <enableMultipleSamlConfigs>true</enableMultipleSamlConfigs>
         <enableSamlJitProvisioning>false</enableSamlJitProvisioning>
-        <enableSamlLogin>false</enableSamlLogin>
+        <enableSamlLogin>true</enableSamlLogin>
         <isLoginWithSalesforceCredentialsDisabled>true</isLoginWithSalesforceCredentialsDisabled>
     </singleSignOnSettings>
 </SecuritySettings>
