@@ -42,7 +42,7 @@ echo "📜 CRMA Scratch Org Credentials"
 sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json > "$orgCredentialsFile"
 cat "$orgCredentialsFile"
 
-# Resolve ".env" file for the scratch org (this properly resolves 'SF_USERNAME' & 'SF_INSTANCE_URL' variables)
+# Resolve ".env" file for the scratch org (this properly resolves 'SF_ADMIN_USERNAME' & 'SF_INSTANCE_URL' variables)
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/custom/2_resolve_env_variables.sh
 
 # Deploy 'minlopro-crm-analytics' folder content

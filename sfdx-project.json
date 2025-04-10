@@ -26,6 +26,21 @@
         },
         {
             "glob": "src/**",
+            "stringToReplace": "${SF_ADMIN_ID}",
+            "replaceWithEnv": "SF_ADMIN_ID"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_ADMIN_USERNAME}",
+            "replaceWithEnv": "SF_ADMIN_USERNAME"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_AXIOM_JIT_HANDLER_ID}",
+            "replaceWithEnv": "SF_AXIOM_JIT_HANDLER_ID"
+        },
+        {
+            "glob": "src/**",
             "stringToReplace": "${SF_GITHUB_WEBHOOK_SECRET}",
             "replaceWithEnv": "SF_GITHUB_WEBHOOK_SECRET"
         },
@@ -93,11 +108,6 @@
             "glob": "src/**",
             "stringToReplace": "${SF_SITE_URL}",
             "replaceWithEnv": "SF_SITE_URL"
-        },
-        {
-            "glob": "src/**",
-            "stringToReplace": "${SF_USERNAME}",
-            "replaceWithEnv": "SF_USERNAME"
         }
     ]
 }

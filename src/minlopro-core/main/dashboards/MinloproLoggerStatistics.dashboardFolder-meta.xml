@@ -2,7 +2,7 @@
 <DashboardFolder xmlns="http://soap.sforce.com/2006/04/metadata">
     <folderShares>
         <accessLevel>Manage</accessLevel>
-        <sharedTo>${SF_USERNAME}</sharedTo>
+        <sharedTo>${SF_ADMIN_USERNAME}</sharedTo>
         <sharedToType>User</sharedToType>
     </folderShares>
     <name>Minlopro - Logger Statistics</name>

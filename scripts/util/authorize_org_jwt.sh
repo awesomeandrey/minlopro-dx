@@ -39,7 +39,7 @@ echo "Decoding private key..."
 echo "$SF_JWT_ENCODED_PRIVATE_KEY" | base64 --decode > "$privateKeyFile"
 
 sf org login jwt \
-  --username "$SF_USERNAME" \
+  --username "$SF_ADMIN_USERNAME" \
   --jwt-key-file "$privateKeyFile" \
   --instance-url "https://test.salesforce.com" \
   --client-id "$SF_JWT_CLIENT_ID" \
