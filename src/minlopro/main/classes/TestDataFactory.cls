@@ -123,6 +123,27 @@ public class TestDataFactory {
         return accounts;
     }
 
+    public static List<Account> createPersonAccounts(Integer numOfAccounts) {
+        List<Account> customerAccounts = new List<Account>();
+        RecordType personRecordType = [SELECT Id FROM RecordType WHERE SobjectType = 'Account' AND IsPersonType = TRUE LIMIT 1];
+        for (Integer i = 0; i < numOfAccounts; i++) {
+            Account customer = new Account();
+            customer.RecordTypeId = personRecordType.Id;
+            customer.PersonTitle = (String) Lists.getRandomItem(Lists.of('Sr. Surgeon', 'Top Banker', 'DevOps'));
+            customer.FirstName = String.format('F{0}-{1}', Lists.of(i.toString(), TestDataFactory.generateRandomString(5)));
+            customer.LastName = String.format('L{0}-{1}', Lists.of(i.toString(), TestDataFactory.generateRandomString(5)));
+            customer.PersonEmail = String.format('{0}@apex.test', Lists.of(customer.LastName));
+            customer.PersonHasOptedOutOfEmail = false;
+            customer.Industry = (String) Lists.getRandomItem(Lists.of('Healthcare', 'Finance', 'Technology'));
+            customer.Site = 'https://apex.test.com?user=' + customer.LastName.toLowerCase();
+            customer.Type = (String) Lists.getRandomItem(Lists.of('Partner', 'Customer'));
+            String randomDigits = TestDataFactory.generateRandomDecimal(99, 999).toString();
+            customer.Phone = String.format('{0}-{1}-{2}', Lists.of(randomDigits, randomDigits, randomDigits));
+            customerAccounts.add(customer);
+        }
+        return customerAccounts;
+    }
+
     public static List<Contact> createContacts(Integer numOfContacts) {
         return createContacts(numOfContacts, null);
     }
