@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Leverages Salesforce sObject Collection API to create Leads in bulk.</description>
+    <label>MinloproLeadsApiBulk</label>
+    <namedCredentialReference>SalesforceRestApi</namedCredentialReference>
+    <operations>
+        <active>true</active>
+        <name>createx20leads</name>
+    </operations>
+    <registrationProviderType>SchemaInferred</registrationProviderType>
+    <schema>{&quot;openapi&quot;:&quot;3.0.1&quot;,&quot;info&quot;:{&quot;title&quot;:&quot;MinloproLeadsApiBulk&quot;,&quot;description&quot;:&quot;Leverages Salesforce sObject Collection API to create Leads in bulk.&quot;},&quot;paths&quot;:{&quot;/services/data/v63.0/composite/sobjects&quot;:{&quot;post&quot;:{&quot;description&quot;:&quot;Bulk creates Lead records within a single HTTP callout.&quot;,&quot;operationId&quot;:&quot;Create Leads&quot;,&quot;requestBody&quot;:{&quot;description&quot;:&quot;Create Leads&quot;,&quot;content&quot;:{&quot;application/json&quot;:{&quot;schema&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;allOrNone&quot;:{&quot;type&quot;:&quot;boolean&quot;},&quot;records&quot;:{&quot;type&quot;:&quot;array&quot;,&quot;items&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;Email&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;LeadSource&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;FirstName&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;Phone&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;Title&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;attributes&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;type&quot;:{&quot;type&quot;:&quot;string&quot;}}},&quot;LastName&quot;:{&quot;type&quot;:&quot;string&quot;}}}}}}}},&quot;required&quot;:true},&quot;responses&quot;:{&quot;2XX&quot;:{&quot;description&quot;:&quot;Success Response&quot;,&quot;content&quot;:{&quot;application/json&quot;:{&quot;schema&quot;:{&quot;type&quot;:&quot;array&quot;,&quot;items&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;success&quot;:{&quot;type&quot;:&quot;boolean&quot;},&quot;id&quot;:{&quot;type&quot;:&quot;string&quot;}}}}}}}}}}}}</schema>
+    <schemaType>OpenApi3</schemaType>
+    <serviceBinding>{&quot;host&quot;:&quot;&quot;,&quot;basePath&quot;:&quot;/&quot;,&quot;allowedSchemes&quot;:[],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>6</systemVersion>
+</ExternalServiceRegistration>
