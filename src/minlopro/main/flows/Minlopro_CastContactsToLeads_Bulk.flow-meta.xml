@@ -370,7 +370,7 @@
                 <outputFieldApiName>allOrNone</outputFieldApiName>
                 <transformType>Map</transformType>
                 <value>
-                    <booleanValue>false</booleanValue>
+                    <booleanValue>true</booleanValue>
                 </value>
             </transformValueActions>
             <transformValueActions>
