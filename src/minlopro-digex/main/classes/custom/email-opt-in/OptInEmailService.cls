@@ -30,6 +30,10 @@ public inherited sharing class OptInEmailService {
         List<OrgWideEmailAddress> oweAddresses = [SELECT Id, Address, DisplayName FROM OrgWideEmailAddress LIMIT 1];
         OrgWideEmailAddress oweAddress = oweAddresses.isEmpty() ? null : oweAddresses.get(0);
 
+        // Fetch 'ReplyTo' address;
+        String replyToAddress = this.fetchReplyToAddress();
+        Logger.debug('Reply To Address = {0}', Lists.of(replyToAddress));
+
         // Generate email messages;
         List<Messaging.SingleEmailMessage> emailMessages = new List<Messaging.SingleEmailMessage>();
         for (Account accountItem : targetAccounts) {
@@ -55,6 +59,9 @@ public inherited sharing class OptInEmailService {
             );
             Logger.debug('Account Confirmation URL = {0}', Lists.of(accountConfirmationUrl));
             emailItem.setHtmlBody(emailItem.htmlBody.replace('@OPT_IN_CONFIRMATION_LINK', accountConfirmationUrl));
+            // Override 'Reply To' address with address connected to inbound email handler;
+            emailItem.setReplyTo(replyToAddress);
+
             emailMessages.add(emailItem);
         }
         return emailMessages;
@@ -74,5 +81,20 @@ public inherited sharing class OptInEmailService {
         Network myNetwork = [SELECT Id FROM Network WHERE Name = 'DigEx'];
         String siteBaseUrl = Network.getLoginUrl(myNetwork.Id).removeEnd('/login');
         return String.format('{0}/{1}', Lists.of(siteBaseUrl, 'opt-in-confirmation'));
+    }
+
+    private String fetchReplyToAddress() {
+        final String emailServiceName = 'digex_opt';
+        List<EmailServicesAddress> addresses = [
+            SELECT Id, DeveloperName, EmailDomainName, LocalPart
+            FROM EmailServicesAddress
+            WHERE DeveloperName = :emailServiceName
+            LIMIT 1
+        ];
+        if (addresses.isEmpty()) {
+            throw new IllegalArgumentException('Invalid email service API name: ' + emailServiceName);
+        }
+        EmailServicesAddress foundAddress = addresses[0];
+        return String.format('{0}@{1}', Lists.of(foundAddress.LocalPart, foundAddress.EmailDomainName));
     }
 }

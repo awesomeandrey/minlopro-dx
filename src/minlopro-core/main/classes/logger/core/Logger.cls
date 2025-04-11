@@ -1,5 +1,20 @@
 public without sharing class Logger {
+    public static Boolean SAVE_LOGS_SYNC = false;
+
     private static final Boolean IS_ENABLED = isEnabled();
+    private static String TRANSACTION_ID {
+        get {
+            if (String.isBlank(TRANSACTION_ID)) {
+                String tId = Request.getCurrent().getRequestId();
+                if (String.isBlank(tId)) {
+                    tId = String.format('C-{0}', Lists.of(TestDataFactory.generateRandomString(20)));
+                }
+                TRANSACTION_ID = tId;
+            }
+            return TRANSACTION_ID;
+        }
+        set;
+    }
     private static final String ORG_NAMESPACE = [SELECT NamespacePrefix FROM Organization].NamespacePrefix;
     private static final String CLASSNAME = Logger.class.getName();
     private static final Pattern STACK_LINE = Pattern.compile(
@@ -63,7 +78,7 @@ public without sharing class Logger {
             LogData logData = new LogData();
             logData.authorId = UserInfo.getUserId();
             logData.authorProfileId = UserInfo.getProfileId();
-            logData.transactionId = Request.getCurrent().getRequestId();
+            logData.transactionId = TRANSACTION_ID;
             logData.level = level;
             logData.quiddity = Request.getCurrent().getQuiddity();
             logData.stackTrace = captureStackTrace();
@@ -101,8 +116,15 @@ public without sharing class Logger {
                     'QueueableJobs',
                     String.format('{0} out of {1}', new List<Object>{ Limits.getQueueableJobs(), Limits.getLimitQueueableJobs() })
                 );
-            log = logData.castToEvent();
-            EventBus.publish(log);
+
+            if (SAVE_LOGS_SYNC) {
+                // Save log records immediately;
+                insert as system logData.castToEntry();
+            } else {
+                // Publish event from the current transaction;
+                log = logData.castToEvent();
+                EventBus.publish(log);
+            }
         }
         // Output to system debug anyway (use `JSON.serializePretty()` to log ALL message content in multiline fashion);
         if (level == LoggingLevel.ERROR) {

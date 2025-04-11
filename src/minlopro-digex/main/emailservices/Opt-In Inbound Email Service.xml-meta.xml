@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <EmailServicesFunction xmlns="http://soap.sforce.com/2006/04/metadata">
-    <apexClass>MinloproEmailHandler</apexClass>
-    <attachmentOption>All</attachmentOption>
+    <apexClass>OptInInboundEmailHandler</apexClass>
+    <attachmentOption>None</attachmentOption>
     <authenticationFailureAction>Discard</authenticationFailureAction>
     <authorizationFailureAction>Discard</authorizationFailureAction>
+    <authorizedSenders>gmail.com,ukr.net,proton.me</authorizedSenders>
+    <emailServicesAddresses>
+        <authorizedSenders>gmail.com,ukr.net,proton.me</authorizedSenders>
+        <developerName>digex_opt</developerName>
+        <isActive>true</isActive>
+        <localPart>digex_opt</localPart>
+        <runAsUser>${SF_ADMIN_USERNAME}</runAsUser>
+    </emailServicesAddresses>
     <functionInactiveAction>Discard</functionInactiveAction>
-    <functionName>MinloproEmailService</functionName>
+    <functionName>Opt-In Inbound Email Service</functionName>
     <isActive>true</isActive>
     <isAuthenticationRequired>false</isAuthenticationRequired>
     <isErrorRoutingEnabled>false</isErrorRoutingEnabled>
