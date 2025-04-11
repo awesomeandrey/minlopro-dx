@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Minlopro Loopback connection</description>
+    <description>Create 1 Lead at a time</description>
     <label>Minlopro</label>
     <namedCredentialReference>SalesforceRestApi1</namedCredentialReference>
     <operations>

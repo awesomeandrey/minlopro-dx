@@ -8,5 +8,9 @@
         <members>MinloproEmailService</members>
         <name>EmailServicesFunction</name>
     </types>
+    <types>
+        <members>Minlopro</members>
+        <name>ExternalServiceRegistration</name>
+    </types>
     <version>61.0</version>
 </Package>

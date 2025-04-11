@@ -336,10 +336,11 @@
         <excludedStandardButtons>MassCreateCallList</excludedStandardButtons>
         <excludedStandardButtons>SendListEmailAction</excludedStandardButtons>
         <excludedStandardButtons>SendBulkMessageAction</excludedStandardButtons>
+        <excludedStandardButtons>MassAssignRecordLabel</excludedStandardButtons>
         <excludedStandardButtons>PrintableListView</excludedStandardButtons>
         <excludedStandardButtons>MassAddToActionableList</excludedStandardButtons>
-        <excludedStandardButtons>MassAssignRecordLabel</excludedStandardButtons>
         <listViewButtons>CastToLeads</listViewButtons>
+        <listViewButtons>CastToLeads_Bulk</listViewButtons>
         <lookupDialogsAdditionalFields>FULL_NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
