@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessHoursSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <businessHours>
+        <active>true</active>
+        <default>true</default>
+        <fridayEndTime>16:00:00.000Z</fridayEndTime>
+        <fridayStartTime>10:00:00.000Z</fridayStartTime>
+        <mondayEndTime>16:00:00.000Z</mondayEndTime>
+        <mondayStartTime>10:00:00.000Z</mondayStartTime>
+        <name>Ukraine (Default)</name>
+        <thursdayEndTime>16:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>10:00:00.000Z</thursdayStartTime>
+        <timeZoneId>Europe/Kiev</timeZoneId>
+        <tuesdayEndTime>16:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>10:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>16:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>10:00:00.000Z</wednesdayStartTime>
+    </businessHours>
+</BusinessHoursSettings>

@@ -48,6 +48,30 @@ This guide serves as a comprehensive reference for Salesforce developers, coveri
 4. **Constants**:
     - Use uppercase with underscores (e.g., `MAX_LIMIT`).
 
+#### Prefix Your Booleans
+
+• IS for simple states
+
+- ❌ active
+- ✅ isActive
+
+HAS for ownership
+
+- ❌ subscription
+- ✅ hasSubscription
+
+• SHOULD for expected behavior
+
+- ❌ retry
+- ✅ shouldRetry
+
+• CAN for capabilities
+
+- ❌ edit
+- ✅ canEdit
+
+Your IF statements should read like plain English. Write code for humans to read, not just for machines to execute.
+
 #### Critical Coding Standards
 
 1. Use **PascalCase** for class names and **camelCase** for method and variable names.

@@ -1,6 +1,4 @@
 public inherited sharing class EmailTemplateSelector extends fflib_SObjectSelector {
-    private final Repository repository = (Repository) Application.Service.newInstance(Repository.class);
-
     public SObjectType getSObjectType() {
         return EmailTemplate.SObjectType;
     }

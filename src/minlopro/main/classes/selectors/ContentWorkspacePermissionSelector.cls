@@ -1,4 +1,4 @@
-public with sharing class ContentWorkspacePermissionSelector extends fflib_SObjectSelector {
+public inherited sharing class ContentWorkspacePermissionSelector extends fflib_SObjectSelector {
     private final Repository repository = (Repository) Application.Service.newInstance(Repository.class);
 
     public SObjectType getSObjectType() {

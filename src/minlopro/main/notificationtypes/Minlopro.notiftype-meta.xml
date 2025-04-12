@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomNotificationType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <customNotifTypeName>Minlopro Notification</customNotifTypeName>
+    <customNotifTypeName>Minlopro</customNotifTypeName>
     <desktop>true</desktop>
-    <masterLabel>Minlopro Notification</masterLabel>
+    <masterLabel>Minlopro</masterLabel>
     <mobile>true</mobile>
     <slack>false</slack>
 </CustomNotificationType>

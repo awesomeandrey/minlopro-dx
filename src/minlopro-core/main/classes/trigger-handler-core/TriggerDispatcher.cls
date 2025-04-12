@@ -25,7 +25,7 @@ public with sharing class TriggerDispatcher {
     private static final Map<TriggerHandler, LoopCount> loopCountMap = new Map<TriggerHandler, LoopCount>();
     private static final Set<TriggerHandler> bypassedHandlers = new Set<TriggerHandler>();
     // Turn off for production;
-    public static Boolean debugModeEnabled = true;
+    public static Boolean debugModeEnabled = false;
 
     // Instance properties;
     private final SObjectType currentObjectType;

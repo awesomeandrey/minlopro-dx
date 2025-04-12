@@ -19,8 +19,8 @@ https://login.salesforce.com/services/extidp/callback</callbackUrl>
         <isIntrospectAllTokens>false</isIntrospectAllTokens>
         <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
         <isPkceRequired>true</isPkceRequired>
-        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
-        <isSecretRequiredForRefreshToken>false</isSecretRequiredForRefreshToken>
+        <isRefreshTokenRotationEnabled>true</isRefreshTokenRotationEnabled>
+        <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
         <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
         <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
         <oauthClientCredentialUser>${SF_ADMIN_USERNAME}</oauthClientCredentialUser>
@@ -31,11 +31,11 @@ https://login.salesforce.com/services/extidp/callback</callbackUrl>
         <scopes>RefreshToken</scopes>
     </oauthConfig>
     <oauthPolicy>
-        <ipRelaxation>ENFORCE</ipRelaxation>
+        <ipRelaxation>ENFORCE_RELAXREFRESH</ipRelaxation>
         <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
-        <refreshTokenPolicy>infinite</refreshTokenPolicy>
+        <refreshTokenPolicy>specific_inactivity:2:DAYS</refreshTokenPolicy>
     </oauthPolicy>
+    <permissionSetName>Minlopro - Salesforce Connect Custom Adapter</permissionSetName>
     <permissionSetName>Minlopro - Admin</permissionSetName>
     <permissionSetName>Minlopro - Custom Auth. Providers And Named Credentials</permissionSetName>
-    <permissionSetName>Minlopro - Salesforce Connect Custom Adapter</permissionSetName>
 </ConnectedApp>
