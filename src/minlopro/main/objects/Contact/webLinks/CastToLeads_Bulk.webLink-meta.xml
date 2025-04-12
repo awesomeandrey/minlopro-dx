@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>BulkProcess</fullName>
+    <fullName>CastToLeads_Bulk</fullName>
     <availability>online</availability>
     <displayType>massActionButton</displayType>
     <encodingKey>UTF-8</encodingKey>
     <height>600</height>
     <linkType>url</linkType>
-    <masterLabel>Bulk Process</masterLabel>
+    <masterLabel>Cast To Leads (Bulk) 🔰</masterLabel>
     <openType>sidebar</openType>
     <protected>false</protected>
     <requireRowSelection>true</requireRowSelection>
-    <url>/flow/Minlopro_BulkProcessAccounts</url>
+    <url>/flow/Minlopro_CastContactsToLeads_Bulk?retURL=003/o</url>
 </WebLink>

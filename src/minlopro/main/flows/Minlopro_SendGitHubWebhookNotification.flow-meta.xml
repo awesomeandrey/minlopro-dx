@@ -61,7 +61,7 @@
         notifications.</description
     >
     <environments>Default</environments>
-    <interviewLabel>Minlopto {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Minlopro - Send GitHub Webhook Notification {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Send GitHub Webhook Notification</label>
     <processMetadataValues>
         <name>BuilderType</name>

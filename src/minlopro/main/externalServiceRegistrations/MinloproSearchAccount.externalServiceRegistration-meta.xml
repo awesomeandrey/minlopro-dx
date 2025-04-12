@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Search for Account(s) via SOSL query.</description>
+    <label>MinloproSearchAccount</label>
+    <namedCredentialReference>SalesforceRestApi1</namedCredentialReference>
+    <operations>
+        <active>true</active>
+        <name>searchx20accounts</name>
+    </operations>
+    <registrationProviderType>SchemaInferred</registrationProviderType>
+    <schema>{&quot;openapi&quot;:&quot;3.0.1&quot;,&quot;info&quot;:{&quot;title&quot;:&quot;MinloproSearchAccount&quot;,&quot;description&quot;:&quot;&quot;},&quot;paths&quot;:{&quot;/services/data/v63.0/search&quot;:{&quot;get&quot;:{&quot;description&quot;:&quot;Find Account record(s) via SOSL query.&quot;,&quot;operationId&quot;:&quot;Search Accounts&quot;,&quot;parameters&quot;:[{&quot;name&quot;:&quot;q&quot;,&quot;in&quot;:&quot;query&quot;,&quot;description&quot;:&quot;Valid SOSL query targeting Account object&quot;,&quot;required&quot;:true,&quot;allowEmptyValue&quot;:false,&quot;schema&quot;:{&quot;type&quot;:&quot;string&quot;}}],&quot;responses&quot;:{&quot;2XX&quot;:{&quot;description&quot;:&quot;Found Accounts&quot;,&quot;content&quot;:{&quot;application/json&quot;:{&quot;schema&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;searchRecords&quot;:{&quot;type&quot;:&quot;array&quot;,&quot;items&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;Description&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;attributes&quot;:{&quot;type&quot;:&quot;object&quot;,&quot;properties&quot;:{&quot;type&quot;:{&quot;type&quot;:&quot;string&quot;}}},&quot;Id&quot;:{&quot;type&quot;:&quot;string&quot;},&quot;Name&quot;:{&quot;type&quot;:&quot;string&quot;}}}}}}}}}}}}}}</schema>
+    <schemaType>OpenApi3</schemaType>
+    <serviceBinding>{&quot;host&quot;:&quot;&quot;,&quot;basePath&quot;:&quot;/&quot;,&quot;allowedSchemes&quot;:[],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>6</systemVersion>
+</ExternalServiceRegistration>
