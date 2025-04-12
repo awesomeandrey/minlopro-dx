@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START<br/><b>AutoLaunched Flow</b></br>"]):::startClass
-click START "#general-information" "2390665810"
+click START "#general-information" "1739312718"
 
 Send_Custom_Notification("⚡ <em></em><br/>Send Custom Notification"):::actionCalls
 click Send_Custom_Notification "#send_custom_notification" "4037713225"
@@ -55,7 +55,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Status|Active|
 |Description|Intended to be launched on behalf of site guest user, but executed in system mode with permission to send custom<br/>        notifications.|
 |Environments|Default|
-|Interview Label|Minlopto {!$Flow.CurrentDateTime}|
+|Interview Label|Minlopro - Send GitHub Webhook Notification {!$Flow.CurrentDateTime}|
 |Run In Mode| System Mode Without Sharing|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|

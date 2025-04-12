@@ -11,10 +11,10 @@
 
 flowchart TB
 START(["START<br/><b>Screen Flow</b>"]):::startClass
-click START "#general-information" "1327247340"
+click START "#general-information" "1182749697"
 
 Create_Lead_via_HTTP_POST("⚡ <em></em><br/>Create Lead via HTTP POST"):::actionCalls
-click Create_Lead_via_HTTP_POST "#create_lead_via_http_post" "2528846551"
+click Create_Lead_via_HTTP_POST "#create_lead_via_http_post" "1153369620"
 
 Calculate_Contacts_Count[\"🟰 <em></em><br/>Calculate Contacts Count"/]:::assignments
 click Calculate_Contacts_Count "#calculate_contacts_count" "2289117099"
@@ -38,22 +38,22 @@ Update_Contact[("🛠️ <em></em><br/>Update Contact")]:::recordUpdates
 click Update_Contact "#update_contact" "529318298"
 
 Callout_Error_Screen(["💻 <em></em><br/>Callout Error Screen"]):::screens
-click Callout_Error_Screen "#callout_error_screen" "1954134658"
+click Callout_Error_Screen "#callout_error_screen" "3093876520"
 
 FailedContactUpdateScreen(["💻 <em></em><br/>Failed Contact Update Screen"]):::screens
-click FailedContactUpdateScreen "#failedcontactupdatescreen" "3140578750"
+click FailedContactUpdateScreen "#failedcontactupdatescreen" "2393395783"
 
 PreviewAndConfirmationScreen(["💻 <em></em><br/>Preview & Confirmation Screen"]):::screens
 click PreviewAndConfirmationScreen "#previewandconfirmationscreen" "2473819884"
 
 ResultssScreen(["💻 <em></em><br/>Results Screen"]):::screens
-click ResultssScreen "#resultssscreen" "2794804771"
+click ResultssScreen "#resultssscreen" "2290713895"
 
 Warning_Screen(["💻 <em></em><br/>Warning Screen"]):::screens
 click Warning_Screen "#warning_screen" "955833270"
 
 Transform_Contact_To_Lead_Payload{{"♻️ <em></em><br/>Transform Contact To Lead Payload"}}:::transforms
-click Transform_Contact_To_Lead_Payload "#transform_contact_to_lead_payload" "1315293370"
+click Transform_Contact_To_Lead_Payload "#transform_contact_to_lead_payload" "3764790143"
 
 Create_Lead_via_HTTP_POST --> Update_Contact_Fields
 Create_Lead_via_HTTP_POST -. Fault .->Callout_Error_Screen
@@ -106,9 +106,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Process Type| Flow|
 |Label|Minlopro - Cast Contacts To Leads|
 |Status|Active|
-|Description|Casts user-selected Contacts to Leads through standard Salesforce REST API.|
+|Description|Casts user-selected Contacts to Leads through standard Salesforce REST API. Processes records 1-by-1 consuming callout per record.|
 |Environments|Default|
-|Interview Label|Minlopro - Send Contacts To Leads {!$Flow.CurrentDateTime}|
+|Interview Label|Minlopro - Cast Contacts To Leads {!$Flow.CurrentDateTime}|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
 | Origin Builder Type (PM)|LightningFlowBuilder|
@@ -121,8 +121,6 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
 |contactsSize|Number|⬜|⬜|⬜|<!-- -->|<!-- -->|
-|httpPostResponseBody|String|⬜|⬜|⬜|<!-- -->|<!-- -->|
-|httpPostResponseCode|Number|⬜|⬜|⬜|<!-- -->|<!-- -->|
 |ids|String|✅|✅|⬜|<!-- -->|Contact IDs selected from the list view|
 
 
@@ -135,13 +133,12 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Type|Action Call|
 |Label|Create Lead via HTTP POST|
 |Action Type|External Service|
-|Action Name|Minlopro.Create Lead|
-|Description|Each HTTP callout is run in a separate transaction.|
+|Action Name|MinloproCreateLeadsApiSingle.Create Lead|
 |Fault Connector|[Callout_Error_Screen](#callout_error_screen)|
-|Flow Transaction Model|NewTransaction|
-|Name Segment|Minlopro.Create Lead|
+|Flow Transaction Model|Automatic|
+|Name Segment|MinloproCreateLeadsApiSingle.Create Lead|
 |Offset|0|
-|Output Parameters|- assignToReference: httpPostResponseCode<br/>&nbsp;&nbsp;name: responseCode<br/>- assignToReference: httpPostResponseBody<br/>&nbsp;&nbsp;name: defaultExc<br/>|
+|Store Output Automatically|✅|
 |Body (input)|[Transform_Contact_To_Lead_Payload](#transform_contact_to_lead_payload)|
 |Connector|[Update_Contact_Fields](#update_contact_fields)|
 
@@ -291,18 +288,17 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Allow Back|⬜|
 |Allow Finish|✅|
 |Allow Pause|⬜|
-|Next Or Finish Button Label|Continue|
+|Next Or Finish Button Label|Next|
 |Show Footer|✅|
 |Show Header|✅|
-|Stage Reference|Callout_Error|
 |Connector|isGoTo: true<br/>targetReference: Iterate_Through_Contacts<br/>|
 
 
-#### CalloutErrorText1
+#### ErrorText
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Text|<p style="text-align: center;">Failed to cast Contact to Lead.</p><p style="text-align: center;">HTTP Response Status = <strong style="color: rgb(208, 50, 50); background-color: rgb(255, 255, 255);"><em>{!httpPostResponseCode} ({!$Flow.FaultMessage})</em></strong></p>|
+|Field Text|<p style="text-align: center;"><span style="color: rgb(199, 40, 40);">Failed to cast Contact to Lead.</span></p><p style="text-align: center;"><span style="color: rgb(199, 40, 40);">HTTP Response Status = </span><strong style="background-color: rgb(255, 255, 255); color: rgb(199, 40, 40);">{!$Flow.FaultMessage}</strong></p>|
 |Field Type| Display Text|
 
 
@@ -312,26 +308,26 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Text|<p><span style="font-family: courier;">{!Transform_Contact_To_Lead_Payload}</span></p>|
+|Field Text|<p><span style="font-family: verdana;">{!Transform_Contact_To_Lead_Payload}</span></p>|
 |Field Type| Display Text|
-|Parent Field|[Lead_Payload_Header_Column1](#lead_payload_header_column1)|
+|Parent Field|[Lead_Payload_Column1](#lead_payload_column1)|
 
 
 
 
-#### Lead_Payload_Header_Column1
+#### Lead_Payload_Column1
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Type| Region|
 |Is Required|⬜|
-|Parent Field|[Lead_Payload_Header](#lead_payload_header)|
+|Parent Field|[Lead_Payload](#lead_payload)|
 |Width (input)|12|
 
 
 
 
-#### Lead_Payload_Header
+#### Lead_Payload
 
 |<!-- -->|<!-- -->|
 |:---|:---|
@@ -362,7 +358,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Text|<p style="text-align: center;"><strong>{!Iterate_Through_Contacts.Name}</strong> could not be marked as 'cast' due to </p><p style="text-align: center;"><em style="color: rgb(166, 32, 32);">{!$Flow.FaultMessage}</em></p>|
+|Field Text|<p style="text-align: center;"><span style="color: rgb(189, 37, 37);">{!Iterate_Through_Contacts.Name} could not be marked as 'cast' due to</span></p><p style="text-align: center;"><strong style="color: rgb(189, 37, 37);">{!$Flow.FaultMessage}</strong></p>|
 |Field Type| Display Text|
 
 
@@ -444,7 +440,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Text|<p style="text-align: center;"><em style="font-size: 14px;">Some Contact records failed to cast to Leads via Salesforce REST API. </em></p><p style="text-align: center;"><span style="color: rgb(192, 32, 32); font-size: 14px;">{!$Flow.FaultMessage}</span></p>|
+|Field Text|<p style="text-align: center;"><em style="font-size: 14px; color: rgb(176, 32, 32);">Some Contact records failed to cast to Leads via Salesforce REST API. </em></p><p style="text-align: center;"><strong style="font-size: 14px; color: rgb(176, 32, 32);">{!$Flow.FaultMessage}</strong></p>|
 |Field Type| Display Text|
 |Visibility Rule|conditionLogic: and<br/>conditions:<br/>&nbsp;&nbsp;leftValueReference: $Flow.FaultMessage<br/>&nbsp;&nbsp;operator: NotEqualTo<br/>&nbsp;&nbsp;rightValue:<br/>&nbsp;&nbsp;&nbsp;&nbsp;stringValue: ''<br/>|
 
@@ -504,7 +500,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Type|Transform|
 |Label|Transform Contact To Lead Payload|
 |Data Type|Apex|
-|Apex Class|ExternalService__Minlopro_Createx20Lead_IN_body|
+|Apex Class|ExternalService__MinloproCreateLeadsApiSingle_Createx20Lead_IN_body|
 |Is Collection|⬜|
 |Scale|0|
 |Store Output Automatically|✅|
@@ -515,12 +511,12 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Transform Type|Value|Output Field Api Name|
 |:-- |:--:|:--  |
-|Map|Iterate_Through_Contacts.Email|Email|
-|Map|Iterate_Through_Contacts.FirstName|FirstName|
-|Map|Iterate_Through_Contacts.LastName|LastName|
-|Map|Iterate_Through_Contacts.Phone|Phone|
-|Map|Iterate_Through_Contacts.Title|Title|
 |Map|Contact2Lead|LeadSource|
+|Map|Iterate_Through_Contacts.Title|Title|
+|Map|Iterate_Through_Contacts.Phone|Phone|
+|Map|Iterate_Through_Contacts.LastName|LastName|
+|Map|Iterate_Through_Contacts.FirstName|FirstName|
+|Map|Iterate_Through_Contacts.Email|Email|
 
 
 

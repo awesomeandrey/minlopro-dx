@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START<br/><b>Screen Flow</b>"]):::startClass
-click START "#general-information" "4177813087"
+click START "#general-information" "2955944414"
 
 AssignForceLogout[\"🟰 <em></em><br/>Assign Force Logout"/]:::assignments
 click AssignForceLogout "#assignforcelogout" "322814333"
@@ -65,7 +65,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Status|Active|
 |Description|Customizes login experience for Minlopro users.|
 |Environments|Default|
-|Interview Label|Minlopro - Login Flow {!$Flow.CurrentDateTime}|
+|Interview Label|Minlopro - Default Login Flow {!$Flow.CurrentDateTime}|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
 | Origin Builder Type (PM)|LightningFlowBuilder|
