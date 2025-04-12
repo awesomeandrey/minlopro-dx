@@ -16,7 +16,7 @@
     </assignments>
     <description>Customizes login experience for Minlopro users.</description>
     <environments>Default</environments>
-    <interviewLabel>Minlopro - Login Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Minlopro - Default Login Flow {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Default Login Flow</label>
     <processMetadataValues>
         <name>BuilderType</name>

@@ -99,7 +99,7 @@
     </decisions>
     <description>Casts user-selected Contacts to Leads through standard Salesforce REST API. Processes records 1-by-1 consuming callout per record.</description>
     <environments>Default</environments>
-    <interviewLabel>Minlopro - Send Contacts To Leads {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Minlopro - Cast Contacts To Leads {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Cast Contacts To Leads</label>
     <loops>
         <name>Iterate_Through_Contacts</name>

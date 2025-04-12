@@ -242,7 +242,6 @@
         <excludedStandardButtons>MassAddToActionableList</excludedStandardButtons>
         <excludedStandardButtons>NavigateToAccountDiscoveryDashboard</excludedStandardButtons>
         <excludedStandardButtons>MassEvalAccForResearchStudy</excludedStandardButtons>
-        <listViewButtons>BulkProcess</listViewButtons>
         <lookupDialogsAdditionalFields>ACCOUNT.NAME</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>ACCOUNT.SITE</lookupDialogsAdditionalFields>
         <lookupDialogsAdditionalFields>CORE.USERS.ALIAS</lookupDialogsAdditionalFields>

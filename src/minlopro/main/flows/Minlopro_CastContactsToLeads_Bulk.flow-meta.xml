@@ -4,7 +4,7 @@
         <name>Create_Leads_via_HTTP_POST</name>
         <label>Create Leads via HTTP POST</label>
         <locationX>314</locationX>
-        <locationY>674</locationY>
+        <locationY>782</locationY>
         <actionName>MinloproCreateLeadsApiBulk.Create Leads</actionName>
         <actionType>externalService</actionType>
         <connector>
@@ -145,7 +145,7 @@
         <name>Update_Contacts</name>
         <label>Update Contacts</label>
         <locationX>314</locationX>
-        <locationY>890</locationY>
+        <locationY>998</locationY>
         <connector>
             <targetReference>Results_Screen</targetReference>
         </connector>
@@ -155,7 +155,7 @@
         <name>Callout_Error_Screen</name>
         <label>Callout Error Screen</label>
         <locationX>578</locationX>
-        <locationY>782</locationY>
+        <locationY>890</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -200,7 +200,7 @@
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Transform_Contacts_To_Leads</targetReference>
+            <targetReference>Search_Account</targetReference>
         </connector>
         <fields>
             <name>InfoText</name>
@@ -272,7 +272,7 @@
         <name>Results_Screen</name>
         <label>Results Screen</label>
         <locationX>314</locationX>
-        <locationY>998</locationY>
+        <locationY>1106</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -325,11 +325,25 @@
         </connector>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>Search_Account</name>
+        <label>Search Account</label>
+        <locationX>314</locationX>
+        <locationY>566</locationY>
+        <connector>
+            <targetReference>Transform_Contacts_To_Leads</targetReference>
+        </connector>
+        <flowName>Minlopro_SearchAccount</flowName>
+        <outputAssignments>
+            <assignToReference>selectedAccount</assignToReference>
+            <name>selectedAccount</name>
+        </outputAssignments>
+    </subflows>
     <transforms>
         <name>Mark_Contacts_As_Processed</name>
         <label>Mark Contacts As Processed</label>
         <locationX>314</locationX>
-        <locationY>782</locationY>
+        <locationY>890</locationY>
         <connector>
             <targetReference>Update_Contacts</targetReference>
         </connector>
@@ -359,7 +373,7 @@
         <name>Transform_Contacts_To_Leads</name>
         <label>Transform Contacts To Leads</label>
         <locationX>314</locationX>
-        <locationY>566</locationY>
+        <locationY>674</locationY>
         <apexClass>ExternalService__MinloproCreateLeadsApiBulk_Createx20Leads_IN_body</apexClass>
         <connector>
             <targetReference>Create_Leads_via_HTTP_POST</targetReference>
@@ -425,6 +439,14 @@
                     <stringValue>Contact2Lead</stringValue>
                 </value>
             </transformValueActions>
+            <transformValueActions>
+                <outputFieldApiName>records[$EachItem].Description</outputFieldApiName>
+                <transformType>Map</transformType>
+                <value>
+                    <formulaDataType>String</formulaDataType>
+                    <formulaExpression>&apos;Selected Account ID = &apos; + {!selectedAccount.Id}</formulaExpression>
+                </value>
+            </transformValueActions>
         </transformValues>
     </transforms>
     <variables>
@@ -445,5 +467,13 @@
         <isCollection>true</isCollection>
         <isInput>true</isInput>
         <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>selectedAccount</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Account</objectType>
     </variables>
 </Flow>
