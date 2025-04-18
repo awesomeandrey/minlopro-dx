@@ -35,6 +35,7 @@ private class AccountChangeEvent_TH_DemoTest {
         Test.enableChangeDataCapture();
         Test.startTest();
         insert testAccounts;
+        Test.getEventBus().deliver();
         Test.stopTest();
         // Verify 'Description' field changes;
         for (Account accountItem : [SELECT Id, Name, Description FROM Account WHERE Id IN :testAccounts]) {
