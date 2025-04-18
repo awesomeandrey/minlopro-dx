@@ -39,6 +39,7 @@ public inherited sharing class OptInEmailService {
         for (Account accountItem : targetAccounts) {
             // Render template (counts against SOQL limits);
             Messaging.SingleEmailMessage emailItem = Messaging.renderStoredEmailTemplate(targetTemplate.Id, null, accountItem.Id);
+
             // Specify org-wide email address (this resolves 'Sender Display Name' automatically);
             if (oweAddress != null) {
                 Logger.debug('Used Org-Wide Email Address: {0}', oweAddresses);
@@ -47,10 +48,13 @@ public inherited sharing class OptInEmailService {
                 // Logger.debug('Overrode sender name manually');
                 emailItem.setSenderDisplayName('Minlopro Opt-In Engagement');
             }
+
             // Specify TO email address;
             emailItem.setToAddresses(Lists.of(accountItem.PersonEmail));
+
             // Save as activity item (common error > `saveAsActivity must be false when sending mail to users`)
             emailItem.setSaveAsActivity(true);
+
             // Build & resolve confirmation page link (with signature!);
             String code = this.generateMac(Blob.valueOf(accountItem.Id));
             String accountConfirmationUrl = String.format(
@@ -59,8 +63,13 @@ public inherited sharing class OptInEmailService {
             );
             Logger.debug('Account Confirmation URL = {0}', Lists.of(accountConfirmationUrl));
             emailItem.setHtmlBody(emailItem.htmlBody.replace('@OPT_IN_CONFIRMATION_LINK', accountConfirmationUrl));
+
             // Override 'Reply To' address with address connected to inbound email handler;
             emailItem.setReplyTo(replyToAddress);
+
+            // Configure unsubscribe mechanism;
+            // emailItem.setUnsubscribeComment('Thanks for unsubscribing from this email campaign!');
+            // emailItem.setUnsubscribeUrls(Lists.of('https://unsubscibe.com?p=1'));
 
             emailMessages.add(emailItem);
         }
