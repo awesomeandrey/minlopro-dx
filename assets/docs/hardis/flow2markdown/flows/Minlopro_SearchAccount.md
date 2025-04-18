@@ -32,7 +32,7 @@ Query_Results_Screen(["💻 <em></em><br/>Query Results Screen"]):::screens
 click Query_Results_Screen "#query_results_screen" "2633126035"
 
 Search_Keyword_Screen(["💻 <em></em><br/>Search Keyword Screen"]):::screens
-click Search_Keyword_Screen "#search_keyword_screen" "3217366005"
+click Search_Keyword_Screen "#search_keyword_screen" "3449864410"
 
 Cast_Search_Results_To_Accounts{{"♻️ <em></em><br/>Cast Search Results To Accounts"}}:::transforms
 click Cast_Search_Results_To_Accounts "#cast_search_results_to_accounts" "3797680224"
@@ -292,6 +292,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Help Text|<p>Type in keyword to search for Account(s)</p>|
 |Inputs On Next Nav To Assoc Scrn| Reset Values|
 |Is Required|✅|
+|Validation Rule|errorMessage: <p>Keyword should be 2 characters at least</p><br/>formulaExpression: LEN({!Account_Search_Keyword}) >= 2<br/>|
 
 
 
