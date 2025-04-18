@@ -24,6 +24,7 @@ public inherited sharing class Application {
             ContentVersion.SObjectType => ContentVersionSelector.class,
             ContentWorkspace.SObjectType => ContentWorkspaceSelector.class,
             ContentWorkspacePermission.SObjectType => ContentWorkspacePermissionSelector.class,
+            EmailMessage.SObjectType => EmailMessageSelector.class,
             EmailTemplate.SObjectType => EmailTemplateSelector.class,
             Lead.SObjectType => LeadSelector.class,
             User.SObjectType => UserSelector.class,

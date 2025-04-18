@@ -256,6 +256,10 @@
             <helpText>&lt;p&gt;Type in keyword to search for Account(s)&lt;/p&gt;</helpText>
             <inputsOnNextNavToAssocScrn>ResetValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>&lt;p&gt;Keyword should be 2 characters at least&lt;/p&gt;</errorMessage>
+                <formulaExpression>LEN({!Account_Search_Keyword}) &gt;= 2</formulaExpression>
+            </validationRule>
         </fields>
         <nextOrFinishButtonLabel>Search</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>

@@ -44,7 +44,7 @@ public without sharing class SendOptInEmailAction {
         public Id accountId;
         @InvocableVariable(Label='Email Template ID' Required=true)
         public Id templateId;
-        @InvocableVariable(Label='Temporary Variable' Required=false DefaultValue='Some Default Value')
+        @InvocableVariable(Label='Temporary Variable' DefaultValue='Some Default Value')
         public String temporaryVariable;
     }
 }

@@ -1,4 +1,4 @@
-public with sharing class ContentDistributionSelector extends fflib_SObjectSelector {
+public inherited sharing class ContentDistributionSelector extends fflib_SObjectSelector {
     private final Repository repository = (Repository) Application.Service.newInstance(Repository.class);
 
     public SObjectType getSObjectType() {

@@ -1,4 +1,4 @@
-public with sharing class ContentDocumentSelector extends fflib_SObjectSelector {
+public inherited sharing class ContentDocumentSelector extends fflib_SObjectSelector {
     private final Repository repository = (Repository) Application.Service.newInstance(Repository.class);
     private final ContentDocumentLinkSelector documentLinkSelector = (ContentDocumentLinkSelector) Application.Selector.newInstance(
         ContentDocumentLink.SObjectType
