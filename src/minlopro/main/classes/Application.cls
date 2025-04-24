@@ -5,6 +5,7 @@ public inherited sharing class Application {
 
     public static final fflib_Application.UnitOfWorkFactory UnitOfWork = new fflib_Application.UnitOfWorkFactory(
         new List<SObjectType>{
+            ContentDocument.SObjectType,
             ContentDocumentLink.SObjectType,
             ContentDistribution.SObjectType,
             ContentVersion.SObjectType,
