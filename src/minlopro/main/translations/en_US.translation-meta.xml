@@ -73,10 +73,6 @@
         <label><!-- Playground --></label>
         <name>Playground</name>
     </customTabs>
-    <flowDefinitions>
-        <flows />
-        <fullName>Minlopro_Assign_PSG_To_DigEx_Users</fullName>
-    </flowDefinitions>
     <quickActions>
         <label><!-- Guest Community Case --></label>
         <name>GuestCommunityCase</name>

@@ -24,10 +24,12 @@
             </value>
         </inputParameters>
         <nameSegment>SendOptInEmailAction</nameSegment>
+        <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
-        <versionSegment>1</versionSegment>
     </actionCalls>
     <apiVersion>63.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Used to POC outbound &amp; inbound email sends from/to Account record.</description>
     <environments>Default</environments>
     <interviewLabel>Minlopro - Send Opt-In Email To Account {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Send Opt-In Email To Account</label>
@@ -111,10 +113,8 @@
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>AccountName</name>
-                    <fieldText
-                        >&lt;p&gt;&lt;strong&gt;Account
-                        Name:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetAccount.Name}&lt;/em&gt;&lt;/p&gt;</fieldText
-                    >
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Account
+                        Name:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetAccount.Name}&lt;/em&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
@@ -130,10 +130,8 @@
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>AccountEmail</name>
-                    <fieldText
-                        >&lt;p&gt;&lt;strong&gt;Recipient
-                        Email:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetAccount.PersonEmail}&lt;/em&gt;&lt;/p&gt;</fieldText
-                    >
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Recipient
+                        Email:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetAccount.PersonEmail}&lt;/em&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
@@ -149,10 +147,8 @@
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>EmailTemplateName</name>
-                    <fieldText
-                        >&lt;p&gt;&lt;strong&gt;Email
-                        Template:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetEmailTemplate.Name}&lt;/em&gt;&lt;/p&gt;</fieldText
-                    >
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Email
+                        Template:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetEmailTemplate.Name}&lt;/em&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
                 </fields>
                 <inputParameters>
@@ -168,9 +164,7 @@
         </fields>
         <fields>
             <name>EmailText</name>
-            <fieldText
-                >&lt;p&gt;&lt;strong&gt;Email Text:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;{!GetEmailTemplate.Body}&lt;/p&gt;</fieldText
-            >
+            <fieldText>&lt;p&gt;&lt;strong&gt;Email Text:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;{!GetEmailTemplate.Body}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Send Opt-In Email</nextOrFinishButtonLabel>
@@ -187,10 +181,8 @@
         <allowPause>false</allowPause>
         <fields>
             <name>ErrorMessage</name>
-            <fieldText
-                >&lt;p&gt;&lt;em style=&quot;color: rgb(228, 79,
-                102);&quot;&gt;{!$Flow.FaultMessage}&lt;/em&gt;&lt;/p&gt;</fieldText
-            >
+            <fieldText>&lt;p&gt;&lt;em style=&quot;color: rgb(228, 79,
+                102);&quot;&gt;{!$Flow.FaultMessage}&lt;/em&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
         </fields>
         <nextOrFinishButtonLabel>Close</nextOrFinishButtonLabel>
