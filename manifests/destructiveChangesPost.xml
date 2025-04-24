@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>Opportunity.All</members>
-        <name>ListView</name>
-    </types>
-    <types>
-        <members>Account.NewContactCustom</members>
-        <name>QuickAction</name>
-    </types>
     <version>63.0</version>
 </Package>
