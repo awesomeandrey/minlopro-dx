@@ -75,6 +75,7 @@
             <stringValue>{&quot;location&quot;:&quot;top&quot;,&quot;type&quot;:&quot;simple&quot;}</stringValue>
         </value>
     </customProperties>
+    <description>Screen Flow that searches for Account records via SOSL query and captures the 1st one found.</description>
     <environments>Default</environments>
     <formulas>
         <name>soslQuery</name>

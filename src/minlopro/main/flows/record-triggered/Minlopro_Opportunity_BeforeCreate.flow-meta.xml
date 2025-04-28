@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Set_Close_Date</name>
+        <label>Set Close Date</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>defaultCloseDate</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>RTF for Opportunity object that handles BEFORE INSERT phase only.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Defaults &apos;CloseDate&apos; to 14 days from now if not set.</description>
+        <name>defaultCloseDate</name>
+        <dataType>Date</dataType>
+        <expression>IF(ISBLANK({!$Record.CloseDate}), {!$Flow.CurrentDate} + 2, {!$Record.CloseDate})</expression>
+    </formulas>
+    <interviewLabel>Minlopro - Opportunity - Before Create {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Minlopro - Opportunity - Before Create</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_Close_Date</targetReference>
+        </connector>
+        <object>Opportunity</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

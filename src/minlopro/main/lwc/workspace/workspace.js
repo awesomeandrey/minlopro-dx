@@ -14,7 +14,7 @@ export default class Workspace extends LightningElement {
 
     get tabs() {
         // 'name' property corresponds to LWC component API name;
-        return [
+        const componentTabs = [
             { label: 'Playground', name: 'playground', iconName: 'utility:activity', visible: true },
             { label: 'Currency Rollup', name: 'currencyRollupTab', iconName: 'utility:money', visible: true },
             { label: 'Duplicates Manager', name: 'duplicatesManagerTab', iconName: 'utility:groups', visible: true },
@@ -39,7 +39,11 @@ export default class Workspace extends LightningElement {
                 iconName: 'utility:integration',
                 visible: true
             }
-        ]
+        ];
+        return componentTabs
+            .sort(({ label: l1 }, { label: l2 }) => {
+                return l1.localeCompare(l2);
+            })
             .map((tabInfo) => {
                 tabInfo.label = this.doCollapseTabs ? '' : tabInfo.label;
                 tabInfo.iconName = isEmpty(tabInfo.iconName) ? 'utility:bundle_policy' : tabInfo.iconName;
