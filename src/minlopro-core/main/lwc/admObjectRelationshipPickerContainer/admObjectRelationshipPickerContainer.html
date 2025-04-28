@@ -1,0 +1,21 @@
+<template>
+    <div class="slds-box_small slds-form-element">
+        <span class="slds-form-element__label slds-text-title_caps">{title}</span>
+        <div class="slds-form-element__control">
+            <div class="slds-dueling-list">
+                <c-adm-object-relationship-picker
+                    object-api-name={objectApiName}
+                    mode={mode}
+                    max-depth={maxDepth}
+                    onselect={handleRelationshipSelection}
+                ></c-adm-object-relationship-picker>
+                <div if:true={normalizedRelationshipPath} class="slds-dueling-list__column slds-p-left_small">
+                    <span class="slds-form-element__label slds-text-title_caps">Result Path</span>
+                    <div class="slds-dueling-list__options slds-align_absolute-center slds-theme_shade">
+                        <p class="slds-text-align_center slds-p-horizontal_small">{normalizedRelationshipPath}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

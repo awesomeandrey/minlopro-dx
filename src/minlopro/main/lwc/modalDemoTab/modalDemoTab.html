@@ -1,0 +1,18 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-modal-demo-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Open" variant="brand" onclick={handleOpenModal}></lightning-button>
+        </lightning-button-group>
+        <div class="slds-p-horizontal_medium">
+            <c-combobox
+                label="Modal Size"
+                value={modalSize}
+                options={modalSizeOptions}
+                required
+                onchange={handleChangeModalSize}
+            ></c-combobox>
+            <c-combobox label="Selected Gender" value={selectedGender} options={genderOptions} read-only required></c-combobox>
+        </div>
+    </lightning-card>
+</template>

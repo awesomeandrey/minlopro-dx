@@ -1,0 +1,33 @@
+<template>
+    <lightning-card class="my-container">
+        <span slot="title" class="slds-text-title_caps"><code>c-combobox-playground-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+            <lightning-button label="Toggle Nullify Options" onclick={handleToggleNullifyOptions}></lightning-button>
+            <lightning-button label="Toggle Read Only" onclick={handleToggleReadOnly}></lightning-button>
+            <lightning-button-menu variant="border-filled">
+                <lightning-menu-item label="Toggle Required" onclick={handleToggleRequired}></lightning-menu-item>
+                <lightning-menu-item label="Set Custom Validity" onclick={handleSetCustomValidity}></lightning-menu-item>
+                <lightning-menu-item label="Report Validity" onclick={handleReportValidity}></lightning-menu-item>
+            </lightning-button-menu>
+        </lightning-button-group>
+        <div class="space"></div>
+        <lightning-layout multiple-rows>
+            <template for:each={containers} for:item="container">
+                <lightning-layout-item key={container.label} size={container.columnsSize} padding="around-small">
+                    <div class="slds-box slds-box_x-small slds-m-bottom_xx-small">
+                        <c-combobox
+                            lwc:spread={container}
+                            value={selectedValueAsStr}
+                            options={dynamicOptions}
+                            required={required}
+                            read-only={readOnly}
+                            onchange={handleChange}
+                        ></c-combobox>
+                    </div>
+                </lightning-layout-item>
+            </template>
+        </lightning-layout>
+        <div class="space"></div>
+    </lightning-card>
+</template>

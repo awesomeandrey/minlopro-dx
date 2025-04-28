@@ -106,8 +106,8 @@ public class TestDataFactory {
             LanguageLocaleKey = 'en_US',
             ProfileId = profileId,
             Street = '12345 Test Street',
-            MobilePhone = '9999999999',
-            Phone = '9999999999'
+            MobilePhone = generateRandomPhone(),
+            Phone = generateRandomPhone()
         );
     }
 
@@ -117,7 +117,14 @@ public class TestDataFactory {
         List<Account> accounts = new List<Account>();
         for (Integer i = 0; i < numOfAccounts; i++) {
             accounts.add(
-                new Account(Name = 'Test #' + i, AnnualRevenue = generateRandomDecimal(), Description = generateRandomString(100))
+                new Account(
+                    Name = 'Test #' + i,
+                    AnnualRevenue = generateRandomDecimal(),
+                    Description = generateRandomString(100),
+                    Industry = (String) Lists.getRandomItem(Lists.of('Telecommunications', 'Agriculture', 'Banking')),
+                    Phone = generateRandomPhone(),
+                    Website = generateRandomWebsite()
+                )
             );
         }
         return accounts;
@@ -135,10 +142,9 @@ public class TestDataFactory {
             customer.PersonEmail = String.format('{0}@apex.test', Lists.of(customer.LastName));
             customer.PersonHasOptedOutOfEmail = false;
             customer.Industry = (String) Lists.getRandomItem(Lists.of('Healthcare', 'Finance', 'Technology'));
-            customer.Site = 'https://apex.test.com?user=' + customer.LastName.toLowerCase();
+            customer.Site = generateRandomWebsite();
             customer.Type = (String) Lists.getRandomItem(Lists.of('Partner', 'Customer'));
-            String randomDigits = TestDataFactory.generateRandomDecimal(99, 999).toString();
-            customer.Phone = String.format('{0}-{1}-{2}', Lists.of(randomDigits, randomDigits, randomDigits));
+            customer.Phone = generateRandomPhone();
             customerAccounts.add(customer);
         }
         return customerAccounts;
@@ -157,8 +163,8 @@ public class TestDataFactory {
                     FirstName = 'TestFirstName' + i,
                     LastName = 'TestLastName' + i,
                     Email = 'test' + i + '@example.com',
-                    Phone = '777-' + i,
-                    MobilePhone = '1234567890',
+                    Phone = generateRandomPhone(),
+                    MobilePhone = generateRandomPhone(),
                     Description = generateRandomString(100)
                 )
             );
@@ -173,7 +179,7 @@ public class TestDataFactory {
                 new Opportunity(
                     Name = 'Test Opportunity #' + i,
                     StageName = 'Closed Won',
-                    CloseDate = Date.today(),
+                    CloseDate = Date.today().addDays(3),
                     Amount = generateRandomDecimal(),
                     AccountId = accountId,
                     CurrencyIsoCode = CORPORATE_CURRENCY_TYPE.IsoCode,
@@ -198,8 +204,8 @@ public class TestDataFactory {
                     FirstName = 'FN #' + i,
                     LastName = 'LN #' + i,
                     Title = 'Test Lead Data',
-                    Phone = '750-224-9149' + i,
-                    MobilePhone = '750-224-9149' + i,
+                    Phone = generateRandomPhone(),
+                    MobilePhone = generateRandomPhone(),
                     Description = generateRandomString(100),
                     Products__c = String.format(
                         '{0}; {1}',
@@ -243,6 +249,20 @@ public class TestDataFactory {
         Integer randomInt = Math.round(Math.random() * (max - min) + min);
         // Convert to Decimal
         return Decimal.valueOf(randomInt);
+    }
+
+    public static String generateRandomPhone() {
+        Decimal randomDigits = TestDataFactory.generateRandomDecimal(300, 900);
+        return String.format(
+            '{0}-{1}-{2}',
+            Lists.of(randomDigits.toString(), (randomDigits + 51).toString(), (randomDigits - 51).toString())
+        );
+    }
+
+    public static String generateRandomWebsite() {
+        String siteName = generateRandomString(5);
+        String siteDomain = (String) Lists.getRandomItem(Lists.of('com', 'me', 'io'));
+        return String.format('https://apextest.{0}.{1}', Lists.of(siteName, siteDomain));
     }
 
     public enum PublicGroup {

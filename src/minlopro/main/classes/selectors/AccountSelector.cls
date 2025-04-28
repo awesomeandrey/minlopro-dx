@@ -10,7 +10,9 @@ public inherited sharing class AccountSelector extends fflib_SObjectSelector {
             Account.Id,
             Account.Name,
             Account.AnnualRevenue,
+            Account.Industry,
             Account.PersonEmail,
+            Account.PersonTitle,
             Account.CheckIfDuplicate__pc
         };
     }

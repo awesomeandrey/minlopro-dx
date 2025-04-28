@@ -46,7 +46,7 @@ echo "NPM local packages: $(npm list)"
 # Install Ubuntu OS utility tools (`xmllint`, `xmlstarlet` and others)
 if [[ -f /etc/os-release ]] && grep -qi "ubuntu" /etc/os-release; then
     echo "Detected Ubuntu OS. Installing utility tools..."
-    # sudo apt-get update > /dev/null
+    sudo apt-get update > /dev/null
     sudo apt-get install -y xmlstarlet libxml2-utils > /dev/null
 fi
 
