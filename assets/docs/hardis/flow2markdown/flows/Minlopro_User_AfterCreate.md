@@ -1,4 +1,4 @@
-# Minlopro - Auto-Assign PSG To DigEx Users
+# Minlopro - User - After Create
 
 ## Flow Diagram
 
@@ -11,28 +11,28 @@
 
 flowchart TB
 START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b> Record After Save</b>"]):::startClass
-click START "#general-information" "404534357"
+click START "#general-information" "1458920534"
 
 Create_PSA_Prototype[\"🟰 <em></em><br/>Create PSA Prototype"/]:::assignments
-click Create_PSA_Prototype "#create_psa_prototype" "2758014915"
+click Create_PSA_Prototype "#create_psa_prototype" "34437075"
 
-Is_DigEx_Partner_Profile_User{"🔀 <em></em><br/>Is 'DigEx Partner' Profile User?"}:::decisions
-click Is_DigEx_Partner_Profile_User "#is_digex_partner_profile_user" "386980963"
+Check_User_Profile{"🔀 <em></em><br/>Check User Profile"}:::decisions
+click Check_User_Profile "#check_user_profile" "2709133180"
 
-Insert_PSG_Assignment[("➕ <em></em><br/>Insert PSG Assignment")]:::recordCreates
-click Insert_PSG_Assignment "#insert_psg_assignment" "4064492522"
+Insert_PSA[("➕ <em></em><br/>Insert PSA")]:::recordCreates
+click Insert_PSA "#insert_psa" "1484458409"
 
 Find_Minlopro_DigEx_PSG[("🔍 <em></em><br/>Find Minlopro DigEx PSG")]:::recordLookups
 click Find_Minlopro_DigEx_PSG "#find_minlopro_digex_psg" "3436419395"
 
-Create_PSA_Prototype --> Insert_PSG_Assignment
-Is_DigEx_Partner_Profile_User --> |"DigEx Profile User"| Find_Minlopro_DigEx_PSG
-Is_DigEx_Partner_Profile_User --> |"Default Outcome"| END_Is_DigEx_Partner_Profile_User
-Insert_PSG_Assignment --> END_Insert_PSG_Assignment
+Create_PSA_Prototype --> Insert_PSA
+Check_User_Profile --> |"DigEx Partner"| Find_Minlopro_DigEx_PSG
+Check_User_Profile --> |"Default Outcome"| END_Check_User_Profile
+Insert_PSA --> END_Insert_PSA
 Find_Minlopro_DigEx_PSG --> Create_PSA_Prototype
-START -->  Is_DigEx_Partner_Profile_User
-END_Is_DigEx_Partner_Profile_User(( END )):::endClass
-END_Insert_PSG_Assignment(( END )):::endClass
+START --> |"Run Immediately"| Check_User_Profile
+END_Check_User_Profile(( END )):::endClass
+END_Insert_PSA(( END )):::endClass
 
 
 classDef actionCalls fill:#D4E4FC,color:black,text-decoration:none,max-height:100px
@@ -64,22 +64,28 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Process Type| Auto Launched Flow|
 |Trigger Type| Record After Save|
 |Record Trigger Type| Create|
-|Label|Minlopro - Auto-Assign PSG To DigEx Users|
-|Status|Obsolete|
+|Label|Minlopro - User - After Create|
+|Status|Active|
+|Description|RTF for User object that handles AFTER INSERT phase along with Async path.|
 |Environments|Default|
-|Interview Label|Auto-Assign PSG To DigEx Users {!$Flow.CurrentDateTime}|
+|Interview Label|Minlopro - User - After Create {!$Flow.CurrentDateTime}|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
 | Origin Builder Type (PM)|LightningFlowBuilder|
-|Connector|[Is_DigEx_Partner_Profile_User](#is_digex_partner_profile_user)|
-|Next Node|[Is_DigEx_Partner_Profile_User](#is_digex_partner_profile_user)|
+
+
+#### Scheduled Paths
+
+|Label|Name|Offset Number|Offset Unit|Record Field|Time Source|Connector|
+|:-- |:-- |:-- |:-- |:-- |:-- |:--  |
+|<!-- -->|<!-- -->|<!-- -->|<!-- -->|<!-- -->|<!-- -->|[Check_User_Profile](#check_user_profile)|
 
 
 ## Variables
 
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
-|permissionSetAssignmentToInsert|SObject|⬜|⬜|⬜|PermissionSetAssignment|<!-- -->|
+|digExUserPsa|SObject|⬜|⬜|⬜|PermissionSetAssignment|Permission Set Assignment record for newly created DigEx user.|
 
 
 ## Flow Nodes Details
@@ -90,30 +96,29 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |:---|:---|
 |Type|Assignment|
 |Label|Create PSA Prototype|
-|Connector|[Insert_PSG_Assignment](#insert_psg_assignment)|
+|Connector|[Insert_PSA](#insert_psa)|
 
 
 #### Assignments
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|permissionSetAssignmentToInsert.AssigneeId| Assign|$Record.Id|
-|permissionSetAssignmentToInsert.PermissionSetGroupId| Assign|Find_Minlopro_DigEx_PSG.Id|
+|digExUserPsa.AssigneeId| Assign|$Record.Id|
+|digExUserPsa.PermissionSetGroupId| Assign|Find_Minlopro_DigEx_PSG.Id|
 
 
 
 
-### Is_DigEx_Partner_Profile_User
+### Check_User_Profile
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Decision|
-|Label|Is 'DigEx Partner' Profile User?|
-|Description|Check if the running user's profile is 'DigEx Partner'|
+|Label|Check User Profile|
 |Default Connector Label|Default Outcome|
 
 
-#### Rule DigEx_Profile_User (DigEx Profile User)
+#### Rule DigEx_Partner (DigEx Partner)
 
 |<!-- -->|<!-- -->|
 |:---|:---|
@@ -130,13 +135,13 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 
 
-### Insert_PSG_Assignment
+### Insert_PSA
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Record Create|
-|Label|Insert PSG Assignment|
-|Input Reference|permissionSetAssignmentToInsert|
+|Label|Insert PSA|
+|Input Reference|digExUserPsa|
 
 
 ### Find_Minlopro_DigEx_PSG

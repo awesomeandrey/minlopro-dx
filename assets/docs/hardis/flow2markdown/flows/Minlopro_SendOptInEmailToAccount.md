@@ -11,10 +11,10 @@
 
 flowchart TB
 START(["START<br/><b>Screen Flow</b>"]):::startClass
-click START "#general-information" "17977429"
+click START "#general-information" "505386440"
 
 SendOptInEmail("⚙️ <em></em><br/>Send Opt-In Email"):::actionCalls
-click SendOptInEmail "#sendoptinemail" "2197263188"
+click SendOptInEmail "#sendoptinemail" "1574204693"
 
 GetAccount[("🔍 <em></em><br/>Get Account")]:::recordLookups
 click GetAccount "#getaccount" "1554691190"
@@ -67,6 +67,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Process Type| Flow|
 |Label|Minlopro - Send Opt-In Email To Account|
 |Status|Active|
+|Description|Used to POC outbound & inbound email sends from/to Account record.|
 |Environments|Default|
 |Interview Label|Minlopro - Send Opt-In Email To Account {!$Flow.CurrentDateTime}|
 | Builder Type (PM)|LightningFlowBuilder|
@@ -96,8 +97,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Fault Connector|[SendErrorScreen](#senderrorscreen)|
 |Flow Transaction Model|Automatic|
 |Name Segment|SendOptInEmailAction|
+|Offset|0|
 |Store Output Automatically|✅|
-|Version Segment|1|
 |Account Id (input)|GetAccount.Id|
 |Template Id (input)|GetEmailTemplate.Id|
 

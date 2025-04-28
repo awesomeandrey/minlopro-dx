@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START<br/><b>Screen Flow</b>"]):::startClass
-click START "#general-information" "2378376295"
+click START "#general-information" "3263047891"
 
 Search_Accounts_via_HTTP_GET("⚡ <em></em><br/>Search Accounts via HTTP GET"):::actionCalls
 click Search_Accounts_via_HTTP_GET "#search_accounts_via_http_get" "4068503304"
@@ -76,6 +76,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Process Type| Flow|
 |Label|Minlopro - Search First Account|
 |Status|Active|
+|Description|Screen Flow that searches for Account records via SOSL query and captures the 1st one found.|
 |Environments|Default|
 |Interview Label|Minlopro - Search First Account {!$Flow.CurrentDateTime}|
 | Builder Type (PM)|LightningFlowBuilder|

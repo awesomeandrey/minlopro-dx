@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START<br/><b>AutoLaunched Flow</b></br>"]):::startClass
-click START "#general-information" "387736462"
+click START "#general-information" "3871278282"
 
 Assign_To_Account[\"🟰 <em></em><br/>Assign To Account"/]:::assignments
 click Assign_To_Account "#assign_to_account" "2626408295"
@@ -62,9 +62,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Process Type| Auto Launched Flow|
 |Label|Minlopro - Create Account With Contacts|
 |Status|Active|
+|Description|A sample autolaunched flow that can be invoked through the Salesforce REST API.|
 |Environments|Default|
 |Interview Label|Minlopro - Create Account With Contacts {!$Flow.CurrentDateTime}|
-|Run In Mode| System Mode Without Sharing|
+|Run In Mode| Default Mode|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
 | Origin Builder Type (PM)|LightningFlowBuilder|
