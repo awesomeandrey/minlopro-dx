@@ -14,6 +14,8 @@ public inherited sharing class LeadSelector extends fflib_SObjectSelector {
             Lead.Email,
             Lead.GenderIdentity,
             Lead.CurrencyIsoCode,
+            Lead.CreatedDate,
+            Lead.LastModifiedDate,
             Lead.LeadSource,
             Lead.Status,
             Lead.Phone,

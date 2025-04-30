@@ -165,7 +165,7 @@
         <inputAssignments>
             <field>StageName</field>
             <value>
-                <stringValue>Closed Lost</stringValue>
+                <stringValue>Auto-Closed</stringValue>
             </value>
         </inputAssignments>
         <inputReference>$Record</inputReference>

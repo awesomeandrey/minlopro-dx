@@ -1,0 +1,48 @@
+<template>
+    <div class="slds-dueling-list__column">
+        <span class="slds-form-element__label">Object Name: <b>{objectApiName}</b></span>
+        <div if:true={hasRelationshipOptions} class="slds-dueling-list__options">
+            <ul class="slds-listbox slds-listbox_vertical" role="listbox">
+                <template for:each={relationshipOptions} for:item="lookupFieldItem">
+                    <li
+                        key={lookupFieldItem.key}
+                        data-key={lookupFieldItem.key}
+                        role="presentation"
+                        class="slds-listbox__item"
+                        onclick={handleRelationshipClick}
+                    >
+                        <div class="slds-listbox__option slds-listbox__option_plain" aria-selected={lookupFieldItem.selected}>
+                            <span class="slds-truncate">
+                                {lookupFieldItem.formattedLabel}&nbsp;
+                                <lightning-icon
+                                    if:true={lookupFieldItem.spanning}
+                                    icon-name="utility:chevronright"
+                                    alternative-text="Span Relationship"
+                                    size="xx-small"
+                                ></lightning-icon>
+                            </span>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </div>
+        <div
+            if:false={hasRelationshipOptions}
+            class="slds-dueling-list__options slds-align_absolute-center slds-theme_alert-texture"
+        >
+            <p class="slds-text-align_center slds-p-horizontal_small">
+                There are no relationships available. Please, select the other source object.
+            </p>
+        </div>
+    </div>
+    <div if:true={hasSpanningReference} class="slds-dueling-list__column">
+        <lightning-icon icon-name="utility:chevronright" alternative-text="Span Relationship" size="x-small"></lightning-icon>
+    </div>
+    <c-adm-object-relationship-picker
+        if:true={hasSpanningReference}
+        object-api-name={spanningObjectName}
+        mode={mode}
+        max-depth={normalizedMaxDepth}
+        onselect={handleRelationshipSelection}
+    ></c-adm-object-relationship-picker>
+</template>

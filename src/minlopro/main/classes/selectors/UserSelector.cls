@@ -6,7 +6,15 @@ public inherited sharing class UserSelector extends fflib_SObjectSelector {
     }
 
     public List<SObjectField> getSObjectFieldList() {
-        return new List<SObjectField>{ User.Id, User.Name };
+        return new List<SObjectField>{
+            User.Id,
+            User.FirstName,
+            User.LastName,
+            User.Name,
+            User.IsActive,
+            User.Username,
+            User.ProfileId
+        };
     }
 
     public override List<SObject> selectSObjectsById(Set<Id> userIds) {

@@ -283,7 +283,8 @@
         <lookupPhoneDialogsAdditionalFields>PC_PHONE4</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>PC_PHONE5</lookupPhoneDialogsAdditionalFields>
         <lookupPhoneDialogsAdditionalFields>PC_PHONE6</lookupPhoneDialogsAdditionalFields>
-        <massQuickActions>CreateNewOpportunity</massQuickActions>
+        <massQuickActions>CreateNewBLOpportunity</massQuickActions>
+        <massQuickActions>CreateNewPLOpportunity</massQuickActions>
         <searchResultsAdditionalFields>ACCOUNT.NAME</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ACCOUNT.SITE</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ACCOUNT.PHONE1</searchResultsAdditionalFields>

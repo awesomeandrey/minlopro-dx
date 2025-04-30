@@ -18,9 +18,9 @@ export default class Workspace extends LightningElement {
             { label: 'Playground', name: 'playground', iconName: 'utility:activity', visible: true },
             { label: 'Currency Rollup', name: 'currencyRollupTab', iconName: 'utility:money', visible: true },
             { label: 'Duplicates Manager', name: 'duplicatesManagerTab', iconName: 'utility:groups', visible: true },
-            { label: 'Datatable Contacts', name: 'datatableContacts', iconName: 'utility:table', visible: true },
-            { label: 'Custom Combobox', name: 'comboboxPlayground', iconName: 'utility:bundle_policy', visible: true },
-            { label: 'LWC Modal Demo', name: 'modalPlayground', iconName: 'utility:preview', visible: true },
+            { label: 'Datatable Contacts', name: 'datatableContactsTab', iconName: 'utility:table', visible: true },
+            { label: 'Custom Combobox Demo', name: 'comboboxPlaygroundTab', iconName: 'utility:bundle_policy', visible: true },
+            { label: 'LWC Modal Demo', name: 'modalDemoTab', iconName: 'utility:preview', visible: true },
             { label: 'Files Manager', name: 'filesManagerTab', iconName: 'utility:share_file', visible: IS_FILES_MANAGER },
             { label: 'Leads Conversion', name: 'leadsManagerTab', iconName: 'utility:lead', visible: IS_LEADS_MANAGER },
             {
@@ -30,15 +30,16 @@ export default class Workspace extends LightningElement {
                 visible: true
             },
             { label: 'Keyset Pagination', name: 'keysetPaginationTab', iconName: 'utility:breadcrumbs', visible: true },
-            { label: 'Drag & Drop', name: 'dragAndDrop', iconName: 'utility:drag', visible: true },
-            { label: 'PDF-Lib Demo', name: 'pdfLibDemo', iconName: 'utility:pdf_ext', visible: true },
-            { label: 'TesseractJS-OCR', name: 'ocrDemo', iconName: 'utility:scan', visible: IS_OCR_USER },
+            { label: 'Drag & Drop', name: 'dragAndDropTab', iconName: 'utility:drag', visible: true },
+            { label: 'PDF-Lib Demo', name: 'pdfLibDemoTab', iconName: 'utility:pdf_ext', visible: true },
+            { label: 'TesseractJS-OCR', name: 'ocrDemoTab', iconName: 'utility:scan', visible: IS_OCR_USER },
             {
                 label: 'Named Credentials Demo',
                 name: 'namedCredentialsTab',
                 iconName: 'utility:integration',
                 visible: true
-            }
+            },
+            { label: 'Dynamic Formula Evaluation', name: 'dynamicFormulaTab', iconName: 'utility:formula', visible: true }
         ];
         return componentTabs
             .sort(({ label: l1 }, { label: l2 }) => {
