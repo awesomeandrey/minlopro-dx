@@ -1,23 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>DatatableController</members>
-        <members>DatatableControllerTest</members>
-        <name>ApexClass</name>
-    </types>
-    <types>
-        <members>comboboxPlayground</members>
-        <members>datatableContacts</members>
-        <members>dragAndDrop</members>
-        <members>modal</members>
-        <members>modalPlayground</members>
-        <members>ocrDemo</members>
-        <members>pdfLibDemo</members>
-        <name>LightningComponentBundle</name>
-    </types>
-    <types>
-        <members>Account.CreateNewOpportunity</members>
-        <name>QuickAction</name>
-    </types>
     <version>63.0</version>
 </Package>
