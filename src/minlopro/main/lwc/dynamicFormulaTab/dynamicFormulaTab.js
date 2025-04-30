@@ -1,5 +1,8 @@
 import { LightningElement, track } from 'lwc';
-import { cloneObject, isEmpty, isNotEmpty, parseError, resolveRecordId } from 'c/utilities';
+import { cloneObject, isNotEmpty, parseError, resolveRecordId } from 'c/utilities';
+
+// Modal;
+import ModalFieldPathSelection from 'c/modalFieldPathSelection';
 
 // Apex Controller Methods;
 import evaluateApex from '@salesforce/apex/DynamicFormulaController.evaluate';
@@ -154,6 +157,18 @@ export default class DynamicFormulaTab extends LightningElement {
             this.errorObj = parseError(error);
         } finally {
             this.loading = false;
+        }
+    }
+
+    async handleSelectFieldPath(event) {
+        const { selectedFieldPath } =
+            (await ModalFieldPathSelection.open({
+                size: 'medium',
+                disableClose: false,
+                objectType: this.selectedObjectType
+            })) || {};
+        if (isNotEmpty(selectedFieldPath)) {
+            this.refs.formulaInput.setRangeText(selectedFieldPath);
         }
     }
 

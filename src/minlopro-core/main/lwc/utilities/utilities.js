@@ -88,7 +88,15 @@ export function throttle(callback, interval = 1000) {
 }
 
 export function cloneObject(value) {
-    return typeof window.structuredClone === 'function' ? window.structuredClone(value) : JSON.parse(JSON.stringify(value));
+    const $ = (v) => JSON.parse(JSON.stringify(v)); // Traditional deep clone approach;
+    if (typeof window.structuredClone === 'function') {
+        try {
+            return window.structuredClone(value);
+        } catch (error) {
+            return $(value);
+        }
+    }
+    return $(value);
 }
 
 export function splitByComma(stringToSplit = '') {

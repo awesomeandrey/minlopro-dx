@@ -1,0 +1,23 @@
+<template>
+    <lightning-modal-header label={headerLabel}></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-is-relative">
+            <c-adm-object-relationship-picker-container
+                object-api-name={objectType}
+                mode="context-to-parents"
+                onselect={handleSelectFieldPath}
+            ></c-adm-object-relationship-picker-container>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button-group>
+            <lightning-button
+                label="Select"
+                variant="brand"
+                disabled={doDisableConfirmBtn}
+                onclick={handleConfirmAndCloseModal}
+            ></lightning-button>
+            <lightning-button label="Close" onclick={handleCloseModal}></lightning-button>
+        </lightning-button-group>
+    </lightning-modal-footer>
+</template>

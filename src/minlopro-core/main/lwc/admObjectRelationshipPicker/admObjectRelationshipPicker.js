@@ -35,7 +35,7 @@ export default class AdmObjectRelationshipPicker extends LightningElement {
     get relationshipOptions() {
         if (this.mode === CONTEXT_TO_PARENTS) return this.parentRelationshipOptions;
         if (this.mode === CONTEXT_TO_CHILDREN) return this.childRelationshipOptions;
-        return [];
+        throw new Error('Unsupported relationship mode.');
     }
 
     get hasRelationshipOptions() {
@@ -55,17 +55,29 @@ export default class AdmObjectRelationshipPicker extends LightningElement {
         // Build options;
         return Object.values(this.objectInfo?.data?.fields || [])
             .filter(({ reference = false, referenceToInfos = [] }) => {
-                // Exclude polymorphic lookups;
-                return reference === true && referenceToInfos.length === 1;
+                if (reference) {
+                    // Exclude polymorphic lookups;
+                    return referenceToInfos.length === 1;
+                }
+                // And include the rest;
+                return true;
             })
-            .map(({ apiName, label, relationshipName, referenceToInfos = [] }) => {
-                let referencedObjectName = referenceToInfos[0].apiName;
-                return { apiName, label, relationshipName, referencedObjectName };
+            .map(({ reference = false, apiName, label, dataType, relationshipName, referenceToInfos = [] }) => {
+                if (reference) {
+                    let referencedObjectName = referenceToInfos[0].apiName;
+                    return { apiName, label, dataType, relationshipName, referencedObjectName };
+                } else {
+                    return { apiName, label, dataType };
+                }
             })
             .map((_) => {
-                let directRelationship = Object.setPrototypeOf({ ..._, spanning: false }, prototypeObject);
-                let spanningRelationship = Object.setPrototypeOf({ ..._, spanning: true }, prototypeObject);
-                return this.maxDepth <= 1 ? [directRelationship] : [directRelationship, spanningRelationship];
+                let directField = Object.setPrototypeOf({ ..._, spanning: false }, prototypeObject);
+                if (_.relationshipName && _.referencedObjectName) {
+                    let spanningRelationship = Object.setPrototypeOf({ ..._, spanning: true }, prototypeObject);
+                    return this.maxDepth <= 1 ? [directField] : [directField, spanningRelationship];
+                } else {
+                    return directField;
+                }
             })
             .flat()
             .map((_) => Object.setPrototypeOf({ ..._, selected: this.selectedOptionKey === _.key }, _));

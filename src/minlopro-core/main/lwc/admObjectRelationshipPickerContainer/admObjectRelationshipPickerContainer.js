@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from 'lwc';
-import { cloneObject } from 'c/utilities';
+import { cloneObject, isNotEmpty } from 'c/utilities';
 
 // Modes;
 const CONTEXT_TO_PARENTS = 'context-to-parents';
@@ -51,6 +51,14 @@ export default class AdmObjectRelationshipPickerContainer extends LightningEleme
      */
     @track relationshipsArray = [];
 
+    get isContextToParentsMode() {
+        return this.mode === CONTEXT_TO_PARENTS;
+    }
+
+    get isContextToChildrenMode() {
+        return this.mode === CONTEXT_TO_CHILDREN;
+    }
+
     get maxDepth() {
         return MAX_RELATIONSHIPS_DEPTH;
     }
@@ -58,14 +66,19 @@ export default class AdmObjectRelationshipPickerContainer extends LightningEleme
     get normalizedRelationshipPath() {
         if (this.mode === CONTEXT_TO_PARENTS) return this.normalizedParentRelationshipPath;
         if (this.mode === CONTEXT_TO_CHILDREN) return this.normalizedChildRelationshipPath;
-        return [];
+        throw new Error('Unsupported relationship mode.');
     }
 
     get normalizedParentRelationshipPath() {
         return this.relationshipsArray
             .flat(MAX_RELATIONSHIPS_DEPTH)
             .map(({ apiName, relationshipName, referencedObjectName }, index, array) => {
-                return `${index === array.length - 1 ? apiName : relationshipName} (${referencedObjectName})`;
+                let isLastElement = index === array.length - 1;
+                if (isLastElement) {
+                    return apiName;
+                } else {
+                    return `${relationshipName} (${referencedObjectName})`;
+                }
             })
             .join(' > ');
     }
@@ -79,10 +92,37 @@ export default class AdmObjectRelationshipPickerContainer extends LightningEleme
             .join(' > ');
     }
 
-    handleRelationshipSelection(event) {
+    get selectedFieldPath() {
+        if (this.isContextToParentsMode) {
+            return this.relationshipsArray
+                .flat(MAX_RELATIONSHIPS_DEPTH)
+                .reduce((accumulator, currentValue, currentIndex, array) => {
+                    let isLastElement = currentIndex === array.length - 1;
+                    return [...accumulator, isLastElement ? currentValue['apiName'] : currentValue['relationshipName']];
+                }, [])
+                .join('.');
+        }
+        return null;
+    }
+
+    get selectedFieldPathType() {
+        if (isNotEmpty(this.selectedFieldPath)) {
+            return this.relationshipsArray.flat(MAX_RELATIONSHIPS_DEPTH).at(-1).dataType;
+        }
+        return null;
+    }
+
+    get selectedChildRelationshipPath() {
+        if (this.isContextToChildrenMode) {
+            // TODO;
+            return null;
+        }
+        return null;
+    }
+
+    handleSelect(event) {
         this.relationshipsArray = cloneObject(event.detail);
-        console.log(JSON.stringify(this.relationshipsArray));
-        // TODO - fire event above the hierarchy;
-        debugger;
+        // console.table(cloneObject(this.relationshipsArray));
+        this.dispatchEvent(new CustomEvent('select', { detail: { value: this.selectedFieldPath } }));
     }
 }
