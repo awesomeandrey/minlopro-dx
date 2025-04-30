@@ -23,6 +23,12 @@ const MAX_RELATIONSHIPS_DEPTH = 3;
  *     "fieldName: "OCE__Meeting__c",
  *     "relationshipName: "OCE__MeetingMember__r"
  * }
+ *
+ * <c-adm-object-relationship-picker-container
+ *  title="My Custom Field Path"
+ *  object-api-name="Opportunity"
+ *  mode="context-to-parents"
+ * ></c-adm-object-relationship-picker-container>
  */
 export default class AdmObjectRelationshipPickerContainer extends LightningElement {
     /**

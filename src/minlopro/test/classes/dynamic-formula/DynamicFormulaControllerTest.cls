@@ -8,7 +8,7 @@ private class DynamicFormulaControllerTest {
             Lead sampleLead = TestDataFactory.createLeads(1)[0];
             insert sampleLead;
             formulaInputs.record = sampleLead;
-            formulaInputs.formulaReturnType = FormulaEval.FormulaReturnType.INTEGER;
+            formulaInputs.formulaReturnTypeName = FormulaEval.FormulaReturnType.INTEGER.name();
             formulaInputs.formulaExpression = 'DAYOFYEAR(DATEVALUE(CreatedDate))';
             Integer leadFormulaResult = Integer.valueOf(DynamicFormulaController.evaluate(formulaInputs));
             Assert.areEqual(Date.today().dayOfYear(), leadFormulaResult, 'Lead formula was calculated incorrectly');
@@ -16,7 +16,7 @@ private class DynamicFormulaControllerTest {
             // Case #2 - Account PROTOTYPE formula;
             Account sampleAcc = TestDataFactory.createAccounts(1)[0];
             formulaInputs.record = sampleAcc;
-            formulaInputs.formulaReturnType = FormulaEval.FormulaReturnType.STRING;
+            formulaInputs.formulaReturnTypeName = FormulaEval.FormulaReturnType.STRING.name();
             formulaInputs.formulaExpression = 'LOWER(TEXT(Industry))';
             String accountFormulaResult = String.valueOf(DynamicFormulaController.evaluate(formulaInputs));
             Assert.areEqual(sampleAcc.Industry.toLowerCase(), accountFormulaResult, 'Account formula was calculated incorrectly');
@@ -26,7 +26,7 @@ private class DynamicFormulaControllerTest {
             Profile minloproUserProfile = TestDataFactory.selectMinloproUserProfile();
             Assert.areEqual(minloproUserProfile.Id, sampleUser.ProfileId);
             formulaInputs.record = sampleUser;
-            formulaInputs.formulaReturnType = FormulaEval.FormulaReturnType.BOOLEAN;
+            formulaInputs.formulaReturnTypeName = FormulaEval.FormulaReturnType.BOOLEAN.name();
             formulaInputs.formulaExpression = 'ProfileId = \'' + minloproUserProfile.Id + '\'';
             Boolean userFormulaResult = Boolean.valueOf(DynamicFormulaController.evaluate(formulaInputs));
             Assert.isTrue(userFormulaResult, 'User formula was calculated incorrectly');
@@ -34,7 +34,7 @@ private class DynamicFormulaControllerTest {
     }
 
     @IsTest
-    static void testUnsupportedSObjectSelector() {
+    static void testInvalidSObjectFormula() {
         System.runAs(TestDataFactory.createAdmin()) {
             Account sampleAcc = TestDataFactory.createAccounts(1)[0];
             insert sampleAcc;
@@ -42,8 +42,8 @@ private class DynamicFormulaControllerTest {
             insert sampleOpp;
             DynamicFormulaController.Inputs formulaInputs = new DynamicFormulaController.Inputs();
             formulaInputs.record = sampleOpp;
-            formulaInputs.formulaReturnType = FormulaEval.FormulaReturnType.INTEGER;
-            formulaInputs.formulaExpression = 'DAYOFYEAR(CloseDate)';
+            formulaInputs.formulaReturnTypeName = FormulaEval.FormulaReturnType.INTEGER.name();
+            formulaInputs.formulaExpression = 'DOY(CloseeDatee)';
             Boolean exceptionCaught = false;
             try {
                 // There is no fflib selector for Opportunities;

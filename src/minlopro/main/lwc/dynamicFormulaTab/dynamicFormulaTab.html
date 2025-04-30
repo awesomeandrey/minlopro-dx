@@ -2,22 +2,89 @@
     <lightning-card>
         <span slot="title" class="slds-text-title_caps"><code>c-dynamic-formula-tab</code></span>
         <lightning-button-group slot="actions">
-            <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+            <lightning-button label="Reset" onclick={handleReset}></lightning-button>
         </lightning-button-group>
         <lightning-spinner lwc:if={loading} alternative-text="Loading" size="x-small"></lightning-spinner>
-        <lightning-layout multiple-rows>
-            <lightning-layout-item size="9" padding="horizontal-small">
-                <c-adm-object-relationship-picker-container
-                    title="My Custom Field Path"
-                    object-api-name="Opportunity"
-                    mode="context-to-parents"
-                ></c-adm-object-relationship-picker-container>
+        <lightning-layout>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <c-combobox
+                            label="SObject Type"
+                            value={selectedObjectType}
+                            options={objectTypeOptions}
+                            required
+                            onchange={handleSelectObjectType}
+                        ></c-combobox>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="6" padding="horizontal-small">
+                        <lightning-record-picker
+                            lwc:ref="recordPicker"
+                            label={selectedObjectTypeLookupSettings.label}
+                            placeholder={selectedObjectTypeLookupSettings.placeholder}
+                            object-api-name={selectedObjectType}
+                            value={selectedRecordId}
+                            display-info={selectedObjectTypeLookupSettings.displayInfo}
+                            matching-info={selectedObjectTypeLookupSettings.matchingInfo}
+                            required
+                            onchange={handleSelectRecord}
+                        ></lightning-record-picker>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" padding="around-small">
+                        <div if:true={hasSelectedRecord} class="slds-box slds-box_xx-small slds-theme_shade">
+                            <lightning-record-form
+                                record-id={selectedRecordId}
+                                object-api-name={selectedObjectType}
+                                mode="readonly"
+                                columns="2"
+                                layout-type="Full"
+                            ></lightning-record-form>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
             </lightning-layout-item>
-            <lightning-layout-item size="3" padding="horizontal-small">
-                <!--                    <c-stats label="Stats" icon-name="standard:lead" value={stats}></c-stats>-->
-                <!--                    <div class="slds-m-vertical_medium">-->
-                <!--                        <c-error-alert value={normalizedErrorObject}></c-error-alert>-->
-                <!--                    </div>-->
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <lightning-textarea
+                    lwc:ref="formulaInput"
+                    label={formulaExpressionInputLabel}
+                    placeholder="Enter your formula expression"
+                    field-level-help="Leverage selected object context & record to evaluate custom formula expression"
+                    max-length="100"
+                    min-length="5"
+                    disabled={doDisableFormulaInputs}
+                    value={formulaExpression}
+                    required
+                    onchange={handleChangeFormula}
+                ></lightning-textarea>
+                <lightning-layout horizontal-align="spread" vertical-align="end">
+                    <lightning-layout-item flexibility="no-grow">
+                        <c-combobox
+                            label={formulaReturnTypeInputLabel}
+                            value={formulaReturnType}
+                            options={formulaReturnTypeOptions}
+                            disabled={doDisableFormulaInputs}
+                            required
+                            onchange={handleSelectFormulaReturnType}
+                        ></c-combobox>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="no-grow">
+                        <lightning-button-group>
+                            <lightning-button
+                                label="Evaluate"
+                                icon-name="utility:formula"
+                                disabled={doDisableFormulaInputs}
+                                onclick={handleEvaluateFormula}
+                            ></lightning-button>
+                            <lightning-button label="Select Field" disabled></lightning-button>
+                        </lightning-button-group>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <div lwc:if={hasFormulaResult} class="slds-border_top slds-m-vertical_medium slds-p-vertical_medium">
+                    <p class="slds-text-align_center"><code>{formulaResult}</code></p>
+                </div>
+                <div lwc:if={hasError} class="slds-border_top slds-m-vertical_medium slds-p-vertical_medium">
+                    <c-error-alert value={errorObj}></c-error-alert>
+                </div>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>
