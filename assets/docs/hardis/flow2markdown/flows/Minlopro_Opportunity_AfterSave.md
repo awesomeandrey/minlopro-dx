@@ -29,7 +29,7 @@ Get_Notification_Type[("🔍 <em></em><br/>Get Notification Type")]:::recordLook
 click Get_Notification_Type "#get_notification_type" "2370902395"
 
 Close_Opportunity[("🛠️ <em></em><br/>Close Opportunity")]:::recordUpdates
-click Close_Opportunity "#close_opportunity" "1208950742"
+click Close_Opportunity "#close_opportunity" "1227202588"
 
 Alert_Opportunity_Owner --> END_Alert_Opportunity_Owner
 Collect_Recipient_IDs --> Alert_Opportunity_Owner
@@ -230,7 +230,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Field|Value|
 |:-- |:--: |
-|StageName|Closed Lost|
+|StageName|Auto-Closed|
 
 
 
