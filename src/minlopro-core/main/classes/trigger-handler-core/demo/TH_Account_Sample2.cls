@@ -18,8 +18,6 @@ public inherited sharing class TH_Account_Sample2 extends BasicTriggerHandler {
                 accountsToReUpdate.add(new Account(Id = newAccount.Id, AnnualRevenue = rev));
             }
         }
-        if (!accountsToReUpdate.isEmpty()) {
-            update accountsToReUpdate;
-        }
+        update as system accountsToReUpdate;
     }
 }

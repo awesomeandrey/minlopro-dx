@@ -21,6 +21,6 @@ echo "$installedPackagesAsJson" | jq -c '.result[]' | while read -r packageInfo;
   sf package install \
       --package "$packageVersionId" \
       --target-org "$TARGET_ORG_ALIAS" \
-      --wait 15 \
+      --wait 10 \
       --no-prompt
 done

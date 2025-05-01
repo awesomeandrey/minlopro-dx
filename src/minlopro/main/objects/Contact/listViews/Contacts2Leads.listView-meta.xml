@@ -9,6 +9,6 @@
     <columns>CONTACT.CREATED_DATE</columns>
     <columns>CONTACT.LAST_UPDATE</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
+    <filterScope>Mine</filterScope>
     <label>Contacts-2-Leads</label>
 </ListView>

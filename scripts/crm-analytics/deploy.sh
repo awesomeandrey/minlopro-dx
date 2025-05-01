@@ -27,4 +27,4 @@ sf project deploy start \
   --verbose \
   --ignore-conflicts \
   --ignore-warnings \
-  --wait 20
+  --wait 10

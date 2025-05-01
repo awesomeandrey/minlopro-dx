@@ -7,14 +7,11 @@
     <columns>ACCOUNT.TYPE</columns>
     <columns>PC_EMAIL</columns>
     <columns>ACCOUNT.INDUSTRY</columns>
-    <filterScope>Everything</filterScope>
+    <filterScope>Mine</filterScope>
     <filters>
         <field>IS_PERSON_ACCOUNT</field>
         <operation>equals</operation>
         <value>1</value>
     </filters>
     <label>Person Accounts</label>
-    <sharedTo>
-        <group>OrgAdmins</group>
-    </sharedTo>
 </ListView>

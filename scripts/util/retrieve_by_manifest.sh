@@ -23,4 +23,4 @@ sf project retrieve start \
     --target-org "$TARGET_ORG_ALIAS" \
     --output-dir "$targetDirPath" \
     --ignore-conflicts \
-    --wait 15
+    --wait 10

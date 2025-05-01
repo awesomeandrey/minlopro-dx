@@ -28,7 +28,7 @@ sf org create scratch \
     --admin-email "$ADMIN_EMAIL" \
     --set-default \
     --duration-days 30 \
-    --wait 15
+    --wait 10
 sf config list
 sf org enable tracking --target-org "$SCRATCH_ORG_ALIAS"
 

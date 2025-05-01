@@ -27,7 +27,7 @@ sf project retrieve start \
     --target-org "$TARGET_ORG_ALIAS" \
     --output-dir "$metadataDir" \
     --ignore-conflicts \
-    --wait 30
+    --wait 10
 
 # Iterate through files in the directory
 KEYWORD=">$WAVE_APP_NAME</"
@@ -59,4 +59,4 @@ sf project retrieve start \
     --target-org "$TARGET_ORG_ALIAS" \
     --output-dir "$metadataDir" \
     --ignore-conflicts \
-    --wait 15
+    --wait 10

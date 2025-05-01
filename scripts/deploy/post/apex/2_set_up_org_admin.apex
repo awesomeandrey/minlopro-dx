@@ -30,10 +30,12 @@ User runningUser = [
     LIMIT 1
 ][0];
 
-// Add user to 'Org Admins' public group;
-Group targetGroup = [SELECT Id FROM Group WHERE DeveloperName = 'OrgAdmins' LIMIT 1];
-GroupMember gm = new GroupMember(GroupId = targetGroup.Id, UserOrGroupId = userId);
-Database.insert(gm, false);
+// Add user to public groups;
+List<GroupMember> gMembers = new List<GroupMember>();
+for (Group targetGroup : [SELECT Id FROM Group WHERE DeveloperName IN ('OrgAdmins', 'OrgUsers', 'LogsViewers')]) {
+    gMembers.add(new GroupMember(GroupId = targetGroup.Id, UserOrGroupId = userId));
+}
+Database.insert(gMembers, false);
 
 DebugTableFormatter formatter = new DebugTableFormatter(
     new List<String>{ 'Id', 'Name', 'UserRole.Name', 'Country', 'FederationIdentifier', 'ExternalId__c', 'TimeZoneSidKey' },

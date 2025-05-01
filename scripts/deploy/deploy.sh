@@ -58,5 +58,5 @@ npx dotenv -e ".env" -- sf project deploy start \
   --post-destructive-changes "$postDestructiveChangesXml" \
   --ignore-conflicts \
   --ignore-warnings \
-  --wait 20 \
+  --wait 10 \
   --flags-dir "$FLAGS_DIR"

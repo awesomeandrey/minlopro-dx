@@ -18,7 +18,4 @@
         <value>TODAY</value>
     </filters>
     <label>Today&apos;s Leads</label>
-    <sharedTo>
-        <allInternalUsers></allInternalUsers>
-    </sharedTo>
 </ListView>

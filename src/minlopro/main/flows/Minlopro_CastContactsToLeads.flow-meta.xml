@@ -222,6 +222,7 @@
         </faultConnector>
         <inputReference>Iterate_Through_Contacts</inputReference>
     </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>Callout_Error_Screen</name>
         <label>Callout Error Screen</label>

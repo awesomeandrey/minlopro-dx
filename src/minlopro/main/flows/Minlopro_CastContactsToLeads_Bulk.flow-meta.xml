@@ -149,12 +149,16 @@
         <connector>
             <targetReference>Results_Screen</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Failed_Contact_Update_Screen</targetReference>
+        </faultConnector>
         <inputReference>Mark_Contacts_As_Processed</inputReference>
     </recordUpdates>
+    <runInMode>SystemModeWithoutSharing</runInMode>
     <screens>
         <name>Callout_Error_Screen</name>
         <label>Callout Error Screen</label>
-        <locationX>578</locationX>
+        <locationX>842</locationX>
         <locationY>890</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -188,6 +192,23 @@
             <regionContainerType>SectionWithHeader</regionContainerType>
         </fields>
         <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Failed_Contact_Update_Screen</name>
+        <label>Failed Contact Update Screen</label>
+        <locationX>578</locationX>
+        <locationY>1106</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>FailedContactUpdateText</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(189, 37, 37);&quot;&gt;{!Mark_Contacts_As_Processed} could not be marked as &apos;cast&apos; due to&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(189, 37, 37);&quot;&gt;{!$Flow.FaultMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Continue</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
