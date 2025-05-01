@@ -16,4 +16,14 @@
         <wednesdayEndTime>16:00:00.000Z</wednesdayEndTime>
         <wednesdayStartTime>10:00:00.000Z</wednesdayStartTime>
     </businessHours>
+    <holidays>
+        <businessHours>Ukraine (Default)</businessHours>
+        <description>Labour Day is an annual day of celebration of the labour movement and its achievements.</description>
+        <isRecurring>true</isRecurring>
+        <name>Labour Day</name>
+        <recurrenceDayOfMonth>1</recurrenceDayOfMonth>
+        <recurrenceMonthOfYear>May</recurrenceMonthOfYear>
+        <recurrenceStartDate>2025-05-01</recurrenceStartDate>
+        <recurrenceType>RecursYearly</recurrenceType>
+    </holidays>
 </BusinessHoursSettings>

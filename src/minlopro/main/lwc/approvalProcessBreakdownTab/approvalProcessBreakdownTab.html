@@ -13,7 +13,7 @@
                 disabled={disableActions}
                 onclick={handleRefreshWires}
             ></lightning-button>
-            <lightning-button label="Reset" variant="brand" onclick={handleReset}></lightning-button>
+            <lightning-button label="Reset" onclick={handleReset}></lightning-button>
         </lightning-button-group>
         <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
         <lightning-layout multiple-rows>

@@ -84,7 +84,6 @@ export default class DigExEmailOptInForm extends LightningElement {
     }
 
     handleClosePage() {
-        // TODO - open the link properly!
         console.log('Closing page...');
         window.close();
     }
