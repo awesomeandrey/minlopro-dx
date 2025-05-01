@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START<br/><b>Screen Flow</b>"]):::startClass
-click START "#general-information" "238832179"
+click START "#general-information" "2220808193"
 
 Create_Leads_via_HTTP_POST("⚡ <em></em><br/>Create Leads via HTTP POST"):::actionCalls
 click Create_Leads_via_HTTP_POST "#create_leads_via_http_post" "187876858"
@@ -26,10 +26,13 @@ Select_Contacts[("🔍 <em></em><br/>Select Contacts")]:::recordLookups
 click Select_Contacts "#select_contacts" "351118762"
 
 Update_Contacts[("🛠️ <em></em><br/>Update Contacts")]:::recordUpdates
-click Update_Contacts "#update_contacts" "3757321760"
+click Update_Contacts "#update_contacts" "1805384428"
 
 Callout_Error_Screen(["💻 <em></em><br/>Callout Error Screen"]):::screens
 click Callout_Error_Screen "#callout_error_screen" "2931229614"
+
+Failed_Contact_Update_Screen(["💻 <em></em><br/>Failed Contact Update Screen"]):::screens
+click Failed_Contact_Update_Screen "#failed_contact_update_screen" "1820395957"
 
 PreviewAndConfirmationScreen(["💻 <em></em><br/>Preview & Confirmation Screen"]):::screens
 click PreviewAndConfirmationScreen "#previewandconfirmationscreen" "2016774427"
@@ -56,7 +59,9 @@ Verify_Records_Selection_And_User_Permissions --> |"Ineligible"| Suspend_Screen
 Verify_Records_Selection_And_User_Permissions --> |"Eligible"| PreviewAndConfirmationScreen
 Select_Contacts --> Calculate_Contacts_Count
 Update_Contacts --> Results_Screen
+Update_Contacts -. Fault .->Failed_Contact_Update_Screen
 Callout_Error_Screen --> END_Callout_Error_Screen
+Failed_Contact_Update_Screen --> END_Failed_Contact_Update_Screen
 PreviewAndConfirmationScreen --> Search_Account
 Results_Screen --> END_Results_Screen
 Suspend_Screen --> END_Suspend_Screen
@@ -65,6 +70,7 @@ Search_Account --> Transform_Contacts_To_Leads
 Mark_Contacts_As_Processed --> Update_Contacts
 Transform_Contacts_To_Leads --> Create_Leads_via_HTTP_POST
 END_Callout_Error_Screen(( END )):::endClass
+END_Failed_Contact_Update_Screen(( END )):::endClass
 END_Results_Screen(( END )):::endClass
 END_Suspend_Screen(( END )):::endClass
 
@@ -100,6 +106,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Description|Casts Contacts to Leads through Salesforce Composite API. Only 1 HTTP callout is used to insert records in bulk.|
 |Environments|Default|
 |Interview Label|Minlopro - Cast Contacts To Leads (Bulk) {!$Flow.CurrentDateTime}|
+|Run In Mode| System Mode Without Sharing|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
 | Origin Builder Type (PM)|LightningFlowBuilder|
@@ -211,6 +218,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |:---|:---|
 |Type|Record Update|
 |Label|Update Contacts|
+|Fault Connector|[Failed_Contact_Update_Screen](#failed_contact_update_screen)|
 |Input Reference|[Mark_Contacts_As_Processed](#mark_contacts_as_processed)|
 |Connector|[Results_Screen](#results_screen)|
 
@@ -270,6 +278,30 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Field Type| Region Container|
 |Is Required|⬜|
 |Region Container Type| Section With Header|
+
+
+
+
+### Failed_Contact_Update_Screen
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Screen|
+|Label|Failed Contact Update Screen|
+|Allow Back|⬜|
+|Allow Finish|✅|
+|Allow Pause|⬜|
+|Next Or Finish Button Label|Continue|
+|Show Footer|✅|
+|Show Header|✅|
+
+
+#### FailedContactUpdateText
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Field Text|<p style="text-align: center;"><span style="color: rgb(189, 37, 37);">{!Mark_Contacts_As_Processed} could not be marked as 'cast' due to</span></p><p style="text-align: center;"><strong style="color: rgb(189, 37, 37);">{!$Flow.FaultMessage}</strong></p>|
+|Field Type| Display Text|
 
 
 
