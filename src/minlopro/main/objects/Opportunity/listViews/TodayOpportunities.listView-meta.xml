@@ -10,7 +10,7 @@
     <columns>OPPORTUNITY.PROBABILITY</columns>
     <columns>OPPORTUNITY.TYPE</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
+    <filterScope>Mine</filterScope>
     <filters>
         <field>OPPORTUNITY.CREATED_DATE</field>
         <operation>equals</operation>

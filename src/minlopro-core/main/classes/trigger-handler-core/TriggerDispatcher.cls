@@ -1,4 +1,4 @@
-public with sharing class TriggerDispatcher {
+public inherited sharing class TriggerDispatcher {
     // Static properties;
     private static final Map<SObjectType, Set<TriggerHandler>> activeHandlersByObjectTypeMap {
         get {

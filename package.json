@@ -2,7 +2,7 @@
     "name": "minlopro",
     "type": "module",
     "private": true,
-    "version": "2.4.2",
+    "version": "2.4.1",
     "engines": {
         "node": ">=20.x",
         "npm": ">=10.x"
@@ -14,8 +14,8 @@
         "prettier:src:check": "prettier --check \"src/**\"",
         "jest": "sfdx-lwc-jest --skipApiVersionCheck",
         "jest:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
-        "sf:apex:tests": "sf apex run test --result-format human --wait 15 --concise",
-        "sf:apex:tests:coverage": "sf apex run test --code-coverage --result-format human --output-dir 'coverage' --wait 15 --concise",
+        "sf:apex:tests": "sf apex run test --result-format human --wait 10 --concise",
+        "sf:apex:tests:coverage": "sf apex run test --code-coverage --result-format human --output-dir 'coverage' --wait 10 --concise",
         "sf:auth:url:create": "mkdir -p 'build' && sf org display --verbose --json > 'build/target-org-info.json'",
         "sf:auth:url:store": "sf org login sfdx-url -f 'build/target-org-info.json'",
         "sf:manifest:create": "sf project generate manifest --name 'manifests/package.xml' --source-dir 'src'",

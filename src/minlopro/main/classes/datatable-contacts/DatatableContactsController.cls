@@ -1,4 +1,4 @@
-public without sharing class DatatableContactsController {
+public with sharing class DatatableContactsController {
     private static final SObjectRepository repository = (SObjectRepository) Application.Service.newInstance(Repository.class);
 
     @AuraEnabled(Cacheable=true)

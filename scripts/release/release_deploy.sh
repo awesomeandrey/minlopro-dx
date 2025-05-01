@@ -15,4 +15,4 @@ sf project deploy quick \
   --target-org "$TARGET_ORG_ALIAS" \
   --job-id "$JOB_ID" \
   --verbose \
-  --wait 20
+  --wait 10

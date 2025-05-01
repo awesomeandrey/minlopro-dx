@@ -2,7 +2,7 @@
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <fieldOverrides>
         <field>CloseDate</field>
-        <formula>TODAY() + 14</formula>
+        <formula>TODAY() + 5</formula>
     </fieldOverrides>
     <fieldOverrides>
         <field>StageName</field>

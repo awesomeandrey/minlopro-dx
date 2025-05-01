@@ -51,7 +51,7 @@ jobInfoJson=$(npx dotenv -e '.env' -- sf project deploy validate \
   --verbose \
   --async \
   --ignore-warnings \
-  --json --wait 20)
+  --json --wait 10)
 
 # Extract and parse Job ID;
 jobIdWithQuotes=$(echo "$jobInfoJson" | jq '.result.id')

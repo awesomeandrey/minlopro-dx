@@ -7,7 +7,7 @@
     <columns>PC_EMAIL</columns>
     <columns>ACCOUNT.PHONE1</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
+    <filterScope>Mine</filterScope>
     <filters>
         <field>ACCOUNT.CREATED_DATE</field>
         <operation>equals</operation>

@@ -16,4 +16,7 @@
         <operation>notEqual</operation>
     </filters>
     <label>Contacts To Deduplicate</label>
+    <sharedTo>
+        <group>OrgAdmins</group>
+    </sharedTo>
 </ListView>

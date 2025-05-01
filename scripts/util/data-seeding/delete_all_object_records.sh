@@ -26,7 +26,7 @@ sf data export bulk \
   --query "SELECT Id FROM $OBJECT_API_NAME LIMIT 10000" \
   --output-file "$recordsToDeleteCsv" \
   --result-format "csv" \
-  --wait 20
+  --wait 10
 
 if [[ $(wc -w < "$recordsToDeleteCsv") -lt 5 ]]; then
     echo "No data to delete."
@@ -38,5 +38,5 @@ sf data delete bulk \
   --target-org "$TARGET_ORG_ALIAS" \
   --sobject "$OBJECT_API_NAME" \
   --file "$recordsToDeleteCsv" \
-  --wait 20 \
+  --wait 10 \
   

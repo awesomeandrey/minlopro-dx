@@ -5,5 +5,10 @@
         <sharedTo>${SF_ADMIN_USERNAME}</sharedTo>
         <sharedToType>User</sharedToType>
     </folderShares>
+    <folderShares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>LogsViewers</sharedTo>
+        <sharedToType>Group</sharedToType>
+    </folderShares>
     <name>Minlopro - Logger Statistics</name>
 </ReportFolder>
