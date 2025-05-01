@@ -10,9 +10,13 @@ public without sharing class DynamicFormulaController {
             if (formulaInputs.isPrototype()) {
                 return fInstance.evaluate(formulaInputs.record);
             } else {
-                fflib_ISObjectSelector objectSelector = Application.Selector.newInstance(formulaInputs.objectType);
-                SObject targetRecord = objectSelector.selectSObjectsById(Sets.of(formulaInputs.record.Id)).get(0);
-                return fInstance.evaluate(targetRecord);
+                fflib_QueryFactory queryFactory = new fflib_QueryFactory(formulaInputs.objectType)
+                    .selectFields(fInstance.getReferencedFields())
+                    .setCondition('Id = \'' + formulaInputs.record.Id + '\'')
+                    .setLimit(1);
+                Repository repository = (Repository) Application.Service.newInstance(Repository.class);
+                List<SObject> queriedSObjects = (List<SObject>) repository.query(queryFactory.toSOQL());
+                return fInstance.evaluate(queriedSObjects.get(0));
             }
         } catch (Exception rootException) {
             Logger.error(rootException);
@@ -26,13 +30,19 @@ public without sharing class DynamicFormulaController {
         @AuraEnabled
         public SObject record { get; set; }
         @AuraEnabled
-        public FormulaEval.FormulaReturnType formulaReturnType { get; set; }
+        public String formulaReturnTypeName { get; set; }
         @AuraEnabled
         public String formulaExpression { get; set; }
 
         public SObjectType objectType {
             get {
                 return this.record.getSObjectType();
+            }
+            private set;
+        }
+        public FormulaEval.FormulaReturnType formulaReturnType {
+            get {
+                return FormulaEval.FormulaReturnType.valueOf(this.formulaReturnTypeName.toUpperCase());
             }
             private set;
         }
