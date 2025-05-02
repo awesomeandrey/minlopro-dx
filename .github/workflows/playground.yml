@@ -3,10 +3,6 @@ run-name: "Playground [${{ inputs.environment }}] / '${{ github.actor }}'"
 
 on:
   workflow_dispatch:
-    branches:
-      - develop
-      - main
-      - feature/**
     inputs:
       environment:
         description: "Target Environment"
@@ -31,35 +27,40 @@ jobs:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: "./.github/workflows/build_env.yml"
         with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-      - name: "Cache Environment Tools"
-        id: cache-env-tools
-        uses: actions/cache@v4
-        env:
-          cache-name: "minlopro-env-tools"
-        with:
-          path: |
-            /opt/hostedtoolcache/node/20.19.0/x64
-            ~/.local/share/sf
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      - name: "Check Cached Environment Tools"
-        if: ${{ steps.cache-env-tools.outputs.cache-hit == 'true' }}
-        continue-on-error: true
-        run: |
-          echo "cache-hit=${{ steps.cache-env-tools.outputs.cache-hit }}"
-          sf --version
-          sf plugins
-      - name: "Install Environment Tools"
-        run: |
-          bash ./scripts/deploy/common/build.sh
-          echo "====="
-          echo "which xmlstarlet $(which xmlstarlet)"
-          echo "which xmllint $(which xmllint)"
+          environment: ${{ inputs.environment }}
+          welcome-keyword: "some welcome keyword hardcoded, env = ${{ inputs.environment }}"
+          sfdx_auth_url: "wowo some auth url"
+      #      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 0
+#      - uses: actions/setup-node@v4
+#        with:
+#          node-version: '20.x'
+#      - name: "Cache Environment Tools"
+#        id: cache-env-tools
+#        uses: actions/cache@v4
+#        env:
+#          cache-name: "minlopro-env-tools"
+#        with:
+#          path: |
+#            /opt/hostedtoolcache/node/20.19.0/x64
+#            ~/.local/share/sf
+#          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+#      - name: "Check Cached Environment Tools"
+#        if: ${{ steps.cache-env-tools.outputs.cache-hit == 'true' }}
+#        continue-on-error: true
+#        run: |
+#          echo "cache-hit=${{ steps.cache-env-tools.outputs.cache-hit }}"
+#          sf --version
+#          sf plugins
+#      - name: "Install Environment Tools"
+#        run: |
+#          bash ./scripts/deploy/common/build.sh
+#          echo "====="
+#          echo "which xmlstarlet $(which xmlstarlet)"
+#          echo "which xmllint $(which xmllint)"
       - name: 'GHA Playground - Step #1'
         run: |
           echo "〽️ Target Environment"
