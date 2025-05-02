@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
-        <apexClass>LogsMonitorPanelController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>LoggerCleanupBatch</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <customSettingAccesses>
+    <classAccesses>
+        <apexClass>LogsMonitorPanelController</apexClass>
         <enabled>true</enabled>
-        <name>LoggerSettings__c</name>
-    </customSettingAccesses>
+    </classAccesses>
     <customPermissions>
         <enabled>true</enabled>
         <name>ViewLogs</name>
     </customPermissions>
+    <customSettingAccesses>
+        <enabled>true</enabled>
+        <name>LoggerSettings__c</name>
+    </customSettingAccesses>
     <description>Grants access to logger module features. This PS should be primarily used by developer(s).</description>
     <fieldPermissions>
         <editable>false</editable>
@@ -66,6 +66,7 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>LogEntry__c</object>
+        <viewAllFields>false</viewAllFields>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -75,6 +76,7 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Log__e</object>
+        <viewAllFields>false</viewAllFields>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <tabSettings>

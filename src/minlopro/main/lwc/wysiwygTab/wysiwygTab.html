@@ -1,0 +1,73 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-wysiwyg-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button
+                label="Save Account"
+                variant="brand"
+                disabled={doDisableControls}
+                onclick={handleSaveAccount}
+            ></lightning-button>
+            <lightning-button label="Reset" disabled={doDisableControls} onclick={handleReset}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="x-small"></lightning-spinner>
+        <lightning-layout>
+            <lightning-layout-item size="4" padding="horizontal-medium">
+                <lightning-record-picker
+                    lwc:ref="recordPicker"
+                    label="Account"
+                    placeholder="Select sample Account record..."
+                    object-api-name="Account"
+                    value={selectedAccountId}
+                    display-info={accountLookupSettings.displayInfo}
+                    matching-info={accountLookupSettings.matchingInfo}
+                    required
+                    onchange={handleSelectAccount}
+                ></lightning-record-picker>
+                <div lwc:if={hasError} class="slds-m-top_medium">
+                    <c-error-alert value={errorObj}></c-error-alert>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="8" padding="horizontal-small">
+                <lightning-input-rich-text
+                    lwc:ref="input"
+                    label="Rich Text Input"
+                    label-visible
+                    value={richTextValue}
+                    field-level-help="Base 'lightning-input-rich-text' LWC"
+                    formats={allowedFormats}
+                    share-with-entity-id={selectedAccountId}
+                    disabled={doDisableControls}
+                    onchange={handleChangeRichText}
+                >
+                    <lightning-rich-text-toolbar-button-group slot="toolbar" onclick={handleApplyCustomFormat}>
+                        <template for:each={customFormatOptions} for:item="formatDef">
+                            <lightning-rich-text-toolbar-button
+                                key={formatDef.name}
+                                data-name={formatDef.name}
+                                icon-name={formatDef.iconName}
+                                icon-alternative-text={formatDef.label}
+                                disabled={doDisableControls}
+                            >
+                            </lightning-rich-text-toolbar-button>
+                        </template>
+                    </lightning-rich-text-toolbar-button-group>
+                    <lightning-button-group slot="toolbar">
+                        <lightning-button
+                            label="Insert User Field"
+                            icon-name="utility:user"
+                            disabled={doDisableControls}
+                            onclick={handleInsertUserField}
+                        ></lightning-button>
+                    </lightning-button-group>
+                </lightning-input-rich-text>
+                <div lwc:if={richTextValue} class="slds-form-element slds-m-top_medium">
+                    <label class="slds-form-element__label">Rich Text Output</label>
+                    <div class="slds-form-element__control">
+                        <lightning-formatted-rich-text value={richTextValue}></lightning-formatted-rich-text>
+                    </div>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

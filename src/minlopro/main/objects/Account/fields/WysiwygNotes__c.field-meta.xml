@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WysiwygNotes__c</fullName>
+    <description
+        >This field is used to test and validate the behavior of the custom WYSIWYG LWC on the Account record. It supports rich
+        text, formatting, and embedded HTML.</description
+    >
+    <inlineHelpText
+        >Enter formatted content to preview how it will appear in the custom WYSIWYG component. Supports bold, italic, lists,
+        links, and HTML markup.</inlineHelpText
+    >
+    <label>WYSIWYG Notes</label>
+    <length>10000</length>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Html</type>
+    <visibleLines>10</visibleLines>
+</CustomField>

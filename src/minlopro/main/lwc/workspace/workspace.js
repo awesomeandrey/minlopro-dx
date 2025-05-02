@@ -39,7 +39,8 @@ export default class Workspace extends LightningElement {
                 iconName: 'utility:integration',
                 visible: true
             },
-            { label: 'Dynamic Formula Evaluation', name: 'dynamicFormulaTab', iconName: 'utility:formula', visible: true }
+            { label: 'Dynamic Formula Evaluation', name: 'dynamicFormulaTab', iconName: 'utility:formula', visible: true },
+            { label: 'WYSIWYG Editor', name: 'wysiwygTab', iconName: 'utility:edit_gpt', visible: true }
         ];
         return componentTabs
             .sort(({ label: l1 }, { label: l2 }) => {
