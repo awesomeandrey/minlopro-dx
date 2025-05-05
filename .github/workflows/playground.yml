@@ -25,42 +25,18 @@ jobs:
   playground-run:
     timeout-minutes: 10
     environment: ${{ inputs.environment }}
+    env:
+      SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
     runs-on: ubuntu-22.04
     steps:
-      - uses: "./.github/workflows/build_env.yml"
+      - uses: actions/checkout@v4
+      - id: build-env
+        uses: ./.github/actions/build-env
         with:
-          environment: ${{ inputs.environment }}
-          welcome-keyword: "some welcome keyword hardcoded, env = ${{ inputs.environment }}"
-          sfdx_auth_url: "wowo some auth url"
-      #      - uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0
-#      - uses: actions/setup-node@v4
-#        with:
-#          node-version: '20.x'
-#      - name: "Cache Environment Tools"
-#        id: cache-env-tools
-#        uses: actions/cache@v4
-#        env:
-#          cache-name: "minlopro-env-tools"
-#        with:
-#          path: |
-#            /opt/hostedtoolcache/node/20.19.0/x64
-#            ~/.local/share/sf
-#          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-#      - name: "Check Cached Environment Tools"
-#        if: ${{ steps.cache-env-tools.outputs.cache-hit == 'true' }}
-#        continue-on-error: true
-#        run: |
-#          echo "cache-hit=${{ steps.cache-env-tools.outputs.cache-hit }}"
-#          sf --version
-#          sf plugins
-#      - name: "Install Environment Tools"
-#        run: |
-#          bash ./scripts/deploy/common/build.sh
-#          echo "====="
-#          echo "which xmlstarlet $(which xmlstarlet)"
-#          echo "which xmllint $(which xmllint)"
+          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+      - name: 'Get Authenticated Org Alias'
+        run: |
+          echo "Auth org alias = ${{ steps.build-env.outputs.target-org-alias }}"
       - name: 'GHA Playground - Step #1'
         run: |
           echo "〽️ Target Environment"
