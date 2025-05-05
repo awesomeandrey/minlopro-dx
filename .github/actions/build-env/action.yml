@@ -1,25 +1,13 @@
-name: Build Environment 🚜
-description: "Build Environment and Install Dependencies"
-
-inputs:
-  sfdx_auth_url:
-    required: true
-    type: string
-
-outputs:
-  target-org-alias:
-    description: "Alias of locally authenticate Salesforce org"
-    value: ${{ steps.auth-salesforce-org.outputs.SF_TARGET_ORG_ALIAS }}
+name: "Build Environment 🚜"
+description: "Build environment and install dependencies"
 
 runs:
   using: "composite"
   steps:
-    - uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
     - uses: actions/setup-node@v4
       with:
-        node-version: '20.x'
+        node-version: "20.19.1"
+        cache: "npm"
     - uses: actions/setup-java@v4
       with:
         distribution: 'zulu'
@@ -28,15 +16,9 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          /opt/hostedtoolcache/node/20.19.0/x64
+          /opt/hostedtoolcache/node/20.19.1/x64
           ~/.local/share/sf
-        key: ${{ runner.os }}-minlopro-dx-tools-${{ hashFiles('**/package-lock.json') }}
-    - name: 'Install Salesforce CLI'
-      run: |
-        bash ./scripts/deploy/common/build.sh
-    - name: 'Authorize Target Org'
-      id: auth-salesforce-org
-      run: |
-        bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "${{ inputs.sfdx_auth_url }}"
-        SF_TARGET_ORG_ALIAS="$(bash ./scripts/util/set_target_org_compound_alias.sh)"; sf alias list
-        echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_OUTPUT
+        key: minlopro-dx-env-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+    - name: 'Build Environment & Install Salesforce CLI'
+      shell: bash
+      run: bash ./scripts/deploy/common/build.sh

@@ -4,7 +4,7 @@ private class OpportunityFlowTests {
     static void testBeforeInsert() {
         System.runAs(TestDataFactory.createRegularUser()) {
             // Verify 'CloseDate' value gets predefined if not explicitly set;
-            Account sampleAcc = TestDataFactory.createAccounts(1)[0];
+            Account sampleAcc = TestDataFactory.createAccounts(10)[0];
             insert sampleAcc;
             Opportunity sampleOpp = TestDataFactory.createOpportunities(1, sampleAcc.Id)[0];
             sampleOpp.CloseDate = null;

@@ -7,7 +7,7 @@
 set -e
 
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
-echo "🔵 Deploying 'Minlopro' certificate to [$TARGET_ORG_ALIAS] organization..."
+echo "🔵 Deploying dependent metadata to [$TARGET_ORG_ALIAS] organization..."
 
 sf project generate manifest \
   --name 'manifests/package.xml' \
