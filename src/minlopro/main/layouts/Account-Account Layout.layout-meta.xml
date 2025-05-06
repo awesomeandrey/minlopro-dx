@@ -37,6 +37,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Score__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>WysiwygNotes__c</field>
             </layoutItems>
         </layoutColumns>
@@ -68,6 +72,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>OwnerId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ScoreStars__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

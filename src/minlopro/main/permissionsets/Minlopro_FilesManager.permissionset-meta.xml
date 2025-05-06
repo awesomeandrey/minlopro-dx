@@ -8,11 +8,6 @@
         <enabled>true</enabled>
         <name>IsFilesManager</name>
     </customPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>ContentVersion.Type__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - Files Manager</label>
     <userPermissions>
