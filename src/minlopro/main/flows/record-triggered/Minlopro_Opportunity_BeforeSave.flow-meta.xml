@@ -2,18 +2,34 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>63.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <name>Set_Default_Close_Date</name>
+        <label>Set Default Close Date</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.CloseDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>normalizedCloseDate</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Is_Close_Date_In_Valid_Range</targetReference>
+        </connector>
+    </assignments>
     <constants>
         <name>nextCloseDateDaysLimit</name>
         <dataType>Number</dataType>
         <value>
-            <numberValue>20.0</numberValue>
+            <numberValue>60.0</numberValue>
         </value>
     </constants>
     <customErrors>
         <name>Invalid_CloseDate_Alert</name>
         <label>Invalid CloseDate Alert</label>
         <locationX>50</locationX>
-        <locationY>395</locationY>
+        <locationY>503</locationY>
         <customErrorMessages>
             <errorMessage>Close Date must be within the next {!nextCloseDateDaysLimit} day(s) from today.</errorMessage>
             <isFieldError>false</isFieldError>
@@ -28,7 +44,7 @@
         <name>Is_Close_Date_In_Valid_Range</name>
         <label>Is Close Date In Valid Range?</label>
         <locationX>182</locationX>
-        <locationY>287</locationY>
+        <locationY>395</locationY>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>
             <name>Date_Range_Is_Invalid</name>
@@ -52,7 +68,13 @@
         <description>Ensures the CloseDate is on or before N days from today (N = 20 days).</description>
         <name>isCloseDateWithinNDays</name>
         <dataType>Boolean</dataType>
-        <expression>TODAY() +{!nextCloseDateDaysLimit} &gt;= {!$Record.CloseDate}</expression>
+        <expression>TODAY() + {!nextCloseDateDaysLimit} &gt;= {!normalizedCloseDate}</expression>
+    </formulas>
+    <formulas>
+        <description>Defaults &apos;CloseDate&apos; to 5 days from now if not set.</description>
+        <name>normalizedCloseDate</name>
+        <dataType>Date</dataType>
+        <expression>IF(ISBLANK({!$Record.CloseDate}), {!$Flow.CurrentDate} + 5, {!$Record.CloseDate})</expression>
     </formulas>
     <interviewLabel>Minlopro - Opportunity - Before Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Opportunity - Before Save</label>
@@ -79,7 +101,7 @@
         <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Is_Close_Date_In_Valid_Range</targetReference>
+            <targetReference>Set_Default_Close_Date</targetReference>
         </connector>
         <object>Opportunity</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
