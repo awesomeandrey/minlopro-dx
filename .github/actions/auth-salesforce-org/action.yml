@@ -22,8 +22,7 @@ runs:
       shell: bash
       run: |
         bash ./scripts/deploy/common/authorize_org.sh "${{ inputs.sfdx_auth_url }}" "${{ inputs.target-org-alias }}"
-        SF_TARGET_ORG_ALIAS="$(sf config get target-org --json | jq '.result[0].value')"
-        echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_OUTPUT
+        echo "SF_TARGET_ORG_ALIAS=$(sf config get target-org --json | jq '.result[0].value')" >> $GITHUB_OUTPUT
     - name: 'Listing Organization Limits'
       shell: bash
       run: sf limits api display
