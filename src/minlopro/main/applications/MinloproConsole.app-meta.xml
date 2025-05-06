@@ -77,10 +77,7 @@
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
-    <description
-        >Playground console application for both learning and refining Salesforce development skills; tailored for POCs and LWC
-        experimentation.</description
-    >
+    <description>Playground console application tailored for POCs and Salesforce experimentation.</description>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>true</isNavAutoTempTabsDisabled>
     <isNavPersonalizationDisabled>true</isNavPersonalizationDisabled>

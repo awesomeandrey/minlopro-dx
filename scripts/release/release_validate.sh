@@ -51,7 +51,17 @@ jobInfoJson=$(npx dotenv -e '.env' -- sf project deploy validate \
   --verbose \
   --async \
   --ignore-warnings \
-  --json --wait 10)
+  --json \
+  --wait 10)
+
+# Uncomment for debugging purposes;
+# echo "Job Info: $jobInfoJson"
+
+jobStatusCode=$(echo "$jobInfoJson" | jq '.status')
+if [ "$jobStatusCode" != 0 ]; then
+  echo "🔴 Validation Deployment Failed: [$(echo "$jobInfoJson" | jq '.message')]"
+  exit 1
+fi
 
 # Extract and parse Job ID;
 jobIdWithQuotes=$(echo "$jobInfoJson" | jq '.result.id')

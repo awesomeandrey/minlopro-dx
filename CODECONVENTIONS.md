@@ -87,8 +87,22 @@ Your IF statements should read like plain English. Write code for humans to read
 11. Use `RecordType.DeveloperName` instead of `RecordType.Name` for better locale-independent queries.
 12. Write descriptive comments for methods, classes, and complex logic to improve readability.
 13. Use **Separation of Concerns**: divide logic into service, controller, and utility classes.
-14. Mock data and external calls in unit tests to avoid dependency on dynamic data.
-15. Avoid HTTP callouts within loops; batch them or use Asynchronous Apex.
+14. Wrap the body of every `@AuraEnabled` Apex controller method in a `try-catch` block. Throw an `AuraHandledException` with a clear, descriptive message.
+
+```apex
+@AuraEnabled
+public static ReturnType doSomething(Params params) {
+    try {
+        // Business logic here
+    } catch (Exception e) {
+        throw new AuraHandledException('Error: ' + e.getMessage());
+    }
+}
+
+```
+
+15. Mock data and external calls in unit tests to avoid dependency on dynamic data.
+16. Avoid HTTP callouts within loops; batch them or use Asynchronous Apex.
 
 #### Class Design
 
