@@ -1,57 +1,48 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "force://..."
-# - bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "force://..." --orgAlias "ORG_ALIAS"
+# - bash ./scripts/deploy/common/authorize_org.sh "force://..."
+# - bash ./scripts/deploy/common/authorize_org.sh "force://..." "ORG_ALIAS"
+
+set -e
 
 # Input variables;
-orgAlias="TARGET_ORG"
-sfdxUrl=""
-
-# Parse command-line arguments;
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        --orgAlias)
-            orgAlias="$2"
-            shift # past argument
-            shift # past value
-            ;;
-        --sfdxUrl)
-            sfdxUrl="$2"
-            shift # past argument
-            shift # past value
-            ;;
-        *)
-            shift # past argument
-            ;;
-    esac
-done
+sfdxUrl="$1"
+customOrgAlias="$2"
 
 # Check if sfdxUrl was provided;
 if [ -z "$sfdxUrl" ]; then
-    echo "Error: sfdxUrl parameter is mandatory"
-    echo "Usage: $0 --sfdxUrl \"force://...\" [--orgAlias \"ORG_ALIAS\"]"
+    echo "Error: <SfdxUrl> parameter is mandatory"
+    echo "Usage: $0 \"force://...\" [\"org-alias\"]"
     exit 1
 fi
+
 buildFolder="build"
 sfAuthUrlFile="$buildFolder/target-org-auth-url.txt"
-echo "🔵 Authorizing [$orgAlias] organization..."
+echo "🔵 Authorizing Salesforce organization..."
 
-# Save sf auth URL into a text file;
+# Save Auth URL into a text file;
 mkdir -p "$buildFolder"
 touch "$sfAuthUrlFile"
 echo "$sfdxUrl" > "$sfAuthUrlFile"
 
 # Authorize Salesforce org and set it as default one;
-sf org login sfdx-url \
-  --sfdx-url-file "$sfAuthUrlFile" \
-  --alias "$orgAlias" \
-  --set-default
-sf org list auth
+sf org login sfdx-url --sfdx-url-file "$sfAuthUrlFile" --set-default
 
 # Purge file with SFDX url;
 rm -rf "$sfAuthUrlFile"
 
-# List Target Org API Limits
-echo "🔵 Listing [$orgAlias] organization API limits"
-sf limits api display --target-org "$orgAlias"
+# Capture org details;
+orgInfo=$(sf org display --json)
+orgUsername=$(echo "$orgInfo" | jq -r '.result.username')
+orgId=$(echo "$orgInfo" | jq -r '.result.id')
+# orgInstanceUrl=$(echo "$orgInfo" | jq -r '.result.instanceUrl')
+
+# Compose custom org alias if not set;
+if [ -z "$customOrgAlias" ]; then
+  customOrgAlias="${orgUsername}|${orgId}"
+fi
+sf alias set "$customOrgAlias" "$orgUsername"
+sf config set target-org "$customOrgAlias"
+
+sf org list auth

@@ -33,7 +33,7 @@
         "pmd:text": "pmd -d 'src' -R apex-ruleset.xml -f text",
         "pmd:html": "pmd -d 'src' -R apex-ruleset.xml -f html --report-file 'build/apex-pmd-report.html'"
     },
-    "devDependencies": {
+    "dependencies": {
         "@prettier/plugin-xml": "^2.0.1",
         "@salesforce/sfdx-lwc-jest": "^1.4.0",
         "@salesforce/wire-service-jest-util": "^4.1.5",

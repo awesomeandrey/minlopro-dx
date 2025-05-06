@@ -20,7 +20,6 @@ permissions:
 env:
   SF_CLI_VERSION: "2.77.6"
 
-# Jobs
 jobs:
   playground-run:
     timeout-minutes: 10
@@ -30,22 +29,22 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - id: build-env
+      - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
+      - name: "Auth Salesforce Org 🎫"
+        id: auth-salesforce-org
+        uses: ./.github/actions/auth-salesforce-org
         with:
           sfdx_auth_url: ${{ env.SF_AUTH_URL }}
-      - name: 'Get Authenticated Org Alias'
+      - name: 'Get Auth Org Alias'
         run: |
-          echo "Auth org alias = ${{ steps.build-env.outputs.target-org-alias }}"
+          echo "Auth Org Alias = ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
       - name: 'GHA Playground - Step #1'
         run: |
           echo "〽️ Target Environment"
           echo "ENV=${{ inputs.environment }}"
           echo "〽️ Environment Details"
           printenv | column -t -s "=" | sort
-          echo "〽️ Installing Salesforce CLI (v${{ env.SF_CLI_VERSION }})"
-          npm install @salesforce/cli@${{ env.SF_CLI_VERSION }} --global
-          sf --version
           echo "〽️ Setting custom env variable"
           MINLOPRO_STATUS="Haha I'm playing with GHAs! Cool 💯!"
           echo "Value: ${MINLOPRO_STATUS}"

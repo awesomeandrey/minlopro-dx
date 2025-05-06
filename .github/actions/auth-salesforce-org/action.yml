@@ -1,0 +1,29 @@
+name: "Auth Salesforce Org 🚜"
+description: "Authenticate into Salesforce org and assign it unique alias"
+
+inputs:
+  sfdx_auth_url:
+    required: true
+    type: string
+  target-org-alias:
+    required: false
+    type: string
+
+outputs:
+  target-org-alias:
+    description: "Alias of locally authenticated Salesforce org"
+    value: ${{ steps.auth-salesforce-org.outputs.SF_TARGET_ORG_ALIAS }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: 'Authorize Salesforce Org'
+      id: auth-salesforce-org
+      shell: bash
+      run: |
+        bash ./scripts/deploy/common/authorize_org.sh "${{ inputs.sfdx_auth_url }}" "${{ inputs.target-org-alias }}"
+        SF_TARGET_ORG_ALIAS="$(sf config get target-org --json | jq '.result[0].value')"
+        echo "SF_TARGET_ORG_ALIAS=$SF_TARGET_ORG_ALIAS" >> $GITHUB_OUTPUT
+    - name: 'Listing Organization Limits'
+      shell: bash
+      run: sf limits api display

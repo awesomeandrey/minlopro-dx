@@ -1,27 +1,16 @@
 name: Reset Destructive Manifests ⚙️
 
-# Trigger Events
 on:
   workflow_dispatch:
-    branches:
-      - main
-      - develop
-      - feature/**
 
-# Jobs
 jobs:
   reset-destructive-manifests:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-      - name: 'Install Dependencies'
-        run: bash ./scripts/deploy/common/build.sh
-      - name: 'Reset Manifests & Commit Changes'
+      - name: "Build Environment 🚜"
+        uses: ./.github/actions/build-env
+      - name: "Reset Manifests & Commit Changes"
         run: |
           # Set Git user info (required step)
           git config user.name "${{github.actor}}"

@@ -1,6 +1,5 @@
 name: Release 🚀
 
-# Trigger Events
 on:
   workflow_dispatch:
     inputs:
@@ -8,14 +7,11 @@ on:
         type: boolean
         description: 'Do Quick Deploy?'
         default: false
-    branches:
-      - release/**
   pull_request:
     types: [ opened, synchronize, reopened ]
     branches:
       - main
 
-# Jobs
 jobs:
   sf-validate-deployment:
     runs-on: ubuntu-22.04
@@ -26,16 +22,22 @@ jobs:
       SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
       SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
     outputs:
-      job_id: ${{ steps.validate_deployment_step.outputs.job_id }}
+      job-id: ${{ steps.validate-deployment.outputs.SF_VALIDATION_JOB_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: 'Install Salesforce CLI & Authorize Production Org'
+      - name: "Build Environment 🚜"
+        uses: ./.github/actions/build-env
+      - name: "Auth Production Org 🎫"
+        uses: ./.github/actions/auth-salesforce-org
+        with:
+          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+          target-org-alias: "Prod"
+      - name: "Run PRE-Deploy Scripts"
         run: |
-          bash ./scripts/deploy/common/build.sh
-          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "Prod"
           git checkout main; git pull
+          echo "Prod" | bash ./scripts/deploy/pre/run_pre.sh
       - name: "Generate Release Manifests (pull_request)"
         if: ${{ github.event_name == 'pull_request' }}
         run: |
@@ -48,14 +50,12 @@ jobs:
           releaseBranchName="${GITHUB_REF#refs/heads/}"
           git checkout "$releaseBranchName"; git pull
           bash ./scripts/deploy/common/sgd_generate_manifests.sh "main" "$releaseBranchName"
-      - name: "Run PRE-Deploy Scripts"
-        run: echo "Prod" | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Validate Deployment And Extract Job ID'
-        id: validate_deployment_step
+        id: validate-deployment
         run: |
           echo "Prod" | bash ./scripts/release/release_validate.sh
           RELEASE_JOB_ID=$(cat "build/release_job_id.txt")
-          echo "job_id=$RELEASE_JOB_ID" >> "$GITHUB_OUTPUT"
+          echo "SF_VALIDATION_JOB_ID=$RELEASE_JOB_ID" >> "$GITHUB_OUTPUT"
   sf-quick-deploy:
     if: ${{ github.event.inputs.doQuickDeploy == 'true' }}
     needs: [ sf-validate-deployment ]
@@ -63,18 +63,18 @@ jobs:
     environment: "Minlopro Prod"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
-      SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
-      SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
-      SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
     steps:
       - uses: actions/checkout@v4
-      - name: 'Install Salesforce CLI & Authorize Production Org'
-        run: |
-          bash ./scripts/deploy/common/build.sh
-          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$SF_AUTH_URL" --orgAlias "Prod"
+      - name: "Build Environment 🚜"
+        uses: ./.github/actions/build-env
+      - name: "Auth Production Org 🎫"
+        uses: ./.github/actions/auth-salesforce-org
+        with:
+          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+          target-org-alias: "Prod"
       - name: 'Quick Deploy By Job ID'
         run: |
-          jobId="${{ needs.sf-validate-deployment.outputs.job_id }}"
+          jobId="${{ needs.sf-validate-deployment.outputs.job-id }}"
           inputsFile="release-deploy-inputs.txt"
           touch $inputsFile
           echo "Prod" >> $inputsFile

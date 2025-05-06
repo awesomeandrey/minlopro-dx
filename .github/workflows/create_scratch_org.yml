@@ -1,6 +1,5 @@
 name: Create Scratch Org 🔰
 
-# Trigger Events
 on:
   workflow_dispatch:
     inputs:
@@ -12,11 +11,7 @@ on:
         type: boolean
         description: 'Purge On Create?'
         default: true
-    branches:
-      - main
-      - develop
 
-# Jobs
 jobs:
   spin-up-scratch-org:
     runs-on: ubuntu-22.04
@@ -27,16 +22,17 @@ jobs:
       SF_ADMIN_EMAIL: ${{ github.event.inputs.adminEmail }}
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: "Build Environment 🚜"
+        uses: ./.github/actions/build-env
+      - name: "Auth DevHub Org 🎫"
+        uses: ./.github/actions/auth-salesforce-org
         with:
-          node-version: '20.x'
-      - name: 'Install Salesforce CLI & Authorize DevHub Org'
-        run: |
-          bash ./scripts/deploy/common/build.sh
-          bash ./scripts/deploy/common/authorize_org.sh --sfdxUrl "$DEV_HUB_AUTH_URL" --orgAlias "DevHub"
-          sf config set target-dev-hub "DevHub"
+          sfdx_auth_url: ${{ env.DEV_HUB_AUTH_URL }}
+          target-org-alias: "DevHub"
+      - name: 'Mark Default DevHub Org'
+        run: sf config set target-dev-hub "DevHub"
       - name: 'Spin Up Brand New Scratch Org'
-        id: spin_scratch_org
+        id: spin-scratch-org
         continue-on-error: true
         run: bash ./scripts/automations/create_scratch_org.sh "DevHub" "ScratchOrg" "${{github.event.inputs.adminEmail}}"
       - name: 'Run Apex Tests With Coverage'
@@ -44,7 +40,7 @@ jobs:
         continue-on-error: true
         run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
       - name: 'Upload Scratch Org Credentials as Artifact'
-        id: upload_scratch_credentials
+        id: upload-scratch-credentials
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
@@ -56,10 +52,8 @@ jobs:
           include-hidden-files: true
           retention-days: 5
       - name: 'Purge Scratch Org If Any Step Failed'
-        if: ${{ steps.spin_scratch_org.outcome == 'failure' || steps.run_apex_tests.outcome == 'failure' || steps.upload_scratch_credentials.outcome == 'failure' }}
-        run: |
-          sf org delete scratch --target-org "ScratchOrg" --no-prompt
-          exit 1
+        if: ${{ steps.spin-scratch-org.outcome == 'failure' || steps.run_apex_tests.outcome == 'failure' || steps.upload-scratch-credentials.outcome == 'failure' }}
+        run: sf org delete scratch --target-org "ScratchOrg" --no-prompt; exit 1
       - name: 'Purge Scratch Org'
         if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
         run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
