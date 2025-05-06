@@ -35,7 +35,7 @@ done < <(grep '<members>.*Test<\/members>' "$packageXml")
 if [ -z "${testClassNamesArray[*]}" ]; then
   # Default Apex Test class name - this one MUST be existing class (otherwise the resulting Job Id won't be eligible for quick deploys);
   echo "No updates detected in Apex Test classes. Applying stub/mock keyword."
-  testClassNamesArray+=("SystemInfoControllerTest")
+  testClassNamesArray+=("TestDataFactoryTest")
 fi
 
 echo "Apex Test Class Names: ${testClassNamesArray[*]}"

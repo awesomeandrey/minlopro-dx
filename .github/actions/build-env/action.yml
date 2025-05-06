@@ -7,7 +7,6 @@ runs:
     - uses: actions/setup-node@v4
       with:
         node-version: "20.19.1"
-        cache: "npm"
     - uses: actions/setup-java@v4
       with:
         distribution: 'zulu'
