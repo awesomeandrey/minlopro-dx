@@ -3,25 +3,25 @@
     <apiVersion>63.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
-        <name>Set_Close_Date</name>
-        <label>Set Close Date</label>
+        <name>Set_Default_Close_Date</name>
+        <label>Set Default Close Date</label>
         <locationX>176</locationX>
         <locationY>287</locationY>
         <assignmentItems>
             <assignToReference>$Record.CloseDate</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>defaultCloseDate</elementReference>
+                <elementReference>normalizedCloseDate</elementReference>
             </value>
         </assignmentItems>
     </assignments>
     <description>RTF for Opportunity object that handles BEFORE INSERT phase only.</description>
     <environments>Default</environments>
     <formulas>
-        <description>Defaults &apos;CloseDate&apos; to 14 days from now if not set.</description>
-        <name>defaultCloseDate</name>
+        <description>Defaults &apos;CloseDate&apos; to 5 days from now if not set.</description>
+        <name>normalizedCloseDate</name>
         <dataType>Date</dataType>
-        <expression>IF(ISBLANK({!$Record.CloseDate}), {!$Flow.CurrentDate} + 2, {!$Record.CloseDate})</expression>
+        <expression>IF(ISBLANK({!$Record.CloseDate}), {!$Flow.CurrentDate} + 5, {!$Record.CloseDate})</expression>
     </formulas>
     <interviewLabel>Minlopro - Opportunity - Before Create {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Opportunity - Before Create</label>
@@ -48,7 +48,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Set_Close_Date</targetReference>
+            <targetReference>Set_Default_Close_Date</targetReference>
         </connector>
         <object>Opportunity</object>
         <recordTriggerType>Create</recordTriggerType>

@@ -63,7 +63,7 @@ jobs:
         with:
           sfdx_auth_url: ${{ env.SF_AUTH_URL }}
       - name: "Run PRE-Deploy Scripts"
-        run: echo "${{ steps.auth-salesforce-org.outputs.target-org-alias }}" | bash ./scripts/deploy/pre/run_pre.sh
+        run: echo ${{ steps.auth-salesforce-org.outputs.target-org-alias }} | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Generate Delta Manifests'
         run: |
           # From Branch
@@ -73,4 +73,4 @@ jobs:
           # Generate manifests via SGD plugin
           bash ./scripts/deploy/common/sgd_generate_manifests.sh "${{github.base_ref}}" "${{github.head_ref}}"
       - name: 'Check-Only Deploy Source to Target Org'
-        run: bash ./scripts/deploy/deploy.sh "${{ steps.auth-salesforce-org.outputs.target-org-alias }}" "dry-run"
+        run: bash ./scripts/deploy/deploy.sh ${{ steps.auth-salesforce-org.outputs.target-org-alias }} "dry-run"

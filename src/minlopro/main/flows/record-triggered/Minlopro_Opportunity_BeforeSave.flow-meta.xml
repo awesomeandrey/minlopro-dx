@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <constants>
+        <name>nextCloseDateDaysLimit</name>
+        <dataType>Number</dataType>
+        <value>
+            <numberValue>20.0</numberValue>
+        </value>
+    </constants>
+    <customErrors>
+        <name>Invalid_CloseDate_Alert</name>
+        <label>Invalid CloseDate Alert</label>
+        <locationX>50</locationX>
+        <locationY>395</locationY>
+        <customErrorMessages>
+            <errorMessage>Close Date must be within the next {!nextCloseDateDaysLimit} day(s) from today.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+        <customErrorMessages>
+            <errorMessage>Please select a date no later than {!nextCloseDateDaysLimit} day(s) from today.</errorMessage>
+            <fieldSelection>CloseDate</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Is_Close_Date_In_Valid_Range</name>
+        <label>Is Close Date In Valid Range?</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Date_Range_Is_Invalid</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>isCloseDateWithinNDays</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Invalid_CloseDate_Alert</targetReference>
+            </connector>
+            <label>Date Range Is Invalid</label>
+        </rules>
+    </decisions>
+    <description>RTF for Opportunity object that handles BEFORE INSERT and/or BEFORE UPDATE phases.</description>
+    <environments>Default</environments>
+    <formulas>
+        <description>Ensures the CloseDate is on or before N days from today (N = 20 days).</description>
+        <name>isCloseDateWithinNDays</name>
+        <dataType>Boolean</dataType>
+        <expression>TODAY() +{!nextCloseDateDaysLimit} &gt;= {!$Record.CloseDate}</expression>
+    </formulas>
+    <interviewLabel>Minlopro - Opportunity - Before Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Minlopro - Opportunity - Before Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>56</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Is_Close_Date_In_Valid_Range</targetReference>
+        </connector>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

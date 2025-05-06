@@ -33,9 +33,9 @@ while IFS= read -r line; do
 done < <(grep '<members>.*Test<\/members>' "$packageXml")
 
 if [ -z "${testClassNamesArray[*]}" ]; then
-  # Default Apex Test class name;
+  # Default Apex Test class name - this one MUST be existing class (otherwise the resulting Job Id won't be eligible for quick deploys);
   echo "No updates detected in Apex Test classes. Applying stub/mock keyword."
-  testClassNamesArray+=("MOCKED")
+  testClassNamesArray+=("SystemInfoControllerTest")
 fi
 
 echo "Apex Test Class Names: ${testClassNamesArray[*]}"
@@ -51,7 +51,17 @@ jobInfoJson=$(npx dotenv -e '.env' -- sf project deploy validate \
   --verbose \
   --async \
   --ignore-warnings \
-  --json --wait 10)
+  --json \
+  --wait 10)
+
+# Uncomment for debugging purposes;
+# echo "Job Info: $jobInfoJson"
+
+jobStatusCode=$(echo "$jobInfoJson" | jq '.status')
+if [ "$jobStatusCode" != 0 ]; then
+  echo "🔴 Validation Deployment Failed: [$(echo "$jobInfoJson" | jq '.message')]"
+  exit 1
+fi
 
 # Extract and parse Job ID;
 jobIdWithQuotes=$(echo "$jobInfoJson" | jq '.result.id')
