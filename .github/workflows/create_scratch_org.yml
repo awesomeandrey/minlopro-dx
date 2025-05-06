@@ -35,10 +35,12 @@ jobs:
         id: spin-scratch-org
         continue-on-error: true
         run: bash ./scripts/automations/create_scratch_org.sh "DevHub" "ScratchOrg" "${{github.event.inputs.adminEmail}}"
-      - name: 'Run Apex Tests With Coverage'
+      - name: "Run Apex Tests 🚇"
         id: run_apex_tests
         continue-on-error: true
-        run: npm run sf:apex:tests:coverage -- --target-org "ScratchOrg"
+        uses: ./.github/actions/run-apex-tests
+        with:
+          target-org-alias: "ScratchOrg"
       - name: 'Upload Scratch Org Credentials as Artifact'
         id: upload-scratch-credentials
         continue-on-error: true

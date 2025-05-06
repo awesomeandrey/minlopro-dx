@@ -1,0 +1,114 @@
+name: "Run Apex Tests 🚇"
+description: "Runs Apex Tests in target Salesforce org and generates results report"
+
+inputs:
+  target-org-alias:
+    required: true
+    type: string
+  class-names:
+    required: false
+    type: string
+    description: "Apex Test class names separated by colon character"
+  slack-webhook-url:
+    required: false
+    type: string
+
+outputs:
+  success:
+    description: "Boolean flag that reflects whether the Apex Tests passed or failed"
+    value: ${{ steps.parse-apex-tests-results.outputs.success }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: 'Invoke Apex Tests'
+      continue-on-error: true
+      shell: bash
+      run: |
+        # Default boolean flag value
+        echo "success=false" >> $GITHUB_OUTPUT
+        
+        # Create temporary flags directory
+        flagsDir=$(mktemp -d) && trap 'rm -rf $flagsDir' EXIT
+        
+        # Parse Apex Test class names if set;
+        apexClassNames="${{ inputs.class-names }}"
+        apexClassNames="${apexClassNames//[[:space:]]/}"
+        if [ -n "$apexClassNames" ]; then
+          touch "$flagsDir/class-names"
+          IFS=':' # Set colon as the field separator
+          for item in ${apexClassNames}; do
+            echo "$item" >> "$flagsDir/class-names"
+          done
+        fi
+        
+        # Invoke Apex Tests saving results in a dedicated folder
+        echo "Running Apex Tests against [${{ inputs.target-org-alias }}] Salesforce org..."
+        npm run sf:apex:tests -- \
+          --target-org "${{ inputs.target-org-alias }}" \
+          --flags-dir "$flagsDir"
+    - name: 'Parse Apex Test Results'
+      id: parse-apex-tests-results
+      shell: bash
+      run: |
+        apexTestResultsAsJson="$(bash ./scripts/util/parse_apex_test_results.sh)"
+        echo "success=$(echo "$apexTestResultsAsJson" | jq -r '.success')" >> $GITHUB_OUTPUT
+        echo "apexTestResultsAsBase64=$(echo $apexTestResultsAsJson | base64 -w 0)" >> $GITHUB_OUTPUT
+    - name: 'Send Slack Alert'
+      if: ${{ inputs.slack-webhook-url != '' }}
+      shell: bash
+      run: |
+        echo "Sending Slack alert via ${{ inputs.slack-webhook-url }} webhook URL..."
+        echo "Apex Tests Results As Base64 = ${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }}"
+    - name: 'EnricoMi > Publish Tests Summary'
+      id: publish-test-results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      with:
+        comment_mode: off
+        junit_files: |
+          **/testresults/*junit.xml
+    - name: 'Create Report & Exit'
+      shell: bash
+      run: |
+        apexTestResultsAsJson=$(echo ${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }} | base64 -d)
+        
+        _outcome=$(echo "$apexTestResultsAsJson" | jq -r '.outcome')
+        _outcomeColor=$(echo "$apexTestResultsAsJson" | jq -r '.outcomeColor')
+        _total=$(echo "$apexTestResultsAsJson" | jq -r '.total')
+        _passing=$(echo "$apexTestResultsAsJson" | jq -r '.passing')
+        _failing=$(echo "$apexTestResultsAsJson" | jq -r '.failing')
+        _instanceUrl=$(sf org display --json --target-org "${{inputs.target-org-alias}}" | jq -r '.result.instanceUrl')
+        
+        {
+          echo "### Apex Test Results 🚀"
+          echo
+          echo "[**${{inputs.target-org-alias}}**]($_instanceUrl) 🔗"
+          echo
+          echo "![Apex Tests](https://img.shields.io/badge/Apex%20Tests-$_outcome-$_outcomeColor)"
+          echo
+          echo "| Passing | Failing | Total |"
+          echo "| --- | --- | --- |"
+          echo "| $_passing | $_failing | $_total |"
+          echo
+        } >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ steps.parse-apex-tests-results.outputs.success }}" != "true" ]; then
+          _failedTests=$(echo "$apexTestResultsAsJson" | jq -r '.failedTests')
+        
+          echo "_See failures below:_" >> $GITHUB_STEP_SUMMARY
+          echo "$_failedTests" | jq -c '.[]' | while read -r apexTest; do
+            name=$(echo "$apexTest" | jq -r '.name')
+            errorMessage=$(echo "$apexTest" | jq -r '.errorMessage')
+            stackTrace=$(echo "$apexTest" | jq -r '.stackTrace')
+            {
+              echo '```'
+              echo "$name 🔻"
+              echo "$errorMessage"
+              echo "$stackTrace"
+              echo '```'
+            } >> $GITHUB_STEP_SUMMARY
+          done
+          exit 1
+        else
+          exit 0
+        fi

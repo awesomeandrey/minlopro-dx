@@ -12,10 +12,16 @@ on:
         options:
           - "Minlopro Prod"
           - "Minlopro DevHub"
+      apex-test-class-names:
+        description: "Apex Test Class Names"
+        type: string
 
 permissions:
-  contents: write
+  contents: read
   id-token: write
+  issues: read
+  checks: write
+  pull-requests: write
 
 env:
   SF_CLI_VERSION: "2.77.6"
@@ -36,15 +42,25 @@ jobs:
         uses: ./.github/actions/auth-salesforce-org
         with:
           sfdx_auth_url: ${{ env.SF_AUTH_URL }}
-      - name: 'Get Auth Org Alias'
+      - name: "Run Apex Tests 🚇"
+        id: run-apex-tests
+        continue-on-error: false
+        uses: ./.github/actions/run-apex-tests
+        with:
+          target-org-alias: ${{ steps.auth-salesforce-org.outputs.target-org-alias }}
+          class-names: ${{ inputs.apex-test-class-names }}
+          slack-webhook-url: "https://todo.slack.webhook"
+      - name: 'Composite Actions Outputs'
         run: |
-          echo "Auth Org Alias = ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+          echo "sf --version >>> $(sf --version)"
+          echo "Auth Org Alias >>> ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+          echo "Apex Tests Outcome >>> ${{ steps.run-apex-tests.outputs.success }}"
       - name: 'GHA Playground - Step #1'
         run: |
           echo "〽️ Target Environment"
           echo "ENV=${{ inputs.environment }}"
           echo "〽️ Environment Details"
-          printenv | column -t -s "=" | sort
+          printenv | grep "GITHUB" | column -t -s "=" | sort
           echo "〽️ Setting custom env variable"
           MINLOPRO_STATUS="Haha I'm playing with GHAs! Cool 💯!"
           echo "Value: ${MINLOPRO_STATUS}"
@@ -58,10 +74,10 @@ jobs:
           echo "〽️ Getting custom env variable"
           echo "Env variable value: ${MINLOPRO_STATUS}"
           echo "〽️ Listing Salesforce CLI Plugins & Adding Them As Summary"
-          echo "### Salesforce CLI Plugins" >> $GITHUB_STEP_SUMMARY
-          echo '```json' >> $GITHUB_STEP_SUMMARY
-          sf plugins --json | jq '[.[].name]' >> $GITHUB_STEP_SUMMARY
-          echo '```' >> $GITHUB_STEP_SUMMARY
+#          echo "### Salesforce CLI Plugins" >> $GITHUB_STEP_SUMMARY
+#          echo '```json' >> $GITHUB_STEP_SUMMARY
+#          sf plugins --json | jq '[.[].name]' >> $GITHUB_STEP_SUMMARY
+#          echo '```' >> $GITHUB_STEP_SUMMARY
       - name: 'GHA Playground - Step #3'
         run: |
           echo "〽️ Getting custom env variable (cross-step)"

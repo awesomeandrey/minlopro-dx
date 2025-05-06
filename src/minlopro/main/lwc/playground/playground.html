@@ -5,7 +5,10 @@
         <lightning-button-group slot="actions">
             <lightning-button label="Celebrate!" onclick={handleCelebrateWithConfetti}></lightning-button>
         </lightning-button-group>
-        <lightning-layout>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" padding="around-small">
+                <p class="slds-box_border">Formatted UTC: <b>{formattedDateTimeStamp}</b></p>
+            </lightning-layout-item>
             <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
                 <div class="sms slds-box slds-box_x-small">
                     <lightning-card title="SMS" icon-name="standard:sms">
