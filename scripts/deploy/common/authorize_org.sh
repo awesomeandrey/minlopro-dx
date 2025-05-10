@@ -40,7 +40,7 @@ orgId=$(echo "$orgInfo" | jq -r '.result.id')
 
 # Compose custom org alias if not set;
 if [ -z "$customOrgAlias" ]; then
-  customOrgAlias="$orgUsername-$orgId"
+  customOrgAlias="sf-$orgId-$orgUsername"
 fi
 sf alias set "$customOrgAlias" "$orgUsername"
 sf config set target-org "$customOrgAlias"
