@@ -32,8 +32,9 @@ add_or_update_env_var() {
     echo "$content" | grep -v "^$var_name=" > "$ENV_FILEPATH"
     # Append variable with value
     echo "$var_name=$var_value" >> "$ENV_FILEPATH"
+    sort "$ENV_FILEPATH" -o "$ENV_FILEPATH"
+    # Log to terminal
     # echo -e "- ${BlueColor}$var_name${NoColor} variable was set to ${BlueColor}$var_value${NoColor}"
-    content=$(cat "$ENV_FILEPATH"); echo "$content" | sort > "$ENV_FILEPATH"
 }
 
 # Calculate & set static variables

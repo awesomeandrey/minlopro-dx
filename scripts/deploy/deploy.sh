@@ -1,31 +1,31 @@
 #!/usr/bin/env bash
 
-# How to use:
 # - bash ./scripts/deploy/deploy.sh
 # - bash ./scripts/deploy/deploy.sh "ORG_ALIAS" "hard"
-# - bash ./scripts/deploy/deploy.sh "ORG_ALIAS" "dry-run"
+# - bash ./scripts/deploy/deploy.sh "ORG_ALIAS" "hard" "RunLocalTests"
+# - bash ./scripts/deploy/deploy.sh "ORG_ALIAS" "dry-run" "NoTestRun"
 
-TARGET_ORG_ALIAS=$1
-MODE=$2
-if [ -z "$TARGET_ORG_ALIAS" ] || [ -z "$MODE" ]; then
-  read -r -p "🔶 Enter target org alias to deploy against: " TARGET_ORG_ALIAS
-  read -r -p "🔶 Specify deployment mode (default: dry-run): " MODE
-  MODE=${MODE:-dry-run}
+TARGET_ORG_ALIAS="$1"
+MODE="$2"
+TEST_LEVEL="$3"
+if [ -z "$TARGET_ORG_ALIAS" ]; then
+  echo "🔴 Target org alias must be specified!"
+  exit 1
 fi
-MODE=$(echo "$MODE" | awk '{print tolower($0)}')
+MODE=${MODE:-dry-run}
+TEST_LEVEL=${TEST_LEVEL:-NoTestRun}
 
 FLAGS_DIR=$(mktemp -d) && trap 'rm -rf $FLAGS_DIR' EXIT
-
+MODE=$(echo "$MODE" | awk '{print tolower($0)}')
 case $MODE in
   hard)
-    echo "🔵 Deploying to [$TARGET_ORG_ALIAS] organization..."
-    touch "$FLAGS_DIR/concise" # --concise
+    echo "🔵 Running Hard Deploy ($TEST_LEVEL) to [$TARGET_ORG_ALIAS] organization..."
+    touch "$FLAGS_DIR/verbose"
     ;;
   dry-run)
-    echo "🔵 Validating deployment against [$TARGET_ORG_ALIAS] organization..."
-    touch "$FLAGS_DIR/verbose" # --verbose
-    touch "$FLAGS_DIR/dry-run" # --dry-run
-    touch "$FLAGS_DIR/test-level"; echo "NoTestRun" > "$FLAGS_DIR/test-level" # --test-level "NoTestRun"
+    echo "🔵 Running Dry-Run Deploy ($TEST_LEVEL) against [$TARGET_ORG_ALIAS] organization..."
+    touch "$FLAGS_DIR/dry-run"
+    touch "$FLAGS_DIR/concise"
     ;;
   *)
     echo "🔴 Invalid deployment mode specified. Allowed values are: hard, dry-run."
@@ -58,5 +58,6 @@ npx dotenv -e ".env" -- sf project deploy start \
   --post-destructive-changes "$postDestructiveChangesXml" \
   --ignore-conflicts \
   --ignore-warnings \
-  --wait 10 \
+  --test-level "$TEST_LEVEL" \
+  --wait 30 \
   --flags-dir "$FLAGS_DIR"

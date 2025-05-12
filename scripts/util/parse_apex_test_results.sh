@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/parse_apex_test_results.sh
+# - bash ./scripts/util/parse_apex_test_results.sh "testresults"
 
-#testResultsDir="temp/waaaa"
-#testResultsDir="temp/testresults/failure"
-#testResultsDir="temp/testresults/success"
-
-testResultsDir="testresults"
+testResultsDir="$1"
 
 if [ ! -d "$testResultsDir" ]; then
   echo "[$testResultsDir] directory does not exist."
