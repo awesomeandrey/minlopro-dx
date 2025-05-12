@@ -17,7 +17,7 @@ public with sharing class NamedCredentialsPlayground {
     }
 
     private void run(String namedCredentialApiName) {
-        Integer currentCalloutsConsumed = Limits.getCallouts();
+        Integer totalCalloutsConsumed = Limits.getCallouts();
         try {
             // Prepare HTTP request;
             HttpRequest req = new HttpRequest();
@@ -34,24 +34,14 @@ public with sharing class NamedCredentialsPlayground {
                 Logger.error('Response Body: {0}', Lists.of(resp.getBody()));
                 throw new IllegalArgumentException('Unsuccessful status code returned: ' + resp.getStatusCode().toString());
             }
-            Logger.debug('{0} > HTTP Status = {1}', Lists.of(namedCredentialApiName, resp.getStatus()));
-            OrganizationsPayload responsePayload = (OrganizationsPayload) JSON.deserialize(
-                resp.getBody(),
-                OrganizationsPayload.class
+            Integer currentCalloutsConsumed = Limits.getCallouts() - totalCalloutsConsumed;
+            Logger.debug(
+                '{0} > HTTP Status = {1} (callouts consumed = {2})',
+                Lists.of(namedCredentialApiName, resp.getStatus(), currentCalloutsConsumed.toString())
             );
-            if (responsePayload.records.isEmpty()) {
-                throw new IllegalArgumentException('Empty payload returned: ' + responsePayload.toString());
-            }
-            Logger.debug('Consumed {0} HTTP callout(s).', Lists.of((Limits.getCallouts() - currentCalloutsConsumed).toString()));
         } catch (Exception ex) {
             Logger.error('{0} : FAILED', Lists.of(namedCredentialApiName));
             Logger.error(ex);
         }
-    }
-
-    public class OrganizationsPayload {
-        public Integer totalSize;
-        public Boolean done;
-        public List<Organization> records;
     }
 }

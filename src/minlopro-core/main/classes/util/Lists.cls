@@ -26,6 +26,10 @@ public inherited sharing class Lists {
         return values[randomIndex];
     }
 
+    public static String getRandomString(List<String> values) {
+        return (String) Lists.getRandomItem(values);
+    }
+
     // Working with 'String's;
 
     public static List<String> of(String value) {

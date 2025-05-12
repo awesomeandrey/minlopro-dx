@@ -121,7 +121,7 @@ public class TestDataFactory {
                     Name = 'Test #' + i,
                     AnnualRevenue = generateRandomDecimal(),
                     Description = generateRandomString(100),
-                    Industry = (String) Lists.getRandomItem(Lists.of('Telecommunications', 'Agriculture', 'Banking')),
+                    Industry = Lists.getRandomString(Lists.of('Telecommunications', 'Agriculture', 'Banking')),
                     Phone = generateRandomPhone(),
                     Website = generateRandomWebsite()
                 )
@@ -136,14 +136,14 @@ public class TestDataFactory {
         for (Integer i = 0; i < numOfAccounts; i++) {
             Account customer = new Account();
             customer.RecordTypeId = personRecordType.Id;
-            customer.PersonTitle = (String) Lists.getRandomItem(Lists.of('Sr. Surgeon', 'Top Banker', 'DevOps'));
+            customer.PersonTitle = Lists.getRandomString(Lists.of('Sr. Surgeon', 'Top Banker', 'DevOps'));
             customer.FirstName = String.format('F{0}-{1}', Lists.of(i.toString(), TestDataFactory.generateRandomString(5)));
             customer.LastName = String.format('L{0}-{1}', Lists.of(i.toString(), TestDataFactory.generateRandomString(5)));
             customer.PersonEmail = String.format('{0}@apex.test', Lists.of(customer.LastName));
             customer.PersonHasOptedOutOfEmail = false;
-            customer.Industry = (String) Lists.getRandomItem(Lists.of('Healthcare', 'Finance', 'Technology'));
+            customer.Industry = Lists.getRandomString(Lists.of('Healthcare', 'Finance', 'Technology'));
             customer.Site = generateRandomWebsite();
-            customer.Type = (String) Lists.getRandomItem(Lists.of('Partner', 'Customer'));
+            customer.Type = Lists.getRandomString(Lists.of('Partner', 'Customer'));
             customer.Phone = generateRandomPhone();
             customerAccounts.add(customer);
         }
@@ -198,8 +198,8 @@ public class TestDataFactory {
                     Company = 'Company #' + i,
                     AnnualRevenue = 100 * Math.random(),
                     Email = 'lead_' + i + '@edu.com',
-                    GenderIdentity = (String) Lists.getRandomItem(Lists.of('Male', 'Female')),
-                    LeadSource = (String) Lists.getRandomItem(Lists.of('Web', 'Partner')),
+                    GenderIdentity = Lists.getRandomString(Lists.of('Male', 'Female')),
+                    LeadSource = Lists.getRandomString(Lists.of('Web', 'Partner')),
                     Status = 'New',
                     FirstName = 'FN #' + i,
                     LastName = 'LN #' + i,
@@ -210,8 +210,8 @@ public class TestDataFactory {
                     Products__c = String.format(
                         '{0}; {1}',
                         Lists.of(
-                            (String) Lists.getRandomItem(Lists.of('Auto', 'Home')),
-                            (String) Lists.getRandomItem(Lists.of('Life', 'Umbrella'))
+                            Lists.getRandomString(Lists.of('Auto', 'Home')),
+                            Lists.getRandomString(Lists.of('Life', 'Umbrella'))
                         )
                     )
                 )
@@ -261,7 +261,7 @@ public class TestDataFactory {
 
     public static String generateRandomWebsite() {
         String siteName = generateRandomString(5);
-        String siteDomain = (String) Lists.getRandomItem(Lists.of('com', 'me', 'io'));
+        String siteDomain = Lists.getRandomString(Lists.of('com', 'me', 'io'));
         return String.format('https://apextest.{0}.{1}', Lists.of(siteName, siteDomain));
     }
 

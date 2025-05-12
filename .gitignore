@@ -7,7 +7,7 @@
 node_modules/
 IlluminatedCloud/
 .illuminatedCloud/
-coverage/
+testresults/
 build/
 temp/
 logs/

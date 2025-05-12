@@ -63,8 +63,10 @@ jobs:
         uses: ./.github/actions/auth-salesforce-org
         with:
           sfdx_auth_url: ${{ env.SF_AUTH_URL }}
-      - name: 'Run All Apex Tests with Coverage'
-        run: npm run sf:apex:tests:coverage
+      - name: "Run Apex Tests 🚇"
+        uses: ./.github/actions/run-apex-tests
+        with:
+          target-org-alias: "${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
   run-pmd-checks:
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-22.04

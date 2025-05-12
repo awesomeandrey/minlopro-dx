@@ -2,11 +2,11 @@ name: "Auth Salesforce Org 🚜"
 description: "Authenticate into Salesforce org and assign it unique alias"
 
 inputs:
-  sfdx_auth_url:
-    required: true
-    type: string
   target-org-alias:
     required: false
+    type: string
+  sfdx_auth_url:
+    required: true
     type: string
 
 outputs:
