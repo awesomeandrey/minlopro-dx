@@ -4,14 +4,13 @@ description: "Runs Apex Tests in target Salesforce org and generates results rep
 inputs:
   target-org-alias:
     required: true
-    type: string
+    description: "Locally authenticated Salesforce org alias"
   class-names:
     required: false
-    type: string
     description: "Apex Test class names separated by colon character"
   slack-webhook-url:
     required: false
-    type: string
+    description: "Slack Webhook URL to post test results to"
 
 outputs:
   success:
@@ -59,19 +58,21 @@ runs:
       shell: bash
       run: |
         echo "Sending Slack alert via ${{ inputs.slack-webhook-url }} webhook URL..."
-        echo "Apex Tests Results As Base64 = ${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }}"
-    - name: 'EnricoMi > Publish Tests Summary'
-      id: publish-test-results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      with:
-        comment_mode: off
-        junit_files: |
-          **/testresults/*junit.xml
+        
+        apexTestResultsAsJson=$(echo ${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }} | base64 -d)
+        _success=$(echo "$apexTestResultsAsJson" | jq -r '.success')
+        
+        if [ "$_success" != "true" ]; then
+          echo "Sending Slack alerts with failures 🆘..."
+        else
+          echo "Sending success Slack alerts ✳️..."
+        fi
     - name: 'Create Report & Exit'
       shell: bash
       run: |
         apexTestResultsAsJson=$(echo ${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }} | base64 -d)
         
+        _success=$(echo "$apexTestResultsAsJson" | jq -r '.success')
         _outcome=$(echo "$apexTestResultsAsJson" | jq -r '.outcome')
         _outcomeColor=$(echo "$apexTestResultsAsJson" | jq -r '.outcomeColor')
         _total=$(echo "$apexTestResultsAsJson" | jq -r '.total')
@@ -92,7 +93,7 @@ runs:
           echo
         } >> $GITHUB_STEP_SUMMARY
         
-        if [ "${{ steps.parse-apex-tests-results.outputs.success }}" != "true" ]; then
+        if [ "$_success" != "true" ]; then
           _failedTests=$(echo "$apexTestResultsAsJson" | jq -r '.failedTests')
         
           echo "_See failures below:_" >> $GITHUB_STEP_SUMMARY

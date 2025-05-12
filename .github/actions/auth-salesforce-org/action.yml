@@ -4,10 +4,10 @@ description: "Authenticate into Salesforce org and assign it unique alias"
 inputs:
   target-org-alias:
     required: false
-    type: string
+    description: "Target Salesforce org alias to set upon authentication"
   sfdx_auth_url:
     required: true
-    type: string
+    description: "Target Salesforce org SFDX URL"
 
 outputs:
   target-org-alias:
