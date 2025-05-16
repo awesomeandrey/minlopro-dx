@@ -252,7 +252,7 @@ private class MergeDuplicatePersonAccountsTest {
             if (!field.getDescribe().isUpdateable()) {
                 continue;
             }
-            if (masterRecord.get(field) == null || String.isBlank(masterRecord.get(field).toString())) {
+            if (String.isBlank(masterRecord.get(field)?.toString())) {
                 masterRecord.put(field, mergeRecord.get(field));
             }
         }
