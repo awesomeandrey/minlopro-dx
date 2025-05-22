@@ -1,6 +1,6 @@
 import { LightningElement, track, wire } from 'lwc';
 import { updateRecord } from 'lightning/uiRecordApi';
-import { cloneObject, parseError, to, isEmptyArray } from 'c/utilities';
+import { cloneObject, parseError, to, isEmptyArray, uniqueId, isValidRecordId } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 // Apex Controller Methods;
@@ -27,6 +27,7 @@ export default class DatatableContactsTab extends LightningElement {
     get columns() {
         /**
          * Contact.Id - 'customLookup', readonly
+         * Contact.IsPersonAccount - 'boolean', readonly
          * Contact.Title - 'text', editable
          * Contact.AccountId - 'customLookup', editable
          * Contact.GenderIdentity - 'customCombobox', editable
@@ -52,6 +53,12 @@ export default class DatatableContactsTab extends LightningElement {
                 }
             },
             {
+                label: 'Is Person Account?',
+                fieldName: 'IsPersonAccount',
+                type: 'boolean',
+                editable: false
+            },
+            {
                 label: 'Title',
                 fieldName: 'Title',
                 type: 'customInput',
@@ -60,6 +67,9 @@ export default class DatatableContactsTab extends LightningElement {
                     context: { fieldName: this.KEY_FIELD },
                     fieldName: 'Title',
                     value: { fieldName: 'Title' }
+                },
+                cellAttributes: {
+                    class: 'slds-theme_alert-texture'
                 }
             },
             {
@@ -104,6 +114,9 @@ export default class DatatableContactsTab extends LightningElement {
                     fieldName: 'Industry__c',
                     value: { fieldName: 'Industry__c' },
                     objectApiName: 'Contact'
+                },
+                cellAttributes: {
+                    class: 'slds-theme_alert-texture'
                 }
             },
             {
@@ -228,6 +241,13 @@ export default class DatatableContactsTab extends LightningElement {
 
     // Event Handlers;
 
+    handleAddEntry(event) {
+        const proto = { Id: uniqueId(), Title: 'Salesforce Developer', Industry__c: 'Finance' };
+        this.draftValues = [proto, ...this.draftValues];
+        this.records = [proto, ...this.records];
+        // this.refs.datatable.openInlineEdit(); // Opens last focused cell in edit mode (it does not focus newly added entry);
+    }
+
     handleToggleCdtsOnly() {
         this.showCdtColumnsOnly = !this.showCdtColumnsOnly;
     }
@@ -273,7 +293,7 @@ export default class DatatableContactsTab extends LightningElement {
         this.loading = true;
         // Capture current records state and update with values accordingly;
         let clonedRecords = cloneObject(this.records) || [];
-        let clonedDrafts = cloneObject(this.draftValues) || [];
+        let clonedDrafts = cloneObject(this.draftValues).filter(({ Id }) => isValidRecordId(Id)) || [];
         let clonedErrors = cloneObject(this.errors) || {};
         // Save record updates via LDS;
         const updatePromises = clonedDrafts.map((record) => {
@@ -297,7 +317,7 @@ export default class DatatableContactsTab extends LightningElement {
                 }
                 // Remove updated record from drafts;
                 clonedDrafts = clonedDrafts.filter((_) => _[this.KEY_FIELD] !== targetDraftRecord[this.KEY_FIELD]);
-                // Nullify any errors related this this draft;
+                // Nullify any errors related this draft;
                 delete clonedErrors.rows[data.id];
             } else if (status === 'rejected') {
                 console.error(`Record #${index + 1} failed with reason: ${JSON.stringify(reason)}`);

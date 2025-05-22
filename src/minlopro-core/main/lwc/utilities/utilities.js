@@ -203,6 +203,10 @@ export function resolveRecordId(recordId = null) {
     return null;
 }
 
+export function isValidRecordId(recordId = null) {
+    return Boolean(resolveRecordId(recordId));
+}
+
 export async function readFileAsBlob(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
