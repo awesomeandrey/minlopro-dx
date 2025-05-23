@@ -2,6 +2,7 @@
     <lightning-card>
         <span slot="title" class="slds-text-title_caps"><code>c-datatable-contacts-tab</code></span>
         <lightning-button-group slot="actions">
+            <lightning-button label="Add" onclick={handleAddEntry}></lightning-button>
             <lightning-button label={cdtOnlyBtnLabel} onclick={handleToggleCdtsOnly}></lightning-button>
             <lightning-button label="Reset" onclick={handleReset}></lightning-button>
         </lightning-button-group>

@@ -20,7 +20,7 @@ public with sharing class DatatableContactsController {
             factory.setOffset(query.offsetValue);
             factory.setLimit(query.limitValue);
             factory.setOrdering(Contact.Title, fflib_QueryFactory.SortOrder.ASCENDING);
-            return (List<Contact>) repository.query(factory.toSOQL());
+            return repository.query(factory.toSOQL());
         } catch (Exception ex) {
             Logger.error(ex.getMessage());
             throw new AuraHandledException(ex.getMessage());

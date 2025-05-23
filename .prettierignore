@@ -1,6 +1,10 @@
 # General Salesforce Metadata & Components
 **/certs/
 **/connectedApps/
+**/externalClientApps/
+**/extlClntAppGlobalOauthSets/
+**/extlClntAppOauthPolicies/
+**/extlClntAppOauthSettings/
 **/contentassets/
 **/digitalExperiences/
 **/documents/

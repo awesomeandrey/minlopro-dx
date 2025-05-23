@@ -2,19 +2,19 @@ name: Playground 🐚
 run-name: "Playground [${{ inputs.environment }}] / '${{ github.actor }}'"
 
 on:
+#  pull_request:
+#    types: [ opened, synchronize, reopened ]
   workflow_dispatch:
     inputs:
       environment:
-        description: "Target Environment"
+        description: "Target Deployment/Environment"
         required: true
-        type: choice
+        type: environment
         default: "Minlopro DevHub"
-        options:
-          - "Minlopro Prod"
-          - "Minlopro DevHub"
       apex-test-class-names:
         description: "Apex Test Class Names"
         type: string
+        default: "OpportunityFlowTests:CarSharingRuleTest:TestDataFactoryTest"
 
 permissions:
   contents: read
@@ -29,9 +29,11 @@ env:
 jobs:
   playground-run:
     timeout-minutes: 10
+#    environment: "Minlopro DevHub"
     environment: ${{ inputs.environment }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
+      GHA_WORKFLOW_RUN_LINK: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
@@ -43,45 +45,46 @@ jobs:
         with:
           sfdx_auth_url: ${{ env.SF_AUTH_URL }}
       - name: "Run Apex Tests 🚇"
+        if: ${{ inputs.apex-test-class-names != '' }}
         id: run-apex-tests
-        continue-on-error: false
+        continue-on-error: true
         uses: ./.github/actions/run-apex-tests
         with:
           target-org-alias: ${{ steps.auth-salesforce-org.outputs.target-org-alias }}
           class-names: ${{ inputs.apex-test-class-names }}
-          slack-webhook-url: "https://todo.slack.webhook"
+          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_PLAYGROUND }}
       - name: 'Composite Actions Outputs'
         run: |
           echo "sf --version >>> $(sf --version)"
           echo "Auth Org Alias >>> ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
           echo "Apex Tests Outcome >>> ${{ steps.run-apex-tests.outputs.success }}"
-      - name: 'GHA Playground - Step #1'
-        run: |
-          echo "〽️ Target Environment"
-          echo "ENV=${{ inputs.environment }}"
-          echo "〽️ Environment Details"
-          printenv | grep "GITHUB" | column -t -s "=" | sort
-          echo "〽️ Setting custom env variable"
-          MINLOPRO_STATUS="Haha I'm playing with GHAs! Cool 💯!"
-          echo "Value: ${MINLOPRO_STATUS}"
-          echo "MINLOPRO_STATUS=${MINLOPRO_STATUS}" >> $GITHUB_ENV
-          echo "〽️ Get Salesforce CLI installation path"
-          which sf
-          echo "〽️ Get Global NPM Directory"
-          npm config get prefix
-      - name: 'GHA Playground - Step #2'
-        run: |
-          echo "〽️ Getting custom env variable"
-          echo "Env variable value: ${MINLOPRO_STATUS}"
-          echo "〽️ Listing Salesforce CLI Plugins & Adding Them As Summary"
+#      - name: 'GHA Playground - Step #1'
+#        run: |
+#          echo "〽️ Target Environment"
+#          echo "ENV=${{ inputs.environment }}"
+#          echo "〽️ Environment Details"
+#          printenv | grep "GITHUB" | column -t -s "=" | sort
+#          echo "〽️ Setting custom env variable"
+#          MINLOPRO_STATUS="Haha I'm playing with GHAs! Cool 💯!"
+#          echo "Value: ${MINLOPRO_STATUS}"
+#          echo "MINLOPRO_STATUS=${MINLOPRO_STATUS}" >> $GITHUB_ENV
+#          echo "〽️ Get Salesforce CLI installation path"
+#          which sf
+#          echo "〽️ Get Global NPM Directory"
+#          npm config get prefix
+#      - name: 'GHA Playground - Step #2'
+#        run: |
+#          echo "〽️ Getting custom env variable"
+#          echo "Env variable value: ${MINLOPRO_STATUS}"
+#          echo "〽️ Listing Salesforce CLI Plugins & Adding Them As Summary"
 #          echo "### Salesforce CLI Plugins" >> $GITHUB_STEP_SUMMARY
 #          echo '```json' >> $GITHUB_STEP_SUMMARY
 #          sf plugins --json | jq '[.[].name]' >> $GITHUB_STEP_SUMMARY
 #          echo '```' >> $GITHUB_STEP_SUMMARY
-      - name: 'GHA Playground - Step #3'
-        run: |
-          echo "〽️ Getting custom env variable (cross-step)"
-          echo "Env variable value: ${MINLOPRO_STATUS}"
-          echo "PWD as cli tool: $(pwd)"
-          echo "PWD as GHA env variable: ${{ env.PWD }}"
-          echo "PWD as regular env variable: $PWD"
+#      - name: 'GHA Playground - Step #3'
+#        run: |
+#          echo "〽️ Getting custom env variable (cross-step)"
+#          echo "Env variable value: ${MINLOPRO_STATUS}"
+#          echo "PWD as cli tool: $(pwd)"
+#          echo "PWD as GHA env variable: ${{ env.PWD }}"
+#          echo "PWD as regular env variable: $PWD"

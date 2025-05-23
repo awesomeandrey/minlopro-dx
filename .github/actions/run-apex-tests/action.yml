@@ -1,17 +1,16 @@
 name: "Run Apex Tests 🚇"
-description: "Runs Apex Tests in target Salesforce org and generates results report"
+description: "Runs Apex Tests in target Salesforce org, sends Slack alerts & generates results report"
 
 inputs:
   target-org-alias:
     required: true
-    type: string
+    description: "Locally authenticated Salesforce org alias"
   class-names:
     required: false
-    type: string
     description: "Apex Test class names separated by colon character"
   slack-webhook-url:
     required: false
-    type: string
+    description: "Slack Webhook URL to post test results to"
 
 outputs:
   success:
@@ -43,56 +42,64 @@ runs:
         fi
         
         # Invoke Apex Tests saving results in a dedicated folder
-        echo "Running Apex Tests against [${{ inputs.target-org-alias }}] Salesforce org..."
-        npm run sf:apex:tests -- \
+        sf apex run test \
           --target-org "${{ inputs.target-org-alias }}" \
-          --flags-dir "$flagsDir"
+          --flags-dir "$flagsDir" \
+          --code-coverage \
+          --output-dir "testresults" \
+          --wait 30 \
+          --concise
     - name: 'Parse Apex Test Results'
       id: parse-apex-tests-results
       shell: bash
       run: |
-        apexTestResultsAsJson="$(bash ./scripts/util/parse_apex_test_results.sh)"
+        apexTestResultsAsJson="$(bash ./scripts/util/parse_apex_test_results.sh "testresults")"
         echo "success=$(echo "$apexTestResultsAsJson" | jq -r '.success')" >> $GITHUB_OUTPUT
         echo "apexTestResultsAsBase64=$(echo $apexTestResultsAsJson | base64 -w 0)" >> $GITHUB_OUTPUT
     - name: 'Send Slack Alert'
       if: ${{ inputs.slack-webhook-url != '' }}
-      shell: bash
-      run: |
-        echo "Sending Slack alert via ${{ inputs.slack-webhook-url }} webhook URL..."
-        echo "Apex Tests Results As Base64 = ${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }}"
-    - name: 'EnricoMi > Publish Tests Summary'
-      id: publish-test-results
-      uses: EnricoMi/publish-unit-test-result-action@v2
+      uses: slackapi/slack-github-action@v2.1.0
       with:
-        comment_mode: off
-        junit_files: |
-          **/testresults/*junit.xml
+        webhook: ${{ inputs.slack-webhook-url }}
+        webhook-type: incoming-webhook
+        payload: |
+          {
+            "attachments": [
+              {
+                "color": "${{ steps.parse-apex-tests-results.outputs.success == 'true' && 'good' || 'danger' }}",
+                "text": "Apex Tests ${{ steps.parse-apex-tests-results.outputs.success == 'true' && '_passed_' || '🔻 *failed* 🔻' }} in *${{ inputs.target-org-alias }}* Salesforce org. \n See <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Workflow Run> for more details.",
+                "mrkdwn_in": ["text"]
+              }
+            ]
+          }
     - name: 'Create Report & Exit'
       shell: bash
       run: |
-        apexTestResultsAsJson=$(echo ${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }} | base64 -d)
+        apexTestResultsAsJson="$(echo "${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }}" | base64 -d)"
+        targetOrgAlias="${{ inputs.target-org-alias }}"
         
+        _success=$(echo "$apexTestResultsAsJson" | jq -r '.success')
         _outcome=$(echo "$apexTestResultsAsJson" | jq -r '.outcome')
         _outcomeColor=$(echo "$apexTestResultsAsJson" | jq -r '.outcomeColor')
         _total=$(echo "$apexTestResultsAsJson" | jq -r '.total')
         _passing=$(echo "$apexTestResultsAsJson" | jq -r '.passing')
         _failing=$(echo "$apexTestResultsAsJson" | jq -r '.failing')
-        _instanceUrl=$(sf org display --json --target-org "${{inputs.target-org-alias}}" | jq -r '.result.instanceUrl')
+        _instanceUrl=$(sf org display --json --target-org "$targetOrgAlias" | jq -r '.result.instanceUrl')
         
         {
           echo "### Apex Test Results 🚀"
           echo
-          echo "[**${{inputs.target-org-alias}}**]($_instanceUrl) 🔗"
+          echo "**$_instanceUrl** 🔗"
           echo
           echo "![Apex Tests](https://img.shields.io/badge/Apex%20Tests-$_outcome-$_outcomeColor)"
           echo
-          echo "| Passing | Failing | Total |"
+          echo "| Passing ✅ | Failing ❌ | Total |"
           echo "| --- | --- | --- |"
           echo "| $_passing | $_failing | $_total |"
           echo
         } >> $GITHUB_STEP_SUMMARY
         
-        if [ "${{ steps.parse-apex-tests-results.outputs.success }}" != "true" ]; then
+        if [ "$_success" != "true" ]; then
           _failedTests=$(echo "$apexTestResultsAsJson" | jq -r '.failedTests')
         
           echo "_See failures below:_" >> $GITHUB_STEP_SUMMARY
