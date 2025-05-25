@@ -70,6 +70,9 @@ export default class NamedCredentialsTab extends NavigationMixin(LightningElemen
     handleSelect(event) {
         const { value } = event.detail;
         this.selectedValue = value;
+        // Reset stats;
+        this.calloutStats = null;
+        this.error = null;
     }
 
     async handleInvokeCallout() {
