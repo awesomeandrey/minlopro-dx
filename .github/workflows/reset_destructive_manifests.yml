@@ -12,7 +12,6 @@ jobs:
         uses: ./.github/actions/build-env
       - name: "Reset Manifests & Commit Changes"
         run: |
-          # Set Git user info (required step)
-          git config user.name "${{github.actor}}"
-          # Invoke script that resets content of destructive manifests, commits changes & pushes them to remote branch
+          git config user.name "github-actions[bot] 🤖"
+          git config user.email "${{ github.actor_id }}+github-actions[bot]@users.noreply.github.com"
           bash ./scripts/automations/reset_and_commit_destructive_manifests.sh
