@@ -1,5 +1,5 @@
 name: Deploy Source 🚛
-run-name: "Deploy Source (${{ inputs.mode == 'Dry-Run' && 'Dry-Run' || 'Hard' }}) 🚛"
+run-name: "Deploy Source (${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'Hard' }}) 🚛"
 
 on:
   schedule:
@@ -34,12 +34,12 @@ on:
       - develop
 
 env:
-  SF_DEPLOYMENT_MODE: "${{ inputs.mode == 'Dry-Run' && 'Dry-Run' || 'Hard' }}"
+  SF_DEPLOYMENT_MODE: ${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'Hard' }}
 
 jobs:
   deploy-source-to-org:
     runs-on: ubuntu-22.04
-    environment: ${{ inputs.environment }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'Minlopro Prod' }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
@@ -70,7 +70,7 @@ jobs:
     if: ${{ inputs.mode != 'Dry-Run' }}
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-22.04
-    environment: ${{ inputs.environment }}
+    environment: ${{ github.event_name == 'workflow_dispatch' && inputs.environment || 'Minlopro Prod' }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
     steps:
