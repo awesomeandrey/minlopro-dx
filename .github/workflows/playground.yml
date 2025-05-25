@@ -57,6 +57,7 @@ jobs:
         run: |
           echo "sf --version >>> $(sf --version)"
           echo "Auth Org Alias >>> ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+          echo "Auth Org Instance URL >>> ${{ steps.auth-salesforce-org.outputs.target-org-instance-url }}"
           echo "Apex Tests Outcome >>> ${{ steps.run-apex-tests.outputs.success }}"
 #      - name: 'GHA Playground - Step #1'
 #        run: |

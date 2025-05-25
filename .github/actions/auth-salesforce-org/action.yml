@@ -13,6 +13,9 @@ outputs:
   target-org-alias:
     description: "Alias of locally authenticated Salesforce org"
     value: ${{ steps.auth-salesforce-org.outputs.SF_TARGET_ORG_ALIAS }}
+  target-org-instance-url:
+    description: "Instance URL of locally authenticated Salesforce org"
+    value: ${{ steps.auth-salesforce-org.outputs.SF_TARGET_ORG_INSTANCE_URL }}
 
 runs:
   using: "composite"
@@ -22,7 +25,9 @@ runs:
       shell: bash
       run: |
         bash ./scripts/deploy/common/authorize_org.sh "${{ inputs.sfdx_auth_url }}" "${{ inputs.target-org-alias }}"
-        echo "SF_TARGET_ORG_ALIAS=$(sf config get target-org --json | jq -r '.result[0].value')" >> $GITHUB_OUTPUT
+        orgAlias=$(sf config get target-org --json | jq -r '.result[0].value')
+        echo "SF_TARGET_ORG_ALIAS=$orgAlias" >> $GITHUB_OUTPUT
+        echo "SF_TARGET_ORG_INSTANCE_URL=$(sf org display -o $orgAlias --json | jq -r '.result.instanceUrl')" >> $GITHUB_OUTPUT
     - name: 'Listing Organization Limits'
       shell: bash
       run: sf limits api display

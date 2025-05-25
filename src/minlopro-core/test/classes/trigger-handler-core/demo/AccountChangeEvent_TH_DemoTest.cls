@@ -28,7 +28,7 @@ private class AccountChangeEvent_TH_DemoTest {
             Assert.isTrue(String.isBlank(accountItem.Description), 'Account Description field should be blank');
         }
         // Override datetime stamp to verify field change in test;
-        final String datetimeFormat = 'MM-DD-YYYY';
+        final String datetimeFormat = 'MMM-YYYY';
         TH_Account_CDC_Sample1.DATETIME_STAMP_FORMAT = datetimeFormat;
         String datetimeStamp = Datetime.now().format(TH_Account_CDC_Sample1.DATETIME_STAMP_FORMAT);
         // Enable CDC in test context;
