@@ -2,7 +2,7 @@ import { api, track, wire } from 'lwc';
 import DatatableEditableCdt from 'c/datatableEditableCdt';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
-import { wait } from 'c/utilities';
+import { isNotEmpty, isValidRecordId, wait } from 'c/utilities';
 
 export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
     @api context;
@@ -46,6 +46,10 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
 
     get isInputMode() {
         return this.readOnly === false;
+    }
+
+    get isInvalidRecordId() {
+        return isNotEmpty(this.value) && !isValidRecordId(this.value);
     }
 
     get normalizedDisplayInfo() {

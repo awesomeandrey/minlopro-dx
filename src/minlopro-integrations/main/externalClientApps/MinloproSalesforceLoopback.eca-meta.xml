@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalClientApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>${SF_ADMIN_EMAIL}</contactEmail>
+    <description>Salesforce loopback external client app (ECA) used for integrations POC/playground.</description>
+    <distributionState>Local</distributionState>
+    <iconUrl>https://login.salesforce.com/logos/Custom/Plane_Primary/icon.svg</iconUrl>
+    <infoUrl>https://www.salesforce.com/company/our-story/</infoUrl>
+    <isProtected>false</isProtected>
+    <label>Minlopro (Salesforce Loopback ECA) 🔷</label>
+    <logoUrl>https://login.salesforce.com/logos/Custom/Plane_Primary/logo.png</logoUrl>
+    <orgScopedExternalApp>00D09000007w56S:MinloproSalesforceLoopback</orgScopedExternalApp>
+</ExternalClientApplication>

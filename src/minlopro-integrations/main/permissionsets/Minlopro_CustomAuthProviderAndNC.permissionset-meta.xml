@@ -30,6 +30,10 @@
     </externalCredentialPrincipalAccesses>
     <externalCredentialPrincipalAccesses>
         <enabled>true</enabled>
+        <externalCredentialPrincipal>MinloproSalesforceLoopbackECA-ADMIN</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
         <externalCredentialPrincipal>MinloproSalesforceLoopbackOAuth-ADMIN</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <externalCredentialPrincipalAccesses>

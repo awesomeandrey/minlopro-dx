@@ -12,7 +12,7 @@ import getAuthenticationUrlApex from '@salesforce/apex/NamedCredentialsControlle
 import invokeApex from '@salesforce/apex/NamedCredentialsController.invoke';
 
 export default class NamedCredentialsTab extends NavigationMixin(LightningElement) {
-    @track selectedValue = 'SalesforceRestApi1'; // CCF;
+    @track selectedValue = 'SalesforceRestApi';
     @track loading = true;
     @track calloutStats = null;
     @track error = null;
@@ -70,6 +70,9 @@ export default class NamedCredentialsTab extends NavigationMixin(LightningElemen
     handleSelect(event) {
         const { value } = event.detail;
         this.selectedValue = value;
+        // Reset stats;
+        this.calloutStats = null;
+        this.error = null;
     }
 
     async handleInvokeCallout() {

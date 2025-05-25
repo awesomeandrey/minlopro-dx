@@ -21,17 +21,23 @@
         </div>
     </template>
     <template lwc:else>
-        <div lwc:if={doShowSpinner} class="spinner-container">
-            <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
-        </div>
-        <lightning-formatted-url
-            lwc:else
-            class={textClassName}
-            title={recordName}
-            label={recordName}
-            value={recordLink}
-            target="_blank"
-            onclick={handleNavigate}
-        ></lightning-formatted-url>
+        <template lwc:if={isInvalidRecordId}>
+            <span class="slds-text-color_weak">N/A</span>
+        </template>
+        <template lwc:elseif={doShowSpinner}>
+            <div class="spinner-container">
+                <lightning-spinner alternative-text="Loading" size="xx-small"></lightning-spinner>
+            </div>
+        </template>
+        <template lwc:else>
+            <lightning-formatted-url
+                class={textClassName}
+                title={recordName}
+                label={recordName}
+                value={recordLink}
+                target="_blank"
+                onclick={handleNavigate}
+            ></lightning-formatted-url>
+        </template>
     </template>
 </template>

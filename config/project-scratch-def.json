@@ -6,23 +6,22 @@
         "API",
         "AuthorApex",
         "Communities",
-        "CustomerCommunityPlus",
         "ContactsToMultipleAccounts",
         "DebugApex",
         "DefaultWorkflowUser",
         "EnableSetPasswordInApi",
-        "SecurityEventEnabled",
         "FieldAuditTrail",
         "ForceComPlatform",
         "Knowledge",
-        "PersonAccounts",
-        "SalesforceContentUser",
-        "StateAndCountryPicklist",
-        "StreamingAPI",
+        "LightningServiceConsole",
         "LiveAgent",
         "LiveMessage",
+        "PersonAccounts",
+        "SalesforceContentUser",
+        "SecurityEventEnabled",
         "ServiceCloud",
-        "LightningServiceConsole"
+        "StateAndCountryPicklist",
+        "StreamingAPI"
     ],
     "hasSampleData": false,
     "language": "en_US",
@@ -42,32 +41,32 @@
         "deploymentSettings": {
             "doesSkipAsyncApexValidation": true
         },
-        "experienceBundleSettings": {
-            "enableExperienceBundleMetadata": true
-        },
         "emailAdministrationSettings": {
             "enableEnhancedEmailEnabled": true
         },
-        "languageSettings": {
-            "enableTranslationWorkbench": true
-        },
-        "omniChannelSettings": {
-            "enableOmniAutoLoginPrompt": false,
-            "enableOmniChannel": true
-        },
-        "lightningExperienceSettings": {
-            "enableS1DesktopEnabled": true,
-            "enableUsersAreLightningOnly": false
+        "experienceBundleSettings": {
+            "enableExperienceBundleMetadata": true
         },
         "knowledgeSettings": {
             "enableKnowledge": true,
             "enableLightningKnowledge": true
         },
-        "mobileSettings": {
-            "enableS1EncryptedStoragePref2": false
+        "languageSettings": {
+            "enableTranslationWorkbench": true
+        },
+        "lightningExperienceSettings": {
+            "enableS1DesktopEnabled": true,
+            "enableUsersAreLightningOnly": false
         },
         "liveMessageSettings": {
             "enableLiveMessage": true
+        },
+        "mobileSettings": {
+            "enableS1EncryptedStoragePref2": false
+        },
+        "omniChannelSettings": {
+            "enableOmniAutoLoginPrompt": false,
+            "enableOmniChannel": true
         },
         "securitySettings": {
             "sessionSettings": {
