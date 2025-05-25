@@ -47,9 +47,6 @@
         "experienceBundleSettings": {
             "enableExperienceBundleMetadata": true
         },
-        "externalClientAppSettings": {
-            "enableExternalClientApps": true
-        },
         "knowledgeSettings": {
             "enableKnowledge": true,
             "enableLightningKnowledge": true

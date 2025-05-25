@@ -6,7 +6,9 @@ runs:
   steps:
     - uses: actions/setup-node@v4
       with:
-        node-version: "20.19.1"
+        node-version: 20
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
     - uses: actions/setup-java@v4
       with:
         distribution: 'zulu'
@@ -15,9 +17,8 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          /opt/hostedtoolcache/node/20.19.1/x64
           ~/.local/share/sf
         key: minlopro-dx-env-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-    - name: 'Build Environment & Install Salesforce CLI'
+    - name: "Build Environment & Install Salesforce CLI"
       shell: bash
       run: bash ./scripts/deploy/common/build.sh

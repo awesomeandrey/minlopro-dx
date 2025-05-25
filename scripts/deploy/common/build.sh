@@ -39,7 +39,7 @@ install_sf_plugin "sfdmu"
 install_sf_plugin "@salesforce/analytics"
 
 # Install the rest of dependencies via NPM
-npm install --silent; echo
+npm ci --silent; echo
 echo "NPM global packages: $(npm list -g)"
 echo "NPM local packages: $(npm list)"
 

@@ -56,8 +56,7 @@ public with sharing class NamedCredentialsController {
         for (NamedCredential nc : [
             SELECT Id, MasterLabel, DeveloperName, PrincipalType
             FROM NamedCredential
-            ORDER BY MasterLabel
-            LIMIT 10
+            ORDER BY PrincipalType ASC, MasterLabel ASC
         ]) {
             resultMap.put(nc.DeveloperName, nc);
         }
@@ -78,8 +77,8 @@ public with sharing class NamedCredentialsController {
             SELECT Id
             FROM ExternalDataUserAuth
             WHERE
-                ExternalDataSourceId IN (SELECT Id FROM NamedCredential WHERE DeveloperName = :nc.DeveloperName)
-                AND UserId = :UserInfo.getUserId()
+                UserId = :UserInfo.getUserId()
+                AND ExternalDataSourceId IN (SELECT Id FROM NamedCredential WHERE DeveloperName = :nc.DeveloperName)
             LIMIT 1
         ];
         if (!existingDataUserAuths.isEmpty()) {
