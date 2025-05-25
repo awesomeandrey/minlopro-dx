@@ -111,11 +111,11 @@ jobs:
           fetch-depth: 0
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
+      - name: 'Config Git User'
+        run: |
+          git config user.name "github-actions[bot] 🤖"
+          git config user.email "${{ github.actor_id }}+github-actions[bot]@users.noreply.github.com"
       - name: 'Generate Flows Docs & Push'
-        run: |
-          git config user.name "${{github.actor}}"
-          bash ./scripts/deploy/post-merge-actions/generate_flow_docs_and_push.sh
+        run: bash ./scripts/deploy/post-merge-actions/generate_flow_docs_and_push.sh
       - name: 'Create Tag & Push'
-        run: |
-          git config user.name "${{github.actor}}"
-          bash ./scripts/deploy/post-merge-actions/create_tag_and_push.sh
+        run: bash ./scripts/deploy/post-merge-actions/create_tag_and_push.sh

@@ -3,10 +3,10 @@
         { "path": "src/minlopro-default", "default": true },
         { "path": "src/minlopro-core" },
         { "path": "src/minlopro" },
+        { "path": "src/minlopro-integrations" },
         { "path": "src/minlopro-digex" },
         { "path": "src/minlopro-digex-messaging" },
         { "path": "src/minlopro-dlrs" },
-        { "path": "src/minlopro-integrations" },
         { "path": "src/minlopro-crm-analytics" }
     ],
     "name": "minlopro-dx",
