@@ -26,13 +26,13 @@ private class AxiomSamlJitHandlerTest {
             );
             Test.stopTest();
             digExPartnerUser = [
-                SELECT Id, FederationIdentifier, Profile.UserLicense.Name, UserType
+                SELECT Id, FederationIdentifier, Profile.Name, Profile.UserLicense.Name, UserType
                 FROM User
                 WHERE Id = :digExPartnerUser.Id
                 LIMIT 1
             ][0];
             Assert.areEqual(federationIdentifier, digExPartnerUser.FederationIdentifier, 'Federation Identifiers should match');
-            Assert.areEqual(AxiomSamlJitHandler.DIGEX_PARTNER_PROFILE.Id, digExPartnerUser.ProfileId);
+            Assert.areEqual(AxiomSamlJitHandler.DIGEX_PARTNER_PROFILE_NAME, digExPartnerUser.Profile.Name);
             Assert.isFalse(
                 [SELECT Id FROM PermissionSetAssignment WHERE AssigneeId = :digExPartnerUser.Id].isEmpty(),
                 'PSG should have been assigned to newly created user'
