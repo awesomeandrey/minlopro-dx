@@ -18,6 +18,7 @@ runs:
       with:
         path: |
           ~/.local/share/sf
+          ./bin
         key: minlopro-dx-env-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
     - name: "Build Environment & Install Salesforce CLI"
       shell: bash

@@ -4,6 +4,7 @@
 .idea/
 .sf/
 .sfdx/
+bin/
 node_modules/
 IlluminatedCloud/
 .illuminatedCloud/

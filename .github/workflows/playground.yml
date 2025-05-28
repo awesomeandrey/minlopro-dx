@@ -29,14 +29,15 @@ env:
 jobs:
   playground-run:
     timeout-minutes: 10
-#    environment: "Minlopro DevHub"
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       GHA_WORKFLOW_RUN_LINK: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
       - name: "Auth Salesforce Org 🎫"

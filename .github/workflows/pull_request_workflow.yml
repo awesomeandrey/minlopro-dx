@@ -42,8 +42,24 @@ jobs:
       - uses: ludeeus/action-shellcheck@master
         with:
           ignore_paths: src
+  run-flow-scanner:
+    runs-on: ubuntu-22.04
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: "Build Environment 🚜"
+        uses: ./.github/actions/build-env
+      - name: 'Run Flow Scanner Checks Against Changes Files'
+        run: |
+          git checkout ${{github.base_ref}}; git pull
+          git checkout ${{github.head_ref}}; git pull
+          echo ${{github.base_ref}} | bash ./scripts/deploy/validations/run_flow_scanner_against_changed_files.sh
+          echo "### Flow Scan Results" >> $GITHUB_STEP_SUMMARY
+          cat "build/flow-scanner-results.txt" >> $GITHUB_STEP_SUMMARY
   validate-deployment-to-org:
-    needs: [ run-prettier-checks, run-jest-tests, run-shell-checks ]
+    needs: [ run-prettier-checks, run-jest-tests, run-shell-checks, run-flow-scanner ]
     environment: "Minlopro Prod"
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
@@ -62,7 +78,7 @@ jobs:
         uses: ./.github/actions/auth-salesforce-org
         with:
           sfdx_auth_url: ${{ env.SF_AUTH_URL }}
-      - name: "Run PRE-Deploy Scripts"
+      - name: 'Run PRE-Deploy Scripts'
         run: echo ${{ steps.auth-salesforce-org.outputs.target-org-alias }} | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Generate Delta Manifests'
         run: |

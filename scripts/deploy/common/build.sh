@@ -37,6 +37,8 @@ install_sf_plugin "sfdx-hardis"
 install_sf_plugin "sfdmu"
 # https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_cli_reference.meta/bi_dev_guide_cli_reference/bi_cli_reference.htm
 install_sf_plugin "@salesforce/analytics"
+# https://github.com/Lightning-Flow-Scanner
+install_sf_plugin "lightning-flow-scanner"
 
 # Install the rest of dependencies via NPM
 npm ci --silent; echo

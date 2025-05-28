@@ -1,0 +1,25 @@
+{
+    "rules": {
+        "ActionCallsInLoop": {
+            "severity": "error"
+        },
+        "CopyAPIName": {
+            "severity": "error"
+        },
+        "CyclomaticComplexity": {
+            "severity": "warning"
+        },
+        "FlowDescription": {
+            "severity": "error"
+        },
+        "MissingFaultPath": {
+            "severity": "warning"
+        },
+        "ProcessBuilder": {
+            "severity": "error"
+        },
+        "UnusedVariable": {
+            "severity": "error"
+        }
+    }
+}
