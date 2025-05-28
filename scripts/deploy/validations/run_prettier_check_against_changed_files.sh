@@ -18,4 +18,4 @@ if [ -z "$(ls $copiedSrcFolder)" ]; then
   exit 0
 fi
 
-npx prettier --check "$copiedSrcFolder**" --ignore-path ".prettierignore"
+npx prettier --check "$copiedSrcFolder/**" --ignore-path ".prettierignore"
