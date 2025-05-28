@@ -12,9 +12,10 @@ echo "🔵 Running Prettier checks against baseRef [$baseRef]..."
 
 bash ./scripts/deploy/validations/copy_changed_files.sh "$baseRef"
 
-# '44' exit code indicates that there were no changed files from 'src' folder;
-if [ $? == 44 ]; then
+copiedSrcFolder="build/src"
+if [ -z "$(ls $copiedSrcFolder)" ]; then
+  echo "⚪ No changed files detected in [$copiedSrcFolder] folder!"
   exit 0
 fi
 
-npx prettier --check "build/src/**" --ignore-path ".prettierignore"
+npx prettier --check "$copiedSrcFolder**" --ignore-path ".prettierignore"

@@ -38,8 +38,3 @@ done
 
 echo "📜 CHANGED FILES TREE"
 tree "$buildFolderName"
-
-if [ -z "$(ls $copiedSrcFolderPath)" ]; then
-  echo "⚪ No changed files detected in [$copiedSrcFolderPath] folder!"
-  exit 44
-fi
