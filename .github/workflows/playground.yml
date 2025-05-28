@@ -29,14 +29,15 @@ env:
 jobs:
   playground-run:
     timeout-minutes: 10
-#    environment: "Minlopro DevHub"
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       GHA_WORKFLOW_RUN_LINK: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
       - name: "Auth Salesforce Org 🎫"
@@ -57,6 +58,7 @@ jobs:
         run: |
           echo "sf --version >>> $(sf --version)"
           echo "Auth Org Alias >>> ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+          echo "Auth Org Instance URL >>> ${{ steps.auth-salesforce-org.outputs.target-org-instance-url }}"
           echo "Apex Tests Outcome >>> ${{ steps.run-apex-tests.outputs.success }}"
 #      - name: 'GHA Playground - Step #1'
 #        run: |
