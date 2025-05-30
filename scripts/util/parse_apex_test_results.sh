@@ -17,6 +17,7 @@ if [ ! -f "$resultsFilepath" ]; then
   exit 1
 fi
 
+_testRunId=$(jq -r '.summary.testRunId' "$resultsFilepath")
 _outcome=$(jq -r '.summary.outcome' "$resultsFilepath")
 _total=$(jq -r '.summary.testsRan' "$resultsFilepath")
 _passing=$(jq -r '.summary.passing' "$resultsFilepath")
@@ -35,10 +36,11 @@ fi
 # -c compacts JSON into single line
 jq -n -c \
   --argjson success "$_success" \
+  --arg testRunId "$_testRunId" \
   --arg outcome "$_outcome" \
   --arg outcomeColor "$_outcomeColor" \
   --argjson total "$_total" \
   --argjson passing "$_passing" \
   --argjson failing "$_failing" \
   --argjson failedTests "$_failedTests" \
-  '{success: $success, outcome: $outcome, outcomeColor: $outcomeColor, total: $total, passing: $passing, failing: $failing, failedTests: $failedTests}'
+  '{success: $success, testRunId: $testRunId, outcome: $outcome, outcomeColor: $outcomeColor, total: $total, passing: $passing, failing: $failing, failedTests: $failedTests}'

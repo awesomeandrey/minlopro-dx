@@ -78,32 +78,36 @@ runs:
         apexTestResultsAsJson="$(echo "${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }}" | base64 -d)"
         targetOrgAlias="${{ inputs.target-org-alias }}"
         
-        _success=$(echo "$apexTestResultsAsJson" | jq -r '.success')
-        _outcome=$(echo "$apexTestResultsAsJson" | jq -r '.outcome')
-        _outcomeColor=$(echo "$apexTestResultsAsJson" | jq -r '.outcomeColor')
-        _total=$(echo "$apexTestResultsAsJson" | jq -r '.total')
-        _passing=$(echo "$apexTestResultsAsJson" | jq -r '.passing')
-        _failing=$(echo "$apexTestResultsAsJson" | jq -r '.failing')
-        _instanceUrl=$(sf org display --json --target-org "$targetOrgAlias" | jq -r '.result.instanceUrl')
+        success=$(echo "$apexTestResultsAsJson" | jq -r '.success')
+        testRunId=$(echo "$apexTestResultsAsJson" | jq -r '.testRunId')
+        outcome=$(echo "$apexTestResultsAsJson" | jq -r '.outcome')
+        outcomeColor=$(echo "$apexTestResultsAsJson" | jq -r '.outcomeColor')
+        total=$(echo "$apexTestResultsAsJson" | jq -r '.total')
+        passing=$(echo "$apexTestResultsAsJson" | jq -r '.passing')
+        failing=$(echo "$apexTestResultsAsJson" | jq -r '.failing')
+        instanceUrl=$(sf org display --json --target-org "$targetOrgAlias" | jq -r '.result.instanceUrl')
         
         {
           echo "### Apex Test Results 🚀"
           echo
-          echo "**$_instanceUrl** 🔗"
+          echo "**$instanceUrl** 🔗"
           echo
-          echo "![Apex Tests](https://img.shields.io/badge/Apex%20Tests-$_outcome-$_outcomeColor)"
+          echo "![Apex Tests](https://img.shields.io/badge/Apex%20Tests-$outcome-$outcomeColor)"
+          echo
+          echo "**Test Run ID**: \`$testRunId\`"
           echo
           echo "| Passing ✅ | Failing ❌ | Total |"
           echo "| --- | --- | --- |"
-          echo "| $_passing | $_failing | $_total |"
+          echo "| $passing | $failing | $total |"
           echo
         } >> $GITHUB_STEP_SUMMARY
         
-        if [ "$_success" != "true" ]; then
-          _failedTests=$(echo "$apexTestResultsAsJson" | jq -r '.failedTests')
-        
+        if [ "$success" != "true" ]; then
+          # Collect failed Apex Tests
+          
+          failedTests=$(echo "$apexTestResultsAsJson" | jq -r '.failedTests')
           echo "_See failures below:_" >> $GITHUB_STEP_SUMMARY
-          echo "$_failedTests" | jq -c '.[]' | while read -r apexTest; do
+          echo "$failedTests" | jq -c '.[]' | while read -r apexTest; do
             name=$(echo "$apexTest" | jq -r '.name')
             errorMessage=$(echo "$apexTest" | jq -r '.errorMessage')
             stackTrace=$(echo "$apexTest" | jq -r '.stackTrace')
@@ -115,7 +119,22 @@ runs:
               echo '```'
             } >> $GITHUB_STEP_SUMMARY
           done
+          
           exit 1
         else
+          # Append success image
+          
+          IMAGES=(
+          "https://i.giphy.com/M0ZoXrSPttN6czwKnx.webp"
+          "https://i.giphy.com/OlNDlH5bAGMncqVFua.webp"
+          "https://i.giphy.com/Ov09jGgEThFKpxZ9eC.webp"
+          "https://i.giphy.com/aPy1iDreYN5DIVtoMk.webp"
+          "https://i.giphy.com/Yu3CQVzP8oSOemmKqQ.webp"
+          "https://i.giphy.com/vOsRhrnqdyFnPp2OrG.webp"
+          "https://i.giphy.com/eZQVUNYA00hItBCHNq.webp"
+          )
+          RANDOM_IMAGE=${IMAGES[$RANDOM % ${#IMAGES[@]}]}
+          echo "![Img]($RANDOM_IMAGE \"Img\")" >> $GITHUB_STEP_SUMMARY
+        
           exit 0
         fi

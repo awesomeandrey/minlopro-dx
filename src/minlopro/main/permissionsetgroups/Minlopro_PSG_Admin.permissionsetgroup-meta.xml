@@ -3,6 +3,7 @@
     <description>PSG for admin users only.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - PSG - Admin</label>
+    <mutingPermissionSets>AdminUser_MutedPermissions</mutingPermissionSets>
     <permissionSets>Minlopro_Admin</permissionSets>
     <permissionSets>Minlopro_KnowledgeAdmin</permissionSets>
     <permissionSets>dlrs__LookupRollupSummariesFull</permissionSets>

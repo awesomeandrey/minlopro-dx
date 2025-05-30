@@ -43,8 +43,7 @@ public class TestDataFactory {
     // User Provisioning;
 
     public static User createAdmin() {
-        Profile adminProfile = TestDataFactory.selectSystemAdminProfile();
-        User adminUser = TestDataFactory.createUser('Admin', 'Minlopro', adminProfile.Id);
+        User adminUser = TestDataFactory.createUser('Admin', 'Minlopro', 'System Administrator');
         // Assign Role;
         adminUser.UserRoleId = ROLES_BY_NAME.get(Role.DX_Admin).Id;
         // Create user;
@@ -64,13 +63,12 @@ public class TestDataFactory {
                 [SELECT Id, Name, Profile.Name, Profile.UserLicense.Name FROM User WHERE Id = :adminUser.Id]
             )
             .log('> Test Admin User');
-        return adminUser;
+        return (User) selectAllFieldsById(User.SObjectType, adminUser.Id);
     }
 
     public static User createRegularUser() {
-        Profile minloproUserProfile = TestDataFactory.selectMinloproUserProfile();
         String randomUsername = generateRandomString(8);
-        User regularUser = TestDataFactory.createUser('Mike', 'Green-' + randomUsername, minloproUserProfile.Id);
+        User regularUser = TestDataFactory.createUser('Mike', 'Green-' + randomUsername, 'Minlopro User');
         // Assign Role;
         regularUser.UserRoleId = null;
         // Create user;
@@ -87,27 +85,27 @@ public class TestDataFactory {
                 [SELECT Id, Name, Profile.Name, Profile.UserLicense.Name FROM User WHERE Id = :regularUser.Id]
             )
             .log('> Test Regular User');
-        return regularUser;
+        return (User) selectAllFieldsById(User.SObjectType, regularUser.Id);
     }
 
-    public static User createUser(String firstName, String lastName, Id profileId) {
+    public static User createUser(String firstName, String lastName, String profileName) {
         final Integer USERNAME_LENGTH = 5;
         String username = generateRandomString(USERNAME_LENGTH);
         String orgId = UserInfo.getOrganizationId();
         return new User(
-            FirstName = firstName,
-            LastName = lastName,
-            Email = username + '@test' + orgId + '.com',
-            Username = username + '@test' + orgId + '.com',
-            EmailEncodingKey = 'ISO-8859-1',
             Alias = username.substring(0, USERNAME_LENGTH / 2),
-            TimeZoneSidKey = 'America/Los_Angeles',
-            LocaleSidKey = 'en_US',
+            Email = username + '@test' + orgId + '.com',
+            EmailEncodingKey = 'ISO-8859-1',
+            FirstName = firstName,
             LanguageLocaleKey = 'en_US',
-            ProfileId = profileId,
-            Street = '12345 Test Street',
+            LastName = lastName,
+            LocaleSidKey = 'en_US',
             MobilePhone = generateRandomPhone(),
-            Phone = generateRandomPhone()
+            Phone = generateRandomPhone(),
+            Profile = new Profile(Name = profileName), // named lookup population;
+            Street = '12345 Test Street',
+            TimeZoneSidKey = 'America/Los_Angeles',
+            Username = username + '@test' + orgId + '.com'
         );
     }
 
@@ -263,6 +261,24 @@ public class TestDataFactory {
         String siteName = generateRandomString(5);
         String siteDomain = Lists.getRandomString(Lists.of('com', 'me', 'io'));
         return String.format('https://apextest.{0}.{1}', Lists.of(siteName, siteDomain));
+    }
+
+    private static SObject selectAllFieldsById(SObjectType objType, Id recordId) {
+        Schema.DescribeSObjectResult describeResult = objType.getDescribe();
+        Map<String, Schema.SObjectField> fieldsMap = describeResult.fields.getMap();
+        List<String> readableFieldNames = new List<String>();
+        for (String fieldName : fieldsMap.keySet()) {
+            Schema.DescribeFieldResult fieldDescribe = fieldsMap.get(fieldName).getDescribe();
+            if (fieldDescribe.isAccessible()) {
+                readableFieldNames.add(fieldName);
+            }
+        }
+        return Database.query(
+            String.format(
+                'SELECT {0} FROM {1} WHERE Id = :recordId LIMIT 1',
+                new List<String>{ String.join(readableFieldNames, ','), objType.toString() }
+            )
+        );
     }
 
     public enum PublicGroup {
