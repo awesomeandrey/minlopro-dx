@@ -1,4 +1,4 @@
-public virtual with sharing class DlrsDeveloperModeTriggerHandler extends BasicTriggerHandler {
+public virtual inherited sharing class DlrsDeveloperModeTriggerHandler extends BasicTriggerHandler {
     public override Integer getMaxLoopCount() {
         return 50;
     }

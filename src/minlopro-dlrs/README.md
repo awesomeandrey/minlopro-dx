@@ -7,7 +7,7 @@ Package ID: `04t5p000001E8vdAAC`.
 ## Configuration Guide
 
 Here is sophisticated guide of DLRS package functionality - https://sfdo-community-sprints.github.io/DLRS-Documentation.
-Make sure to assign the following permission sets to Admun user(s):
+Make sure to assign the following permission sets to Admin user(s):
 
 - `dlrs__LookupRollupSummariesFull`
 - `dlrs__LookupRollupSummariesReadOnly`

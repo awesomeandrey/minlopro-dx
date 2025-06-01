@@ -7,6 +7,7 @@
         { "path": "src/minlopro-digex" },
         { "path": "src/minlopro-digex-messaging" },
         { "path": "src/minlopro-dlrs" },
+        { "path": "src/minlopro-in-app-guidance" },
         { "path": "src/minlopro-crm-analytics" }
     ],
     "name": "minlopro-dx",

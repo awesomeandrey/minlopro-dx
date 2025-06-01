@@ -26,7 +26,7 @@ private class OpportunityFlowTests {
             insert sampleOpp;
             sampleOpp = selectOpportunityById(sampleOpp.Id);
             Assert.isNotNull(sampleOpp.CloseDate);
-            sampleOpp.CloseDate = Date.today().addDays(100);
+            sampleOpp.CloseDate = Date.today().addDays(150);
             Database.SaveResult oppSaveResult = Database.update(sampleOpp, false);
             Assert.isFalse(oppSaveResult.isSuccess(), 'RTF should have marked Opportunity record with error');
         }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>List View Tips</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Tell Me More</actionButtonLabel>
+        <actionButtonLink>https://help.salesforce.com/articleView?id=basics_understanding_list_views_lex.htm</actionButtonLink>
+        <body>&lt;p&gt;&lt;span style=&quot;color: rgb(38, 50, 56);&quot;&gt;List views are a great way to sort, prioritize, and analyze the records that are most important to you. Get started with list views with these tips.&amp;nbsp;&lt;/span&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Switch list views using the dropdown menu.&amp;nbsp;&lt;/li&gt;&lt;li&gt;Make your favorite list view the default by pinning it.&lt;/li&gt;&lt;li&gt;Use filters to tailor an existing list view to your needs.&lt;/li&gt;&lt;li&gt;Select which fields to display from the List View Controls menu.&amp;nbsp;&lt;/li&gt;&lt;li&gt;Get to the right record with search.&amp;nbsp;&lt;/li&gt;&lt;li&gt;Visualize your data with charts or the Kanban board.&lt;/li&gt;&lt;/ul&gt;</body>
+        <customApplication>standard__LightningSales</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2020-10-15</endDate>
+        <header>List View Tips</header>
+        <isPublished>false</isPublished>
+        <masterLabel>List View Tips</masterLabel>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2019-10-15</startDate>
+        <targetPageKey1>Account</targetPageKey1>
+        <targetPageKey2>list</targetPageKey2>
+        <targetPageType>standard__objectPage</targetPageType>
+        <timesToDisplay>1</timesToDisplay>
+        <title>Manage Your Records Easily</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Minlopro - LWCs Gallery Overview</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Got it!</actionButtonLabel>
+        <actionButtonLink>/</actionButtonLink>
+        <body>&lt;p&gt;This page showcases a collection of custom Lightning Web Components built for proof-of-concept testing and feature investigations.&lt;/p&gt;&lt;p&gt; Each tile may represent an isolated idea, experiment, or learning artifact — feel free to dive in, explore functionality, and reuse what&apos;s valuable.&lt;/p&gt;</body>
+        <customApplication>MinloproConsole</customApplication>
+        <delayDays>3</delayDays>
+        <dismissButtonLabel>Dismiss</dismissButtonLabel>
+        <displayPosition>TopLeft</displayPosition>
+        <displayType>FloatingPanel</displayType>
+        <experience>Lightning</experience>
+        <isPublished>true</isPublished>
+        <masterLabel>Minlopro - LWCs Gallery Overview</masterLabel>
+        <publishedDate>2025-06-02</publishedDate>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2025-06-01</startDate>
+        <targetPageKey1>Workspace</targetPageKey1>
+        <targetPageType>standard__navItemPage</targetPageType>
+        <timesToDisplay>5</timesToDisplay>
+        <title>Explore POC Components</title>
+        <uiFormulaRule>
+            <booleanFilter>1 OR 2</booleanFilter>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>custom_minlopro user</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!$User.Profile.Key}</leftValue>
+                <operator>EQUAL</operator>
+                <rightValue>Admin</rightValue>
+            </criteria>
+        </uiFormulaRule>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>SpecificProfiles</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

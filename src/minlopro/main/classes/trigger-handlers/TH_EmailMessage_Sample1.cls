@@ -2,7 +2,7 @@
  * Inspired by https://help.salesforce.com/s/articleView?id=000393553&type=1
  * and https://help.salesforce.com/s/articleView?id=sales.emailadmin_bounce_enable.htm&type=5
  */
-public with sharing class TH_EmailMessage_Sample1 extends BasicTriggerHandler {
+public inherited sharing class TH_EmailMessage_Sample1 extends BasicTriggerHandler {
     private final EmailMessageSelector messageSelector = (EmailMessageSelector) Application.Selector.newInstance(
         EmailMessage.SObjectType
     );
