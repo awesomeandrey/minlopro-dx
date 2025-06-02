@@ -12,6 +12,10 @@
         <apexClass>SystemInfoController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>UserMonitorController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Primary PS for Minlopro end-users.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - Core</label>

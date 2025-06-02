@@ -15,7 +15,7 @@ public without sharing class DynamicFormulaController {
                     .setCondition('Id = \'' + formulaInputs.record.Id + '\'')
                     .setLimit(1);
                 Repository repository = (Repository) Application.Service.newInstance(Repository.class);
-                List<SObject> queriedSObjects = (List<SObject>) repository.query(queryFactory.toSOQL());
+                List<SObject> queriedSObjects = repository.query(queryFactory.toSOQL());
                 return fInstance.evaluate(queriedSObjects.get(0));
             }
         } catch (Exception rootException) {

@@ -37,7 +37,7 @@ export default class DatatableContactsTab extends LightningElement {
          * Contact.MobilePhone - 'phone', editable
          * Contact.Birthdate - 'date-local', editable (used for 'Date' data type)
          * Contact.HasOptedOutOfEmail - 'boolean', editable
-         * Contact.LastCURequestDate - 'date', editable (used for 'DateTime' data type)
+         * Contact.LastModifiedDate - 'date', editable (used for 'DateTime' data type)
          */
         return [
             {
@@ -45,6 +45,7 @@ export default class DatatableContactsTab extends LightningElement {
                 fieldName: 'Id', // aka 'this.KEY_FIELD';
                 type: 'customLookup',
                 editable: false,
+                displayReadOnlyIcon: true,
                 typeAttributes: {
                     context: { fieldName: this.KEY_FIELD },
                     fieldName: this.KEY_FIELD,
@@ -56,7 +57,8 @@ export default class DatatableContactsTab extends LightningElement {
                 label: 'Is Person Account?',
                 fieldName: 'IsPersonAccount',
                 type: 'boolean',
-                editable: false
+                editable: false,
+                displayReadOnlyIcon: true
             },
             {
                 label: 'Title',
