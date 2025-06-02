@@ -17,7 +17,7 @@ Set_Default_Close_Date[\"🟰 <em></em><br/>Set Default Close Date"/]:::assignme
 click Set_Default_Close_Date "#set_default_close_date" "1038760774"
 
 Invalid_CloseDate_Alert("🚫 <em></em><br/>Invalid CloseDate Alert"):::customErrors
-click Invalid_CloseDate_Alert "#invalid_closedate_alert" "1956058341"
+click Invalid_CloseDate_Alert "#invalid_closedate_alert" "2207931140"
 
 Is_Close_Date_In_Valid_Range{"🔀 <em></em><br/>Is Close Date In Valid Range?"}:::decisions
 click Is_Close_Date_In_Valid_Range "#is_close_date_in_valid_range" "2476133571"
@@ -84,7 +84,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Name|Data Type|Value|Description|
 |:-- |:--:|:--:|:--  |
-|nextCloseDateDaysLimit|Number|60|<!-- -->|
+|nextCloseDateDaysLimit|Number|95|<!-- -->|
 
 
 ## Flow Nodes Details
@@ -113,7 +113,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |:---|:---|
 |Type|Custom Error|
 |Label|Invalid CloseDate Alert|
-|Custom Error Messages|- errorMessage: >-<br/>&nbsp;&nbsp;&nbsp;&nbsp;Close Date must be within the next {!nextCloseDateDaysLimit} day(s) from<br/>&nbsp;&nbsp;&nbsp;&nbsp;today.<br/>&nbsp;&nbsp;isFieldError: false<br/>- errorMessage: >-<br/>&nbsp;&nbsp;&nbsp;&nbsp;Please select a date no later than {!nextCloseDateDaysLimit} day(s) from<br/>&nbsp;&nbsp;&nbsp;&nbsp;today.<br/>&nbsp;&nbsp;fieldSelection: CloseDate<br/>&nbsp;&nbsp;isFieldError: true<br/>|
+|Custom Error Messages|- errorMessage: >-<br/>&nbsp;&nbsp;&nbsp;&nbsp;Close Date must be within the next {!nextCloseDateDaysLimit} day(s) from<br/>&nbsp;&nbsp;&nbsp;&nbsp;today. Current value: {!$Record.CloseDate}.<br/>&nbsp;&nbsp;isFieldError: false<br/>- errorMessage: >-<br/>&nbsp;&nbsp;&nbsp;&nbsp;Please select a date no later than {!nextCloseDateDaysLimit} day(s) from<br/>&nbsp;&nbsp;&nbsp;&nbsp;today.<br/>&nbsp;&nbsp;fieldSelection: CloseDate<br/>&nbsp;&nbsp;isFieldError: true<br/>|
 
 
 ### Is_Close_Date_In_Valid_Range
