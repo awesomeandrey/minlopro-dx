@@ -22,7 +22,7 @@
         <name>nextCloseDateDaysLimit</name>
         <dataType>Number</dataType>
         <value>
-            <numberValue>60.0</numberValue>
+            <numberValue>95.0</numberValue>
         </value>
     </constants>
     <customErrors>
@@ -31,7 +31,7 @@
         <locationX>50</locationX>
         <locationY>503</locationY>
         <customErrorMessages>
-            <errorMessage>Close Date must be within the next {!nextCloseDateDaysLimit} day(s) from today.</errorMessage>
+            <errorMessage>Close Date must be within the next {!nextCloseDateDaysLimit} day(s) from today. Current value: {!$Record.CloseDate}.</errorMessage>
             <isFieldError>false</isFieldError>
         </customErrorMessages>
         <customErrorMessages>

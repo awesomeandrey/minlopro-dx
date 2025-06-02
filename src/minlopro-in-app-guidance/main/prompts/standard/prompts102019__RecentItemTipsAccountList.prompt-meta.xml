@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Recent Item Tips</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Tell Me More</actionButtonLabel>
+        <actionButtonLink>https://help.salesforce.com/articleView?id=recent_items.htm</actionButtonLink>
+        <body>&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60);&quot;&gt;Explore these ways to get to recent items.&lt;/span&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;color: rgb(62, 62, 60);&quot;&gt;Search box: As you type a search term.&amp;nbsp;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;color: rgb(62, 62, 60);&quot;&gt;Navigation bar: From the dropdown next to items.&amp;nbsp;&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;color: rgb(62, 62, 60);&quot;&gt;Home page: In the Recent Records card (if available).&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;</body>
+        <customApplication>standard__LightningSales</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2020-10-15</endDate>
+        <header>Recent Item Tips</header>
+        <isPublished>false</isPublished>
+        <masterLabel>Recent Item Tips</masterLabel>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2019-10-15</startDate>
+        <targetPageKey1>Account</targetPageKey1>
+        <targetPageKey2>list</targetPageKey2>
+        <targetPageType>standard__objectPage</targetPageType>
+        <timesToDisplay>1</timesToDisplay>
+        <title>Get to Recent Items Quickly</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>

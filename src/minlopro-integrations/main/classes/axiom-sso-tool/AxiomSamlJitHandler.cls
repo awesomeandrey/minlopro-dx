@@ -4,15 +4,7 @@
 global without sharing class AxiomSamlJitHandler implements Auth.SamlJitHandler {
     public static String CLAIM_FIRSTNAME = 'User.FirstName';
     public static String CLAIM_LASTNAME = 'User.LastName';
-    public static Profile DIGEX_PARTNER_PROFILE {
-        get {
-            if (DIGEX_PARTNER_PROFILE == null) {
-                DIGEX_PARTNER_PROFILE = [SELECT Id FROM Profile WHERE Name = 'DigEx Partner' LIMIT 1][0];
-            }
-            return DIGEX_PARTNER_PROFILE;
-        }
-        private set;
-    }
+    public static String DIGEX_PARTNER_PROFILE_NAME = 'DigEx Partner';
 
     global User createUser(
         Id samlSsoProviderId,
@@ -59,7 +51,7 @@ global without sharing class AxiomSamlJitHandler implements Auth.SamlJitHandler 
 
             // Create brand new User for DigEx experience site;
             User digExPartnerUser = this.cloneAdminUser();
-            digExPartnerUser.ProfileId = DIGEX_PARTNER_PROFILE.Id;
+            digExPartnerUser.Profile = new Profile(Name = DIGEX_PARTNER_PROFILE_NAME);
             digExPartnerUser.ContactId = userContact.Id;
             digExPartnerUser.FirstName = firstName;
             digExPartnerUser.LastName = lastName;

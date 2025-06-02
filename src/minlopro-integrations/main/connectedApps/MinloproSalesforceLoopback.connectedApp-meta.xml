@@ -9,7 +9,8 @@
     <oauthConfig>
         <callbackUrl>${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE
 https://test.salesforce.com/services/extidp/callback
-https://login.salesforce.com/services/extidp/callback</callbackUrl>
+https://login.salesforce.com/services/extidp/callback
+${SF_INSTANCE_URL}/services/authcallback/MinloproLoopback</callbackUrl>
         <certificate>${SF_MINLOPRO_CERT_BASE64_VALUE}</certificate>
         <isAdminApproved>true</isAdminApproved>
         <isClientCredentialEnabled>true</isClientCredentialEnabled>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Prompt xmlns="http://soap.sforce.com/2006/04/metadata">
+    <masterLabel>Chatter Profile Tips</masterLabel>
+    <promptVersions>
+        <actionButtonLabel>Tell Me More</actionButtonLabel>
+        <actionButtonLink>https://help.salesforce.com/articleView?id=basics_intro_setting_up_chatter_profile.htm</actionButtonLink>
+        <body>&lt;p&gt;&lt;span style=&quot;color: rgb(62, 62, 60);&quot;&gt;If you haven’t personalized your Chatter profile yet:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;ol&gt;&lt;li&gt;&lt;span style=&quot;color: rgb(60, 64, 67);&quot;&gt;To edit your Chatter Profile, click the avatar icon in the top-right corner, then click your name.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;To add a picture of yourself, click the placeholder avatar.&amp;nbsp;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;color: rgb(60, 64, 67);&quot;&gt;Click the pencil, and share your awesomeness with your colleagues on Chatter.&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;</body>
+        <customApplication>standard__LightningSales</customApplication>
+        <delayDays>1</delayDays>
+        <displayType>DockedComposer</displayType>
+        <endDate>2020-10-15</endDate>
+        <header>Chatter Profile Tips</header>
+        <isPublished>false</isPublished>
+        <masterLabel>Chatter Profile Tips</masterLabel>
+        <shouldDisplayActionButton>true</shouldDisplayActionButton>
+        <shouldIgnoreGlobalDelay>false</shouldIgnoreGlobalDelay>
+        <startDate>2019-10-15</startDate>
+        <targetPageKey1>Account</targetPageKey1>
+        <targetPageKey2>list</targetPageKey2>
+        <targetPageType>standard__objectPage</targetPageType>
+        <timesToDisplay>1</timesToDisplay>
+        <title>Introduce Yourself to Others</title>
+        <userAccess>Everyone</userAccess>
+        <userProfileAccess>Everyone</userProfileAccess>
+        <versionNumber>1</versionNumber>
+    </promptVersions>
+</Prompt>
