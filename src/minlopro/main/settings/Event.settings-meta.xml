@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EventSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <bypassMeteringBlock>false</bypassMeteringBlock>
+    <enableDeleteMonitoringData>true</enableDeleteMonitoringData>
+    <enableDynamicStreamingChannel>true</enableDynamicStreamingChannel>
+    <enableEventLogGeneration>true</enableEventLogGeneration>
+    <enableLightningLoggerEvents>true</enableLightningLoggerEvents>
+    <enableLoginForensics>true</enableLoginForensics>
+    <enableStreamingApi>true</enableStreamingApi>
+    <enableTransactionSecurityPolicies>true</enableTransactionSecurityPolicies>
+    <eventLogRetentionDuration>35</eventLogRetentionDuration>
+</EventSettings>
