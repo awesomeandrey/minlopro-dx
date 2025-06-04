@@ -1,0 +1,106 @@
+<template>
+    <lightning-tabset>
+        <lightning-tab label="Permissions">
+            <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+            <lightning-layout vertical-align="center">
+                <lightning-layout-item>
+                    <lightning-button-group onclick={handleChangeToggleFilter}>
+                        <lightning-button
+                            label="On"
+                            icon-name="utility:toggle_on"
+                            data-filter-name="showEnabled"
+                            variant={normalizedPermissionFilters.showEnabledVariant}
+                        ></lightning-button>
+                        <lightning-button
+                            label="Off"
+                            icon-name="utility:toggle_off"
+                            data-filter-name="showDisabled"
+                            variant={normalizedPermissionFilters.showDisabledVariant}
+                        ></lightning-button>
+                    </lightning-button-group>
+                </lightning-layout-item>
+                <lightning-layout-item padding="horizontal-small">
+                    <lightning-button-group onclick={handleChangeToggleFilter}>
+                        <lightning-button
+                            label="System"
+                            icon-name="utility:system_and_global_variable"
+                            data-filter-name="showSystem"
+                            variant={normalizedPermissionFilters.showSystemVariant}
+                        ></lightning-button>
+                        <lightning-button
+                            label="Custom"
+                            icon-name="utility:custom_apps"
+                            data-filter-name="showCustom"
+                            variant={normalizedPermissionFilters.showCustomVariant}
+                        ></lightning-button>
+                        <lightning-button
+                            label="User"
+                            icon-name="utility:user_role"
+                            data-filter-name="showUser"
+                            variant={normalizedPermissionFilters.showUserVariant}
+                        ></lightning-button>
+                    </lightning-button-group>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                    <lightning-input
+                        variant="label-hidden"
+                        label="Search Keyword"
+                        aria-label="Search Keyword"
+                        placeholder="Search by keyword..."
+                        type="search"
+                        onchange={debouncedHandleChangeSearchKeyword}
+                    ></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small">
+                    <lightning-badge label={permissionCount}></lightning-badge>
+                </lightning-layout-item>
+                <lightning-layout-item alignment-bump="left"></lightning-layout-item>
+                <lightning-layout-item>
+                    <lightning-button label="Refresh" icon-name="utility:refresh" onclick={handleRefresh}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+            <div lwc:if={hasPermissions} style="height: 20rem">
+                <c-datatable
+                    lwc:ref="datatable"
+                    key-field="name"
+                    data={normalizedPermissionData}
+                    columns={permissionColumns}
+                    hide-checkbox-column
+                    sorted-by={permissionSortingState.sortedBy}
+                    sorted-direction={permissionSortingState.sortedDirection}
+                    show-row-number-column
+                    onsort={handleSort}
+                ></c-datatable>
+            </div>
+            <div lwc:else class="slds-theme_default slds-p-around_small">
+                <div class="slds-illustration">
+                    <img src={backgroundImageUrl} alt="No Matches Found" />
+                    <div class="slds-text-longform slds-m-top_small">
+                        <h3 class="slds-text-heading_medium">No Matches Found</h3>
+                        <p class="slds-text-body_regular">
+                            We couldn't find any results that match your current filter criteria.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </lightning-tab>
+        <lightning-tab label="Object Access">
+            <ltngmu-lwc-messaging-utility
+                message-type="alert"
+                icon-name="utility:warning"
+                message-body="This section is under construction."
+                show-message
+                show-icon
+            ></ltngmu-lwc-messaging-utility>
+        </lightning-tab>
+        <lightning-tab label="Record Access">
+            <ltngmu-lwc-messaging-utility
+                message-type="alert"
+                icon-name="utility:warning"
+                message-body="This section is under construction."
+                show-message
+                show-icon
+            ></ltngmu-lwc-messaging-utility>
+        </lightning-tab>
+    </lightning-tabset>
+</template>

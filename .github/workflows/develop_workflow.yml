@@ -102,7 +102,7 @@ jobs:
           path: build/apex-pmd-report.html
           retention-days: 5
   run-post-merge-actions:
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' }}
     needs: [ deploy-source-to-org, run-apex-tests ]
     runs-on: ubuntu-22.04
     steps:
