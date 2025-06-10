@@ -9,7 +9,7 @@ TARGET_ORG_ALIAS="$1"
 MODE="$2"
 TEST_LEVEL="$3"
 if [ -z "$TARGET_ORG_ALIAS" ]; then
-  echo "🔴 Target org alias must be specified!"
+  echo "🔴 Target org alias must be specified! Usage: $0 'ORG_ALIAS' 'hard|dry-run'"
   exit 1
 fi
 MODE=${MODE:-dry-run}
@@ -33,24 +33,25 @@ case $MODE in
     ;;
 esac
 
-# Define constants;
+# Define constants
 manifestsFolder="manifests"
 packageXml="$manifestsFolder/package.xml"
 preDestructiveChangesXml="$manifestsFolder/destructiveChangesPre.xml"
 postDestructiveChangesXml="$manifestsFolder/destructiveChangesPost.xml"
 
-# Verify that all 3 manifests exist and are valid;
+# Verify that all 3 manifests exist and are valid
 if ! xmllint --noout "$packageXml" "$preDestructiveChangesXml" "$postDestructiveChangesXml"; then
   echo "🔴 'manifests' folder must contain 3 manifest files: package.xml, destructiveChangesPre.xml & destructiveChangesPost.xml."
   exit 1
 fi
 
-# Check there are no metadata references in manifest files;
+# Check there are no metadata references in manifest files
 if ! grep -q '<members>' "$packageXml" && ! grep -q '<members>' "$preDestructiveChangesXml" && ! grep -q '<members>' "$postDestructiveChangesXml"; then
   echo "⚪ There are no metadata changes detected!"
   exit 0
 fi
 
+# Run deployment
 npx dotenv -e ".env" -- sf project deploy start \
   --target-org "$TARGET_ORG_ALIAS" \
   --manifest "$packageXml" \

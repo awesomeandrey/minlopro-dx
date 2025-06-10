@@ -32,6 +32,10 @@
         <default>false</default>
     </values>
     <values>
+        <fullName>Qualification</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Value Proposition</fullName>
         <default>false</default>
     </values>

@@ -6,21 +6,17 @@ if (foundUsers.isEmpty()) {
     return;
 }
 
-// Lookup custom profile by name;
-final String profileName = 'Minlopro User';
-List<Profile> foundProfiles = [SELECT Id FROM Profile WHERE Name = :profileName LIMIT 1];
-if (foundProfiles.isEmpty()) {
-    System.debug(String.format('\n\n Profile with [{0}] name was not found. \n', Lists.of(profileName)));
-    return;
-}
-
 // Set up QA user;
 User qaUser = foundUsers[0];
-Profile minloproProfile = foundProfiles.get(0);
 
 // Switch to custom profile + update QA user details;
 UserRole qaUserRole = [SELECT Id FROM UserRole WHERE DeveloperName = 'DX_User' LIMIT 1][0];
-update new User(Id = qaUser.Id, UserRoleId = qaUserRole.Id, ProfileId = minloproProfile.Id, UserPermissionsKnowledgeUser = true);
+update new User(
+    Id = qaUser.Id,
+    UserRoleId = qaUserRole.Id,
+    Profile = new Profile(Name = 'Minlopro User'),
+    UserPermissionsKnowledgeUser = true
+);
 
 // Add user to public groups;
 List<GroupMember> gMembers = new List<GroupMember>();

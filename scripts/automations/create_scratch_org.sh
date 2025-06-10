@@ -73,4 +73,12 @@ sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$SCRATCH
 inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
 bash ./scripts/util/data-seeding/migrate_knowledge_articles.sh < $inputsFile
 
+# List CRM Analytics assets via Salesforce CLI plugin
+sf analytics app list --target-org "$SCRATCH_ORG_ALIAS"; echo
+sf analytics dashboard list --target-org "$SCRATCH_ORG_ALIAS"; echo
+sf analytics dataflow list --target-org "$SCRATCH_ORG_ALIAS"; echo
+sf analytics dataset list --target-org "$SCRATCH_ORG_ALIAS"; echo
+sf analytics lens list --target-org "$SCRATCH_ORG_ALIAS"; echo
+sf analytics recipe list --target-org "$SCRATCH_ORG_ALIAS"
+
 echo "✅ Done!"

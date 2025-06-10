@@ -1,4 +1,4 @@
-// Find Digex Guest User;
+// Find DigEx Guest User;
 final String SITE_NAME = 'DigEx';
 List<Site> sitesList = [
     SELECT Id, Name, GuestUserId, GuestUser.Name, GuestUser.UserType
@@ -12,6 +12,5 @@ if (sitesList.isEmpty()) {
 }
 final User guestUser = sitesList[0].GuestUser;
 
-// Assign 'Minlopro_PSG_DigExUser' PSG to site guest user;
 PermissionSetService service = PermissionSetService.getInstance();
 service.assign(guestUser.Id, Sets.of('Minlopro_PSG_DigExUser'));
