@@ -1,4 +1,4 @@
-// Find Digex Guest User;
+// Find Force.com Site Guest User;
 final String SITE_NAME = 'MinloproForceComSite';
 List<Site> sitesList = [
     SELECT Id, Name, GuestUserId, GuestUser.Name, GuestUser.UserType

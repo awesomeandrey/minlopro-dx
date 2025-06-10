@@ -146,7 +146,7 @@ export default class UserMonitor extends LightningElement {
         try {
             this.loading = true;
             this.permissionData = cloneObject(await getPermissionsApex());
-            this.refs.datatable?.scrollToTop();
+            this.refs?.datatable?.scrollToTop();
         } catch (error) {
             console.table(error);
             $Toastify.error({ message: parseError(error).message });

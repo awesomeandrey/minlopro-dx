@@ -27,4 +27,8 @@
         <fullName>Working</fullName>
         <default>false</default>
     </values>
+    <values>
+        <fullName>Qualification</fullName>
+        <default>false</default>
+    </values>
 </BusinessProcess>

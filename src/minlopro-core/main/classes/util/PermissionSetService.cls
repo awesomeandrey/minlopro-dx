@@ -63,7 +63,7 @@ public inherited sharing class PermissionSetService {
         List<PermissionSetAssignment> assignments = new List<PermissionSetAssignment>();
         for (Id psOrPsgId : permissionSetOrGroupIds) {
             PermissionSet ps = this.permissionSetByIdMap.get(psOrPsgId);
-            if (this.isRegular(ps)) {
+            if (this.isRegular(ps) || this.isStandard(ps)) {
                 assignments.add(new PermissionSetAssignment(PermissionSetId = ps.Id, AssigneeId = userId));
             } else if (this.isGroup(ps)) {
                 assignments.add(new PermissionSetAssignment(PermissionSetGroupId = ps.PermissionSetGroupId, AssigneeId = userId));
@@ -92,9 +92,10 @@ public inherited sharing class PermissionSetService {
             };
             assignmentsData.add(resultInfo);
         }
+        User targetUser = [SELECT Username FROM User WHERE Id = :userId LIMIT 1];
         List<String> fieldNames = Lists.of(assignmentsData[0].keySet());
         DebugTableFormatter formatter = new DebugTableFormatter(fieldNames, assignmentsData);
-        formatter.log(String.format('⚪ Assignment results for [{0}] user:\n', Lists.of(userId)));
+        formatter.log(String.format('⚪ Assignment results for [{0}] user:\n', Lists.of(targetUser.Username)));
     }
 
     private Boolean isRegular(PermissionSet ps) {
@@ -103,6 +104,10 @@ public inherited sharing class PermissionSetService {
 
     private Boolean isGroup(PermissionSet ps) {
         return ps.Type.equalsIgnoreCase('Group');
+    }
+
+    private Boolean isStandard(PermissionSet ps) {
+        return ps.Type.equalsIgnoreCase('Standard');
     }
 
     private Id extractIdFromAssignment(PermissionSetAssignment assignment) {

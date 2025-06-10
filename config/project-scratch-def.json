@@ -4,14 +4,18 @@
     "edition": "Developer",
     "features": [
         "API",
+        "AnalyticsAdminPerms",
         "AuthorApex",
         "Communities",
         "ContactsToMultipleAccounts",
         "DebugApex",
         "DefaultWorkflowUser",
+        "DevelopmentWave",
+        "EinsteinAnalyticsPlus",
         "EnableSetPasswordInApi",
         "FieldAuditTrail",
         "ForceComPlatform",
+        "InsightsPlatform",
         "Knowledge",
         "LightningServiceConsole",
         "LiveAgent",
@@ -19,17 +23,22 @@
         "PersonAccounts",
         "SalesforceContentUser",
         "SecurityEventEnabled",
-        "ServiceCloud",
+        "Sites",
         "StateAndCountryPicklist",
-        "StreamingAPI"
+        "StreamingAPI",
+        "ServiceCloud",
+        "WavePlatform"
     ],
-    "hasSampleData": false,
+    "hasSampleData": true,
     "language": "en_US",
     "orgName": "minlopro-dx",
     "settings": {
+        "analyticsSettings": {
+            "enableWaveReplication": true
+        },
         "apexSettings": {
-            "enableCompileOnDeploy": false,
             "enableApexApprovalLockUnlock": true,
+            "enableCompileOnDeploy": false,
             "enableDisableParallelApexTesting": true
         },
         "communitiesSettings": {
@@ -74,10 +83,10 @@
             }
         },
         "userManagementSettings": {
+            "enableEnhcUiUserAccessPolicies": true,
             "enableEnhancedPermsetMgmt": true,
             "enableEnhancedProfileMgmt": true,
             "enableNewProfileUI": true,
-            "enableEnhcUiUserAccessPolicies": true,
             "userAccessPoliciesEnabled": true
         }
     }

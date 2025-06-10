@@ -6,9 +6,6 @@
 # Intentionally excluded metadata (i.e. problematic or managed package metadata)
 src/**/unpackaged
 
-# CRM Analytics (formely known as Wave Analytics)
-**/minlopro-crm-analytics
-
 # LWC Jest Tests
 **/__tests__/**
 
