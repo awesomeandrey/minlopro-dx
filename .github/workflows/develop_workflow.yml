@@ -58,7 +58,7 @@ jobs:
         run: echo ${{ steps.auth-salesforce-org.outputs.target-org-alias }} | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Deploy Source to Target Org'
         run: |
-          npm run sf:manifest:create
+          npm run sf:manifest:create:full
           bash ./scripts/deploy/deploy.sh \
               "${{ steps.auth-salesforce-org.outputs.target-org-alias }}" \
               "${{ env.SF_DEPLOYMENT_MODE }}" \

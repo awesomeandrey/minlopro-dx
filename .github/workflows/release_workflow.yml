@@ -43,13 +43,21 @@ jobs:
         run: |
           releaseBranchName="${{github.head_ref}}"
           git checkout "$releaseBranchName"; git pull
-          bash ./scripts/deploy/common/sgd_generate_manifests.sh "main" "$releaseBranchName"
+          bash ./scripts/deploy/common/generate_manifest.sh \
+            --mode "delta" \
+            --target-org "Prod" \
+            --from-ref "main" \
+            --to-ref "$releaseBranchName"
       - name: "Generate Release Manifests (workflow_dispatch)"
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: |
           releaseBranchName="${GITHUB_REF#refs/heads/}"
           git checkout "$releaseBranchName"; git pull
-          bash ./scripts/deploy/common/sgd_generate_manifests.sh "main" "$releaseBranchName"
+          bash ./scripts/deploy/common/generate_manifest.sh \
+            --mode "delta" \
+            --target-org "Prod" \
+            --from-ref "main" \
+            --to-ref "$releaseBranchName"
       - name: 'Validate Deployment And Extract Job ID'
         id: validate-deployment
         run: |

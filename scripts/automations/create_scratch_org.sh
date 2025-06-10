@@ -51,7 +51,7 @@ bash ./scripts/util/install_packages.sh < $inputsFile
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 
 # Generate project manifest and initiate full deploy to scratch org (this automatically creates Digital Experience Site)
-npm run sf:manifest:create
+npm run sf:manifest:create:full
 bash ./scripts/deploy/deploy.sh "$SCRATCH_ORG_ALIAS" "hard"
 
 # Create QA user
