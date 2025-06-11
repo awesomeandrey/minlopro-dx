@@ -120,7 +120,7 @@ npm run src:push -- -o "$SCRATCH_ORG_ALIAS"
 _Deploy Codebase_
 
 ```
-npm run sf:manifest:create && npm run src:deploy
+npm run sf:manifest:create:full && npm run src:deploy
 ```
 
 _Publish Community_

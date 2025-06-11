@@ -87,6 +87,10 @@ jobs:
           # To Branch
           git checkout "${{github.head_ref}}"; git pull
           # Generate manifests via SGD plugin
-          bash ./scripts/deploy/common/sgd_generate_manifests.sh "${{github.base_ref}}" "${{github.head_ref}}"
+          bash ./scripts/deploy/common/generate_manifest.sh \
+            --mode "delta" \
+            --target-org "${{ steps.auth-salesforce-org.outputs.target-org-alias }}" \
+            --from-ref "${{github.base_ref}}" \
+            --to-ref "${{github.head_ref}}"
       - name: 'Check-Only Deploy Source to Target Org'
         run: bash ./scripts/deploy/deploy.sh ${{ steps.auth-salesforce-org.outputs.target-org-alias }} "dry-run"

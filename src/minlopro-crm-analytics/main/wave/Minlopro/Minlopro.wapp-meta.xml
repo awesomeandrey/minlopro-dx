@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <WaveApplication xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Sample app for CRMA assets</description>
+    <description>Sample app for CRM Analytics assets.</description>
     <folder>Minlopro</folder>
     <masterLabel>Minlopro</masterLabel>
     <shares>

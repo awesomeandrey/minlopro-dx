@@ -2,7 +2,7 @@
     "name": "minlopro",
     "type": "module",
     "private": true,
-    "version": "2.4.5",
+    "version": "2.4.6",
     "engines": {
         "node": ">=20.x",
         "npm": ">=10.x"
@@ -17,8 +17,8 @@
         "sf:apex:tests": "sf apex run test --code-coverage --output-dir 'testresults' --wait 10 --concise",
         "sf:auth:url:create": "mkdir -p 'build' && sf org display --verbose --json > 'build/target-org-info.json'",
         "sf:auth:url:store": "sf org login sfdx-url -f 'build/target-org-info.json'",
-        "sf:manifest:create": "sf project generate manifest --name 'manifests/package.xml' --source-dir 'src'",
-        "sf:manifest:create:delta": "bash scripts/deploy/common/sgd_generate_manifests.sh",
+        "sf:manifest:create:full": "bash ./scripts/deploy/common/generate_manifest.sh --mode full",
+        "sf:manifest:create:delta": "bash ./scripts/deploy/common/generate_manifest.sh --mode delta --interactive",
         "sf:tracking:reset": "sf project reset tracking --no-prompt",
         "sf:hardis:diagnose:legacyapi": "sf hardis:org:diagnose:legacyapi",
         "src:retrieve": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/util/retrieve_by_manifest.sh",
