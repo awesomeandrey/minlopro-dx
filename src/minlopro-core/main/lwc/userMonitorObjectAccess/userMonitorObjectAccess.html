@@ -1,0 +1,31 @@
+<template>
+    <ltngmu-lwc-messaging-utility
+        message-type="alert"
+        icon-name="utility:warning"
+        message-body="This section is under construction."
+        show-message
+        show-icon
+    ></ltngmu-lwc-messaging-utility>
+
+    <div class="slds-m-vertical_x-small">
+        <button onclick={handleRunDemo}>Run Animation</button>
+    </div>
+
+    <!--    <lightning-record-picker-->
+    <!--        lwc:ref="recordPicker"-->
+    <!--        label="Custom Object"-->
+    <!--        placeholder="Select custom object to inspect..."-->
+    <!--        object-api-name="EntityDefinition"-->
+    <!--        display-info={customObjectLookupSettings.displayInfo}-->
+    <!--        matching-info={customObjectLookupSettings.matchingInfo}-->
+    <!--        required-->
+    <!--        onchange={handleLookupSelect}-->
+    <!--        onerror={handleLookupError}-->
+    <!--    ></lightning-record-picker>-->
+
+    <div class="container">
+        <div lwc:ref="panel1" class="panel expanded">Object Picker</div>
+        <div lwc:ref="panel2" class="panel collapsed">OLS Viewer</div>
+        <div lwc:ref="panel3" class="panel collapsed">FLS Viewer</div>
+    </div>
+</template>
