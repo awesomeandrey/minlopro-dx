@@ -3,7 +3,7 @@ public without sharing class ScriptWorker {
         final Id adminUserId = UserInfo.getUserId();
 
         // Assign PSGs
-        Set<String> psOrPsgNames = new Set<String>{ 'Minlopro_PSG_InternalUser', 'Minlopro_PSG_DigExUser', 'Minlopro_PSG_Admin' };
+        Set<String> psOrPsgNames = new Set<String>{ 'Minlopro_PSG_Admin', 'Minlopro_PSG_DigExUser' };
         PermissionSetService service = PermissionSetService.getInstance();
         service.assign(adminUserId, psOrPsgNames);
 

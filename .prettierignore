@@ -24,7 +24,7 @@
 **/staticresources/
 **/wave/
 
-# GHA workflows
+# GitHub Actions Configs
 .github/actions/
 .github/workflows/
 

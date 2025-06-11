@@ -4,8 +4,28 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - PSG - Admin</label>
     <mutingPermissionSets>AdminUser_MutedPermissions</mutingPermissionSets>
+    <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_Admin</permissionSets>
+    <permissionSets>Minlopro_ApprovalProcessBreakdown</permissionSets>
+    <permissionSets>Minlopro_Car</permissionSets>
+    <permissionSets>Minlopro_Core</permissionSets>
+    <permissionSets>Minlopro_CurrencyManagement</permissionSets>
+    <permissionSets>Minlopro_CustomAuthProviderAndNC</permissionSets>
+    <permissionSets>Minlopro_DLRS</permissionSets>
+    <permissionSets>Minlopro_DigEx_InAppAndWebMessaging</permissionSets>
+    <permissionSets>Minlopro_DuplicatesManager</permissionSets>
+    <permissionSets>Minlopro_FilesManager</permissionSets>
+    <permissionSets>Minlopro_ForceComSite</permissionSets>
+    <permissionSets>Minlopro_GithubWebhook</permissionSets>
+    <permissionSets>Minlopro_GoogleMaps</permissionSets>
     <permissionSets>Minlopro_KnowledgeAdmin</permissionSets>
+    <permissionSets>Minlopro_KnowledgeUser</permissionSets>
+    <permissionSets>Minlopro_LeadsManager</permissionSets>
+    <permissionSets>Minlopro_Logger</permissionSets>
+    <permissionSets>Minlopro_SalesforceConnectCustomAdapter</permissionSets>
+    <permissionSets>Minlopro_SsoUser</permissionSets>
+    <permissionSets>Minlopro_TesseractJsOcr</permissionSets>
+    <permissionSets>Minlopro_User</permissionSets>
     <permissionSets>dlrs__LookupRollupSummariesFull</permissionSets>
     <permissionSets>dlrs__LookupRollupSummariesReadOnly</permissionSets>
     <status>Updated</status>
