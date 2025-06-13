@@ -1,6 +1,15 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
+import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import { NavigationMixin } from 'lightning/navigation';
 import { cloneObject, parseError, debounce, isNotEmpty } from 'c/utilities';
 import $Toastify from 'c/toastify';
+
+import $UserId from '@salesforce/user/Id';
+
+// Schema;
+import USER_NAME from '@salesforce/schema/User.Name';
+import USER_ROLE_NAME from '@salesforce/schema/User.UserRole.Name';
+import USER_PROFILE_NAME from '@salesforce/schema/User.Profile.Name';
 
 // Static Resources;
 import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
@@ -8,7 +17,7 @@ import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
 // Apex Controller Methods;
 import getPermissionsApex from '@salesforce/apex/UserMonitorController.getPermissions';
 
-export default class UserMonitor extends LightningElement {
+export default class UserMonitor extends NavigationMixin(LightningElement) {
     @track permissionData = [];
     @track permissionFilters = {
         showEnabled: true,
@@ -24,6 +33,7 @@ export default class UserMonitor extends LightningElement {
     };
     @track loading = false;
     @track debouncedHandleChangeSearchKeyword = debounce(this.handleChangeSearchKeyword.bind(this), 1000);
+    @track userId = $UserId;
 
     get permissionColumns() {
         return [
@@ -130,6 +140,18 @@ export default class UserMonitor extends LightningElement {
         return `${COMMONS_ASSETS}/svg/background2.svg`;
     }
 
+    get userInfo() {
+        return {
+            ['Id']: $UserId,
+            ['Name']: getFieldValue(this.wiredUserInfo?.data, USER_NAME),
+            ['RoleName']: getFieldValue(this.wiredUserInfo?.data, USER_ROLE_NAME) || 'N/A',
+            ['ProfileName']: getFieldValue(this.wiredUserInfo?.data, USER_PROFILE_NAME)
+        };
+    }
+
+    @wire(getRecord, { recordId: '$userId', fields: [USER_NAME, USER_ROLE_NAME, USER_PROFILE_NAME] })
+    wiredUserInfo = {};
+
     async connectedCallback() {
         await this.handleRefresh();
     }
@@ -146,13 +168,27 @@ export default class UserMonitor extends LightningElement {
         try {
             this.loading = true;
             this.permissionData = cloneObject(await getPermissionsApex());
-            this.refs?.datatable?.scrollToTop();
+            // this.refs?.datatable?.scrollToTop();
         } catch (error) {
             console.table(error);
             $Toastify.error({ message: parseError(error).message });
         } finally {
             this.loading = false;
         }
+    }
+
+    handleOpenUserDetails(event) {
+        event.preventDefault();
+        this[NavigationMixin.GenerateUrl]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: this.userId,
+                objectApiName: 'User',
+                actionName: 'view'
+            }
+        }).then((url) => {
+            window.open(url, '_blank').focus();
+        });
     }
 
     handleChangeSearchKeyword(event) {
