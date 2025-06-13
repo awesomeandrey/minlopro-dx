@@ -1,44 +1,29 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, track } from 'lwc';
+
+// Constants;
+const SECTION_SHOW_CLASS_NAME_ = 'expanded';
+const SECTION_COLLAPSE_CLASS_NAME_ = 'collapsed';
 
 export default class UserMonitorObjectAccess extends LightningElement {
-    get customObjectLookupSettings() {
-        return {
-            displayInfo: {
-                primaryField: 'DeveloperName',
-                additionalFields: ['NamespacePrefix']
-            },
-            matchingInfo: {
-                primaryField: { fieldPath: 'DeveloperName' },
-                additionalFields: [{ fieldPath: 'NamespacePrefix' }]
-            }
-        };
-    }
-
-    handleLookupSelect(event) {}
-
-    handleLookupError(event) {
-        const { error } = event.detail;
-        console.table(error);
-        debugger;
-        // ERR_RP002
-        // ERR_RP003
+    get $sections() {
+        return [this.refs.objectPicker, this.refs.olsViewer, this.refs.flsViewer];
     }
 
     connectedCallback() {}
 
     handleRunDemo(event) {
-        setTimeout(() => this.goToPanel('panel2'), 2000); // simulates user selecting object
-        setTimeout(() => this.goToPanel('panel3'), 5000); // simulates clicking 'view FLS'
+        setTimeout(() => this.showSection(this.refs.olsViewer), 2000); // simulates user selecting object
+        setTimeout(() => this.showSection(this.refs.flsViewer), 5000); // simulates clicking 'view FLS'
     }
 
-    goToPanel(refName) {
-        // reset all;
-        ['panel1', 'panel2', 'panel3'].forEach((el, index) => {
-            this.refs[el].classList.remove('expanded');
-            this.refs[el].classList.add('collapsed');
+    showSection(sectionRef) {
+        // Reset all;
+        this.$sections.forEach((element) => {
+            element.classList.remove(SECTION_SHOW_CLASS_NAME_);
+            element.classList.add(SECTION_COLLAPSE_CLASS_NAME_);
         });
-        // expand particular section
-        this.refs[refName].classList.add('expanded');
-        this.refs[refName].classList.remove('collapsed');
+        // Expand particular section;
+        sectionRef.classList.add(SECTION_SHOW_CLASS_NAME_);
+        sectionRef.classList.remove(SECTION_COLLAPSE_CLASS_NAME_);
     }
 }

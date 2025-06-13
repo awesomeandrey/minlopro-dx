@@ -24,8 +24,46 @@
     <!--    ></lightning-record-picker>-->
 
     <div class="container">
-        <div lwc:ref="panel1" class="panel expanded">Object Picker</div>
-        <div lwc:ref="panel2" class="panel collapsed">OLS Viewer</div>
-        <div lwc:ref="panel3" class="panel collapsed">FLS Viewer</div>
+        <lightning-card
+            lwc:ref="objectPicker"
+            class="panel expanded slds-border_top slds-border_right"
+            variant="narrow"
+            title="Object Picker"
+            icon-name="utility:color_swatch"
+        >
+            <p class="slds-p-horizontal_small">Object Picker (custom component)</p>
+            <p class="slds-p-horizontal_small">Object Picker (custom component)</p>
+            <p class="slds-p-horizontal_small">Object Picker (custom component)</p>
+            <p class="slds-p-horizontal_small">Object Picker (custom component)</p>
+            <p class="slds-p-horizontal_small">Object Picker (custom component)</p>
+        </lightning-card>
+
+        <lightning-card
+            lwc:ref="olsViewer"
+            class="panel collapsed slds-border_top slds-border_right"
+            variant="narrow"
+            title="OLS Viewer"
+            icon-name="utility:expense_report"
+        >
+            <p class="slds-p-horizontal_small">OLS Viewer (custom component)</p>
+            <p class="slds-p-horizontal_small">OLS Viewer (custom component)</p>
+            <p class="slds-p-horizontal_small">OLS Viewer (custom component)</p>
+            <p class="slds-p-horizontal_small">OLS Viewer (custom component)</p>
+            <p class="slds-p-horizontal_small">OLS Viewer (custom component)</p>
+        </lightning-card>
+
+        <lightning-card
+            lwc:ref="flsViewer"
+            class="panel collapsed slds-border_top slds-border_right"
+            variant="narrow"
+            title="FLS Viewer"
+            icon-name="utility:orchestrator"
+        >
+            <p class="slds-p-horizontal_small">FLS Viewer (custom component)</p>
+            <p class="slds-p-horizontal_small">FLS Viewer (custom component)</p>
+            <p class="slds-p-horizontal_small">FLS Viewer (custom component)</p>
+            <p class="slds-p-horizontal_small">FLS Viewer (custom component)</p>
+            <p class="slds-p-horizontal_small">FLS Viewer (custom component)</p>
+        </lightning-card>
     </div>
 </template>
