@@ -16,6 +16,18 @@ export default class UserMonitorObjectAccess extends LightningElement {
         setTimeout(() => this.showSection(this.refs.flsViewer), 5000); // simulates clicking 'view FLS'
     }
 
+    handleOpenObjectPicker(event) {
+        this.showSection(this.refs.objectPicker);
+    }
+
+    handleOpenFlsViewer(event) {
+        this.showSection(this.refs.flsViewer);
+    }
+
+    handleOpenOlsViewer(event) {
+        this.showSection(this.refs.olsViewer);
+    }
+
     showSection(sectionRef) {
         // Reset all;
         this.$sections.forEach((element) => {

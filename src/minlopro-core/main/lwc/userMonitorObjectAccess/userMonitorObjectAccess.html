@@ -32,6 +32,12 @@
             icon-name="utility:color_swatch"
         >
             <div class="content slds-p-horizontal_small">
+                <lightning-button-icon
+                    icon-name="utility:arrow_right"
+                    variant="border-filled"
+                    onclick={handleOpenOlsViewer}
+                ></lightning-button-icon>
+
                 <p>Object Picker (custom component)</p>
                 <p>Object Picker (custom component)</p>
                 <p>Object Picker (custom component)</p>
@@ -50,7 +56,19 @@
             title="OLS Viewer"
             icon-name="utility:expense_report"
         >
+            <lightning-button-icon
+                slot="actions"
+                icon-name="utility:arrow_left"
+                variant="border-filled"
+                onclick={handleOpenObjectPicker}
+            ></lightning-button-icon>
             <div class="content slds-p-horizontal_small">
+                <lightning-button-icon
+                    icon-name="utility:arrow_right"
+                    variant="border-filled"
+                    onclick={handleOpenFlsViewer}
+                ></lightning-button-icon>
+
                 <p>OLS Viewer (custom component)</p>
                 <p>OLS Viewer (custom component)</p>
                 <p>OLS Viewer (custom component)</p>
@@ -69,6 +87,12 @@
             title="FLS Viewer"
             icon-name="utility:orchestrator"
         >
+            <lightning-button-icon
+                slot="actions"
+                icon-name="utility:arrow_left"
+                variant="border-filled"
+                onclick={handleOpenOlsViewer}
+            ></lightning-button-icon>
             <div class="content slds-p-horizontal_small">
                 <p>FLS Viewer (custom component)</p>
                 <p>FLS Viewer (custom component)</p>
