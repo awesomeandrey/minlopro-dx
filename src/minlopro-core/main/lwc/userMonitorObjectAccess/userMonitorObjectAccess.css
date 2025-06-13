@@ -3,18 +3,20 @@
     width: 100%;
     height: 15rem;
     transition: all 0.3s ease;
-}
 
-.panel {
-    transition: width 0.4s ease;
-    overflow: hidden;
-    /*border: 1px solid limegreen;*/
-}
+    .section {
+        transition: width 0.4s ease;
+        overflow: hidden;
+    }
 
-.collapsed {
-    width: 10%;
-}
+    .section.expanded {
+        width: 80%;
+    }
 
-.expanded {
-    width: 80%;
+    .section.collapsed {
+        width: 10%;
+    }
+
+    .section .content {
+    }
 }
