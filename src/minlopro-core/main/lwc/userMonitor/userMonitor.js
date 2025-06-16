@@ -1,20 +1,15 @@
 import { LightningElement, track, wire } from 'lwc';
-import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
-import { cloneObject, parseError, debounce, isNotEmpty } from 'c/utilities';
+import { cloneObject, parseError, debounce, isNotEmpty, wait } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 import $UserId from '@salesforce/user/Id';
-
-// Schema;
-import USER_NAME from '@salesforce/schema/User.Name';
-import USER_ROLE_NAME from '@salesforce/schema/User.UserRole.Name';
-import USER_PROFILE_NAME from '@salesforce/schema/User.Profile.Name';
 
 // Static Resources;
 import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
 
 // Apex Controller Methods;
+import getUserInfoByIdApex from '@salesforce/apex/SystemInfoController.getUserInfoById';
 import getPermissionsApex from '@salesforce/apex/UserMonitorController.getPermissions';
 
 export default class UserMonitor extends NavigationMixin(LightningElement) {
@@ -33,7 +28,6 @@ export default class UserMonitor extends NavigationMixin(LightningElement) {
     };
     @track loading = false;
     @track debouncedHandleChangeSearchKeyword = debounce(this.handleChangeSearchKeyword.bind(this), 1000);
-    @track userId = $UserId;
 
     get permissionColumns() {
         return [
@@ -143,13 +137,13 @@ export default class UserMonitor extends NavigationMixin(LightningElement) {
     get userInfo() {
         return {
             ['Id']: $UserId,
-            ['Name']: getFieldValue(this.wiredUserInfo?.data, USER_NAME),
-            ['RoleName']: getFieldValue(this.wiredUserInfo?.data, USER_ROLE_NAME) || 'N/A',
-            ['ProfileName']: getFieldValue(this.wiredUserInfo?.data, USER_PROFILE_NAME)
+            ['Name']: this.wiredUserInfo?.data?.Name,
+            ['RoleName']: this.wiredUserInfo?.data?.UserRole?.Name,
+            ['ProfileName']: this.wiredUserInfo?.data?.Profile?.Name
         };
     }
 
-    @wire(getRecord, { recordId: '$userId', fields: [USER_NAME, USER_ROLE_NAME, USER_PROFILE_NAME] })
+    @wire(getUserInfoByIdApex, { userId: $UserId })
     wiredUserInfo = {};
 
     async connectedCallback() {

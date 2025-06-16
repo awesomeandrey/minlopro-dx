@@ -36,8 +36,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: 'Fetch Particular Branches'
+        run: |
+          echo "Before"
+          git branch
+          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}; git checkout ${{ github.base_ref }}
+          git fetch origin ${{ github.head_ref }}:${{ github.head_ref }}; git checkout ${{ github.head_ref }}
+          echo "After"
+          git branch
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
       - name: "Auth Salesforce Org 🎫"
