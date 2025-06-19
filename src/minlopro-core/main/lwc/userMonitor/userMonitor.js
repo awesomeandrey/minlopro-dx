@@ -138,7 +138,7 @@ export default class UserMonitor extends NavigationMixin(LightningElement) {
         return {
             ['Id']: $UserId,
             ['Name']: this.wiredUserInfo?.data?.Name,
-            ['RoleName']: this.wiredUserInfo?.data?.UserRole?.Name,
+            ['RoleName']: this.wiredUserInfo?.data?.UserRole?.Name || '<None>',
             ['ProfileName']: this.wiredUserInfo?.data?.Profile?.Name
         };
     }

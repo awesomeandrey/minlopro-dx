@@ -21,6 +21,7 @@
         "sf:manifest:create:delta": "bash ./scripts/deploy/common/generate_manifest.sh --mode delta --interactive",
         "sf:tracking:reset": "sf project reset tracking --no-prompt",
         "sf:hardis:diagnose:legacyapi": "sf hardis:org:diagnose:legacyapi",
+        "sf:lightning:dev:app": "sf lightning dev app --name MinloproConsole --device-type desktop",
         "src:retrieve": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/util/retrieve_by_manifest.sh",
         "src:deploy": "bash ./scripts/deploy/deploy.sh $(bash ./scripts/util/get_target_org_alias.sh) 'hard'",
         "src:deploy:check": "bash ./scripts/deploy/deploy.sh $(bash ./scripts/util/get_target_org_alias.sh) 'dry-run'",
