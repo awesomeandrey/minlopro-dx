@@ -6,7 +6,6 @@
     <excludeButtons>ChangeRecordType</excludeButtons>
     <excludeButtons>Clone</excludeButtons>
     <excludeButtons>CreateSalesChannel</excludeButtons>
-    <excludeButtons>CreateSalesSummaries</excludeButtons>
     <excludeButtons>Delete</excludeButtons>
     <excludeButtons>Edit</excludeButtons>
     <excludeButtons>OpenSlackRecordChannel</excludeButtons>

@@ -29,7 +29,7 @@ public inherited sharing class PermissionSetService {
         for (PermissionSet ps : [
             SELECT Id, Name, PermissionSetGroupId, IsCustom, Type, License.Name
             FROM PermissionSet
-            LIMIT 100
+            LIMIT 300
         ]) {
             if (this.isGroup(ps)) {
                 this.permissionSetByIdMap.put(ps.PermissionSetGroupId, ps);
@@ -44,22 +44,7 @@ public inherited sharing class PermissionSetService {
     }
 
     public List<Database.UpsertResult> assign(Id userId, Set<String> permissionSetOrGroupNames) {
-        Set<Id> permissionSetOrGroupIds = new Set<Id>();
-        if (Sets.isNotEmpty(permissionSetOrGroupNames)) {
-            Map<String, PermissionSet> localMap = this.permissionSetByNameMap;
-            for (String psOrPsgName : permissionSetOrGroupNames) {
-                permissionSetOrGroupIds.add(localMap.get(psOrPsgName).Id);
-            }
-        }
-        return this.assign(userId, permissionSetOrGroupIds);
-    }
-
-    public Id assignAsync(Id userId, Set<String> permissionSetOrGroupNames) {
-        // Used to overcome 'MIXED_DML_OPERATION' errors;
-        return System.enqueueJob(new PermissionSetServiceWorker(instance, userId, permissionSetOrGroupNames));
-    }
-
-    public List<Database.UpsertResult> assign(Id userId, Set<Id> permissionSetOrGroupIds) {
+        Set<Id> permissionSetOrGroupIds = this.collectPermissionSetOrGroupIds(permissionSetOrGroupNames);
         List<PermissionSetAssignment> assignments = new List<PermissionSetAssignment>();
         for (Id psOrPsgId : permissionSetOrGroupIds) {
             PermissionSet ps = this.permissionSetByIdMap.get(psOrPsgId);
@@ -68,13 +53,37 @@ public inherited sharing class PermissionSetService {
             } else if (this.isGroup(ps)) {
                 assignments.add(new PermissionSetAssignment(PermissionSetGroupId = ps.PermissionSetGroupId, AssigneeId = userId));
             } else {
-                throw new IllegalArgumentException('Only permission sets with "Regular" or "Group" types can be assigned!');
+                throw new IllegalArgumentException(
+                    String.format(
+                        'Only permission sets with the following types are allowed: [{0}].',
+                        Lists.of(Lists.of('Regular', 'Group', 'Standard').toString())
+                    )
+                );
             }
         }
         List<Database.UpsertResult> upsertResults = Database.upsert(assignments, this.allOrNothing);
         // Log DML results in tabular format;
         this.log(userId, assignments, upsertResults);
         return upsertResults;
+    }
+
+    public List<Database.DeleteResult> unassign(Id userId, Set<String> permissionSetOrGroupNames) {
+        Set<Id> permissionSetOrGroupIds = this.collectPermissionSetOrGroupIds(permissionSetOrGroupNames);
+        return Database.delete(
+            [
+                SELECT Id
+                FROM PermissionSetAssignment
+                WHERE
+                    AssigneeId = :userId
+                    AND (PermissionSetId IN :permissionSetOrGroupIds
+                    OR PermissionSetGroupId IN :permissionSetOrGroupIds)
+            ]
+        );
+    }
+
+    public Id assignAsync(Id userId, Set<String> permissionSetOrGroupNames) {
+        // Used to overcome 'MIXED_DML_OPERATION' errors;
+        return System.enqueueJob(new PermissionSetServiceWorker(instance, userId, permissionSetOrGroupNames));
     }
 
     private void log(Id userId, List<PermissionSetAssignment> assignments, List<Database.UpsertResult> upsertResults) {
@@ -108,6 +117,22 @@ public inherited sharing class PermissionSetService {
 
     private Boolean isStandard(PermissionSet ps) {
         return ps.Type.equalsIgnoreCase('Standard');
+    }
+
+    private Set<Id> collectPermissionSetOrGroupIds(Set<String> permissionSetOrGroupNames) {
+        Set<Id> permissionSetOrGroupIds = new Set<Id>();
+        if (Sets.isNotEmpty(permissionSetOrGroupNames)) {
+            Map<String, PermissionSet> localMap = this.permissionSetByNameMap;
+            for (String psOrPsgName : permissionSetOrGroupNames) {
+                if (!localMap.containsKey(psOrPsgName)) {
+                    throw new IllegalArgumentException(
+                        String.format('Unknown permission set or group API name provided: [{0}].', Lists.of(psOrPsgName))
+                    );
+                }
+                permissionSetOrGroupIds.add(localMap.get(psOrPsgName).Id);
+            }
+        }
+        return permissionSetOrGroupIds;
     }
 
     private Id extractIdFromAssignment(PermissionSetAssignment assignment) {

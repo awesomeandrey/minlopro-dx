@@ -65,6 +65,7 @@
         },
         "lightningExperienceSettings": {
             "enableS1DesktopEnabled": true,
+            "enableLightningPreviewPref": true,
             "enableUsersAreLightningOnly": false
         },
         "liveMessageSettings": {

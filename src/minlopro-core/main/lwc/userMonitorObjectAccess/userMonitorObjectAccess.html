@@ -1,0 +1,56 @@
+<template>
+    <c-progress-slider lwc:ref="progressSlider">
+        <c-progress-slider-section label="Object Picker" icon-name="utility:color_swatch">
+            <lightning-button-group slot="actions">
+                <lightning-button
+                    label="Next"
+                    icon-name="utility:arrow_right"
+                    icon-position="right"
+                    disabled={doDisableOlsViewerSection}
+                    onclick={handleNext}
+                ></lightning-button>
+            </lightning-button-group>
+            <code slot="selectedValue">{selectedObjectName}</code>
+
+            <div class="slds-align_absolute-center">
+                <p class="slds-m-vertical_large">Object Picker CONTENT</p>
+            </div>
+        </c-progress-slider-section>
+        <c-progress-slider-section label="OLS Viewer" icon-name="utility:expense_report">
+            <lightning-button-group slot="actions">
+                <lightning-button
+                    label="Previous"
+                    icon-name="utility:arrow_left"
+                    icon-position="left"
+                    onclick={handlePrevious}
+                ></lightning-button>
+                <lightning-button
+                    label="Next"
+                    icon-name="utility:arrow_right"
+                    icon-position="right"
+                    disabled={doDisableFlsViewerSection}
+                    onclick={handleNext}
+                ></lightning-button>
+            </lightning-button-group>
+            <code slot="selectedValue">{selectedObjectName}</code>
+
+            <div class="slds-align_absolute-center">
+                <p class="slds-m-vertical_large">OLS Viewer CONTENT</p>
+            </div>
+        </c-progress-slider-section>
+        <c-progress-slider-section label="FLS Viewer" icon-name="utility:orchestrator">
+            <lightning-button-group slot="actions">
+                <lightning-button
+                    label="Previous"
+                    icon-name="utility:arrow_left"
+                    icon-position="left"
+                    onclick={handlePrevious}
+                ></lightning-button>
+            </lightning-button-group>
+
+            <div class="slds-align_absolute-center">
+                <p class="slds-m-vertical_large">OLS Viewer CONTENT</p>
+            </div>
+        </c-progress-slider-section>
+    </c-progress-slider>
+</template>
