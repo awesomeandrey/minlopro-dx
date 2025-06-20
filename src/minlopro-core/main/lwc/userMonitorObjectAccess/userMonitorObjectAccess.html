@@ -1,107 +1,56 @@
 <template>
-    <ltngmu-lwc-messaging-utility
-        message-type="alert"
-        icon-name="utility:warning"
-        message-body="This section is under construction."
-        show-message
-        show-icon
-    ></ltngmu-lwc-messaging-utility>
-
-    <div class="slds-m-vertical_x-small">
-        <button onclick={handleRunDemo}>Run Animation</button>
-    </div>
-
-    <!--    <lightning-record-picker-->
-    <!--        lwc:ref="recordPicker"-->
-    <!--        label="Custom Object"-->
-    <!--        placeholder="Select custom object to inspect..."-->
-    <!--        object-api-name="EntityDefinition"-->
-    <!--        display-info={customObjectLookupSettings.displayInfo}-->
-    <!--        matching-info={customObjectLookupSettings.matchingInfo}-->
-    <!--        required-->
-    <!--        onchange={handleLookupSelect}-->
-    <!--        onerror={handleLookupError}-->
-    <!--    ></lightning-record-picker>-->
-
-    <div class="container">
-        <lightning-card
-            lwc:ref="objectPicker"
-            class="section expanded slds-border_top slds-border_right"
-            variant="narrow"
-            title="Object Picker"
-            icon-name="utility:color_swatch"
-        >
-            <div class="content slds-p-horizontal_small">
-                <lightning-button-icon
+    <c-progress-slider lwc:ref="progressSlider">
+        <c-progress-slider-section label="Object Picker" icon-name="utility:color_swatch">
+            <lightning-button-group slot="actions">
+                <lightning-button
+                    label="Next"
                     icon-name="utility:arrow_right"
-                    variant="border-filled"
-                    onclick={handleOpenOlsViewer}
-                ></lightning-button-icon>
+                    icon-position="right"
+                    disabled={doDisableOlsViewerSection}
+                    onclick={handleNext}
+                ></lightning-button>
+            </lightning-button-group>
+            <code slot="selectedValue">{selectedObjectName}</code>
 
-                <p>Object Picker (custom component)</p>
-                <p>Object Picker (custom component)</p>
-                <p>Object Picker (custom component)</p>
-                <p>Object Picker (custom component)</p>
-                <p>Object Picker (custom component)</p>
-                <p>Object Picker (custom component)</p>
-                <p>Object Picker (custom component)</p>
-                <p>Object Picker (custom component)</p>
+            <div class="slds-align_absolute-center">
+                <p class="slds-m-vertical_large">Object Picker CONTENT</p>
             </div>
-        </lightning-card>
-
-        <lightning-card
-            lwc:ref="olsViewer"
-            class="section collapsed slds-border_top slds-border_right"
-            variant="narrow"
-            title="OLS Viewer"
-            icon-name="utility:expense_report"
-        >
-            <lightning-button-icon
-                slot="actions"
-                icon-name="utility:arrow_left"
-                variant="border-filled"
-                onclick={handleOpenObjectPicker}
-            ></lightning-button-icon>
-            <div class="content slds-p-horizontal_small">
-                <lightning-button-icon
+        </c-progress-slider-section>
+        <c-progress-slider-section label="OLS Viewer" icon-name="utility:expense_report">
+            <lightning-button-group slot="actions">
+                <lightning-button
+                    label="Previous"
+                    icon-name="utility:arrow_left"
+                    icon-position="left"
+                    onclick={handlePrevious}
+                ></lightning-button>
+                <lightning-button
+                    label="Next"
                     icon-name="utility:arrow_right"
-                    variant="border-filled"
-                    onclick={handleOpenFlsViewer}
-                ></lightning-button-icon>
+                    icon-position="right"
+                    disabled={doDisableFlsViewerSection}
+                    onclick={handleNext}
+                ></lightning-button>
+            </lightning-button-group>
+            <code slot="selectedValue">{selectedObjectName}</code>
 
-                <p>OLS Viewer (custom component)</p>
-                <p>OLS Viewer (custom component)</p>
-                <p>OLS Viewer (custom component)</p>
-                <p>OLS Viewer (custom component)</p>
-                <p>OLS Viewer (custom component)</p>
-                <p>OLS Viewer (custom component)</p>
-                <p>OLS Viewer (custom component)</p>
-                <p>OLS Viewer (custom component)</p>
+            <div class="slds-align_absolute-center">
+                <p class="slds-m-vertical_large">OLS Viewer CONTENT</p>
             </div>
-        </lightning-card>
+        </c-progress-slider-section>
+        <c-progress-slider-section label="FLS Viewer" icon-name="utility:orchestrator">
+            <lightning-button-group slot="actions">
+                <lightning-button
+                    label="Previous"
+                    icon-name="utility:arrow_left"
+                    icon-position="left"
+                    onclick={handlePrevious}
+                ></lightning-button>
+            </lightning-button-group>
 
-        <lightning-card
-            lwc:ref="flsViewer"
-            class="section collapsed slds-border_top slds-border_right"
-            variant="narrow"
-            title="FLS Viewer"
-            icon-name="utility:orchestrator"
-        >
-            <lightning-button-icon
-                slot="actions"
-                icon-name="utility:arrow_left"
-                variant="border-filled"
-                onclick={handleOpenOlsViewer}
-            ></lightning-button-icon>
-            <div class="content slds-p-horizontal_small">
-                <p>FLS Viewer (custom component)</p>
-                <p>FLS Viewer (custom component)</p>
-                <p>FLS Viewer (custom component)</p>
-                <p>FLS Viewer (custom component)</p>
-                <p>FLS Viewer (custom component)</p>
-                <p>FLS Viewer (custom component)</p>
-                <p>FLS Viewer (custom component)</p>
+            <div class="slds-align_absolute-center">
+                <p class="slds-m-vertical_large">OLS Viewer CONTENT</p>
             </div>
-        </lightning-card>
-    </div>
+        </c-progress-slider-section>
+    </c-progress-slider>
 </template>

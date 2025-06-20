@@ -1,0 +1,55 @@
+:host {
+    display: block;
+}
+
+/* LWC > c-progress-slider */
+
+:host .container {
+    display: flex;
+    width: 100%;
+    min-height: 18rem;
+    transition: all 0.3s ease;
+    /* Define custom CSS Hooks */
+    --section-expanded-ratio: 65%;
+    --section-collapsed-ratio: 10%;
+}
+
+/* LWC > c-progress-slider-section */
+
+:host.section {
+    transition: width 0.4s ease;
+    overflow: hidden;
+    border-right: 1px solid var(--lwc-colorBorder);
+    position: relative;
+}
+
+:host.section:last-child {
+    border-right: none;
+}
+
+:host.section .content-card {
+    display: block;
+}
+
+:host.section .cover-card {
+    visibility: hidden;
+    width: 100%;
+    top: 3rem;
+}
+
+:host.section.expanded {
+    width: var(--section-expanded-ratio);
+}
+
+:host.section.collapsed {
+    width: var(--section-collapsed-ratio);
+    background-color: var(--lwc-colorBackground, rgb(243, 243, 243));
+}
+
+:host.section.collapsed .content-card {
+    display: none;
+}
+
+:host.section.collapsed .cover-card {
+    visibility: visible;
+}
