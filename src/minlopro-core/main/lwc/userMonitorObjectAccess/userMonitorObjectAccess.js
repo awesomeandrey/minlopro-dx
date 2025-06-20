@@ -1,41 +1,28 @@
 import { LightningElement, track } from 'lwc';
-
-// Constants;
-const SECTION_SHOW_CLASS_NAME_ = 'expanded';
-const SECTION_COLLAPSE_CLASS_NAME_ = 'collapsed';
+import { isEmpty } from 'c/utilities';
 
 export default class UserMonitorObjectAccess extends LightningElement {
-    get $sections() {
-        return [this.refs.objectPicker, this.refs.olsViewer, this.refs.flsViewer];
+    @track selectedObjectName = 'Account';
+
+    get doDisableOlsViewerSection() {
+        return isEmpty(this.selectedObjectName);
     }
 
-    connectedCallback() {}
-
-    handleRunDemo(event) {
-        setTimeout(() => this.showSection(this.refs.olsViewer), 2000); // simulates user selecting object
-        setTimeout(() => this.showSection(this.refs.flsViewer), 5000); // simulates clicking 'view FLS'
+    get doDisableFlsViewerSection() {
+        return isEmpty(this.selectedObjectName);
     }
 
-    handleOpenObjectPicker(event) {
-        this.showSection(this.refs.objectPicker);
+    get $progressSlider() {
+        return this.refs.progressSlider;
     }
 
-    handleOpenFlsViewer(event) {
-        this.showSection(this.refs.flsViewer);
+    handlePrevious(event) {
+        event.preventDefault();
+        this.$progressSlider.previous();
     }
 
-    handleOpenOlsViewer(event) {
-        this.showSection(this.refs.olsViewer);
-    }
-
-    showSection(sectionRef) {
-        // Reset all;
-        this.$sections.forEach((element) => {
-            element.classList.remove(SECTION_SHOW_CLASS_NAME_);
-            element.classList.add(SECTION_COLLAPSE_CLASS_NAME_);
-        });
-        // Expand particular section;
-        sectionRef.classList.add(SECTION_SHOW_CLASS_NAME_);
-        sectionRef.classList.remove(SECTION_COLLAPSE_CLASS_NAME_);
+    handleNext(event) {
+        event.preventDefault();
+        this.$progressSlider.next();
     }
 }
