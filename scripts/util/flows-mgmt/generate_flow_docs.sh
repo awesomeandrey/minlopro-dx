@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/hardis/generate_flow_docs.sh
+# - bash ./scripts/util/flows-mgmt/generate_flow_docs.sh
 
 docs_dir="assets/docs/hardis/flow2markdown/flows"
 
