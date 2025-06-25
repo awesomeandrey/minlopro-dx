@@ -15,7 +15,7 @@ if [ -z "$TARGET_ORG_ALIAS" ] || [ -z "$FLOW_DEVELOPER_NAME" ]; then
 fi
 
 # Step 1 - Retrieve Active Flow Version ID
-echo "🔵 Deactivating [${FLOW_DEVELOPER_NAME}] flow..."
+echo "Deactivating [${FLOW_DEVELOPER_NAME}] flow..."
 flowDefinitionToDeactivate=$(
   sf data query \
     --target-org "$TARGET_ORG_ALIAS" \
