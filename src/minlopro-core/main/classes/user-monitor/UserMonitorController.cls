@@ -15,6 +15,33 @@ public without sharing class UserMonitorController {
         }
     }
 
+    @AuraEnabled(Cacheable=true)
+    public static List<EntityDefinition> searchObjectsByKeyword(String keyword) {
+        try {
+            if (String.isBlank(keyword) || keyword.trim().length() < 2) {
+                return [
+                    SELECT Label, DeveloperName, QualifiedApiName, NamespacePrefix
+                    FROM EntityDefinition
+                    ORDER BY DeveloperName ASC
+                    LIMIT 15
+                ];
+            }
+            List<List<SObject>> results = Search.query(
+                'FIND :keyword IN ALL FIELDS RETURNING EntityDefinition (Label, DeveloperName, QualifiedApiName, NamespacePrefix) LIMIT 15'
+            );
+            List<EntityDefinition> foundObjects = new List<EntityDefinition>();
+            for (SObject record : results[0]) {
+                foundObjects.add((EntityDefinition) record);
+            }
+            return foundObjects;
+        } catch (Exception ex) {
+            Logger.error(ex);
+            AuraHandledException ahe = new AuraHandledException(ex.getMessage());
+            ahe.initCause(ex);
+            throw ahe;
+        }
+    }
+
     private static List<Permission> collectSystemPermissions() {
         List<Permission> systemPermissions = new List<Permission>();
         UserPermissionAccess upaRecord = [SELECT FIELDS(STANDARD) FROM UserPermissionAccess LIMIT 1];

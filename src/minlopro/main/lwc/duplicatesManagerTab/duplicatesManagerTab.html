@@ -30,97 +30,98 @@
                     required
                     onchange={handleAccountLookupChange}
                 ></lightning-record-picker>
-                <div lwc:if={hasAccountSelected}>
-                    <div class="slds-align_absolute-center slds-m-vertical_small">
-                        <lightning-button-group>
-                            <lightning-button-stateful
-                                label-when-off={createBtnInfo.label}
-                                label-when-on={createBtnInfo.label}
-                                label-when-hover={createBtnInfo.label}
-                                icon-name-when-off=""
-                                icon-name-when-on={createBtnInfo.iconName}
-                                icon-name-when-hover={createBtnInfo.iconName}
-                                variant={createBtnInfo.variant}
-                                selected={createBtnInfo.selected}
-                                onclick={handleSwitchToCreateRecordMode}
-                            >
-                            </lightning-button-stateful>
-                            <lightning-button-stateful
-                                label-when-off={updateBtnInfo.label}
-                                label-when-on={updateBtnInfo.label}
-                                label-when-hover={updateBtnInfo.label}
-                                icon-name-when-off=""
-                                icon-name-when-on={updateBtnInfo.iconName}
-                                icon-name-when-hover={updateBtnInfo.iconName}
-                                variant={updateBtnInfo.variant}
-                                selected={updateBtnInfo.selected}
-                            >
-                            </lightning-button-stateful>
-                        </lightning-button-group>
-                    </div>
-                    <p class="slds-text-title_caps slds-m-vertical_small">Contact</p>
-                    <div class="slds-box slds-box_small slds-theme_shade slds-is-relative">
-                        <lightning-spinner
-                            lwc:if={loading}
-                            alternative-text="Loading"
-                            size="small"
-                            variant="brand"
-                        ></lightning-spinner>
-                        <lightning-input
-                            type="text"
-                            data-name="FirstName"
-                            label="First Name"
-                            value={contactDraft.FirstName}
-                            onchange={handleInputChange}
-                        ></lightning-input>
-                        <lightning-input
-                            type="text"
-                            data-name="LastName"
-                            label="Last Name"
-                            value={contactDraft.LastName}
-                            required
-                            onchange={handleInputChange}
-                        ></lightning-input>
-                        <lightning-input
-                            type="checkbox"
-                            data-name="CheckIfDuplicate__c"
-                            label="Check If Duplicate?"
-                            checked={contactDraft.CheckIfDuplicate__c}
-                            onchange={handleInputChange}
-                        ></lightning-input>
-                        <lightning-input
-                            type="tel"
-                            data-name="Phone"
-                            label="Phone"
-                            value={contactDraft.Phone}
-                            onchange={handleInputChange}
-                        ></lightning-input>
-                        <lightning-input
-                            type="email"
-                            data-name="Email"
-                            label="Email"
-                            value={contactDraft.Email}
-                            onchange={handleInputChange}
-                        ></lightning-input>
-                        <div class="slds-align_absolute-center slds-m-top_small">
+                <c-result-set-overview
+                    data={hasAccountSelected}
+                    info-text-title="Account Record Not Defined"
+                    info-text-message="Please, selected parent Account record in order to proceed"
+                >
+                    <slot>
+                        <div class="slds-align_absolute-center slds-m-vertical_small">
                             <lightning-button-group>
-                                <lightning-button label="Save via UI API" disabled={disableBtn} onclick={handleSubmitViaUiApi}>
-                                </lightning-button>
-                                <lightning-button label="Save via Apex" disabled={disableBtn} onclick={handleSubmitViaApex}>
-                                </lightning-button>
+                                <lightning-button-stateful
+                                    label-when-off={createBtnInfo.label}
+                                    label-when-on={createBtnInfo.label}
+                                    label-when-hover={createBtnInfo.label}
+                                    icon-name-when-off=""
+                                    icon-name-when-on={createBtnInfo.iconName}
+                                    icon-name-when-hover={createBtnInfo.iconName}
+                                    variant={createBtnInfo.variant}
+                                    selected={createBtnInfo.selected}
+                                    onclick={handleSwitchToCreateRecordMode}
+                                >
+                                </lightning-button-stateful>
+                                <lightning-button-stateful
+                                    label-when-off={updateBtnInfo.label}
+                                    label-when-on={updateBtnInfo.label}
+                                    label-when-hover={updateBtnInfo.label}
+                                    icon-name-when-off=""
+                                    icon-name-when-on={updateBtnInfo.iconName}
+                                    icon-name-when-hover={updateBtnInfo.iconName}
+                                    variant={updateBtnInfo.variant}
+                                    selected={updateBtnInfo.selected}
+                                >
+                                </lightning-button-stateful>
                             </lightning-button-group>
                         </div>
-                    </div>
-                </div>
-                <div lwc:else class="slds-theme_default slds-p-around_small">
-                    <div class="slds-illustration">
-                        <img src={backgroundSvgUrl} alt="NoDataFound" />
-                        <div class="slds-text-longform slds-m-top_small">
-                            <h3 class="slds-text-heading_medium">Account Record Not Defined</h3>
-                            <p class="slds-text-body_regular">Please, selected parent Account record in order to proceed</p>
+                        <p class="slds-text-title_caps slds-m-vertical_small">Contact</p>
+                        <div class="slds-box slds-box_small slds-theme_shade slds-is-relative">
+                            <lightning-spinner
+                                lwc:if={loading}
+                                alternative-text="Loading"
+                                size="small"
+                                variant="brand"
+                            ></lightning-spinner>
+                            <lightning-input
+                                type="text"
+                                data-name="FirstName"
+                                label="First Name"
+                                value={contactDraft.FirstName}
+                                onchange={handleInputChange}
+                            ></lightning-input>
+                            <lightning-input
+                                type="text"
+                                data-name="LastName"
+                                label="Last Name"
+                                value={contactDraft.LastName}
+                                required
+                                onchange={handleInputChange}
+                            ></lightning-input>
+                            <lightning-input
+                                type="checkbox"
+                                data-name="CheckIfDuplicate__c"
+                                label="Check If Duplicate?"
+                                checked={contactDraft.CheckIfDuplicate__c}
+                                onchange={handleInputChange}
+                            ></lightning-input>
+                            <lightning-input
+                                type="tel"
+                                data-name="Phone"
+                                label="Phone"
+                                value={contactDraft.Phone}
+                                onchange={handleInputChange}
+                            ></lightning-input>
+                            <lightning-input
+                                type="email"
+                                data-name="Email"
+                                label="Email"
+                                value={contactDraft.Email}
+                                onchange={handleInputChange}
+                            ></lightning-input>
+                            <div class="slds-align_absolute-center slds-m-top_small">
+                                <lightning-button-group>
+                                    <lightning-button
+                                        label="Save via UI API"
+                                        disabled={disableBtn}
+                                        onclick={handleSubmitViaUiApi}
+                                    >
+                                    </lightning-button>
+                                    <lightning-button label="Save via Apex" disabled={disableBtn} onclick={handleSubmitViaApex}>
+                                    </lightning-button>
+                                </lightning-button-group>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </slot>
+                </c-result-set-overview>
             </lightning-layout-item>
             <lightning-layout-item size="9" padding="horizontal-small">
                 <c-stats label="Stats" icon-name="standard:contract_line_item" value={stats}></c-stats>
