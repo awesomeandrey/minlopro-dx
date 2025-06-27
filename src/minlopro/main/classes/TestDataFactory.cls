@@ -53,10 +53,7 @@ public class TestDataFactory {
         // Assign PSG to the user;
         PermissionSetService.getInstance()
             .enforceAllOrNothing(false)
-            .assign(
-                adminUser.Id,
-                new Set<String>{ PermissionSetOrPSG.Minlopro_PSG_InternalUser.name(), PermissionSetOrPSG.Minlopro_Admin.name() }
-            );
+            .assign(adminUser.Id, new Set<String>{ PermissionSetOrPSG.Minlopro_PSG_Admin.name() });
         // Log info about user;
         new DebugTableFormatter(
                 Lists.of('Name', 'Profile.Name', 'Profile.UserLicense.Name'),
@@ -296,7 +293,7 @@ public class TestDataFactory {
     }
 
     public enum PermissionSetOrPSG {
-        Minlopro_PSG_InternalUser,
-        Minlopro_Admin
+        Minlopro_PSG_Admin,
+        Minlopro_PSG_InternalUser
     }
 }

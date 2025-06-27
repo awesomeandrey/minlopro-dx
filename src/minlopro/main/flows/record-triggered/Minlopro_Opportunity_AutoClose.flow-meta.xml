@@ -103,7 +103,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>RTF for Opportunity object that handles AFTER INSERT and/or UPDATE phases along with scheduled paths.</description>
+    <description>Monitors Opportunities by CloseDate. Alerts the Opportunity Owner 1 day before closure. On CloseDate, updates the stage to &apos;Auto-Closed&apos; to keep the pipeline clean and up to date.</description>
     <environments>Default</environments>
     <formulas>
         <name>autocloseOppNotificationBody</name>
@@ -115,8 +115,8 @@
         <dataType>String</dataType>
         <expression>&apos;Upcoming Opportunity Auto-Closure&apos;</expression>
     </formulas>
-    <interviewLabel>Minlopro - Opportunity - After Save {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Minlopro - Opportunity - After Save</label>
+    <interviewLabel>Minlopro - Opportunity - Auto Close {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Minlopro - Opportunity - Auto-Close</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -181,7 +181,8 @@
                 <targetReference>Is_Opportunity_Already_Closed_1</targetReference>
             </connector>
             <label>Alert Upcoming Autoclose</label>
-            <offsetNumber>-1</offsetNumber>
+            <maxBatchSize>5</maxBatchSize>
+            <offsetNumber>-2</offsetNumber>
             <offsetUnit>Days</offsetUnit>
             <recordField>CloseDate</recordField>
             <timeSource>RecordField</timeSource>
@@ -192,7 +193,8 @@
                 <targetReference>Is_Opportunity_Already_Closed_2</targetReference>
             </connector>
             <label>Autoclose Opportunity</label>
-            <offsetNumber>-2</offsetNumber>
+            <maxBatchSize>5</maxBatchSize>
+            <offsetNumber>1</offsetNumber>
             <offsetUnit>Hours</offsetUnit>
             <recordField>CloseDate</recordField>
             <timeSource>RecordField</timeSource>

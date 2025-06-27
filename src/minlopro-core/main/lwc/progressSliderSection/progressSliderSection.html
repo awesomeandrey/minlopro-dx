@@ -1,0 +1,17 @@
+<template>
+    <div class="content-card">
+        <lightning-card variant="narrow" title={label} icon-name={iconName}>
+            <slot name="actions" slot="actions"></slot>
+            <div class="slds-p-horizontal_small">
+                <slot></slot>
+            </div>
+        </lightning-card>
+    </div>
+    <div class="cover-card slds-is-absolute slds-text-align_center">
+        <lightning-icon icon-name={iconName} size="small"></lightning-icon>
+        <p class="slds-text-title_caps slds-m-around_small slds-truncate" title={label}>{label}</p>
+        <div class="slds-m-horizontal_small">
+            <slot name="selectedValue"></slot>
+        </div>
+    </div>
+</template>

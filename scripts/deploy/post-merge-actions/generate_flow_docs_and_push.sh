@@ -5,7 +5,7 @@
 
 docs_dir="assets/docs/hardis/flow2markdown/flows"
 
-bash ./scripts/util/hardis/generate_flow_docs.sh
+bash ./scripts/util/flows-mgmt/generate_flow_docs.sh
 git add "$docs_dir"
 
 if git status --short "$docs_dir" | grep -q "$docs_dir"; then

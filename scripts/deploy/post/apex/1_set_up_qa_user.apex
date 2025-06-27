@@ -15,7 +15,8 @@ update new User(
     Id = qaUser.Id,
     UserRoleId = qaUserRole.Id,
     Profile = new Profile(Name = 'Minlopro User'),
-    UserPermissionsKnowledgeUser = true
+    UserPermissionsKnowledgeUser = true,
+    UserPreferencesUserDebugModePref = true
 );
 
 // Add user to public groups;

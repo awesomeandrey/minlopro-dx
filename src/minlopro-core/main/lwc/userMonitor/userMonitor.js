@@ -1,14 +1,18 @@
-import { LightningElement, track } from 'lwc';
-import { cloneObject, parseError, debounce, isNotEmpty } from 'c/utilities';
+import { LightningElement, track, wire } from 'lwc';
+import { NavigationMixin } from 'lightning/navigation';
+import { cloneObject, parseError, debounce, isNotEmpty, wait } from 'c/utilities';
 import $Toastify from 'c/toastify';
+
+import $UserId from '@salesforce/user/Id';
 
 // Static Resources;
 import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
 
 // Apex Controller Methods;
+import getUserInfoByIdApex from '@salesforce/apex/SystemInfoController.getUserInfoById';
 import getPermissionsApex from '@salesforce/apex/UserMonitorController.getPermissions';
 
-export default class UserMonitor extends LightningElement {
+export default class UserMonitor extends NavigationMixin(LightningElement) {
     @track permissionData = [];
     @track permissionFilters = {
         showEnabled: true,
@@ -130,6 +134,18 @@ export default class UserMonitor extends LightningElement {
         return `${COMMONS_ASSETS}/svg/background2.svg`;
     }
 
+    get userInfo() {
+        return {
+            ['Id']: $UserId,
+            ['Name']: this.wiredUserInfo?.data?.Name,
+            ['RoleName']: this.wiredUserInfo?.data?.UserRole?.Name || '<None>',
+            ['ProfileName']: this.wiredUserInfo?.data?.Profile?.Name
+        };
+    }
+
+    @wire(getUserInfoByIdApex, { userId: $UserId })
+    wiredUserInfo = {};
+
     async connectedCallback() {
         await this.handleRefresh();
     }
@@ -146,13 +162,27 @@ export default class UserMonitor extends LightningElement {
         try {
             this.loading = true;
             this.permissionData = cloneObject(await getPermissionsApex());
-            this.refs?.datatable?.scrollToTop();
+            // this.refs?.datatable?.scrollToTop();
         } catch (error) {
             console.table(error);
             $Toastify.error({ message: parseError(error).message });
         } finally {
             this.loading = false;
         }
+    }
+
+    handleOpenUserDetails(event) {
+        event.preventDefault();
+        this[NavigationMixin.GenerateUrl]({
+            type: 'standard__recordPage',
+            attributes: {
+                recordId: this.userId,
+                objectApiName: 'User',
+                actionName: 'view'
+            }
+        }).then((url) => {
+            window.open(url, '_blank').focus();
+        });
     }
 
     handleChangeSearchKeyword(event) {

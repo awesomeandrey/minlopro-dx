@@ -28,7 +28,18 @@ public without sharing class SystemInfoController {
         }
         try {
             return [
-                SELECT Id, Name, Email, Username, UserType, IsPortalEnabled, ProfileId, Profile.Name, Profile.UserLicense.Name
+                SELECT
+                    Id,
+                    Name,
+                    Email,
+                    Username,
+                    UserType,
+                    IsPortalEnabled,
+                    ProfileId,
+                    Profile.Name,
+                    Profile.UserLicense.Name,
+                    UserRoleId,
+                    UserRole.Name
                 FROM User
                 WHERE Id = :userId
                 LIMIT 1

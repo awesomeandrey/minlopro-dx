@@ -81,4 +81,19 @@ sf analytics dataset list --target-org "$SCRATCH_ORG_ALIAS"; echo
 sf analytics lens list --target-org "$SCRATCH_ORG_ALIAS"; echo
 sf analytics recipe list --target-org "$SCRATCH_ORG_ALIAS"
 
+# Invoke CRM Analytics recipes
+invoke_recipes(){
+  local json_input="$1"
+  if echo "$json_input" | jq -e ".result" > /dev/null; then
+    array_length=$(echo "$json_input" | jq ".result | length")
+    if (( array_length > 0 )); then
+      echo "$json_input" | jq -c ".result[]" | while read -r record; do
+        recipe_id=$(echo "$record" | jq -r '.recipeid')
+        sf analytics recipe start -i "$recipe_id" -o "$SCRATCH_ORG_ALIAS"
+      done
+    fi
+  fi
+}
+invoke_recipes "$(sf analytics recipe list --target-org "$SCRATCH_ORG_ALIAS" --json)"
+
 echo "✅ Done!"

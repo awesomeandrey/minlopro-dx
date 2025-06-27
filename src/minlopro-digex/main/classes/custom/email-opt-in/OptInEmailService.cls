@@ -89,6 +89,10 @@ public inherited sharing class OptInEmailService {
     private String resolveOptInPageUrl() {
         Network myNetwork = [SELECT Id FROM Network WHERE Name = 'DigEx'];
         String siteBaseUrl = Network.getLoginUrl(myNetwork.Id).removeEnd('/login');
+        /**
+         * The '/s/' in a community URL (or at the end) means that the page was built using the community builder (site.com).
+         * Most of the new templates are built on top of the community builder. URLs without the '/s/' mean that they are force.com URLs (usually built using visualforce).
+         */
         return String.format('{0}/{1}', Lists.of(siteBaseUrl, 'opt-in-confirmation'));
     }
 
