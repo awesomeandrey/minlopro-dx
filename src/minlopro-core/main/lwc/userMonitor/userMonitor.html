@@ -14,8 +14,8 @@
             <span class="slds-text-color_weak slds-m-horizontal_x-small">{userInfo.ProfileName} / {userInfo.RoleName}</span>
             <lightning-badge label={userInfo.Id}></lightning-badge>
         </p>
-        <lightning-tabset active-tab-value="objectAccess">
-            <lightning-tab label="Permissions">
+        <lightning-tabset active-tab-value="userPermissions">
+            <lightning-tab label="Permissions" value="userPermissions">
                 <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
                 <lightning-layout vertical-align="center">
                     <lightning-layout-item>
@@ -101,15 +101,6 @@
             </lightning-tab>
             <lightning-tab label="Object Access" value="objectAccess">
                 <c-user-monitor-object-access></c-user-monitor-object-access>
-            </lightning-tab>
-            <lightning-tab label="Record Access">
-                <ltngmu-lwc-messaging-utility
-                    message-type="alert"
-                    icon-name="utility:warning"
-                    message-body="This section is under construction."
-                    show-message
-                    show-icon
-                ></ltngmu-lwc-messaging-utility>
             </lightning-tab>
         </lightning-tabset>
     </lightning-card>

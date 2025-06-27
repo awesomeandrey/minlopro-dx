@@ -99,17 +99,6 @@ export function cloneObject(value) {
     return $(value);
 }
 
-export function splitByComma(stringToSplit = '') {
-    if (!stringToSplit) {
-        return [];
-    }
-    return stringToSplit
-        .trim()
-        .split(/\s*,+\s*/)
-        .map((_) => _.trim())
-        .filter((_) => !!_);
-}
-
 export const pipe =
     (...functions) =>
     (args) =>
@@ -218,4 +207,29 @@ export async function readFileAsBlob(file) {
         };
         reader.readAsArrayBuffer(file);
     });
+}
+
+// String manipulations;
+
+export function splitByComma(stringToSplit = '') {
+    if (!stringToSplit) {
+        return [];
+    }
+    return stringToSplit
+        .trim()
+        .split(/\s*,+\s*/)
+        .map((_) => _.trim())
+        .filter((_) => !!_);
+}
+
+export function capitalize(str) {
+    if (typeof str !== 'string' || str.length === 0) return str;
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function containsIgnoreCase(str = '', substr = '') {
+    if (typeof str === 'string' && typeof substr === 'string') {
+        return str.toLowerCase().includes(substr.toLowerCase());
+    }
+    return false;
 }
