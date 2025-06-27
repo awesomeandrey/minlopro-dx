@@ -1,4 +1,4 @@
-# Minlopro - Opportunity - After Save
+# Minlopro - Opportunity - Auto-Close
 
 ## Flow Diagram
 
@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b> Record After Save</b>"]):::startClass
-click START "#general-information" "672005604"
+click START "#general-information" "1572747232"
 
 Alert_Opportunity_Owner("⚡ <em></em><br/>Alert Opportunity Owner"):::actionCalls
 click Alert_Opportunity_Owner "#alert_opportunity_owner" "2306736451"
@@ -72,11 +72,11 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Process Type| Auto Launched Flow|
 |Trigger Type| Record After Save|
 |Record Trigger Type| Create And Update|
-|Label|Minlopro - Opportunity - After Save|
+|Label|Minlopro - Opportunity - Auto-Close|
 |Status|Active|
-|Description|RTF for Opportunity object that handles AFTER INSERT and/or UPDATE phases along with scheduled paths.|
+|Description|Monitors Opportunities by CloseDate. Alerts the Opportunity Owner 1 day before closure. On CloseDate, updates the stage to 'Auto-Closed' to keep the pipeline clean and up to date.|
 |Environments|Default|
-|Interview Label|Minlopro - Opportunity - After Save {!$Flow.CurrentDateTime}|
+|Interview Label|Minlopro - Opportunity - Auto Close {!$Flow.CurrentDateTime}|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
 | Origin Builder Type (PM)|LightningFlowBuilder|
@@ -86,8 +86,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Label|Name|Offset Number|Offset Unit|Record Field|Time Source|Connector|
 |:-- |:-- |:-- |:-- |:-- |:-- |:--  |
-|Alert Upcoming Autoclose|Alert_Upcoming_Autoclose|-1|Days|CloseDate|RecordField|[Is_Opportunity_Already_Closed_1](#is_opportunity_already_closed_1)|
-|Autoclose Opportunity|Autoclose_Opportunity|-2|Hours|CloseDate|RecordField|[Is_Opportunity_Already_Closed_2](#is_opportunity_already_closed_2)|
+|Alert Upcoming Autoclose|Alert_Upcoming_Autoclose|-2|Days|CloseDate|RecordField|[Is_Opportunity_Already_Closed_1](#is_opportunity_already_closed_1)|
+|Autoclose Opportunity|Autoclose_Opportunity|1|Hours|CloseDate|RecordField|[Is_Opportunity_Already_Closed_2](#is_opportunity_already_closed_2)|
 
 
 ## Variables
