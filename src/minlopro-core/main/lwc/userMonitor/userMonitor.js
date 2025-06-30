@@ -1,6 +1,6 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import { cloneObject, parseError, debounce, isNotEmpty, wait } from 'c/utilities';
+import { cloneObject, parseError, debounce, isNotEmpty, containsIgnoreCase } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 import $UserId from '@salesforce/user/Id';
@@ -78,15 +78,13 @@ export default class UserMonitor extends NavigationMixin(LightningElement) {
                 };
 
                 const doMatchBySearchKeyword = () => {
-                    let { searchKeyword } = this.permissionFilters;
+                    const { searchKeyword } = this.permissionFilters;
                     if (typeof searchKeyword?.trim() !== 'string') {
                         // Disregard search keyword;
                         return true;
                     }
-                    searchKeyword = searchKeyword.toLowerCase();
                     return (
-                        permission.label.toLowerCase().includes(searchKeyword) ||
-                        permission.name.toLowerCase().includes(searchKeyword)
+                        containsIgnoreCase(permission.label, searchKeyword) || containsIgnoreCase(permission.name, searchKeyword)
                     );
                 };
                 return doMatchByValueToggle() && doMatchByTypeToggle() && doMatchBySearchKeyword();

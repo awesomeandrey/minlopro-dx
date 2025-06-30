@@ -75,7 +75,6 @@ export default class WysiwygTab extends LightningElement {
             this.errorObj = parseError(error);
             throw new Error(this.errorObj.message);
         } else if (data && isEmpty(this.richTextValue)) {
-            debugger;
             this.richTextValue = getFieldValue(data, WYSIWYG_NOTES_FIELD);
             if (isEmpty(this.richTextValue)) {
                 // Set default value to play with;

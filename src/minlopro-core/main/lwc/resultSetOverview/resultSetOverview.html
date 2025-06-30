@@ -1,0 +1,14 @@
+<template>
+    <div if:true={hasData} class="slds-scrollable_x slds-scrollable_y">
+        <slot></slot>
+    </div>
+    <div if:false={hasData} class="slds-theme_default slds-p-around_small">
+        <div class="slds-illustration">
+            <img src={backgroundSvgUrl} alt="NoDataFound" />
+            <div class="slds-text-longform slds-m-top_small">
+                <h3 class="slds-text-heading_medium">{infoTextTitle}</h3>
+                <p class="slds-text-body_regular">{infoTextMessage}</p>
+            </div>
+        </div>
+    </div>
+</template>

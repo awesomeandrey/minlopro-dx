@@ -1,4 +1,5 @@
 <template>
+    <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
     <c-progress-slider lwc:ref="progressSlider">
         <c-progress-slider-section label="Object Picker" icon-name="utility:color_swatch">
             <lightning-button-group slot="actions">
@@ -11,10 +12,39 @@
                 ></lightning-button>
             </lightning-button-group>
             <code slot="selectedValue">{selectedObjectName}</code>
-
-            <div class="slds-align_absolute-center">
-                <p class="slds-m-vertical_large">Object Picker CONTENT</p>
-            </div>
+            <lightning-input
+                lwc:ref="objectSearchInput"
+                label="Search Keyword"
+                placeholder="Search object by keyword..."
+                field-level-help="Leverage SOSL glob shortcuts (* and/or ?) to get more granular results"
+                type="search"
+                onchange={handleSearchObjectKeywordChangeDebounced}
+            ></lightning-input>
+            <template lwc:if={hasObjectKeywordsHistory} for:each={searchObjectKeywordsAsPills} for:item="keyword">
+                <lightning-pill
+                    key={keyword.name}
+                    label={keyword.label}
+                    data-name={keyword.name}
+                    onremove={handleSearchObjectKeywordRemove}
+                    onclick={handleSearchObjectKeywordClick}
+                ></lightning-pill>
+            </template>
+            <c-result-set-overview data={foundObjects}>
+                <slot>
+                    <div style="height: 10rem">
+                        <c-datatable
+                            lwc:ref="datatable"
+                            column-widths-mode="auto"
+                            key-field="QualifiedApiName"
+                            data={objectsData}
+                            columns={objectsColumns}
+                            max-row-selection="1"
+                            single-row-selection-mode="radio"
+                            onrowselection={handleSelectObject}
+                        ></c-datatable>
+                    </div>
+                </slot>
+            </c-result-set-overview>
         </c-progress-slider-section>
         <c-progress-slider-section label="OLS Viewer" icon-name="utility:expense_report">
             <lightning-button-group slot="actions">
@@ -33,9 +63,15 @@
                 ></lightning-button>
             </lightning-button-group>
             <code slot="selectedValue">{selectedObjectName}</code>
-
-            <div class="slds-align_absolute-center">
-                <p class="slds-m-vertical_large">OLS Viewer CONTENT</p>
+            <c-error-alert value={wiredObjectError}></c-error-alert>
+            <div lwc:if={isSelectedObjectEligible}>
+                <c-datatable
+                    key-field="QualifiedApiName"
+                    data={olsData}
+                    columns={olsColumns}
+                    hide-checkbox-column
+                    show-row-number-column
+                ></c-datatable>
             </div>
         </c-progress-slider-section>
         <c-progress-slider-section label="FLS Viewer" icon-name="utility:orchestrator">
@@ -47,9 +83,27 @@
                     onclick={handlePrevious}
                 ></lightning-button>
             </lightning-button-group>
-
-            <div class="slds-align_absolute-center">
-                <p class="slds-m-vertical_large">OLS Viewer CONTENT</p>
+            <c-error-alert value={wiredObjectError}></c-error-alert>
+            <div lwc:if={isSelectedObjectEligible}>
+                <lightning-input
+                    label="Search Field"
+                    placeholder="Search field by keyword..."
+                    type="search"
+                    onchange={handleSearchFieldKeywordChangeDebounced}
+                ></lightning-input>
+                <c-result-set-overview data={flsData}>
+                    <slot>
+                        <div style="height: 10rem">
+                            <c-datatable
+                                key-field="apiName"
+                                data={flsData}
+                                columns={flsColumns}
+                                hide-checkbox-column
+                                show-row-number-column
+                            ></c-datatable>
+                        </div>
+                    </slot>
+                </c-result-set-overview>
             </div>
         </c-progress-slider-section>
     </c-progress-slider>
