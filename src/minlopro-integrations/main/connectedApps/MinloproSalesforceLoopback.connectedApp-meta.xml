@@ -20,7 +20,7 @@ ${SF_INSTANCE_URL}/services/authcallback/MinloproLoopback</callbackUrl>
         <isIntrospectAllTokens>false</isIntrospectAllTokens>
         <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
         <isPkceRequired>true</isPkceRequired>
-        <isRefreshTokenRotationEnabled>true</isRefreshTokenRotationEnabled>
+        <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
         <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
         <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
         <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
@@ -34,9 +34,9 @@ ${SF_INSTANCE_URL}/services/authcallback/MinloproLoopback</callbackUrl>
     <oauthPolicy>
         <ipRelaxation>ENFORCE_RELAXREFRESH</ipRelaxation>
         <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
-        <refreshTokenPolicy>specific_inactivity:2:DAYS</refreshTokenPolicy>
+        <refreshTokenPolicy>infinite</refreshTokenPolicy>
     </oauthPolicy>
-    <permissionSetName>Minlopro - Salesforce Connect Custom Adapter</permissionSetName>
     <permissionSetName>Minlopro - Admin</permissionSetName>
     <permissionSetName>Minlopro - Custom Auth. Providers And Named Credentials</permissionSetName>
+    <permissionSetName>Minlopro - Salesforce Connect Custom Adapter</permissionSetName>
 </ConnectedApp>

@@ -10,14 +10,11 @@
         <field>AuthorizeUrl__c</field>
         <value xsi:nil="true" />
     </values>
-    <values>
-        <field>ClientId__c</field>
-        <value xsi:type="xsd:string">{!$Credential.MinloproSalesforceLoopbackCustom.ClientId}</value>
-    </values>
-    <values>
-        <field>ClientSecret__c</field>
-        <value xsi:type="xsd:string">{!$Credential.MinloproSalesforceLoopbackCustom.ClientSecret}</value>
-    </values>
+    <!--
+       Note: External Credential can be used to securely store/apply secrets ONLY during actual callout/http request.
+       You won't be able to 'read'/reference secure parameter directly. Secure parameters are substituted/inject during actual HTTP callout ONLY.
+       Therefore, for this specific use case 'ClientId__c' and 'ClientSecret' fields should be configured manually.
+   -->
     <values>
         <field>RedirectUri__c</field>
         <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/authcallback/Loopback_CCF</value>
@@ -28,6 +25,6 @@
     </values>
     <values>
         <field>TokenUrl__c</field>
-        <value xsi:type="xsd:string">callout:MinloproSalesforceLoopbackCustom/services/oauth2/token</value>
+        <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/oauth2/token</value>
     </values>
 </CustomMetadata>

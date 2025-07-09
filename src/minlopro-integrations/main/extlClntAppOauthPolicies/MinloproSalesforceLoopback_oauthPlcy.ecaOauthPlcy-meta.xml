@@ -3,15 +3,13 @@
     <clientCredentialsFlowUser>${SF_ADMIN_USERNAME}</clientCredentialsFlowUser>
     <commaSeparatedPermissionSet>Minlopro_CustomAuthProviderAndNC,Minlopro_SalesforceConnectCustomAdapter,Minlopro_Admin</commaSeparatedPermissionSet>
     <externalClientApplication>MinloproSalesforceLoopback</externalClientApplication>
-    <ipRelaxationPolicyType>Enforce</ipRelaxationPolicyType>
+    <ipRelaxationPolicyType>Bypass</ipRelaxationPolicyType>
     <isClientCredentialsFlowEnabled>true</isClientCredentialsFlowEnabled>
     <isGuestCodeCredFlowEnabled>false</isGuestCodeCredFlowEnabled>
     <isNamedUserJwtEnabled>false</isNamedUserJwtEnabled>
     <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
     <label>MinloproSalesforceLoopback_oauthPlcy</label>
     <permittedUsersPolicyType>AdminApprovedPreAuthorized</permittedUsersPolicyType>
-    <refreshTokenPolicyType>SpecificLifetime</refreshTokenPolicyType>
-    <refreshTokenValidityPeriod>3</refreshTokenValidityPeriod>
-    <refreshTokenValidityUnit>Days</refreshTokenValidityUnit>
+    <refreshTokenPolicyType>Infinite</refreshTokenPolicyType>
     <requiredSessionLevel>STANDARD</requiredSessionLevel>
 </ExtlClntAppOauthConfigurablePolicies>
