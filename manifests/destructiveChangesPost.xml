@@ -12,5 +12,9 @@
         <members>MinloproSalesforceLoopbackCustom</members>
         <name>NamedCredential</name>
     </types>
+    <types>
+        <members>Case.Standard</members>
+        <name>AssignmentRule</name>
+    </types>
     <version>63.0</version>
 </Package>
