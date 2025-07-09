@@ -18,23 +18,11 @@
     </classAccesses>
     <externalCredentialPrincipalAccesses>
         <enabled>true</enabled>
-        <externalCredentialPrincipal>MinloproSalesforceLoopbackCustom-Default</externalCredentialPrincipal>
-    </externalCredentialPrincipalAccesses>
-    <externalCredentialPrincipalAccesses>
-        <enabled>true</enabled>
         <externalCredentialPrincipal>MinloproSalesforceLoopbackEAIP-ADMIN</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <externalCredentialPrincipalAccesses>
         <enabled>true</enabled>
-        <externalCredentialPrincipal>MinloproSalesforceLoopbackEAIP-USER</externalCredentialPrincipal>
-    </externalCredentialPrincipalAccesses>
-    <externalCredentialPrincipalAccesses>
-        <enabled>true</enabled>
         <externalCredentialPrincipal>MinloproSalesforceLoopbackECA-ADMIN</externalCredentialPrincipal>
-    </externalCredentialPrincipalAccesses>
-    <externalCredentialPrincipalAccesses>
-        <enabled>true</enabled>
-        <externalCredentialPrincipal>MinloproSalesforceLoopbackOAuth-ADMIN</externalCredentialPrincipal>
     </externalCredentialPrincipalAccesses>
     <externalCredentialPrincipalAccesses>
         <enabled>true</enabled>

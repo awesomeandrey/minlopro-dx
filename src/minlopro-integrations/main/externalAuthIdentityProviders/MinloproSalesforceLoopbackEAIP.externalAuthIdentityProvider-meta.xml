@@ -11,7 +11,7 @@
     <externalAuthIdentityProviderParameters>
         <parameterName>ClientAuthentication</parameterName>
         <parameterType>ClientAuthentication</parameterType>
-        <parameterValue>ClientSecretBasic</parameterValue>
+        <parameterValue>ClientSecretPost</parameterValue>
     </externalAuthIdentityProviderParameters>
     <externalAuthIdentityProviderParameters>
         <parameterName>PkceEnabled</parameterName>
