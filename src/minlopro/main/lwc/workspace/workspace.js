@@ -40,7 +40,8 @@ export default class Workspace extends LightningElement {
                 visible: true
             },
             { label: 'Dynamic Formula Evaluation', name: 'dynamicFormulaTab', iconName: 'utility:formula', visible: true },
-            { label: 'WYSIWYG Editor', name: 'wysiwygTab', iconName: 'utility:edit_gpt', visible: true }
+            { label: 'WYSIWYG Editor', name: 'wysiwygTab', iconName: 'utility:edit_gpt', visible: true },
+            { label: 'UNABLE_TO_LOCK_ROW Demo', name: 'unableToLockRowTab', iconName: 'utility:error', visible: true }
         ];
         return componentTabs
             .sort(({ label: l1 }, { label: l2 }) => {
