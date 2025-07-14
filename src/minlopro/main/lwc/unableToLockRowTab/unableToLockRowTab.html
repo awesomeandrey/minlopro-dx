@@ -1,3 +1,57 @@
 <template>
-    <p>UNABLE TO LOCK ROW - Demo</p>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-unable-to-lock-row-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Refresh Record" onclick={handleRefreshRecord}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+        <div class="slds-p-horizontal_medium">
+            <lightning-layout>
+                <lightning-layout-item size="4">
+                    <lightning-record-picker
+                        lwc:ref="accountPicker"
+                        label="Target Account"
+                        placeholder="Search Accounts..."
+                        object-api-name="Account"
+                        value={selectedAccountId}
+                        display-info={accountDisplayInfo}
+                        matching-info={accountMatchingInfo}
+                        required
+                        onchange={handleAccountLookupChange}
+                    ></lightning-record-picker>
+                </lightning-layout-item>
+                <lightning-layout-item size="3" padding="horizontal-small">
+                    <lightning-input
+                        type="range"
+                        label="Concurrent Requests"
+                        min="1"
+                        max="10"
+                        value={concurrentRequests}
+                        onchange={handleConcurrentRequestsChange}
+                    ></lightning-input>
+                    <lightning-input
+                        type="range"
+                        label="Synthetic Delay (Milliseconds)"
+                        min="1000"
+                        max="10000"
+                        step="1000"
+                        value={syntheticDelay}
+                        onchange={handleSyntheticDelayChange}
+                    ></lightning-input>
+                    <lightning-input
+                        type="checkbox"
+                        label="Apply FOR UPDATE Clause"
+                        value={doApplyForUpdate}
+                        onchange={handleDoApplyForUpdateChange}
+                    ></lightning-input>
+                    <!--                    <p>Error/Status Alert</p>-->
+                    <!--                <c-error-alert value={normalizedErrorObject}></c-error-alert>-->
+                    <!--                    <p>Action Button</p>-->
+                </lightning-layout-item>
+                <lightning-layout-item size="5" padding="horizontal-small">
+                    <c-stats value={stats}></c-stats>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-card>
 </template>

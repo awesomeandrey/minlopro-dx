@@ -26,7 +26,7 @@ public with sharing class NamedCredentialsController {
             Logger.error(rootException);
             AuraHandledException auraEx = new AuraHandledException(rootException.getMessage());
             auraEx.initCause(rootException);
-            throw new AuraHandledException(rootException.getMessage());
+            throw auraEx;
         }
     }
 
@@ -47,7 +47,7 @@ public with sharing class NamedCredentialsController {
             Logger.error(rootException);
             AuraHandledException auraEx = new AuraHandledException(rootException.getMessage());
             auraEx.initCause(rootException);
-            throw new AuraHandledException(rootException.getMessage());
+            throw auraEx;
         }
     }
 
