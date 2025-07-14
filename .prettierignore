@@ -22,6 +22,7 @@
 **/samlssoconfigs/
 **/settings/
 **/staticresources/
+**/validationRules/
 **/wave/
 
 # GitHub Actions Configs
