@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Company</fullName>
     <active>true</active>
+    <compactLayoutAssignment>CustomDefault</compactLayoutAssignment>
     <description>Legal entity</description>
     <label>Company</label>
     <picklistValues>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>PersonAccounts</fullName>
+    <fullName>BusinessAccounts</fullName>
     <columns>ACCOUNT.NAME</columns>
     <columns>ACCOUNT.SITE</columns>
     <columns>ACCOUNT.PHONE1</columns>
@@ -11,7 +11,7 @@
     <filters>
         <field>IS_PERSON_ACCOUNT</field>
         <operation>equals</operation>
-        <value>1</value>
+        <value>0</value>
     </filters>
-    <label>Person Accounts</label>
+    <label>Business Accounts</label>
 </ListView>

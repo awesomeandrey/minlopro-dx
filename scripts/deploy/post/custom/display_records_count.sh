@@ -12,6 +12,7 @@ echo "🔵 Displaying Records Count from [$TARGET_ORG_ALIAS] organization..."
 sf org list sobject record-counts \
   --target-org "$TARGET_ORG_ALIAS" \
   --sobject Account \
+  --sobject Case \
   --sobject Contact \
   --sobject CurrencyType \
   --sobject DuplicateRecordSet \

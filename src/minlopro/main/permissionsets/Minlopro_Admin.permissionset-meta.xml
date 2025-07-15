@@ -9,6 +9,11 @@
         <name>TriggerHandler__mdt</name>
     </customMetadataTypeAccesses>
     <description>Permission set with Minlopro Admin privileges.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.SSN__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - Admin</label>
     <objectPermissions>

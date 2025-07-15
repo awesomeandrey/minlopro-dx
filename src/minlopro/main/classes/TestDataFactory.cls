@@ -113,6 +113,10 @@ public class TestDataFactory {
 
     // Records/Data Generation;
 
+    public static Account createAccount() {
+        return createAccounts(1)[0];
+    }
+
     public static List<Account> createAccounts(Integer numOfAccounts) {
         List<Account> accounts = new List<Account>();
         for (Integer i = 0; i < numOfAccounts; i++) {

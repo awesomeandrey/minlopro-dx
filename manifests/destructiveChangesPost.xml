@@ -1,16 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>Minlopro_Opportunity_AfterSave</members>
-        <name>Flow</name>
-    </types>
-    <types>
-        <members>MinloproSalesforceLoopbackCustom</members>
-        <name>ExternalCredential</name>
-    </types>
-    <types>
-        <members>MinloproSalesforceLoopbackCustom</members>
-        <name>NamedCredential</name>
-    </types>
     <version>63.0</version>
 </Package>
