@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomDefault</fullName>
+    <fields>Name</fields>
+    <fields>Type</fields>
+    <fields>Phone</fields>
+    <fields>Website</fields>
+    <fields>OwnerId</fields>
+    <fields>Site</fields>
+    <fields>Industry</fields>
+    <fields>AnnualRevenue</fields>
+    <fields>SSN__c</fields>
+    <label>Custom Default</label>
+</CompactLayout>

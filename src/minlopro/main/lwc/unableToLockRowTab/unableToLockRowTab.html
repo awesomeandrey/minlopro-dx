@@ -2,7 +2,7 @@
     <lightning-card>
         <span slot="title" class="slds-text-title_caps"><code>c-unable-to-lock-row-tab</code></span>
         <lightning-button-group slot="actions">
-            <lightning-button label="Refresh Record" onclick={handleRefreshRecord}></lightning-button>
+            <lightning-button label="Refresh Record" disabled={disableBtn} onclick={handleRefreshRecord}></lightning-button>
         </lightning-button-group>
         <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
         <div class="slds-p-horizontal_medium">
@@ -19,13 +19,22 @@
                         required
                         onchange={handleAccountLookupChange}
                     ></lightning-record-picker>
+                    <div lwc:if={hasAccountSelected} class="slds-box slds-m-top_small slds-theme_shade">
+                        <lightning-record-form
+                            record-id={selectedAccountId}
+                            object-api-name="Account"
+                            mode="readonly"
+                            columns="2"
+                            layout-type="Compact"
+                        ></lightning-record-form>
+                    </div>
                 </lightning-layout-item>
                 <lightning-layout-item size="3" padding="horizontal-small">
                     <lightning-input
                         type="range"
                         label="Concurrent Requests"
                         min="1"
-                        max="10"
+                        max="100"
                         value={concurrentRequests}
                         onchange={handleConcurrentRequestsChange}
                     ></lightning-input>
@@ -44,12 +53,20 @@
                         value={doApplyForUpdate}
                         onchange={handleDoApplyForUpdateChange}
                     ></lightning-input>
-                    <!--                    <p>Error/Status Alert</p>-->
-                    <!--                <c-error-alert value={normalizedErrorObject}></c-error-alert>-->
-                    <!--                    <p>Action Button</p>-->
+                    <div class="slds-m-top_small">
+                        <lightning-button
+                            label="Update SSN"
+                            type="button"
+                            variant="brand"
+                            disabled={disableBtn}
+                            onclick={handleUpdateSSN}
+                        ></lightning-button>
+                    </div>
                 </lightning-layout-item>
                 <lightning-layout-item size="5" padding="horizontal-small">
                     <c-stats value={stats}></c-stats>
+                    <div class="slds-p-vertical_x-small"></div>
+                    <c-error-alert value={error}></c-error-alert>
                 </lightning-layout-item>
             </lightning-layout>
         </div>

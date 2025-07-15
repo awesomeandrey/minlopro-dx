@@ -11,7 +11,7 @@ private class UnableToLockRowDemoControllerTest {
             Assert.isTrue(String.isBlank(sampleAccount.SSN__c));
             // Measure execution time;
             Long startTime = System.currentTimeMillis();
-            UnableToLockRowDemoController.updateAccountSsn(sampleAccount.Id, syntheticDelay);
+            UnableToLockRowDemoController.updateAccountSsn(sampleAccount.Id, syntheticDelay, true);
             Long endTime = System.currentTimeMillis();
             Long duration = endTime - startTime;
             Assert.isTrue(
@@ -29,10 +29,10 @@ private class UnableToLockRowDemoControllerTest {
         System.runAs(regularUser) {
             try {
                 Id fakeAccountId = fflib_IDGenerator.generate(Account.SObjectType);
-                UnableToLockRowDemoController.updateAccountSsn(fakeAccountId, 10000);
+                UnableToLockRowDemoController.updateAccountSsn(fakeAccountId, 10000, false);
                 Assert.fail('Exception should have been caught!');
             } catch (Exception ex) {
-                Assert.isInstanceOfType(ex.getCause(), DmlException.class);
+                Assert.isInstanceOfType(ex.getCause(), QueryException.class);
             }
         }
     }

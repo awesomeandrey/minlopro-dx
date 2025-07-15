@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IndividualEntrepreneur</fullName>
     <active>true</active>
+    <compactLayoutAssignment>CustomDefault</compactLayoutAssignment>
     <description>Individual partner</description>
     <label>Individual Entrepreneur</label>
     <picklistValues>
