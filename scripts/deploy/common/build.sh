@@ -41,6 +41,8 @@ install_sf_plugin "@salesforce/analytics"
 install_sf_plugin "lightning-flow-scanner"
 # https://developer.salesforce.com/docs/platform/lwc/guide/get-started-test-components.html
 install_sf_plugin "@salesforce/plugin-lightning-dev@prerelease"
+# https://github.com/salesforcecli/plugin-community
+install_sf_plugin "community"
 
 # Install the rest of dependencies via NPM
 npm ci --silent; echo
