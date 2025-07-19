@@ -14,5 +14,7 @@ for k in $(git branch --format="%(refname:short)" --merged "$mainBranchName" -r)
   fi
 done
 
-# Purges local branches linked to non-existing remote branches
+# The –prune option removes local references to remote-tracking branches deleted from the remote repository.
 # git fetch --prune
+
+# Detailed tutorial: https://www.baeldung.com/ops/git-remove-merged-branches
