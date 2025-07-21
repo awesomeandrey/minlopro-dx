@@ -14,7 +14,7 @@ START(["START"]):::startClass
 click START "#general-information" "3814342414"
 
 RouteToQueue("⚡ <em></em><br/>Route To Queue"):::actionCalls
-click RouteToQueue "#routetoqueue" "3322854737"
+click RouteToQueue "#routetoqueue" "684430295"
 
 GetDigExOmniQueue[("🔍 <em></em><br/>Get DigEx Omni Queue")]:::recordLookups
 click GetDigExOmniQueue "#getdigexomniqueue" "1353578166"
@@ -69,7 +69,14 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
 |input_record|SObject|⬜|✅|⬜|MessagingSession|The messaging session record that is being inputted into the flow. Necessary for the flow to run.|
-|recordId|String|⬜|✅|⬜|<!-- -->|The ID of the record being inputted into the flow. Necessary for the flow to run. It's a<br/>            'MessagingSession' record ID.|
+|recordId|String|⬜|✅|⬜|<!-- -->|The ID of the record being inputted into the flow. Necessary for the flow to run. It's a 'MessagingSession' record ID.|
+
+
+## Formulas
+
+|Name|Data Type|Expression|Description|
+|:-- |:--:|:-- |:--  |
+|messagingSessionId|String|BLANKVALUE({!recordId}, {!input_record.Id})|Normalized Messaging Session record ID.|
 
 
 ## Flow Nodes Details
@@ -85,7 +92,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Flow Transaction Model|CurrentTransaction|
 |Name Segment|routeWork|
 |Offset|0|
-|Record Id (input)|recordId|
+|Record Id (input)|messagingSessionId|
 |Service Channel Id (input)|${SF_MESSAGING_SERVICE_CHANNEL_ID}|
 |Service Channel Label (input)|Messaging|
 |Service Channel Dev Name (input)|sfdc_livemessage|
@@ -100,8 +107,12 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Skill Requirements Resource Item (input)|<!-- -->|
 |Bot Id (input)|<!-- -->|
 |Bot Label (input)|<!-- -->|
+|External Conversation Bot Id (input)|<!-- -->|
+|External Conversation Bot Label (input)|<!-- -->|
 |Copilot Id (input)|<!-- -->|
 |Copilot Label (input)|<!-- -->|
+|Agentforce Employee Agent Id (input)|<!-- -->|
+|Agentforce Employee Agent Label (input)|<!-- -->|
 |Is Queue Variable (input)|✅|
 
 
