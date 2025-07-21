@@ -4,7 +4,7 @@
   "contentBody" : {
     "currentThemeId" : "Embedded_Service_for_Web_LWR",
     "headMarkup" : "<meta name=\"robots\" content=\"noindex\">\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/embedded-messaging-styling.min.css?{ versionKey }\" />\n\n<!-- webruntime-branding-shared stylesheets -->\n<link rel=\"stylesheet\" href=\"{ basePath }/assets/styles/salesforce-lightning-design-system.min.css?{ versionKey }\" />\n<!-- webruntime-branding-shared stylesheets -->",
-    "isLockerServiceEnabled" : false,
+    "isLockerServiceEnabled" : true,
     "isRelaxedCSPLevel" : true,
     "templateName" : "esw-template-frame"
   },
