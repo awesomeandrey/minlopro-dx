@@ -46,26 +46,40 @@ jobs:
           git branch
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
-      - name: "Auth Salesforce Org 🎫"
-        id: auth-salesforce-org
-        uses: ./.github/actions/auth-salesforce-org
+      - name: 'Run Salesforce Code Analyzer'
+        id: run-code-analyzer
+        uses: forcedotcom/run-code-analyzer@v2
         with:
-          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
-      - name: "Run Apex Tests 🚇"
-        if: ${{ inputs.apex-test-class-names != '' }}
-        id: run-apex-tests
-        continue-on-error: true
-        uses: ./.github/actions/run-apex-tests
-        with:
-          target-org-alias: ${{ steps.auth-salesforce-org.outputs.target-org-alias }}
-          class-names: ${{ inputs.apex-test-class-names }}
-          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_PLAYGROUND }}
-      - name: 'Composite Actions Outputs'
-        run: |
-          echo "sf --version >>> $(sf --version)"
-          echo "Auth Org Alias >>> ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
-          echo "Auth Org Instance URL >>> ${{ steps.auth-salesforce-org.outputs.target-org-instance-url }}"
-          echo "Apex Tests Outcome >>> ${{ steps.run-apex-tests.outputs.success }}"
+          run-arguments: --workspace "src" --view "table" --rule-selector all:High
+          results-artifact-name: salesforce-code-analyzer-results
+          github-token: ${{ github.token }}
+      - name: 'Check the Outputs to Determine Whether to Fail'
+        if: |
+          steps.run-code-analyzer.outputs.exit-code > 0 ||
+          steps.run-code-analyzer.outputs.num-sev1-violations > 0 ||
+          steps.run-code-analyzer.outputs.num-sev2-violations > 0 ||
+          steps.run-code-analyzer.outputs.num-violations > 10
+        run: exit 1
+#      - name: "Auth Salesforce Org 🎫"
+#        id: auth-salesforce-org
+#        uses: ./.github/actions/auth-salesforce-org
+#        with:
+#          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+#      - name: "Run Apex Tests 🚇"
+#        if: ${{ inputs.apex-test-class-names != '' }}
+#        id: run-apex-tests
+#        continue-on-error: true
+#        uses: ./.github/actions/run-apex-tests
+#        with:
+#          target-org-alias: ${{ steps.auth-salesforce-org.outputs.target-org-alias }}
+#          class-names: ${{ inputs.apex-test-class-names }}
+#          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_PLAYGROUND }}
+#      - name: 'Composite Actions Outputs'
+#        run: |
+#          echo "sf --version >>> $(sf --version)"
+#          echo "Auth Org Alias >>> ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+#          echo "Auth Org Instance URL >>> ${{ steps.auth-salesforce-org.outputs.target-org-instance-url }}"
+#          echo "Apex Tests Outcome >>> ${{ steps.run-apex-tests.outputs.success }}"
 #      - name: 'GHA Playground - Step #1'
 #        run: |
 #          echo "〽️ Target Environment"

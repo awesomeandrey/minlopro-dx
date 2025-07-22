@@ -86,21 +86,32 @@ jobs:
         uses: ./.github/actions/run-apex-tests
         with:
           target-org-alias: "${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
-  run-pmd-checks:
+  run-code-analyzer:
     needs: [ deploy-source-to-org ]
     runs-on: ubuntu-22.04
+    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
-      - name: 'Run Apex Static Code Analysis (PMD)'
-        run: npm run pmd:html || echo "PMD report has been generated!"
-      - name: 'Upload PMD Report as Artifact'
-        uses: actions/upload-artifact@v4
+      - name: "Install Salesforce Code Analyzer Plugin"
+        run: sf plugins install code-analyzer@latest
+      - name: "Convert To Metadata API Format"
+        run: |
+          sf project convert source \
+            --root-dir "src" \
+            --output-dir "mdapi/src" \
+            --metadata ApexClass \
+            --metadata Flow \
+            --metadata AuraDefinitionBundle \
+            --metadata LightningComponentBundle
+      - name: 'Run Salesforce Code Analyzer'
+        id: run-code-analyzer
+        uses: forcedotcom/run-code-analyzer@v2
         with:
-          name: minlopro-apex-pmd-report
-          path: build/apex-pmd-report.html
-          retention-days: 5
+          run-arguments: --workspace "mdapi/src" -f "results.csv" -f "results.html" -f "results.json" --rule-selector all:Critical --rule-selector all:High
+          results-artifact-name: salesforce-code-analyzer-results
+          # github-token: ${{ github.token }}
   run-post-merge-actions:
     if: ${{ github.event_name == 'push' }}
     needs: [ deploy-source-to-org, run-apex-tests ]
