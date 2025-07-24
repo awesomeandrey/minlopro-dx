@@ -1,4 +1,4 @@
-@IsTest(SeeAllData=true)
+@IsTest
 public with sharing class LightningLoginFormControllerTest {
     @IsTest
     static void LightningLoginFormControllerInstantiation() {

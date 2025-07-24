@@ -305,6 +305,7 @@ private class fflib_QueryFactoryTest {
             System.assert(false, 'Expected InvalidFieldException; none was thrown');
         } catch (fflib_QueryFactory.InvalidFieldException ife) {
             //Expected
+            Assert.isInstanceOfType(ife, fflib_QueryFactory.InvalidFieldException.class);
         } catch (Exception e) {
             System.assert(false, 'Expected InvalidFieldException; ' + e.getTypeName() + ' was thrown instead: ' + e);
         }
@@ -324,7 +325,7 @@ private class fflib_QueryFactoryTest {
             .selectField('Id')
             .setCondition('name=\'test\'')
             .addOrdering('CreatedDate', fflib_QueryFactory.SortOrder.DESCENDING, true);
-        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe();
+        // Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
         //explicitly assert object accessibility when creating the subselect
         qf.subselectQuery('Tasks', true).selectField('Id').selectField('Subject').setCondition(' IsDeleted = false ');
         List<fflib_QueryFactory> queries = qf.getSubselectQueries();
@@ -359,7 +360,7 @@ private class fflib_QueryFactoryTest {
             .selectField('Id')
             .setCondition('name=\'test\'')
             .addOrdering('CreatedDate', fflib_QueryFactory.SortOrder.DESCENDING, true);
-        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe();
+        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
         Schema.ChildRelationship relationship;
         for (Schema.ChildRelationship childRow : descResult.getChildRelationships()) {
             //occasionally on some standard objects (Like Contact child of Contact) do not have a relationship name.
@@ -385,7 +386,7 @@ private class fflib_QueryFactoryTest {
             .selectField('Id')
             .setCondition('name=\'%test%\'')
             .addOrdering('CreatedDate', fflib_QueryFactory.SortOrder.DESCENDING, true);
-        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe();
+        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
         Schema.ChildRelationship relationship;
         for (Schema.ChildRelationship childRow : descResult.getChildRelationships()) {
             //occasionally on some standard objects (Like Contact child of Contact) do not have a relationship name.
@@ -411,7 +412,7 @@ private class fflib_QueryFactoryTest {
             .selectField('Id')
             .setCondition('name=\'test\'')
             .addOrdering('CreatedDate', fflib_QueryFactory.SortOrder.DESCENDING, true);
-        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe();
+        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
         //explicitly assert object accessibility when creating the subselect
         //
         Exception e;
@@ -430,7 +431,7 @@ private class fflib_QueryFactoryTest {
             .selectField('Id')
             .setCondition('name like \'%test%\'')
             .addOrdering('CreatedDate', fflib_QueryFactory.SortOrder.DESCENDING, true);
-        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe();
+        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
         //explicitly assert object accessibility when creating the subselect
         qf.subselectQuery(Task.SObjectType, true).selectField('Id').selectField('Subject').setCondition(' IsDeleted = false ');
         List<fflib_QueryFactory> queries = qf.getSubselectQueries();
@@ -449,7 +450,7 @@ private class fflib_QueryFactoryTest {
         qf.setCondition('name like \'%test%\'');
         qf.addOrdering(new fflib_QueryFactory.Ordering('Contact', 'name', fflib_QueryFactory.SortOrder.ASCENDING))
             .addOrdering('CreatedBy.Name', fflib_QueryFactory.SortOrder.DESCENDING);
-        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe();
+        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
         Schema.ChildRelationship relationship;
         for (Schema.ChildRelationship childRow : descResult.getChildRelationships()) {
             if (childRow.getRelationshipName() == 'Tasks') {
@@ -475,7 +476,7 @@ private class fflib_QueryFactoryTest {
         qf.setCondition('name like \'%test%\'');
         qf.addOrdering(new fflib_QueryFactory.Ordering('Contact', 'name', fflib_QueryFactory.SortOrder.ASCENDING))
             .addOrdering('CreatedDATE', fflib_QueryFactory.SortOrder.DESCENDING);
-        Schema.DescribeSObjectResult descResult = Account.SObjectType.getDescribe();
+        // Schema.DescribeSObjectResult descResult = Account.SObjectType.getDescribe();
         Exception e;
         try {
             SObjectType invalidType = null;
@@ -495,7 +496,7 @@ private class fflib_QueryFactoryTest {
         qf.setCondition('name like \'%test%\'');
         qf.addOrdering(new fflib_QueryFactory.Ordering('Contact', 'name', fflib_QueryFactory.SortOrder.ASCENDING))
             .addOrdering('CreatedDATE', fflib_QueryFactory.SortOrder.DESCENDING);
-        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe();
+        Schema.DescribeSObjectResult descResult = Contact.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
 
         fflib_QueryFactory childQf = qf.subselectQuery(Task.SObjectType);
         childQf.selectField('Id');

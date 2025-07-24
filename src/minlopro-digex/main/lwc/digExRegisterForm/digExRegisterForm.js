@@ -1,7 +1,7 @@
 import { LightningElement, track } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
 import { cloneObject, isNotEmpty } from 'c/utilities';
-import { AuthConfig, getAuthConfigs, PageReference } from 'c/digExUtil';
+// import { AuthConfig, getAuthConfigs, PageReference } from 'c/digExUtil';
 
 // Apex;
 import setExperienceIdApex from '@salesforce/apex/DigExLoginController.setExperienceId';

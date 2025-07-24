@@ -23,11 +23,11 @@ export default class ModalFieldPathSelection extends LightningModal {
         this.selectedFieldPath = event.detail['value'];
     }
 
-    handleConfirmAndCloseModal(event) {
+    handleConfirmAndCloseModal() {
         this.close({ selectedFieldPath: this.selectedFieldPath });
     }
 
-    handleCloseModal(event) {
+    handleCloseModal() {
         this.close({ selectedFieldPath: null });
     }
 }

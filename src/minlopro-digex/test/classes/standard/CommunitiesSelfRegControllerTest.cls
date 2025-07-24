@@ -3,7 +3,7 @@
  */
 @IsTest
 public with sharing class CommunitiesSelfRegControllerTest {
-    @IsTest(SeeAllData=true)
+    @IsTest
     public static void testCommunitiesSelfRegController() {
         CommunitiesSelfRegController controller = new CommunitiesSelfRegController();
         controller.firstName = 'FirstName';

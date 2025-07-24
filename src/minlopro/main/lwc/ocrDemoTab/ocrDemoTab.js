@@ -63,7 +63,7 @@ export default class OcrDemoTab extends LightningElement {
         this.loading = false;
     }
 
-    async handleRecognizeText(event) {
+    async handleRecognizeText() {
         this.loading = true;
         this.processQueue = new Set();
         try {
@@ -83,7 +83,7 @@ export default class OcrDemoTab extends LightningElement {
 
     // Service Methods;
 
-    handleReset(event) {
+    handleReset() {
         this.filesMap = new Map();
         this.processQueue = new Set();
         this.loading = false;
@@ -108,9 +108,8 @@ export default class OcrDemoTab extends LightningElement {
     }
 
     captureFileInfo(file) {
-        let id = uniqueId();
         return {
-            id,
+            id: uniqueId(),
             name: file.name,
             size: file.size,
             type: file.type,

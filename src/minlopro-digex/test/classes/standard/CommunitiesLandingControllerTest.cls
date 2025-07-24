@@ -3,7 +3,7 @@
  */
 @IsTest
 public with sharing class CommunitiesLandingControllerTest {
-    @IsTest(SeeAllData=true)
+    @IsTest
     public static void testCommunitiesLandingController() {
         // Instantiate a new controller with all parameters in the page
         CommunitiesLandingController controller = new CommunitiesLandingController();

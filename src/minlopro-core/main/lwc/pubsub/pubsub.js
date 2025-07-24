@@ -80,7 +80,8 @@ const fireEvent = (pageRef, eventName, payload) => {
                 try {
                     listener.callback.call(listener.thisArg, payload);
                 } catch (error) {
-                    // fail silently
+                    // Fail silently;
+                    console.error('PubSub callback failure occurred', error);
                 }
             }
         });

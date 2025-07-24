@@ -146,7 +146,9 @@ private class MergeDuplicatePersonAccountsTest {
     }
 
     static RecordTypeInfo selectPersonAccountRecordType() {
-        return Account.SObjectType.getDescribe().getRecordTypeInfosByDeveloperName().get('Customer');
+        return Account.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED)
+            .getRecordTypeInfosByDeveloperName()
+            .get('Customer');
     }
 
     static List<Account> generateSampleDuplicatePersonAccounts() {

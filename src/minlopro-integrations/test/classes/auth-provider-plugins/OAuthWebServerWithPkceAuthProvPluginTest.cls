@@ -8,7 +8,7 @@ private class OAuthWebServerWithPkceAuthProvPluginTest {
     @IsTest
     static void getCustomMetadataType() {
         OAuthWebServerWithPkceAuthProviderPlugin plugin = new OAuthWebServerWithPkceAuthProviderPlugin();
-        String cmtObjectName = AuthProviderSetting__mdt.SObjectType.getDescribe().getName();
+        String cmtObjectName = AuthProviderSetting__mdt.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName();
         Assert.areEqual(cmtObjectName, plugin.getCustomMetadataType());
     }
 

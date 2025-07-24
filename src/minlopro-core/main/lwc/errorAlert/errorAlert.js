@@ -55,7 +55,9 @@ export default class ErrorAlert extends LightningElement {
         try {
             return parseError(cloneObject(this.value));
         } catch (error) {
-            return { message: 'Failed to parse error object!' };
+            const message = 'Failed to parse error object!';
+            console.error(message, error);
+            return { message };
         }
     }
 
@@ -89,6 +91,7 @@ export default class ErrorAlert extends LightningElement {
 
     constructor() {
         super();
+        console.assert(isNotEmpty(parseError($SAMPLE_ERROR).message), 'Invalid error object format.');
         // Uncomment for testing purposes;
         // this.value = $SAMPLE_ERROR;
     }

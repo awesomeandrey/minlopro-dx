@@ -93,6 +93,7 @@ export function cloneObject(value) {
         try {
             return window.structuredClone(value);
         } catch (error) {
+            console.error('Failed to clone through "window.structuredClone()"', error);
             return $(value);
         }
     }

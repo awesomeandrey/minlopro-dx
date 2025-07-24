@@ -13,7 +13,7 @@ const $context = createMessageContext();
  */
 const $eventsMap = new Map();
 
-const $subscription = subscribe(
+subscribe(
     $context,
     LMS_CHANNEL,
     ({ eventName, payload }) => {

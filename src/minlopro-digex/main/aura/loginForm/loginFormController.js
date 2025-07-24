@@ -8,11 +8,11 @@
         component.set('v.communitySelfRegisterUrl', helper.getCommunitySelfRegisterUrl(component, event, helper));
     },
 
-    handleLogin: function (component, event, helpler) {
-        helpler.handleLogin(component, event, helpler);
+    handleLogin: function (component, event, helper) {
+        helper.handleLogin(component, event);
     },
 
-    setStartUrl: function (component, event, helpler) {
+    setStartUrl: function (component, event) {
         var startUrl = event.getParam('startURL');
         if (startUrl) {
             component.set('v.startUrl', startUrl);
@@ -34,7 +34,7 @@
         }
     },
 
-    navigateToForgotPassword: function (cmp, event, helper) {
+    navigateToForgotPassword: function (cmp) {
         var forgotPwdUrl = cmp.get('v.communityForgotPasswordUrl');
         if ($A.util.isUndefinedOrNull(forgotPwdUrl)) {
             forgotPwdUrl = cmp.get('v.forgotPasswordUrl');
@@ -51,7 +51,7 @@
         $A.get('e.force:navigateToURL').setParams(attributes).fire();
     },
 
-    navigateToSelfRegister: function (cmp, event, helper) {
+    navigateToSelfRegister: function (cmp) {
         var selfRegUrl = cmp.get('v.communitySelfRegisterUrl');
         if (selfRegUrl == null) {
             selfRegUrl = cmp.get('v.selfRegisterUrl');

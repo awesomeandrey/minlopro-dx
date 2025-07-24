@@ -1,4 +1,4 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, track } from 'lwc';
 import { subscribeToEvent, publishEvent } from 'c/bridge';
 import { cloneObject, isNotEmpty, uniqueId, flatten } from 'c/utilities';
 import * as MarkerLabel from 'c/gMarkerLabelMgr';

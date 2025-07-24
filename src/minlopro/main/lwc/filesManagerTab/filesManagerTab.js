@@ -199,7 +199,7 @@ export default class FilesManagerTab extends LightningElement {
 
     // Event Handler;
 
-    handleReset(event) {
+    handleReset() {
         this.contentDistribution = {};
         this.loading = false;
         this.errorObject = null;

@@ -61,7 +61,7 @@ export default class ComboboxPlaygroundTab extends LightningElement {
 
     // State Handlers;
 
-    handleReset(event) {
+    handleReset() {
         this.multiSelectModeEnabled = false;
         this.nullifiedOptionsModeEnabled = false;
         this.readOnly = false;
@@ -73,11 +73,11 @@ export default class ComboboxPlaygroundTab extends LightningElement {
         });
     }
 
-    handleToggleRequired(event) {
+    handleToggleRequired() {
         this.required = !this.required;
     }
 
-    handleToggleNullifyOptions(event) {
+    handleToggleNullifyOptions() {
         this.nullifiedOptionsModeEnabled = !this.nullifiedOptionsModeEnabled;
     }
 
@@ -85,13 +85,13 @@ export default class ComboboxPlaygroundTab extends LightningElement {
         this.readOnly = !this.readOnly;
     }
 
-    handleSetCustomValidity(event) {
+    handleSetCustomValidity() {
         this.$comboboxComponents.forEach((component) => {
             component.setCustomValidity('Custom Error Message');
         });
     }
 
-    handleReportValidity(event) {
+    handleReportValidity() {
         this.$comboboxComponents.forEach((component) => {
             const validity = component.reportValidity();
             console.log(`[${component.name}] validity`, validity);

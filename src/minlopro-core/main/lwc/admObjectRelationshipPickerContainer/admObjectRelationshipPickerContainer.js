@@ -1,4 +1,4 @@
-import { LightningElement, api, track, wire } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import { cloneObject, isNotEmpty } from 'c/utilities';
 
 // Modes;
@@ -64,9 +64,9 @@ export default class AdmObjectRelationshipPickerContainer extends LightningEleme
     }
 
     get normalizedRelationshipPath() {
-        if (this.mode === CONTEXT_TO_PARENTS) return this.normalizedParentRelationshipPath;
-        if (this.mode === CONTEXT_TO_CHILDREN) return this.normalizedChildRelationshipPath;
-        throw new Error('Unsupported relationship mode.');
+        if (this.isContextToParentsMode) return this.normalizedParentRelationshipPath;
+        if (this.isContextToChildrenMode) return this.normalizedChildRelationshipPath;
+        return null;
     }
 
     get normalizedParentRelationshipPath() {

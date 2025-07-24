@@ -63,13 +63,13 @@ export default class OrgLimits extends LightningElement {
         await this.fetchOrgLimits();
     }
 
-    async handleRefresh(event) {
+    async handleRefresh() {
         this.rawOrgLimits = [];
         this.errorObj = {};
         await this.fetchOrgLimits();
     }
 
-    async handleToggleFilter(event) {
+    async handleToggleFilter() {
         this.showAllLimits = !this.showAllLimits;
     }
 

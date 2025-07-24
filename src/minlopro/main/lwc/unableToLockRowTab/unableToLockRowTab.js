@@ -42,7 +42,7 @@ export default class UnableToLockRowTab extends LightningElement {
         return this.loading || !this.hasAccountSelected;
     }
 
-    async handleRefreshRecord(event) {
+    async handleRefreshRecord() {
         await notifyRecordUpdateAvailable([{ recordId: this.selectedAccountId }]);
     }
 

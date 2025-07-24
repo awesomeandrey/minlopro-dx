@@ -274,7 +274,7 @@ export default class DuplicatesManagerTab extends LightningElement {
 
     // Event Handlers;
 
-    handleReset(event) {
+    handleReset() {
         this.selectedAccountId = null;
         this.selectedContactId = null;
         this.contactDraft = { ...CONTACT_TEMPLATE };
@@ -289,7 +289,7 @@ export default class DuplicatesManagerTab extends LightningElement {
         this.selectedAccountId = recordId || null;
     }
 
-    handleSwitchToCreateRecordMode(event) {
+    handleSwitchToCreateRecordMode() {
         if (!this.isCreateRecordMode) {
             this.selectedContactId = null;
             this.contactDraft = { ...CONTACT_TEMPLATE };
@@ -305,7 +305,7 @@ export default class DuplicatesManagerTab extends LightningElement {
         }
     }
 
-    handleRefreshWireAdapter(event) {
+    handleRefreshWireAdapter() {
         refreshApex(this.wiredRelatedContacts);
     }
 
@@ -319,7 +319,7 @@ export default class DuplicatesManagerTab extends LightningElement {
         this.duplicateContacts = [];
     }
 
-    async handleFindDuplicates(event) {
+    async handleFindDuplicates() {
         if (!this.isFormValid) {
             return;
         }
@@ -340,7 +340,7 @@ export default class DuplicatesManagerTab extends LightningElement {
         }
     }
 
-    async handleSubmitViaUiApi(event) {
+    async handleSubmitViaUiApi() {
         if (!this.isFormValid) {
             return;
         }
@@ -377,7 +377,7 @@ export default class DuplicatesManagerTab extends LightningElement {
         }
     }
 
-    async handleSubmitViaApex(event) {
+    async handleSubmitViaApex() {
         // Reset spinner & errors;
         this.loading = true;
         this.errorObject = null;
