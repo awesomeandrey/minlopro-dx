@@ -34,6 +34,7 @@ public without sharing class CurrencyRollupController {
             SELECT IsoCode, ConversionRate, IsCorporate, DecimalPlaces, IsActive
             FROM CurrencyType
             WHERE IsActive = TRUE
+            WITH SYSTEM_MODE
         ];
     }
 

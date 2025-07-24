@@ -29,9 +29,7 @@
         "src:pull": "sf project retrieve start --ignore-conflicts --wait 10",
         "src:pull:preview": "sf project retrieve preview",
         "src:crma:deploy": "bash ./scripts/crm-analytics/deploy.sh",
-        "src:crma:refresh": "bash ./scripts/crm-analytics/refresh.sh",
-        "pmd:text": "pmd -d 'src' -R apex-ruleset.xml -f text",
-        "pmd:html": "pmd -d 'src' -R apex-ruleset.xml -f html --report-file 'build/apex-pmd-report.html'"
+        "src:crma:refresh": "bash ./scripts/crm-analytics/refresh.sh"
     },
     "dependencies": {
         "@prettier/plugin-xml": "^2.0.1",
@@ -44,7 +42,6 @@
         "flush-promises": "^1.0.2",
         "jest-unit": "^0.0.2",
         "jsonwebtoken": "^9.0.2",
-        "pmd-bin": "^1.37.0",
         "prettier": "^3.5.1",
         "prettier-plugin-apex": "^2.2.4",
         "prettier-plugin-sql": "^0.18.1",
