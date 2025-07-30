@@ -7,5 +7,12 @@
   "mainAppPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
   "preferredDomain" : "none",
   "selfRegistrationRouteId" : "d54c7540-7ccc-4e42-bc2c-f629eb58c4c9",
+  "trustedSitesForScript" : [ {
+    "id" : "e73e7f01-d436-4300-ba37-e16181940ea6",
+    "isActive" : true,
+    "trustedSiteName" : "Google",
+    "trustedSiteUrl" : "https://www.google.com",
+    "type" : "trustedSitesForScripts"
+  } ],
   "type" : "site"
 }

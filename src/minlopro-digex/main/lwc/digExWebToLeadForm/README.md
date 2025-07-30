@@ -92,3 +92,27 @@ Aforementioned query works with _Tooling API_ only.
 | `Address`                        | `state`                 | Part of 'Address' compound field |
 | `Address`                        | `zip`                   | Part of 'Address' compound field |
 | `Description`                    | `description`           | Lowercase                        |
+
+# reCAPTCHA Integration
+
+Below is dependency on `script` tag in Head Markup on Digital Experience site:
+
+```javascript
+<!--Embedding reCAPTCHA API-->
+<script type="text/javascript">
+  var gRecaptchaOnloadCallback = function () {
+  // alert('grecaptcha is ready!');
+  // console.log(window.grecaptcha);
+  document.addEventListener('requestGrecaptcha', function (event) {
+    event?.detail?.callback(window.grecaptcha);
+  });
+};
+</script>
+<script src="https://www.google.com/recaptcha/api.js?onload=gRecaptchaOnloadCallback&render=explicit" async defer></script>
+```
+
+Useful links:
+
+- https://developers.google.com/recaptcha/docs/display#explicit_render
+- https://medium.com/globant/integrate-recaptcha-v3-with-lwc-in-salesforce-4ac226c98fcc
+- https://www.learnexperiencecloud.com/article/Implementing-reCAPTCHA-in-Community-Cloud#RecaptchaV2Checkbox

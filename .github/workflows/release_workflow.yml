@@ -21,6 +21,8 @@ jobs:
       SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
       SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
       SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
+      SF_GOOGLE_RECAPTCHA_SITE_KEY: ${{ secrets.SF_GOOGLE_RECAPTCHA_SITE_KEY }}
+      SF_GOOGLE_RECAPTCHA_SITE_SECRET: ${{ secrets.SF_GOOGLE_RECAPTCHA_SITE_SECRET }}
     outputs:
       job-id: ${{ steps.validate-deployment.outputs.SF_VALIDATION_JOB_ID }}
     steps:

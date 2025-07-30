@@ -1,10 +1,10 @@
 {
   "cmsSettings" : { },
   "currentThemeId" : "b6cad6fe-c3ba-46be-affa-9512d93ae31b",
-  "headMarkup" : "<meta name=\"robots\" content=\"noindex\">",
+  "headMarkup" : "<meta name=\"robots\" content=\"noindex\">\n\n<!--Embedding reCAPTCHA API-->\n<script type=\"text/javascript\">\n\tvar gRecaptchaOnloadCallback = function () {\n\t\t// alert('grecaptcha is ready!');\n\t\t// console.log(window.grecaptcha);\n\t\tdocument.addEventListener('requestGrecaptcha', function (event) {\n\t\t\tevent?.detail?.callback(window.grecaptcha);\n\t\t});\n\t};\n</script>\n<script src=\"https://www.google.com/recaptcha/api.js?onload=gRecaptchaOnloadCallback&render=explicit\" async defer></script>",
   "id" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
   "isLockerServiceEnabled" : true,
-  "isRelaxedCSPLevel" : false,
+  "isRelaxedCSPLevel" : true,
   "label" : "main",
   "templateName" : "Starter Template",
   "type" : "appPage"
