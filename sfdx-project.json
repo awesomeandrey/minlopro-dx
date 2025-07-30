@@ -53,6 +53,16 @@
         },
         {
             "glob": "src/**",
+            "stringToReplace": "${SF_GOOGLE_RECAPTCHA_SITE_KEY}",
+            "replaceWithEnv": "SF_GOOGLE_RECAPTCHA_SITE_KEY"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_GOOGLE_RECAPTCHA_SITE_SECRET}",
+            "replaceWithEnv": "SF_GOOGLE_RECAPTCHA_SITE_SECRET"
+        },
+        {
+            "glob": "src/**",
             "stringToReplace": "${SF_INSTANCE_ID}",
             "replaceWithEnv": "SF_INSTANCE_ID"
         },

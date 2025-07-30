@@ -4,6 +4,7 @@
     <deploymentFeature>EmbeddedMessaging</deploymentFeature>
     <deploymentType>Web</deploymentType>
     <embeddedServiceMessagingChannel>
+        <businessHours>Ukraine (Default)</businessHours>
         <isEnabled>true</isEnabled>
         <messagingChannel>Minlopro_DigExMessagingChannel</messagingChannel>
         <shouldShowDeliveryReceipts>false</shouldShowDeliveryReceipts>

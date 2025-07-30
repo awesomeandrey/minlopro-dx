@@ -85,6 +85,24 @@ public class TestDataFactory {
         return (User) selectAllFieldsById(User.SObjectType, regularUser.Id);
     }
 
+    public static User createDigExGuestUser() {
+        String randomUsername = generateRandomString(8);
+        User guestUser = TestDataFactory.createUser('Guest', 'DigEx-' + randomUsername, 'DigEx Profile');
+        // Create user;
+        insert guestUser;
+        // Assign PSG to the user;
+        PermissionSetService.getInstance()
+            .enforceAllOrNothing(false)
+            .assign(guestUser.Id, new Set<String>{ PermissionSetOrPSG.Minlopro_PSG_DigExUser.name() });
+        // Log info about user;
+        new DebugTableFormatter(
+                Lists.of('Name', 'Profile.Name', 'Profile.UserLicense.Name'),
+                [SELECT Id, Name, Profile.Name, Profile.UserLicense.Name FROM User WHERE Id = :guestUser.Id]
+            )
+            .log('> Test DigEx Guest User');
+        return (User) selectAllFieldsById(User.SObjectType, guestUser.Id);
+    }
+
     public static User createUser(String firstName, String lastName, String profileName) {
         final Integer USERNAME_LENGTH = 5;
         String username = generateRandomString(USERNAME_LENGTH);
@@ -298,6 +316,7 @@ public class TestDataFactory {
 
     public enum PermissionSetOrPSG {
         Minlopro_PSG_Admin,
-        Minlopro_PSG_InternalUser
+        Minlopro_PSG_InternalUser,
+        Minlopro_PSG_DigExUser
     }
 }

@@ -45,6 +45,8 @@ jobs:
       SF_ADMIN_EMAIL: ${{ vars.SF_ADMIN_EMAIL }}
       SF_GITHUB_WEBHOOK_SECRET: ${{ secrets.SF_GITHUB_WEBHOOK_SECRET }}
       SF_GOOGLE_API_KEY: ${{ secrets.SF_GOOGLE_API_KEY }}
+      SF_GOOGLE_RECAPTCHA_SITE_KEY: ${{ secrets.SF_GOOGLE_RECAPTCHA_SITE_KEY }}
+      SF_GOOGLE_RECAPTCHA_SITE_SECRET: ${{ secrets.SF_GOOGLE_RECAPTCHA_SITE_SECRET }}
     steps:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
