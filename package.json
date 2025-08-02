@@ -22,7 +22,7 @@
         "sf:tracking:reset": "sf project reset tracking --no-prompt",
         "sf:hardis:diagnose:legacyapi": "sf hardis:org:diagnose:legacyapi",
         "sf:lightning:dev:app": "sf lightning dev app --name MinloproConsole --device-type desktop",
-        "sf:code-analyzer:run": "sf project convert source -r 'src' -d 'build/src' -m ApexClass -m Flow -m AuraDefinitionBundle -m LightningComponentBundle && sf code-analyzer run -w 'build/src' -f 'build/code-analyzer-results.html' -r all:Critical -r all:High",
+        "sf:code-analyzer:run": "sf project convert source -r 'src' -d 'build/src' -m ApexClass -m Flow -m AuraDefinitionBundle -m LightningComponentBundle && sf code-analyzer run -w 'build/src' -f 'build/code-analyzer-results.html' -r all",
         "src:retrieve": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/util/retrieve_by_manifest.sh",
         "src:deploy": "bash ./scripts/deploy/deploy.sh $(bash ./scripts/util/get_target_org_alias.sh) 'hard'",
         "src:deploy:check": "bash ./scripts/deploy/deploy.sh $(bash ./scripts/util/get_target_org_alias.sh) 'dry-run'",

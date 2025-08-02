@@ -3123,10 +3123,10 @@ engines:
             other: []
 
     retire-js:
-        disable_engine: true
+        disable_engine: false
 
     regex:
-        disable_engine: true
+        disable_engine: false
 
         custom_rules: {}
 
@@ -3168,7 +3168,7 @@ engines:
         custom_rulesets: []
 
     cpd:
-        disable_engine: true
+        disable_engine: false
 
         java_command: null
 
