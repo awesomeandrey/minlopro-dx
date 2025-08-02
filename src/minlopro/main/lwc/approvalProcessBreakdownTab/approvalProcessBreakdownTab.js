@@ -162,7 +162,7 @@ export default class ApprovalProcessBreakdownTab extends LightningElement {
         this.handleRefreshWires();
     }
 
-    async handleToggleLock(event) {
+    async handleToggleLock() {
         try {
             this.loading = true;
             this.errorObj = null;
@@ -180,7 +180,7 @@ export default class ApprovalProcessBreakdownTab extends LightningElement {
         }
     }
 
-    async handleReset(event) {
+    async handleReset() {
         this.selectedOpportunityId = null;
         this.selectedProcessInstanceId = null;
         this.refs.oppPicker.clearSelection();
@@ -189,11 +189,11 @@ export default class ApprovalProcessBreakdownTab extends LightningElement {
         await this.handleRefreshWires();
     }
 
-    async handleRefreshWires(event) {
+    async handleRefreshWires() {
         await Promise.allSettled([refreshApex(this.wiredOppLockStatus), refreshApex(this.wiredOppProcessInstances)]);
     }
 
-    async handleSubmitForApproval(event) {
+    async handleSubmitForApproval() {
         try {
             this.loading = true;
             this.errorObj = null;

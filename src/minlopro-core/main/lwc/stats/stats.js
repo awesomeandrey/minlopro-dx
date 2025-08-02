@@ -45,7 +45,8 @@ export default class Stats extends LightningElement {
         try {
             new URL(value);
             return true;
-        } catch (_) {
+        } catch (error) {
+            console.log(`${value} is not a URL`, error);
             return false;
         }
     }

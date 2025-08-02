@@ -1,4 +1,4 @@
-import { LightningElement, api, track, wire } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 import { cloneObject, flatten } from 'c/utilities';
 import $Toastify from 'c/toastify';
@@ -29,8 +29,7 @@ export default class ApprovalProcessGraph extends LightningElement {
     @track $D3 = null;
     @track loading = false;
     @track error = null;
-
-    d3Initialized = false;
+    @track d3Initialized = false;
 
     get svgWidth() {
         return 600;
@@ -72,7 +71,7 @@ export default class ApprovalProcessGraph extends LightningElement {
         console.groupEnd();
     }
 
-    async handleRefresh(event) {
+    async handleRefresh() {
         if (!this.d3Initialized) {
             $Toastify.error({ message: 'D3.js was not initialized!' }, this);
             return;
@@ -102,6 +101,7 @@ export default class ApprovalProcessGraph extends LightningElement {
     visualize() {
         const width = this.svgWidth;
         const height = this.svgHeight;
+        const d3 = this.$D3 || window.d3;
 
         // Reset SVG;
         d3.select(this.refs.svg).selectAll('*').remove();
@@ -141,7 +141,7 @@ export default class ApprovalProcessGraph extends LightningElement {
             .enter()
             .append('g')
             // Add custom CSS class;
-            .attr('class', (d) => `node`)
+            .attr('class', () => `node`)
             .attr('data-object-name', (d) => d.data['objectName'])
             .attr('transform', (d) => `translate(${d.y},${d.x})`)
             // Add 'click' handler;

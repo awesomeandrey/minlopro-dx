@@ -7,7 +7,7 @@
         expid: 'e.c:setExpId'
     },
 
-    handleSelfRegister: function (component, event, helpler) {
+    handleSelfRegister: function (component) {
         var accountId = component.get('v.accountId');
         var regConfirmUrl = component.get('v.regConfirmUrl');
         var firstname = component.find('firstname').get('v.value');
@@ -44,7 +44,7 @@
         $A.enqueueAction(action);
     },
 
-    getExtraFields: function (component, event, helpler) {
+    getExtraFields: function (component) {
         var action = component.get('c.getExtraFields');
         action.setParam('extraFieldsFieldSet', component.get('v.extraFieldsFieldSet'));
         action.setCallback(this, function (a) {
@@ -56,12 +56,12 @@
         $A.enqueueAction(action);
     },
 
-    setBrandingCookie: function (component, event, helpler) {
+    setBrandingCookie: function (component) {
         var expId = component.get('v.expid');
         if (expId) {
             var action = component.get('c.setExperienceId');
             action.setParams({ expId: expId });
-            action.setCallback(this, function (a) {});
+            action.setCallback(this, function () {});
             $A.enqueueAction(action);
         }
     }

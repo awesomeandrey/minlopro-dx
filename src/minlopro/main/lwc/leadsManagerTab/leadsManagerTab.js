@@ -174,7 +174,7 @@ export default class LeadsManagerTab extends LightningElement {
         this.loading = false;
     }
 
-    async handleReset(event) {
+    async handleReset() {
         this.errorObject = null;
         await this.handleRefreshWireAdapters();
     }

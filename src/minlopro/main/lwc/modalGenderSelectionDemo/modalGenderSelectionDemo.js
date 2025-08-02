@@ -35,7 +35,7 @@ export default class ModalGenderSelectionDemo extends LightningModal {
         );
     }
 
-    async handleConfirmBtn(event) {
+    async handleConfirmBtn() {
         if (!this.refs.genderInput.reportValidity()) {
             return;
         }
@@ -49,7 +49,7 @@ export default class ModalGenderSelectionDemo extends LightningModal {
         });
     }
 
-    handleCancelBtn(event) {
+    handleCancelBtn() {
         this.close();
     }
 }

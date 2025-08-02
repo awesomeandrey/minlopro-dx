@@ -31,13 +31,15 @@ private with sharing class fflib_SObjectSelectorTest {
         fflib_SecurityUtilsTest.testSetup();
     }
 
-    static testMethod void testGetSObjectName() {
+    @IsTest
+    static void testGetSObjectName() {
         Testfflib_SObjectSelector selector = new Testfflib_SObjectSelector();
         system.assertEquals(null, selector.getSObjectFieldSetList());
         system.assertEquals('Account', selector.getSObjectName());
     }
 
-    static testMethod void testSelectSObjectsById() {
+    @IsTest
+    static void testSelectSObjectsById() {
         // Inserting in reverse order so that we can test the order by of select
         List<Account> accountList = new List<Account>{
             new Account(Name = 'TestAccount2', AccountNumber = 'A2', AnnualRevenue = 12345.67),
@@ -62,7 +64,8 @@ private with sharing class fflib_SObjectSelectorTest {
         system.assertEquals(76543.21, result[1].AnnualRevenue);
     }
 
-    static testMethod void testQueryLocatorById() {
+    @IsTest
+    static void testQueryLocatorById() {
         // Inserting in reverse order so that we can test the order by of select
         List<Account> accountList = new List<Account>{
             new Account(Name = 'TestAccount2', AccountNumber = 'A2', AnnualRevenue = 12345.67),
@@ -92,7 +95,8 @@ private with sharing class fflib_SObjectSelectorTest {
         System.assertEquals(false, iteratorResult.hasNext());
     }
 
-    static testMethod void testAssertIsAccessible() {
+    @IsTest
+    static void testAssertIsAccessible() {
         List<Account> accountList = new List<Account>{
             new Account(Name = 'TestAccount2', AccountNumber = 'A2', AnnualRevenue = 12345.67),
             new Account(Name = 'TestAccount1', AccountNumber = 'A1', AnnualRevenue = 76543.21)
@@ -117,7 +121,8 @@ private with sharing class fflib_SObjectSelectorTest {
         }
     }
 
-    static testMethod void testCRUDOff() {
+    @IsTest
+    static void testCRUDOff() {
         List<Account> accountList = new List<Account>{
             new Account(Name = 'TestAccount2', AccountNumber = 'A2', AnnualRevenue = 12345.67),
             new Account(Name = 'TestAccount1', AccountNumber = 'A1', AnnualRevenue = 76543.21)
@@ -141,7 +146,8 @@ private with sharing class fflib_SObjectSelectorTest {
         }
     }
 
-    static testMethod void testSOQL() {
+    @IsTest
+    static void testSOQL() {
         Testfflib_SObjectSelector selector = new Testfflib_SObjectSelector();
         String soql = selector.newQueryFactory().toSOQL();
         Pattern p = Pattern.compile('SELECT (.*) FROM Account ORDER BY Name DESC NULLS FIRST , AnnualRevenue ASC NULLS LAST ');
@@ -152,7 +158,8 @@ private with sharing class fflib_SObjectSelectorTest {
         assertFieldListString(fieldListString, null);
     }
 
-    static testMethod void testSOQL_defaultSorting() {
+    @IsTest
+    static void testSOQL_defaultSorting() {
         Testfflib_SObjectSelectorDefaultSorting selector = new Testfflib_SObjectSelectorDefaultSorting(false);
         String soql = selector.newQueryFactory().toSOQL();
         Pattern p = Pattern.compile('SELECT (.*) FROM Account ORDER BY Name ASC NULLS FIRST ');
@@ -163,7 +170,8 @@ private with sharing class fflib_SObjectSelectorTest {
         assertFieldListString(fieldListString, null);
     }
 
-    static testMethod void testDefaultConfig() {
+    @IsTest
+    static void testDefaultConfig() {
         Testfflib_SObjectSelector selector = new Testfflib_SObjectSelector();
         System.assertEquals(false, selector.isEnforcingFLS());
         System.assertEquals(true, selector.isEnforcingCRUD());

@@ -8,7 +8,7 @@
  */
 public class OAuthClientCredentialsAuthProviderPlugin extends Auth.AuthProviderPluginClass {
     public String getCustomMetadataType() {
-        return AuthProviderSetting__mdt.SObjectType.getDescribe().getName();
+        return AuthProviderSetting__mdt.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName();
     }
 
     public PageReference initiate(Map<String, String> authProviderConfiguration, String stateToPropagate) {

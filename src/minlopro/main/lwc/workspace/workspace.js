@@ -72,7 +72,7 @@ export default class Workspace extends LightningElement {
         await this.instantiate(name);
     }
 
-    handleToggleTabs(event) {
+    handleToggleTabs() {
         this.doCollapseTabs = !this.doCollapseTabs;
         window.localStorage.setItem('doCollapseTabs', `${this.doCollapseTabs}`); // Cast to string;
     }

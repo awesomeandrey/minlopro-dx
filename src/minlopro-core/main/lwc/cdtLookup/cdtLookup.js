@@ -18,7 +18,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
 
     @api get validity() {
         if (this.isInputMode) {
-            let recordPicker = this.refs.recordPicker;
+            const recordPicker = this.refs.recordPicker;
             return { valid: recordPicker?.validity?.valid || recordPicker.reportValidity() };
         }
         return { valid: true };
@@ -56,6 +56,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
         try {
             return JSON.parse(this.displayInfo);
         } catch (error) {
+            super.log('this.normalizedDisplayInfo', error, 'error');
             return null;
         }
     }
@@ -64,6 +65,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
         try {
             return JSON.parse(this.matchingInfo);
         } catch (error) {
+            super.log('this.normalizedMatchingInfo', error, 'error');
             return null;
         }
     }
@@ -115,7 +117,7 @@ export default class CdtLookup extends NavigationMixin(DatatableEditableCdt) {
         }
     }
 
-    handleLookupBlur(event) {
+    handleLookupBlur() {
         super.log(this.handleLookupBlur, this.context);
     }
 

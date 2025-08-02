@@ -137,7 +137,7 @@ export default class DynamicFormulaTab extends LightningElement {
         this.formulaReturnType = event.detail['value'];
     }
 
-    async handleEvaluateFormula(event) {
+    async handleEvaluateFormula() {
         this.refs.formulaInput.reportValidity();
         if (!this.refs.formulaInput.checkValidity()) {
             return;
@@ -160,7 +160,7 @@ export default class DynamicFormulaTab extends LightningElement {
         }
     }
 
-    async handleSelectFieldPath(event) {
+    async handleSelectFieldPath() {
         const { selectedFieldPath } =
             (await ModalFieldPathSelection.open({
                 size: 'medium',

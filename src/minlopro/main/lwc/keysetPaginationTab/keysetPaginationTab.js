@@ -130,7 +130,7 @@ export default class KeysetPaginationTab extends LightningElement {
 
     // Event Handlers;
 
-    async handleReset(event) {
+    async handleReset() {
         this.loading = false;
         this.sortedBy = DEFAULT_SORTED_BY;
         this.sortedDirection = DEFAULT_SORTED_DIRECTION;

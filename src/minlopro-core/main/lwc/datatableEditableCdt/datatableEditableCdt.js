@@ -115,7 +115,7 @@ export default class DatatableEditableCdt extends LightningElement {
         );
     }
 
-    log(messageOrFunction, details) {
+    log(messageOrFunction, details, type = 'info') {
         if (this.debugModeEnabled) {
             let logMessage = [
                 `${this.constructor.name}.js`,
@@ -125,7 +125,11 @@ export default class DatatableEditableCdt extends LightningElement {
                 .filter((item) => item !== undefined)
                 .join(' | ');
             // Log to browser console;
-            console.log(logMessage);
+            if (type === 'error') {
+                console.error(logMessage);
+            } else {
+                console.log(logMessage);
+            }
             /**
              * Log via Lightning Logger. All logs are stored in 'EventLogFile' standard object.
              * See https://developer.salesforce.com/docs/atlas.en-us.object_reference.meta/object_reference/sforce_api_objects_eventlogfile_lightninglogger.htm

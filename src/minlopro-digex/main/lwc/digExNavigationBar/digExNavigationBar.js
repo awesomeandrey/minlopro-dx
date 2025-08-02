@@ -5,7 +5,7 @@ import { PageReference } from 'c/digExUtil';
 import toastify from 'c/toastify';
 
 // Apex;
-import getLogoutUrl from '@salesforce/apex/applauncher.IdentityHeaderController.getLogoutUrl';
+// import getLogoutUrl from '@salesforce/apex/applauncher.IdentityHeaderController.getLogoutUrl';
 import getNavigationMenuItemsApex from '@salesforce/apex/NavigationMenuItemsController.getNavigationMenuItems';
 
 // Constants;

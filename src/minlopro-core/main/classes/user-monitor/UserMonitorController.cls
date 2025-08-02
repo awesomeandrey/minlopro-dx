@@ -45,7 +45,11 @@ public without sharing class UserMonitorController {
     private static List<Permission> collectSystemPermissions() {
         List<Permission> systemPermissions = new List<Permission>();
         UserPermissionAccess upaRecord = [SELECT FIELDS(STANDARD) FROM UserPermissionAccess LIMIT 1];
-        for (Schema.SObjectField field : UserPermissionAccess.SObjectType.getDescribe().fields.getMap().values()) {
+        for (
+            Schema.SObjectField field : UserPermissionAccess.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED)
+                .fields.getMap()
+                .values()
+        ) {
             Schema.DescribeFieldResult fieldDescribe = field.getDescribe();
             if (
                 fieldDescribe.getType().equals(Schema.DisplayType.BOOLEAN) &&

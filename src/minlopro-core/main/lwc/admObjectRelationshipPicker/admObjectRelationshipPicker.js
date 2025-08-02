@@ -35,7 +35,7 @@ export default class AdmObjectRelationshipPicker extends LightningElement {
     get relationshipOptions() {
         if (this.mode === CONTEXT_TO_PARENTS) return this.parentRelationshipOptions;
         if (this.mode === CONTEXT_TO_CHILDREN) return this.childRelationshipOptions;
-        throw new Error('Unsupported relationship mode.');
+        return null;
     }
 
     get hasRelationshipOptions() {
@@ -64,8 +64,7 @@ export default class AdmObjectRelationshipPicker extends LightningElement {
             })
             .map(({ reference = false, apiName, label, dataType, relationshipName, referenceToInfos = [] }) => {
                 if (reference) {
-                    let referencedObjectName = referenceToInfos[0].apiName;
-                    return { apiName, label, dataType, relationshipName, referencedObjectName };
+                    return { apiName, label, dataType, relationshipName, referencedObjectName: referenceToInfos[0].apiName };
                 } else {
                     return { apiName, label, dataType };
                 }
@@ -124,7 +123,7 @@ export default class AdmObjectRelationshipPicker extends LightningElement {
     }
 
     get hasSpanningReference() {
-        return !!this.selectedRelationship ? this.selectedRelationship.spanning : false;
+        return this.selectedRelationship?.spanning ?? false;
     }
 
     get spanningObjectName() {

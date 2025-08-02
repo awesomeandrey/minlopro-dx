@@ -111,7 +111,7 @@ jobs:
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v2
         with:
-          run-arguments: --workspace "mdapi/src" -f "results.csv" -f "results.html" -f "results.json" --rule-selector all:Critical --rule-selector all:High
+          run-arguments: -w 'mdapi/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all
           results-artifact-name: salesforce-code-analyzer-results
           # github-token: ${{ github.token }}
   run-post-merge-actions:

@@ -63,7 +63,7 @@ export default class Confetti extends LightningElement {
     }
 
     updateConfettiStyle(style) {
-        const currentTop = parseInt(style.split(';')[1].split(':')[1]);
+        const currentTop = parseInt(style.split(';')[1].split(':')[1], 10);
         const updatedTop = currentTop + 10;
         return style.replace(`top: ${currentTop}px`, `top: ${updatedTop}px`);
     }

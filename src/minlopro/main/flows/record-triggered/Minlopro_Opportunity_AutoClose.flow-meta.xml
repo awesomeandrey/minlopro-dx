@@ -113,7 +113,7 @@
     <formulas>
         <name>autocloseOppNotificationTitle</name>
         <dataType>String</dataType>
-        <expression>&apos;Upcoming Opportunity Auto-Closure&apos;</expression>
+        <expression>&apos;Upcoming Opportunity Auto-Closure: &quot;&apos; + {!$Record.Name} + &apos;&quot;&apos;</expression>
     </formulas>
     <interviewLabel>Minlopro - Opportunity - Auto Close {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Opportunity - Auto-Close</label>

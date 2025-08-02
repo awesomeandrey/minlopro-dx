@@ -243,7 +243,7 @@ export default class DatatableContactsTab extends LightningElement {
 
     // Event Handlers;
 
-    handleAddEntry(event) {
+    handleAddEntry() {
         const proto = { Id: uniqueId(), Title: 'Salesforce Developer', Industry__c: 'Finance' };
         this.draftValues = [proto, ...this.draftValues];
         this.records = [proto, ...this.records];
@@ -254,7 +254,7 @@ export default class DatatableContactsTab extends LightningElement {
         this.showCdtColumnsOnly = !this.showCdtColumnsOnly;
     }
 
-    handleReset(event) {
+    handleReset() {
         this.reset();
         this.fetchAndAppendContacts();
     }
@@ -289,7 +289,7 @@ export default class DatatableContactsTab extends LightningElement {
         this.errors = cloneObject(currentErrors);
     }
 
-    async handleSave(event) {
+    async handleSave() {
         console.group('onsave');
         // Turn on spinner;
         this.loading = true;
@@ -362,12 +362,12 @@ export default class DatatableContactsTab extends LightningElement {
         }
     }
 
-    handleCancel(event) {
+    handleCancel() {
         this.errors = { rows: {}, table: {} };
         this.draftValues = [];
     }
 
-    handleLoadMore(event) {
+    handleLoadMore() {
         if (!this.loading && this.enableInfiniteLoading) {
             // Load more data;
             this.fetchAndAppendContacts();

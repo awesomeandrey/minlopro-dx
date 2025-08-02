@@ -44,7 +44,7 @@ public virtual class fflib_SObjects extends fflib_Objects implements fflib_ISObj
 
     public fflib_SObjects(List<SObject> records, Schema.SObjectType sObjectType) {
         super(records);
-        SObjectDescribe = sObjectType.getDescribe();
+        SObjectDescribe = sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED);
     }
 
     public virtual List<SObject> getRecords() {

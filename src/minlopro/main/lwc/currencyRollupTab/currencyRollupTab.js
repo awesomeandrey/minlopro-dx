@@ -268,7 +268,7 @@ export default class CurrencyRollupTab extends LightningElement {
 
     // Event Handlers;
 
-    handleReset(event) {
+    handleReset() {
         this.selectedAccountId = null;
         this.refs.accountPicker.clearSelection();
         this.error = null;
@@ -277,7 +277,7 @@ export default class CurrencyRollupTab extends LightningElement {
         this.loading = false;
     }
 
-    handleRefreshWireAdapters(event) {
+    handleRefreshWireAdapters() {
         refreshApex(this.wiredUserInfo);
         refreshApex(this.wiredRelatedOpps);
         refreshApex(this.wiredCurrencyTypes);
@@ -321,7 +321,7 @@ export default class CurrencyRollupTab extends LightningElement {
         this.tableErrors = cloneObject(currentErrors);
     }
 
-    async handleSave(event) {
+    async handleSave() {
         console.group('onsave');
         // Turn on spinner;
         this.loading = true;
@@ -372,11 +372,11 @@ export default class CurrencyRollupTab extends LightningElement {
         console.groupEnd();
     }
 
-    handleCancel(event) {
+    handleCancel() {
         this.draftValues = [];
     }
 
-    async handleRollupOpps(event) {
+    async handleRollupOpps() {
         this.loading = true;
         try {
             this.apexRollupToOrgCurrency = await rollupOpportunitiesByAccountIdApex({ accountId: this.selectedAccountId });

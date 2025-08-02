@@ -3,7 +3,7 @@
  */
 @IsTest
 public with sharing class ChangePasswordControllerTest {
-    @IsTest(SeeAllData=true)
+    @IsTest
     public static void testChangePasswordController() {
         // Instantiate a new controller with all parameters in the page
         ChangePasswordController controller = new ChangePasswordController();

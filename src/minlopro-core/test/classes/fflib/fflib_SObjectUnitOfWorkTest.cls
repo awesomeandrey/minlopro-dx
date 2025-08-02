@@ -629,7 +629,10 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
             System.assertEquals(
                 true,
                 actualTypes.contains(sObjectType),
-                String.format('Type {0} was not registered.', new List<String>{ sObjectType.getDescribe().getName() })
+                String.format(
+                    'Type {0} was not registered.',
+                    new List<String>{ sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName() }
+                )
             );
         }
     }
@@ -684,7 +687,7 @@ private with sharing class fflib_SObjectUnitOfWorkTest {
                 throw new DerivedUnitOfWorkException(
                     String.format(
                         'Type {0} has already been registered.',
-                        new List<String>{ sObjectType.getDescribe().getName() }
+                        new List<String>{ sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName() }
                     )
                 );
             }

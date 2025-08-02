@@ -3,7 +3,7 @@ private class OAuthJwtAuthProvPluginTest {
     @IsTest
     static void getCustomMetadataType() {
         OAuthJwtAuthProviderPlugin plugin = new OAuthJwtAuthProviderPlugin();
-        String cmtObjectName = AuthProviderSetting__mdt.SObjectType.getDescribe().getName();
+        String cmtObjectName = AuthProviderSetting__mdt.SObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName();
         Assert.areEqual(cmtObjectName, plugin.getCustomMetadataType());
     }
 

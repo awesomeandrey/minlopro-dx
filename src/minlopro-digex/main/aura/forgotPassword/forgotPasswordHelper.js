@@ -3,7 +3,7 @@
         expid: 'e.c:setExpId'
     },
 
-    handleForgotPassword: function (component, event, helpler) {
+    handleForgotPassword: function (component) {
         var username = component.find('username').get('v.value');
         var checkEmailUrl = component.get('v.checkEmailUrl');
         var action = component.get('c.forgotPassword');
@@ -18,12 +18,12 @@
         $A.enqueueAction(action);
     },
 
-    setBrandingCookie: function (component, event, helpler) {
+    setBrandingCookie: function (component) {
         var expId = component.get('v.expid');
         if (expId) {
             var action = component.get('c.setExperienceId');
             action.setParams({ expId: expId });
-            action.setCallback(this, function (a) {});
+            action.setCallback(this, function () {});
             $A.enqueueAction(action);
         }
     }

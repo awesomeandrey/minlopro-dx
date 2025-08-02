@@ -200,7 +200,7 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
      *
      */
     private void handleRegisterType(Schema.SObjectType sObjectType) {
-        String sObjectName = sObjectType.getDescribe().getName();
+        String sObjectName = sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName();
 
         // add type to dml operation tracking
         m_newListByType.put(sObjectName, new List<SObject>());
@@ -633,20 +633,20 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
 
     private void publishBeforeEventsStarting() {
         for (Schema.SObjectType sObjectType : m_sObjectTypes) {
-            m_dml.eventPublish(m_publishBeforeListByType.get(sObjectType.getDescribe().getName()));
+            m_dml.eventPublish(m_publishBeforeListByType.get(sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName()));
         }
     }
 
     private void insertDmlByType() {
         for (Schema.SObjectType sObjectType : m_sObjectTypes) {
-            m_relationships.get(sObjectType.getDescribe().getName()).resolve();
-            m_dml.dmlInsert(m_newListByType.get(sObjectType.getDescribe().getName()));
+            m_relationships.get(sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName()).resolve();
+            m_dml.dmlInsert(m_newListByType.get(sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName()));
         }
     }
 
     private void updateDmlByType() {
         for (Schema.SObjectType sObjectType : m_sObjectTypes) {
-            m_dml.dmlUpdate(m_dirtyMapByType.get(sObjectType.getDescribe().getName()).values());
+            m_dml.dmlUpdate(m_dirtyMapByType.get(sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName()).values());
         }
     }
 
@@ -677,13 +677,17 @@ public virtual class fflib_SObjectUnitOfWork implements fflib_ISObjectUnitOfWork
 
     private void publishAfterSuccessEvents() {
         for (Schema.SObjectType sObjectType : m_sObjectTypes) {
-            m_dml.eventPublish(m_publishAfterSuccessListByType.get(sObjectType.getDescribe().getName()));
+            m_dml.eventPublish(
+                m_publishAfterSuccessListByType.get(sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName())
+            );
         }
     }
 
     private void publishAfterFailureEvents() {
         for (Schema.SObjectType sObjectType : m_sObjectTypes) {
-            m_dml.eventPublish(m_publishAfterFailureListByType.get(sObjectType.getDescribe().getName()));
+            m_dml.eventPublish(
+                m_publishAfterFailureListByType.get(sObjectType.getDescribe(SObjectDescribeOptions.DEFERRED).getName())
+            );
         }
     }
 

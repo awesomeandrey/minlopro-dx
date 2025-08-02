@@ -9,7 +9,7 @@
         helpler.handleSelfRegister(component, event, helpler);
     },
 
-    setStartUrl: function (component, event, helpler) {
+    setStartUrl: function (component, event) {
         var startUrl = event.getParam('startURL');
         if (startUrl) {
             component.set('v.startUrl', startUrl);

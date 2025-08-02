@@ -100,7 +100,7 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
         this.selectedDocuments = selectedRows.map((_) => ({ ..._ }));
     }
 
-    async handleMergeDocuments(event) {
+    async handleMergeDocuments() {
         try {
             this.loading = true;
 
@@ -138,7 +138,7 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
         }
     }
 
-    async handleReset(event) {
+    async handleReset() {
         this.postMessageToIframe(null);
         this.$datatable.selectedRows = [];
         this.selectedDocuments = [];

@@ -73,7 +73,6 @@ export default class WysiwygTab extends LightningElement {
     wireAccountRecord({ error, data }) {
         if (error) {
             this.errorObj = parseError(error);
-            throw new Error(this.errorObj.message);
         } else if (data && isEmpty(this.richTextValue)) {
             this.richTextValue = getFieldValue(data, WYSIWYG_NOTES_FIELD);
             if (isEmpty(this.richTextValue)) {
@@ -89,7 +88,7 @@ export default class WysiwygTab extends LightningElement {
         this.richTextValue = '';
     }
 
-    async handleSaveAccount(event) {
+    async handleSaveAccount() {
         this.loading = true;
         try {
             await updateRecord({
@@ -113,7 +112,7 @@ export default class WysiwygTab extends LightningElement {
         inputRichText.setFormat({ [selectedFormat]: !currentFormat[selectedFormat] }); // Toggle selected format state;
     }
 
-    async handleInsertUserField(event) {
+    async handleInsertUserField() {
         const { selectedFieldPath } =
             (await ModalFieldPathSelection.open({
                 size: 'medium',
@@ -127,7 +126,7 @@ export default class WysiwygTab extends LightningElement {
         }
     }
 
-    handleReset(event) {
+    handleReset() {
         this.richTextValue = '';
         this.selectedAccountId = null;
         this?.refs?.recordPicker.clearSelection();

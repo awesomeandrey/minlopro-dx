@@ -42,7 +42,7 @@ export default class LogsMonitorPanel extends LightningElement {
             // LEFT;
             if (deltaX < 0) {
                 // px (pixels);
-                const leftDivWidth = Math.round(parseInt(window.getComputedStyle(previousElementSibling).width) + deltaX);
+                const leftDivWidth = Math.round(parseInt(window.getComputedStyle(previousElementSibling).width, 10) + deltaX);
                 // % (percentage);
                 const leftDivRatio = this.calculateConsumedWidthRatio(leftDivWidth);
                 previousElementSibling.style.flex = `0 ${leftDivRatio}%`;
@@ -53,7 +53,7 @@ export default class LogsMonitorPanel extends LightningElement {
             // RIGHT;
             else if (deltaX > 0) {
                 // px (pixels);
-                const rightDivWidth = Math.round(parseInt(window.getComputedStyle(nextElementSibling).width) - deltaX);
+                const rightDivWidth = Math.round(parseInt(window.getComputedStyle(nextElementSibling).width, 10) - deltaX);
                 // % (percentage);
                 const rightDivRatio = this.calculateConsumedWidthRatio(rightDivWidth);
                 nextElementSibling.style.flex = `0 ${rightDivRatio}%`;
@@ -117,7 +117,7 @@ export default class LogsMonitorPanel extends LightningElement {
     }
 
     calculateConsumedWidthRatio(resizableItemWidthInPixels) {
-        const containerWidth = Math.round(parseInt(window.getComputedStyle(this.refs.container).width));
+        const containerWidth = Math.round(parseInt(window.getComputedStyle(this.refs.container).width, 10));
         const consumedRatio = Math.round((resizableItemWidthInPixels * 100) / containerWidth);
         return Math.max(25, consumedRatio);
     }

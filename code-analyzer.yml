@@ -1198,9 +1198,8 @@ rules:
                 - JavaScript
                 - TypeScript
         'no-await-in-loop':
-            severity: 2
+            severity: 3
             tags:
-                - ErrorProne
                 - JavaScript
                 - TypeScript
         'no-bitwise':
@@ -1665,7 +1664,7 @@ rules:
                 - JavaScript
                 - TypeScript
         'no-prototype-builtins':
-            severity: 2
+            severity: 5
             tags:
                 - Recommended
                 - ErrorProne
@@ -1769,7 +1768,7 @@ rules:
                 - ErrorProne
                 - JavaScript
                 - TypeScript
-        "no-template-curly-in-string":
+        'no-template-curly-in-string':
             severity: 4
             tags:
                 - Recommended
@@ -2310,7 +2309,7 @@ rules:
                 - Recommended
                 - Security
                 - Apex
-        "ApexDoc":
+        'ApexDoc':
             severity: 4
             tags:
                 - Recommended
@@ -2323,7 +2322,7 @@ rules:
                 - Security
                 - Apex
         'ApexOpenRedirect':
-            severity: 2
+            severity: 3
             tags:
                 - Recommended
                 - Security
@@ -2459,7 +2458,7 @@ rules:
                 - BestPractices
                 - Apex
         'AvoidHardCodedCredentialsInAura':
-            severity: 2
+            severity: 3
             tags:
                 - AppExchange
                 - Security
@@ -2688,7 +2687,7 @@ rules:
                 - Recommended
                 - ErrorProne
                 - Apex
-        "EmptyStatementBlock":
+        'EmptyStatementBlock':
             severity: 3
             tags:
                 - Recommended
@@ -2895,7 +2894,7 @@ rules:
                 - Performance
                 - Apex
         'OverrideBothEqualsAndHashcode':
-            severity: 2
+            severity: 3
             tags:
                 - Recommended
                 - ErrorProne
@@ -3124,10 +3123,10 @@ engines:
             other: []
 
     retire-js:
-        disable_engine: true
+        disable_engine: false
 
     regex:
-        disable_engine: true
+        disable_engine: false
 
         custom_rules: {}
 
@@ -3169,7 +3168,7 @@ engines:
         custom_rulesets: []
 
     cpd:
-        disable_engine: true
+        disable_engine: false
 
         java_command: null
 

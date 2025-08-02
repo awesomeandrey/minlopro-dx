@@ -1,13 +1,13 @@
 import { LightningElement, track } from 'lwc';
-import { cloneObject, resolveRecordId, uniqueId, waitAsync } from 'c/utilities';
+// import { resolveRecordId } from 'c/utilities';
 
-import USER_ID from '@salesforce/user/Id';
+// import USER_ID from '@salesforce/user/Id';
 import USER_TIME_ZONE from '@salesforce/i18n/timeZone';
 import USER_LOCALE from '@salesforce/i18n/locale';
 
 // Constants;
-const SAMPLE_ACCOUNT_ID = resolveRecordId('${SF_SAMPLE_ACCOUNT_ID}');
-const SAMPLE_CONTACT_ID = resolveRecordId('${SF_SAMPLE_CONTACT_ID}');
+// const SAMPLE_ACCOUNT_ID = resolveRecordId('${SF_SAMPLE_ACCOUNT_ID}');
+// const SAMPLE_CONTACT_ID = resolveRecordId('${SF_SAMPLE_CONTACT_ID}');
 
 export default class Playground extends LightningElement {
     @track loading = false;
@@ -35,7 +35,7 @@ export default class Playground extends LightningElement {
         return `${day}-${month}-${year} ${hour}:${minute}`;
     }
 
-    async handleCelebrateWithConfetti(event) {
+    async handleCelebrateWithConfetti() {
         await this.refs.confetti.celebrate();
     }
 }
