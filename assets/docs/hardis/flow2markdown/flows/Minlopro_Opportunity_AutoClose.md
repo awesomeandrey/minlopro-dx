@@ -102,7 +102,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Name|Data Type|Expression|Description|
 |:-- |:--:|:-- |:--  |
 |autocloseOppNotificationBody|String|'Your opportunity will be closed soon.'|<!-- -->|
-|autocloseOppNotificationTitle|String|'Upcoming Opportunity Auto-Closure'|<!-- -->|
+|autocloseOppNotificationTitle|String|'Upcoming Opportunity Auto-Closure: "' + {!$Record.Name} + '"'|<!-- -->|
 
 
 ## Flow Nodes Details
