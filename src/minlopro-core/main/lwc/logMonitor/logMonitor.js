@@ -10,6 +10,7 @@ import $UserId from '@salesforce/user/Id';
 // Apex;
 import getUserInfoByIdApex from '@salesforce/apex/SystemInfoController.getUserInfoById';
 import getLoggerSettingsBySetupOwnersApex from '@salesforce/apex/LogsMonitorPanelController.getLoggerSettingsBySetupOwners';
+import runDemoApex from '@salesforce/apex/LoggerDemo.run';
 
 // Static Resources;
 import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
@@ -275,6 +276,12 @@ export default class LogMonitor extends LightningElement {
     }
 
     // Event Handlers;
+
+    async handleTest() {
+        this.loading = true;
+        await runDemoApex();
+        this.loading = false;
+    }
 
     handleToggleMute() {
         this.isMuted = !this.isMuted;
