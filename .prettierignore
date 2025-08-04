@@ -14,6 +14,7 @@
 **/extlClntAppOauthPolicies/
 **/extlClntAppOauthSettings/
 **/flows/
+**/flowtests/
 **/layouts/
 **/matchingRules/
 **/networkBranding/
