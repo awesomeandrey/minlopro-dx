@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/retrieve_by_manifest.sh
-# - echo $ORG_ALIAS | bash ./scripts/util/retrieve_by_manifest.sh
+# - bash ./scripts/util/retrieve_metadata_by_manifest.sh
+# - echo $ORG_ALIAS | bash ./scripts/util/retrieve_metadata_by_manifest.sh
 
 # Capture target org alias;
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS

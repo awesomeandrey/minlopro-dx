@@ -4,8 +4,7 @@ private class PermissionSetServiceTest {
     final static Set<String> PERMISSION_SET_NAMES = new Set<String>{
         'Minlopro_Core', // custom permission set
         'Minlopro_Logger', // custom permission set
-        'Minlopro_PSG_InternalUser', // custom permission set group
-        'SalesConsoleUser' // standard permission set
+        'Minlopro_PSG_InternalUser' // custom permission set group
     };
 
     @IsTest
