@@ -122,7 +122,6 @@ export default class AdmObjectRelationshipPickerContainer extends LightningEleme
 
     handleSelect(event) {
         this.relationshipsArray = cloneObject(event.detail);
-        // console.table(cloneObject(this.relationshipsArray));
         this.dispatchEvent(new CustomEvent('select', { detail: { value: this.selectedFieldPath } }));
     }
 }

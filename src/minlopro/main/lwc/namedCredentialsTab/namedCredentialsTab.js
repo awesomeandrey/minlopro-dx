@@ -3,12 +3,9 @@ import { NavigationMixin } from 'lightning/navigation';
 import $Toastify from 'c/toastify';
 import { cloneObject, isEmpty, isNotEmpty } from 'c/utilities';
 
-// Constants;
 import $UserId from '@salesforce/user/Id';
 
-// Apex Controller Methods;
 import getNamedCredentialsApex from '@salesforce/apex/NamedCredentialsController.getNamedCredentials';
-import getAuthenticationUrlApex from '@salesforce/apex/NamedCredentialsController.getAuthenticationUrl';
 import invokeApex from '@salesforce/apex/NamedCredentialsController.invoke';
 
 export default class NamedCredentialsTab extends NavigationMixin(LightningElement) {
@@ -18,11 +15,13 @@ export default class NamedCredentialsTab extends NavigationMixin(LightningElemen
     @track error = null;
 
     get namedCredentialOptions() {
-        return this.namedCredentials.map(({ MasterLabel, DeveloperName, PrincipalType }) => ({
-            label: MasterLabel,
-            value: DeveloperName,
-            iconName: isNotEmpty(PrincipalType) ? 'utility:anywhere_alert' : 'utility:events'
-        }));
+        return this.namedCredentials.map((item) => {
+            return {
+                ...item,
+                value: item.apiName,
+                iconName: item.isLegacy ? 'utility:anywhere_alert' : 'utility:events'
+            };
+        });
     }
 
     get namedCredentials() {
@@ -33,15 +32,7 @@ export default class NamedCredentialsTab extends NavigationMixin(LightningElemen
     }
 
     get selectedNamedCredential() {
-        return this.namedCredentials.find(({ DeveloperName }) => DeveloperName === this.selectedValue);
-    }
-
-    get selectedNamedCredentialType() {
-        if (this.selectedNamedCredential) {
-            let principalType = this.selectedNamedCredential['PrincipalType'];
-            return isNotEmpty(principalType) ? `Legacy (${principalType})` : `Secured Endpoint`;
-        }
-        return null;
+        return this.namedCredentials.find(({ apiName }) => apiName === this.selectedValue) || {};
     }
 
     get doDisableBtn() {
@@ -52,12 +43,16 @@ export default class NamedCredentialsTab extends NavigationMixin(LightningElemen
         return isNotEmpty(this.calloutStats);
     }
 
-    get hasError() {
-        return isNotEmpty(this.error);
-    }
-
     get browserTabName() {
         return `${this.selectedValue}-${$UserId}`;
+    }
+
+    get isLegacyPerUser() {
+        return isNotEmpty(this.selectedNamedCredential) && this.selectedNamedCredential.isLegacyPerUser;
+    }
+
+    get isSecuredEndpoint() {
+        return isNotEmpty(this.selectedNamedCredential) && !this.selectedNamedCredential.isLegacy;
     }
 
     @wire(getNamedCredentialsApex)
@@ -65,6 +60,14 @@ export default class NamedCredentialsTab extends NavigationMixin(LightningElemen
 
     connectedCallback() {
         this.loading = false;
+        /**
+         * Inspired by https://www.jamessimone.net/blog/joys-of-apex/implementing-oauth-browser-flows-properly.
+         * Works when authenticating External Credentials only!
+         */
+        const popupContext = window.opener;
+        if (popupContext) {
+            window.close();
+        }
     }
 
     handleSelect(event) {
@@ -96,12 +99,15 @@ export default class NamedCredentialsTab extends NavigationMixin(LightningElemen
         }
     }
 
-    async handleRedirectToAuthPage() {
+    async handleAuthLegacyNamedCredential() {
         this.loading = true;
         try {
-            const url = await getAuthenticationUrlApex({ namedCredentialApiName: this.selectedValue });
-            // When 'this.browserTabName' is used then consecutive link clicks navigate to the same browser tab;
-            window.open(url, this.browserTabName, 'width=900,height=600');
+            const { authenticationUrl } = this.selectedNamedCredential;
+            /**
+             * `this.browserTabName` is assigned to give each tab a unique identifier, ensuring that repeated clicks
+             * on the same link reload the existing tab instead of opening a new one each time.
+             */
+            window.open(authenticationUrl, this.browserTabName);
         } catch (error) {
             this.error = error;
         } finally {
