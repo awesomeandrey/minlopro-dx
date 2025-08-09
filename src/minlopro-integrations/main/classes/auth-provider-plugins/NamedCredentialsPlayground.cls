@@ -1,3 +1,4 @@
+@SuppressWarnings('PMD')
 public with sharing class NamedCredentialsPlayground {
     public void runAll() {
         for (NamedCredential credential : [
