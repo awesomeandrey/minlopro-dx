@@ -25,4 +25,6 @@ runs:
         key: minlopro-dx-env-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
     - name: "Build Environment & Install Salesforce CLI"
       shell: bash
+      env:
+        NODE_ENV: production
       run: bash ./scripts/deploy/common/build.sh

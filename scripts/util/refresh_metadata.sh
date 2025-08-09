@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/refresh.sh
-# - bash ./scripts/util/refresh.sh "org_alias" "src"
+# - bash ./scripts/util/refresh_metadata.sh
+# - bash ./scripts/util/refresh_metadata.sh "org_alias" "src"
 
 TARGET_ORG_ALIAS="$1"
 METADATA_FOLDER_PATH="$2"

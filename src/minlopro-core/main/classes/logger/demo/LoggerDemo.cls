@@ -1,9 +1,10 @@
 public with sharing class LoggerDemo implements Database.Batchable<Integer> {
-    public void run() {
+    @AuraEnabled
+    public static void run() {
         // Invoke this method to generate logs from different contexts;
-        Logger.debug('Invoking Future Method...');
+        Logger.debug('This is INFO log.');
+        Logger.error('This is ERROR log.');
         futureMethod();
-        Logger.error('Sample Error Log.');
     }
 
     @Future

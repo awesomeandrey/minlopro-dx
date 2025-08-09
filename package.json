@@ -2,7 +2,7 @@
     "name": "minlopro",
     "type": "module",
     "private": true,
-    "version": "2.4.9",
+    "version": "3.0.0",
     "engines": {
         "node": ">=20.x",
         "npm": ">=10.x"
@@ -14,7 +14,8 @@
         "prettier:src:check": "prettier --check \"src/**\"",
         "jest": "sfdx-lwc-jest --skipApiVersionCheck",
         "jest:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
-        "sf:apex:tests": "sf apex run test --code-coverage --output-dir 'testresults' --wait 10 --concise",
+        "sf:apex:tests": "sf apex run test --code-coverage --output-dir 'testresults' --wait 15 --concise",
+        "sf:flow:tests": "sf flow run test --code-coverage --output-dir 'testresults' --synchronous --concise",
         "sf:auth:url:create": "mkdir -p 'build' && sf org display --verbose --json > 'build/target-org-info.json'",
         "sf:auth:url:store": "sf org login sfdx-url -f 'build/target-org-info.json'",
         "sf:manifest:create:full": "bash ./scripts/deploy/common/generate_manifest.sh --mode full",
@@ -23,14 +24,11 @@
         "sf:hardis:diagnose:legacyapi": "sf hardis:org:diagnose:legacyapi",
         "sf:lightning:dev:app": "sf lightning dev app --name MinloproConsole --device-type desktop",
         "sf:code-analyzer:run": "sf project convert source -r 'src' -d 'build/src' -m ApexClass -m Flow -m AuraDefinitionBundle -m LightningComponentBundle && sf code-analyzer run -w 'build/src' -f 'build/code-analyzer-results.html' -r all",
-        "src:retrieve": "bash ./scripts/util/get_target_org_alias.sh | bash ./scripts/util/retrieve_by_manifest.sh",
         "src:deploy": "bash ./scripts/deploy/deploy.sh $(bash ./scripts/util/get_target_org_alias.sh) 'hard'",
         "src:deploy:check": "bash ./scripts/deploy/deploy.sh $(bash ./scripts/util/get_target_org_alias.sh) 'dry-run'",
         "src:push": "dotenv -e '.env' -- sf project deploy start --verbose --ignore-conflicts --ignore-warnings --wait 10",
         "src:pull": "sf project retrieve start --ignore-conflicts --wait 10",
-        "src:pull:preview": "sf project retrieve preview",
-        "src:crma:deploy": "bash ./scripts/crm-analytics/deploy.sh",
-        "src:crma:refresh": "bash ./scripts/crm-analytics/refresh.sh"
+        "src:pull:preview": "sf project retrieve preview"
     },
     "dependencies": {
         "@prettier/plugin-xml": "^2.0.1",
@@ -47,5 +45,8 @@
         "prettier-plugin-apex": "^2.2.4",
         "prettier-plugin-sql": "^0.18.1",
         "xml2js": "^0.6.2"
+    },
+    "devDependencies": {
+        "@salesforce/mcp": "^0.17.0"
     }
 }

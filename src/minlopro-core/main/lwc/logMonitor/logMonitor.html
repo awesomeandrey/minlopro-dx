@@ -32,6 +32,12 @@
                     icon-name="utility:collapse_all"
                     disabled={disableButtons}
                 ></lightning-button>
+                <lightning-button
+                    label="Test"
+                    onclick={handleTest}
+                    icon-name="utility:check"
+                    disabled={loading}
+                ></lightning-button>
                 <lightning-button-icon-stateful
                     icon-name="utility:filter_criteria_rule"
                     selected={isCompactMode}

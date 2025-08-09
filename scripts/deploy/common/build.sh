@@ -39,10 +39,6 @@ install_sf_plugin "sfdmu"
 install_sf_plugin "@salesforce/analytics"
 # https://developer.salesforce.com/docs/platform/lwc/guide/get-started-test-components.html
 install_sf_plugin "@salesforce/plugin-lightning-dev@prerelease"
-# https://github.com/salesforcecli/plugin-community
-install_sf_plugin "community"
-# https://developer.salesforce.com/docs/platform/salesforce-code-analyzer/guide/get-started.html
-install_sf_plugin "code-analyzer"
 
 # Install the rest of dependencies via NPM
 npm ci --silent; echo
