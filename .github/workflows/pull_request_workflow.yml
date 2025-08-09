@@ -96,7 +96,7 @@ jobs:
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v2
         with:
-          run-arguments: -w 'build/src' -r all:Critical -r all
+          run-arguments: -w 'build/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all
           results-artifact-name: salesforce-code-analyzer-results
           # github-token: ${{ github.token }}
       - name: 'Check the Outputs to Determine Whether to Fail'

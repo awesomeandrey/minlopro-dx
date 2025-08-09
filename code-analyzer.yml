@@ -1983,7 +1983,7 @@ rules:
                 - JavaScript
                 - TypeScript
         'one-var':
-            severity: 3
+            severity: 4
             tags:
                 - BestPractices
                 - JavaScript
@@ -2104,13 +2104,13 @@ rules:
                 - JavaScript
                 - TypeScript
         'sort-imports':
-            severity: 3
+            severity: 5
             tags:
                 - BestPractices
                 - JavaScript
                 - TypeScript
         'sort-keys':
-            severity: 3
+            severity: 5
             tags:
                 - BestPractices
                 - JavaScript

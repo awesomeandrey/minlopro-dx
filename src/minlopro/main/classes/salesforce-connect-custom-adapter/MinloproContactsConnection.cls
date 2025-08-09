@@ -8,8 +8,6 @@
  * Another source of inspiration - https://github.com/lmcalpin/custom_adapter_demo/blob/master/CrossOrgDataSourceConnection.apex
  */
 global class MinloproContactsConnection extends DataSource.Connection {
-    private static final String API_VERSION = '58.0';
-    private static final String NAMED_CREDENTIAL_API_NAME = 'SalesforceRestApi1';
     private static final String CONTACTS_TABLE_NAME = 'SalesforceContact';
     private DataSource.ConnectionParams connectionParams;
 
@@ -61,7 +59,7 @@ global class MinloproContactsConnection extends DataSource.Connection {
         String encodedQuery = EncodingUtil.urlEncode(query, 'UTF-8');
         String endpoint = String.format(
             'callout:{0}/services/data/v{1}/query?q={2}',
-            Lists.of(NAMED_CREDENTIAL_API_NAME, API_VERSION, encodedQuery)
+            Lists.of(Constants.NamedCredential.Loopback, Constants.Org.ApiVersion, encodedQuery)
         );
         Logger.debug(endpoint);
         // Prepare HTTP request;

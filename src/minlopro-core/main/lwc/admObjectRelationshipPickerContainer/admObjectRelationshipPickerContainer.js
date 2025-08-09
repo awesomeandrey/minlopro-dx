@@ -64,8 +64,11 @@ export default class AdmObjectRelationshipPickerContainer extends LightningEleme
     }
 
     get normalizedRelationshipPath() {
-        if (this.isContextToParentsMode) return this.normalizedParentRelationshipPath;
-        if (this.isContextToChildrenMode) return this.normalizedChildRelationshipPath;
+        if (this.isContextToParentsMode) {
+            return this.normalizedParentRelationshipPath;
+        } else if (this.isContextToChildrenMode) {
+            return this.normalizedChildRelationshipPath;
+        }
         return null;
     }
 
@@ -73,12 +76,8 @@ export default class AdmObjectRelationshipPickerContainer extends LightningEleme
         return this.relationshipsArray
             .flat(MAX_RELATIONSHIPS_DEPTH)
             .map(({ apiName, relationshipName, referencedObjectName }, index, array) => {
-                let isLastElement = index === array.length - 1;
-                if (isLastElement) {
-                    return apiName;
-                } else {
-                    return `${relationshipName} (${referencedObjectName})`;
-                }
+                const isLastElement = index === array.length - 1;
+                return isLastElement ? apiName : `${relationshipName} (${referencedObjectName})`;
             })
             .join(' > ');
     }
@@ -112,13 +111,12 @@ export default class AdmObjectRelationshipPickerContainer extends LightningEleme
         return null;
     }
 
-    get selectedChildRelationshipPath() {
-        if (this.isContextToChildrenMode) {
-            // TODO;
-            return null;
-        }
-        return null;
-    }
+    // get selectedChildRelationshipPath() {
+    //     if (this.isContextToChildrenMode) {
+    //         return null;
+    //     }
+    //     return null;
+    // }
 
     handleSelect(event) {
         this.relationshipsArray = cloneObject(event.detail);

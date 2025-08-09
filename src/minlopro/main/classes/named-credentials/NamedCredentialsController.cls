@@ -44,7 +44,7 @@ public with sharing class NamedCredentialsController {
             String encodedQuery = EncodingUtil.urlEncode('SELECT Id, Name, Owner.Name FROM Account LIMIT 1', 'UTF-8');
             String endpoint = String.format(
                 'callout:{0}/services/data/v{1}/query?q={2}',
-                Lists.of(namedCredentialApiName, '60.0', encodedQuery)
+                Lists.of(namedCredentialApiName, Constants.Org.ApiVersion, encodedQuery)
             );
             req.setMethod('GET');
             req.setEndpoint(endpoint);
@@ -64,6 +64,7 @@ public with sharing class NamedCredentialsController {
             SELECT Id, MasterLabel, DeveloperName, PrincipalType
             FROM NamedCredential
             ORDER BY PrincipalType ASC, MasterLabel ASC
+            LIMIT 10
         ]) {
             NamedCredentialInfo ncDto = new NamedCredentialInfo(nc);
             if (!ncDto.isLegacy) {

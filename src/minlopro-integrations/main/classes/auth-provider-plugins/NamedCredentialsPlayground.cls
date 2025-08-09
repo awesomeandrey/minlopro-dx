@@ -1,6 +1,4 @@
 public with sharing class NamedCredentialsPlayground {
-    private final static String API_VERSION = '62.0';
-
     public void runAll() {
         for (NamedCredential credential : [
             SELECT DeveloperName
@@ -24,7 +22,7 @@ public with sharing class NamedCredentialsPlayground {
             String encodedQuery = EncodingUtil.urlEncode('SELECT Id, Name, InstanceName FROM Organization', 'UTF-8');
             String endpoint = String.format(
                 'callout:{0}/services/data/v{1}/query?q={2}',
-                Lists.of(namedCredentialApiName, API_VERSION, encodedQuery)
+                Lists.of(namedCredentialApiName, Constants.Org.ApiVersion, encodedQuery)
             );
             req.setMethod('GET');
             req.setEndpoint(endpoint);
