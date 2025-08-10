@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Description__c</fullName>
+    <description
+        >A detailed explanation of what the feature does, its purpose, and any dependencies or impacts it may have on the system.
+        This helps administrators and developers understand the feature at a glance.</description
+    >
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText
+        >Provide a clear and concise description of the feature toggle, including its function and scope.</inlineHelpText
+    >
     <label>Description</label>
     <length>200</length>
     <required>true</required>

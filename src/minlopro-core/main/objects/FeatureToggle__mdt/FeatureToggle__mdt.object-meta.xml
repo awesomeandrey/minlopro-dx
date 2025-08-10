@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description
+        >A framework for enabling or disabling application features dynamically. Toggles are managed as records of this Custom
+        Metadata Type and can be checked in Apex, Lightning Web Components, and other parts of the application to control feature
+        visibility and behavior.</description
+    >
     <label>Feature Toggle</label>
     <pluralLabel>Feature Toggles</pluralLabel>
     <visibility>Public</visibility>
