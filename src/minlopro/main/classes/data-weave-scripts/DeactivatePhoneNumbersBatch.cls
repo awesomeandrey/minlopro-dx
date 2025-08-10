@@ -45,7 +45,7 @@ public without sharing class DeactivatePhoneNumbersBatch implements Database.Bat
             WHERE ContentDocument.Title = :fileName AND IsLatest = TRUE
             LIMIT 1
         ];
-        Logger.debug(cv.toString());
+        Logger.debug(cv);
         return cv.VersionData.toString();
     }
 

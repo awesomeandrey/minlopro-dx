@@ -6,6 +6,6 @@ global class MinloproRegistrationHandler implements Auth.RegistrationHandler {
     }
 
     global void updateUser(Id userId, Id portalId, Auth.UserData data) {
-        Logger.debug(data.toString());
+        Logger.debug(data);
     }
 }

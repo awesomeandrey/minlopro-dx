@@ -9,7 +9,9 @@
 
 <img src="assets/images/MinloproAppLogoMin.png" alt="Minlopro" width="50">
 
-This is a blueprint repository for a typical Salesforce org-based project which is accompanied with CI/CD automations.
+This repository serves as a blueprint for a typical Salesforce project built on Free Developer Org.
+It includes various proof-of-concept implementations and CI/CD automations,
+along with an example Digital Experience site (aka Community) available at https://sfpractises-dev-ed.my.site.com/digex/s/.
 
 ## Documentation
 

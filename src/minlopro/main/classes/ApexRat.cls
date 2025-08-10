@@ -1,3 +1,4 @@
+@SuppressWarnings('PMD')
 public with sharing class ApexRat implements Queueable, Schedulable {
     private final Map<String, String> params;
 
@@ -17,6 +18,6 @@ public with sharing class ApexRat implements Queueable, Schedulable {
     }
 
     public void execute(SchedulableContext context) {
-        Logger.debug(this.params?.toString());
+        Logger.debug(this.params);
     }
 }

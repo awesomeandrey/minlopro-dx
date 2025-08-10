@@ -21,25 +21,15 @@ public without sharing class Logger {
         '^(?:Class\\.)?([^.]+)\\.?([^\\.\\:]+)?[\\.\\:]?([^\\.\\:]*): line (\\d+), column (\\d+)$'
     );
     private static Log__e log = null;
+    private static Integer checkpointCounter = 1;
 
     public static void debug() {
-        debug('', new List<Object>());
+        checkpointCounter++;
+        debug('Checkpoint #' + checkpointCounter, new List<Object>());
     }
 
-    public static void debug(String message) {
-        debug(message, new List<Object>());
-    }
-
-    public static void debug(Integer count) {
-        debug(String.valueOf(count), new List<Object>());
-    }
-
-    public static void debug(List<SObject> records) {
-        debug(JSON.serialize(records), new List<Object>());
-    }
-
-    public static void debug(List<Object> values) {
-        debug('', values);
+    public static void debug(Object o) {
+        debug(o.toString(), new List<Object>());
     }
 
     public static void debug(String message, List<Object> values) {
@@ -47,20 +37,17 @@ public without sharing class Logger {
     }
 
     public static void error() {
-        error('', new List<Object>());
+        checkpointCounter++;
+        error('Checkpoint #' + checkpointCounter, new List<Object>());
     }
 
-    public static void error(String message) {
-        error(message, new List<Object>());
-    }
-
-    public static void error(List<Object> values) {
-        error('', values);
+    public static void error(Object o) {
+        error(o.toString(), new List<Object>());
     }
 
     public static void error(Exception ex) {
         Map<String, String> exceptionInfo = Exceptions.getDetails(ex);
-        error(JSON.serialize(exceptionInfo));
+        error(JSON.serialize(exceptionInfo), new List<Object>());
     }
 
     public static void error(String message, List<Object> values) {

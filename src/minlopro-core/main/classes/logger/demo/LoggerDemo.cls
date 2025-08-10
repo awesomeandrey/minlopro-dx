@@ -42,7 +42,7 @@ public with sharing class LoggerDemo implements Database.Batchable<Integer> {
         }
 
         public void execute(FinalizerContext context) {
-            Logger.debug(context.toString());
+            Logger.debug(context);
             // Note: the instance state is preserved and passed to finalizer!
             Logger.debug('Custom Message State = {0}', Lists.of(this.customMessage));
         }
