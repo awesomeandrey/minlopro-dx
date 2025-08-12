@@ -33,6 +33,7 @@
                     disabled={disableButtons}
                 ></lightning-button>
                 <lightning-button
+                    lwc:if={isTestButtonActive}
                     label="Test"
                     onclick={handleTest}
                     icon-name="utility:check"

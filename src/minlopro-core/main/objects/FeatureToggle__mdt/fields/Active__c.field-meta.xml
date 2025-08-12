@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Active__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description
+        >Indicates whether the feature is currently active or disabled. If checked, the feature is enabled and accessible in the
+        application. Uncheck to disable the feature.</description
+    >
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <inlineHelpText>Check this box to activate the feature. Uncheck to disable it.</inlineHelpText>
+    <label>Active</label>
+    <type>Checkbox</type>
+</CustomField>

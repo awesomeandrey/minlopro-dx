@@ -18,7 +18,7 @@
  * List<ToolingApi.ExternalCredentialParameter> res =
  *     (List<ToolingApi.ExternalCredentialParameter>)
  *         ToolingApi.query(soqlQuery, List<ToolingApi.ExternalCredentialParameter>.class);
- * Logger.debug(res.toString());
+ * Logger.debug(res);
  * ```
  */
 @SuppressWarnings('PMD')

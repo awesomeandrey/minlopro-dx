@@ -35,7 +35,7 @@ public inherited sharing class SfmcSwitcherFinalizerDemo implements Queueable, F
 
     public void execute(FinalizerContext context) {
         Logger.debug('finalizer');
-        Logger.debug(this.fieldToUpdate.toString());
+        Logger.debug(this.fieldToUpdate);
         if (this.flagAction == Action.ENABLE) {
             System.enqueueJob(new SfmcSwitcherFinalizerDemo(this.opportunityIds, Action.DISABLE, this.fieldToUpdate), 1);
         }
