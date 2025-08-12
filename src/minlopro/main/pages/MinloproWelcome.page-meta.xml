@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>63.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
     <label>Minlopro Welcome</label>
+    <packageVersions>
+        <majorNumber>2</majorNumber>
+        <minorNumber>19</minorNumber>
+        <namespace>dlrs</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
+        <minorNumber>8</minorNumber>
+        <namespace>ltngmu</namespace>
+    </packageVersions>
+    <packageVersions>
+        <majorNumber>1</majorNumber>
+        <minorNumber>1</minorNumber>
+        <namespace>prompts102019</namespace>
+    </packageVersions>
 </ApexPage>
