@@ -3,7 +3,7 @@
     <apiVersion>63.0</apiVersion>
     <availableInTouch>true</availableInTouch>
     <confirmationTokenRequired>false</confirmationTokenRequired>
-    <label>Minlopro Welcome</label>
+    <label>digex_RunningUserInfoAsPdf</label>
     <packageVersions>
         <majorNumber>2</majorNumber>
         <minorNumber>19</minorNumber>

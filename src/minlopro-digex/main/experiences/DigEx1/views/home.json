@@ -34,12 +34,19 @@
           "UUID" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
           "activeTab" : "",
           "tabs" : [ {
+            "UUID" : "5dbb890a-cbeb-4650-97e5-269d8afef1a2",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "bbfe8",
+            "tabName" : "Welcome 👋"
+          }, {
             "UUID" : "c4fb8407-94c2-455b-841b-f31f32bfcd88",
             "allowGuestUser" : true,
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "1",
-            "tabName" : "Web-To-Lead"
+            "tabName" : "Web-To-Lead 💰"
           }, {
             "UUID" : "578368a5-3ef7-44fa-88b8-c45bbaa5f45e",
             "allowGuestUser" : true,
@@ -53,7 +60,7 @@
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "4becd",
-            "tabName" : "Dowload Running User Info (LWC)"
+            "tabName" : "Download Running User Info (LWC)"
           } ],
           "useOverflowMenu" : true
         }
@@ -61,6 +68,24 @@
       "componentName" : "forceCommunity:tabLayout",
       "id" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
       "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "height" : "250",
+            "pageName" : "MinloproWelcome",
+            "recordId" : "{!recordId}"
+          },
+          "componentName" : "forceCommunity:visualforcePage",
+          "id" : "6c03aeb8-e457-40b3-9b1a-ff19064ebee4",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "5dbb890a-cbeb-4650-97e5-269d8afef1a2",
+        "regionLabel" : "Welcome 👋",
+        "regionName" : "bbfe8",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
         "components" : [ {
           "componentAttributes" : { },
           "componentName" : "c:digExWebToLeadForm",
@@ -70,7 +95,7 @@
           "type" : "component"
         } ],
         "id" : "c4fb8407-94c2-455b-841b-f31f32bfcd88",
-        "regionLabel" : "Web-To-Lead",
+        "regionLabel" : "Web-To-Lead 💰",
         "regionName" : "1",
         "renditionMap" : { },
         "type" : "region"

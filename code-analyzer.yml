@@ -2802,7 +2802,7 @@ rules:
                 - Security
                 - XML
         'LoadCSSApexStylesheet':
-            severity: 2
+            severity: 4
             tags:
                 - AppExchange
                 - Security
@@ -2988,7 +2988,7 @@ rules:
                 - Security
                 - XML
         'VfCsrf':
-            severity: 2
+            severity: 3
             tags:
                 - Recommended
                 - Security
