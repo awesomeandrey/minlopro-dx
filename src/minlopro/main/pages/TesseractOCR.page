@@ -5,6 +5,11 @@
             return typeof window['Tesseract'] !== 'undefined';
         }
 
+        function truncateString(str, maxLength = 650) {
+            if (typeof str !== 'string') return '';
+            return str.length > maxLength ? str.slice(0, maxLength) + '…' : str;
+        }
+
         async function recognizeText(fileAsBlob) {
             const worker = await Tesseract.createWorker('eng');
             let ocrResult = { status: null, text: null };
@@ -12,7 +17,7 @@
                 const result = await worker.recognize(fileAsBlob);
                 ocrResult = {
                     status: 'success',
-                    text: result.data.text
+                    text: truncateString(result.data.text)
                 };
             } catch (error) {
                 ocrResult = {

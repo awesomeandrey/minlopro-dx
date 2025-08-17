@@ -1,30 +1,43 @@
 <template>
-    <lightning-card title="OCR File Upload" icon-name="custom:custom14">
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-ocr-demo-tab</code></span>
         <lightning-button-group slot="actions">
+            <lightning-button
+                label="Recognize Text"
+                variant="brand"
+                onclick={handleRecognizeText}
+                disabled={doDisableBtn}
+            ></lightning-button>
             <lightning-button label="Reset" variant="neutral" onclick={handleReset}></lightning-button>
         </lightning-button-group>
         <lightning-spinner lwc:if={doShowSpinner} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
-        <lightning-layout multiple-rows>
-            <lightning-layout-item flexibility="no-grow" padding="around-small">
-                <lightning-input
-                    type="file"
-                    label="Upload Image or PDF"
-                    accept={acceptedFormats}
-                    multiple
-                    onchange={handleFilesUpload}
-                ></lightning-input>
-                <iframe lwc:ref="ocrIframe" src="/apex/TesseractVF" style="display: none"></iframe>
+        <lightning-layout>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <iframe lwc:ref="ocrIframe" src="/apex/TesseractOCR" style="display: none"></iframe>
                 <c-pdf-to-png-converter lwc:ref="pdfConverter"></c-pdf-to-png-converter>
-                <div class="slds-m-top_small">
-                    <lightning-button
-                        variant="neutral"
-                        label="Recognize Text"
-                        onclick={handleRecognizeText}
-                        disabled={doDisableBtn}
-                    ></lightning-button>
+                <div class="slds-m-top_medium">
+                    <c-stats label="Stats" icon-name="standard:employee_asset" value={stats}></c-stats>
                 </div>
+                <div class="slds-m-vertical_medium">
+                    <c-error-alert value={error}></c-error-alert>
+                </div>
+                <c-result-set-overview
+                    data={documentsData}
+                    info-text-title="No sample PDF/PNG files found"
+                    info-text-message="Please, upload sample PDF and/or PNG files"
+                >
+                    <c-datatable
+                        lwc:ref="datatable"
+                        key-field="id"
+                        data={documentsData}
+                        columns={documentsColumns}
+                        show-row-number-column
+                        max-row-selection="3"
+                        onrowselection={handleRowSelection}
+                    ></c-datatable>
+                </c-result-set-overview>
             </lightning-layout-item>
-            <lightning-layout-item size="8" padding="around-small">
+            <lightning-layout-item size="6" padding="horizontal-small">
                 <p lwc:if={files.length} class="slds-text-title">Recognized Text</p>
                 <template for:each={files} for:item="file">
                     <div key={file.id} class="slds-box slds-box_x-small slds-size_4-of-4 slds-m-vertical_x-small">
@@ -46,9 +59,6 @@
                         </div>
                     </div>
                 </template>
-            </lightning-layout-item>
-            <lightning-layout-item size="12" padding="around-small">
-                <c-error-alert value={error}></c-error-alert>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>

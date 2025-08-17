@@ -1,20 +1,19 @@
-import { LightningElement, track } from 'lwc';
-import { readFileAsBlob, uniqueId, parseError, cloneObject, isNotEmpty, isEmpty, pipe } from 'c/utilities';
+import { LightningElement, track, wire } from 'lwc';
+import { refreshApex } from '@salesforce/apex';
+import { readFileAsBlob, uniqueId, parseError, cloneObject, isNotEmpty, isEmpty, readBase64AsFile, wait } from 'c/utilities';
+
+import getFileVersionsByTypesApex from '@salesforce/apex/FilesManagementController.getFileVersionsByTypes';
 
 // Originally inspired by https://github.com/mirkomutic/SalesforceOcr
 export default class OcrDemoTab extends LightningElement {
     @track filesMap = new Map();
     @track processQueue = new Set();
-    @track messageListenerFunc = this.handleVFResponse.bind(this);
+    @track messageListenerFunc = this.handleTesseractPageResponse.bind(this);
     @track loading = false;
     @track error = null;
 
     get files() {
         return Array.from(this.filesMap.values());
-    }
-
-    get acceptedFormats() {
-        return ['image/png', 'image/jpg', 'application/pdf'].join(',');
     }
 
     get doShowSpinner() {
@@ -29,13 +28,51 @@ export default class OcrDemoTab extends LightningElement {
         return this.processQueue.size > 0;
     }
 
-    get $iframe() {
+    get documentsData() {
+        if (isEmpty(this.wiredFileVersions.data)) {
+            return [];
+        }
+        return cloneObject(this.wiredFileVersions.data);
+    }
+
+    get documentsColumns() {
+        return [
+            {
+                label: 'File Name',
+                fieldName: 'id',
+                type: 'customLookup',
+                typeAttributes: {
+                    context: { fieldName: 'id' },
+                    fieldName: 'id',
+                    objectApiName: 'ContentVersion',
+                    value: { fieldName: 'id' },
+                    nameFieldPath: 'Title'
+                }
+            },
+            {
+                label: 'File Type',
+                fieldName: 'type',
+                type: 'customCodeSnippet'
+            }
+        ];
+    }
+
+    get stats() {
+        return {
+            'Images to process': this.filesMap.size
+        };
+    }
+
+    get $ocrIframe() {
         return this.refs.ocrIframe;
     }
 
     get $pdfConverter() {
         return this.refs.pdfConverter;
     }
+
+    @wire(getFileVersionsByTypesApex, { fileTypes: ['PDF', 'PNG'] })
+    wiredFileVersions = {};
 
     connectedCallback() {
         window.addEventListener('message', this.messageListenerFunc);
@@ -47,51 +84,80 @@ export default class OcrDemoTab extends LightningElement {
 
     // Event Handlers;
 
-    async handleFilesUpload(event) {
-        this.loading = true;
-        const files = [];
-        for await (let uploadedFile of Array.from(event.target.files)) {
-            if (uploadedFile.type === 'application/pdf') {
-                // Convert PDF to PNG image(s);
-                let pdfAsPngFiles = await this.$pdfConverter.convert({ file: uploadedFile });
-                pdfAsPngFiles.forEach(pipe(this.captureFileInfo.bind(this), files.push.bind(files)));
-            } else {
-                files.push(this.captureFileInfo(uploadedFile));
-            }
-        }
-        this.filesMap = new Map(files.map((_) => [_.id, _]));
-        this.loading = false;
-    }
-
     async handleRecognizeText() {
         this.loading = true;
         this.processQueue = new Set();
         try {
-            for await (let { file, id } of this.filesMap.values()) {
+            for await (const { file, id } of this.filesMap.values()) {
                 // Convert file to Blob representation;
                 const fileAsBlob = await readFileAsBlob(file);
                 // Notify Visualforce Page;
-                this.$iframe.contentWindow.postMessage({ id, blob: fileAsBlob }, '*');
+                this.$ocrIframe.contentWindow.postMessage({ id, blob: fileAsBlob }, '*');
                 // Append to process queue;
                 this.processQueue.add(id);
             }
+            wait(() => {
+                if (this.isProcessing) {
+                    // The OCR process took too long to complete, and an error likely occurred
+                    this.loading = false;
+                }
+            }, 7000);
         } catch (error) {
             this.loading = false;
             this.error = parseError(error);
         }
     }
 
+    async handleRowSelection(event) {
+        this.loading = true;
+        try {
+            const { selectedRows } = event.detail;
+            // Cast to `File` instances;
+            const files = selectedRows.map(({ base64EncodedContent, type, name }) => {
+                return readBase64AsFile(base64EncodedContent, type, name);
+            });
+            const capture = (file) => {
+                return {
+                    id: uniqueId(),
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    file
+                };
+            };
+            // Cast to manageable entries to post to iframe;
+            const imageEntries = [];
+            for (const fileItem of files) {
+                if (fileItem.type === 'application/pdf') {
+                    // Convert PDF to PNG image(s);
+                    const pdfAsPngFiles = await this.$pdfConverter.convert({ file: fileItem });
+                    pdfAsPngFiles.forEach((pngFile) => imageEntries.push(capture(pngFile)));
+                } else {
+                    imageEntries.push(capture(fileItem));
+                }
+            }
+            console.table(imageEntries);
+            this.filesMap = new Map(imageEntries.map((_) => [_.id, _]));
+        } catch (error) {
+            this.error = parseError(error);
+        } finally {
+            this.loading = false;
+        }
+    }
+
     // Service Methods;
 
-    handleReset() {
+    async handleReset() {
         this.filesMap = new Map();
         this.processQueue = new Set();
         this.loading = false;
         this.error = null;
+        this.refs.datatable.selectedRows = [];
+        await refreshApex(this.wiredFileVersions);
     }
 
-    handleVFResponse(event) {
-        if (event.source !== this.$iframe.contentWindow) {
+    handleTesseractPageResponse(event) {
+        if (event.source !== this.$ocrIframe.contentWindow) {
             return;
         }
         // Extract event payload;
@@ -100,20 +166,9 @@ export default class OcrDemoTab extends LightningElement {
         this.filesMap.get(id)['result'] = { status, text, errorMessage };
         // Remove file from processing queue;
         this.processQueue.delete(id);
-        this.processQueue = cloneObject(this.processQueue);
         // Turn off spinner;
         if (!this.isProcessing) {
             this.loading = false;
         }
-    }
-
-    captureFileInfo(file) {
-        return {
-            id: uniqueId(),
-            name: file.name,
-            size: file.size,
-            type: file.type,
-            file
-        };
     }
 }

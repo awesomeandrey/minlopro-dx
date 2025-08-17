@@ -552,7 +552,7 @@ rules:
                 - BestPractices
                 - TypeScript
         '@typescript-eslint/no-magic-numbers':
-            severity: 3
+            severity: 4
             tags:
                 - BestPractices
                 - TypeScript
@@ -981,7 +981,7 @@ rules:
                 - JavaScript
                 - TypeScript
         'capitalized-comments':
-            severity: 3
+            severity: 4
             tags:
                 - BestPractices
                 - JavaScript
@@ -1543,7 +1543,7 @@ rules:
                 - JavaScript
                 - TypeScript
         'no-magic-numbers':
-            severity: 3
+            severity: 4
             tags:
                 - BestPractices
                 - JavaScript
@@ -1646,7 +1646,7 @@ rules:
                 - JavaScript
                 - TypeScript
         'no-plusplus':
-            severity: 3
+            severity: 4
             tags:
                 - BestPractices
                 - JavaScript

@@ -7,7 +7,7 @@ import $USER_ID from '@salesforce/user/Id';
 
 // Apex Controller Methods;
 import queryOrCreateFolderIfNotExistsApex from '@salesforce/apex/FilesManagementController.queryOrCreateFolderIfNotExists';
-import getFilesByParentIdApex from '@salesforce/apex/FilesManagementController.getFilesByParentId';
+import getAllFilesApex from '@salesforce/apex/FilesManagementController.getAllFiles';
 import addFilesToFolderApex from '@salesforce/apex/FilesManagementController.addFilesToFolder';
 import deleteFilesByIdsApex from '@salesforce/apex/FilesManagementController.deleteFilesByIds';
 import createPublicLinkApex from '@salesforce/apex/FilesManagementController.createPublicLink';
@@ -56,7 +56,7 @@ export default class FilesManagerTab extends LightningElement {
 
     get stats() {
         return {
-            'Content Workspace': `${this.contentWorkspaceName} (${this.contentWorkspaceId}) lorem ip sum lorem ip sum lorem ip sum lorem ip sum lorem ip sum lorem ip sum`,
+            'Content Workspace': `${this.contentWorkspaceName} (${this.contentWorkspaceId})`,
             'Running User ID': this.runningUserId,
             'Has Errors': this.hasErrors,
             'Total # of Files': `${this.documentData.length} items`,
@@ -183,7 +183,7 @@ export default class FilesManagerTab extends LightningElement {
         return $USER_ID;
     }
 
-    @wire(getFilesByParentIdApex)
+    @wire(getAllFilesApex)
     wiredFolderFiles = {};
 
     async connectedCallback() {
@@ -236,8 +236,8 @@ export default class FilesManagerTab extends LightningElement {
             this.loading = true;
             if (this.doExplicitlyLinkToFolder) {
                 // Explicitly put files in folder;
-                let contentDocumentIds = files.map(({ documentId }) => documentId);
-                let contentDocumentLinks = await addFilesToFolderApex({ contentDocumentIds });
+                const contentDocumentIds = files.map(({ documentId }) => documentId);
+                const contentDocumentLinks = await addFilesToFolderApex({ contentDocumentIds });
                 console.table(contentDocumentLinks);
                 $Toastify.success({
                     message: `${files.length} files were explicitly added to "${this.contentWorkspace.Name}" content workspace.`
@@ -247,7 +247,7 @@ export default class FilesManagerTab extends LightningElement {
             this.errorObject = cloneObject(error);
         } finally {
             this.loading = false;
-            refreshApex(this.wiredFolderFiles);
+            await refreshApex(this.wiredFolderFiles);
             console.groupEnd();
         }
     }
@@ -257,7 +257,7 @@ export default class FilesManagerTab extends LightningElement {
         this.loading = true;
         try {
             if (action.name === 'createPublicLink') {
-                let contentVersionId = row[CD_LATEST_PUBLISHED_VERSION_ID.fieldApiName];
+                const contentVersionId = row[CD_LATEST_PUBLISHED_VERSION_ID.fieldApiName];
                 this.contentDistribution = await createPublicLinkApex({ contentVersionId });
                 console.table(cloneObject(this.contentDistribution));
                 /**

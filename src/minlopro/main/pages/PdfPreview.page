@@ -1,4 +1,5 @@
 <apex:page title="Merged Files Result" readOnly="true" docType="html-5.0">
+    <apex:slds />
     <!--
         Lightning message service doesn’t work in Visualforce pages
         that are included in Lightning Experience via iframes, including <wave:dashboard>, <apex:iframe>,
@@ -7,26 +8,59 @@
         https://developer.salesforce.com/docs/atlas.en-us.pages.meta/pages/message_channel_considerations.htm
     -->
     <script>
-        const allowedOrigins = [
-            new URL(document.referrer).origin, // e.g. "https://connect-innovation-7252-dev-ed.scratch.lightning.force.com"
-            window.location.origin // e.g. "https://connect-innovation-7252-dev-ed--c.scratch.vf.force.com"
-        ];
+        const allowedOrigins = (() => {
+            const origins = [];
+            // Try parsing document.referrer safely
+            if (document.referrer) {
+                try {
+                    origins.push(new URL(document.referrer).origin); // e.g. "https://connect-innovation-7252-dev-ed.scratch.lightning.force.com"
+                } catch (e) {
+                    console.warn('Invalid referrer URL:', document.referrer, e);
+                }
+            }
+            // Always include the current window origin
+            try {
+                origins.push(window.location.origin); // e.g. "https://connect-innovation-7252-dev-ed--c.scratch.vf.force.com"
+            } catch (e) {
+                console.warn('Unable to resolve window.location.origin:', e);
+            }
+            return origins;
+        })();
+
+        function render() {
+            const titleElement = document.querySelector('#title');
+            const iframeElement = document.querySelector('iframe');
+            if (!!iframeElement.src) {
+                iframeElement.classList.remove('slds-hide');
+                titleElement.classList.add('slds-hide');
+            } else {
+                iframeElement.classList.add('slds-hide');
+                titleElement.classList.remove('slds-hide');
+            }
+        }
+
+        window.addEventListener('load', () => {
+            render();
+        });
+
         window.addEventListener('message', (event) => {
             const eventOrigin = event.origin;
             if (!allowedOrigins.includes(eventOrigin)) {
                 console.error('PDF preview should be framed within Lightning context only!');
                 return;
             }
-            const base64EncodedPdfContent = event.data;
+            const { type, value: base64EncodedPdfContent } = event.data;
             const iframeElement = document.querySelector('iframe');
-            if (!!base64EncodedPdfContent) {
+            if (type === 'base64' && !!base64EncodedPdfContent) {
                 iframeElement.src = 'data:application/pdf;base64,' + base64EncodedPdfContent;
-                iframeElement.style.display = 'block';
             } else {
-                iframeElement.src = null;
-                iframeElement.style.display = 'none';
+                iframeElement.removeAttribute('src');
             }
+            render();
         });
     </script>
-    <iframe title="Merged Files Result" width="100%" height="550px"></iframe>
+    <p id="title" class="slds-box slds-m-around_large slds-p-around_large slds-align_absolute-center slds-text-title_caps">
+        Merged PDF Result Will Appear Here
+    </p>
+    <iframe class="slds-hide" title="Merged PDF Result" width="100%" height="550px"></iframe>
 </apex:page>

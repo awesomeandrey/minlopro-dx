@@ -4,7 +4,13 @@
         <members>CM_Batch</members>
         <members>CM_DTO</members>
         <members>CM_Iterable</members>
+        <members>PdfLibDemoController</members>
+        <members>PdfLibDemoControllerTest</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>TesseractVF</members>
+        <name>ApexPage</name>
     </types>
     <version>63.0</version>
 </Package>

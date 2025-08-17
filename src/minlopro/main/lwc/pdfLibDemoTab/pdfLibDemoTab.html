@@ -13,20 +13,27 @@
         <lightning-spinner lwc:if={loading} alternative-text="Loading" size="x-small"></lightning-spinner>
         <lightning-layout multiple-rows>
             <lightning-layout-item size="6" padding="horizontal-small">
-                <c-datatable
-                    lwc:ref="datatable"
-                    key-field="id"
-                    data={documentsData}
-                    columns={documentsColumns}
-                    show-row-number-column
-                    onrowselection={handleSelectDocument}
-                ></c-datatable>
                 <div class="slds-m-top_medium">
                     <c-stats label="Stats" icon-name="standard:catalog" value={stats}></c-stats>
                 </div>
                 <div class="slds-m-vertical_medium">
                     <c-error-alert value={errorObj}></c-error-alert>
                 </div>
+                <c-result-set-overview
+                    data={documentsData}
+                    info-text-title="No sample PDF documents found"
+                    info-text-message="Please, upload sample PDF files to play with"
+                >
+                    <c-datatable
+                        lwc:ref="datatable"
+                        key-field="id"
+                        data={documentsData}
+                        columns={documentsColumns}
+                        show-row-number-column
+                        max-row-selection="5"
+                        onrowselection={handleSelectDocument}
+                    ></c-datatable>
+                </c-result-set-overview>
             </lightning-layout-item>
             <lightning-layout-item size="6" padding="horizontal-small">
                 <div class="slds-box slds-box_small">

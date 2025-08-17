@@ -7,4 +7,16 @@
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 echo "🔵 Deactivating flows for [$TARGET_ORG_ALIAS] organization..."
 
-# bash ./scripts/util/flows-mgmt/deactivate_flow_by_developer_name.sh "$TARGET_ORG_ALIAS" "Minlopro_CodeAnalyzerTest"
+declare -a flow_api_names
+flow_api_names=("Minlopro_CodeAnalyzerTest" "Flow2" "Flow3")
+
+if [ ${#flow_api_names[@]} -eq 0 ]; then
+  echo "No flows to deactivate."
+  exit 0
+fi
+
+for flow_name in "${flow_api_names[@]}"; do
+  bash ./scripts/util/flows-mgmt/deactivate_flow_by_developer_name.sh \
+    "$TARGET_ORG_ALIAS" \
+    "$flow_name"
+done

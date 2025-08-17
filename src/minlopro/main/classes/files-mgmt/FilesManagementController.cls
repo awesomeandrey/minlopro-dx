@@ -1,3 +1,4 @@
+@SuppressWarnings('PMD')
 public with sharing class FilesManagementController {
     private static final String FOLDER_NAME = 'Minlopro_SampleFiles';
     private static final ContentDocumentSelector documentSelector = (ContentDocumentSelector) Application.Selector.newInstance(
@@ -14,6 +15,9 @@ public with sharing class FilesManagementController {
     );
     private static final ContentWorkspacePermissionSelector workspacePermissionSelector = (ContentWorkspacePermissionSelector) Application.Selector.newInstance(
         ContentWorkspacePermission.SObjectType
+    );
+    private static final ContentVersionSelector contentVersionSelector = (ContentVersionSelector) Application.Selector.newInstance(
+        ContentVersion.SObjectType
     );
 
     @AuraEnabled
@@ -49,10 +53,18 @@ public with sharing class FilesManagementController {
     }
 
     @AuraEnabled(Cacheable=true)
-    public static List<ContentDocument> getFilesByParentId() {
+    public static List<ContentDocument> getAllFiles() {
         try {
-            ContentWorkspace workspaceFolder = queryOrCreateFolderIfNotExists();
-            return documentSelector.selectByParentIds(Lists.of(null, workspaceFolder.Id));
+            ContentWorkspace customWorkspace = queryOrCreateFolderIfNotExists();
+            ContentWorkspace standardAssetsWorkspace = workspaceSelector.selectByDeveloperNames(
+                Lists.of(Constants.Files.StandardAssetsLibraryApiName)
+            )[0];
+            List<Id> workspaceIds = Lists.of(
+                null, // Files without workspace/folder
+                customWorkspace.Id,
+                standardAssetsWorkspace.Id
+            );
+            return documentSelector.selectByParentIds(workspaceIds);
         } catch (Exception ex) {
             Logger.error(ex);
             throw new AuraHandledException(ex.getMessage());
@@ -80,9 +92,7 @@ public with sharing class FilesManagementController {
     @AuraEnabled
     public static void deleteFilesByIds(List<Id> contentDocumentIds) {
         try {
-            List<ContentDocument> documents = (List<ContentDocument>) documentSelector.selectSObjectsById(
-                Sets.of(contentDocumentIds)
-            );
+            List<ContentDocument> documents = documentSelector.selectSObjectsById(Sets.of(contentDocumentIds));
             Logger.debug('Deleting {0} files...', Lists.of(String.valueOf(documents.size())));
             fflib_ISObjectUnitOfWork uow = Application.UnitOfWork.newInstance();
             uow.registerDeleted(documents);
@@ -125,27 +135,57 @@ public with sharing class FilesManagementController {
         }
     }
 
+    @AuraEnabled(Cacheable=true)
+    public static List<FilesManagementController.Document> getFileVersionsByTypes(List<String> fileTypes) {
+        try {
+            List<FilesManagementController.Document> documentDtos = new List<FilesManagementController.Document>();
+            for (ContentVersion cvRecord : contentVersionSelector.selectByTypeWithLimit(fileTypes, 10)) {
+                FilesManagementController.Document documentDto = new FilesManagementController.Document();
+                documentDto.id = cvRecord.Id;
+                documentDto.name = cvRecord.Title;
+                documentDto.type = cvRecord.FileType;
+                documentDto.base64EncodedContent = EncodingUtil.base64Encode(cvRecord.VersionData);
+                documentDtos.add(documentDto);
+            }
+            return documentDtos;
+        } catch (Exception ex) {
+            Logger.error(ex);
+            throw new AuraHandledException(ex.getMessage());
+        }
+    }
+
     /**
      * Used to cleanup content documents with content workspace (aka folder).
      */
     public static void emptyRecycleBin() {
         List<ContentDocument> documents = [SELECT Id, Title FROM ContentDocument WHERE IsDeleted IN (TRUE, FALSE)];
         if (!documents.isEmpty()) {
-            System.debug('\n\n Deleting Documents => ' + documents.size() + '\n');
+            Logger.debug('Deleting Documents => {0}', Lists.of(documents.size().toString()));
             delete documents;
             Database.emptyRecycleBin(documents);
         }
         List<ContentWorkspace> workspaces = [SELECT Id FROM ContentWorkspace WHERE DeveloperName = 'Minlopro_SampleFiles'];
         if (!workspaces.isEmpty()) {
-            System.debug('\n\n Deleting Workspaces => ' + workspaces.size() + '\n');
+            Logger.debug('Deleting Workspaces => {0}', Lists.of(workspaces.size().toString()));
             delete workspaces;
         }
         List<SObject> itemsToPurge = new List<SObject>();
         itemsToPurge.addAll(documents);
         itemsToPurge.addAll(workspaces);
         if (!itemsToPurge.isEmpty()) {
-            System.debug('\n\n Purging recycle bin => ' + itemsToPurge.size() + '\n');
+            Logger.debug('Purging recycle bin => {0}', Lists.of(itemsToPurge.size().toString()));
             Database.emptyRecycleBin(itemsToPurge);
         }
+    }
+
+    public class Document {
+        @AuraEnabled
+        public String id { get; set; }
+        @AuraEnabled
+        public String name { get; set; }
+        @AuraEnabled
+        public String type { get; set; }
+        @AuraEnabled
+        public String base64EncodedContent { get; set; }
     }
 }

@@ -8,10 +8,6 @@
         <apexClass>DynamicFormulaController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>PdfLibDemoController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
     <description>Grants access to Minlopro app and its features.</description>
     <fieldPermissions>
         <editable>true</editable>

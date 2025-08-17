@@ -197,6 +197,8 @@ export function isValidRecordId(recordId = null) {
     return Boolean(resolveRecordId(recordId));
 }
 
+// Files management;
+
 export async function readFileAsBlob(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -208,6 +210,33 @@ export async function readFileAsBlob(file) {
         };
         reader.readAsArrayBuffer(file);
     });
+}
+
+export function readBase64AsFile(base64Data, fileType = 'pdf', filename = `document.${fileType?.toLowerCase()}`) {
+    let mimeType;
+    switch (fileType.toUpperCase()) {
+        case 'PNG':
+            mimeType = 'image/png';
+            break;
+        case 'PDF':
+            mimeType = 'application/pdf';
+            break;
+        default:
+            throw new Error('Unsupported fileType. Only PNG and PDF are allowed.');
+    }
+    const byteCharacters = atob(base64Data);
+    const sliceSize = 1024; // process in chunks to avoid memory spikes
+    const byteArrays = [];
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+        byteArrays.push(new Uint8Array(byteNumbers));
+    }
+    const blob = new Blob(byteArrays, { type: mimeType });
+    return new File([blob], filename, { type: mimeType });
 }
 
 // String manipulations;

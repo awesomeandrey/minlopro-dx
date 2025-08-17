@@ -11,7 +11,7 @@ import $UserId from '@salesforce/user/Id';
 import getUserInfoByIdApex from '@salesforce/apex/SystemInfoController.getUserInfoById';
 import getLoggerSettingsBySetupOwnersApex from '@salesforce/apex/LogsMonitorPanelController.getLoggerSettingsBySetupOwners';
 import runDemoApex from '@salesforce/apex/LoggerDemo.run';
-import isActiveApex from '@salesforce/apex/FeatureToggle.isActive';
+import isFeatureActiveApex from '@salesforce/apex/FeatureToggle.isActive';
 
 // Static Resources;
 import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
@@ -51,7 +51,12 @@ export default class LogMonitor extends LightningElement {
     @track logOwners = [];
 
     get isTestButtonActive() {
-        return this.wiredIsTestButtonActive && this.wiredIsTestButtonActive.data;
+        return (
+            this.wiredIsTestButtonActive &&
+            this.wiredIsTestButtonActive.data &&
+            (this.selectedLogOwnerIds.includes(this.runningUserId) ||
+                this.selectedLogOwnerIds.includes(this.runningUserProfileId))
+        );
     }
 
     get logOwnerOptions() {
@@ -249,7 +254,7 @@ export default class LogMonitor extends LightningElement {
     @wire(getUserInfoByIdApex, { userId: $UserId })
     wiredRunningUser = {};
 
-    @wire(isActiveApex, { featureName: 'EnableLoggerTestBtn' })
+    @wire(isFeatureActiveApex, { featureName: 'EnableLoggerTestBtn' })
     wiredIsTestButtonActive;
 
     // Lifecycle methods;

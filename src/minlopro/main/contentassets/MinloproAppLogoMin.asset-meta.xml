@@ -4,13 +4,13 @@
     <language>en_US</language>
     <masterLabel>Minlopro - App Logo (min)</masterLabel>
     <relationships>
-        <organization>
-            <access>VIEWER</access>
-        </organization>
         <network>
             <access>VIEWER</access>
             <name>DigEx</name>
         </network>
+        <organization>
+            <access>VIEWER</access>
+        </organization>
         <workspace>
             <access>INFERRED</access>
             <isManagingWorkspace>true</isManagingWorkspace>
