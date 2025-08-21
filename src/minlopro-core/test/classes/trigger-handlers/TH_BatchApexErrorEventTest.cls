@@ -3,7 +3,7 @@ private class TH_BatchApexErrorEventTest {
     @IsTest
     static void testErrorEventCapturing() {
         // Create log settings for Automated Process user;
-        User autoProc = [SELECT Id FROM User WHERE Alias = 'autoproc' LIMIT 1];
+        User autoProc = Constants.Users.AutomatedProcessUser;
         Assert.isNotNull(autoProc);
         insert new LoggerSettings__c(SetupOwnerId = autoProc.Id, LogsEmissionDate__c = Date.today());
         TriggerDispatcher.enableObjectHandler(BatchApexErrorEvent.SObjectType, TH_BatchApexErrorEvent.class.getName());

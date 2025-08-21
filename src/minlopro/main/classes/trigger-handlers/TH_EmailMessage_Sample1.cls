@@ -16,7 +16,7 @@ public inherited sharing class TH_EmailMessage_Sample1 extends BasicTriggerHandl
         Logger.debug('UPDATED {0} Email Message(s)', Lists.of(oldMap.size().toString()));
         List<Id> recordIds = Lists.of(newMap.keySet());
         List<EmailMessage> bouncedEmailMessages = this.messageSelector.selectBouncedByIds(recordIds);
-        if (!bouncedEmailMessages.isEmpty()) {
+        if (!bouncedEmailMessages.isEmpty() && UserInfo.getUserId().equalsIgnoreCase(Constants.Users.AutomatedProcessUser.Id)) {
             this.handleBouncedMessages(bouncedEmailMessages);
         }
     }
