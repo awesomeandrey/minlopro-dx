@@ -7,7 +7,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - TesseractJs OCR</label>
     <pageAccesses>
-        <apexPage>TesseractVF</apexPage>
+        <apexPage>TesseractOCR</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
 </PermissionSet>

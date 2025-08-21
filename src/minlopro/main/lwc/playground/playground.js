@@ -12,6 +12,13 @@ import USER_LOCALE from '@salesforce/i18n/locale';
 export default class Playground extends LightningElement {
     @track loading = false;
 
+    get pastDate() {
+        return Date.now() - 2 * 60 * 60 * 1000;
+    }
+    get futureDate() {
+        return Date.now() + 2 * 60 * 60 * 1000;
+    }
+
     get formattedDateTimeStamp() {
         const utcDateStr = '2025-04-25T11:29:28.000Z';
         const formatter = new Intl.DateTimeFormat(USER_LOCALE, {

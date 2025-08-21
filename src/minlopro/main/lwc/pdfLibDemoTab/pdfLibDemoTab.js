@@ -2,29 +2,27 @@ import { LightningElement, track, wire } from 'lwc';
 import { loadScript } from 'lightning/platformResourceLoader';
 import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
-import { isNotEmpty, isEmpty, cloneObject } from 'c/utilities';
+import { isEmpty, cloneObject } from 'c/utilities';
 
-// Static Resource
-import $PdfLibResource from '@salesforce/resourceUrl/pdfLib';
+import PDF_LIB_STATIC_RESOURCE_NAME from '@salesforce/resourceUrl/pdfLib';
 
-// Apex Controller Methods;
-import getPdfFilesApex from '@salesforce/apex/PdfLibDemoController.getPdfFiles';
+import getFileVersionsByTypesApex from '@salesforce/apex/FilesManagementController.getFileVersionsByTypes';
 
 /**
  * Originally inspired by https://automationchampion.com/2024/05/27/a-step-by-step-guide-to-merging-and-displaying-pdfs-in-salesforce-2
  */
 export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
-    @track pdfLibInstance = null;
     @track selectedDocuments = [];
     @track mergedPdfAsBase64 = null;
+    @track $PdfLib = null;
     @track loading = false;
     @track errorObj = null;
 
     get documentsData() {
-        if (isEmpty(this.wiredPdfFiles.data)) {
+        if (isEmpty(this.wiredPdfFileVersions.data)) {
             return [];
         }
-        return cloneObject(this.wiredPdfFiles.data);
+        return cloneObject(this.wiredPdfFileVersions.data);
     }
 
     get documentsColumns() {
@@ -44,22 +42,18 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
             {
                 label: 'File Type',
                 fieldName: 'type',
-                type: 'text'
+                type: 'customCodeSnippet'
             }
         ];
     }
 
     get doDisableMergeBtn() {
-        return this.selectedDocuments.length < 1 || !this.pdfLibInstance;
-    }
-
-    get hasErrors() {
-        return isNotEmpty(this.errorObj);
+        return this.selectedDocuments.length < 1 || !this.$PdfLib;
     }
 
     get stats() {
         return {
-            'PDF-Lib Loaded': !!this.pdfLibInstance,
+            'PDF-Lib Loaded': !!this.$PdfLib,
             'Files Amount': this.documentsData.length,
             'Selected Files Amount': this.selectedDocuments.length,
             'Has Errors': this.hasErrors
@@ -74,23 +68,23 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
         return this.refs.iframe;
     }
 
-    @wire(getPdfFilesApex)
-    wiredPdfFiles = {};
+    @wire(getFileVersionsByTypesApex, { fileTypes: ['PDF'] })
+    wiredPdfFileVersions = {};
 
     renderedCallback() {
-        if (!!this.pdfLibInstance) {
+        if (this.$PdfLib) {
             return;
         }
-        loadScript(this, $PdfLibResource + '/pdf-lib.min.js')
+        loadScript(this, PDF_LIB_STATIC_RESOURCE_NAME + '/pdf-lib.min.js')
             .then(() => {
                 if (window['pdfLib'] || window['PDFLib']) {
-                    this.pdfLibInstance = window['pdfLib'] || window['PDFLib'];
+                    this.$PdfLib = window['pdfLib'] || window['PDFLib'];
                 } else {
                     this.errorObj = { message: 'PDF-LIB not loaded correctly.' };
                 }
             })
             .catch((error) => {
-                this.pdfLibInstance = null;
+                this.$PdfLib = null;
                 this.errorObj = error;
             });
     }
@@ -105,10 +99,10 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
             this.loading = true;
 
             // Merge PDF files using 3rd party library;
-            const { PDFDocument } = this.pdfLibInstance;
+            const { PDFDocument } = this.$PdfLib;
             const mergedPdf = await PDFDocument.create();
-            for (let pdfFile of this.selectedDocuments) {
-                const pdfBytes = Uint8Array.from(atob(pdfFile['base64Encoded']), (c) => c.charCodeAt(0));
+            for (const pdfFile of this.selectedDocuments) {
+                const pdfBytes = Uint8Array.from(atob(pdfFile['base64EncodedContent']), (c) => c.charCodeAt(0));
                 const pdfDoc = await PDFDocument.load(pdfBytes);
                 const copiedPages = await mergedPdf.copyPages(pdfDoc, pdfDoc.getPageIndices());
                 copiedPages.forEach((page) => mergedPdf.addPage(page));
@@ -129,6 +123,7 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
                     reader.readAsDataURL(blob);
                 });
             })(mergedPdfBytes);
+
             // Pass Base64 encoded PDF file to custom Visualforce page;
             this.postMessageToIframe(this.mergedPdfAsBase64);
         } catch (error) {
@@ -145,7 +140,7 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
         this.errorObj = null;
         this.mergedPdfAsBase64 = null;
         this.loading = true;
-        await refreshApex(this.wiredPdfFiles);
+        await refreshApex(this.wiredPdfFileVersions);
         this.loading = false;
     }
 
@@ -154,6 +149,6 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
     postMessageToIframe(message) {
         // The origin validity is verified at Visualforce page level;
         const targetOrigin = '*';
-        this.$iframe.contentWindow.postMessage(message, targetOrigin);
+        this.$iframe.contentWindow.postMessage({ type: 'base64', value: message }, targetOrigin);
     }
 }

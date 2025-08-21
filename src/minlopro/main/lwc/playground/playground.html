@@ -8,6 +8,12 @@
         <div class="slds-p-horizontal_medium">
             <div class="slds-box">
                 <p>Formatted UTC: <b>{formattedDateTimeStamp}</b></p>
+                <p>
+                    Past Date: <b><lightning-relative-date-time value={pastDate}> </lightning-relative-date-time></b>
+                </p>
+                <p>
+                    Future Date: <b><lightning-relative-date-time value={futureDate}> </lightning-relative-date-time></b>
+                </p>
             </div>
         </div>
     </lightning-card>

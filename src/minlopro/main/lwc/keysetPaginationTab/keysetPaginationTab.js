@@ -33,14 +33,9 @@ export default class KeysetPaginationTab extends LightningElement {
 
     get normalizedColumns() {
         return [
-            // {
-            //     label: 'Id',
-            //     fieldName: 'Id',
-            //     type: 'text'
-            // },
             {
                 label: 'Name',
-                fieldName: 'Name',
+                fieldName: 'Id',
                 type: 'customLookup',
                 sortable: true,
                 typeAttributes: {
