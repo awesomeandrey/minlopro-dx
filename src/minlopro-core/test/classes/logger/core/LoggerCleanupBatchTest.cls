@@ -1,11 +1,11 @@
 @IsTest
 private class LoggerCleanupBatchTest {
-    final static Integer LOGS_AMOUNT = 50;
+    final static Integer TEST_LOGS_AMOUNT = 250;
 
     @TestSetup
     static void createLogEntries() {
         List<LogEntry__c> logEntries = new List<LogEntry__c>();
-        for (Integer i = 0; i < LOGS_AMOUNT; i++) {
+        for (Integer i = 0; i < TEST_LOGS_AMOUNT; i++) {
             LogData logItem = new LogData();
             logItem.authorId = UserInfo.getUserId();
             logItem.authorProfileId = UserInfo.getProfileId();
@@ -18,29 +18,39 @@ private class LoggerCleanupBatchTest {
             logEntries.add(logItem.castToEntry());
         }
         insert logEntries;
-        for (LogEntry__c logEntry : logEntries) {
-            // Alter 'CreatedDate' field value;
-            Test.setCreatedDate(logEntry.Id, Date.today().addMonths(-5));
+        for (Integer i = 0; i < logEntries.size(); i++) {
+            LogEntry__c logEntry = logEntries[i];
+            if (Math.mod(i, 2) == 0) {
+                // Even
+                Test.setCreatedDate(logEntry.Id, Datetime.now().addDays(-10));
+            } else {
+                // Odd
+                Test.setCreatedDate(logEntry.Id, Datetime.now().addDays(-5));
+            }
         }
-        List<LogEntry__c> entries = fetchAllLogEntries();
-        Assert.areEqual(LOGS_AMOUNT, entries.size(), 'Test log entries amount mismatched');
+        List<LogEntry__c> allEntries = fetchAllLogEntries();
+        Assert.areEqual(TEST_LOGS_AMOUNT, allEntries.size(), 'Test all log entries amount mismatched');
+        List<LogEntry__c> entriesOlderThan10Days = fetchOlderThanOrEqualDate(Date.today().addDays(-7));
+        Assert.areEqual(
+            TEST_LOGS_AMOUNT / 2,
+            entriesOlderThan10Days.size(),
+            'Test older than or equal 10 days log entries amount mismatched'
+        );
     }
 
     @IsTest
-    static void testBatchJob() {
-        List<LogEntry__c> entriesToDelete = fetchAllLogEntries();
-        Assert.areEqual(LOGS_AMOUNT, entriesToDelete.size(), 'Test log entries amount mismatched');
+    static void testBatchJobToDeleteLogsByThreshold() {
+        Integer customThreshold = 150;
+        Assert.isTrue(customThreshold < TEST_LOGS_AMOUNT);
         Test.startTest();
-        Database.executeBatch(new LoggerCleanupBatch());
+        Database.executeBatch(new LoggerCleanupBatch(customThreshold));
         Test.stopTest();
-        entriesToDelete = fetchAllLogEntries();
-        Assert.areEqual(0, entriesToDelete.size(), 'Test log entries should have been deleted');
-        entriesToDelete = fetchAllDeletedLogEntries();
-        Assert.areEqual(0, entriesToDelete.size(), 'Test log entries should have been purged from recycle bin');
+        Assert.areEqual(customThreshold, fetchAllLogEntries().size(), 'Mismatch in remaining log entries');
+        Assert.isTrue(fetchAllDeletedLogEntries().isEmpty(), 'Recycle bin should gave been cleaned up');
     }
 
     @IsTest
-    static void testScheduledJob() {
+    static void testScheduledJobEnqueue() {
         // Invoke schedulable multiple times via different methods;
         Test.startTest();
         Id firstCronId = new LoggerCleanupBatch().run().CronTriggerId;
@@ -51,22 +61,9 @@ private class LoggerCleanupBatchTest {
             secondCronId,
             'Repetitive invocation should be skipped and resolve to previously enqueued job'
         );
-        Date deleteBeforeDate = Date.today().addDays(-7);
-        Id firstSysCronId = (Id) System.schedule(
-            'TestJob1' + System.now(),
-            '0 0 * * * ?',
-            new LoggerCleanupBatch(deleteBeforeDate)
-        );
-        Id secondSysCronId = (Id) System.schedule(
-            'TestJob2' + System.now(),
-            '0 15 * * * ?',
-            new LoggerCleanupBatch(deleteBeforeDate)
-        );
-        Id thirdSysCronId = (Id) System.schedule(
-            'TestJob3' + System.now(),
-            '0 30 * * * ?',
-            new LoggerCleanupBatch(deleteBeforeDate)
-        );
+        Id firstSysCronId = (Id) System.schedule('TestJob1' + System.now(), '0 0 * * * ?', new LoggerCleanupBatch());
+        Id secondSysCronId = (Id) System.schedule('TestJob2' + System.now(), '0 15 * * * ?', new LoggerCleanupBatch());
+        Id thirdSysCronId = (Id) System.schedule('TestJob3' + System.now(), '0 30 * * * ?', new LoggerCleanupBatch());
         Test.stopTest();
 
         // Collect CRON Ids;
@@ -81,11 +78,15 @@ private class LoggerCleanupBatchTest {
     }
 
     static List<LogEntry__c> fetchAllLogEntries() {
-        return [SELECT Id FROM LogEntry__c];
+        return [SELECT Id, CreatedDate FROM LogEntry__c];
     }
 
     static List<LogEntry__c> fetchAllDeletedLogEntries() {
-        return [SELECT Id FROM LogEntry__c WHERE IsDeleted = TRUE];
+        return [SELECT Id, CreatedDate FROM LogEntry__c WHERE IsDeleted = TRUE];
+    }
+
+    static List<LogEntry__c> fetchOlderThanOrEqualDate(Date olderThanDate) {
+        return [SELECT Id, CreatedDate FROM LogEntry__c WHERE CreatedDate <= :olderThanDate];
     }
 
     static Map<Id, AsyncApexJob> getAsyncApexJobIdByCronTriggerIds(List<Id> cronTriggerIds) {
