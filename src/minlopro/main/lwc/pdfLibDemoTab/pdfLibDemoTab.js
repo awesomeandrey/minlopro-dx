@@ -4,7 +4,7 @@ import { NavigationMixin } from 'lightning/navigation';
 import { refreshApex } from '@salesforce/apex';
 import { isEmpty, cloneObject } from 'c/utilities';
 
-import PDF_LIB_STATIC_RESOURCE_NAME from '@salesforce/resourceUrl/pdfLib';
+import PDF_LIB_STATIC_RESOURCE from '@salesforce/resourceUrl/pdfLib';
 
 import getFileVersionsByTypesApex from '@salesforce/apex/FilesManagementController.getFileVersionsByTypes';
 
@@ -75,7 +75,7 @@ export default class PdfLibDemoTab extends NavigationMixin(LightningElement) {
         if (this.$PdfLib) {
             return;
         }
-        loadScript(this, PDF_LIB_STATIC_RESOURCE_NAME + '/pdf-lib.min.js')
+        loadScript(this, PDF_LIB_STATIC_RESOURCE + '/pdf-lib.min.js')
             .then(() => {
                 if (window['pdfLib'] || window['PDFLib']) {
                     this.$PdfLib = window['pdfLib'] || window['PDFLib'];

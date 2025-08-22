@@ -20,7 +20,7 @@ public without sharing class DynamicFormulaController {
             }
         } catch (Exception rootException) {
             Logger.error(rootException);
-            IllegalArgumentException ex = new IllegalArgumentException(rootException.getMessage());
+            AuraHandledException ex = new AuraHandledException(rootException.getMessage());
             ex.initCause(rootException);
             throw ex;
         }

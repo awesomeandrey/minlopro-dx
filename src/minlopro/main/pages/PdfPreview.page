@@ -44,19 +44,33 @@
         });
 
         window.addEventListener('message', (event) => {
-            const eventOrigin = event.origin;
-            if (!allowedOrigins.includes(eventOrigin)) {
-                console.error('PDF preview should be framed within Lightning context only!');
-                return;
+            try {
+                const eventOrigin = event.origin;
+                if (!allowedOrigins.includes(eventOrigin)) {
+                    console.error('PDF preview should be framed within Lightning context only!');
+                    return;
+                }
+                const { type, value: base64EncodedPdfContent } = event.data;
+
+                // Generate Blob for large PDFs;
+                const byteCharacters = atob(base64EncodedPdfContent);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+                const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+                const iframeElement = document.querySelector('iframe');
+                if (type === 'base64' && !!base64EncodedPdfContent) {
+                    iframeElement.src = URL.createObjectURL(blob);
+                } else {
+                    iframeElement.removeAttribute('src');
+                }
+                render();
+            } catch (error) {
+                console.error('Failed to render merged PDF', error);
             }
-            const { type, value: base64EncodedPdfContent } = event.data;
-            const iframeElement = document.querySelector('iframe');
-            if (type === 'base64' && !!base64EncodedPdfContent) {
-                iframeElement.src = 'data:application/pdf;base64,' + base64EncodedPdfContent;
-            } else {
-                iframeElement.removeAttribute('src');
-            }
-            render();
         });
     </script>
     <p id="title" class="slds-box slds-m-around_large slds-p-around_large slds-align_absolute-center slds-text-title_caps">

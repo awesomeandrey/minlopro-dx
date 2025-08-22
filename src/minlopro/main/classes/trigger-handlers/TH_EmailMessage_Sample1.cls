@@ -24,12 +24,6 @@ public inherited sharing class TH_EmailMessage_Sample1 extends BasicTriggerHandl
     private void handleBouncedMessages(List<EmailMessage> bouncedEmailMessages) {
         Logger.debug('Handling {0} bounced email message(s).', Lists.of(bouncedEmailMessages.size().toString()));
         Logger.debug(bouncedEmailMessages);
-        CustomNotificationType notificationType = [
-            SELECT Id, DeveloperName
-            FROM CustomNotificationType
-            WHERE DeveloperName = 'Minlopro'
-            LIMIT 1
-        ];
         try {
             Map<EmailMessage, Task> taskByEmailMessageMap = this.messageSelector.selectWithTasksByIds(bouncedEmailMessages);
             for (EmailMessage bouncedMessage : taskByEmailMessageMap.keySet()) {
@@ -45,7 +39,7 @@ public inherited sharing class TH_EmailMessage_Sample1 extends BasicTriggerHandl
                         Lists.of(bouncedMessage.ToAddress)
                     )
                 );
-                notification.setNotificationTypeId(notificationType.Id);
+                notification.setNotificationTypeId(Constants.CustomNotificationsTypes.Minlopro.Id);
                 notification.setTargetId(bouncedMessage.RelatedToId);
                 notification.send(Sets.of(messageTask.OwnerId.toString()));
             }
