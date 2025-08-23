@@ -59,14 +59,8 @@ global without sharing class PublicRestEndpoint {
             Logger.debug('Request Body = {0}', Lists.of(req.requestBody.toString()));
             Logger.debug('Request Params = {0}', Lists.of(req.params.toString()));
 
-            CustomNotificationType notificationType = [
-                SELECT Id, DeveloperName
-                FROM CustomNotificationType
-                WHERE DeveloperName = 'Minlopro'
-                LIMIT 1
-            ];
             Messaging.CustomNotification notification = new Messaging.CustomNotification();
-            notification.setNotificationTypeId(notificationType.Id);
+            notification.setNotificationTypeId(Constants.CustomNotificationsTypes.Minlopro.Id);
             notification.setTitle('New Host Detected');
             notification.setBody('Body = ' + req.requestBody.toString());
             notification.setTargetId(UserInfo.getUserId());

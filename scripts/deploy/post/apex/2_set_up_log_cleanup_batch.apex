@@ -1,4 +1,4 @@
-AsyncApexJob jobInfo = new LoggerCleanupBatch(Date.today().addDays(-5)).run();
+AsyncApexJob jobInfo = new LoggerCleanupBatch(1000).run();
 DebugTableFormatter formatter = new DebugTableFormatter(
     new List<String>{ 'Id', 'ApexClass.Name', 'JobType', 'Status', 'CronTrigger.CronJobDetail.Name', 'CronTrigger.NextFireTime' },
     Lists.of(jobInfo)

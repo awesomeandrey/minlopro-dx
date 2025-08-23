@@ -2,18 +2,14 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
     private static final String JOB_NAME = 'Minlopro - Logger Cleanup Batch';
     private static final String CRON_EXP = '0 0 10 * * ?'; // Runs everyday at 10 AM;
 
-    private final Date deleteBeforeDate;
+    private Integer maxLogsThreshold;
 
     public LoggerCleanupBatch() {
-        this.deleteBeforeDate = Date.today().addDays(-5);
+        this.maxLogsThreshold = 2000;
     }
 
-    public LoggerCleanupBatch(Date deleteBeforeDate) {
-        /**
-         * Sample ad-hoc run:
-         * `Database.executeBatch(new LoggerCleanupBatch(Date.today().addDays(-3)));`
-         */
-        this.deleteBeforeDate = deleteBeforeDate;
+    public LoggerCleanupBatch(Integer maxLogsThreshold) {
+        this.maxLogsThreshold = Math.max(100, Math.min(1000, maxLogsThreshold));
     }
 
     public AsyncApexJob run() {
@@ -30,12 +26,19 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
         if (this.isAlreadyScheduled(ctx)) {
             System.abortJob(ctx.getTriggerId());
         } else {
-            Database.executeBatch(this, 50);
+            Database.executeBatch(this, 250);
         }
     }
 
     public List<LogEntry__c> start(Database.BatchableContext ctx) {
-        return [SELECT Id FROM LogEntry__c WHERE CreatedDate < :this.deleteBeforeDate];
+        // SOQL OFFSET clause is not supported in Batch Apex;
+        List<LogEntry__c> logEntriesToKeep = [
+            SELECT Id, CreatedDate
+            FROM LogEntry__c
+            ORDER BY CreatedDate DESC
+            LIMIT :this.maxLogsThreshold
+        ];
+        return [SELECT Id FROM LogEntry__c WHERE Id NOT IN :logEntriesToKeep];
     }
 
     public void execute(Database.BatchableContext ctx, List<LogEntry__c> logEntriesToDelete) {

@@ -3,7 +3,7 @@ import { loadScript } from 'lightning/platformResourceLoader';
 import { isNotEmpty, parseError } from 'c/utilities';
 
 // Static Resources;
-import PDF_JS_ZIP from '@salesforce/resourceUrl/pdfJs';
+import PDF_JS_STATIC_RESOURCE from '@salesforce/resourceUrl/pdfJs';
 
 export default class PdfToPngConverter extends LightningElement {
     @track isPdfJsInitialized = false;
@@ -54,7 +54,10 @@ export default class PdfToPngConverter extends LightningElement {
         if (this.isPdfJsInitialized) {
             return;
         }
-        Promise.all([loadScript(this, PDF_JS_ZIP + '/pdf.min.js'), loadScript(this, PDF_JS_ZIP + '/pdf.worker.min.js')])
+        Promise.all([
+            loadScript(this, PDF_JS_STATIC_RESOURCE + '/pdf.min.js'),
+            loadScript(this, PDF_JS_STATIC_RESOURCE + '/pdf.worker.min.js')
+        ])
             .then(() => {
                 this.isPdfJsInitialized = isNotEmpty(window['pdfjsLib']);
             })

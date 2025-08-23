@@ -124,11 +124,6 @@ public class TestDataFactory {
         );
     }
 
-    public static User selectAutoproc() {
-        User autoProc = [SELECT Id FROM User WHERE Alias = 'autoproc' LIMIT 1];
-        return autoProc;
-    }
-
     // Records/Data Generation;
 
     public static Account createAccount() {

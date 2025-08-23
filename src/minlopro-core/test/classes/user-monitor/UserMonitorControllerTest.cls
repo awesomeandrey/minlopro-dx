@@ -2,7 +2,7 @@
 private class UserMonitorControllerTest {
     @IsTest
     static void testGetPermissions() {
-        User autoProc = [SELECT Id FROM User WHERE Alias = 'autoproc' LIMIT 1];
+        User autoProc = Constants.Users.AutomatedProcessUser;
         System.runAs(autoProc) {
             List<UserMonitorController.Permission> permissions = UserMonitorController.getPermissions();
             Assert.isNotNull(permissions);
@@ -15,7 +15,7 @@ private class UserMonitorControllerTest {
 
     @IsTest
     static void testSearchObjectsByKeyword() {
-        User autoProc = [SELECT Id FROM User WHERE Alias = 'autoproc' LIMIT 1];
+        User autoProc = Constants.Users.AutomatedProcessUser;
         System.runAs(autoProc) {
             List<EntityDefinition> searchedObjects = UserMonitorController.searchObjectsByKeyword(null);
             Assert.isFalse(searchedObjects.isEmpty(), 'Empty search keyword should produce output');

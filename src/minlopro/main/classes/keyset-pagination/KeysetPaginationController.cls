@@ -8,7 +8,7 @@ public with sharing class KeysetPaginationController {
             return Database.countQuery('SELECT COUNT() FROM Contact');
         } catch (Exception rootException) {
             Logger.error(rootException);
-            Auth.AuthProviderPluginException ex = new Auth.AuthProviderPluginException(rootException.getMessage());
+            AuraHandledException ex = new AuraHandledException(rootException.getMessage());
             ex.initCause(rootException);
             throw ex;
         }
@@ -25,7 +25,7 @@ public with sharing class KeysetPaginationController {
             return queryRequest.fetch();
         } catch (Exception rootException) {
             Logger.error(rootException);
-            Auth.AuthProviderPluginException ex = new Auth.AuthProviderPluginException(rootException.getMessage());
+            AuraHandledException ex = new AuraHandledException(rootException.getMessage());
             ex.initCause(rootException);
             throw ex;
         }
