@@ -2,10 +2,9 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
     private static final String JOB_NAME = 'Minlopro - Logger Cleanup Batch';
     private static final String CRON_EXP = '0 0 10 * * ?'; // Runs everyday at 10 AM;
 
-    private Integer maxLogsThreshold;
+    private Integer maxLogsThreshold = 1000;
 
     public LoggerCleanupBatch() {
-        this.maxLogsThreshold = 2000;
     }
 
     public LoggerCleanupBatch(Integer maxLogsThreshold) {
@@ -38,6 +37,9 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
             ORDER BY CreatedDate DESC
             LIMIT :this.maxLogsThreshold
         ];
+        if (logEntriesToKeep.isEmpty()) {
+            return new List<LogEntry__c>();
+        }
         return [SELECT Id FROM LogEntry__c WHERE Id NOT IN :logEntriesToKeep];
     }
 

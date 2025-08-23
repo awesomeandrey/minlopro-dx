@@ -1,3 +1,4 @@
+@SuppressWarnings('PMD')
 public class TestDataFactory {
     public final static CurrencyType CORPORATE_CURRENCY_TYPE {
         get {
