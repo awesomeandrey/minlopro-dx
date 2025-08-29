@@ -1,3 +1,4 @@
+@SuppressWarnings('PMD')
 public class TestDataFactory {
     public final static CurrencyType CORPORATE_CURRENCY_TYPE {
         get {
@@ -34,7 +35,7 @@ public class TestDataFactory {
             PUBLIC_GROUPS_BY_NAME.put(PublicGroup.valueOf(groupItem.DeveloperName), groupItem);
         }
         // Select roles;
-        List<String> roleNames = new List<String>{ Role.DX_Admin.name() };
+        List<String> roleNames = new List<String>{ Role.DX_Admin.name(), Role.DX_User.name() };
         for (UserRole userRoleItem : [SELECT Id, DeveloperName, Name FROM UserRole WHERE DeveloperName IN :roleNames]) {
             ROLES_BY_NAME.put(Role.valueOf(userRoleItem.DeveloperName), userRoleItem);
         }
@@ -67,7 +68,7 @@ public class TestDataFactory {
         String randomUsername = generateRandomString(8);
         User regularUser = TestDataFactory.createUser('Mike', 'Green-' + randomUsername, 'Minlopro User');
         // Assign Role;
-        regularUser.UserRoleId = null;
+        regularUser.UserRoleId = ROLES_BY_NAME.get(Role.DX_User).Id;
         // Create user;
         insert regularUser;
         // Add the user to the corresponding Public Group;
@@ -306,7 +307,8 @@ public class TestDataFactory {
     }
 
     public enum Role {
-        DX_Admin
+        DX_Admin,
+        DX_User
     }
 
     public enum PermissionSetOrPSG {

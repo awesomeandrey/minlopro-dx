@@ -1,3 +1,4 @@
+@SuppressWarnings('PMD')
 @IsTest
 private class CarSharingRuleTest {
     /**

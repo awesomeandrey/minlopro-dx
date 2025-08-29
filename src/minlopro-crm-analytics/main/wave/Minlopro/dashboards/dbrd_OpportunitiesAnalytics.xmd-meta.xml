@@ -2,7 +2,37 @@
 <WaveXmd xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <dataset xsi:nil="true"/>
     <dimensions>
-        <field>OppsResultSet_1.Account.Name</field>
+        <field>tbl_OppsPreview.IsWon</field>
+        <isDerived>false</isDerived>
+        <label>Won?</label>
+        <sortIndex>0</sortIndex>
+    </dimensions>
+    <dimensions>
+        <field>tbl_OppsDetailedView.IsWon</field>
+        <isDerived>false</isDerived>
+        <label>Won?</label>
+        <sortIndex>1</sortIndex>
+    </dimensions>
+    <dimensions>
+        <field>tbl_OppsDetailedView.IsClosed</field>
+        <isDerived>false</isDerived>
+        <label>Closed?</label>
+        <sortIndex>2</sortIndex>
+    </dimensions>
+    <dimensions>
+        <field>tbl_OppsDetailedView.Name</field>
+        <isDerived>false</isDerived>
+        <linkTemplateEnabled>true</linkTemplateEnabled>
+        <recordDisplayFields>
+            <recordDisplayField>Name</recordDisplayField>
+            <sortIndex>0</sortIndex>
+        </recordDisplayFields>
+        <recordIdField>Id</recordIdField>
+        <salesforceActionsEnabled>false</salesforceActionsEnabled>
+        <sortIndex>3</sortIndex>
+    </dimensions>
+    <dimensions>
+        <field>tbl_OppsDetailedView.Account.Name</field>
         <isDerived>false</isDerived>
         <linkTemplateEnabled>true</linkTemplateEnabled>
         <recordDisplayFields>
@@ -21,25 +51,25 @@
             <sortIndex>1</sortIndex>
         </salesforceActions>
         <salesforceActionsEnabled>true</salesforceActionsEnabled>
-        <sortIndex>0</sortIndex>
-    </dimensions>
-    <dimensions>
-        <field>OppsResultSet_1.Name</field>
-        <isDerived>false</isDerived>
-        <linkTemplateEnabled>true</linkTemplateEnabled>
-        <recordDisplayFields>
-            <recordDisplayField>Name</recordDisplayField>
-            <sortIndex>0</sortIndex>
-        </recordDisplayFields>
-        <recordIdField>Id</recordIdField>
-        <salesforceActionsEnabled>false</salesforceActionsEnabled>
-        <sortIndex>1</sortIndex>
+        <sortIndex>4</sortIndex>
     </dimensions>
     <measures>
         <field>Chart_OppsByIndustry_1.A</field>
         <isDerived>false</isDerived>
         <label>Opportunities #</label>
         <sortIndex>0</sortIndex>
+    </measures>
+    <measures>
+        <field>tbl_OppsPreview.Amount</field>
+        <formatCustomFormat>[&quot;$#,###&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>1</sortIndex>
+    </measures>
+    <measures>
+        <field>tbl_OppsDetailedView.Amount</field>
+        <formatCustomFormat>[&quot;$#,###.00&quot;,1]</formatCustomFormat>
+        <isDerived>false</isDerived>
+        <sortIndex>2</sortIndex>
     </measures>
     <type>Asset</type>
     <waveVisualization>dbrd_OpportunitiesAnalytics</waveVisualization>
