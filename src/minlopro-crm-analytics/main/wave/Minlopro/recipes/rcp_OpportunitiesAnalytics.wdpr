@@ -1,5 +1,5 @@
 {
-  "version" : "63.0",
+  "version" : "64.0",
   "nodes" : {
     "LOAD_DATASET0" : {
       "action" : "load",
@@ -224,9 +224,45 @@
         } ]
       }
     },
+    "BUCKET0" : {
+      "action" : "bucket",
+      "sources" : [ "EDIT_ATTRIBUTES2" ],
+      "schema" : {
+        "fields" : [ {
+          "name" : "AmountBucket",
+          "newProperties" : {
+            "typeProperties" : {
+              "type" : "TEXT",
+              "length" : 10
+            }
+          }
+        } ]
+      },
+      "parameters" : {
+        "fields" : [ {
+          "name" : "AmountBucket",
+          "label" : "Amount Bucket",
+          "type" : "TEXT",
+          "bucketsSetup" : {
+            "isPassthroughEnabled" : false,
+            "sourceField" : {
+              "name" : "Amount",
+              "type" : "NUMBER"
+            },
+            "buckets" : [ {
+              "value" : "<100K",
+              "rangeEnd" : 100000.0
+            }, {
+              "value" : "≥100K",
+              "rangeStart" : 100000.0
+            } ]
+          }
+        } ]
+      }
+    },
     "OUTPUT0" : {
       "action" : "save",
-      "sources" : [ "EDIT_ATTRIBUTES2" ],
+      "sources" : [ "BUCKET0" ],
       "parameters" : {
         "fields" : [ ],
         "dataset" : {
@@ -277,7 +313,7 @@
           "type" : "TEXT",
           "name" : "AdminProfileId",
           "label" : "Admin Profile ID",
-          "formulaExpression" : "'---'",
+          "formulaExpression" : "'admin_profile_id'",
           "precision" : 255,
           "defaultValue" : "---"
         } ]
@@ -331,14 +367,14 @@
         }
       },
       "JOIN0" : {
-        "label" : "Opps w Accounts",
+        "label" : "Opportunities with Accounts",
         "description" : "",
         "type" : "JOIN",
         "top" : 112,
         "left" : 252
       },
       "TRANSFORM0" : {
-        "label" : "Transformations",
+        "label" : "Normalize & Calculate Fields",
         "description" : "",
         "type" : "TRANSFORM",
         "top" : 112.4,
@@ -379,6 +415,9 @@
           },
           "EDIT_ATTRIBUTES2" : {
             "label" : "Edit Attributes"
+          },
+          "BUCKET0" : {
+            "label" : "Bucket"
           }
         },
         "connectors" : [ {
@@ -402,6 +441,9 @@
         }, {
           "source" : "DROP_FIELDS0",
           "target" : "EDIT_ATTRIBUTES2"
+        }, {
+          "source" : "EDIT_ATTRIBUTES2",
+          "target" : "BUCKET0"
         } ]
       },
       "OUTPUT0" : {
@@ -421,7 +463,7 @@
         }
       },
       "FILTER0" : {
-        "label" : "System Admin",
+        "label" : "System Admin Profile",
         "description" : "",
         "type" : "FILTER",
         "top" : 392,
@@ -453,7 +495,7 @@
         } ]
       },
       "UPDATE0" : {
-        "label" : "Opps w Admin Profile ID",
+        "label" : "Opportunities with Admin Profile ID",
         "description" : "",
         "type" : "UPDATE",
         "top" : 112.19999999999999,
