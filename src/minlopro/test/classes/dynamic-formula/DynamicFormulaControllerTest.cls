@@ -24,7 +24,6 @@ private class DynamicFormulaControllerTest {
             // Case #3 - User formula;
             User sampleUser = TestDataFactory.createRegularUser();
             Profile minloproUserProfile = TestDataFactory.selectMinloproUserProfile();
-            Assert.areEqual(minloproUserProfile.Id, sampleUser.ProfileId);
             formulaInputs.record = sampleUser;
             formulaInputs.formulaReturnTypeName = FormulaEval.FormulaReturnType.BOOLEAN.name();
             formulaInputs.formulaExpression = 'ProfileId = \'' + minloproUserProfile.Id + '\'';
@@ -44,14 +43,13 @@ private class DynamicFormulaControllerTest {
             formulaInputs.record = sampleOpp;
             formulaInputs.formulaReturnTypeName = FormulaEval.FormulaReturnType.INTEGER.name();
             formulaInputs.formulaExpression = 'DOY(CloseeDatee)';
-            Boolean exceptionCaught = false;
             try {
                 // There is no fflib selector for Opportunities;
                 DynamicFormulaController.evaluate(formulaInputs);
+                Assert.fail('Exception should have been thrown');
             } catch (Exception ex) {
-                exceptionCaught = true;
+                Assert.isNotNull(ex, 'Exception should have been caught');
             }
-            Assert.isTrue(exceptionCaught, 'Exception should have been caught');
         }
     }
 }

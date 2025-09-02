@@ -3,10 +3,10 @@
 # How to use:
 # - bash ./scripts/util/minify_global_styles.sh
 
-CSS_FILE="./src/minlopro-core/main/staticresources/GlobalStyles/globalStyles.css"
+# src/minlopro-core/../staticresources/../globalStyles.css
+CSS_FILE="$(find "src" -type f -name "globalStyles.css" | head -n 1)"
 
 echo "🔵 Minifying [$CSS_FILE]..."
-
 npx cleancss --version
 
 if [[ -f "$CSS_FILE" ]]; then
@@ -16,4 +16,3 @@ if [[ -f "$CSS_FILE" ]]; then
 else
     echo "⚪ File not found: [$CSS_FILE]."
 fi
-echo

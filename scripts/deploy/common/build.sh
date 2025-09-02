@@ -9,10 +9,11 @@ echo
 mkdir -p "build"
 
 # Install Salesforce CLI (v2)
+sfCliVersion="2.100"
 sfCliPackageName="@salesforce/cli"
 if ! npm ls -g "$sfCliPackageName" &> /dev/null; then
-  echo "Installing [$sfCliPackageName] globally."
-  npm install @salesforce/cli --global --silent
+  echo "Installing [$sfCliPackageName@${sfCliVersion}] globally."
+  npm install @salesforce/cli@${sfCliVersion} --global
   # Run `npm update @salesforce/cli --global` to update CLI locally
 fi
 echo "Salesforce CLI: $(sf --version)"
@@ -38,7 +39,7 @@ install_sf_plugin "sfdmu"
 # https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_cli_reference.meta/bi_dev_guide_cli_reference/bi_cli_reference.htm
 install_sf_plugin "@salesforce/analytics"
 # https://developer.salesforce.com/docs/platform/lwc/guide/get-started-test-components.html
-install_sf_plugin "@salesforce/plugin-lightning-dev@prerelease"
+install_sf_plugin "@salesforce/plugin-lightning-dev"
 
 # Install the rest of dependencies via NPM
 npm ci --silent; echo
