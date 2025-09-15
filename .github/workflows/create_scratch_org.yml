@@ -12,6 +12,10 @@ on:
         description: 'Purge On Create?'
         default: true
 
+env:
+  DEV_HUB_ORG_ALIAS: "minlopro-dx-dev-hub"
+  SCRATCH_ORG_ALIAS: "minlopro-dx-scratch-org"
+
 jobs:
   spin-up-scratch-org:
     runs-on: ubuntu-22.04
@@ -25,22 +29,51 @@ jobs:
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
       - name: "Auth DevHub Org 🎫"
+        id: auth-dev-hub-org
         uses: ./.github/actions/auth-salesforce-org
         with:
-          sfdx_auth_url: ${{ env.DEV_HUB_AUTH_URL }}
-          target-org-alias: "DevHub"
-      - name: 'Mark Default DevHub Org'
-        run: sf config set target-dev-hub "DevHub"
+          sfdx-auth-url: ${{ env.DEV_HUB_AUTH_URL }}
+          target-org-alias: ${{ env.DEV_HUB_ORG_ALIAS }}
+      - name: 'Config Target DevHub Org'
+        shell: bash
+        run: sf config set target-dev-hub ${{ steps.auth-dev-hub-org.outputs.target-org-alias }}
       - name: 'Spin Up Brand New Scratch Org'
         id: spin-scratch-org
         continue-on-error: true
-        run: bash ./scripts/automations/create_scratch_org.sh "DevHub" "ScratchOrg" "${{github.event.inputs.adminEmail}}"
+        run: bash ./scripts/automations/create_scratch_org.sh ${{ steps.auth-dev-hub-org.outputs.target-org-alias }} ${{ env.SCRATCH_ORG_ALIAS }} ${{ github.event.inputs.adminEmail }}
+      - name: "Compose Shortcut Snippet To Authorize Into Scratch Org"
+        if: ${{ steps.spin-scratch-org.outcome == 'success' }}
+        continue-on-error: true
+        shell: bash
+        run: |
+          scratchOrgAlias="${{ env.SCRATCH_ORG_ALIAS }}"
+          scratchOrgInfo="$(sf org display --target-org "$scratchOrgAlias" --json --verbose)"
+          scratchOrgInstanceUrl="$(echo "$scratchOrgInfo" | jq -r '.result.instanceUrl')"
+          scratchOrgSfdxUrl="$(echo "$scratchOrgInfo" | jq -r '.result.sfdxAuthUrl')"
+          scratchOrgBase64EncodedSfdxUrl="$(echo "$scratchOrgSfdxUrl" | base64)"
+          # Append custom snippet to workflow summary
+          cat > $GITHUB_STEP_SUMMARY << EOF
+          ### Scratch Org Authentication Shortcut 💥
+          
+          **$scratchOrgInstanceUrl** 🔗
+          
+          To quickly authenticate with your scratch org, use this command in the Bash terminal:
+          
+          \`\`\`bash
+          scratchOrgAlias="$scratchOrgAlias"; \\
+            echo "$scratchOrgBase64EncodedSfdxUrl" | base64 -d | \\
+            sf org login sfdx-url --alias "\$scratchOrgAlias" --sfdx-url-stdin --set-default && \\
+            sf config set target-org "\$scratchOrgAlias" && \\
+            sf project reset tracking --target-org "\$scratchOrgAlias" --no-prompt && \\
+            sf org list && sf org display --target-org "\$scratchOrgAlias"
+          \`\`\`
+          EOF
       - name: "Run Apex Tests 🚇"
-        id: run_apex_tests
+        id: run-apex-tests
         continue-on-error: true
         uses: ./.github/actions/run-apex-tests
         with:
-          target-org-alias: "ScratchOrg"
+          target-org-alias: ${{ env.SCRATCH_ORG_ALIAS }}
       - name: 'Upload Scratch Org Credentials as Artifact'
         id: upload-scratch-credentials
         continue-on-error: true
@@ -54,8 +87,8 @@ jobs:
           include-hidden-files: true
           retention-days: 5
       - name: 'Purge Scratch Org If Any Step Failed'
-        if: ${{ steps.spin-scratch-org.outcome == 'failure' || steps.run_apex_tests.outcome == 'failure' || steps.upload-scratch-credentials.outcome == 'failure' }}
-        run: sf org delete scratch --target-org "ScratchOrg" --no-prompt; exit 1
+        if: ${{ steps.spin-scratch-org.outcome == 'failure' || steps.run-apex-tests.outcome == 'failure' || steps.upload-scratch-credentials.outcome == 'failure' }}
+        run: sf org delete scratch --target-org ${{ env.SCRATCH_ORG_ALIAS }} --no-prompt; exit 1
       - name: 'Purge Scratch Org'
         if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
-        run: sf org delete scratch --target-org "ScratchOrg" --no-prompt
+        run: sf org delete scratch --target-org ${{ env.SCRATCH_ORG_ALIAS }} --no-prompt

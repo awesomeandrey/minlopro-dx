@@ -60,7 +60,7 @@ jobs:
         id: auth-salesforce-org
         uses: ./.github/actions/auth-salesforce-org
         with:
-          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
       - name: 'Run PRE-Deploy Scripts'
         run: echo ${{ steps.auth-salesforce-org.outputs.target-org-alias }} | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Generate Delta Manifests'

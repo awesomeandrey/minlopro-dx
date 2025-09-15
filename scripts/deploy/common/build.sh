@@ -9,7 +9,7 @@ echo
 mkdir -p "build"
 
 # Install Salesforce CLI (v2)
-sfCliVersion="2.100"
+sfCliVersion="2.105"
 sfCliPackageName="@salesforce/cli"
 if ! npm ls -g "$sfCliPackageName" &> /dev/null; then
   echo "Installing [$sfCliPackageName@${sfCliVersion}] globally."

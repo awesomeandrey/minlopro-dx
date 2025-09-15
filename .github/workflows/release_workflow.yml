@@ -34,7 +34,7 @@ jobs:
       - name: "Auth Production Org 🎫"
         uses: ./.github/actions/auth-salesforce-org
         with:
-          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
           target-org-alias: "Prod"
       - name: "Run PRE-Deploy Scripts"
         run: |
@@ -80,7 +80,7 @@ jobs:
       - name: "Auth Production Org 🎫"
         uses: ./.github/actions/auth-salesforce-org
         with:
-          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
           target-org-alias: "Prod"
       - name: 'Quick Deploy By Job ID'
         run: |
