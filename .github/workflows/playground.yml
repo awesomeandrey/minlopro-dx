@@ -2,8 +2,8 @@ name: Playground 🐚
 run-name: "Playground (${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }})"
 
 on:
-  pull_request:
-    types: [ opened, synchronize, reopened ]
+#  pull_request:
+#    types: [ opened, synchronize, reopened ]
   workflow_dispatch:
     inputs:
       environment:
@@ -34,6 +34,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }} # Controlled by GitHub repository variable
       - name: "Auth Salesforce Org 🎫"
         id: auth-salesforce-org
         uses: ./.github/actions/auth-salesforce-org

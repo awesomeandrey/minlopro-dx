@@ -28,6 +28,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
       - name: "Auth DevHub Org 🎫"
         id: auth-dev-hub-org
         uses: ./.github/actions/auth-salesforce-org

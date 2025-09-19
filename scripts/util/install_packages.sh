@@ -8,8 +8,8 @@ read -r -p "🔶 Enter target org alias to install packages in: " TARGET_ORG_ALI
 
 echo "🔵 Fetching installed packages from [$SOURCE_ORG_ALIAS] org and installing them in [$TARGET_ORG_ALIAS] org..."
 
+sf package installed list --target-org "$SOURCE_ORG_ALIAS"
 installedPackagesAsJson=$(sf package installed list --target-org "$SOURCE_ORG_ALIAS" --json)
-echo "$installedPackagesAsJson"
 
 # Install package one-by-one
 echo "$installedPackagesAsJson" | jq -c '.result[]' | while read -r packageInfo; do
