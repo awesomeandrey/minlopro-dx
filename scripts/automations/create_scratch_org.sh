@@ -41,7 +41,7 @@ orgCredentialsFile="build/$ADMIN_EMAIL-SO.json"
 touch "$orgCredentialsFile"
 echo "📜 Scratch Org Credentials"
 sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json > "$orgCredentialsFile"
-cat "$orgCredentialsFile"
+sf org display --target-org "$SCRATCH_ORG_ALIAS"
 
 # Install packages from DevHub
 inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile

@@ -77,7 +77,7 @@ global with sharing class GithubWebhookEndpoint {
             return false;
         }
         // Filter by workflow conclusions;
-        final Set<String> subscribedConclusions = Sets.of(null, 'success', 'failure');
+        final Set<String> subscribedConclusions = new Set<String>{ null, 'success', 'failure', 'cancelled' };
         if (!subscribedConclusions.contains(event.workflow_run.conclusion)) {
             return false;
         }
@@ -140,7 +140,7 @@ global with sharing class GithubWebhookEndpoint {
         public String name;
         public String html_url;
         public String status; // 'queued', 'completed';
-        public String conclusion; // null, 'failure', 'success';
+        public String conclusion; // null, 'failure', 'success', 'cancelled';
 
         private final String conclusionIcon {
             get {

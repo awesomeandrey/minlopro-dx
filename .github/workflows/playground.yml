@@ -32,38 +32,20 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: "Build Environment 🚜"
-        uses: ./.github/actions/build-env
-        env:
-          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }} # Controlled by GitHub repository variable
-      - name: "Auth Salesforce Org 🎫"
-        id: auth-salesforce-org
-        uses: ./.github/actions/auth-salesforce-org
-        with:
-          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
-          target-org-alias: "sf-practises-devhub-shortcut"
-      - name: "Compose Shortcut Snippet To Authorize Into Org"
+#      - name: "Build Environment 🚜"
+#        uses: ./.github/actions/build-env
+#        env:
+#          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }} # Controlled by GitHub repository variable
+#      - name: "Auth Salesforce Org 🎫"
+#        id: auth-salesforce-org
+#        uses: ./.github/actions/auth-salesforce-org
+#        with:
+#          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
+#          target-org-alias: "sf-practises-devhub-shortcut"
+      - name: "Long Running Operation"
         shell: bash
-        run: |
-          scratchOrgAlias="${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
-          scratchOrgInfo="$(sf org display --target-org "$scratchOrgAlias" --json --verbose)"
-          scratchOrgInstanceUrl="$(echo "$scratchOrgInfo" | jq -r '.result.instanceUrl')"
-          scratchOrgSfdxUrl="$(echo "$scratchOrgInfo" | jq -r '.result.sfdxAuthUrl')"
-          scratchOrgBase64EncodedSfdxUrl="$(echo "$scratchOrgSfdxUrl" | base64)"
-          # Append custom snippet to workflow summary
-          cat > $GITHUB_STEP_SUMMARY << EOF
-          ### Scratch Org Authentication Shortcut 💥
-          
-          **$scratchOrgInstanceUrl** 🔗
-          
-          To quickly authenticate with your scratch org, use this command in the Bash terminal:
-          
-          \`\`\`bash
-          scratchOrgAlias="$scratchOrgAlias"; \\
-            echo "$scratchOrgBase64EncodedSfdxUrl" | base64 -d | \\
-            sf org login sfdx-url --alias "\$scratchOrgAlias" --sfdx-url-stdin --set-default && \\
-            sf config set target-org "\$scratchOrgAlias" && \\
-            sf project reset tracking --target-org "\$scratchOrgAlias" --no-prompt && \\
-            sf org list && sf org display --target-org "\$scratchOrgAlias"
-          \`\`\`
-          EOF
+        run: sleep 60
+      - name: "Handle Cancellation"
+        if: cancelled()
+        shell: bash
+        run: echo "Cancelling deployment..."

@@ -67,6 +67,13 @@ jobs:
               "${{ steps.auth-salesforce-org.outputs.target-org-alias }}" \
               "${{ env.SF_DEPLOYMENT_MODE }}" \
               "${{ inputs.test-level }}"
+      - name: 'Handle Deployment Cancellation'
+        if: cancelled()
+        shell: bash
+        run: |
+          sf project deploy cancel \
+            --target-org "${{ steps.auth-salesforce-org.outputs.target-org-alias }}" \
+            --use-most-recent || exit 1
       - name: 'Run POST-Deploy Scripts'
         if: ${{ env.SF_DEPLOYMENT_MODE == 'Hard' }}
         run: echo ${{ steps.auth-salesforce-org.outputs.target-org-alias }} | bash ./scripts/deploy/post/run_post.sh
