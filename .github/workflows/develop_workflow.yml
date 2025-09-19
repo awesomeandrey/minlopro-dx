@@ -51,11 +51,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
       - name: "Auth Salesforce Org 🎫"
         id: auth-salesforce-org
         uses: ./.github/actions/auth-salesforce-org
         with:
-          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
       - name: "Run PRE-Deploy Scripts"
         run: echo ${{ steps.auth-salesforce-org.outputs.target-org-alias }} | bash ./scripts/deploy/pre/run_pre.sh
       - name: 'Deploy Source to Target Org'
@@ -79,11 +81,13 @@ jobs:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
       - name: "Auth Salesforce Org 🎫"
         id: auth-salesforce-org
         uses: ./.github/actions/auth-salesforce-org
         with:
-          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
+          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
       - name: "Run Apex Tests 🚇"
         uses: ./.github/actions/run-apex-tests
         with:
@@ -96,6 +100,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
       - name: "Install Salesforce Code Analyzer Plugin"
         run: sf plugins install code-analyzer@latest
       - name: "Convert To Metadata API Format"
@@ -122,6 +128,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
       - name: 'Config Git User'
         run: |
           git config user.name "github-actions[bot] 🤖"

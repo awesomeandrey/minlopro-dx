@@ -2,12 +2,12 @@ name: "Auth Salesforce Org 🚜"
 description: "Authenticate into Salesforce org and assign it unique alias"
 
 inputs:
+  sfdx-auth-url:
+    required: true
+    description: "Target Salesforce org SFDX URL"
   target-org-alias:
     required: false
     description: "Target Salesforce org alias to set upon authentication"
-  sfdx_auth_url:
-    required: true
-    description: "Target Salesforce org SFDX URL"
 
 outputs:
   target-org-alias:
@@ -24,10 +24,11 @@ runs:
       id: auth-salesforce-org
       shell: bash
       run: |
-        bash ./scripts/deploy/common/authorize_org.sh "${{ inputs.sfdx_auth_url }}" "${{ inputs.target-org-alias }}"
-        orgAlias=$(sf config get target-org --json | jq -r '.result[0].value')
+        bash ./scripts/deploy/common/authorize_org.sh "${{ inputs.sfdx-auth-url }}" "${{ inputs.target-org-alias }}"
+        orgAlias="$(sf config get target-org --json | jq -r '.result[0].value')"
+        orgInstanceUrl="$(sf org display --target-org "$orgAlias" --json | jq -r '.result.instanceUrl')"
         echo "SF_TARGET_ORG_ALIAS=$orgAlias" >> $GITHUB_OUTPUT
-        echo "SF_TARGET_ORG_INSTANCE_URL=$(sf org display -o $orgAlias --json | jq -r '.result.instanceUrl')" >> $GITHUB_OUTPUT
+        echo "SF_TARGET_ORG_INSTANCE_URL=$orgInstanceUrl" >> $GITHUB_OUTPUT
     - name: 'Listing Organization Limits'
       shell: bash
       run: sf limits api display

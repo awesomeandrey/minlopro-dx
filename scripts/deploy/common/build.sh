@@ -8,12 +8,13 @@ echo "🔵 Building environment and installing dependencies..."
 echo
 mkdir -p "build"
 
-# Install Salesforce CLI (v2)
-sfCliVersion="2.100"
+# Install Salesforce CLI (v2). Note CLI version is derived from 'SF_CLI_VERSION' environment variable (if specified)
+sfCliVersion="${SF_CLI_VERSION:-latest}"
 sfCliPackageName="@salesforce/cli"
+
 if ! npm ls -g "$sfCliPackageName" &> /dev/null; then
   echo "Installing [$sfCliPackageName@${sfCliVersion}] globally."
-  npm install @salesforce/cli@${sfCliVersion} --global
+  npm install "@salesforce/cli@${sfCliVersion}" --global
   # Run `npm update @salesforce/cli --global` to update CLI locally
 fi
 echo "Salesforce CLI: $(sf --version)"

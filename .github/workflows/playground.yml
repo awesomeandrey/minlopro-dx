@@ -1,5 +1,5 @@
 name: Playground 🐚
-run-name: "Playground [${{ inputs.environment }}] / '${{ github.actor }}'"
+run-name: "Playground (${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }})"
 
 on:
 #  pull_request:
@@ -11,10 +11,6 @@ on:
         required: true
         type: environment
         default: "Minlopro DevHub"
-      apex-test-class-names:
-        description: "Apex Test Class Names"
-        type: string
-        default: "OpportunityFlowTests:CarSharingRuleTest:TestDataFactoryTest"
 
 permissions:
   contents: read
@@ -36,77 +32,38 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: 'Fetch Particular Branches'
-        run: |
-          echo "Before"
-          git branch
-          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}; git checkout ${{ github.base_ref }}
-          git fetch origin ${{ github.head_ref }}:${{ github.head_ref }}; git checkout ${{ github.head_ref }}
-          echo "After"
-          git branch
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
-      - name: 'Run Salesforce Code Analyzer'
-        id: run-code-analyzer
-        uses: forcedotcom/run-code-analyzer@v2
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }} # Controlled by GitHub repository variable
+      - name: "Auth Salesforce Org 🎫"
+        id: auth-salesforce-org
+        uses: ./.github/actions/auth-salesforce-org
         with:
-          run-arguments: --workspace "src" --view "table" --rule-selector all:High
-          results-artifact-name: salesforce-code-analyzer-results
-          github-token: ${{ github.token }}
-      - name: 'Check the Outputs to Determine Whether to Fail'
-        if: |
-          steps.run-code-analyzer.outputs.exit-code > 0 ||
-          steps.run-code-analyzer.outputs.num-sev1-violations > 0 ||
-          steps.run-code-analyzer.outputs.num-sev2-violations > 0 ||
-          steps.run-code-analyzer.outputs.num-violations > 10
-        run: exit 1
-#      - name: "Auth Salesforce Org 🎫"
-#        id: auth-salesforce-org
-#        uses: ./.github/actions/auth-salesforce-org
-#        with:
-#          sfdx_auth_url: ${{ env.SF_AUTH_URL }}
-#      - name: "Run Apex Tests 🚇"
-#        if: ${{ inputs.apex-test-class-names != '' }}
-#        id: run-apex-tests
-#        continue-on-error: true
-#        uses: ./.github/actions/run-apex-tests
-#        with:
-#          target-org-alias: ${{ steps.auth-salesforce-org.outputs.target-org-alias }}
-#          class-names: ${{ inputs.apex-test-class-names }}
-#          slack-webhook-url: ${{ secrets.SLACK_WEBHOOK_PLAYGROUND }}
-#      - name: 'Composite Actions Outputs'
-#        run: |
-#          echo "sf --version >>> $(sf --version)"
-#          echo "Auth Org Alias >>> ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
-#          echo "Auth Org Instance URL >>> ${{ steps.auth-salesforce-org.outputs.target-org-instance-url }}"
-#          echo "Apex Tests Outcome >>> ${{ steps.run-apex-tests.outputs.success }}"
-#      - name: 'GHA Playground - Step #1'
-#        run: |
-#          echo "〽️ Target Environment"
-#          echo "ENV=${{ inputs.environment }}"
-#          echo "〽️ Environment Details"
-#          printenv | grep "GITHUB" | column -t -s "=" | sort
-#          echo "〽️ Setting custom env variable"
-#          MINLOPRO_STATUS="Haha I'm playing with GHAs! Cool 💯!"
-#          echo "Value: ${MINLOPRO_STATUS}"
-#          echo "MINLOPRO_STATUS=${MINLOPRO_STATUS}" >> $GITHUB_ENV
-#          echo "〽️ Get Salesforce CLI installation path"
-#          which sf
-#          echo "〽️ Get Global NPM Directory"
-#          npm config get prefix
-#      - name: 'GHA Playground - Step #2'
-#        run: |
-#          echo "〽️ Getting custom env variable"
-#          echo "Env variable value: ${MINLOPRO_STATUS}"
-#          echo "〽️ Listing Salesforce CLI Plugins & Adding Them As Summary"
-#          echo "### Salesforce CLI Plugins" >> $GITHUB_STEP_SUMMARY
-#          echo '```json' >> $GITHUB_STEP_SUMMARY
-#          sf plugins --json | jq '[.[].name]' >> $GITHUB_STEP_SUMMARY
-#          echo '```' >> $GITHUB_STEP_SUMMARY
-#      - name: 'GHA Playground - Step #3'
-#        run: |
-#          echo "〽️ Getting custom env variable (cross-step)"
-#          echo "Env variable value: ${MINLOPRO_STATUS}"
-#          echo "PWD as cli tool: $(pwd)"
-#          echo "PWD as GHA env variable: ${{ env.PWD }}"
-#          echo "PWD as regular env variable: $PWD"
+          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
+          target-org-alias: "sf-practises-devhub-shortcut"
+      - name: "Compose Shortcut Snippet To Authorize Into Org"
+        shell: bash
+        run: |
+          scratchOrgAlias="${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+          scratchOrgInfo="$(sf org display --target-org "$scratchOrgAlias" --json --verbose)"
+          scratchOrgInstanceUrl="$(echo "$scratchOrgInfo" | jq -r '.result.instanceUrl')"
+          scratchOrgSfdxUrl="$(echo "$scratchOrgInfo" | jq -r '.result.sfdxAuthUrl')"
+          scratchOrgBase64EncodedSfdxUrl="$(echo "$scratchOrgSfdxUrl" | base64)"
+          # Append custom snippet to workflow summary
+          cat > $GITHUB_STEP_SUMMARY << EOF
+          ### Scratch Org Authentication Shortcut 💥
+          
+          **$scratchOrgInstanceUrl** 🔗
+          
+          To quickly authenticate with your scratch org, use this command in the Bash terminal:
+          
+          \`\`\`bash
+          scratchOrgAlias="$scratchOrgAlias"; \\
+            echo "$scratchOrgBase64EncodedSfdxUrl" | base64 -d | \\
+            sf org login sfdx-url --alias "\$scratchOrgAlias" --sfdx-url-stdin --set-default && \\
+            sf config set target-org "\$scratchOrgAlias" && \\
+            sf project reset tracking --target-org "\$scratchOrgAlias" --no-prompt && \\
+            sf org list && sf org display --target-org "\$scratchOrgAlias"
+          \`\`\`
+          EOF
