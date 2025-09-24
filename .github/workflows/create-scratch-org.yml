@@ -43,11 +43,12 @@ jobs:
         id: spin-scratch-org
         continue-on-error: true
         run: bash ./scripts/automations/create_scratch_org.sh ${{ steps.auth-dev-hub-org.outputs.target-org-alias }} ${{ env.SCRATCH_ORG_ALIAS }} ${{ github.event.inputs.adminEmail }}
-      - name: "Compose Shortcut Snippet To Authorize Into Scratch Org"
+      - name: "Collect Scratch Org Info"
         if: ${{ steps.spin-scratch-org.outcome == 'success' }}
         continue-on-error: true
         shell: bash
         run: |
+          scratchOrgAdminEmail="${{ inputs.adminEmail }}"
           scratchOrgAlias="${{ env.SCRATCH_ORG_ALIAS }}"
           scratchOrgInfo="$(sf org display --target-org "$scratchOrgAlias" --json --verbose)"
           scratchOrgInstanceUrl="$(echo "$scratchOrgInfo" | jq -r '.result.instanceUrl')"
@@ -55,6 +56,12 @@ jobs:
           scratchOrgBase64EncodedSfdxUrl="$(echo "$scratchOrgSfdxUrl" | base64)"
           # Append custom snippet to workflow summary
           cat > $GITHUB_STEP_SUMMARY << EOF
+          ### Scratch Org Admin Email 📧
+          
+          \`\`\`bash
+          $scratchOrgAdminEmail
+          \`\`\`
+          
           ### Scratch Org Authentication Shortcut 💥
           
           **$scratchOrgInstanceUrl** 🔗
@@ -89,7 +96,7 @@ jobs:
           include-hidden-files: true
           retention-days: 5
       - name: 'Purge Scratch Org If Any Step Failed'
-        if: ${{ steps.spin-scratch-org.outcome == 'failure' || steps.run-apex-tests.outcome == 'failure' || steps.upload-scratch-credentials.outcome == 'failure' }}
+        if: ${{ cancelled() || steps.spin-scratch-org.outcome == 'failure' || steps.run-apex-tests.outcome == 'failure' || steps.upload-scratch-credentials.outcome == 'failure' }}
         run: sf org delete scratch --target-org ${{ env.SCRATCH_ORG_ALIAS }} --no-prompt; exit 1
       - name: 'Purge Scratch Org'
         if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
