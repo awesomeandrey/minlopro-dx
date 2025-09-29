@@ -292,6 +292,10 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <pageAccesses>
+        <apexPage>LwcToPdfPoc</apexPage>
+        <enabled>true</enabled>
+    </pageAccesses>
+    <pageAccesses>
         <apexPage>PdfPreview</apexPage>
         <enabled>true</enabled>
     </pageAccesses>

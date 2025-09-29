@@ -1,13 +1,17 @@
-import { LightningElement, track, wire } from 'lwc';
+import { LightningElement, track, wire, api } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
 import { cloneObject, isNotEmpty } from 'c/utilities';
 import ConvertLeadModal from 'c/convertLeadModal';
 
-// Apex Controller Methods;
+// Apex Controller Methods
 import getMineNonConvertedLeadsApex from '@salesforce/apex/LeadsManagementController.getMineNonConvertedLeads';
 import getMineConvertedLeadsApex from '@salesforce/apex/LeadsManagementController.getMineConvertedLeads';
 
-// Column configs;
+// Templates
+import DEFAULT_TEMPLATE from './leadsManagerTab.html';
+import PRINT_TEMPLATE from './printView.html';
+
+// Column configs
 const COL_LEAD_NAME = {
     label: 'Lead',
     fieldName: 'Id',
@@ -95,6 +99,8 @@ const COL_LEAD_CONVERTED_OPPORTUNITY = {
 };
 
 export default class LeadsManagerTab extends LightningElement {
+    @api mode = 'default'; // options: default, print
+
     @track loading = false;
     @track errorObject = null;
 
@@ -158,11 +164,28 @@ export default class LeadsManagerTab extends LightningElement {
         ];
     }
 
+    get printableTableHeaders() {
+        return [COL_LEAD_EMAIL.label, COL_LEAD_STATUS.label, COL_LEAD_SOURCE.label];
+    }
+
+    get printableTableData() {
+        // const data = [];
+        // for (const row of this.nonConvertedLeads ?? []) {
+        //     data.push([row["Id"], row[COL_LEAD_EMAIL.fieldName], row[COL_LEAD_STATUS.fieldName], row[COL_LEAD_SOURCE.fieldName]]);
+        // }
+        // return data;
+        return this.nonConvertedLeads;
+    }
+
     @wire(getMineNonConvertedLeadsApex)
     wiredNonConvertedLeads = {};
 
     @wire(getMineConvertedLeadsApex)
     wiredConvertedLeads = {};
+
+    render() {
+        return this.mode === 'print' ? PRINT_TEMPLATE : DEFAULT_TEMPLATE;
+    }
 
     connectedCallback() {}
 

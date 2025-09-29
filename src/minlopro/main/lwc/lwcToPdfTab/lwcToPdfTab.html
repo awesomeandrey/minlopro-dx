@@ -1,0 +1,45 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-lwc-to-pdf-tab</code></span>
+        <lightning-button-group slot="actions" class="slds-no-print">
+            <lightning-button label="Print Current Page" onclick={handlePrintCurrentPage}></lightning-button>
+            <lightning-button label="Print via Dynamic Iframe" onclick={handlePrintViaDynamicIframe}></lightning-button>
+            <lightning-button label="Print via Lightning Out" onclick={handlePrintViaLtngOut}></lightning-button>
+        </lightning-button-group>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" padding="around-small">
+                <div class="slds-media">
+                    <div class="slds-media__figure">
+                        <lightning-icon
+                            icon-name="utility:print"
+                            alternative-text="standard:avatar"
+                            size="large"
+                        ></lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <p>The idea is to leverage <code>window.print()</code> browser API.</p>
+                        <p class="slds-no-print slds-text-title_bold">
+                            Some content can be skipped from being printed via <code>slds-no-print</code> CSS class.
+                        </p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                    </div>
+                </div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="slds-no-print">
+                <div lwc:ref="iframeContainer" lwc:dom="manual"></div>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" class="slds-no-print">
+                <iframe lwc:ref="ltngOutIframeContainer" src={vfPageUrl} class="slds-hide"></iframe>
+                <!--iframe lwc:ref="ltngOutIframeContainer" src={vfPageUrl} width="100%" height="500px"></iframe>-->
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-small">
+                <div class="slds-box slds-theme_shade slds-m-vertical_small">
+                    <c-drag-and-drop-tab></c-drag-and-drop-tab>
+                </div>
+                <div class="slds-box slds-theme_shade">
+                    <c-leads-manager-tab mode={mode}></c-leads-manager-tab>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

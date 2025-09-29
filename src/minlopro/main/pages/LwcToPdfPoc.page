@@ -1,0 +1,66 @@
+<apex:page>
+    <!--Includes the Lightning Components for Visualforce JavaScript library, lightning.out.js, from the correct Salesforce domain-->
+    <apex:includeLightning />
+    <!--Import the Design System style sheet-->
+    <apex:slds />
+
+    <style>
+        @media print {
+            .slds-scope {
+                -webkit-print-color-adjust: exact;
+            }
+        }
+    </style>
+
+    <!--REQUIRED SLDS WRAPPER-->
+    <div class="slds-scope slds-m-around_medium">
+        <div class="slds-no-print slds-grid slds-wrap slds-box slds-size_1-of-1 slds-theme_alert-texture">
+            <div class="slds-col slds-size_1-of-3"></div>
+            <div class="slds-col slds-size_1-of-3 slds-align_absolute-center">
+                <p class="slds-text-title_caps">This content will be excluded from PDF</p>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-text-align_right">
+                <button class="slds-button slds-button_brand" type="button" onclick="window.print()">Print</button>
+            </div>
+        </div>
+        <div class="slds-grid slds-gutters slds-p-around_small">
+            <div id="lwc-region" style="width: 100%"></div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', async () => {
+            $Lightning.use('c:MinloproLtngOutApp', function () {
+                console.log('Instantiated Lightning Out!');
+            });
+        });
+        window.addEventListener('message', (event) => {
+            // Extra security measure to enforce: check for 'event.origin'
+            const { type, delay = 3000 } = event.data;
+            if (type === 'PRINT') {
+                // Cleanup area
+                const lwcRegion = document.getElementById('lwc-region');
+                lwcRegion.textContent = '';
+                // Instantiate component
+                $Lightning.createComponent(
+                    'c:lwcToPdfTab',
+                    { mode: 'print' },
+                    'lwc-region',
+                    (component, status, errorMessage) => {
+                        if (!!errorMessage) {
+                            console.log('Could not create component >', status, errorMessage);
+                        }
+                    }
+                );
+                // Give some time for component to load & resolve its state
+                setTimeout(window.print, delay);
+            }
+        });
+        window.addEventListener('beforeprint', () => {
+            console.log('beforeprint event');
+        });
+        window.addEventListener('afterprint', () => {
+            console.log('afterprint event');
+        });
+    </script>
+</apex:page>
