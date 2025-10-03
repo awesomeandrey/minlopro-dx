@@ -29,6 +29,11 @@ on:
           - "NoTestRun"
           - "RunLocalTests"
           - "RunAllTestsInOrg"
+      do-publish-sites:
+        description: "Publish Experience Sites?"
+        required: false
+        type: boolean
+        default: false
   push:
     branches:
       - develop
@@ -77,6 +82,13 @@ jobs:
       - name: 'Run POST-Deploy Scripts'
         if: ${{ env.SF_DEPLOYMENT_MODE == 'Hard' }}
         run: echo ${{ steps.auth-salesforce-org.outputs.target-org-alias }} | bash ./scripts/deploy/post/run_post.sh
+      - name: 'Publishing Experience Sites'
+        if: ${{ env.SF_DEPLOYMENT_MODE == 'Hard' && inputs.do-publish-sites == 'true'}}
+        shell: bash
+        run: |
+          targetOrgAlias="${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+          sf community publish --name "DigEx" --target-org "$targetOrgAlias" || true
+          sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$targetOrgAlias" || true
   run-apex-tests:
     if: ${{ inputs.mode != 'Dry-Run' }}
     needs: [ deploy-source-to-org ]

@@ -12,7 +12,7 @@
     <bandwidthExceededPage>BandwidthExceeded</bandwidthExceededPage>
     <browserXssProtection>true</browserXssProtection>
     <cachePublicVisualforcePagesInProxyServers>true</cachePublicVisualforcePagesInProxyServers>
-    <clickjackProtectionLevel>SameOriginOnly</clickjackProtectionLevel>
+    <clickjackProtectionLevel>External</clickjackProtectionLevel>
     <contentSniffingProtection>true</contentSniffingProtection>
     <description>Custom Force.com site created for POC purposes</description>
     <enableAuraRequests>true</enableAuraRequests>
@@ -26,6 +26,9 @@
     <referrerPolicyOriginWhenCrossOrigin>true</referrerPolicyOriginWhenCrossOrigin>
     <siteAdmin>${SF_ADMIN_USERNAME}</siteAdmin>
     <siteGuestRecordDefaultOwner>${SF_ADMIN_USERNAME}</siteGuestRecordDefaultOwner>
+    <siteIframeWhiteListUrls>
+        <url>*.salesforce.com</url>
+    </siteIframeWhiteListUrls>
     <siteTemplate>SiteTemplate</siteTemplate>
     <siteType>Visualforce</siteType>
     <urlPathPrefix>minlopro</urlPathPrefix>

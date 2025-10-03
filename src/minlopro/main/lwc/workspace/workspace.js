@@ -31,7 +31,7 @@ export default class Workspace extends LightningElement {
             },
             { label: 'Keyset Pagination', name: 'keysetPaginationTab', iconName: 'utility:breadcrumbs', visible: true },
             { label: 'Drag & Drop', name: 'dragAndDropTab', iconName: 'utility:drag', visible: true },
-            { label: 'PDF-Lib Demo', name: 'pdfLibDemoTab', iconName: 'utility:pdf_ext', visible: true },
+            { label: 'Merge PDF Files Demo', name: 'pdfLibDemoTab', iconName: 'utility:pdf_ext', visible: true },
             { label: 'TesseractJS-OCR', name: 'ocrDemoTab', iconName: 'utility:scan', visible: IS_OCR_USER },
             {
                 label: 'Named Credentials Demo',
@@ -42,7 +42,8 @@ export default class Workspace extends LightningElement {
             { label: 'Dynamic Formula Evaluation', name: 'dynamicFormulaTab', iconName: 'utility:formula', visible: true },
             { label: 'WYSIWYG Editor', name: 'wysiwygTab', iconName: 'utility:edit_gpt', visible: true },
             { label: 'UNABLE_TO_LOCK_ROW Demo', name: 'unableToLockRowTab', iconName: 'utility:error', visible: true },
-            { label: 'Business Hours Demo', name: 'businessHoursDemoTab', iconName: 'utility:clock', visible: true }
+            { label: 'Business Hours Demo', name: 'businessHoursDemoTab', iconName: 'utility:clock', visible: true },
+            { label: 'Printable LWC Demo', name: 'lwcToPdfTab', iconName: 'utility:print', visible: true }
         ];
         return componentTabs
             .sort(({ label: l1 }, { label: l2 }) => {

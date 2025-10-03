@@ -33,7 +33,7 @@
 # Static assets folder
 assets/
 
-# Excluded file exentsions
+# Excluded file extensions
 **/*.sh
 .env.manifest
 .forceignore

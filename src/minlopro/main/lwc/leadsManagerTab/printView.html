@@ -1,0 +1,30 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-leads-manager-tab</code></span>
+        <lightning-layout>
+            <lightning-layout-item size="12" padding="horizontal-small">
+                <p class="slds-text-title_caps slds-m-bottom_x-small">Leads Marketplace</p>
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_striped">
+                    <thead>
+                        <tr>
+                            <template for:each={printableTableHeaders} for:item="header">
+                                <th key={header} scope="col">
+                                    <div class="slds-truncate">{header}</div>
+                                </th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={printableTableData} for:item="data">
+                            <tr key={data.Id}>
+                                <td><span class="slds-truncate">{data.Email}</span></td>
+                                <td><span class="slds-truncate">{data.Status}</span></td>
+                                <td><span class="slds-truncate">{data.LeadSource}</span></td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

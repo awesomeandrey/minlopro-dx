@@ -10,11 +10,11 @@ read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 echo "🔵 Deploying dependent metadata to [$TARGET_ORG_ALIAS] organization..."
 
 sf project generate manifest \
-  --name 'manifests/package.xml' \
-  --metadata Certificate:Minlopro \
-  --metadata ApexClass:AxiomSamlJitHandlerStub
+  --name "manifests/package.xml" \
+  --metadata "Certificate:Minlopro" \
+  --metadata "ApexClass:AxiomSamlJitHandlerStub"
 
 npx dotenv -e "scripts/.env.manifest" -- sf project deploy start \
   --target-org "$TARGET_ORG_ALIAS" \
-  --manifest 'manifests/package.xml' \
+  --manifest "manifests/package.xml" \
   --wait 10
