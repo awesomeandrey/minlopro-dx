@@ -1,6 +1,8 @@
 import { LightningElement, track, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
+import { isNotEmpty } from 'c/utilities';
 
+import getDefaultBusinessHoursApex from '@salesforce/apex/BusinessHoursController.getDefaultBusinessHours';
 import calculateMetricsApex from '@salesforce/apex/BusinessHoursController.calculateMetrics';
 
 export default class BusinessHoursDemoTab extends LightningElement {
@@ -17,10 +19,19 @@ export default class BusinessHoursDemoTab extends LightningElement {
 
     get stats() {
         return {
-            'Timezone SID Key': this.timezoneKey,
+            'Default Business Hours': this.defaultBusinessHoursLabel,
+            'Selected Timezone SID Key': this.timezoneKey,
             'Date #1 (UTC)': this.datetime1,
             'Date #2 (UTC)': this.datetime2
         };
+    }
+
+    get defaultBusinessHoursLabel() {
+        const { data } = this.wiredDefaultBusinessHours;
+        if (isNotEmpty(data)) {
+            return `${data.Name} (${data.TimeZoneSidKey})`;
+        }
+        return null;
     }
 
     get error() {
@@ -47,6 +58,9 @@ export default class BusinessHoursDemoTab extends LightningElement {
 
     @wire(calculateMetricsApex, { datetime1: '$datetime1', datetime2: '$datetime2' })
     wiredCalculatedMetrics = {};
+
+    @wire(getDefaultBusinessHoursApex)
+    wiredDefaultBusinessHours = {};
 
     handleChangeTimezone(event) {
         this.timezoneKey = event.detail.value;
