@@ -42,7 +42,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingSortProperties />
+                <groupingSortProperties/>
                 <header>Logs Trends</header>
                 <report>MinloproLoggerStatistics/LogsTrends</report>
                 <showPercentage>false</showPercentage>
@@ -92,7 +92,21 @@
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
-            <rowSpan>8</rowSpan>
+            <rowSpan>6</rowSpan>
+        </dashboardGridComponents>
+        <dashboardGridComponents>
+            <colSpan>3</colSpan>
+            <columnIndex>9</columnIndex>
+            <dashboardComponent>
+                <autoselectColumnsFromReport>true</autoselectColumnsFromReport>
+                <componentType>RichText</componentType>
+                <dashboardComponentContents>
+                    <richTextContent>[{\&amp;quot;attributes\&amp;quot;:{\&amp;quot;size\&amp;quot;:\&amp;quot;16px\&amp;quot;,\&amp;quot;link\&amp;quot;:\&amp;quot;\/lightning\/cmp\/c__workspace\&amp;quot;},\&amp;quot;insert\&amp;quot;:\&amp;quot;\u2B05\uFE0F Back to LWC Workspace\&amp;quot;},{\&amp;quot;attributes\&amp;quot;:{\&amp;quot;align\&amp;quot;:\&amp;quot;center\&amp;quot;},\&amp;quot;insert\&amp;quot;:\&amp;quot;\\n\&amp;quot;}]</richTextContent>
+                </dashboardComponentContents>
+                <groupingSortProperties/>
+            </dashboardComponent>
+            <rowIndex>6</rowIndex>
+            <rowSpan>2</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>4</colSpan>
@@ -111,7 +125,7 @@
                 <displayUnits>Auto</displayUnits>
                 <gaugeMax>5000.0</gaugeMax>
                 <gaugeMin>0.0</gaugeMin>
-                <groupingSortProperties />
+                <groupingSortProperties/>
                 <header>Logs Amount</header>
                 <indicatorBreakpoint1>500.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>1000.0</indicatorBreakpoint2>
@@ -183,7 +197,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingSortProperties />
+                <groupingSortProperties/>
                 <header>Logs By Stack Trace</header>
                 <report>MinloproLoggerStatistics/LogsByStackTrace</report>
                 <showPercentage>false</showPercentage>
@@ -211,7 +225,7 @@
                 <drillToDetailEnabled>false</drillToDetailEnabled>
                 <enableHover>false</enableHover>
                 <expandOthers>false</expandOthers>
-                <groupingSortProperties />
+                <groupingSortProperties/>
                 <header>Logs By Author</header>
                 <report>MinloproLoggerStatistics/LogsByAuthor</report>
                 <showPercentage>false</showPercentage>

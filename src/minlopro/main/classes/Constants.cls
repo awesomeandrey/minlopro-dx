@@ -103,10 +103,16 @@ public inherited sharing class Constants {
     }
 
     public class BusinessHours {
+        // Identifier name is reserved: Default
         public Schema.BusinessHours Predefined {
             get {
                 if (this.Predefined == null) {
-                    this.Predefined = [SELECT Id, Name FROM BusinessHours WHERE IsDefault = TRUE AND IsActive = TRUE LIMIT 1][0];
+                    this.Predefined = [
+                        SELECT Id, Name, TimeZoneSidKey, IsDefault, IsActive
+                        FROM BusinessHours
+                        WHERE IsDefault = TRUE AND IsActive = TRUE
+                        LIMIT 1
+                    ][0];
                 }
                 return this.Predefined;
             }

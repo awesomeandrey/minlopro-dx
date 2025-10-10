@@ -17,7 +17,7 @@
                         ></c-combobox>
                     </lightning-layout-item>
                 </lightning-layout>
-                <lightning-layout multiple-rows>
+                <lightning-layout>
                     <lightning-layout-item size="6" padding="horizontal-small">
                         <lightning-input
                             label="Datetime #1"
@@ -38,40 +38,33 @@
                             required
                         ></lightning-input>
                     </lightning-layout-item>
-                    <lightning-layout-item size="12" padding="around-small">
+                </lightning-layout>
+                <lightning-layout>
+                    <lightning-layout-item flexibility="no-grow" padding="around-small">
                         <div class="slds-box slds-theme_shade slds-p-around_large">
-                            <lightning-layout>
-                                <lightning-layout-item flexibility="no-grow">
-                                    <span class="slds-text-title_bold">Does Datetime #1 fall within business hours?</span>
-                                    <lightning-input
-                                        label=""
-                                        type="checkbox"
-                                        checked={isDate1BusinessDay}
-                                        disabled
-                                    ></lightning-input>
-                                </lightning-layout-item>
-                                <lightning-layout-item flexibility="no-grow" padding="horizontal-small">
-                                    <span class="slds-text-title_bold">Datetime #1 next business datetime:</span>
-                                    <p>
-                                        <lightning-formatted-date-time
-                                            year="numeric"
-                                            month="2-digit"
-                                            day="numeric"
-                                            hour="2-digit"
-                                            minute="2-digit"
-                                            time-zone-name="short"
-                                            time-zone={timezoneKey}
-                                            value={date1NextBusinessDay}
-                                        ></lightning-formatted-date-time>
-                                    </p>
-                                </lightning-layout-item>
-                                <lightning-layout-item flexibility="no-grow">
-                                    <span class="slds-text-title_bold">Diff between Datetime #1 and Datetime #2:</span>
-                                    <p>
-                                        <lightning-formatted-text value={date1And2Diff}></lightning-formatted-text>
-                                    </p>
-                                </lightning-layout-item>
-                            </lightning-layout>
+                            <div>
+                                <span class="slds-text-title_bold">Does Datetime #1 fall within business hours?</span>
+                                <lightning-input label="" type="checkbox" checked={isDate1BusinessDay} disabled></lightning-input>
+                            </div>
+                            <div class="slds-p-vertical_small">
+                                <span class="slds-text-title_bold">Datetime #1 next business datetime:</span>
+                                <p>
+                                    <lightning-formatted-date-time
+                                        year="numeric"
+                                        month="2-digit"
+                                        day="numeric"
+                                        hour="2-digit"
+                                        minute="2-digit"
+                                        time-zone-name="short"
+                                        time-zone={timezoneKey}
+                                        value={date1NextBusinessDay}
+                                    ></lightning-formatted-date-time>
+                                </p>
+                            </div>
+                            <div>
+                                <span class="slds-text-title_bold">Diff between Datetime #1 and Datetime #2:</span>
+                                <p><lightning-formatted-text value={date1And2Diff}></lightning-formatted-text></p>
+                            </div>
                         </div>
                     </lightning-layout-item>
                 </lightning-layout>

@@ -2,7 +2,7 @@
     "name": "minlopro",
     "type": "module",
     "private": true,
-    "version": "3.0.2",
+    "version": "3.0.3",
     "engines": {
         "node": ">=20.x",
         "npm": ">=10.x"
@@ -45,6 +45,7 @@
         "xml2js": "^0.6.2"
     },
     "devDependencies": {
+        "@salesforce-ux/slds-linter": "^1.0.2",
         "@salesforce/mcp": "^0.17.0"
     }
 }

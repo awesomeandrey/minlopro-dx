@@ -244,7 +244,10 @@
           "label" : "Amount Bucket",
           "type" : "TEXT",
           "bucketsSetup" : {
+            "defaultBucketValue" : null,
+            "nullBucketValue" : "N/A",
             "isPassthroughEnabled" : false,
+            "algorithm" : null,
             "sourceField" : {
               "name" : "Amount",
               "type" : "NUMBER"
@@ -260,9 +263,24 @@
         } ]
       }
     },
+    "FORMULA2" : {
+      "action" : "formula",
+      "sources" : [ "BUCKET0" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "RecordSelectorName",
+          "label" : "Record Selector Name",
+          "formulaExpression" : "concat(Name, ' (', \"Account.Name\", ')')",
+          "precision" : 255,
+          "defaultValue" : ""
+        } ]
+      }
+    },
     "OUTPUT0" : {
       "action" : "save",
-      "sources" : [ "BUCKET0" ],
+      "sources" : [ "FORMULA2" ],
       "parameters" : {
         "fields" : [ ],
         "dataset" : {
@@ -417,7 +435,13 @@
             "label" : "Edit Attributes"
           },
           "BUCKET0" : {
-            "label" : "Bucket"
+            "label" : "Bucket By Amount"
+          },
+          "FORMULA2" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Record Selector Name"
           }
         },
         "connectors" : [ {
@@ -444,6 +468,9 @@
         }, {
           "source" : "EDIT_ATTRIBUTES2",
           "target" : "BUCKET0"
+        }, {
+          "source" : "BUCKET0",
+          "target" : "FORMULA2"
         } ]
       },
       "OUTPUT0" : {

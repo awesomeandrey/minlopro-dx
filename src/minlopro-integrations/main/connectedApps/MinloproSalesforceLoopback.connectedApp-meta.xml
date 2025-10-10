@@ -28,8 +28,8 @@ ${SF_INSTANCE_URL}/services/authcallback/MinloproLoopback</callbackUrl>
         <scopes>Basic</scopes>
         <scopes>Api</scopes>
         <scopes>Web</scopes>
-        <scopes>Full</scopes>
         <scopes>RefreshToken</scopes>
+        <scopes>SFAP</scopes>
     </oauthConfig>
     <oauthPolicy>
         <ipRelaxation>ENFORCE_RELAXREFRESH</ipRelaxation>
