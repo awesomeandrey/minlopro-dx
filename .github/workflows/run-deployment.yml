@@ -83,7 +83,7 @@ jobs:
         if: ${{ env.SF_DEPLOYMENT_MODE == 'Hard' }}
         run: echo ${{ steps.auth-salesforce-org.outputs.target-org-alias }} | bash ./scripts/deploy/post/run_post.sh
       - name: 'Publishing Experience Sites'
-        if: ${{ env.SF_DEPLOYMENT_MODE == 'Hard' && inputs.do-publish-sites == 'true'}}
+        if: ${{ env.SF_DEPLOYMENT_MODE == 'Hard' && inputs.do-publish-sites }}
         shell: bash
         run: |
           targetOrgAlias="${{ steps.auth-salesforce-org.outputs.target-org-alias }}"

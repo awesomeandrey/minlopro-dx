@@ -11,6 +11,11 @@ on:
         required: true
         type: environment
         default: "Minlopro DevHub"
+      do-publish-sites:
+        description: "Publish Experience Sites?"
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -42,10 +47,8 @@ jobs:
 #        with:
 #          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
 #          target-org-alias: "sf-practises-devhub-shortcut"
-      - name: "Long Running Operation"
+      - name: "Check Input Variable"
         shell: bash
-        run: sleep 60
-      - name: "Handle Cancellation"
-        if: cancelled()
-        shell: bash
-        run: echo "Cancelling deployment..."
+        if: ${{ inputs.environment == 'Minlopro DevHub' && inputs.do-publish-sites }}
+        run: |
+          echo "input.do-publish-sites = ${{ inputs.do-publish-sites }}"

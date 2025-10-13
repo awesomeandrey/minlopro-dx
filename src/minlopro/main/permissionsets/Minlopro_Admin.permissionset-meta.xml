@@ -144,6 +144,10 @@
     </objectPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ActivateSystemModeFlows</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>AssignPermissionSets</name>
     </userPermissions>
     <userPermissions>
@@ -256,6 +260,10 @@
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
+        <name>ManageInteraction</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ManageInternalUsers</name>
     </userPermissions>
     <userPermissions>
@@ -317,6 +325,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>ResetPasswords</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>RunFlow</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>
