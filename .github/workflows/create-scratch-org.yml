@@ -11,6 +11,17 @@ on:
         type: boolean
         description: 'Purge On Create?'
         default: true
+  # Duplicate inputs as for 'workflow_dispatch' event
+  workflow_call:
+    inputs:
+      adminEmail:
+        type: string
+        description: "Admin Email Address"
+        required: true
+      purgeOnCreate:
+        type: boolean
+        description: 'Purge On Create?'
+        default: true
 
 env:
   DEV_HUB_ORG_ALIAS: "minlopro-dx-dev-hub"
@@ -23,7 +34,7 @@ jobs:
     env:
       # This env variable does not have 'SF_' prefix which excludes it from '.env' file
       DEV_HUB_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
-      SF_ADMIN_EMAIL: ${{ github.event.inputs.adminEmail }}
+      SF_ADMIN_EMAIL: ${{ inputs.adminEmail }}
     steps:
       - uses: actions/checkout@v4
       - name: "Build Environment 🚜"
@@ -42,7 +53,7 @@ jobs:
       - name: 'Spin Up Brand New Scratch Org'
         id: spin-scratch-org
         continue-on-error: true
-        run: bash ./scripts/automations/create_scratch_org.sh ${{ steps.auth-dev-hub-org.outputs.target-org-alias }} ${{ env.SCRATCH_ORG_ALIAS }} ${{ github.event.inputs.adminEmail }}
+        run: bash ./scripts/automations/create_scratch_org.sh ${{ steps.auth-dev-hub-org.outputs.target-org-alias }} ${{ env.SCRATCH_ORG_ALIAS }} ${{ inputs.adminEmail }}
       - name: "Collect Scratch Org Info"
         if: ${{ steps.spin-scratch-org.outcome == 'success' }}
         continue-on-error: true
@@ -99,5 +110,5 @@ jobs:
         if: ${{ cancelled() || steps.spin-scratch-org.outcome == 'failure' || steps.run-apex-tests.outcome == 'failure' || steps.upload-scratch-credentials.outcome == 'failure' }}
         run: sf org delete scratch --target-org ${{ env.SCRATCH_ORG_ALIAS }} --no-prompt; exit 1
       - name: 'Purge Scratch Org'
-        if: ${{ github.event.inputs.purgeOnCreate == 'true' }}
+        if: ${{ inputs.purgeOnCreate == 'true' }}
         run: sf org delete scratch --target-org ${{ env.SCRATCH_ORG_ALIAS }} --no-prompt

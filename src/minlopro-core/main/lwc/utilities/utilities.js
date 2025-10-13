@@ -181,7 +181,7 @@ export function formatLabel() {
 }
 
 export async function copyToClipboard(textToCopy) {
-    return navigator.clipboard.writeText(textToCopy);
+    return await navigator.clipboard.writeText(textToCopy);
 }
 
 export function resolveRecordId(recordId = null) {
@@ -197,7 +197,11 @@ export function isValidRecordId(recordId = null) {
     return Boolean(resolveRecordId(recordId));
 }
 
-// Files management;
+export function isUrl(value) {
+    return URL.canParse(value);
+}
+
+// Files management
 
 export async function readFileAsBlob(file) {
     return new Promise((resolve, reject) => {
@@ -239,7 +243,7 @@ export function readBase64AsFile(base64Data, fileType = 'pdf', filename = `docum
     return new File([blob], filename, { type: mimeType });
 }
 
-// String manipulations;
+// String/text manipulations
 
 export function splitByComma(stringToSplit = '') {
     if (!stringToSplit) {

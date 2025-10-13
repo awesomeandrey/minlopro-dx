@@ -195,12 +195,13 @@ public class TestDataFactory {
         for (Integer i = 0; i < numOfOpps; i++) {
             opportunities.add(
                 new Opportunity(
+                    AccountId = accountId,
                     Name = 'Test Opportunity #' + i,
-                    StageName = 'Closed Won',
+                    StageName = Lists.getRandomString(Lists.of('New', 'Working')),
                     CloseDate = Date.today().addDays(3),
                     Amount = generateRandomDecimal(),
-                    AccountId = accountId,
                     CurrencyIsoCode = CORPORATE_CURRENCY_TYPE.IsoCode,
+                    LeadSource = Lists.getRandomString(Lists.of('Web', 'Partner', 'Other')),
                     Description = generateRandomString(100)
                 )
             );
@@ -217,7 +218,7 @@ public class TestDataFactory {
                     AnnualRevenue = 100 * Math.random(),
                     Email = 'lead_' + i + '@edu.com',
                     GenderIdentity = Lists.getRandomString(Lists.of('Male', 'Female')),
-                    LeadSource = Lists.getRandomString(Lists.of('Web', 'Partner')),
+                    LeadSource = Lists.getRandomString(Lists.of('Web', 'Partner', 'Other')),
                     Status = 'New',
                     FirstName = 'FN #' + i,
                     LastName = 'LN #' + i,

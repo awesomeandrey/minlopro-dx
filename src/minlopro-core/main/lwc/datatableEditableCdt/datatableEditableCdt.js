@@ -1,22 +1,20 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import { log as $log } from 'lightning/logger';
 
 export default class DatatableEditableCdt extends LightningElement {
-    /**
-     * Custom properties that identify particular cell.
-     */
-    context = null; // Row key value;
-    fieldName = null;
-    value = null;
-    // Properties provided by CDT engine;
-    wrapText = false;
-
-    /**
-     * Always override this getter as @api property.
-     * @returns {{valid: boolean}}
-     */
-    get validity() {
+    // lightning-datatable CDT engine PROPERTIES to override
+    @api wrapText = false;
+    @api value = null;
+    @api get validity() {
         return { valid: true };
+    }
+
+    // Custom properties that identify particular cell
+    @track context = null; // Row key value;
+    @track fieldName = null;
+
+    get textClassName() {
+        return this.wrapText ? 'slds-hyphenate' : 'slds-truncate';
     }
 
     /**
@@ -27,9 +25,14 @@ export default class DatatableEditableCdt extends LightningElement {
         return null;
     }
 
-    get textClassName() {
-        return this.wrapText ? 'slds-hyphenate' : 'slds-truncate';
-    }
+    // lightning-datatable CDT engine METHODS to override
+    @api reportValidity() {}
+
+    @api showHelpMessageIfInvalid() {}
+
+    @api focus() {}
+
+    @api blur() {}
 
     constructor() {
         super();
@@ -117,7 +120,7 @@ export default class DatatableEditableCdt extends LightningElement {
 
     log(messageOrFunction, details, type = 'info') {
         if (this.debugModeEnabled) {
-            let logMessage = [
+            const logMessage = [
                 `${this.constructor.name}.js`,
                 typeof messageOrFunction === 'function' ? `${messageOrFunction.name}()` : messageOrFunction,
                 JSON.stringify(details)
