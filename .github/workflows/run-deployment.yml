@@ -160,6 +160,7 @@ jobs:
     if: ${{ github.event_name == 'push' }}
     needs: [ deploy-source-to-org, run-apex-tests ]
     uses: ./.github/workflows/create-scratch-org.yml
+    secrets: inherit
     with:
       adminEmail: "${{ github.actor_id }}+github-actions[bot]@users.noreply.github.com"
       purgeOnCreate: true
