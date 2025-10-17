@@ -33,7 +33,7 @@ export default class UnableToLockRowTab extends LightningElement {
         return {
             'Account ID': this.selectedAccountId,
             'Concurrent Requests': this.concurrentRequests,
-            'Synthetic Delay': `${this.syntheticDelay}ms`,
+            'Apex Synthetic Delay': `${this.syntheticDelay}ms`,
             'Apply FOR UPDATE Clause': this.doApplyForUpdate
         };
     }

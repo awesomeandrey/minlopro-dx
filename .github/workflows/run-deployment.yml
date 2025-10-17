@@ -138,7 +138,6 @@ jobs:
         with:
           run-arguments: -w 'mdapi/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all
           results-artifact-name: salesforce-code-analyzer-results
-          # github-token: ${{ github.token }}
   run-post-merge-actions:
     if: ${{ github.event_name == 'push' }}
     needs: [ deploy-source-to-org, run-apex-tests ]
@@ -157,3 +156,14 @@ jobs:
         run: bash ./scripts/deploy/post-merge-actions/generate_flow_docs_and_push.sh
       - name: 'Create Tag & Push'
         run: bash ./scripts/deploy/post-merge-actions/create_tag_and_push.sh
+  run-scratch-org-check:
+    if: ${{ github.event_name == 'push' }}
+    needs: [ deploy-source-to-org, run-apex-tests ]
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: "Spin Up Scratch Org"
+        uses: ./.github/workflows/create-scratch-org.yml
+        with:
+          adminEmail: "${{ github.actor_id }}+github-actions[bot]@users.noreply.github.com"
+          purgeOnCreate: true

@@ -34,7 +34,7 @@ export default class CdtCombobox extends DatatableEditableCdt {
         if (!this.hasRendered) {
             this.hasRendered = true;
             wait(() => {
-                super.log('open combobox');
+                super.log('Open <c-combobox/>');
                 this.refs.combobox?.focus();
                 this.refs.combobox?.open();
             }, 500);

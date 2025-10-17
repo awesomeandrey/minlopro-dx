@@ -1,5 +1,5 @@
 import { LightningElement, api } from 'lwc';
-import { cloneObject, copyToClipboard, isNotEmpty, parseError, uniqueId } from 'c/utilities';
+import { cloneObject, copyToClipboard, isNotEmpty, parseError, uniqueId, isUrl } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 export default class Stats extends LightningElement {
@@ -10,10 +10,9 @@ export default class Stats extends LightningElement {
     get statsAsUniqueEntries() {
         return Object.entries(cloneObject(this.value || {}))
             .map(([key, value]) => {
-                let endsWithPunctuationCharacters = /.*\W+$/.test(key);
-                let isBoolean = typeof value === 'boolean';
-                let isUrl = this.isUrl(value);
-                let canCopy = isNotEmpty(value) && !isBoolean;
+                const endsWithPunctuationCharacters = /.*\W+$/.test(key);
+                const isBoolean = typeof value === 'boolean';
+                const canCopy = isNotEmpty(value) && !isBoolean;
                 return [
                     { isKey: true, id: uniqueId(), content: endsWithPunctuationCharacters ? key : `${key}:` },
                     {
@@ -22,7 +21,7 @@ export default class Stats extends LightningElement {
                         content: value,
                         canCopy,
                         isBoolean,
-                        isUrl
+                        isUrl: isUrl(value)
                     }
                 ];
             })
@@ -38,16 +37,6 @@ export default class Stats extends LightningElement {
         } catch (error) {
             let { message } = parseError(error);
             $Toastify.error({ message });
-        }
-    }
-
-    isUrl(value) {
-        try {
-            new URL(value);
-            return true;
-        } catch (error) {
-            console.log(`${value} is not a URL`, error);
-            return false;
         }
     }
 }

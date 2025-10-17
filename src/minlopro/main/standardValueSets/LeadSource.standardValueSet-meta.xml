@@ -67,9 +67,9 @@
         <label>Phone Inquiry</label>
     </standardValue>
     <standardValue>
-        <fullName>Purchased List</fullName>
+        <fullName>Purchased</fullName>
         <default>false</default>
-        <label>Purchased List</label>
+        <label>Purchased</label>
     </standardValue>
     <standardValue>
         <fullName>Public Relations</fullName>

@@ -124,7 +124,7 @@ export default class CdtPicklist extends DatatableEditableCdt {
             super.log('this.multi', this.multi);
             super.log('this.options', this.options);
             super.log('this.normalizedOptions', this.normalizedOptions);
-            super.log('isDependent', this.isDependent);
+            super.log('this.isDependent', this.isDependent);
             super.log('this.controllerFieldName', this.controllerFieldName);
             super.log('this.controllerFieldValue', this.controllerFieldValue);
             super.log('this.controllerValuesMapping', this.controllerValuesMapping);
