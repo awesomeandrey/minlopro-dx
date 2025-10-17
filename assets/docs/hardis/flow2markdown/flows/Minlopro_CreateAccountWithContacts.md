@@ -4,10 +4,10 @@
 
 ```mermaid
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
-%% - If you are in VsCode, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
+%% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
 %% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
-%% - At last resort, you can copy-paste this MermaidJS code in https://mermaid.live/ to see the Flow Diagram
+%% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
 START(["START<br/><b>AutoLaunched Flow</b></br>"]):::startClass
