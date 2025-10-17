@@ -10,6 +10,7 @@ IlluminatedCloud/
 .illuminatedCloud/
 testresults/
 build/
+coverage/
 mdapi/
 temp/
 logs/

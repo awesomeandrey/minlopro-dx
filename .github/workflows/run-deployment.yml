@@ -159,11 +159,7 @@ jobs:
   run-scratch-org-check:
     if: ${{ github.event_name == 'push' }}
     needs: [ deploy-source-to-org, run-apex-tests ]
-    runs-on: ubuntu-22.04
-    steps:
-      - uses: actions/checkout@v4
-      - name: "Spin Up Scratch Org"
-        uses: ./.github/workflows/create-scratch-org.yml
-        with:
-          adminEmail: "${{ github.actor_id }}+github-actions[bot]@users.noreply.github.com"
-          purgeOnCreate: true
+    uses: ./.github/workflows/create-scratch-org.yml
+    with:
+      adminEmail: "${{ github.actor_id }}+github-actions[bot]@users.noreply.github.com"
+      purgeOnCreate: true
