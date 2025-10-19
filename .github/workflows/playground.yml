@@ -11,11 +11,6 @@ on:
         required: true
         type: environment
         default: "Minlopro DevHub"
-      do-publish-sites:
-        description: "Publish Experience Sites?"
-        required: false
-        type: boolean
-        default: false
 
 permissions:
   contents: read
@@ -33,22 +28,18 @@ jobs:
     environment: ${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
+      SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
       GHA_WORKFLOW_RUN_LINK: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-#      - name: "Build Environment 🚜"
-#        uses: ./.github/actions/build-env
-#        env:
-#          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }} # Controlled by GitHub repository variable
-#      - name: "Auth Salesforce Org 🎫"
-#        id: auth-salesforce-org
-#        uses: ./.github/actions/auth-salesforce-org
-#        with:
-#          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
-#          target-org-alias: "sf-practises-devhub-shortcut"
-      - name: "Check Input Variable"
+      - name: "Check Input Variables"
         shell: bash
-        if: ${{ inputs.environment == 'Minlopro DevHub' && inputs.do-publish-sites }}
         run: |
-          echo "input.do-publish-sites = ${{ inputs.do-publish-sites }}"
+          echo "environment = ${{ inputs.environment }}"
+  playground-child-run:
+    needs: [ playground-run ]
+    uses: ./.github/workflows/playground-child.yml
+    secrets: inherit
+    with:
+      sampleMessage: "This message should be displayed in re-usable workflow"
