@@ -162,5 +162,5 @@ jobs:
     uses: ./.github/workflows/create-scratch-org.yml
     secrets: inherit
     with:
-      adminEmail: "${{ github.actor_id }}+github-actions[bot]@users.noreply.github.com"
+      adminEmail: "${{ github.actor_id }}-github-actions@noreply.github.com"
       purgeOnCreate: true
