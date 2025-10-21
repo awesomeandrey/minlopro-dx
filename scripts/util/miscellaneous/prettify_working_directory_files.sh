@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# How to use:
-# - bash ./scripts/util/prettify_working_directory_files.sh
-
 # Get a list of changed files that are tracked by git
 files=$(git diff --name-only --diff-filter=ACM)
 

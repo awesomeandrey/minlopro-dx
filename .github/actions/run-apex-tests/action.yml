@@ -53,7 +53,7 @@ runs:
       id: parse-apex-tests-results
       shell: bash
       run: |
-        apexTestResultsAsJson="$(bash ./scripts/util/parse_apex_test_results.sh "testresults")"
+        apexTestResultsAsJson="$(bash ./scripts/deploy/common/parse_apex_test_results.sh "testresults")"
         echo "success=$(echo "$apexTestResultsAsJson" | jq -r '.success')" >> $GITHUB_OUTPUT
         echo "apexTestResultsAsBase64=$(echo $apexTestResultsAsJson | base64 -w 0)" >> $GITHUB_OUTPUT
     - name: 'Send Slack Alert'

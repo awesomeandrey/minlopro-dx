@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/authorize_org_jwt.sh [ 4 required params ]
+# - bash ./scripts/deploy/common/authorize_org_jwt.sh [ 4 required params ]
 
 set -e
 

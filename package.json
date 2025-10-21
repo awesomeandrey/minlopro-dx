@@ -9,7 +9,7 @@
     },
     "description": "Minlopro DX",
     "scripts": {
-        "prettier:write": "bash ./scripts/util/prettify_working_directory_files.sh",
+        "prettier:write": "bash ./scripts/util/miscellaneous/prettify_working_directory_files.sh",
         "prettier:src:write": "prettier --write \"src/**\"",
         "prettier:src:check": "prettier --check \"src/**\"",
         "jest": "sfdx-lwc-jest --skipApiVersionCheck",

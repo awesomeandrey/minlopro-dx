@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/parse_apex_test_results.sh "testresults"
+# - bash ./scripts/deploy/common/parse_apex_test_results.sh "testresults"
 
 testResultsDir="$1"
 

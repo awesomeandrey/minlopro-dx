@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# How to use:
-# - bash ./scripts/util/export_setup_audit_trail.sh
-
 # Capture target org alias;
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
