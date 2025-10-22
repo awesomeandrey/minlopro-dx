@@ -163,4 +163,4 @@ jobs:
     secrets: inherit
     with:
       adminEmail: "${{ github.actor_id }}-github-actions@noreply.github.com"
-      purgeOnCreate: true
+      purgeOnCreate: "true"
