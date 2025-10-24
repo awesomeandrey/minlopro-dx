@@ -2,7 +2,6 @@
 
 # How to use:
 # - bash ./scripts/util/data-seeding/export_sample_data.sh
-# - echo $ORG_ALIAS | bash ./scripts/util/data-seeding/export_sample_data.sh
 
 # Capture target org alias;
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS

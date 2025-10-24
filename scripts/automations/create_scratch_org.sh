@@ -45,7 +45,7 @@ sf org display --target-org "$SCRATCH_ORG_ALIAS"
 
 # Install packages from DevHub
 inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
-bash ./scripts/util/install_packages.sh < $inputsFile
+bash ./scripts/automations/install_packages.sh < $inputsFile
 
 # Run PRE-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
@@ -55,7 +55,7 @@ npm run sf:manifest:create:full
 bash ./scripts/deploy/deploy.sh "$SCRATCH_ORG_ALIAS" "hard"
 
 # Create QA user
-echo "$ADMIN_EMAIL" | bash ./scripts/util/create_qa_user.sh
+echo "$ADMIN_EMAIL" | bash ./scripts/util/data-seeding/create_qa_user.sh
 
 # Run POST-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/post/run_post.sh

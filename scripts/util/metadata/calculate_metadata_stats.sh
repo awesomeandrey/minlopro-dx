@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/calculate_metadata_stats.sh
-# - bash ./scripts/util/calculate_metadata_stats.sh "force-app"
+# - bash ./scripts/util/metadata/calculate_metadata_stats.sh
+# - bash ./scripts/util/metadata/calculate_metadata_stats.sh "force-app"
 
 ROOT_FOLDER=$1
 

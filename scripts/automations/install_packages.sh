@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/install_packages.sh
+# - bash ./scripts/automations/install_packages.sh
 
 read -r -p "🔶 Enter source org alias to read installed packaged from: " SOURCE_ORG_ALIAS
 read -r -p "🔶 Enter target org alias to install packages in: " TARGET_ORG_ALIAS

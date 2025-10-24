@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/retrieve_metadata_by_manifest.sh
-# - echo $ORG_ALIAS | bash ./scripts/util/retrieve_metadata_by_manifest.sh
+# - bash ./scripts/util/metadata/retrieve_metadata_by_manifest.sh
+# - echo $ORG_ALIAS | bash ./scripts/util/metadata/retrieve_metadata_by_manifest.sh
 
 # Capture target org alias;
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 
 manifestPath="manifests/package.xml"
-targetDirPath="retrieved-src"
+targetDirPath="build/retrieved-src"
 
 echo "🔵 Retrieving metadata by [$manifestPath] manifest from [$TARGET_ORG_ALIAS] into [$targetDirPath] folder..."
 
