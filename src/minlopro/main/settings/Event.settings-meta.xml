@@ -8,5 +8,5 @@
     <enableLoginForensics>true</enableLoginForensics>
     <enableStreamingApi>true</enableStreamingApi>
     <enableTransactionSecurityPolicies>true</enableTransactionSecurityPolicies>
-    <eventLogRetentionDuration>90</eventLogRetentionDuration>
+    <eventLogRetentionDuration>365</eventLogRetentionDuration>
 </EventSettings>

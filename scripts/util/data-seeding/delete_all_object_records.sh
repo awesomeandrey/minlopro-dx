@@ -2,7 +2,6 @@
 
 # How to use:
 # - bash ./scripts/util/data-seeding/delete_all_object_records.sh
-# - bash ./scripts/util/data-seeding/delete_all_object_records.sh "$TARGET_ORG_ALIAS" "OBJECT_API_NAME"
 
 # Enable errexit option to exit on command failure
 set -e

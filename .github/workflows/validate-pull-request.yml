@@ -43,9 +43,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ludeeus/action-shellcheck@master
+        env:
+          SHELLCHECK_OPTS: -e SC1091
         with:
           ignore_paths: src
-  validate-deployment-to-org:
+  run-dry-run-deploy:
     needs: [ run-prettier-checks, run-jest-tests, run-shell-checks ]
     environment: "Minlopro Prod"
     env:
@@ -83,7 +85,7 @@ jobs:
       - name: 'Check-Only Deploy Source to Target Org'
         run: bash ./scripts/deploy/deploy.sh ${{ steps.auth-salesforce-org.outputs.target-org-alias }} "dry-run"
   run-code-analyzer:
-    needs: [ validate-deployment-to-org ]
+    needs: [ run-dry-run-deploy ]
     runs-on: ubuntu-22.04
     continue-on-error: false
     steps:

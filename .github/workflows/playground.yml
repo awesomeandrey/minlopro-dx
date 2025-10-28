@@ -37,9 +37,3 @@ jobs:
         shell: bash
         run: |
           echo "environment = ${{ inputs.environment }}"
-  playground-child-run:
-    needs: [ playground-run ]
-    uses: ./.github/workflows/playground-child.yml
-    secrets: inherit
-    with:
-      sampleMessage: "This message should be displayed in re-usable workflow"

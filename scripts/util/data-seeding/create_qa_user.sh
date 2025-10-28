@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/util/create_qa_user.sh
-# - echo '$QA_EMAIL' | bash ./scripts/util/create_qa_user.sh
+# - bash ./scripts/util/data-seeding/create_qa_user.sh
 
 # Capture QA user email address;
 read -r -p "🔶 Enter QA User Email Address: " QA_EMAIL
