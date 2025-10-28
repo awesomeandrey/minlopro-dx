@@ -1,6 +1,6 @@
 {
     "mcpServers": {
-        "Salesforce DX": {
+        "Minlopro DX - Gemini": {
             "type": "stdio",
             "command": "npx",
             "args": ["-y", "@salesforce/mcp", "--orgs", "DEFAULT_TARGET_ORG", "--toolsets", "all"]

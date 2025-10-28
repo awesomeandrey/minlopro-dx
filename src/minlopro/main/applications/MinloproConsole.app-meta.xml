@@ -98,6 +98,7 @@
     <tabs>standard-Case</tabs>
     <tabs>Car__c</tabs>
     <tabs>GoogleMapsApiPlayground</tabs>
+    <tabs>standard-Dashboard</tabs>
     <tabs>standard-report</tabs>
     <tabs>Knowledge__kav</tabs>
     <tabs>standard-DuplicateRecordSet</tabs>
@@ -132,6 +133,9 @@
         <mappings>
             <fieldName>AccountId</fieldName>
             <tab>standard-Contact</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Dashboard</tab>
         </mappings>
         <mappings>
             <tab>standard-DuplicateRecordSet</tab>
