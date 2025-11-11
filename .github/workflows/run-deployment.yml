@@ -1,5 +1,5 @@
 name: Deploy Source 🚛
-run-name: "Deploy Source (${{ github.event_name == 'workflow_dispatch' && inputs.mode || 'Hard' }}) 🚛"
+run-name: "Deploy Source ${{ inputs.mode == 'Dry-Run' && '🚚' || '🚛' }}"
 
 on:
   schedule:
