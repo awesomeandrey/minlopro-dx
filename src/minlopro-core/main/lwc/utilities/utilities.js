@@ -267,3 +267,41 @@ export function containsIgnoreCase(str = '', substr = '') {
     }
     return false;
 }
+
+export class PerfTracker {
+    constructor() {
+        this.activeMarks = new Map();
+    }
+
+    start(label) {
+        const mark = `${label}-${Date.now()}`;
+        performance.mark(mark);
+        this.activeMarks.set(label, mark);
+    }
+
+    end(label) {
+        const startMark = this.activeMarks.get(label);
+        if (!startMark) {
+            console.warn(`No active mark found for: ${label}`);
+            return;
+        }
+        const endMark = `${startMark}-end`;
+        performance.mark(endMark);
+        performance.measure(label, startMark, endMark);
+    }
+
+    log(label) {
+        const measurements = (performance.getEntriesByName(label) || []).map(({ entryType, name, startTime, duration }) => ({
+            name,
+            entryType,
+            startTime: +startTime.toFixed(2),
+            duration: +duration.toFixed(2)
+        }));
+        if (isEmpty(measurements)) {
+            console.warn(`No measurements found for mark: ${label}`);
+            return;
+        }
+        console.log(`\n=== Performance Stats for '${label}' mark ===`);
+        console.table(cloneObject(measurements));
+    }
+}

@@ -6,6 +6,7 @@ on:
       adminEmail:
         type: string
         description: "Admin Email Address"
+        default: "minlopro-dx-github-actions@noreply.github.com"
         required: true
       purgeOnCreate:
         type: boolean
@@ -17,6 +18,7 @@ on:
       adminEmail:
         type: string
         description: "Admin Email Address"
+        default: "minlopro-dx-github-actions@noreply.github.com"
         required: true
       purgeOnCreate:
         type: boolean
@@ -110,5 +112,5 @@ jobs:
         if: ${{ cancelled() || steps.spin-scratch-org.outcome == 'failure' || steps.run-apex-tests.outcome == 'failure' || steps.upload-scratch-credentials.outcome == 'failure' }}
         run: sf org delete scratch --target-org ${{ env.SCRATCH_ORG_ALIAS }} --no-prompt; exit 1
       - name: 'Purge Scratch Org'
-        if: ${{ inputs.purgeOnCreate == 'true' }}
+        if: ${{ inputs.purgeOnCreate == true }}
         run: sf org delete scratch --target-org ${{ env.SCRATCH_ORG_ALIAS }} --no-prompt
