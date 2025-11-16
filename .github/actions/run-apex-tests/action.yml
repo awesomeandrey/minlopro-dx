@@ -46,14 +46,14 @@ runs:
           --target-org "${{ inputs.target-org-alias }}" \
           --flags-dir "$flagsDir" \
           --code-coverage \
-          --output-dir "testresults" \
+          --output-dir "test-results" \
           --wait 30 \
           --concise
     - name: 'Parse Apex Test Results'
       id: parse-apex-tests-results
       shell: bash
       run: |
-        apexTestResultsAsJson="$(bash ./scripts/deploy/common/parse_apex_test_results.sh "testresults")"
+        apexTestResultsAsJson="$(bash ./scripts/deploy/common/parse_apex_test_results.sh "test-results")"
         echo "success=$(echo "$apexTestResultsAsJson" | jq -r '.success')" >> $GITHUB_OUTPUT
         echo "apexTestResultsAsBase64=$(echo $apexTestResultsAsJson | base64 -w 0)" >> $GITHUB_OUTPUT
     - name: 'Send Slack Alert'

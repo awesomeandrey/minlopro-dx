@@ -36,7 +36,13 @@ jobs:
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
       - name: 'Run Jest Tests with Coverage'
-        run: npm run jest:coverage
+        run: npm run jest -- --coverage
+      - name: 'Generate Jest Tests Report'
+        uses: dorny/test-reporter@v2
+        with:
+          name: 'LWC Jest Tests'
+          path: test-results/jest-*.xml
+          reporter: jest-junit
   run-shell-checks:
     runs-on: ubuntu-22.04
     continue-on-error: true

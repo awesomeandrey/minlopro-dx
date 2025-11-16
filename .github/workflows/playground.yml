@@ -1,5 +1,5 @@
 name: Playground 🐚
-run-name: "Playground (${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }})"
+run-name: "Playground Workflow Run 🐚"
 
 on:
 #  pull_request:
@@ -33,7 +33,39 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: "Check Input Variables"
+      - name: "Build Environment 🚜"
+        uses: ./.github/actions/build-env
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
+      - name: "Install Jest & Invoke"
         shell: bash
         run: |
-          echo "environment = ${{ inputs.environment }}"
+          npm run jest -- --coverage
+          tree coverage -L 2
+          tree test-results -L 2
+      - name: 'Generate Jest Tests Report'
+        uses: dorny/test-reporter@v2
+        with:
+          name: LWC Jest Tests
+          path: test-results/jest-*.xml
+          reporter: jest-junit
+      - name: "Auth Salesforce Org 🎫"
+        id: auth-salesforce-org
+        uses: ./.github/actions/auth-salesforce-org
+        with:
+          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
+      - name: "Run Apex Tests 🚇"
+        uses: ./.github/actions/run-apex-tests
+        with:
+          target-org-alias: "${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+          class-names: "FeatureToggleTest:MockedCalloutsFactoryTest:StaticResourceDataLoadTest"
+      - name: "Tree Project Files"
+        shell: bash
+        run: |
+          tree test-results -L 2
+      - name: 'Generate Apex Tests Report'
+        uses: dorny/test-reporter@v2
+        with:
+          name: Apex Tests
+          path: test-results/test-result-*-junit.xml
+          reporter: java-junit
