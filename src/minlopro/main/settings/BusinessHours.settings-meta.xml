@@ -2,28 +2,88 @@
 <BusinessHoursSettings xmlns="http://soap.sforce.com/2006/04/metadata">
     <businessHours>
         <active>true</active>
+        <default>false</default>
+        <fridayEndTime>18:00:00.000Z</fridayEndTime>
+        <fridayStartTime>09:00:00.000Z</fridayStartTime>
+        <mondayEndTime>18:00:00.000Z</mondayEndTime>
+        <mondayStartTime>09:00:00.000Z</mondayStartTime>
+        <name>USA (Central)</name>
+        <thursdayEndTime>18:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>09:00:00.000Z</thursdayStartTime>
+        <timeZoneId>America/Chicago</timeZoneId>
+        <tuesdayEndTime>18:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>09:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>18:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>09:00:00.000Z</wednesdayStartTime>
+    </businessHours>
+    <businessHours>
+        <active>true</active>
+        <default>false</default>
+        <fridayEndTime>18:00:00.000Z</fridayEndTime>
+        <fridayStartTime>09:00:00.000Z</fridayStartTime>
+        <mondayEndTime>18:00:00.000Z</mondayEndTime>
+        <mondayStartTime>09:00:00.000Z</mondayStartTime>
+        <name>USA (Eastern Time)</name>
+        <thursdayEndTime>18:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>09:00:00.000Z</thursdayStartTime>
+        <timeZoneId>America/New_York</timeZoneId>
+        <tuesdayEndTime>18:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>09:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>18:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>09:00:00.000Z</wednesdayStartTime>
+    </businessHours>
+    <businessHours>
+        <active>true</active>
+        <default>false</default>
+        <fridayEndTime>18:00:00.000Z</fridayEndTime>
+        <fridayStartTime>09:00:00.000Z</fridayStartTime>
+        <mondayEndTime>18:00:00.000Z</mondayEndTime>
+        <mondayStartTime>09:00:00.000Z</mondayStartTime>
+        <name>USA (Pacific Time)</name>
+        <thursdayEndTime>18:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>09:00:00.000Z</thursdayStartTime>
+        <timeZoneId>America/Los_Angeles</timeZoneId>
+        <tuesdayEndTime>18:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>09:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>18:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>09:00:00.000Z</wednesdayStartTime>
+    </businessHours>
+    <businessHours>
+        <active>true</active>
         <default>true</default>
-        <fridayEndTime>16:00:00.000Z</fridayEndTime>
-        <fridayStartTime>10:00:00.000Z</fridayStartTime>
-        <mondayEndTime>16:00:00.000Z</mondayEndTime>
-        <mondayStartTime>10:00:00.000Z</mondayStartTime>
-        <name>Ukraine (Default)</name>
-        <thursdayEndTime>16:00:00.000Z</thursdayEndTime>
-        <thursdayStartTime>10:00:00.000Z</thursdayStartTime>
+        <fridayEndTime>18:00:00.000Z</fridayEndTime>
+        <fridayStartTime>09:00:00.000Z</fridayStartTime>
+        <mondayEndTime>18:00:00.000Z</mondayEndTime>
+        <mondayStartTime>09:00:00.000Z</mondayStartTime>
+        <name>Ukraine</name>
+        <thursdayEndTime>18:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>09:00:00.000Z</thursdayStartTime>
         <timeZoneId>Europe/Kiev</timeZoneId>
-        <tuesdayEndTime>16:00:00.000Z</tuesdayEndTime>
-        <tuesdayStartTime>10:00:00.000Z</tuesdayStartTime>
-        <wednesdayEndTime>16:00:00.000Z</wednesdayEndTime>
-        <wednesdayStartTime>10:00:00.000Z</wednesdayStartTime>
+        <tuesdayEndTime>18:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>09:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>18:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>09:00:00.000Z</wednesdayStartTime>
     </businessHours>
     <holidays>
-        <businessHours>Ukraine (Default)</businessHours>
+        <businessHours>Ukraine</businessHours>
         <description>Labour Day is an annual day of celebration of the labour movement and its achievements.</description>
         <isRecurring>true</isRecurring>
         <name>Labour Day</name>
         <recurrenceDayOfMonth>1</recurrenceDayOfMonth>
         <recurrenceMonthOfYear>May</recurrenceMonthOfYear>
         <recurrenceStartDate>2025-05-01</recurrenceStartDate>
+        <recurrenceType>RecursYearly</recurrenceType>
+    </holidays>
+    <holidays>
+        <businessHours>USA (Central)</businessHours>
+        <businessHours>USA (Eastern Time)</businessHours>
+        <businessHours>USA (Pacific Time)</businessHours>
+        <description>Thanksgiving is a national holiday celebrated on various dates in October and November in the US</description>
+        <isRecurring>true</isRecurring>
+        <name>Thanksgiving</name>
+        <recurrenceDayOfMonth>27</recurrenceDayOfMonth>
+        <recurrenceMonthOfYear>November</recurrenceMonthOfYear>
+        <recurrenceStartDate>2025-11-27</recurrenceStartDate>
         <recurrenceType>RecursYearly</recurrenceType>
     </holidays>
 </BusinessHoursSettings>

@@ -49,6 +49,12 @@ jobs:
           name: LWC Jest Tests
           path: test-results/jest-*.xml
           reporter: jest-junit
+          report-title: 'LWC Jest Tests'
+          badge-title: 'lwc-jest-tests'
+          list-suites: 'all'
+          list-tests: 'failed'
+          fail-on-error: 'true'
+          fail-on-empty: 'true'
       - name: "Auth Salesforce Org 🎫"
         id: auth-salesforce-org
         uses: ./.github/actions/auth-salesforce-org
@@ -69,3 +75,9 @@ jobs:
           name: Apex Tests
           path: test-results/test-result-*-junit.xml
           reporter: java-junit
+          report-title: 'Apex Tests'
+          badge-title: 'apex-tests'
+          list-suites: 'all'
+          list-tests: 'failed'
+          fail-on-error: 'true'
+          fail-on-empty: 'true'

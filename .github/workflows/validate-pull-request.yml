@@ -40,9 +40,15 @@ jobs:
       - name: 'Generate Jest Tests Report'
         uses: dorny/test-reporter@v2
         with:
-          name: 'LWC Jest Tests'
+          name: LWC Jest Tests
           path: test-results/jest-*.xml
           reporter: jest-junit
+          report-title: 'LWC Jest Tests'
+          badge-title: 'lwc-jest-tests'
+          list-suites: 'all'
+          list-tests: 'failed'
+          fail-on-error: 'true'
+          fail-on-empty: 'true'
   run-shell-checks:
     runs-on: ubuntu-22.04
     continue-on-error: true
