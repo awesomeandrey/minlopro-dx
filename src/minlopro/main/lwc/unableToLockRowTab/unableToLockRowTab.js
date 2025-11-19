@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import { cloneObject, isNotEmpty, resolveRecordId } from 'c/utilities';
+import { cloneObject, isNotEmpty, resolveRecordId, PerfTracker } from 'c/utilities';
 import { notifyRecordUpdateAvailable } from 'lightning/uiRecordApi';
 
 import updateAccountSsnApex from '@salesforce/apex/UnableToLockRowDemoController.updateAccountSsn';
@@ -11,6 +11,7 @@ export default class UnableToLockRowTab extends LightningElement {
     @track doApplyForUpdate = false;
     @track loading = false;
     @track error = null;
+    @track perfTracker = new PerfTracker();
 
     get accountDisplayInfo() {
         return {
@@ -68,6 +69,8 @@ export default class UnableToLockRowTab extends LightningElement {
 
     async handleUpdateSSN(event) {
         event.preventDefault();
+        const lockRowBenchmark = 'lock_row';
+        this.perfTracker.start(lockRowBenchmark);
         try {
             this.loading = true;
             this.error = null;
@@ -84,6 +87,8 @@ export default class UnableToLockRowTab extends LightningElement {
         } finally {
             await this.handleRefreshRecord({});
             this.loading = false;
+            this.perfTracker.end(lockRowBenchmark);
         }
+        this.perfTracker.log(lockRowBenchmark);
     }
 }

@@ -8,7 +8,7 @@ bin/
 node_modules/
 IlluminatedCloud/
 .illuminatedCloud/
-testresults/
+test-results/
 build/
 coverage/
 mdapi/

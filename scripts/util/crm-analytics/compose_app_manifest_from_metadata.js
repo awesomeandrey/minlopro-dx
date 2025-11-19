@@ -4,7 +4,7 @@ import fs from 'fs';
 /**
  * How to use:
  * - node ./scripts/util/crm-analytics/compose_app_manifest_from_metadata.js
- * - echo "FOLDER_PATH_WITH_WAVE_METADATA" | node ./scripts/util/crm-analytics/compose_app_manifest_from_metadata.js
+ * - echo "build/Minlopro/wave" | node ./scripts/util/crm-analytics/compose_app_manifest_from_metadata.js
  */
 
 // Create an interface for reading inputs
@@ -24,8 +24,9 @@ const METADATA_TYPES = {
     wdash: { name: 'WaveDashboard' },
     wds: { name: 'WaveDataset' },
     wlens: { name: 'WaveLens' },
-    wdpr: { name: 'WaveRecipe' },
-    wdf: { name: 'WaveDataflow' }
+    // wdpr: { name: 'WaveRecipe' },
+    // wdf: { name: 'WaveDataflow' },
+    xmd: { name: 'WaveXmd' }
 };
 
 // Main function to run the script
@@ -50,14 +51,16 @@ const main = async () => {
             };
         });
 
-        // Add XMD files for datasets manually;
-        let datasetsMetadata = metadataTypesAsArray.find(({ name }) => name === 'WaveDataset');
-        if (datasetsMetadata?.members?.length) {
+        // Add XMD files for dashboards, lenses manually;
+        let xmdRelatedMetadata = metadataTypesAsArray.filter(({ name }) =>
+            ['WaveDashboard', 'WaveLens', 'WaveDataset'].includes(name)
+        );
+        xmdRelatedMetadata.forEach(({ members }) => {
             metadataTypesAsArray.push({
                 name: 'WaveXmd',
-                members: datasetsMetadata.members
+                members: members
             });
-        }
+        });
 
         // Generate manifest XML snippets;
         console.log('\n----- Manifest Snippets -----\n');
@@ -74,11 +77,11 @@ const main = async () => {
                 return str;
             })
             .join('\n');
-        str += '\n<version>60.0</version>';
+        str += '\n<version>65.0</version>';
         str += '\n</Package>';
 
         // Write to file
-        fs.writeFileSync('temp/crm-analytics/package.xml', str);
+        fs.writeFileSync('build/wave-app-package.xml', str);
     } catch (error) {
         console.error('An error occurred:', error);
     } finally {

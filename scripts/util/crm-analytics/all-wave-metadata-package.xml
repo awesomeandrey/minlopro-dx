@@ -10,20 +10,20 @@
     </types>
     <types>
         <members>*</members>
-        <name>WaveDataflow</name>
-    </types>
-    <types>
-        <members>*</members>
         <name>WaveDataset</name>
     </types>
     <types>
         <members>*</members>
         <name>WaveLens</name>
     </types>
-    <types>
-        <members>*</members>
-        <name>WaveRecipe</name>
-    </types>
+<!--    <types>-->
+<!--        <members>*</members>-->
+<!--        <name>WaveRecipe</name>-->
+<!--    </types>-->
+<!--    <types>-->
+<!--        <members>*</members>-->
+<!--        <name>WaveDataflow</name>-->
+<!--    </types>-->
     <types>
         <members>*</members>
         <name>WaveXmd</name>

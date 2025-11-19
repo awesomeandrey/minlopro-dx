@@ -2,7 +2,7 @@
     "name": "minlopro",
     "type": "module",
     "private": true,
-    "version": "3.0.6",
+    "version": "3.0.7",
     "engines": {
         "node": ">=20.x",
         "npm": ">=10.x"
@@ -12,10 +12,9 @@
         "prettier:write": "bash ./scripts/util/miscellaneous/prettify_working_directory_files.sh",
         "prettier:src:write": "prettier --write \"src/**\"",
         "prettier:src:check": "prettier --check \"src/**\"",
-        "jest": "sfdx-lwc-jest --skipApiVersionCheck",
-        "jest:coverage": "sfdx-lwc-jest --coverage --skipApiVersionCheck",
-        "sf:apex:tests": "sf apex run test --code-coverage --output-dir 'testresults' --wait 15 --concise",
-        "sf:flow:tests": "sf flow run test --code-coverage --output-dir 'testresults' --synchronous --concise",
+        "jest": "sfdx-lwc-jest -- --reporters=default --reporters=jest-junit",
+        "sf:apex:tests": "sf apex run test --code-coverage --output-dir 'test-results' --wait 15 --concise",
+        "sf:flow:tests": "sf flow run test --code-coverage --output-dir 'test-results' --synchronous --concise",
         "sf:manifest:create:full": "bash ./scripts/deploy/common/generate_manifest.sh --mode full",
         "sf:manifest:create:delta": "bash ./scripts/deploy/common/generate_manifest.sh --mode delta --interactive",
         "sf:tracking:reset": "sf project reset tracking --no-prompt",
@@ -28,9 +27,13 @@
         "src:pull": "sf project retrieve start --ignore-conflicts --wait 10",
         "src:pull:preview": "sf project retrieve preview"
     },
+    "jest-junit": {
+        "outputDirectory": "./test-results",
+        "outputName": "jest-lwc-junit.xml"
+    },
     "dependencies": {
         "@prettier/plugin-xml": "^2.0.1",
-        "@salesforce/sfdx-lwc-jest": "^1.4.0",
+        "@salesforce/sfdx-lwc-jest": "^7.1.2",
         "@salesforce/wire-service-jest-util": "^4.1.5",
         "clean-css-cli": "^5.6.3",
         "cowsay": "^1.6.0",
@@ -42,9 +45,12 @@
         "prettier": "^3.5.1",
         "prettier-plugin-apex": "^2.2.4",
         "prettier-plugin-sql": "^0.18.1",
-        "xml2js": "^0.6.2"
+        "xml2js": "^0.6.2",
+        "jest": "^29.7.0",
+        "jest-junit": "^16.0.0"
     },
     "devDependencies": {
+        "@anthropic-ai/claude-code": "^2.0.31",
         "@salesforce-ux/slds-linter": "^1.0.2",
         "@salesforce/mcp": "^0.17.0"
     }

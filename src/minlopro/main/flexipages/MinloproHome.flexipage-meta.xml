@@ -53,8 +53,52 @@
         </itemInstances>
         <itemInstances>
             <componentInstance>
+                <componentInstanceProperties>
+                    <name>tabs</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Workspace</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>LogsMonitor</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>standard-Account</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>standard-File</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>standard-CmsAuthorHome</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>dlrs__ManageLookupRollupSummaries</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                </componentInstanceProperties>
+                <componentName>runtime_mobilesapp:launchPadTileList</componentName>
+                <identifier>runtime_mobilesapp_launchPadTileList</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentName>home:recentRecordContainer</componentName>
                 <identifier>home_recentRecordContainer</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>flowruntime:pausedInterviewCard</componentName>
+                <identifier>flowruntime_pausedInterviewCard</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>runtime_approval_process:pendingApprovalCard</componentName>
+                <identifier>runtime_approval_process_pendingApprovalCard</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

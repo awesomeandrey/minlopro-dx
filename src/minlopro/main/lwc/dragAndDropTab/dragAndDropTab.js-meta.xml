@@ -4,9 +4,4 @@
     <isExposed>true</isExposed>
     <masterLabel>Drag and Drop Tab</masterLabel>
     <description>HTML Drag and Drop API usage example.</description>
-    <targets>
-        <target>lightning__AppPage</target>
-        <target>lightning__HomePage</target>
-        <target>lightning__RecordPage</target>
-    </targets>
 </LightningComponentBundle>

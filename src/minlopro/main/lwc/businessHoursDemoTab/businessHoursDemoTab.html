@@ -4,76 +4,84 @@
         <lightning-button-group slot="actions">
             <lightning-button label="Reset" variant="neutral" onclick={handleReset}></lightning-button>
         </lightning-button-group>
-        <lightning-layout>
+        <lightning-layout multiple-rows>
             <lightning-layout-item size="6">
                 <lightning-layout>
                     <lightning-layout-item flexibility="no-grow" padding="around-small">
                         <c-combobox
-                            label="Timezone SID Key"
-                            options={timezones}
-                            value={timezoneKey}
-                            onchange={handleChangeTimezone}
+                            label="Business Hours"
+                            options={businessHours}
+                            value={selectedBusinessHoursId}
+                            onchange={handleChangeBusinessHours}
                             required
+                        ></c-combobox>
+                    </lightning-layout-item>
+                    <lightning-layout-item flexibility="no-grow" padding="around-small">
+                        <c-combobox
+                            label="Timezone SID Key"
+                            options={businessHoursTimezones}
+                            value={selectedTimezoneKey}
+                            disabled
                         ></c-combobox>
                     </lightning-layout-item>
                 </lightning-layout>
                 <lightning-layout>
-                    <lightning-layout-item size="6" padding="horizontal-small">
+                    <lightning-layout-item size="12" padding="horizontal-small">
                         <lightning-input
                             label="Datetime #1"
                             type="datetime"
-                            timezone={timezoneKey}
+                            timezone={selectedTimezoneKey}
                             value={datetime1}
                             onchange={handleChangeDate1}
+                            disabled={disableDatetimeInputs}
                             required
                         ></lightning-input>
-                    </lightning-layout-item>
-                    <lightning-layout-item size="6" padding="horizontal-small">
-                        <lightning-input
-                            label="Datetime #2"
-                            type="datetime"
-                            timezone={timezoneKey}
-                            value={datetime2}
-                            onchange={handleChangeDate2}
-                            required
-                        ></lightning-input>
-                    </lightning-layout-item>
-                </lightning-layout>
-                <lightning-layout>
-                    <lightning-layout-item flexibility="no-grow" padding="around-small">
-                        <div class="slds-box slds-theme_shade slds-p-around_large">
-                            <div>
-                                <span class="slds-text-title_bold">Does Datetime #1 fall within business hours?</span>
-                                <lightning-input label="" type="checkbox" checked={isDate1BusinessDay} disabled></lightning-input>
-                            </div>
-                            <div class="slds-p-vertical_small">
-                                <span class="slds-text-title_bold">Datetime #1 next business datetime:</span>
-                                <p>
-                                    <lightning-formatted-date-time
-                                        year="numeric"
-                                        month="2-digit"
-                                        day="numeric"
-                                        hour="2-digit"
-                                        minute="2-digit"
-                                        time-zone-name="short"
-                                        time-zone={timezoneKey}
-                                        value={date1NextBusinessDay}
-                                    ></lightning-formatted-date-time>
-                                </p>
-                            </div>
-                            <div>
-                                <span class="slds-text-title_bold">Diff between Datetime #1 and Datetime #2:</span>
-                                <p><lightning-formatted-text value={date1And2Diff}></lightning-formatted-text></p>
-                            </div>
-                        </div>
+                        <p lwc:if={selectedTimezoneKey} class="slds-p-vertical_x-small">
+                            <code>
+                                <lightning-formatted-date-time
+                                    year="numeric"
+                                    month="2-digit"
+                                    day="numeric"
+                                    hour="2-digit"
+                                    minute="2-digit"
+                                    time-zone-name="short"
+                                    time-zone={selectedTimezoneKey}
+                                    value={datetime1}
+                                ></lightning-formatted-date-time>
+                            </code>
+                        </p>
+                        <lightning-button
+                            label="Calculate"
+                            onclick={handleCalculateMetrics}
+                            disabled={disableDatetimeInputs}
+                        ></lightning-button>
                     </lightning-layout-item>
                 </lightning-layout>
             </lightning-layout-item>
-            <lightning-layout-item size="6" padding="around-small">
+            <lightning-layout-item size="6">
                 <c-stats label="Stats" icon-name="standard:lead" value={stats}></c-stats>
                 <div class="slds-m-vertical_medium">
                     <c-error-alert value={error}></c-error-alert>
                 </div>
+                <c-datatable
+                    key-field="Id"
+                    data={bhData}
+                    columns={bhColumns}
+                    hide-checkbox-column
+                    show-row-number-column
+                ></c-datatable>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" padding="around-medium">
+                <p class="slds-text-title_caps slds-p-vertical_x-small">
+                    Date/Time stamp representation in active Business Hours timezones:
+                </p>
+                <c-datatable
+                    key-field="businessHoursId"
+                    data={datetimeMetricsData}
+                    columns={datetimeMetricsColumns}
+                    hide-checkbox-column
+                    show-row-number-column
+                ></c-datatable>
             </lightning-layout-item>
         </lightning-layout>
     </lightning-card>
