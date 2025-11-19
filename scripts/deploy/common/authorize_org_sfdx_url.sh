@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # How to use:
-# - bash ./scripts/deploy/common/authorize_org.sh "force://..."
-# - bash ./scripts/deploy/common/authorize_org.sh "force://..." "ORG_ALIAS"
+# - bash ./scripts/deploy/common/authorize_org_sfdx_url.sh "force://..."
+# - bash ./scripts/deploy/common/authorize_org_sfdx_url.sh "force://..." "ORG_ALIAS"
 
 set -e
 

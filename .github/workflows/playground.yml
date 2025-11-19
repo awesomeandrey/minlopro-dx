@@ -65,19 +65,23 @@ jobs:
         with:
           target-org-alias: "${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
           class-names: "FeatureToggleTest:MockedCalloutsFactoryTest:StaticResourceDataLoadTest"
-#      - name: "Tree Project Files"
-#        shell: bash
-#        run: |
-#          tree test-results -L 2
-#      - name: 'Generate Apex Tests Report'
-#        uses: dorny/test-reporter@v2
-#        with:
-#          name: Apex Tests
-#          path: test-results/test-result-*-junit.xml
-#          reporter: java-junit
-#          report-title: 'Apex Tests'
-#          badge-title: 'apex-tests'
-#          list-suites: 'all'
-#          list-tests: 'failed'
-#          fail-on-error: 'true'
-#          fail-on-empty: 'true'
+      - name: 'Bash Playground'
+        shell: bash
+        run: |
+          echo "Actor: ${{ github.actor }}"
+          exit 0
+      - name: "Convert To Metadata API Format For Code Analyzer"
+        run: |
+          sf project convert source \
+            --root-dir "src" \
+            --output-dir "mdapi/src" \
+            --metadata ApexClass \
+            --metadata Flow \
+            --metadata AuraDefinitionBundle \
+            --metadata LightningComponentBundle
+      - name: 'Run Salesforce Code Analyzer'
+        id: run-code-analyzer
+        uses: forcedotcom/run-code-analyzer@v2
+        with:
+          run-arguments: -w 'mdapi/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all -s 2
+          results-artifact-name: salesforce-code-analyzer-results

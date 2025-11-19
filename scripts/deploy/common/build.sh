@@ -39,8 +39,13 @@ install_sf_plugin "sfdx-hardis"
 install_sf_plugin "sfdmu"
 # https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_cli_reference.meta/bi_dev_guide_cli_reference/bi_cli_reference.htm
 install_sf_plugin "@salesforce/analytics"
+# https://developer.salesforce.com/docs/atlas.en-us.258.0.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_code-analyzer_commands_unified.htm
+install_sf_plugin "code-analyzer@latest" # always 'latest' because of GHA action warning annotations
+
+# Local Development Plugins
+
 # https://developer.salesforce.com/docs/platform/lwc/guide/get-started-test-components.html
-install_sf_plugin "@salesforce/plugin-lightning-dev"
+# install_sf_plugin "@salesforce/plugin-lightning-dev"
 
 # Install the rest of dependencies via NPM
 npm ci --silent; echo

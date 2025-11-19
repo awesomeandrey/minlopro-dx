@@ -106,21 +106,18 @@ jobs:
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-      - name: "Install Salesforce Code Analyzer Plugin"
-        run: sf plugins install code-analyzer@latest
-      - name: "Extract Changed Files"
+      - name: "Extract Changed Files For Code Analyzer"
         run: |
           git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}; git checkout ${{ github.base_ref }}
           git fetch origin ${{ github.head_ref }}:${{ github.head_ref }}; git checkout ${{ github.head_ref }}
           git branch
           bash ./scripts/deploy/validations/copy_changed_files.sh "${{ github.base_ref }}"
-      - name: 'Run Salesforce Code Analyzer'
+      - name: "Run Salesforce Code Analyzer"
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v2
         with:
           run-arguments: -w 'build/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all
           results-artifact-name: salesforce-code-analyzer-results
-          # github-token: ${{ github.token }}
       - name: 'Check the Outputs to Determine Whether to Fail'
         if: |
           steps.run-code-analyzer.outputs.exit-code > 0 ||
