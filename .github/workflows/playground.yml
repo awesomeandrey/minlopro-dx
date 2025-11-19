@@ -65,19 +65,19 @@ jobs:
         with:
           target-org-alias: "${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
           class-names: "FeatureToggleTest:MockedCalloutsFactoryTest:StaticResourceDataLoadTest"
-      - name: "Tree Project Files"
-        shell: bash
-        run: |
-          tree test-results -L 2
-      - name: 'Generate Apex Tests Report'
-        uses: dorny/test-reporter@v2
-        with:
-          name: Apex Tests
-          path: test-results/test-result-*-junit.xml
-          reporter: java-junit
-          report-title: 'Apex Tests'
-          badge-title: 'apex-tests'
-          list-suites: 'all'
-          list-tests: 'failed'
-          fail-on-error: 'true'
-          fail-on-empty: 'true'
+#      - name: "Tree Project Files"
+#        shell: bash
+#        run: |
+#          tree test-results -L 2
+#      - name: 'Generate Apex Tests Report'
+#        uses: dorny/test-reporter@v2
+#        with:
+#          name: Apex Tests
+#          path: test-results/test-result-*-junit.xml
+#          reporter: java-junit
+#          report-title: 'Apex Tests'
+#          badge-title: 'apex-tests'
+#          list-suites: 'all'
+#          list-tests: 'failed'
+#          fail-on-error: 'true'
+#          fail-on-empty: 'true'

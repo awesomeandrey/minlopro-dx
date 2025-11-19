@@ -12,15 +12,11 @@ inputs:
     required: false
     description: "Slack Webhook URL to post test results to"
 
-outputs:
-  success:
-    description: "Boolean flag that reflects whether the Apex Tests passed or failed"
-    value: ${{ steps.parse-apex-tests-results.outputs.success }}
-
 runs:
   using: "composite"
   steps:
     - name: 'Invoke Apex Tests'
+      id: run-apex-tests
       continue-on-error: true
       shell: bash
       run: |
@@ -49,13 +45,6 @@ runs:
           --output-dir "test-results" \
           --wait 30 \
           --concise
-    - name: 'Parse Apex Test Results'
-      id: parse-apex-tests-results
-      shell: bash
-      run: |
-        apexTestResultsAsJson="$(bash ./scripts/deploy/common/parse_apex_test_results.sh "test-results")"
-        echo "success=$(echo "$apexTestResultsAsJson" | jq -r '.success')" >> $GITHUB_OUTPUT
-        echo "apexTestResultsAsBase64=$(echo $apexTestResultsAsJson | base64 -w 0)" >> $GITHUB_OUTPUT
     - name: 'Send Slack Alert'
       if: ${{ inputs.slack-webhook-url != '' }}
       uses: slackapi/slack-github-action@v2.1.0
@@ -66,65 +55,30 @@ runs:
           {
             "attachments": [
               {
-                "color": "${{ steps.parse-apex-tests-results.outputs.success == 'true' && 'good' || 'danger' }}",
-                "text": "Apex Tests ${{ steps.parse-apex-tests-results.outputs.success == 'true' && '_passed_' || '🔻 *failed* 🔻' }} in *${{ inputs.target-org-alias }}* Salesforce org. \n See <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Workflow Run> for more details.",
+                "color": "${{ steps.run-apex-tests.outcome == 'success' && 'good' || 'danger' }}",
+                "text": "Apex Tests ${{ steps.run-apex-tests.outcome == 'success' && '_passed_' || '🔻 *failed* 🔻' }} in *${{ inputs.target-org-alias }}* Salesforce org. \n See <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|Workflow Run> for more details.",
                 "mrkdwn_in": ["text"]
               }
             ]
           }
-    - name: 'Create Report & Exit'
+    - name: 'Generate Apex Tests Report'
+      if: always()
+      uses: dorny/test-reporter@v2
+      with:
+        name: Apex Tests
+        path: test-results/test-result-*-junit.xml
+        reporter: java-junit
+        report-title: 'Apex Tests'
+        badge-title: 'apex-tests'
+        list-suites: 'all'
+        list-tests: 'failed'
+        fail-on-error: 'true'
+        fail-on-empty: 'true'
+    - name: 'Append Success Image'
       shell: bash
       run: |
-        apexTestResultsAsJson="$(echo "${{ steps.parse-apex-tests-results.outputs.apexTestResultsAsBase64 }}" | base64 -d)"
-        targetOrgAlias="${{ inputs.target-org-alias }}"
-        
-        success=$(echo "$apexTestResultsAsJson" | jq -r '.success')
-        testRunId=$(echo "$apexTestResultsAsJson" | jq -r '.testRunId')
-        outcome=$(echo "$apexTestResultsAsJson" | jq -r '.outcome')
-        outcomeColor=$(echo "$apexTestResultsAsJson" | jq -r '.outcomeColor')
-        total=$(echo "$apexTestResultsAsJson" | jq -r '.total')
-        passing=$(echo "$apexTestResultsAsJson" | jq -r '.passing')
-        failing=$(echo "$apexTestResultsAsJson" | jq -r '.failing')
-        instanceUrl=$(sf org display --json --target-org "$targetOrgAlias" | jq -r '.result.instanceUrl')
-        
-        {
-          echo "### Apex Test Results 🚀"
-          echo
-          echo "**$instanceUrl** 🔗"
-          echo
-          echo "![Apex Tests](https://img.shields.io/badge/Apex%20Tests-$outcome-$outcomeColor)"
-          echo
-          echo "**Test Run ID**: \`$testRunId\`"
-          echo
-          echo "| Passing ✅ | Failing ❌ | Total |"
-          echo "| --- | --- | --- |"
-          echo "| $passing | $failing | $total |"
-          echo
-        } >> $GITHUB_STEP_SUMMARY
-        
-        if [ "$success" != "true" ]; then
-          # Collect failed Apex Tests
-          
-          failedTests=$(echo "$apexTestResultsAsJson" | jq -r '.failedTests')
-          echo "_See failures below:_" >> $GITHUB_STEP_SUMMARY
-          echo "$failedTests" | jq -c '.[]' | while read -r apexTest; do
-            name=$(echo "$apexTest" | jq -r '.name')
-            errorMessage=$(echo "$apexTest" | jq -r '.errorMessage')
-            stackTrace=$(echo "$apexTest" | jq -r '.stackTrace')
-            {
-              echo '```'
-              echo "$name 🔻"
-              echo "$errorMessage"
-              echo "$stackTrace"
-              echo '```'
-            } >> $GITHUB_STEP_SUMMARY
-          done
-          
-          exit 1
-        else
-          # Append success image
-          
-          IMAGES=(
+        # Append success image
+        IMAGES=(
           "https://i.giphy.com/M0ZoXrSPttN6czwKnx.webp"
           "https://i.giphy.com/OlNDlH5bAGMncqVFua.webp"
           "https://i.giphy.com/Ov09jGgEThFKpxZ9eC.webp"
@@ -132,9 +86,6 @@ runs:
           "https://i.giphy.com/Yu3CQVzP8oSOemmKqQ.webp"
           "https://i.giphy.com/vOsRhrnqdyFnPp2OrG.webp"
           "https://i.giphy.com/eZQVUNYA00hItBCHNq.webp"
-          )
-          RANDOM_IMAGE=${IMAGES[$RANDOM % ${#IMAGES[@]}]}
-          echo "![Img]($RANDOM_IMAGE \"Img\")" >> $GITHUB_STEP_SUMMARY
-        
-          exit 0
-        fi
+        )
+        RANDOM_IMAGE=${IMAGES[$RANDOM % ${#IMAGES[@]}]}
+        echo "![Img]($RANDOM_IMAGE \"Img\")" >> $GITHUB_STEP_SUMMARY
