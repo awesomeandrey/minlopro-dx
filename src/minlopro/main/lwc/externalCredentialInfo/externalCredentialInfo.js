@@ -21,7 +21,7 @@ export default class ExternalCredentialInfo extends LightningElement {
     get principalsColumns() {
         return [
             {
-                label: 'Sequence',
+                label: '#',
                 fieldName: 'sequenceNumber',
                 type: 'number'
             },

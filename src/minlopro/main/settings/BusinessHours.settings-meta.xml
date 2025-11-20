@@ -64,8 +64,25 @@
         <wednesdayEndTime>18:00:00.000Z</wednesdayEndTime>
         <wednesdayStartTime>09:00:00.000Z</wednesdayStartTime>
     </businessHours>
+    <businessHours>
+        <active>true</active>
+        <default>false</default>
+        <fridayEndTime>00:00:00.000Z</fridayEndTime>
+        <fridayStartTime>00:00:00.000Z</fridayStartTime>
+        <mondayEndTime>00:00:00.000Z</mondayEndTime>
+        <mondayStartTime>00:00:00.000Z</mondayStartTime>
+        <name>Ukraine | SMS 📧 | 24/7 Weekdays</name>
+        <thursdayEndTime>00:00:00.000Z</thursdayEndTime>
+        <thursdayStartTime>00:00:00.000Z</thursdayStartTime>
+        <timeZoneId>Europe/Kiev</timeZoneId>
+        <tuesdayEndTime>00:00:00.000Z</tuesdayEndTime>
+        <tuesdayStartTime>00:00:00.000Z</tuesdayStartTime>
+        <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
+        <wednesdayStartTime>00:00:00.000Z</wednesdayStartTime>
+    </businessHours>
     <holidays>
         <businessHours>Ukraine</businessHours>
+        <businessHours>Ukraine | SMS 📧 | 24/7 Weekdays</businessHours>
         <description>Labour Day is an annual day of celebration of the labour movement and its achievements.</description>
         <isRecurring>true</isRecurring>
         <name>Labour Day</name>
