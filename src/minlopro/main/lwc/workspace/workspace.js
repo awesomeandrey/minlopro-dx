@@ -1,4 +1,5 @@
 import { LightningElement, track } from 'lwc';
+import { log as $Log } from 'lightning/logger';
 import { cloneObject, isEmpty } from 'c/utilities';
 
 // Custom Permissions;
@@ -57,6 +58,10 @@ export default class Workspace extends LightningElement {
             .filter(({ visible = false }) => visible);
     }
 
+    get selectedTab() {
+        return this.tabs.find(({ name }) => name === this.selectedTabName) || {};
+    }
+
     get lc_selectedTabName() {
         return window.localStorage.getItem('selectedTabName');
     }
@@ -65,13 +70,24 @@ export default class Workspace extends LightningElement {
         return window.localStorage.getItem('doCollapseTabs') === 'true';
     }
 
+    async connectedCallback() {
+        await this.instantiate(this.selectedTabName);
+        this.log();
+    }
+
     async handleSelectTab(event) {
         // Fired immediately upon 'lightning-vertical-navigation' LWC load if 'name' property is specified;
         const { name } = event.detail;
+        if (this.selectedTabName === name) {
+            return;
+        }
+        // Capture tab selection;
         this.selectedTabName = name;
         window.localStorage.setItem('selectedTabName', name);
         // Instantiate LWC;
         await this.instantiate(name);
+        // Log to 'Lightning Logger Event' ELF
+        this.log();
     }
 
     handleToggleTabs() {
@@ -92,5 +108,10 @@ export default class Workspace extends LightningElement {
 
     isValidTabName(tabNameToCheck) {
         return this.tabs.some(({ name }) => name === tabNameToCheck);
+    }
+
+    log() {
+        // Log structure: Constructor Name | Event Name | Event Value
+        $Log(`${this.constructor.name}.js | Selected Workspace Tab | ${this.selectedTab?.label}`);
     }
 }

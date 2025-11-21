@@ -154,7 +154,7 @@ export default class BusinessHoursDemoTab extends LightningElement {
                 type: 'boolean'
             },
             {
-                label: `Date/Time BH + ${this.selectedNextSmsDelayHour} hours`,
+                label: `Date/Time BH + ${this.selectedNextSmsDelayHour} BH hours`,
                 fieldName: 'formattedNextSmsDatetimeStampBh',
                 type: 'customCodeSnippet'
             },
