@@ -106,6 +106,7 @@ jobs:
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
+          SF_PLUGIN_CODE_ANALYZER: true
       - name: "Extract Changed Files For Code Analyzer"
         run: |
           git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}; git checkout ${{ github.base_ref }}

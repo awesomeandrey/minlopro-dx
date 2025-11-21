@@ -3,18 +3,31 @@
 # How to use:
 # - bash ./scripts/deploy/common/build.sh
 
+: '
+# Shortcut to install all Salesforce CLI plugins:
+{
+  export SF_PLUGIN_SGD=true;
+  export SF_PLUGIN_SFDX_HARDIS=true;
+  export SF_PLUGIN_SFDMU=true;
+  export SF_PLUGIN_ANALYTICS=true;
+  export SF_PLUGIN_CODE_ANALYZER=true;
+  export SF_PLUGIN_LIGHTNING_DEV=true;
+  bash ./scripts/deploy/common/build.sh
+}
+'
+
 set -e
 echo "🔵 Building environment and installing dependencies..."
 echo
 mkdir -p "build"
 
 # Install Salesforce CLI (v2). Note CLI version is derived from 'SF_CLI_VERSION' environment variable (if specified)
-sfCliVersion="${SF_CLI_VERSION:-latest}"
-sfCliPackageName="@salesforce/cli"
+SF_CLI_VERSION="${SF_CLI_VERSION:-latest}"
+SF_CLI_PACKAGE_NAME="@salesforce/cli"
 
-if ! npm ls -g "$sfCliPackageName" &> /dev/null; then
-  echo "Installing [$sfCliPackageName@${sfCliVersion}] globally."
-  npm install "@salesforce/cli@${sfCliVersion}" --global
+if ! npm ls -g "$SF_CLI_PACKAGE_NAME" &> /dev/null; then
+  echo "Installing [$SF_CLI_PACKAGE_NAME@${SF_CLI_VERSION}] globally."
+  npm install "@salesforce/cli@${SF_CLI_VERSION}" --global
   # Run `npm update @salesforce/cli --global` to update CLI locally
 fi
 echo "Salesforce CLI: $(sf --version)"
@@ -31,21 +44,24 @@ install_sf_plugin() {
 }
 
 echo "Installing Salesforce CLI Plugins..."
-# https://github.com/scolladon/sfdx-git-delta
-install_sf_plugin "sfdx-git-delta"
-# https://sfdx-hardis.cloudity.com
-install_sf_plugin "sfdx-hardis"
-# https://help.sfdmu.com/get-started
-install_sf_plugin "sfdmu"
-# https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_cli_reference.meta/bi_dev_guide_cli_reference/bi_cli_reference.htm
-install_sf_plugin "@salesforce/analytics"
-# https://developer.salesforce.com/docs/atlas.en-us.258.0.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_code-analyzer_commands_unified.htm
-install_sf_plugin "code-analyzer@latest" # always 'latest' because of GHA action warning annotations
 
-# Local Development Plugins
+# https://github.com/scolladon/sfdx-git-delta
+[ "${SF_PLUGIN_SGD:-true}" = "true" ] && install_sf_plugin "sfdx-git-delta"
+
+# https://sfdx-hardis.cloudity.com
+[ "${SF_PLUGIN_SFDX_HARDIS:-true}" = "true" ] && install_sf_plugin "sfdx-hardis"
+
+# https://help.sfdmu.com/get-started
+[ "${SF_PLUGIN_SFDMU:-false}" = "true" ] && install_sf_plugin "sfdmu"
+
+# https://developer.salesforce.com/docs/atlas.en-us.bi_dev_guide_cli_reference.meta/bi_dev_guide_cli_reference/bi_cli_reference.htm
+[ "${SF_PLUGIN_ANALYTICS:-false}" = "true" ] && install_sf_plugin "@salesforce/analytics"
+
+# https://developer.salesforce.com/docs/atlas.en-us.258.0.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference_code-analyzer_commands_unified.htm
+[ "${SF_PLUGIN_CODE_ANALYZER:-false}" = "true" ] && install_sf_plugin "code-analyzer@latest" # always 'latest' because of GHA action warning annotations
 
 # https://developer.salesforce.com/docs/platform/lwc/guide/get-started-test-components.html
-# install_sf_plugin "@salesforce/plugin-lightning-dev"
+[ "${SF_PLUGIN_LIGHTNING_DEV:-false}" = "true" ] && install_sf_plugin "@salesforce/plugin-lightning-dev@latest"
 
 # Install the rest of dependencies via NPM
 npm ci --silent; echo

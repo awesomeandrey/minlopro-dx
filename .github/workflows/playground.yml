@@ -37,6 +37,7 @@ jobs:
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
+          SF_PLUGIN_CODE_ANALYZER: true
       - name: "Install Jest & Invoke"
         shell: bash
         run: |
