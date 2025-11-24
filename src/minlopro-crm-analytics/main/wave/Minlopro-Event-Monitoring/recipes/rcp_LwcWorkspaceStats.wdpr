@@ -1,0 +1,247 @@
+{
+  "version" : "65.0",
+  "nodes" : {
+    "LOAD_DATASET0" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "UI_EVENT_TIMESTAMP", "EVENT_TYPE", "MESSAGE", "TIMESTAMP", "USER_ID_DERIVED", "PAGE_ENTITY_TYPE", "PAGE_CONTEXT", "PAGE_URL", "TIMESTAMP_DERIVED", "USER_TYPE" ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "ELF - LightningLogger (v65.0)",
+          "name" : "elf_LightningLogger_v65"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        },
+        "preserveCurrencyFields" : [ ]
+      }
+    },
+    "OUTPUT0" : {
+      "action" : "save",
+      "sources" : [ "DROP_FIELDS0" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "LWC Workspace Stats",
+          "name" : "ds_LwcWorkspaceStats",
+          "folderName" : "MinloproEventMonitoring"
+        }
+      }
+    },
+    "LOAD_DATASET1" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "Id", "Username", "Name" ],
+        "dataset" : {
+          "type" : "connectedDataset",
+          "label" : "User",
+          "connectionName" : "SFDC_LOCAL",
+          "sourceObjectName" : "User"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        },
+        "preserveCurrencyFields" : [ ]
+      }
+    },
+    "JOIN0" : {
+      "action" : "join",
+      "sources" : [ "LOAD_DATASET0", "LOAD_DATASET1" ],
+      "schema" : {
+        "fields" : [ ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ ]
+        }
+      },
+      "parameters" : {
+        "joinType" : "LOOKUP",
+        "leftKeys" : [ "USER_ID_DERIVED" ],
+        "rightQualifier" : "User",
+        "rightKeys" : [ "Id" ]
+      }
+    },
+    "SPLIT0" : {
+      "action" : "split",
+      "sources" : [ "FILTER0" ],
+      "parameters" : {
+        "sourceField" : "MESSAGE",
+        "delimiter" : " | ",
+        "targetFields" : [ {
+          "name" : "MsgComponentName",
+          "label" : "MSG - Component Name"
+        }, {
+          "name" : "MsgTempSplit",
+          "label" : "MSG Temp Split"
+        } ]
+      }
+    },
+    "SPLIT1" : {
+      "action" : "split",
+      "sources" : [ "SPLIT0" ],
+      "parameters" : {
+        "sourceField" : "MsgTempSplit",
+        "delimiter" : " | ",
+        "targetFields" : [ {
+          "name" : "MsgEventName",
+          "label" : "MSG - Event Name"
+        }, {
+          "name" : "MsgEventValue",
+          "label" : "MSG - Event Value"
+        } ]
+      }
+    },
+    "TO_DATE0" : {
+      "action" : "typeCast",
+      "sources" : [ "SPLIT1" ],
+      "schema" : {
+        "fields" : [ {
+          "name" : "TIMESTAMP_DERIVED_to_date",
+          "newProperties" : {
+            "name" : "TIMESTAMP_DERIVED"
+          }
+        } ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "TIMESTAMP_DERIVED" ]
+        }
+      },
+      "parameters" : {
+        "fields" : [ {
+          "name" : "TIMESTAMP_DERIVED",
+          "newProperties" : {
+            "label" : "TIMESTAMP_DERIVED",
+            "name" : "TIMESTAMP_DERIVED_to_date",
+            "typeProperties" : {
+              "type" : "DATETIME",
+              "format" : "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+            }
+          }
+        } ]
+      }
+    },
+    "DROP_FIELDS0" : {
+      "action" : "schema",
+      "sources" : [ "TO_DATE0" ],
+      "parameters" : {
+        "fields" : [ ],
+        "slice" : {
+          "mode" : "DROP",
+          "ignoreMissingFields" : true,
+          "fields" : [ "MsgTempSplit" ]
+        }
+      }
+    },
+    "FILTER0" : {
+      "action" : "filter",
+      "sources" : [ "JOIN0" ],
+      "parameters" : {
+        "filterExpressions" : [ {
+          "type" : "TEXT",
+          "field" : "MESSAGE",
+          "operator" : "STARTS_WITH",
+          "operands" : [ "Workspace.js" ]
+        } ]
+      }
+    }
+  },
+  "ui" : {
+    "nodes" : {
+      "LOAD_DATASET0" : {
+        "label" : "ELF - LightningLogger (v65.0)",
+        "type" : "LOAD_DATASET",
+        "top" : 112,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "OUTPUT0" : {
+        "label" : "LWC Workspace Stats",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 112,
+        "left" : 672
+      },
+      "LOAD_DATASET1" : {
+        "label" : "User",
+        "type" : "LOAD_DATASET",
+        "top" : 252,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "JOIN0" : {
+        "label" : "Events w User Info",
+        "description" : "",
+        "type" : "JOIN",
+        "top" : 112,
+        "left" : 252
+      },
+      "TRANSFORM0" : {
+        "label" : "Normalized Events",
+        "description" : "",
+        "type" : "TRANSFORM",
+        "top" : 112,
+        "left" : 532,
+        "graph" : {
+          "SPLIT0" : {
+            "label" : "Parse MESSAGE (#1)"
+          },
+          "SPLIT1" : {
+            "label" : "Parse MESSAGE (#2)"
+          },
+          "TO_DATE0" : {
+            "label" : "TIMESTAMP_DERIVED"
+          },
+          "DROP_FIELDS0" : {
+            "label" : "Drop Columns"
+          }
+        },
+        "connectors" : [ {
+          "source" : "SPLIT0",
+          "target" : "SPLIT1"
+        }, {
+          "source" : "SPLIT1",
+          "target" : "TO_DATE0"
+        }, {
+          "source" : "TO_DATE0",
+          "target" : "DROP_FIELDS0"
+        } ]
+      },
+      "FILTER0" : {
+        "label" : "Workspace.js Events",
+        "description" : "",
+        "type" : "FILTER",
+        "top" : 112,
+        "left" : 392
+      }
+    },
+    "connectors" : [ {
+      "source" : "TRANSFORM0",
+      "target" : "OUTPUT0"
+    }, {
+      "source" : "LOAD_DATASET0",
+      "target" : "JOIN0"
+    }, {
+      "source" : "LOAD_DATASET1",
+      "target" : "JOIN0"
+    }, {
+      "source" : "FILTER0",
+      "target" : "TRANSFORM0"
+    }, {
+      "source" : "JOIN0",
+      "target" : "FILTER0"
+    } ],
+    "hiddenColumns" : [ ]
+  },
+  "runMode" : "full"
+}
