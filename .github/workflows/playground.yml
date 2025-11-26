@@ -19,15 +19,13 @@ permissions:
   checks: write
   pull-requests: write
 
-env:
-  SF_CLI_VERSION: "2.77.6"
-
 jobs:
   playground-run:
-    timeout-minutes: 10
+    timeout-minutes: 15
     environment: ${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
+      SF_AUTH_URL_SCRATCH: ${{ secrets.SF_AUTH_URL_SCRATCH }}
       SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
       GHA_WORKFLOW_RUN_LINK: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
     runs-on: ubuntu-22.04
@@ -37,52 +35,28 @@ jobs:
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-          SF_PLUGIN_CODE_ANALYZER: true
-      - name: "Install Jest & Invoke"
-        shell: bash
-        run: |
-          npm run jest -- --coverage
-          tree coverage -L 2
-          tree test-results -L 2
-      - name: 'Generate Jest Tests Report'
-        uses: dorny/test-reporter@v2
-        with:
-          name: LWC Jest Tests
-          path: test-results/jest-*.xml
-          reporter: jest-junit
-          report-title: 'LWC Jest Tests'
-          badge-title: 'lwc-jest-tests'
-          list-suites: 'all'
-          list-tests: 'failed'
-          fail-on-error: 'true'
-          fail-on-empty: 'true'
       - name: "Auth Salesforce Org 🎫"
         id: auth-salesforce-org
         uses: ./.github/actions/auth-salesforce-org
         with:
           sfdx-auth-url: ${{ env.SF_AUTH_URL }}
-      - name: "Run Apex Tests 🚇"
-        uses: ./.github/actions/run-apex-tests
+      - name: "Auth Scratch Org 🎈"
+        id: auth-scratch-org
+        uses: ./.github/actions/auth-salesforce-org
         with:
-          target-org-alias: "${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
-          class-names: "FeatureToggleTest:MockedCalloutsFactoryTest:StaticResourceDataLoadTest"
-      - name: 'Bash Playground'
+          sfdx-auth-url: ${{ env.SF_AUTH_URL_SCRATCH }}
+      - name: "Run ELF Load"
         shell: bash
         run: |
-          echo "Actor: ${{ github.actor }}"
-          exit 0
-      - name: "Convert To Metadata API Format For Code Analyzer"
-        run: |
-          sf project convert source \
-            --root-dir "src" \
-            --output-dir "mdapi/src" \
-            --metadata ApexClass \
-            --metadata Flow \
-            --metadata AuraDefinitionBundle \
-            --metadata LightningComponentBundle
-      - name: 'Run Salesforce Code Analyzer'
-        id: run-code-analyzer
-        uses: forcedotcom/run-code-analyzer@v2
-        with:
-          run-arguments: -w 'mdapi/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all -s 2
-          results-artifact-name: salesforce-code-analyzer-results
+          echo "Salesforce Org alias = ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
+          echo "Scratch Org alias = ${{ steps.auth-scratch-org.outputs.target-org-alias }}"
+          bash scripts/util/event-monitoring/elf.sh \
+            --source-org-alias ${{ steps.auth-salesforce-org.outputs.target-org-alias }} \
+            --target-org-alias ${{ steps.auth-scratch-org.outputs.target-org-alias }} \
+            --mode download-and-upload-to-dataset \
+            --event-type LightningPageView \
+            --api-version 65.0 \
+            --metadata scripts/util/event-monitoring/event-metadata-json/LightningPageView-v65.0.json \
+            --folder MinloproEventMonitoring \
+            --elf-limit 100
+          tree "build"

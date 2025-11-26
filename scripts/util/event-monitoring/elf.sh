@@ -121,7 +121,11 @@ create_insights_external_data_record(){
     fieldValues+="EdgemartContainer=$FOLDER_ID_OR_NAME "
   fi
   if [ -n "$METADATA_JSON_FILE" ]; then
-    fieldValues+="MetadataJson=$(base64 -i "$METADATA_JSON_FILE") "
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+      fieldValues+="MetadataJson=$(base64 -w 0 "$METADATA_JSON_FILE") "
+    else
+      fieldValues+="MetadataJson=$(base64 -i "$METADATA_JSON_FILE") "
+    fi
   fi
   echo "$fieldValues" > "$ied_flags_dir/values"
   echo "Creating InsightsExternalData record: ${fieldValues:0:200}..."
@@ -167,15 +171,19 @@ upload_elf_to_dataset(){
   local csv_filename
   csv_filename="$1"
 
-  # Remove header row from csv file if not the 1st chunk
+  # Remove header row from CSV file if not the 1st chunk
   if [[ $DATA_PART_COUNTER -ne 1 ]]; then
-    sed -i '' '1d' "$csv_filename"
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+      sed -i '1d' "$csv_filename"
+    else
+      sed -i '' '1d' "$csv_filename"
+    fi
   fi
 
-  # Compress & delete original csv file (use --keep to preserve)
+  # Compress CSV file
   gzip --keep "$csv_filename"
 
-  # Split into chunks 9MB each
+  # Split into chunks 9MB each with 2-digits suffix
   split -b 9M -d -a 2 "$csv_filename.gz" "$csv_filename.gz-"
 
   # Iterate through chunks and upload each as 'InsightsExternalDataPart' record
@@ -200,7 +208,7 @@ AND Interval = 'Daily'
 AND LogFileLength > 0
 AND CreatedDate = LAST_N_DAYS:365
 AND ApiVersion = $API_VERSION
-ORDER BY LogFileLength DESC
+ORDER BY LogDate DESC
 LIMIT ${ELF_LIMIT}")
 
 echo "Fetching EventLogFiles from [$SOURCE_ORG_ALIAS] source org with [$EVENT_TYPE] event type..."
@@ -212,7 +220,8 @@ LOG_FILES_AS_JSON=$(sf data query --target-org "$SOURCE_ORG_ALIAS" --query "$SOQ
 LOG_FILES_SIZE=$(echo "$LOG_FILES_AS_JSON" | jq '.result.totalSize')
 
 if [ "$LOG_FILES_SIZE" -eq 0 ]; then
-  die "SOQL query did not return any results."
+  log "SOQL query did not return any results. Nothing to download."
+  exit 0
 fi
 echo "Found $LOG_FILES_SIZE event log files!"
 
