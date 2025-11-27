@@ -24,7 +24,7 @@ runs:
       id: auth-salesforce-org
       shell: bash
       run: |
-        bash ./scripts/deploy/common/authorize_org.sh "${{ inputs.sfdx-auth-url }}" "${{ inputs.target-org-alias }}"
+        bash ./scripts/deploy/common/authorize_org_sfdx_url.sh "${{ inputs.sfdx-auth-url }}" "${{ inputs.target-org-alias }}"
         orgAlias="$(sf config get target-org --json | jq -r '.result[0].value')"
         orgInstanceUrl="$(sf org display --target-org "$orgAlias" --json | jq -r '.result.instanceUrl')"
         echo "SF_TARGET_ORG_ALIAS=$orgAlias" >> $GITHUB_OUTPUT

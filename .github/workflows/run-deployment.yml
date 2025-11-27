@@ -1,5 +1,5 @@
 name: Deploy Source 🚛
-run-name: "Deploy Source ${{ inputs.mode == 'Dry-Run' && '🚚' || '🚛' }}"
+run-name: "Deploy Source ${{ inputs.mode == 'Dry-Run' && '(Dry-Run) 🚚' || '🚛' }}"
 
 on:
   schedule:
@@ -121,9 +121,8 @@ jobs:
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-      - name: "Install Salesforce Code Analyzer Plugin"
-        run: sf plugins install code-analyzer@latest
-      - name: "Convert To Metadata API Format"
+          SF_PLUGIN_CODE_ANALYZER: true
+      - name: "Convert To Metadata API Format For Code Analyzer"
         run: |
           sf project convert source \
             --root-dir "src" \
@@ -136,7 +135,7 @@ jobs:
         id: run-code-analyzer
         uses: forcedotcom/run-code-analyzer@v2
         with:
-          run-arguments: -w 'mdapi/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all
+          run-arguments: -w 'mdapi/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all -s 2
           results-artifact-name: salesforce-code-analyzer-results
   run-post-merge-actions:
     if: ${{ github.event_name == 'push' }}

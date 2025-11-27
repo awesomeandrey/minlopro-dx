@@ -43,6 +43,8 @@ jobs:
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
+          SF_PLUGIN_SFDMU: true
+          SF_PLUGIN_ANALYTICS: true
       - name: "Auth DevHub Org 🎫"
         id: auth-dev-hub-org
         uses: ./.github/actions/auth-salesforce-org

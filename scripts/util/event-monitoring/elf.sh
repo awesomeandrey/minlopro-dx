@@ -19,24 +19,26 @@ usage() {
 ELF toolkit
 
 Required:
-  -o, --org-alias STR        Salesforce org alias (target org)
-  -e, --event-type STR       Event type API name (e.g., LightningPageView)
-  -M, --mode STR             One of: download | download-and-upload-to-dataset
+  -o, --source-org-alias STR  Source Salesforce org alias to pull ELFs from
+  -e, --event-type STR        Event type API name (e.g., LightningPageView)
+  -M, --mode STR              One of: download | download-and-upload-to-dataset
 
 Optional:
-  -l, --elf-limit INT        Limit of EventLogFile records to process (default: 90)
-  -v, --api-version NUM      Salesforce API version (default: 65.0)
-  -f, --folder STR           Target CRM Analytics folder (Id or Name) for dataset upload
-  -m, --metadata PATH        Path to metadata JSON (dataset schema)
-  -h, --help                 Show this help and exit
+  -l, --elf-limit INT         Limit of EventLogFile records to process (default: 90)
+  -v, --api-version NUM       Salesforce API version (default: 65.0)
+  -t, --target-org-alias STR  Target Salesforce org alias to upload dataset to (defaults to --org-alias parameter)
+  -f, --folder STR            Target CRM Analytics folder (Id or Name) to upload dataset to
+  -m, --metadata PATH         Path to metadata JSON file specifying uploaded dataset schema
+  -h, --help                  Show this help and exit
 EOF
 }
 
 # ---- Defaults ----
-ORG_ALIAS=""
+SOURCE_ORG_ALIAS=""
 EVENT_TYPE=""
 ELF_LIMIT="90"
 API_VERSION="65.0"
+TARGET_ORG_ALIAS=""
 FOLDER_ID_OR_NAME=""
 METADATA_JSON_FILE=""
 MODE=""
@@ -44,14 +46,16 @@ MODE=""
 # ---- Parse named args ----
 while [[ $# -gt 0 ]]; do
   case "$1" in
-    -o|--org-alias)
-      ORG_ALIAS="${2-}"; shift 2 ;;
+    -o|--source-org-alias)
+      SOURCE_ORG_ALIAS="${2-}"; shift 2 ;;
     -e|--event-type)
       EVENT_TYPE="${2-}"; shift 2 ;;
     -l|--elf-limit)
       ELF_LIMIT="${2-}"; shift 2 ;;
     -v|--api-version)
       API_VERSION="${2-}"; shift 2 ;;
+    -t|--target-org-alias)
+      TARGET_ORG_ALIAS="${2-}"; shift 2 ;;
     -f|--folder)
       FOLDER_ID_OR_NAME="${2-}"; shift 2 ;;
     -m|--metadata)
@@ -69,6 +73,9 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# Resolve target org alias
+TARGET_ORG_ALIAS=${TARGET_ORG_ALIAS:-$SOURCE_ORG_ALIAS}
+
 # ---- Parameters Validation ----
 ALLOWED_MODES=("download" "download-and-upload-to-dataset")
 is_allowed_mode=false
@@ -76,10 +83,10 @@ for m in "${ALLOWED_MODES[@]}"; do
   [[ "$MODE" == "$m" ]] && is_allowed_mode=true && break
 done
 
-[[ -n "$ORG_ALIAS" ]] || { usage; die "--org-alias is required"; }
+[[ -n "$SOURCE_ORG_ALIAS" ]] || { usage; die "--source-org-alias is required"; }
 [[ -n "$EVENT_TYPE" ]] || { usage; die "--event-type is required"; }
-[[ -n "$MODE" ]]      || { usage; die "--mode is required"; }
-"$is_allowed_mode"    || { usage; die "--mode must be one of: ${ALLOWED_MODES[*]}"; }
+[[ -n "$MODE" ]] || { usage; die "--mode is required"; }
+"$is_allowed_mode" || { usage; die "--mode must be one of: ${ALLOWED_MODES[*]}"; }
 
 # Numeric checks
 [[ "$ELF_LIMIT" =~ ^[0-9]+$ ]] \
@@ -93,10 +100,11 @@ if [[ -n "$METADATA_JSON_FILE" ]]; then
 fi
 
 # ---- Echo effective configuration
-log "ORG_ALIAS:          $ORG_ALIAS"
+log "SOURCE_ORG_ALIAS:   $SOURCE_ORG_ALIAS"
 log "EVENT_TYPE:         $EVENT_TYPE"
 log "ELF_LIMIT:          $ELF_LIMIT"
 log "API_VERSION:        $API_VERSION"
+log "TARGET_ORG_ALIAS:   $TARGET_ORG_ALIAS"
 log "FOLDER_ID_OR_NAME:  ${FOLDER_ID_OR_NAME:-<empty>}"
 log "METADATA_JSON_FILE: ${METADATA_JSON_FILE:-<empty>}"
 log "MODE:               $MODE"
@@ -113,11 +121,15 @@ create_insights_external_data_record(){
     fieldValues+="EdgemartContainer=$FOLDER_ID_OR_NAME "
   fi
   if [ -n "$METADATA_JSON_FILE" ]; then
-    fieldValues+="MetadataJson=$(base64 -i "$METADATA_JSON_FILE") "
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+      fieldValues+="MetadataJson=$(base64 -w 0 "$METADATA_JSON_FILE") "
+    else
+      fieldValues+="MetadataJson=$(base64 -i "$METADATA_JSON_FILE") "
+    fi
   fi
   echo "$fieldValues" > "$ied_flags_dir/values"
   echo "Creating InsightsExternalData record: ${fieldValues:0:200}..."
-  ied_record_info=$(sf data create record --sobject "InsightsExternalData" --target-org "$ORG_ALIAS" --flags-dir "$ied_flags_dir" --json)
+  ied_record_info=$(sf data create record --sobject "InsightsExternalData" --target-org "$TARGET_ORG_ALIAS" --flags-dir "$ied_flags_dir" --json)
   IED_RECORD_ID=$(echo "$ied_record_info" | jq -r '.result.id')
   echo "InsightsExternalData ID = $IED_RECORD_ID"
 }
@@ -127,7 +139,7 @@ update_insights_external_data_record(){
     --sobject "InsightsExternalData" \
     --record-id "$IED_RECORD_ID" \
     --values "Action=Process" \
-    --target-org "$ORG_ALIAS"
+    --target-org "$TARGET_ORG_ALIAS"
 }
 
 reset_elf_folder(){
@@ -149,8 +161,8 @@ download_elf(){
   csv_filename="$(compose_elf_filename "$elf_sobject_json")"
   log_relative_url="$(echo "$elf_sobject_json" | jq -r ".attributes.url")"
   # https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_event_log_file_download.htm
-  curl -s "${ORG_INSTANCE_URL}${log_relative_url}/LogFile" \
-    -H "Authorization: Bearer $ORG_ACCESS_TOKEN" \
+  curl -s "${SOURCE_ORG_INSTANCE_URL}${log_relative_url}/LogFile" \
+    -H "Authorization: Bearer $SOURCE_ORG_ACCESS_TOKEN" \
     -H "X-PrettyPrint:1" \
     -o "$csv_filename"
 }
@@ -159,26 +171,30 @@ upload_elf_to_dataset(){
   local csv_filename
   csv_filename="$1"
 
-  # Remove header row from csv file if not the 1st chunk
+  # Remove header row from CSV file if not the 1st chunk
   if [[ $DATA_PART_COUNTER -ne 1 ]]; then
-    sed -i '' '1d' "$csv_filename"
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+      sed -i '1d' "$csv_filename"
+    else
+      sed -i '' '1d' "$csv_filename"
+    fi
   fi
 
-  # Compress & delete original csv file (use --keep to preserve)
+  # Compress CSV file
   gzip --keep "$csv_filename"
 
-  # Split into chunks 9MB each
+  # Split into chunks 9MB each with 2-digits suffix
   split -b 9M -d -a 2 "$csv_filename.gz" "$csv_filename.gz-"
 
   # Iterate through chunks and upload each as 'InsightsExternalDataPart' record
   for gz_csv_filename in "$csv_filename".gz-*; do
     # See https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_sobject_insert_update_blob.htm
-    auth_header="Authorization: Bearer $ORG_ACCESS_TOKEN"
+    auth_header="Authorization: Bearer $TARGET_ORG_ACCESS_TOKEN"
     curl \
       -H "${auth_header}" \
       -F "entity_document={\"InsightsExternalDataId\": \"$IED_RECORD_ID\", \"PartNumber\": $DATA_PART_COUNTER};type=application/json" \
       -F "DataFile=@$(pwd)/${gz_csv_filename}" \
-      "$ORG_INSTANCE_URL/services/data/v$API_VERSION/sobjects/InsightsExternalDataPart/" &> /dev/null
+      "$TARGET_ORG_INSTANCE_URL/services/data/v$API_VERSION/sobjects/InsightsExternalDataPart/" &> /dev/null
     ((DATA_PART_COUNTER++))
   done
   echo
@@ -192,27 +208,34 @@ AND Interval = 'Daily'
 AND LogFileLength > 0
 AND CreatedDate = LAST_N_DAYS:365
 AND ApiVersion = $API_VERSION
-ORDER BY LogFileLength DESC
+ORDER BY LogDate DESC
 LIMIT ${ELF_LIMIT}")
 
-echo "Fetching EventLogFiles from [$ORG_ALIAS] with [$EVENT_TYPE] event type..."
+echo "Fetching EventLogFiles from [$SOURCE_ORG_ALIAS] source org with [$EVENT_TYPE] event type..."
 echo "---"
 echo "$SOQL_QUERY"
 echo "---"
 
-LOG_FILES_AS_JSON=$(sf data query --target-org "$ORG_ALIAS" --query "$SOQL_QUERY" --json)
+LOG_FILES_AS_JSON=$(sf data query --target-org "$SOURCE_ORG_ALIAS" --query "$SOQL_QUERY" --json)
 LOG_FILES_SIZE=$(echo "$LOG_FILES_AS_JSON" | jq '.result.totalSize')
 
 if [ "$LOG_FILES_SIZE" -eq 0 ]; then
-  die "SOQL query did not return any results."
+  log "SOQL query did not return any results. Nothing to download."
+  exit 0
 fi
-echo "Found $LOG_FILES_SIZE event log files! Starting data fetching & uploading..."
+echo "Found $LOG_FILES_SIZE event log files!"
 
-ORG_INFO_AS_JSON=$(sf org display --target-org "$ORG_ALIAS" --json)
-ORG_ID=$(echo "$ORG_INFO_AS_JSON" | jq -r '.result.id')
-ORG_INSTANCE_URL=$(echo "$ORG_INFO_AS_JSON" | jq -r '.result.instanceUrl')
-ORG_ACCESS_TOKEN=$(echo "$ORG_INFO_AS_JSON" | jq -r '.result.accessToken')
-ELF_DIR="build/elf-$ORG_ID-$EVENT_TYPE-v$API_VERSION"
+SOURCE_ORG_INFO_AS_JSON=$(sf org display --target-org "$SOURCE_ORG_ALIAS" --json)
+SOURCE_ORG_ID=$(echo "$SOURCE_ORG_INFO_AS_JSON" | jq -r '.result.id')
+SOURCE_ORG_INSTANCE_URL=$(echo "$SOURCE_ORG_INFO_AS_JSON" | jq -r '.result.instanceUrl')
+SOURCE_ORG_ACCESS_TOKEN=$(echo "$SOURCE_ORG_INFO_AS_JSON" | jq -r '.result.accessToken')
+
+TARGET_ORG_INFO_AS_JSON=$(sf org display --target-org "$TARGET_ORG_ALIAS" --json)
+TARGET_ORG_ID=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.id')
+TARGET_ORG_INSTANCE_URL=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.instanceUrl')
+TARGET_ORG_ACCESS_TOKEN=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.accessToken')
+
+ELF_DIR="build/elf-$SOURCE_ORG_ID-$EVENT_TYPE-v$API_VERSION"
 DATA_PART_COUNTER=1
 PROGRESS_COUNTER=1
 IED_RECORD_ID=""
@@ -220,6 +243,8 @@ IED_RECORD_ID=""
 # ---- Mode switch
 case "$MODE" in
   download)
+    echo "Starting data fetching from [$SOURCE_ORG_ALIAS:$SOURCE_ORG_ID] source org..."
+
     reset_elf_folder
 
     echo "$LOG_FILES_AS_JSON" | jq -c '.result.records[]' | while read -r elf_sobject_json; do
@@ -239,6 +264,8 @@ case "$MODE" in
     ;;
 
   download-and-upload-to-dataset)
+    echo "Starting data fetching from [$SOURCE_ORG_ALIAS:$SOURCE_ORG_ID] source org & upload to [$TARGET_ORG_ALIAS:$TARGET_ORG_ID] target org..."
+
     create_insights_external_data_record
 
     reset_elf_folder

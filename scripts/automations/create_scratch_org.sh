@@ -89,7 +89,7 @@ invoke_recipes(){
     if (( array_length > 0 )); then
       echo "$json_input" | jq -c ".result[]" | while read -r record; do
         recipe_id=$(echo "$record" | jq -r '.recipeid')
-        sf analytics recipe start -i "$recipe_id" -o "$SCRATCH_ORG_ALIAS"
+        sf analytics recipe start -i "$recipe_id" -o "$SCRATCH_ORG_ALIAS" || true
       done
     fi
   fi

@@ -24,6 +24,15 @@
                             disabled
                         ></c-combobox>
                     </lightning-layout-item>
+                    <lightning-layout-item flexibility="no-grow" padding="around-small">
+                        <c-combobox
+                            label="Next SMS Delay Hours"
+                            options={nextSmsDelayHours}
+                            value={selectedNextSmsDelayHour}
+                            onchange={handleChangeNextSmsDelayHour}
+                            required
+                        ></c-combobox>
+                    </lightning-layout-item>
                 </lightning-layout>
                 <lightning-layout>
                     <lightning-layout-item size="12" padding="horizontal-small">
@@ -72,13 +81,23 @@
                 ></c-datatable>
             </lightning-layout-item>
             <lightning-layout-item size="12" padding="around-medium">
-                <p class="slds-text-title_caps slds-p-vertical_x-small">
+                <p class="slds-text-title_caps slds-p-vertical_small">
                     Date/Time stamp representation in active Business Hours timezones:
                 </p>
                 <c-datatable
                     key-field="businessHoursId"
                     data={datetimeMetricsData}
                     columns={datetimeMetricsColumns}
+                    hide-checkbox-column
+                    show-row-number-column
+                ></c-datatable>
+                <p class="slds-text-title_caps slds-p-vertical_small">
+                    Next SMS to send <span class="slds-text-title_bold">(delay = {selectedNextSmsDelayHour} business hours)</span>
+                </p>
+                <c-datatable
+                    key-field="businessHoursId"
+                    data={datetimeMetricsData}
+                    columns={nextSmsMetricsColumns}
                     hide-checkbox-column
                     show-row-number-column
                 ></c-datatable>

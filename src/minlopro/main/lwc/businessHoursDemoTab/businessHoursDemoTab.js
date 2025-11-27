@@ -14,6 +14,7 @@ import calculateMetricsByBusinessHoursApex from '@salesforce/apex/BusinessHoursC
 export default class BusinessHoursDemoTab extends LightningElement {
     @track selectedBusinessHoursId = null;
     @track selectedTimezoneKey = null;
+    @track selectedNextSmsDelayHour = '3';
     @track datetime1 = new Date().toISOString();
     @track datetime2 = new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString();
     @track datetimeMetricsData = [];
@@ -36,11 +37,16 @@ export default class BusinessHoursDemoTab extends LightningElement {
         }));
     }
 
+    get nextSmsDelayHours() {
+        return [3, 5, 10, 12, 24, 48].map((num) => ({ label: `${num} hours`, value: `${num}` }));
+    }
+
     get stats() {
         return {
             'Selected Business Hours ID': this.selectedBusinessHoursId,
             'Selected Business Hours Name': this.selectedBusinessHours?.Name,
             'Selected Timezone SID Key': this.selectedTimezoneKey,
+            'Selected Next SMS Delay Hours': this.selectedNextSmsDelayHour,
             'Date #1 (UTC)': this.datetime1
         };
     }
@@ -87,8 +93,8 @@ export default class BusinessHoursDemoTab extends LightningElement {
     get datetimeMetricsColumns() {
         return [
             {
-                label: 'Date/Time In UTC Format',
-                fieldName: 'formattedDatetimeUtc',
+                label: 'Date/Time UTC',
+                fieldName: 'formattedDatetimeStampUtc',
                 type: 'customCodeSnippet'
             },
             {
@@ -100,12 +106,12 @@ export default class BusinessHoursDemoTab extends LightningElement {
                 }
             },
             {
-                label: 'Date/Time In Target BH Format',
-                fieldName: 'formattedDatetimeBh',
+                label: 'Date/Time BH',
+                fieldName: 'formattedDatetimeStampBh',
                 type: 'customCodeSnippet'
             },
             {
-                label: 'Target BH Time Zone ID',
+                label: 'BH Time Zone ID',
                 fieldName: 'businessHoursTimezone',
                 type: 'customBadge'
             },
@@ -115,15 +121,58 @@ export default class BusinessHoursDemoTab extends LightningElement {
                 type: 'boolean'
             },
             {
-                label: 'Next Start Date/Time In Target BH Format',
+                label: 'Next Start Date/Time BH',
                 fieldName: 'formattedNextStartDatetimeBh',
                 type: 'customCodeSnippet'
             }
         ];
     }
 
+    get nextSmsMetricsColumns() {
+        return [
+            {
+                label: 'Target BH',
+                fieldName: 'businessHoursId',
+                type: 'customLookup',
+                typeAttributes: {
+                    objectApiName: 'BusinessHours'
+                }
+            },
+            {
+                label: 'BH Time Zone ID',
+                fieldName: 'businessHoursTimezone',
+                type: 'customBadge'
+            },
+            {
+                label: 'Date/Time BH',
+                fieldName: 'formattedDatetimeStampBh',
+                type: 'customCodeSnippet'
+            },
+            {
+                label: 'Is Working Hours?',
+                fieldName: 'isWorkingHours',
+                type: 'boolean'
+            },
+            {
+                label: `Date/Time BH + ${this.selectedNextSmsDelayHour} BH hours`,
+                fieldName: 'formattedNextSmsDatetimeStampBh',
+                type: 'customCodeSnippet'
+            },
+            {
+                label: 'Is Next SMS Working Hours?',
+                fieldName: 'isNextSmsWorkingHours',
+                type: 'boolean'
+            }
+        ];
+    }
+
     get disableDatetimeInputs() {
-        return isEmpty(this.selectedBusinessHoursId) || isEmpty(this.selectedTimezoneKey) || isEmpty(this.datetime1);
+        return (
+            isEmpty(this.selectedBusinessHoursId) ||
+            isEmpty(this.selectedTimezoneKey) ||
+            isEmpty(this.selectedNextSmsDelayHour) ||
+            isEmpty(this.datetime1)
+        );
     }
 
     @wire(getDefaultBusinessHoursApex)
@@ -137,6 +186,10 @@ export default class BusinessHoursDemoTab extends LightningElement {
         this.selectedTimezoneKey = this.bhData.find(({ Id }) => Id === this.selectedBusinessHoursId)?.TimeZoneSidKey;
     }
 
+    handleChangeNextSmsDelayHour(event) {
+        this.selectedNextSmsDelayHour = event.detail.value;
+    }
+
     handleChangeDate1(event) {
         this.datetime1 = event.detail.value;
     }
@@ -148,7 +201,8 @@ export default class BusinessHoursDemoTab extends LightningElement {
             const promises = this.bhData.map(({ Id }) =>
                 calculateMetricsByBusinessHoursApex({
                     businessHoursId: Id,
-                    datetimeStamp: this.datetime1
+                    datetimeStamp: this.datetime1,
+                    nextSmsHoursDelay: Number(this.selectedNextSmsDelayHour)
                 })
             );
             const results = await Promise.all(promises);
@@ -156,18 +210,28 @@ export default class BusinessHoursDemoTab extends LightningElement {
                 ({
                     businessHours,
                     datetimeStamp,
-                    formattedDatetimeUtc,
-                    formattedDatetimeBh,
+                    formattedDatetimeStampUtc,
+                    formattedDatetimeStampBh,
                     formattedNextStartDatetimeBh,
-                    isWorkingHours
+                    isWorkingHours,
+                    // Next SMS Date/Time Stamp Calculations
+                    nextSmsDatetimeStamp,
+                    formattedNextSmsDatetimeStampUtc,
+                    formattedNextSmsDatetimeStampBh,
+                    isNextSmsWorkingHours
                 }) => ({
                     businessHoursId: businessHours.Id,
                     businessHoursTimezone: businessHours.TimeZoneSidKey,
                     datetimeStamp,
-                    formattedDatetimeUtc,
-                    formattedDatetimeBh,
+                    formattedDatetimeStampUtc,
+                    formattedDatetimeStampBh,
                     formattedNextStartDatetimeBh,
-                    isWorkingHours
+                    isWorkingHours,
+                    // Next SMS Date/Time Stamp Calculations
+                    nextSmsDatetimeStamp,
+                    formattedNextSmsDatetimeStampUtc,
+                    formattedNextSmsDatetimeStampBh,
+                    isNextSmsWorkingHours
                 })
             );
         } catch (error) {

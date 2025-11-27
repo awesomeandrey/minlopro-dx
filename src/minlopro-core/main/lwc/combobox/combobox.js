@@ -208,7 +208,7 @@ export default class Combobox extends LightningElement {
 
     get inputValueLabel() {
         if (this.isDisabledOrReadOnly) {
-            return this.selectedOptions.map(({ label }) => label).join(`${MULTI_PICKLIST_SEPARATOR} `);
+            return Array.from(new Set(this.selectedOptions.map(({ label }) => label))).join(`${MULTI_PICKLIST_SEPARATOR} `);
         }
         const { length: selectedOptionsAmount = 0, 0: firstSelectedOption = {} } = this.selectedOptions;
         if (this.multiSelect && selectedOptionsAmount > 1) {
