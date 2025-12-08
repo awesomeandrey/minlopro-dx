@@ -4,7 +4,7 @@
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Token URL</label>
-    <length>100</length>
+    <length>150</length>
     <required>true</required>
     <type>Text</type>
     <unique>false</unique>

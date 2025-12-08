@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WaveAnalyticAssetCollection xmlns="http://soap.sforce.com/2006/04/metadata">
+    <collectionType>static</collectionType>
+    <color>#01c3b3</color>
+    <description>Sample CRMA assets collection for the agent.</description>
+    <folder>coll_SalesAgentAssets</folder>
+    <items>
+        <asset>dbrd_OpportunitiesAnalytics</asset>
+        <assetType>Dashboard</assetType>
+        <sortOrder>499</sortOrder>
+    </items>
+    <items>
+        <asset>lns_TopOpenOpportunityIndustries</asset>
+        <assetType>Lens</assetType>
+        <sortOrder>498</sortOrder>
+    </items>
+    <label>Sales Agent Assets</label>
+    <masterLabel>Sales Agent Assets</masterLabel>
+    <shares>
+        <accessLevel>View</accessLevel>
+        <sharedTo>CrmAnalyticsUsers</sharedTo>
+        <sharedToType>Group</sharedToType>
+    </shares>
+</WaveAnalyticAssetCollection>
