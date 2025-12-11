@@ -1,13 +1,10 @@
 # Project Folders
 .localdev/
 .vscode/
-.idea/
 .sf/
 .sfdx/
 bin/
 node_modules/
-IlluminatedCloud/
-.illuminatedCloud/
 test-results/
 build/
 coverage/
@@ -18,6 +15,12 @@ out/
 target/
 retrieved-src/
 org_auth_files/
+
+# Added by Illuminated Cloud
+.idea/
+IlluminatedCloud/
+.illuminatedCloud/
+**/graphql.config.yml
 
 # Project Files
 manifests/package.xml

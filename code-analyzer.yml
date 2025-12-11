@@ -2249,7 +2249,7 @@ rules:
                 - Security
                 - XML
         'MissingFaultPath':
-            severity: 2
+            severity: 3
             tags:
                 - Recommended
                 - Security
