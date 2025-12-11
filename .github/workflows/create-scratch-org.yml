@@ -69,12 +69,20 @@ jobs:
           scratchOrgInstanceUrl="$(echo "$scratchOrgInfo" | jq -r '.result.instanceUrl')"
           scratchOrgSfdxUrl="$(echo "$scratchOrgInfo" | jq -r '.result.sfdxAuthUrl')"
           scratchOrgBase64EncodedSfdxUrl="$(echo "$scratchOrgSfdxUrl" | base64)"
+          scratchOrgPassword="$(echo "$scratchOrgInfo" | jq -r '.result.password')"
+          
           # Append custom snippet to workflow summary
           cat > $GITHUB_STEP_SUMMARY << EOF
           ### Scratch Org Admin Email 📧
           
           \`\`\`bash
           $scratchOrgAdminEmail
+          \`\`\`
+          
+          ### Scratch Org Admin Password 🔑
+          
+          \`\`\`bash
+          $scratchOrgPassword
           \`\`\`
           
           ### Scratch Org Authentication Shortcut 💥

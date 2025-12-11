@@ -10,16 +10,13 @@
                 <behavior>Required</behavior>
                 <field>MasterLabel</field>
             </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>DeveloperName</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Required</behavior>
-                <field>SalesforceAuthProviderName__c</field>
-            </layoutItems>
         </layoutColumns>
-        <layoutColumns/>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
     <layoutSections>
@@ -30,14 +27,22 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Required</behavior>
-                <field>ClientId__c</field>
+                <field>SalesforceAuthProviderName__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
+                <field>ClientId__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>ClientSecret__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
+            <layoutItems>
+                <behavior>Required</behavior>
+                <field>CallbackUrl__c</field>
+            </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
                 <field>TokenUrl__c</field>
@@ -54,10 +59,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>AuthorizeUrl__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>RedirectUri__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns/>
@@ -120,7 +121,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00hKF000004f2Nz</masterLabel>
+        <masterLabel>00hKM000001NapZ</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

@@ -13,7 +13,7 @@ private class OAuthClientCredentialsAuthProvPluginTest {
     @IsTest
     static void initiate() {
         Map<String, String> authProviderConfig = AuthProviderSettings.mock();
-        String redirectUriFieldName = AuthProviderSetting__mdt.RedirectUri__c.getDescribe().getName();
+        String redirectUriFieldName = AuthProviderSetting__mdt.CallbackUrl__c.getDescribe().getName();
         PageReference expectedUrl = new PageReference(
             String.format('{0}?state={1}', Lists.of(authProviderConfig.get(redirectUriFieldName), MOCKED_AUTH_STATE))
         );

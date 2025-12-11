@@ -18,7 +18,7 @@ public without sharing class AuthProviderSettings {
         authSettings.client_id = configsMap.get(AuthProviderSetting__mdt.ClientId__c.getDescribe().getName());
         authSettings.client_secret = configsMap.get(AuthProviderSetting__mdt.ClientSecret__c.getDescribe().getName());
         authSettings.token_url = configsMap.get(AuthProviderSetting__mdt.TokenUrl__c.getDescribe().getName());
-        authSettings.redirect_uri = configsMap.get(AuthProviderSetting__mdt.RedirectUri__c.getDescribe().getName());
+        authSettings.redirect_uri = configsMap.get(AuthProviderSetting__mdt.CallbackUrl__c.getDescribe().getName());
         authSettings.authorize_url = configsMap.get(AuthProviderSetting__mdt.AuthorizeUrl__c.getDescribe().getName());
         authSettings.certificate_name = configsMap.get(AuthProviderSetting__mdt.CertificateName__c.getDescribe().getName());
         return authSettings;
@@ -31,7 +31,7 @@ public without sharing class AuthProviderSettings {
             AuthProviderSetting__mdt.ClientId__c.getDescribe().getName() => '***client_id***',
             AuthProviderSetting__mdt.ClientSecret__c.getDescribe().getName() => '***client_secret***',
             AuthProviderSetting__mdt.TokenUrl__c.getDescribe().getName() => 'https://org.com/oauth/token',
-            AuthProviderSetting__mdt.RedirectUri__c.getDescribe().getName() => 'https://org.com/callback',
+            AuthProviderSetting__mdt.CallbackUrl__c.getDescribe().getName() => 'https://org.com/callback',
             AuthProviderSetting__mdt.AuthorizeUrl__c.getDescribe().getName() => 'https://org.com/oauth/authorize',
             AuthProviderSetting__mdt.CertificateName__c.getDescribe().getName() => 'Certificate1'
         };

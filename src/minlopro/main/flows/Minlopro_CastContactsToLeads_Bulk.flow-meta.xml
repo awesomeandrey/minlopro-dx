@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Create_Leads_via_HTTP_POST</name>
         <label>Create Leads via HTTP POST</label>
-        <locationX>314</locationX>
-        <locationY>782</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <actionName>MinloproCreateLeadsApiBulk.Create Leads</actionName>
         <actionType>externalService</actionType>
         <connector>
@@ -24,13 +24,13 @@
         <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
-    <apiVersion>63.0</apiVersion>
+    <apiVersion>65.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
         <name>Calculate_Contacts_Count</name>
         <label>Calculate Contacts Count</label>
-        <locationX>182</locationX>
-        <locationY>242</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <assignmentItems>
             <assignToReference>contactsSize</assignToReference>
             <operator>AssignCount</operator>
@@ -49,10 +49,36 @@
         </value>
     </customProperties>
     <decisions>
+        <name>Check_Account_Selection</name>
+        <label>Check Account Selection</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Transform_Contacts_To_Leads</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Selected_Account_Is_Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>AccountsDataTable.firstSelectedRow</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Account_Selection_Screen</targetReference>
+            </connector>
+            <label>Selected Account Is Blank</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Verify_Records_Selection_And_User_Permissions</name>
         <label>Verify Records Selection &amp; User Permissions</label>
-        <locationX>182</locationX>
-        <locationY>350</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <defaultConnector>
             <targetReference>PreviewAndConfirmationScreen</targetReference>
         </defaultConnector>
@@ -80,7 +106,7 @@
             <label>Ineligible</label>
         </rules>
     </decisions>
-    <description>Casts Contacts to Leads through Salesforce Composite API. Only 1 HTTP callout is used to insert records in bulk.</description>
+    <description>Casts Contacts to Leads through Salesforce Composite API. Only 1 HTTP callout is used to insert records in bulk. The flow also leverages Screen Actions.</description>
     <environments>Default</environments>
     <interviewLabel>Minlopro - Cast Contacts To Leads (Bulk) {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Cast Contacts To Leads (Bulk)</label>
@@ -106,8 +132,8 @@
     <recordLookups>
         <name>Select_Contacts</name>
         <label>Select Contacts</label>
-        <locationX>182</locationX>
-        <locationY>134</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Calculate_Contacts_Count</targetReference>
@@ -144,8 +170,8 @@
     <recordUpdates>
         <name>Update_Contacts</name>
         <label>Update Contacts</label>
-        <locationX>314</locationX>
-        <locationY>998</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <connector>
             <targetReference>Results_Screen</targetReference>
         </connector>
@@ -154,12 +180,297 @@
         </faultConnector>
         <inputReference>Mark_Contacts_As_Processed</inputReference>
     </recordUpdates>
-    <runInMode>SystemModeWithoutSharing</runInMode>
+    <runInMode>DefaultMode</runInMode>
+    <screens>
+        <name>Account_Selection_Screen</name>
+        <label>Account Selection Screen</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actions>
+            <name>SearchAccountAction</name>
+            <actionName>Minlopro_SearchAccount_HeadlessAction</actionName>
+            <actionType>flow</actionType>
+            <inputParameters>
+                <name>searchKeyword</name>
+                <value>
+                    <elementReference>accountSearchKeyword</elementReference>
+                </value>
+            </inputParameters>
+            <label>Minlopro - Search Account (Headless Action)</label>
+            <nameSegment>Minlopro_SearchAccount_HeadlessAction</nameSegment>
+        </actions>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>Check_Account_Selection</targetReference>
+        </connector>
+        <fields>
+            <name>Account_Selection_Screen_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Account_Selection_Screen_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>accountSearchKeyword</name>
+                    <dataType>String</dataType>
+                    <fieldText>Account Search Keyword</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <fields>
+                    <name>SelectedAccountName</name>
+                    <fieldText>&lt;p&gt;Selected Account: &lt;strong&gt;&lt;em&gt;{!AccountsDataTable.firstSelectedRow.Name}&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>AccountsDataTable.firstSelectedRow.Id</leftValueReference>
+                            <operator>IsNull</operator>
+                            <rightValue>
+                                <booleanValue>false</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Account_Selection_Screen_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>dhjwhbdw</name>
+                    <extensionName>flowruntime:actionButtonField</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>label</name>
+                        <value>
+                            <stringValue>🔍 Search Account</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>isSuccess</name>
+                        <value>
+                            <elementReference>SearchAccountAction.IsSuccess</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>inProgress</name>
+                        <value>
+                            <elementReference>SearchAccountAction.InProgress</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>errorMessage</name>
+                        <value>
+                            <elementReference>SearchAccountAction.ErrorMessage</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>2</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Account_Selection_Screen_Section1_Column3</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+        </fields>
+        <fields>
+            <name>NoAccountsFoundText</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;{!accountSearchKeyword}&lt;/strong&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; search keyword provided no Accounts results...&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>SearchAccountAction.Results.foundAccountsSize</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <numberValue>0.0</numberValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>AccountsDataTable</name>
+            <dataTypeMappings>
+                <typeName>T</typeName>
+                <typeValue>Account</typeValue>
+            </dataTypeMappings>
+            <extensionName>flowruntime:datatable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Found Accounts</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectionMode</name>
+                <value>
+                    <stringValue>SINGLE_SELECT</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>minRowSelection</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>tableData</name>
+                <value>
+                    <elementReference>SearchAccountAction.Results.foundAccounts</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>isShowSearchBar</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>maxRowSelection</name>
+                <value>
+                    <numberValue>1.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>columns</name>
+                <value>
+                    <stringValue>[{&quot;apiName&quot;:&quot;Name&quot;,&quot;guid&quot;:&quot;column-a201&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:0,&quot;label&quot;:&quot;Account Name&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Id&quot;,&quot;guid&quot;:&quot;column-cfdf&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:1,&quot;label&quot;:&quot;Account ID&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;Description&quot;,&quot;guid&quot;:&quot;column-018c&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:2,&quot;label&quot;:&quot;Account Description&quot;,&quot;type&quot;:&quot;text&quot;}]</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>shouldDisplayLabel</name>
+                <value>
+                    <booleanValue>true</booleanValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>SearchAccountAction.Results.foundAccountsSize</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <numberValue>0.0</numberValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>ErrorAccountsSearchText</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(228, 36, 36); font-size: 14px;&quot;&gt;Accounts could not be found due to &lt;/span&gt;&lt;strong style=&quot;color: rgb(228, 36, 36); font-size: 14px;&quot;&gt;&lt;em&gt;{!SearchAccountAction.Results.errorMessage}&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>SearchAccountAction.Results.errorMessage</leftValueReference>
+                    <operator>IsNull</operator>
+                    <rightValue>
+                        <booleanValue>false</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <nextOrFinishButtonLabel>Select Account &amp; Proceed</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+        <triggers>
+            <eventName>flow__screenfieldclick</eventName>
+            <eventSource>dhjwhbdw</eventSource>
+            <handlers>
+                <screenActionName>SearchAccountAction</screenActionName>
+            </handlers>
+        </triggers>
+    </screens>
     <screens>
         <name>Callout_Error_Screen</name>
         <label>Callout Error Screen</label>
-        <locationX>842</locationX>
-        <locationY>890</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -167,6 +478,14 @@
             <name>CalloutErrorText</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(173, 30, 30);&quot;&gt;The HTTP callout failed. The selected Contacts could not be cast to Leads.&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(173, 30, 30); background-color: rgb(255, 255, 255);&quot;&gt;HTTP Response Status: &lt;/span&gt;&lt;strong style=&quot;color: rgb(173, 30, 30);&quot;&gt;{!$Flow.FaultMessage}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(173, 30, 30);&quot;&gt;HTTP payload below failed to send.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>HTTP_Request_Payload</name>
@@ -179,6 +498,14 @@
                     <name>CalloutPayload</name>
                     <fieldText>&lt;p&gt;&lt;span style=&quot;font-family: tahoma; font-size: 12px;&quot;&gt;{!Transform_Contacts_To_Leads.records}&lt;/span&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -190,6 +517,14 @@
             </fields>
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithHeader</regionContainerType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -198,8 +533,8 @@
     <screens>
         <name>Failed_Contact_Update_Screen</name>
         <label>Failed Contact Update Screen</label>
-        <locationX>578</locationX>
-        <locationY>1106</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -207,6 +542,14 @@
             <name>FailedContactUpdateText</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;color: rgb(189, 37, 37);&quot;&gt;{!Mark_Contacts_As_Processed} could not be marked as &apos;cast&apos; due to&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(189, 37, 37);&quot;&gt;{!$Flow.FaultMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Continue</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -215,18 +558,26 @@
     <screens>
         <name>PreviewAndConfirmationScreen</name>
         <label>Preview &amp; Confirmation Screen</label>
-        <locationX>314</locationX>
-        <locationY>458</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Search_Account</targetReference>
+            <targetReference>Account_Selection_Screen</targetReference>
         </connector>
         <fields>
             <name>InfoText</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;You&apos;re about to cast &lt;/span&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;{!contactsSize}&lt;/strong&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; Contacts to Leads via Loopback Connected App leveraging Salesforce REST API.&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
             <name>ContactsDatatable</name>
@@ -281,6 +632,14 @@
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Cast To Leads</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -292,8 +651,8 @@
     <screens>
         <name>Results_Screen</name>
         <label>Results Screen</label>
-        <locationX>314</locationX>
-        <locationY>1106</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -301,6 +660,14 @@
             <name>SuccessText</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 14px;&quot;&gt;{!contactsSize}&lt;/strong&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt; Contacts were cast to Leads &lt;/span&gt;&lt;strong style=&quot;color: rgb(30, 154, 53); font-size: 14px;&quot;&gt;successfully&lt;/strong&gt;&lt;span style=&quot;font-size: 14px;&quot;&gt;!&lt;/span&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -312,8 +679,8 @@
     <screens>
         <name>Suspend_Screen</name>
         <label>Suspend Screen</label>
-        <locationX>50</locationX>
-        <locationY>458</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -321,6 +688,14 @@
             <name>SuspendText</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(211, 118, 17);&quot;&gt;There are no eligible Contact records selected, or you do not have necessary permission level.&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Close</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -339,32 +714,18 @@
         <stageOrder>2</stageOrder>
     </stages>
     <start>
-        <locationX>56</locationX>
+        <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Select_Contacts</targetReference>
         </connector>
     </start>
     <status>Active</status>
-    <subflows>
-        <name>Search_Account</name>
-        <label>Search Account</label>
-        <locationX>314</locationX>
-        <locationY>566</locationY>
-        <connector>
-            <targetReference>Transform_Contacts_To_Leads</targetReference>
-        </connector>
-        <flowName>Minlopro_SearchAccount</flowName>
-        <outputAssignments>
-            <assignToReference>selectedAccount</assignToReference>
-            <name>selectedAccount</name>
-        </outputAssignments>
-    </subflows>
     <transforms>
         <name>Mark_Contacts_As_Processed</name>
         <label>Mark Contacts As Processed</label>
-        <locationX>314</locationX>
-        <locationY>890</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <connector>
             <targetReference>Update_Contacts</targetReference>
         </connector>
@@ -393,8 +754,8 @@
     <transforms>
         <name>Transform_Contacts_To_Leads</name>
         <label>Transform Contacts To Leads</label>
-        <locationX>314</locationX>
-        <locationY>674</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <apexClass>ExternalService__MinloproCreateLeadsApiBulk_Createx20Leads_IN_body</apexClass>
         <connector>
             <targetReference>Create_Leads_via_HTTP_POST</targetReference>
@@ -465,7 +826,7 @@
                 <transformType>Map</transformType>
                 <value>
                     <formulaDataType>String</formulaDataType>
-                    <formulaExpression>&apos;Selected Account ID = &apos; + {!selectedAccount.Id}</formulaExpression>
+                    <formulaExpression>&apos;Selected Account ID = &apos; + {!AccountsDataTable.firstSelectedRow.Id}</formulaExpression>
                 </value>
             </transformValueActions>
         </transformValues>

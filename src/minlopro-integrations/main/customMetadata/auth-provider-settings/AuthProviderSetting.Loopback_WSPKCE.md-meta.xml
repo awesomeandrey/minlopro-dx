@@ -13,10 +13,10 @@
     <!--
         Note: External Credential can be used to securely store/apply secrets ONLY during actual callout/http request.
         You won't be able to 'read'/reference secure parameter directly. Secure parameters are substituted/inject during actual HTTP callout ONLY.
-        Therefore, for this specific use case 'ClientId__c' and 'ClientSecret' fields should be configured manually.
+        Therefore, for this specific use case 'ClientId__c' and 'ClientSecret__c' fields should be configured manually.
     -->
     <values>
-        <field>RedirectUri__c</field>
+        <field>CallbackUrl__c</field>
         <value xsi:type="xsd:string">${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE</value>
     </values>
     <values>
