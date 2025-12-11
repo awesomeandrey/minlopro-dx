@@ -9,7 +9,7 @@ src/**/unpackaged
 # LWC Jest Tests
 **/__tests__/**
 
-# Added by Illuminated Cloud plugin
+# Added by Illuminated Cloud
 .illuminatedCloud/
 **/*.ts
 **/*.tsbuildinfo
@@ -17,3 +17,4 @@ src/**/unpackaged
 **/jsconfig.json
 **/eslint.config.mjs
 **/.eslintrc.json
+**/graphql.config.yml
