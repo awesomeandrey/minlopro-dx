@@ -234,7 +234,7 @@ rules:
                 - ErrorProne
                 - JavaScript
         '@lwc/lwc/no-inner-html':
-            severity: 2
+            severity: 3
             tags:
                 - Recommended
                 - LWC

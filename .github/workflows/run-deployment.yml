@@ -111,32 +111,9 @@ jobs:
         uses: ./.github/actions/run-apex-tests
         with:
           target-org-alias: "${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
-  run-code-analyzer:
+  run-code-analyzer-essential:
     needs: [ run-deployment ]
-    runs-on: ubuntu-22.04
-    continue-on-error: true
-    steps:
-      - uses: actions/checkout@v4
-      - name: "Build Environment 🚜"
-        uses: ./.github/actions/build-env
-        env:
-          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-          SF_PLUGIN_CODE_ANALYZER: true
-      - name: "Convert To Metadata API Format For Code Analyzer"
-        run: |
-          sf project convert source \
-            --root-dir "src" \
-            --output-dir "mdapi/src" \
-            --metadata ApexClass \
-            --metadata Flow \
-            --metadata AuraDefinitionBundle \
-            --metadata LightningComponentBundle
-      - name: 'Run Salesforce Code Analyzer'
-        id: run-code-analyzer
-        uses: forcedotcom/run-code-analyzer@v2
-        with:
-          run-arguments: -w 'mdapi/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all -s 2
-          results-artifact-name: salesforce-code-analyzer-results
+    uses: ./.github/workflows/run-code-analyzer.yml
   run-post-merge-actions:
     if: ${{ github.event_name == 'push' }}
     needs: [ run-deployment, run-apex-tests ]

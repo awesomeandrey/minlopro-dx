@@ -15,12 +15,18 @@ mkdir -p "$BUILD_DIR"
 FLAGS_DIR=$(mktemp -d) && trap 'rm -rf $FLAGS_DIR' EXIT
 touch "$FLAGS_DIR/severity-threshold"; echo "2" > "$FLAGS_DIR/severity-threshold"
 touch "$FLAGS_DIR/output-file"; {
-  echo "$BUILD_DIR/code-scan-results.csv"
-  echo "$BUILD_DIR/code-scan-results.html"
-  echo "$BUILD_DIR/code-scan-results.json"
-  echo "$BUILD_DIR/code-scan-results.sarif"
+  echo "$BUILD_DIR/code-scan-result.csv"
+  echo "$BUILD_DIR/code-scan-result.html"
+  echo "$BUILD_DIR/code-scan-result.json"
+  echo "$BUILD_DIR/code-scan-result.sarif"
 } > "$FLAGS_DIR/output-file"
-touch "$FLAGS_DIR/rule-selector"; echo "all" > "$FLAGS_DIR/rule-selector"
+touch "$FLAGS_DIR/rule-selector"; {
+  echo "all:1"
+  echo "all:2"
+  echo "all:3"
+  echo "all:4"
+  echo "all:5"
+} > "$FLAGS_DIR/rule-selector"
 touch "$FLAGS_DIR/target"
 
 # Check if stdin has data (-t 0 stands for empty stdin)

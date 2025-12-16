@@ -1,0 +1,85 @@
+name: Run Code Analyzer 🕵️‍♂️
+
+on:
+  workflow_call:
+    inputs:
+      base-ref:
+        description: "Base ref for delta code scan"
+        required: false
+        type: string
+
+jobs:
+  run-code-analyzer:
+    runs-on: ubuntu-22.04
+    continue-on-error: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: "Build Environment 🚜"
+        uses: ./.github/actions/build-env
+        env:
+          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
+          SF_PLUGIN_CODE_ANALYZER: true
+      - name: "Compose Arguments"
+        id: compose-args
+        shell: bash
+        run: |
+          args=()
+          if [[ -n "${{ inputs.base-ref }}" ]]; then
+            # Delta Metadata
+            # Fetch the base branch
+            git fetch origin ${{ inputs.base-ref }}
+            while read -r filename; do
+              if [[ -f "$filename" ]]; then
+                args+=("--target $filename")
+              fi
+            done < <(git diff --name-only origin/${{ inputs.base-ref  }}...HEAD | grep '^src' || true)
+            [ ${#args[@]} -eq 0 ] && exit 0
+          else
+            # Essential Metadata
+            args=(
+              "--target 'src/**/aura/**'"
+              "--target 'src/**/classes/**'"
+              "--target 'src/**/flows/**'"
+              "--target 'src/**/lwc/**'"
+            )
+          fi
+          args+=(
+            "--output-file scan-result.csv"
+            "--output-file scan-result.html"
+            "--output-file scan-result.sarif"
+            "--rule-selector all:1"
+            "--rule-selector all:2"
+            "--rule-selector all:3"
+          )
+          code_analyzer_args="$(printf "%s " "${args[@]}")"
+          echo "Code Analyzer Arguments: $code_analyzer_args"
+          echo "code-analyzer-args=$code_analyzer_args" >> $GITHUB_OUTPUT
+          echo "code-analyzer-artifact-name=salesforce-code-analyzer-results${{ inputs.base-ref != '' && '-delta' || '-essential' }}" >> $GITHUB_OUTPUT
+      - name: "Run Salesforce Code Analyzer"
+        id: run-code-analyzer
+        if: steps.compose-args.outputs.code-analyzer-args != ''
+        uses: forcedotcom/run-code-analyzer@v2
+        with:
+          run-arguments: ${{ steps.compose-args.outputs.code-analyzer-args }}
+          results-artifact-name: ${{ steps.compose-args.outputs.code-analyzer-artifact-name }}
+      - name: "Download Artifact w Scan Results"
+        if: steps.compose-args.outputs.code-analyzer-args != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.compose-args.outputs.code-analyzer-artifact-name }}
+          path: code-scan-results
+      - name: "Upload SARIF Scan Results"
+        if: steps.compose-args.outputs.code-analyzer-args != ''
+        uses: github/codeql-action/upload-sarif@v4
+        with:
+          sarif_file: code-scan-results/scan-result.sarif
+      - name: "Check the Outputs to Determine Whether to Fail"
+        if: |
+          steps.compose-args.outputs.code-analyzer-args != '' && (
+            steps.run-code-analyzer.outputs.exit-code > 0 ||
+            steps.run-code-analyzer.outputs.num-sev1-violations > 0 ||
+            steps.run-code-analyzer.outputs.num-sev2-violations > 0
+          )
+        run: exit 1

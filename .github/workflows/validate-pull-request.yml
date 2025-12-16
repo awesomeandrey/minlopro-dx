@@ -96,32 +96,8 @@ jobs:
             --to-ref "${{ github.head_ref }}"
       - name: 'Check-Only Deploy Source to Target Org'
         run: bash ./scripts/deploy/deploy.sh ${{ steps.auth-salesforce-org.outputs.target-org-alias }} "dry-run"
-  run-code-analyzer:
+  run-code-analyzer-delta:
     needs: [ run-dry-run-deploy ]
-    runs-on: ubuntu-22.04
-    continue-on-error: false
-    steps:
-      - uses: actions/checkout@v4
-      - name: "Build Environment 🚜"
-        uses: ./.github/actions/build-env
-        env:
-          SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-          SF_PLUGIN_CODE_ANALYZER: true
-      - name: "Extract Changed Files For Code Analyzer"
-        run: |
-          git fetch origin ${{ github.base_ref }}:${{ github.base_ref }}; git checkout ${{ github.base_ref }}
-          git fetch origin ${{ github.head_ref }}:${{ github.head_ref }}; git checkout ${{ github.head_ref }}
-          git branch
-          bash ./scripts/deploy/validations/copy_changed_files.sh "${{ github.base_ref }}"
-      - name: "Run Salesforce Code Analyzer"
-        id: run-code-analyzer
-        uses: forcedotcom/run-code-analyzer@v2
-        with:
-          run-arguments: -w 'build/src' -f 'results.csv' -f 'results.html' -f 'results.json' -r all
-          results-artifact-name: salesforce-code-analyzer-results
-      - name: 'Check the Outputs to Determine Whether to Fail'
-        if: |
-          steps.run-code-analyzer.outputs.exit-code > 0 ||
-          steps.run-code-analyzer.outputs.num-sev1-violations > 0 ||
-          steps.run-code-analyzer.outputs.num-sev2-violations > 0
-        run: exit 1
+    uses: ./.github/workflows/run-code-analyzer.yml
+    with:
+      base-ref: ${{ github.base_ref }}
