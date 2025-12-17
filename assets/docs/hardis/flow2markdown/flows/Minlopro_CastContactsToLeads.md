@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START<br/><b>Screen Flow</b>"]):::startClass
-click START "#general-information" "3817037799"
+click START "#general-information" "3576380237"
 
 Create_Lead_via_HTTP_POST("⚡ <em></em><br/>Create Lead via HTTP POST"):::actionCalls
 click Create_Lead_via_HTTP_POST "#create_lead_via_http_post" "1153369620"
@@ -106,7 +106,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Process Type| Flow|
 |Label|Minlopro - Cast Contacts To Leads|
 |Status|Active|
-|Description|Casts user-selected Contacts to Leads through standard Salesforce REST API. Processes records 1-by-1 consuming callout per record.|
+|Description|Casts user-selected Contacts to Leads via standard Salesforce REST API. Processes records 1-by-1 consuming callout per record.|
 |Environments|Default|
 |Interview Label|Minlopro - Cast Contacts To Leads {!$Flow.CurrentDateTime}|
 |Run In Mode| System Mode Without Sharing|
