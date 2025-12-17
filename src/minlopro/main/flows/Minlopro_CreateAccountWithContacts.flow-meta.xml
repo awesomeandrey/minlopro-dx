@@ -25,7 +25,7 @@
             <targetReference>Iterate_Through_Contacts</targetReference>
         </connector>
     </assignments>
-    <description>A sample autolaunched flow that can be invoked through the Salesforce REST API.</description>
+    <description>A sample auto-launched flow that can be invoked through the Salesforce REST API.</description>
     <environments>Default</environments>
     <interviewLabel>Minlopro - Create Account With Contacts {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Create Account With Contacts</label>

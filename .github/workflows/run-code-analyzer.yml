@@ -36,6 +36,9 @@ jobs:
               fi
             done < <(git diff --name-only origin/${{ inputs.base-ref  }}...HEAD | grep '^src' || true)
             [ ${#args[@]} -eq 0 ] && exit 0
+            args+=(
+              "--rule-selector all:(1,2,3,4,5)"
+            )
           else
             # Essential Metadata
             args=(
@@ -43,20 +46,21 @@ jobs:
               "--target 'src/**/classes/**'"
               "--target 'src/**/flows/**'"
               "--target 'src/**/lwc/**'"
+              "--rule-selector all:(1,2)"
             )
           fi
           args+=(
+            "--severity-threshold 2"
             "--output-file scan-result.csv"
             "--output-file scan-result.html"
             "--output-file scan-result.sarif"
-            "--rule-selector all:1"
-            "--rule-selector all:2"
-            "--rule-selector all:3"
           )
           code_analyzer_args="$(printf "%s " "${args[@]}")"
+          code_analyzer_artifact_name="salesforce-code-analyzer-results${{ inputs.base-ref != '' && '-delta' || '-essential' }}"
           echo "Code Analyzer Arguments: $code_analyzer_args"
+          echo "Code Analyzer Artifact Name: $code_analyzer_artifact_name"
           echo "code-analyzer-args=$code_analyzer_args" >> $GITHUB_OUTPUT
-          echo "code-analyzer-artifact-name=salesforce-code-analyzer-results${{ inputs.base-ref != '' && '-delta' || '-essential' }}" >> $GITHUB_OUTPUT
+          echo "code-analyzer-artifact-name=$code_analyzer_artifact_name" >> $GITHUB_OUTPUT
       - name: "Run Salesforce Code Analyzer"
         id: run-code-analyzer
         if: steps.compose-args.outputs.code-analyzer-args != ''
@@ -65,21 +69,16 @@ jobs:
           run-arguments: ${{ steps.compose-args.outputs.code-analyzer-args }}
           results-artifact-name: ${{ steps.compose-args.outputs.code-analyzer-artifact-name }}
       - name: "Download Artifact w Scan Results"
-        if: steps.compose-args.outputs.code-analyzer-args != ''
+        if: steps.run-code-analyzer.outputs.num-violations > 0
         uses: actions/download-artifact@v4
         with:
           name: ${{ steps.compose-args.outputs.code-analyzer-artifact-name }}
           path: code-scan-results
       - name: "Upload SARIF Scan Results"
-        if: steps.compose-args.outputs.code-analyzer-args != ''
+        if: steps.run-code-analyzer.outputs.num-violations > 0
         uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: code-scan-results/scan-result.sarif
       - name: "Check the Outputs to Determine Whether to Fail"
-        if: |
-          steps.compose-args.outputs.code-analyzer-args != '' && (
-            steps.run-code-analyzer.outputs.exit-code > 0 ||
-            steps.run-code-analyzer.outputs.num-sev1-violations > 0 ||
-            steps.run-code-analyzer.outputs.num-sev2-violations > 0
-          )
+        if: steps.run-code-analyzer.outputs.exit-code > 0
         run: exit 1
