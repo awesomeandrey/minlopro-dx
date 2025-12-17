@@ -2242,17 +2242,26 @@ rules:
                 - Recommended
                 - Security
                 - XML
+        'DbInLoop':
+            severity: 3
+            tags:
+                - Recommended
+                - BestPractices
         'FlowDescription':
             severity: 1
             tags:
                 - Recommended
                 - Security
                 - XML
+        'MissingFaultHandler':
+            severity: 3
+            tags:
+                - Recommended
+                - XML
         'MissingFaultPath':
             severity: 3
             tags:
                 - Recommended
-                - Security
                 - XML
         'ProcessBuilder':
             severity: 2
@@ -2278,6 +2287,11 @@ rules:
                 - Recommended
                 - Security
                 - XML
+        'TriggerEntryCriteria':
+            severity: 3
+            tags:
+                - Recommended
+                - BestPractices
 
     pmd:
         'ApexAssertionsShouldIncludeMessage':

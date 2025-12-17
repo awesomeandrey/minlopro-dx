@@ -2,7 +2,7 @@
  * @description Provides a centralized framework for feature toggles, allowing for the dynamic activation
  * or deactivation of application features using Custom Metadata Types.
  */
-public with sharing class FeatureToggle {
+public without sharing class FeatureToggle {
     /**
      * @description Checks if a specific feature toggle is active.
      * @param featureName The DeveloperName of the FeatureToggle__mdt record.

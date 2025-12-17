@@ -4,7 +4,7 @@ set -e
 
 # How to use:
 # - bash ./scripts/deploy/validations/run_code_analyzer.sh
-# - git diff --name-only "ecf9...7a57" HEAD | grep -iE "^src" | bash ./scripts/deploy/validations/run_code_analyzer.sh
+# - git diff --name-only develop HEAD | grep -iE "^src" | bash ./scripts/deploy/validations/run_code_analyzer.sh
 
 BUILD_DIR="build"
 SRC_DIR="src"
