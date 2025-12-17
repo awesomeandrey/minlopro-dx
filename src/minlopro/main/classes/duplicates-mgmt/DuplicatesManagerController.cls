@@ -33,9 +33,11 @@ public with sharing class DuplicatesManagerController {
                 duplicates.add(matchRecord.getRecord());
             }
             return [SELECT Id, AccountId, Email, Phone, CheckIfDuplicate__c FROM Contact WHERE Id IN :duplicates LIMIT 100];
-        } catch (Exception ex) {
-            Logger.error(ex);
-            throw new AuraHandledException(ex.getMessage());
+        } catch (Exception rootException) {
+            Logger.error(rootException);
+            AuraHandledException ex = new AuraHandledException(rootException.getMessage());
+            ex.initCause(rootException);
+            throw ex;
         }
     }
 
@@ -44,9 +46,11 @@ public with sharing class DuplicatesManagerController {
         try {
             upsert contactToUpsert;
             return contactToUpsert.Id;
-        } catch (Exception ex) {
-            Logger.error(ex);
-            throw new AuraHandledException(ex.getMessage());
+        } catch (Exception rootException) {
+            Logger.error(rootException);
+            AuraHandledException ex = new AuraHandledException(rootException.getMessage());
+            ex.initCause(rootException);
+            throw ex;
         }
     }
 }
