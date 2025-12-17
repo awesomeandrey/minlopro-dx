@@ -20,6 +20,12 @@ permissions:
   pull-requests: write
 
 jobs:
+  run-code-analyzer-delta:
+    uses: ./.github/workflows/run-code-analyzer.yml
+    with:
+      base-ref: ${{ github.base_ref }}
+  run-code-analyzer-essential:
+    uses: ./.github/workflows/run-code-analyzer.yml
   playground-run:
     timeout-minutes: 15
     environment: ${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }}
@@ -31,32 +37,14 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-      - name: "Auth Salesforce Org 🎫"
-        id: auth-salesforce-org
-        uses: ./.github/actions/auth-salesforce-org
-        with:
-          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
-      - name: "Auth Scratch Org 🎈"
-        id: auth-scratch-org
-        uses: ./.github/actions/auth-salesforce-org
-        with:
-          sfdx-auth-url: ${{ env.SF_AUTH_URL_SCRATCH }}
-      - name: "Run ELF Load"
+          SF_PLUGIN_CODE_ANALYZER: true
+      - name: "Bash Playground"
         shell: bash
         run: |
-          echo "Salesforce Org alias = ${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
-          echo "Scratch Org alias = ${{ steps.auth-scratch-org.outputs.target-org-alias }}"
-          bash scripts/util/event-monitoring/elf.sh \
-            --source-org-alias ${{ steps.auth-salesforce-org.outputs.target-org-alias }} \
-            --target-org-alias ${{ steps.auth-scratch-org.outputs.target-org-alias }} \
-            --mode download-and-upload-to-dataset \
-            --event-type LightningPageView \
-            --api-version 65.0 \
-            --metadata scripts/util/event-monitoring/event-metadata-json/LightningPageView-v65.0.json \
-            --folder MinloproEventMonitoring \
-            --elf-limit 100
-          tree "build"
+          echo Hey!

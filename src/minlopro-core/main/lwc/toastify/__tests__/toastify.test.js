@@ -53,7 +53,7 @@ describe('Throw toast messages via "toastify.js"', () => {
         // Query BUTTON element and add event listener;
         const $buttonElement = document.querySelector('button');
         const toastMessage = `Clicked on [${$buttonElement.innerHTML}] button!`;
-        $buttonElement.addEventListener('click', (event) => {
+        $buttonElement.addEventListener('click', () => {
             // Throw toast upon button click;
             $Toastify.success({ message: toastMessage });
             $Toastify.error({ message: toastMessage });
