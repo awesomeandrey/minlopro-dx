@@ -17,8 +17,8 @@ const DEFAULT_STYLES = 'background-color: rgb(255, 255, 255); border-color: rgb(
 const DRAG_OVER_STYLES = 'background-color: pink; border-color:red;';
 
 export default class DragAndDropTab extends LightningElement {
-    elements = [];
-    columns = COLUMNS;
+    @track elements = [];
+    @track columns = COLUMNS;
     @track data = [];
 
     connectedCallback() {

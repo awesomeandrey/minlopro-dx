@@ -20,13 +20,13 @@ permissions:
   pull-requests: write
 
 jobs:
-  run-code-analyzer-delta:
-    if: github.base_ref != ''
-    uses: ./.github/workflows/run-code-analyzer.yml
-    with:
-      base-ref: ${{ github.base_ref }}
-  run-code-analyzer-essential:
-    uses: ./.github/workflows/run-code-analyzer.yml
+#  run-code-analyzer-delta:
+#    if: github.base_ref != ''
+#    uses: ./.github/workflows/run-code-analyzer.yml
+#    with:
+#      base-ref: ${{ github.base_ref }}
+#  run-code-analyzer-essential:
+#    uses: ./.github/workflows/run-code-analyzer.yml
   playground-run:
     timeout-minutes: 15
     environment: ${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }}
@@ -44,8 +44,17 @@ jobs:
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-          SF_PLUGIN_CODE_ANALYZER: true
       - name: "Bash Playground"
         shell: bash
         run: |
-          echo Hey!
+          echo "::group::This is GHA custom group!"
+          
+          echo "::debug::Hello world! -> This is my custom debug GHA message"
+          
+          echo "::notice file=src/minlopro/main/lwc/dragAndDropTab/dragAndDropTab.js,line=20,col=5,endColumn=7::Notice message"
+          
+          echo "::warning file=src/minlopro/main/lwc/dragAndDropTab/dragAndDropTab.js,line=21,col=5,endColumn=7,title=CUSTOM-TITLE::Warning message"
+          
+          echo "::error file=src/minlopro/main/lwc/dragAndDropTab/dragAndDropTab.js,line=22,col=5,endColumn=7,title=CUSTOM-TITLE::Error message"
+          
+          echo "::endgroup::"

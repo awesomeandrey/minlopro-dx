@@ -1922,7 +1922,7 @@ rules:
                 - JavaScript
                 - TypeScript
         'no-useless-concat':
-            severity: 3
+            severity: 2
             tags:
                 - BestPractices
                 - JavaScript

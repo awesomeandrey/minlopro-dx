@@ -73,16 +73,10 @@ jobs:
           
           # Append custom snippet to workflow summary
           cat > $GITHUB_STEP_SUMMARY << EOF
-          ### Scratch Org Admin Email 📧
+          ### Scratch Org Admin Credentials 🔑
           
           \`\`\`bash
-          $scratchOrgAdminEmail
-          \`\`\`
-          
-          ### Scratch Org Admin Password 🔑
-          
-          \`\`\`bash
-          $scratchOrgPassword
+          $scratchOrgAdminEmail ↔️ $scratchOrgPassword
           \`\`\`
           
           ### Scratch Org Authentication Shortcut 💥
