@@ -225,15 +225,22 @@ if [ "$LOG_FILES_SIZE" -eq 0 ]; then
 fi
 echo "Found $LOG_FILES_SIZE event log files!"
 
+# Fetch source & target Salesforce org details/info
 SOURCE_ORG_INFO_AS_JSON=$(sf org display --target-org "$SOURCE_ORG_ALIAS" --json)
 SOURCE_ORG_ID=$(echo "$SOURCE_ORG_INFO_AS_JSON" | jq -r '.result.id')
 SOURCE_ORG_INSTANCE_URL=$(echo "$SOURCE_ORG_INFO_AS_JSON" | jq -r '.result.instanceUrl')
 SOURCE_ORG_ACCESS_TOKEN=$(echo "$SOURCE_ORG_INFO_AS_JSON" | jq -r '.result.accessToken')
-
-TARGET_ORG_INFO_AS_JSON=$(sf org display --target-org "$TARGET_ORG_ALIAS" --json)
-TARGET_ORG_ID=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.id')
-TARGET_ORG_INSTANCE_URL=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.instanceUrl')
-TARGET_ORG_ACCESS_TOKEN=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.accessToken')
+if [ "$SOURCE_ORG_ALIAS" == "$TARGET_ORG_ALIAS" ]; then
+  TARGET_ORG_INFO_AS_JSON="$SOURCE_ORG_INFO_AS_JSON"
+  TARGET_ORG_ID="$SOURCE_ORG_ID"
+  TARGET_ORG_INSTANCE_URL="$SOURCE_ORG_INSTANCE_URL"
+  TARGET_ORG_ACCESS_TOKEN="$SOURCE_ORG_ACCESS_TOKEN"
+else
+  TARGET_ORG_INFO_AS_JSON=$(sf org display --target-org "$TARGET_ORG_ALIAS" --json)
+  TARGET_ORG_ID=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.id')
+  TARGET_ORG_INSTANCE_URL=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.instanceUrl')
+  TARGET_ORG_ACCESS_TOKEN=$(echo "$TARGET_ORG_INFO_AS_JSON" | jq -r '.result.accessToken')
+fi
 
 ELF_DIR="build/elf-$SOURCE_ORG_ID-$EVENT_TYPE-v$API_VERSION"
 DATA_PART_COUNTER=1
