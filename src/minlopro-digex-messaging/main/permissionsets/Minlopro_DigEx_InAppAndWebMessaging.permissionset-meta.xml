@@ -11,4 +11,16 @@
     <description>Enhanced Messaging for In-App and Web</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - DigEx In-App &amp; Web Messaging</label>
+    <servicePresenceStatusAccesses>
+        <enabled>true</enabled>
+        <servicePresenceStatus>Available</servicePresenceStatus>
+    </servicePresenceStatusAccesses>
+    <servicePresenceStatusAccesses>
+        <enabled>true</enabled>
+        <servicePresenceStatus>Away</servicePresenceStatus>
+    </servicePresenceStatusAccesses>
+    <servicePresenceStatusAccesses>
+        <enabled>true</enabled>
+        <servicePresenceStatus>Busy</servicePresenceStatus>
+    </servicePresenceStatusAccesses>
 </PermissionSet>
