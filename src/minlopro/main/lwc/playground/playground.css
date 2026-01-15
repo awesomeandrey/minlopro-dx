@@ -1,11 +1,7 @@
-.sms {
-    width: 30rem;
-}
-
 .quick-text-card {
-    background-color: white;
-    border: 2px solid #0176d3;
-    border-radius: 15px;
+    background-color: var(--slds-g-color-surface-1, white);
+    border: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-brand-base-50, blue);
+    border-radius: var(--slds-g-radius-border-4, 4px);
     cursor: pointer;
     white-space: normal;
     display: -webkit-box;
@@ -15,5 +11,5 @@
 }
 
 .quick-text-card:hover {
-    background-color: #f3f9ff;
+    background-color: var(--slds-g-color-surface-2, silver);
 }
