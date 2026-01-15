@@ -342,7 +342,7 @@ rules:
                 - ErrorProne
                 - TypeScript
         '@typescript-eslint/class-methods-use-this':
-            severity: 3
+            severity: 4
             tags:
                 - BestPractices
                 - TypeScript
@@ -987,7 +987,7 @@ rules:
                 - JavaScript
                 - TypeScript
         'class-methods-use-this':
-            severity: 3
+            severity: 4
             tags:
                 - BestPractices
                 - JavaScript
