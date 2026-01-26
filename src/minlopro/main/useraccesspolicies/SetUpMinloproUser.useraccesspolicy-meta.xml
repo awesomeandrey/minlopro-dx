@@ -5,7 +5,7 @@
     <masterLabel>Set Up Minlopro User</masterLabel>
     <order>1</order>
     <status>Active</status>
-    <triggerType>CreateAndUpdate</triggerType>
+    <triggerType>Create</triggerType>
     <userAccessPolicyActions>
         <action>Grant</action>
         <target>OrgUsers</target>
