@@ -3,8 +3,8 @@ run-name: "Deploy Source ${{ inputs.mode == 'Dry-Run' && '(Dry-Run) ðŸšš' || 'ðŸ
 
 on:
   schedule:
-    # Runs at 07:00 UTC every Monday through Friday
-    - cron: '0 7 * * 1-5'
+    # Runs at 07:00 UTC every Monday, Wednesday and Thursday
+    - cron: '0 7 * * 1,3,4'
   workflow_dispatch:
     inputs:
       environment:

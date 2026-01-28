@@ -67,39 +67,39 @@ public inherited sharing class TriggerDispatcher {
                 throw new TriggerDispatcherException(
                     String.format('Invalid handler implementation detected: {0}', Lists.of(handlerToExecute.getName()))
                 );
-            } else if (bypassedHandlers.contains(handlerToExecute)) {
+            }
+            if (bypassedHandlers.contains(handlerToExecute)) {
                 this.debug('Bypassing trigger handler: {0}.', Lists.of(handlerToExecute.getName()));
                 // Bypass particular handler;
                 continue;
-            } else {
-                this.debug('Running "{0}" trigger handler.', Lists.of(handlerToExecute.getName()));
-                // Validate max loop count;
-                this.setAndValidateMaxLoopCount(handlerToExecute);
-                // Execute trigger handler logic according to trigger phase;
-                BasicTriggerHandler handlerImpl = handlerToExecute.getInstance();
-                handlerImpl.setObjectType(this.currentObjectType);
-                switch on Trigger.operationType {
-                    when BEFORE_DELETE {
-                        handlerImpl.beforeDelete(Trigger.old);
-                    }
-                    when BEFORE_INSERT {
-                        handlerImpl.beforeInsert(Trigger.new);
-                    }
-                    when BEFORE_UPDATE {
-                        handlerImpl.beforeUpdate(Trigger.oldMap, Trigger.newMap);
-                    }
-                    when AFTER_DELETE {
-                        handlerImpl.afterDelete(Trigger.old);
-                    }
-                    when AFTER_INSERT {
-                        handlerImpl.afterInsert(Trigger.new);
-                    }
-                    when AFTER_UNDELETE {
-                        handlerImpl.afterUndelete(Trigger.new);
-                    }
-                    when AFTER_UPDATE {
-                        handlerImpl.afterUpdate(Trigger.oldMap, Trigger.newMap);
-                    }
+            }
+            this.debug('Running "{0}" trigger handler.', Lists.of(handlerToExecute.getName()));
+            // Validate max loop count;
+            this.setAndValidateMaxLoopCount(handlerToExecute);
+            // Execute trigger handler logic according to trigger phase;
+            BasicTriggerHandler handlerImpl = handlerToExecute.getInstance();
+            handlerImpl.setObjectType(this.currentObjectType);
+            switch on Trigger.operationType {
+                when BEFORE_DELETE {
+                    handlerImpl.beforeDelete(Trigger.old);
+                }
+                when BEFORE_INSERT {
+                    handlerImpl.beforeInsert(Trigger.new);
+                }
+                when BEFORE_UPDATE {
+                    handlerImpl.beforeUpdate(Trigger.oldMap, Trigger.newMap);
+                }
+                when AFTER_DELETE {
+                    handlerImpl.afterDelete(Trigger.old);
+                }
+                when AFTER_INSERT {
+                    handlerImpl.afterInsert(Trigger.new);
+                }
+                when AFTER_UNDELETE {
+                    handlerImpl.afterUndelete(Trigger.new);
+                }
+                when AFTER_UPDATE {
+                    handlerImpl.afterUpdate(Trigger.oldMap, Trigger.newMap);
                 }
             }
         }
