@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # Salesforce Metadata API Version Audit Script
 # Scans src/ for metadata components and extracts API versions
 # Outputs a pivot table CSV to build/metadata-api-version-audit.csv
@@ -18,7 +19,7 @@ TMP_DIR=$(mktemp -d)
 trap 'rm -rf "$TMP_DIR"' EXIT
 
 RAW_DATA="$TMP_DIR/raw_data.tsv"
-> "$RAW_DATA"
+: > "$RAW_DATA"
 
 extract_api_version() {
     local file="$1"

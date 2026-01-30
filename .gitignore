@@ -11,7 +11,6 @@ coverage/
 mdapi/
 temp/
 logs/
-out/
 target/
 retrieved-src/
 org_auth_files/
@@ -49,3 +48,6 @@ yarn-error.log*
 # Hardis Plugin
 config/user/
 hardis-report/
+
+# Claude MCP Produce
+.*-mcp
