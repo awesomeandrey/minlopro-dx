@@ -50,4 +50,5 @@ config/user/
 hardis-report/
 
 # Claude MCP Produce
-.*-mcp
+.claude/hook-logs/
+.*-mcp/
