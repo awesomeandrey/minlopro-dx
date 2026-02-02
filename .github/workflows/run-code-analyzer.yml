@@ -56,7 +56,7 @@ jobs:
             "--output-file scan-result.sarif"
           )
           code_analyzer_args="$(printf "%s " "${args[@]}")"
-          code_analyzer_artifact_name="salesforce-code-analyzer-results${{ inputs.base-ref != '' && '-delta' || '-essential' }}"
+          code_analyzer_artifact_name="salesforce-code-analyzer-results${{ inputs.base-ref != '' && '-delta' || '-essential' }}-metadata"
           echo "Code Analyzer Arguments: $code_analyzer_args"
           echo "Code Analyzer Artifact Name: $code_analyzer_artifact_name"
           echo "code-analyzer-args=$code_analyzer_args" >> $GITHUB_OUTPUT

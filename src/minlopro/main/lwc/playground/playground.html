@@ -5,19 +5,32 @@
         <lightning-button-group slot="actions">
             <lightning-button label="Celebrate!" onclick={handleCelebrateWithConfetti}></lightning-button>
         </lightning-button-group>
-        <div class="slds-p-horizontal_medium">
-            <div class="slds-box">
-                <p>Formatted UTC: <b>{formattedDateTimeStamp}</b></p>
-                <p>
-                    Past Date: <b><lightning-relative-date-time value={pastDate}> </lightning-relative-date-time></b>
-                </p>
-                <p>
-                    Future Date: <b><lightning-relative-date-time value={futureDate}> </lightning-relative-date-time></b>
-                </p>
-                <p class="slds-text-color_success slds-text-title_bold">slds-text-color_success</p>
-                <p class="slds-text-color_destructive slds-text-title_bold">slds-text-color_destructive</p>
-                <p class="slds-text-color_error slds-text-title_bold">slds-text-color_error</p>
-            </div>
+        <div class="slds-box">
+            <p>Formatted UTC: <b>{formattedDateTimeStamp}</b></p>
+            <p>
+                Past Date: <b><lightning-relative-date-time value={pastDate}></lightning-relative-date-time></b>
+            </p>
+            <p>
+                Future Date: <b><lightning-relative-date-time value={futureDate}></lightning-relative-date-time></b>
+            </p>
+            <p class="slds-text-color_success slds-text-title_bold">slds-text-color_success</p>
+            <p class="slds-text-color_destructive slds-text-title_bold">slds-text-color_destructive</p>
+            <p class="slds-text-color_error slds-text-title_bold">slds-text-color_error</p>
+        </div>
+        <div class="slds-box slds-m-top_medium">
+            <lightning-layout horizontal-align="center" vertical-align="start">
+                <lightning-layout-item
+                    for:each={quickReplies}
+                    for:item="quickReply"
+                    key={quickReply.key}
+                    flexibility="no-grow"
+                    padding="horizontal-small"
+                >
+                    <div class="slds-text-align_center slds-p-around_xx-small quick-text-card" title={quickReply.message}>
+                        {quickReply.message}
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
         </div>
     </lightning-card>
 </template>

@@ -1,3 +1,15 @@
-.sms {
-    width: 30rem;
+.quick-text-card {
+    background-color: var(--slds-g-color-surface-1, white);
+    border: var(--slds-g-sizing-border-2, 2px) solid var(--slds-g-color-brand-base-50, blue);
+    border-radius: var(--slds-g-radius-border-4, 4px);
+    cursor: pointer;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.quick-text-card:hover {
+    background-color: var(--slds-g-color-surface-2, silver);
 }

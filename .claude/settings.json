@@ -1,0 +1,37 @@
+{
+    "hooks": {
+        "PreToolUse": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "jq . > .claude/hook-logs/pre-tool-log.json"
+                    }
+                ]
+            }
+        ],
+        "PostToolUse": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "jq . > .claude/hook-logs/post-tool-log.json"
+                    }
+                ]
+            }
+        ],
+        "UserPromptSubmit": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "jq . > .claude/hook-logs/user-prompt-submit-log.json"
+                    }
+                ]
+            }
+        ]
+    }
+}
