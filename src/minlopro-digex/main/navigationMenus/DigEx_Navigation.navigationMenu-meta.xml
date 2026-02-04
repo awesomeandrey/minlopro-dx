@@ -11,9 +11,16 @@
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
+        <label>LWC Workspace</label>
+        <position>2</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>/workspace</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
         <defaultListViewId>MyAccounts</defaultListViewId>
         <label>Accounts</label>
-        <position>2</position>
+        <position>3</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>Account</target>
         <type>SalesforceObject</type>
@@ -21,7 +28,7 @@
     <navigationMenuItem>
         <defaultListViewId>MyOpportunities</defaultListViewId>
         <label>Opportunities</label>
-        <position>3</position>
+        <position>4</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>Opportunity</target>
         <type>SalesforceObject</type>

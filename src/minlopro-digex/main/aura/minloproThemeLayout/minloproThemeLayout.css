@@ -1,5 +1,5 @@
 .THIS .minlopro-bg {
     background-size: cover;
     background-position: top;
-    border-radius: 5px;
+    border-radius: var(--slds-g-radius-border-2);
 }

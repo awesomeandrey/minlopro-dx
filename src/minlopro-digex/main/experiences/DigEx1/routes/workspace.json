@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "a7ed42ea-4cef-4b88-836a-d8409ba9a666",
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "configurationTags" : [ ],
+  "devName" : "Workspace__c",
+  "id" : "ad40129f-d9ad-4094-86b4-d6dd7e28b7e2",
+  "label" : "LWC Workspace",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-workspace",
+  "type" : "route",
+  "urlPrefix" : "workspace"
+}
