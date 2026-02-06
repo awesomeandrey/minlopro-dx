@@ -51,7 +51,7 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
                         // Exception for HOME page;
                         return this.currentUrlPath === '/';
                     }
-                    return this.currentUrlPath.startsWith(_.target);
+                    return this.currentUrlPath.includes(`/${_.target}`);
                 })();
                 return {
                     ..._,
@@ -70,8 +70,7 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
             this.siteState = 'Live';
         }
         // Update current URL path;
-        // https://...site.com/digex/s/org-limits -> /org-limits
-        // this.currentUrlPath = window.location.pathname.replace($BasePath, '');
+        this.currentUrlPath = window.location.pathname.replace($BasePath, '');
     }
 
     @wire(getNavigationMenuItemsApex, {

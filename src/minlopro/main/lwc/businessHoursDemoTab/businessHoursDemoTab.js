@@ -38,7 +38,7 @@ export default class BusinessHoursDemoTab extends LightningElement {
     }
 
     get nextSmsDelayHours() {
-        return [3, 5, 10, 12, 24, 48].map((num) => ({ label: `${num} hours`, value: `${num}` }));
+        return [1, 3, 9, 12, 24, 48].map((num) => ({ label: `${num} hours`, value: `${num}` }));
     }
 
     get stats() {
