@@ -6,7 +6,7 @@
             <profile>minlopro user</profile>
         </profiles>
     </assignments>
-    <capacity>2</capacity>
+    <capacity>5</capacity>
     <declineReasons>Blacklisted_Customer</declineReasons>
     <declineReasons>Bot_Customer</declineReasons>
     <declineReasons>Other</declineReasons>

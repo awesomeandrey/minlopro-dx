@@ -1,3 +1,7 @@
+/**
+ * @description Server-side controller for the Web-to-Lead form.
+ * Verifies user tokens using the Google reCAPTCHA v2 (checkbox) flow.
+ */
 public with sharing class DigExWebToLeadController {
     private static final String ERROR_CODES_KEY = 'error-codes';
 

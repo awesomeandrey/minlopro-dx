@@ -47,7 +47,7 @@
         <inputParameters>
             <name>queueId</name>
             <value>
-                <elementReference>GetDigExOmniQueue.Id</elementReference>
+                <elementReference>FindQueue.Id</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -108,8 +108,8 @@
         <dataType>String</dataType>
         <expression>BLANKVALUE({!recordId}, {!input_record.Id})</expression>
     </formulas>
-    <interviewLabel>Minlopro - Messages Routed to Agents and Queues {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Minlopro - Messages Routed to Agents and Queues</label>
+    <interviewLabel>DigEx - Route Messaging Requests {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>DigEx - Route Messaging Requests</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -124,9 +124,9 @@
     </processMetadataValues>
     <processType>RoutingFlow</processType>
     <recordLookups>
-        <description>DeveloperName=&apos;Minlopro_DigExMessagingRequests&apos;</description>
-        <name>GetDigExOmniQueue</name>
-        <label>Get DigEx Omni Queue</label>
+        <description>Target queue is meant to operate on &apos;Messaging User&apos; and &apos;Messaging Session&apos; entities.</description>
+        <name>FindQueue</name>
+        <label>Find Queue</label>
         <locationX>176</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
@@ -145,7 +145,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Minlopro_DigExMessagingRequests</stringValue>
+                <stringValue>DigEx_SiteMessagingRequests</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -158,7 +158,7 @@
         <locationX>50</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetDigExOmniQueue</targetReference>
+            <targetReference>FindQueue</targetReference>
         </connector>
     </start>
     <status>Active</status>

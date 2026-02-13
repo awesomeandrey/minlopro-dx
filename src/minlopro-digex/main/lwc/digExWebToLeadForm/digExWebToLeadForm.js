@@ -4,6 +4,9 @@ import $Toastify from 'c/toastify';
 
 import verifyUserTokenApex from '@salesforce/apex/DigExWebToLeadController.verifyUserToken';
 
+/**
+ * @description Web-to-Lead form with Google reCAPTCHA v2 (checkbox) verification.
+ */
 export default class DigExWebToLeadForm extends LightningElement {
     static renderMode = 'light';
 
