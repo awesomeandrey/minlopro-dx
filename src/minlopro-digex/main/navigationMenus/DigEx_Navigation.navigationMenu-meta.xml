@@ -11,10 +11,26 @@
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
-        <label>Available Cars</label>
+        <label>LWC Workspace</label>
         <position>2</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>/workspace</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <defaultListViewId>MyAccounts</defaultListViewId>
+        <label>Accounts</label>
+        <position>3</position>
         <publiclyAvailable>false</publiclyAvailable>
-        <target>Car__c</target>
+        <target>Account</target>
+        <type>SalesforceObject</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <defaultListViewId>MyOpportunities</defaultListViewId>
+        <label>Opportunities</label>
+        <position>4</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>Opportunity</target>
         <type>SalesforceObject</type>
     </navigationMenuItem>
 </NavigationMenu>
