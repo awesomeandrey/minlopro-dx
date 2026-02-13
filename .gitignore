@@ -19,6 +19,7 @@ org_auth_files/
 .idea/
 IlluminatedCloud/
 .illuminatedCloud/
+/out/
 **/graphql.config.yml
 
 # Project Files
