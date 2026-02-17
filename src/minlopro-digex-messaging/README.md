@@ -21,7 +21,7 @@ The following files leverage SFDX Replacements in scope of deployments:
 
 - [ESW_Minlopro_DigExMessaging Site](src/minlopro-digex-messaging/main/sites/ESW_Minlopro_DigExMessaging.site-meta.xml)
 - [DigEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
-- [Minlopro - Messages Routed to Agents and Queues](src/minlopro-digex-messaging/main/flows/Minlopro_MessagesRoutedToAgentsAndQueues.flow-meta.xml)
+- [DigEx - Route Messaging Requests](src/minlopro-digex-messaging/main/flows/DigEx_RouteMessagingRequests.flow-meta.xml)
 
 ### Troubleshooting
 

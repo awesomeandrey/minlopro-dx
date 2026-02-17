@@ -1,0 +1,68 @@
+{
+  "appPageId" : "ceca8c59-17ea-485e-8c7b-9c0edd98a8c4",
+  "componentName" : "siteforce:dynamicLayout",
+  "dataProviders" : [ ],
+  "id" : "a7ed42ea-4cef-4b88-836a-d8409ba9a666",
+  "label" : "Workspace",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "background" : "background: rgba(0,0,0,0)",
+        "backgroundOverlay" : "rgba(0,0,0,0.5)",
+        "contentAreaWidth" : 100,
+        "sectionConfig" : {
+          "UUID" : "605e0023-32b1-47a6-8fd1-93eec476834a",
+          "columns" : [ {
+            "UUID" : "392adaea-9a31-4dff-94ab-c439f55d2860",
+            "columnKey" : "1",
+            "columnName" : "Column 1",
+            "columnWidth" : "12",
+            "seedComponents" : [ ]
+          } ]
+        },
+        "sectionHeight" : 300
+      },
+      "componentName" : "forceCommunity:section",
+      "id" : "605e0023-32b1-47a6-8fd1-93eec476834a",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:digExWorkspace",
+          "id" : "012e4406-5920-41be-88bd-d9a4a7e1b33d",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "392adaea-9a31-4dff-94ab-c439f55d2860",
+        "regionLabel" : "Column 1",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e5b3af01-a63a-4b4f-aa59-effdb1d96575",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Workspace"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "f53e754c-1ea6-4200-bfa9-3a1741217a62",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "c0ac9876-2359-455e-9eb5-a48f6e0b7587",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "BIGuMbINxUUPKhG01SUcMMJNvZRHRb",
+  "type" : "view",
+  "viewType" : "custom-workspace"
+}

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ServicePresenceStatus xmlns="http://soap.sforce.com/2006/04/metadata">
     <channels>
+        <channel>Cases</channel>
+        <channel>Leads</channel>
         <channel>sfdc_livemessage</channel>
     </channels>
     <label>Available</label>

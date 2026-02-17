@@ -1,25 +1,33 @@
 import { LightningElement, track } from 'lwc';
-import { isEmpty, parseError, wait } from 'c/utilities';
+import { isEmpty, parseError, wait, waitAsync } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 import verifyUserTokenApex from '@salesforce/apex/DigExWebToLeadController.verifyUserToken';
 
+/**
+ * @description Web-to-Lead form with Google reCAPTCHA v2 (checkbox) verification.
+ */
 export default class DigExWebToLeadForm extends LightningElement {
     static renderMode = 'light';
 
-    @track $grecaptcha = null;
-    @track isCaptchaValid = false;
+    @track reCaptchaWidget = null;
+    @track isReCaptchaValid = false;
     @track error = null;
     @track loading = false;
+    @track submitted = false;
 
     get disableBtn() {
-        return this.loading || isEmpty(this.$grecaptcha) || !this.isCaptchaValid;
+        return this.loading || isEmpty(this.reCaptchaWidget) || !this.isReCaptchaValid;
+    }
+
+    get showForm() {
+        return !this.submitted;
     }
 
     async connectedCallback() {
         this.loading = true;
         try {
-            this.$grecaptcha = await new Promise((resolve, reject) => {
+            this.reCaptchaWidget = await new Promise((resolve, reject) => {
                 document.dispatchEvent(new CustomEvent('requestGrecaptcha', { detail: { callback: resolve } }));
                 wait(() => reject('Failed to capture reCAPTCHA library reference.'), 5000);
             });
@@ -27,35 +35,36 @@ export default class DigExWebToLeadForm extends LightningElement {
             this.error = error;
             return;
         }
-        // Explicitly render the widget;
-        this.$grecaptcha?.render(this.refs.gRecaptcha, {
+        this.renderReCaptchaWidget();
+        this.loading = false;
+    }
+
+    renderReCaptchaWidget() {
+        this.reCaptchaWidget?.render(this.refs.reCaptcha, {
             sitekey: '${SF_GOOGLE_RECAPTCHA_SITE_KEY}',
-            callback: this.verifyCaptcha.bind(this),
+            callback: this.verifyReCaptcha.bind(this),
             'expired-callback': () => {
-                // The name of your callback function, executed when the reCAPTCHA response expires and the user needs to re-verify.
                 console.log('[reCAPTCHA] expired-callback()');
-                this.isCaptchaValid = false;
+                this.isReCaptchaValid = false;
                 $Toastify.info({ message: 'Verification expired. Check verification checkbox again.' });
             },
             'error-callback': (error) => {
-                // The name of your callback function, executed when reCAPTCHA encounters an error (usually network connectivity) and cannot continue until connectivity is restored. If you specify a function here, you are responsible for informing the user that they should retry.
                 console.log('[reCAPTCHA] error-callback()', error);
-                this.isCaptchaValid = false;
+                this.isReCaptchaValid = false;
                 $Toastify.error({ message: parseError(error)?.message }, this);
                 this.error = error;
             }
         });
-        this.loading = false;
     }
 
-    async verifyCaptcha(userToken) {
+    async verifyReCaptcha(userToken) {
         this.loading = true;
         try {
             this.error = null;
-            this.isCaptchaValid = false;
+            this.isReCaptchaValid = false;
             const { success = false, errorCodes = [] } = await verifyUserTokenApex({ userToken });
-            this.isCaptchaValid = success;
-            if (!this.isCaptchaValid) {
+            this.isReCaptchaValid = success;
+            if (!this.isReCaptchaValid) {
                 this.error = { message: `Captcha is invalid: ${errorCodes}` };
             }
         } catch (error) {
@@ -65,10 +74,38 @@ export default class DigExWebToLeadForm extends LightningElement {
         }
     }
 
-    handleSubmitForm(event) {
+    async handleSubmitForm(event) {
         event.preventDefault();
-        if (this.refs.w2lForm.reportValidity() && this.isCaptchaValid) {
-            this.refs.w2lForm.submit();
+        if (!this.refs.w2lForm.reportValidity() || !this.isReCaptchaValid) {
+            return;
+        }
+        this.loading = true;
+        try {
+            const formData = new FormData(this.refs.w2lForm);
+            const W2L_URL = '${SF_INSTANCE_URL}/servlet/servlet.WebToLead?encoding=UTF-8&orgId=${SF_INSTANCE_ID}';
+            // Requires 'Trusted URL' setup
+            await fetch(W2L_URL, { method: 'POST', body: formData, mode: 'no-cors' });
+            $Toastify.success({ message: 'Your information has been submitted successfully!' });
+            // Reset form
+            this.refs.w2lForm.reset();
+            this.reCaptchaWidget?.reset();
+            this.isReCaptchaValid = false;
+            // Show 'Thanks' message for 5 sec
+            const container = this.refs.container;
+            container.style.minHeight = `${container.offsetHeight}px`;
+            this.submitted = true;
+            setTimeout(async () => {
+                this.submitted = false;
+                container.style.minHeight = '';
+                // Wait for LWC to flush DOM updates before re-rendering reCAPTCHA
+                await waitAsync();
+                this.renderReCaptchaWidget();
+            }, 5000);
+        } catch (error) {
+            this.error = error;
+            $Toastify.error({ message: parseError(error)?.message || 'Failed to submit the form. Please try again.' });
+        } finally {
+            this.loading = false;
         }
     }
 }

@@ -1,20 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Handles regular non-email Cases (driven by assignment rule).</description>
     <doesSendEmailToMembers>true</doesSendEmailToMembers>
     <email>${SF_ADMIN_EMAIL}</email>
-    <name>Minlopro - DigEx Messaging Requests</name>
+    <name>Minlopro - Regular Cases</name>
     <queueMembers>
         <publicGroups>
-            <publicGroup>OrgAdmins</publicGroup>
-            <publicGroup>OrgUsers</publicGroup>
             <publicGroup>AllInternalUsers</publicGroup>
         </publicGroups>
     </queueMembers>
     <queueRoutingConfig>Minlopro_RoutingConfiguration</queueRoutingConfig>
     <queueSobject>
-        <sobjectType>MessagingEndUser</sobjectType>
-    </queueSobject>
-    <queueSobject>
-        <sobjectType>MessagingSession</sobjectType>
+        <sobjectType>Case</sobjectType>
     </queueSobject>
 </Queue>

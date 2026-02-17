@@ -8,7 +8,7 @@ read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 echo "🔵 Deactivating flows for [$TARGET_ORG_ALIAS] organization..."
 
 declare -a flow_api_names
-flow_api_names=("Minlopro_CodeAnalyzerTest" "SampleNonExistingFlow" "Minlopro_SearchFirstAccount")
+flow_api_names=("Minlopro_CodeAnalyzerTest" "Minlopro_MessagesRoutedToAgentsAndQueues" "Minlopro_SearchFirstAccount")
 
 if [ ${#flow_api_names[@]} -eq 0 ]; then
   echo "No flows to deactivate."

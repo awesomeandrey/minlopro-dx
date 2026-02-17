@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>true</doesSendEmailToMembers>
+    <email>${SF_ADMIN_EMAIL}</email>
+    <name>DigEx - Web Leads</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>AllInternalUsers</publicGroup>
+        </publicGroups>
+    </queueMembers>
+    <queueRoutingConfig>Minlopro_RoutingConfiguration</queueRoutingConfig>
+    <queueSobject>
+        <sobjectType>Lead</sobjectType>
+    </queueSobject>
+</Queue>

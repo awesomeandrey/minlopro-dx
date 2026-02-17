@@ -32,7 +32,7 @@
         <routingAddresses>
             <addressType>EmailToCase</addressType>
             <caseOrigin>Email</caseOrigin>
-            <caseOwner>MinloproEmailCases</caseOwner>
+            <caseOwner>Minlopro_EmailCases</caseOwner>
             <caseOwnerType>Queue</caseOwnerType>
             <casePriority>Medium</casePriority>
             <createTask>false</createTask>

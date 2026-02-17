@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Handles Email-originated Cases.</description>
     <doesSendEmailToMembers>true</doesSendEmailToMembers>
     <email>${SF_ADMIN_EMAIL}</email>
-    <name>Minlopro - Email Cases</name>
+    <name>Minlopro - Leads</name>
     <queueMembers>
         <publicGroups>
-            <publicGroup>OrgAdmins</publicGroup>
+            <publicGroup>AllInternalUsers</publicGroup>
         </publicGroups>
     </queueMembers>
+    <queueRoutingConfig>Minlopro_RoutingConfiguration</queueRoutingConfig>
     <queueSobject>
-        <sobjectType>Case</sobjectType>
+        <sobjectType>Lead</sobjectType>
     </queueSobject>
 </Queue>
