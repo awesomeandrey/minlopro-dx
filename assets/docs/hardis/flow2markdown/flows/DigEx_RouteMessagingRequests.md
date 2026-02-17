@@ -1,4 +1,4 @@
-# Minlopro - Messages Routed to Agents and Queues
+# DigEx - Route Messaging Requests
 
 ## Flow Diagram
 
@@ -11,17 +11,17 @@
 
 flowchart TB
 START(["START"]):::startClass
-click START "#general-information" "3814342414"
+click START "#general-information" "1554375562"
 
 RouteToQueue("⚡ <em></em><br/>Route To Queue"):::actionCalls
-click RouteToQueue "#routetoqueue" "684430295"
+click RouteToQueue "#routetoqueue" "1953844202"
 
-GetDigExOmniQueue[("🔍 <em></em><br/>Get DigEx Omni Queue")]:::recordLookups
-click GetDigExOmniQueue "#getdigexomniqueue" "1353578166"
+FindQueue[("🔍 <em></em><br/>Find Queue")]:::recordLookups
+click FindQueue "#findqueue" "1269512318"
 
 RouteToQueue --> END_RouteToQueue
-GetDigExOmniQueue --> RouteToQueue
-START -->  GetDigExOmniQueue
+FindQueue --> RouteToQueue
+START -->  FindQueue
 END_RouteToQueue(( END )):::endClass
 
 
@@ -51,17 +51,17 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Process Type| Routing Flow|
-|Label|Minlopro - Messages Routed to Agents and Queues|
+|Label|DigEx - Route Messaging Requests|
 |Status|Active|
 |Description|Routes each message to an agent or queue based on conditions that you define.|
 |Environments|Default|
-|Interview Label|Minlopro - Messages Routed to Agents and Queues {!$Flow.CurrentDateTime}|
+|Interview Label|DigEx - Route Messaging Requests {!$Flow.CurrentDateTime}|
 |Run In Mode| Default Mode|
 |Source Template|omnichannel_messaging__MsgRouting|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-|Connector|[GetDigExOmniQueue](#getdigexomniqueue)|
-|Next Node|[GetDigExOmniQueue](#getdigexomniqueue)|
+|Connector|[FindQueue](#findqueue)|
+|Next Node|[FindQueue](#findqueue)|
 
 
 ## Variables
@@ -99,7 +99,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Routing Type (input)|QueueBased|
 |Routing Config Id (input)|<!-- -->|
 |Routing Config Label (input)|<!-- -->|
-|Queue Id (input)|GetDigExOmniQueue.Id|
+|Queue Id (input)|FindQueue.Id|
 |Agent Id (input)|<!-- -->|
 |Agent Label (input)|<!-- -->|
 |Queue Label (input)|<!-- -->|
@@ -116,14 +116,14 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Is Queue Variable (input)|✅|
 
 
-### GetDigExOmniQueue
+### FindQueue
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Record Lookup|
 |Object|Group|
-|Label|Get DigEx Omni Queue|
-|Description|DeveloperName='Minlopro_DigExMessagingRequests'|
+|Label|Find Queue|
+|Description|Target queue is meant to operate on 'Messaging User' and 'Messaging Session' entities.|
 |Assign Null Values If No Records Found|⬜|
 |Get First Record Only|✅|
 |Store Output Automatically|✅|
@@ -135,7 +135,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
 |1|Type| Equal To|Queue|
-|2|DeveloperName| Equal To|Minlopro_DigExMessagingRequests|
+|2|DeveloperName| Equal To|DigEx_SiteMessagingRequests|
 
 
 
