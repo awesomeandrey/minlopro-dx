@@ -36,7 +36,7 @@
                     <apex:image url="{!URLFOR($Resource.images, 'MinloproAppLogo.png')}" width="100" height="100" />
                     <p class="slds-text-heading_medium slds-p-vertical_xx-small">Minlopro</p>
                     <p class="slds-text-body_regular">
-                        This is a blueprint for typical Salesforce org-based project which is accompanied with CI/CD automations.
+                        This is a blueprint for typical Salesforce org-based project which is accompanied by CI/CD automations.
                     </p>
                 </div>
             </div>

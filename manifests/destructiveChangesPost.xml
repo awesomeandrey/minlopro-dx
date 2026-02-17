@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>Case.Handle Regular Cases</members>
-        <members>Lead.RouteDigExLeads</members>
-        <name>AssignmentRule</name>
+        <members>Minlopro_MessagesRoutedToAgentsAndQueues</members>
+        <name>Flow</name>
     </types>
-<!--    <types>-->
-<!--        <members>Minlopro_MessagesRoutedToAgentsAndQueues</members>-->
-<!--        <name>Flow</name>-->
-<!--    </types>-->
-<!--    <types>-->
-<!--        <members>MessagingSession.Minlopro_DigExMessagingRequests</members>-->
-<!--        <name>ListView</name>-->
-<!--    </types>-->
     <types>
-        <members>DigExLeads</members>
-        <members>Minlopro_DigExMessagingRequests</members>
-        <members>MinloproEmailCases</members>
-        <members>MinloproRegularCases</members>
-        <name>Queue</name>
+        <members>Case.MinloproEmailCases_Case</members>
+        <members>Case.MinloproRegularCases_Case</members>
+        <members>MessagingSession.Minlopro_DigExMessagingRequests</members>
+        <name>ListView</name>
     </types>
     <version>64.0</version>
 </Package>

@@ -1,0 +1,37 @@
+:host {
+    display: block;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
+    animation: colorCycle 3s infinite alternate;
+    background-color: #d8e6fe;
+    border-radius: 0.5rem;
+}
+
+@keyframes colorCycle {
+    0% {
+        background-color: #d8e6fe;
+    }
+    100% {
+        background-color: #f3f3f3;
+    }
+}
+
+.content {
+    text-align: center;
+    max-width: 66%;
+}
+
+.heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 0.25rem 0;
+}
+
+.description {
+    font-size: 0.875rem;
+    color: #444;
+}

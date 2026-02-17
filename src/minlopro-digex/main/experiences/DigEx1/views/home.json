@@ -69,13 +69,9 @@
       "id" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
       "regions" : [ {
         "components" : [ {
-          "componentAttributes" : {
-            "height" : "250",
-            "pageName" : "MinloproWelcome",
-            "recordId" : "{!recordId}"
-          },
-          "componentName" : "forceCommunity:visualforcePage",
-          "id" : "6c03aeb8-e457-40b3-9b1a-ff19064ebee4",
+          "componentAttributes" : { },
+          "componentName" : "c:digExWelcome",
+          "id" : "1ddba420-1995-491f-b447-76e7f5b59720",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
