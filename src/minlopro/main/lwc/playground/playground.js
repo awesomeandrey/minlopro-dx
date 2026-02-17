@@ -53,7 +53,9 @@ export default class Playground extends LightningElement {
             'Thank you for your payment! Your policy is now active and fully covered. You should receive a confirmation email within the next hour.',
             "I see you're interested in adding additional coverage. Let me prepare a customized quote for you. What specific coverage are you looking to add?",
             'Your claim has been approved! The payment will be processed within 3-5 business days. Is there anything else I can help you with today?'
-        ].map((message) => ({ key: uniqueId(), message }));
+        ]
+            .map((message) => ({ key: uniqueId(), message }))
+            .slice(3);
     }
 
     async handleCelebrateWithConfetti() {

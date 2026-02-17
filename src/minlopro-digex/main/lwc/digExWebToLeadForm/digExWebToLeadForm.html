@@ -1,12 +1,10 @@
 <template lwc:render-mode="light">
-    <div class="slds-box slds-box_small">
-        <form
-            lwc:ref="w2lForm"
-            action="${SF_INSTANCE_URL}/servlet/servlet.WebToLead?encoding=UTF-8&orgId=${SF_INSTANCE_ID}"
-            method="POST"
-        >
+    <div class="slds-box slds-box_small" lwc:ref="container">
+        <div lwc:if={submitted} class="slds-align_absolute-center" style="min-height: inherit">
+            <p class="slds-text-heading_large">Thanks!</p>
+        </div>
+        <form lwc:ref="w2lForm" lwc:if={showForm}>
             <input type="hidden" name="oid" value="${SF_INSTANCE_ID}" />
-            <input type="hidden" name="retURL" value="https://www.youtube.com/watch?v=sxoFEN9kz6c" />
             <!-- Lead custom fields can be passed by field API name as a hidden form parameter -->
             <input type="hidden" name="SrcCode__c" value="digex-site" />
             <!--  ----------------------------------------------------------------------  -->
@@ -44,7 +42,7 @@
                 </div>
             </div>
             <c-error-alert value={error}></c-error-alert>
-            <div lwc:ref="gRecaptcha" class="g-recaptcha slds-m-top_x-small"></div>
+            <div lwc:ref="reCaptcha" class="g-recaptcha slds-m-top_x-small"></div>
             <button
                 class="slds-button slds-button_brand slds-m-top_x-small"
                 type="button"
