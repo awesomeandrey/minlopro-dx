@@ -5,7 +5,7 @@
     <name>DigEx - Site Messaging Requests</name>
     <queueMembers>
         <publicGroups>
-            <publicGroup>AllInternalUsers</publicGroup>
+            <publicGroup>OrgUsers</publicGroup>
         </publicGroups>
     </queueMembers>
     <queueRoutingConfig>Minlopro_RoutingConfiguration</queueRoutingConfig>

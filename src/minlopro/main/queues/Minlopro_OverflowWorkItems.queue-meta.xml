@@ -6,7 +6,7 @@
     <name>Minlopro - Overflow Work Items</name>
     <queueMembers>
         <publicGroups>
-            <publicGroup>AllInternalUsers</publicGroup>
+            <publicGroup>OrgUsers</publicGroup>
         </publicGroups>
     </queueMembers>
     <queueSobject>

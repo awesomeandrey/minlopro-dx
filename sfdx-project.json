@@ -13,7 +13,7 @@
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "64.0",
+    "sourceApiVersion": "65.0",
     "replacements": [
         {
             "glob": "src/**/staticresources/**",
