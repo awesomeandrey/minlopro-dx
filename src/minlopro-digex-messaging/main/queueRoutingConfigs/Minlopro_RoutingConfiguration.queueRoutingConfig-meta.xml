@@ -5,7 +5,6 @@
     <isAttributeBased>false</isAttributeBased>
     <label>Minlopro Routing Configuration</label>
     <pushTimeout>60</pushTimeout>
-    <queueOverflowAssignee>Minlopro_OverflowWorkItems</queueOverflowAssignee>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>1</routingPriority>
 </QueueRoutingConfig>
