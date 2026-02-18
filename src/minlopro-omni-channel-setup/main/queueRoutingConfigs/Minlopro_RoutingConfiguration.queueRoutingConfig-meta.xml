@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QueueRoutingConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <capacityType>INHERITED</capacityType>
-    <capacityWeight>5.0</capacityWeight>
+    <capacityWeight>2.0</capacityWeight>
     <isAttributeBased>false</isAttributeBased>
     <label>Minlopro Routing Configuration</label>
-    <pushTimeout>300</pushTimeout>
+    <pushTimeout>60</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>1</routingPriority>
 </QueueRoutingConfig>

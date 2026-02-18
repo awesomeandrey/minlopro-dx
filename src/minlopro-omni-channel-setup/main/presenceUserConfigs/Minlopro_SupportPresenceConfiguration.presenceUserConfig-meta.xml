@@ -6,7 +6,7 @@
             <profile>minlopro user</profile>
         </profiles>
     </assignments>
-    <capacity>5</capacity>
+    <capacity>10</capacity>
     <declineReasons>Blacklisted_Customer</declineReasons>
     <declineReasons>Bot_Customer</declineReasons>
     <declineReasons>Other</declineReasons>
@@ -15,6 +15,6 @@
     <enableDeclineReason>true</enableDeclineReason>
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
+    <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
     <label>Minlopro Support Presence Configuration</label>
-    <presenceStatusOnDecline>Busy</presenceStatusOnDecline>
 </PresenceUserConfig>

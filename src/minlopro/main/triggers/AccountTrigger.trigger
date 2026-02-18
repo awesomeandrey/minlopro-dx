@@ -7,5 +7,5 @@ trigger AccountTrigger on Account(
     after delete,
     after undelete
 ) {
-    TriggerDispatcher.setContext(Account.SObjectType).run();
+    TriggerDispatcher.setContext(Schema.Account.SObjectType).run();
 }

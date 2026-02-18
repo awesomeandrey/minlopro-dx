@@ -17,9 +17,9 @@ Queue (holds the work item)
         ↓
 Service Channel (watches the object)
         ↓
-Routing Configuration (how to route it)
+Routing Configuration (how to route it; tags work item with capacity score/weight)
         ↓
-Presence Configuration (who can receive it)
+Presence Configuration (who can receive it; accounts for total capacity defined)
         ↓
 Agent's Omni-Channel Widget
 ```

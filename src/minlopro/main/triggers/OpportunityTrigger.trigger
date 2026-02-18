@@ -7,5 +7,5 @@ trigger OpportunityTrigger on Opportunity(
     after delete,
     after undelete
 ) {
-    TriggerDispatcher.setContext(Opportunity.SObjectType).run();
+    TriggerDispatcher.setContext(Schema.Opportunity.SObjectType).run();
 }

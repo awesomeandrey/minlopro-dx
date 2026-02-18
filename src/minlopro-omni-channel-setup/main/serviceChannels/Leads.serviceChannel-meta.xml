@@ -10,10 +10,6 @@
     <relatedEntityType>Lead</relatedEntityType>
     <serviceChannelStatusFieldMappings>
         <type>COMPLETED</type>
-        <value>New</value>
-    </serviceChannelStatusFieldMappings>
-    <serviceChannelStatusFieldMappings>
-        <type>COMPLETED</type>
         <value>Closed - Not Converted</value>
     </serviceChannelStatusFieldMappings>
     <serviceChannelStatusFieldMappings>
@@ -26,11 +22,15 @@
     </serviceChannelStatusFieldMappings>
     <serviceChannelStatusFieldMappings>
         <type>IN_PROGRESS</type>
-        <value>Nurturing</value>
+        <value>New</value>
     </serviceChannelStatusFieldMappings>
     <serviceChannelStatusFieldMappings>
         <type>IN_PROGRESS</type>
         <value>Working</value>
+    </serviceChannelStatusFieldMappings>
+    <serviceChannelStatusFieldMappings>
+        <type>IN_PROGRESS</type>
+        <value>Nurturing</value>
     </serviceChannelStatusFieldMappings>
     <statusField>Status</statusField>
 </ServiceChannel>

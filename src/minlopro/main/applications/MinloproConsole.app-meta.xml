@@ -55,14 +55,6 @@
         <pageOrSobjectType>MessagingSession</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
-        <actionName>Tab</actionName>
-        <content>MinloproHome</content>
-        <formFactor>Large</formFactor>
-        <skipRecordTypeSelect>false</skipRecordTypeSelect>
-        <type>Flexipage</type>
-        <pageOrSobjectType>standard-home</pageOrSobjectType>
-    </actionOverrides>
-    <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Opportunity_DefaultPage</content>
@@ -70,6 +62,14 @@
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
         <pageOrSobjectType>Opportunity</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <content>MinloproHome</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
     </actionOverrides>
     <brand>
         <headerColor>#F59F1D</headerColor>
@@ -102,6 +102,7 @@
     <tabs>standard-report</tabs>
     <tabs>Knowledge__kav</tabs>
     <tabs>standard-DuplicateRecordSet</tabs>
+    <tabs>standard-OmniSupervisorLightning</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>MinloproConsole_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -142,6 +143,9 @@
         </mappings>
         <mappings>
             <tab>standard-Lead</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-OmniSupervisorLightning</tab>
         </mappings>
         <mappings>
             <fieldName>AccountId</fieldName>

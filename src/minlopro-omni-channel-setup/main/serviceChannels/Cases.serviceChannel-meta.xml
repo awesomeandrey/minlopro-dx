@@ -3,7 +3,7 @@
     <capacityModel>TAB_BASED</capacityModel>
     <doesMinimizeWidgetOnAccept>false</doesMinimizeWidgetOnAccept>
     <hasAutoAcceptEnabled>false</hasAutoAcceptEnabled>
-    <isInterruptible>true</isInterruptible>
+    <isInterruptible>false</isInterruptible>
     <label>Cases</label>
     <relatedEntityType>Case</relatedEntityType>
 </ServiceChannel>

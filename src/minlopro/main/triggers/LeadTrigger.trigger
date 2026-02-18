@@ -7,5 +7,5 @@ trigger LeadTrigger on Lead(
     after delete,
     after undelete
 ) {
-    TriggerDispatcher.setContext(Lead.SObjectType).run();
+    TriggerDispatcher.setContext(Schema.Lead.SObjectType).run();
 }

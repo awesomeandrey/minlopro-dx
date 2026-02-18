@@ -7,5 +7,5 @@ trigger ContactTrigger on Contact(
     after delete,
     after undelete
 ) {
-    TriggerDispatcher.setContext(Contact.SObjectType).run();
+    TriggerDispatcher.setContext(Schema.Contact.SObjectType).run();
 }
