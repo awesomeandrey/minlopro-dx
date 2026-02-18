@@ -15,11 +15,6 @@
         <ruleEntry>
             <assignedTo>Minlopro_RegularCases</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <criteriaItems>
-                <field>Case.Origin</field>
-                <operation>notEqual</operation>
-                <value>Email</value>
-            </criteriaItems>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

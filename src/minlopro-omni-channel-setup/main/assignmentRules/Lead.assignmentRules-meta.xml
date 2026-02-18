@@ -13,7 +13,7 @@
             </criteriaItems>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>Minlopro_Leads</assignedTo>
+            <assignedTo>Minlopro_RegularLeads</assignedTo>
             <assignedToType>Queue</assignedToType>
         </ruleEntry>
     </assignmentRule>
