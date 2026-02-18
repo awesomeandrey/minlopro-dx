@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
+        <members>Case.MinloproEmailCases_Case</members>
+        <members>Case.MinloproRegularCases_Case</members>
+        <name>ListView</name>
+    </types>
+    <types>
         <members>Minlopro_DigEx_InAppAndWebMessaging</members>
         <name>PermissionSet</name>
     </types>
     <types>
         <members>Minlopro_Leads</members>
         <members>Minlopro_OverflowWorkItems</members>
+        <members>Minlopro_RegularCases</members>
         <name>Queue</name>
     </types>
     <version>65.0</version>

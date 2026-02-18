@@ -4,7 +4,7 @@
     <capacityWeight>5.0</capacityWeight>
     <isAttributeBased>false</isAttributeBased>
     <label>Minlopro Routing Configuration</label>
-    <pushTimeout>60</pushTimeout>
+    <pushTimeout>300</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>1</routingPriority>
 </QueueRoutingConfig>

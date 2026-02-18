@@ -12,9 +12,5 @@
                 <value>Email</value>
             </criteriaItems>
         </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Minlopro_RegularCases</assignedTo>
-            <assignedToType>Queue</assignedToType>
-        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

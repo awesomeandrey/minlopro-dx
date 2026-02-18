@@ -12,9 +12,5 @@
                 <value>digex-site</value>
             </criteriaItems>
         </ruleEntry>
-        <ruleEntry>
-            <assignedTo>Minlopro_RegularLeads</assignedTo>
-            <assignedToType>Queue</assignedToType>
-        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>
