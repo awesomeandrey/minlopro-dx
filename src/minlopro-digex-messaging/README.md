@@ -13,15 +13,15 @@ Functionality Preview:
 
 1. Activate `Minlopro - DigEx Messaging Channel` messaging channel (see `Setup > Messaging Settings`)
 2. Publish `Minlopro - DigEx Messaging` ESD (see `Setup > Embedded Service Deployments`)
-3. Assign _Service Presence Statuses_ to `Minlopro - DigEx In-App & Web Messaging` permission set
+3. Grant access to _Service Presence Statuses_ via permission set
 
 ### CI/CD Considerations
 
 The following files leverage SFDX Replacements in scope of deployments:
 
-- [ESW_Minlopro_DigExMessaging Site](src/minlopro-digex-messaging/main/sites/ESW_Minlopro_DigExMessaging.site-meta.xml)
-- [DigEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
-- [DigEx - Route Messaging Requests](src/minlopro-digex-messaging/main/flows/DigEx_RouteMessagingRequests.flow-meta.xml)
+- Site > [ESW_Minlopro_DigExMessaging Site](src/minlopro-digex-messaging/main/sites/ESW_Minlopro_DigExMessaging.site-meta.xml)
+- Site Page > [DigEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
+- Omni-Channel Flow > [DigEx - Route Messaging Requests](src/minlopro-digex-messaging/main/flows/DigEx_RouteMessagingRequests.flow-meta.xml)
 
 ### Troubleshooting
 

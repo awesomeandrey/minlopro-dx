@@ -8,12 +8,13 @@
         { "path": "src/minlopro-digex-messaging" },
         { "path": "src/minlopro-dlrs" },
         { "path": "src/minlopro-in-app-guidance" },
+        { "path": "src/minlopro-omni-channel-setup" },
         { "path": "src/minlopro-crm-analytics" }
     ],
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "64.0",
+    "sourceApiVersion": "65.0",
     "replacements": [
         {
             "glob": "src/**/staticresources/**",

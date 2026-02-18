@@ -8,9 +8,9 @@
         <application>standard__LightningService</application>
         <visible>true</visible>
     </applicationVisibilities>
-    <description>Enhanced Messaging for In-App and Web</description>
+    <description>Grants proper access to Omni-Channel functionality.</description>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Minlopro - DigEx In-App &amp; Web Messaging</label>
+    <label>Minlopro - Omni-Channel Agent</label>
     <servicePresenceStatusAccesses>
         <enabled>true</enabled>
         <servicePresenceStatus>Available</servicePresenceStatus>

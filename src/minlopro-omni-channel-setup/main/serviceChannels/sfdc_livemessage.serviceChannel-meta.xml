@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ServiceChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <capacityModel>TAB_BASED</capacityModel>
     <doesMinimizeWidgetOnAccept>false</doesMinimizeWidgetOnAccept>
+    <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
     <hasAutoAcceptEnabled>false</hasAutoAcceptEnabled>
-    <isInterruptible>true</isInterruptible>
-    <label>Cases</label>
-    <relatedEntityType>Case</relatedEntityType>
+    <isInterruptible>false</isInterruptible>
+    <label>Messaging</label>
+    <relatedEntityType>MessagingSession</relatedEntityType>
 </ServiceChannel>

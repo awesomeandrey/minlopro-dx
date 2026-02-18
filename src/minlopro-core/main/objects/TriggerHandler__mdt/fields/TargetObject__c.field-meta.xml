@@ -25,6 +25,11 @@
                 <label>AccountChangeEvent (CDC)</label>
             </value>
             <value>
+                <fullName>AgentWork</fullName>
+                <default>false</default>
+                <label>Agent Work (Omni-Channel)</label>
+            </value>
+            <value>
                 <fullName>BatchApexErrorEvent</fullName>
                 <default>false</default>
                 <label>BatchApexErrorEvent (Platform Event)</label>

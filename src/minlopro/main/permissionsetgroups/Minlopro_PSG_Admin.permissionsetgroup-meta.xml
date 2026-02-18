@@ -12,7 +12,6 @@
     <permissionSets>Minlopro_CurrencyManagement</permissionSets>
     <permissionSets>Minlopro_CustomAuthProviderAndNC</permissionSets>
     <permissionSets>Minlopro_DLRS</permissionSets>
-    <permissionSets>Minlopro_DigEx_InAppAndWebMessaging</permissionSets>
     <permissionSets>Minlopro_DuplicatesManager</permissionSets>
     <permissionSets>Minlopro_FilesManager</permissionSets>
     <permissionSets>Minlopro_ForceComSite</permissionSets>
@@ -22,6 +21,7 @@
     <permissionSets>Minlopro_KnowledgeUser</permissionSets>
     <permissionSets>Minlopro_LeadsManager</permissionSets>
     <permissionSets>Minlopro_Logger</permissionSets>
+    <permissionSets>Minlopro_OmniChannelAgent</permissionSets>
     <permissionSets>Minlopro_SalesforceConnectCustomAdapter</permissionSets>
     <permissionSets>Minlopro_SsoUser</permissionSets>
     <permissionSets>Minlopro_TesseractJsOcr</permissionSets>

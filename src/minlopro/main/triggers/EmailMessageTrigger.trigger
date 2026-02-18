@@ -7,5 +7,5 @@ trigger EmailMessageTrigger on EmailMessage(
     after delete,
     after undelete
 ) {
-    TriggerDispatcher.setContext(EmailMessage.SObjectType).run();
+    TriggerDispatcher.setContext(Schema.EmailMessage.SObjectType).run();
 }
