@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AssignmentRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <assignmentRule>
+        <fullName>Minlopro - Leads Distribution</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <assignedTo>DigEx_WebLeads</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <criteriaItems>
+                <field>Lead.SrcCode__c</field>
+                <operation>equals</operation>
+                <value>digex-site</value>
+            </criteriaItems>
+        </ruleEntry>
+    </assignmentRule>
+</AssignmentRules>

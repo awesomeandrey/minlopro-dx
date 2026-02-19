@@ -16,5 +16,6 @@
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
     <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
-    <label>Minlopro Support Presence Configuration</label>
+    <label>Minlopro - Agent Presence Configuration</label>
+    <userDisplayName>Agent {!User_FirstName}</userDisplayName>
 </PresenceUserConfig>

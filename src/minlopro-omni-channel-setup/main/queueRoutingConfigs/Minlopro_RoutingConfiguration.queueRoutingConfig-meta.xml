@@ -3,7 +3,7 @@
     <capacityType>INHERITED</capacityType>
     <capacityWeight>2.0</capacityWeight>
     <isAttributeBased>false</isAttributeBased>
-    <label>Minlopro Routing Configuration</label>
+    <label>Minlopro - Routing Configuration</label>
     <pushTimeout>60</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>1</routingPriority>
