@@ -9,6 +9,8 @@
     <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
     <label>MinloproSalesforceLoopback_oauthPlcy</label>
     <permittedUsersPolicyType>AdminApprovedPreAuthorized</permittedUsersPolicyType>
-    <refreshTokenPolicyType>Infinite</refreshTokenPolicyType>
+    <refreshTokenPolicyType>SpecificLifetime</refreshTokenPolicyType>
+    <refreshTokenValidityPeriod>1</refreshTokenValidityPeriod>
+    <refreshTokenValidityUnit>Days</refreshTokenValidityUnit>
     <requiredSessionLevel>STANDARD</requiredSessionLevel>
 </ExtlClntAppOauthConfigurablePolicies>

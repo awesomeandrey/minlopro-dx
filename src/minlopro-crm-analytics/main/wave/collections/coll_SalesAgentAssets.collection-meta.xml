@@ -3,7 +3,7 @@
     <collectionType>static</collectionType>
     <color>#01c3b3</color>
     <description>Sample CRMA assets collection for the agent.</description>
-    <folder>coll_SalesAgentAssets</folder>
+    <folder>Sales_Agent_Assets</folder>
     <items>
         <asset>dbrd_OpportunitiesAnalytics</asset>
         <assetType>Dashboard</assetType>
