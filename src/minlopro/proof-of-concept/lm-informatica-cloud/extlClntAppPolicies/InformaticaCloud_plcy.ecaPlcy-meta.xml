@@ -3,6 +3,6 @@
     <externalClientApplication>InformaticaCloud</externalClientApplication>
     <isEnabled>true</isEnabled>
     <isOauthPluginEnabled>true</isOauthPluginEnabled>
-    <label>InformaticaCloud_defPlcy</label>
-    <startPage>OAuth</startPage>
+    <label>InformaticaCloud_plcy</label>
+    <startPage>None</startPage>
 </ExtlClntAppConfigurablePolicies>
