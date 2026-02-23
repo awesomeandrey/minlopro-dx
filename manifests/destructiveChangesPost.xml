@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
     <types>
-        <members>Minlopro_SupportPresenceConfiguration</members>
-        <name>PresenceUserConfig</name>
+        <members>InformaticaCloud</members>
+        <members>MinloproSalesforceLoopback</members>
+        <name>ConnectedApp</name>
     </types>
     <version>65.0</version>
 </Package>
