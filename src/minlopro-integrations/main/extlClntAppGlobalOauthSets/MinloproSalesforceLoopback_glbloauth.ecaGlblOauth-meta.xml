@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExtlClntAppGlobalOauthSettings xmlns="http://soap.sforce.com/2006/04/metadata">
-    <callbackUrl>${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE</callbackUrl>
+    <callbackUrl>${SF_INSTANCE_URL}/services/authcallback/Loopback_WSPKCE
+${SF_INSTANCE_URL}/services/authcallback/MinloproLoopback
+${SF_INSTANCE_URL}/services/extidp/callback</callbackUrl>
     <certificate>${SF_MINLOPRO_CERT_BASE64_VALUE}</certificate>
     <externalClientApplication>MinloproSalesforceLoopback</externalClientApplication>
     <isClientCredentialsFlowEnabled>true</isClientCredentialsFlowEnabled>

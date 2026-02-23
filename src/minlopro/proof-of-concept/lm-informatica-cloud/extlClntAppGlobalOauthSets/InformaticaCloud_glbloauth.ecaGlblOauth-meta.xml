@@ -12,9 +12,9 @@
     <isPkceRequired>true</isPkceRequired>
     <isRefreshTokenRotationEnabled>false</isRefreshTokenRotationEnabled>
     <isSecretRequiredForRefreshToken>true</isSecretRequiredForRefreshToken>
-    <isSecretRequiredForTokenExchange>false</isSecretRequiredForTokenExchange>
+    <isSecretRequiredForTokenExchange>true</isSecretRequiredForTokenExchange>
     <isTokenExchangeEnabled>false</isTokenExchangeEnabled>
-    <label>InformaticaCloud_defGlblOauthSet</label>
+    <label>InformaticaCloud_glbloauth</label>
     <shouldRotateConsumerKey>false</shouldRotateConsumerKey>
     <shouldRotateConsumerSecret>false</shouldRotateConsumerSecret>
 </ExtlClntAppGlobalOauthSettings>
