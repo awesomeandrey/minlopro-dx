@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtlClntAppOauthSettings xmlns="http://soap.sforce.com/2006/04/metadata">
+    <commaSeparatedOauthScopes>Full, RefreshToken</commaSeparatedOauthScopes>
+    <externalClientApplication>InformaticaCloud</externalClientApplication>
+    <isFirstPartyAppEnabled>false</isFirstPartyAppEnabled>
+    <label>InformaticaCloud_defOauthSet</label>
+    <oauthLink>00D09000007w56S:888J8000000TNiz</oauthLink>
+</ExtlClntAppOauthSettings>

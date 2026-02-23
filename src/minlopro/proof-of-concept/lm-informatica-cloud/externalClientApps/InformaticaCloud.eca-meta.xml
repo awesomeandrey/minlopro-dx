@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalClientApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>${SF_ADMIN_EMAIL}</contactEmail>
+    <description>Custom connected app adapted for Informatica Cloud integration user only.</description>
+    <distributionState>Local</distributionState>
+    <isProtected>false</isProtected>
+    <label>Informatica Cloud</label>
+    <orgScopedExternalApp>00D09000007w56S:InformaticaCloud</orgScopedExternalApp>
+</ExternalClientApplication>
