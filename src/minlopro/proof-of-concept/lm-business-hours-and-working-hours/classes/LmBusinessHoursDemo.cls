@@ -22,10 +22,12 @@ public without sharing class LmBusinessHoursDemo {
     }
 
     public static Datetime calculateFutureBusinessDatetime(Datetime startTime) {
-        // Convert 48-hour delay to milliseconds
+        /*
+        Note: 'BusinessHours.add()' method adds an interval of time from a start Datetime traversing business hours only
         Long delayMs = DEFAULT_DELAY_HOURS * 60 * 60 * 1000;
-
         Datetime nextBusinessDatetime = BusinessHours.add(companyBusinessHours.Id, startTime, delayMs);
+        */
+        Datetime nextBusinessDatetime = startTime.addHours(48); // Add strict 48 hours
         while (!isValid(nextBusinessDatetime)) {
             // Move clock 1 hour ahead
             nextBusinessDatetime = nextBusinessDatetime.addHours(1);

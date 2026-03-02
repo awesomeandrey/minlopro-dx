@@ -32,6 +32,7 @@ if [[ -t 0 ]]; then
     --target "$SRC_DIR/**/classes/**"
     --target "$SRC_DIR/**/flows/**"
     --target "$SRC_DIR/**/lwc/**"
+    --target "$SRC_DIR/**/triggers/**"
   )
 else
   # Scan passed files only (covering all metadata types within the list)

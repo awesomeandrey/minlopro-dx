@@ -46,6 +46,7 @@ jobs:
               "--target 'src/**/classes/**'"
               "--target 'src/**/flows/**'"
               "--target 'src/**/lwc/**'"
+              "--target 'src/**/triggers/**'"
               "--rule-selector all:(1,2)"
             )
           fi
