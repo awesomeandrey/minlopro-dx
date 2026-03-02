@@ -5,5 +5,5 @@
     <datasets>ds_LwcWorkspaceStats</datasets>
     <dateVersion>1</dateVersion>
     <masterLabel>LWC Workspace Stats</masterLabel>
-    <visualizationType>hbar</visualizationType>
+    <visualizationType>pie</visualizationType>
 </WaveLens>
