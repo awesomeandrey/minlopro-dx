@@ -1,5 +1,5 @@
 import { LightningElement, track } from 'lwc';
-import { isEmpty, parseError, wait, waitAsync } from 'c/utilities';
+import { isEmpty, parseError, pickRandom, wait, waitAsync } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 import verifyUserTokenApex from '@salesforce/apex/DigExWebToLeadController.verifyUserToken';
@@ -10,11 +10,17 @@ import verifyUserTokenApex from '@salesforce/apex/DigExWebToLeadController.verif
 export default class DigExWebToLeadForm extends LightningElement {
     static renderMode = 'light';
 
+    static FIRST_NAMES = ['Alice', 'Bob', 'Charlie', 'Diana', 'Edward', 'Fiona', 'George', 'Hannah', 'Ivan', 'Julia'];
+    static LAST_NAMES = ['Anderson', 'Brown', 'Clark', 'Davis', 'Evans', 'Fisher', 'Green', 'Harris', 'Jackson', 'King'];
+
     @track reCaptchaWidget = null;
     @track isReCaptchaValid = false;
     @track error = null;
     @track loading = false;
     @track submitted = false;
+    @track firstName = '';
+    @track lastName = '';
+    @track email = '';
 
     get disableBtn() {
         return this.loading || isEmpty(this.reCaptchaWidget) || !this.isReCaptchaValid;
@@ -24,7 +30,14 @@ export default class DigExWebToLeadForm extends LightningElement {
         return !this.submitted;
     }
 
+    generateRandomFormValues() {
+        this.firstName = pickRandom(DigExWebToLeadForm.FIRST_NAMES);
+        this.lastName = pickRandom(DigExWebToLeadForm.LAST_NAMES);
+        this.email = `${this.firstName.toLowerCase()}.${this.lastName.toLowerCase()}@sample.com`;
+    }
+
     async connectedCallback() {
+        this.generateRandomFormValues();
         this.loading = true;
         try {
             this.reCaptchaWidget = await new Promise((resolve, reject) => {

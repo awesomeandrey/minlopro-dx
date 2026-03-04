@@ -3,12 +3,12 @@
     <fullName>LeadQuickInfo</fullName>
     <fields>Name</fields>
     <fields>Title</fields>
-    <fields>CheckIfDuplicate__c</fields>
     <fields>Company</fields>
-    <fields>Phone</fields>
     <fields>Email</fields>
-    <fields>AnnualRevenue</fields>
     <fields>LeadSource</fields>
+    <fields>Phone</fields>
+    <fields>CheckIfDuplicate__c</fields>
+    <fields>AnnualRevenue</fields>
     <fields>Status</fields>
     <fields>Website</fields>
     <label>Lead Quick Info</label>

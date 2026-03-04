@@ -201,6 +201,13 @@ export function isUrl(value) {
     return URL.canParse(value);
 }
 
+export function pickRandom(values = []) {
+    if (!Array.isArray(values) || values.length === 0) {
+        return '';
+    }
+    return values[Math.floor(Math.random() * values.length)];
+}
+
 // Files management
 
 export async function readFileAsBlob(file) {

@@ -7,6 +7,7 @@
             <input type="hidden" name="oid" value="${SF_INSTANCE_ID}" />
             <!-- Lead custom fields can be passed by field API name as a hidden form parameter -->
             <input type="hidden" name="SrcCode__c" value="digex-site" />
+            <input type="hidden" name="lead_source" value="Web" />
             <!--  ----------------------------------------------------------------------  -->
             <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
             <!--  these lines if you wish to test in debug mode.                          -->
@@ -18,7 +19,16 @@
                     <abbr class="slds-required" title="required">* </abbr>First Name</label
                 >
                 <div class="slds-form-element__control">
-                    <input id="first_name" maxlength="40" name="first_name" size="20" type="text" class="slds-input" required />
+                    <input
+                        id="first_name"
+                        maxlength="40"
+                        name="first_name"
+                        size="20"
+                        type="text"
+                        class="slds-input"
+                        value={firstName}
+                        required
+                    />
                 </div>
             </div>
             <div class="slds-form-element">
@@ -26,19 +36,36 @@
                     <abbr class="slds-required" title="required">* </abbr>Last Name</label
                 >
                 <div class="slds-form-element__control">
-                    <input id="last_name" maxlength="40" name="last_name" size="20" type="text" class="slds-input" required />
+                    <input
+                        id="last_name"
+                        maxlength="40"
+                        name="last_name"
+                        size="20"
+                        type="text"
+                        class="slds-input"
+                        value={lastName}
+                        required
+                    />
                 </div>
             </div>
             <div class="slds-form-element">
                 <label class="slds-form-element__label" for="email">Email</label>
                 <div class="slds-form-element__control">
-                    <input id="email" maxlength="40" name="email" size="20" type="email" class="slds-input" />
+                    <input id="email" maxlength="40" name="email" size="20" type="email" class="slds-input" value={email} />
                 </div>
             </div>
             <div class="slds-form-element">
                 <label class="slds-form-element__label" for="company">Company</label>
                 <div class="slds-form-element__control">
-                    <input id="company" maxlength="40" name="company" size="20" type="text" class="slds-input" />
+                    <input
+                        id="company"
+                        maxlength="40"
+                        name="company"
+                        size="20"
+                        type="text"
+                        class="slds-input"
+                        value="Minlopro DX"
+                    />
                 </div>
             </div>
             <c-error-alert value={error}></c-error-alert>

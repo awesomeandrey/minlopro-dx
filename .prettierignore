@@ -19,6 +19,7 @@
 **/layouts/
 **/matchingRules/
 **/networkBranding/
+**/objects/**/fields
 **/prompts/
 **/reportTypes/
 **/samlssoconfigs/
