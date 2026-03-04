@@ -4,5 +4,10 @@
         <members>Salesforce_Adoption_Dashboard_Admin</members>
         <name>PermissionSet</name>
     </types>
+    <types>
+        <members>DigExWebToLeadController</members>
+        <members>DigExWebToLeadControllerTest</members>
+        <name>ApexClass</name>
+    </types>
     <version>65.0</version>
 </Package>

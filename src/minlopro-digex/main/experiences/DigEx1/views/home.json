@@ -48,6 +48,13 @@
             "tabKey" : "1",
             "tabName" : "Web-To-Lead 💰"
           }, {
+            "UUID" : "e2c14eb9-ff72-43f8-a063-25e557501797",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "4e5c5",
+            "tabName" : "Web-To-Case❓"
+          }, {
             "UUID" : "578368a5-3ef7-44fa-88b8-c45bbaa5f45e",
             "allowGuestUser" : true,
             "locked" : false,
@@ -93,6 +100,20 @@
         "id" : "c4fb8407-94c2-455b-841b-f31f32bfcd88",
         "regionLabel" : "Web-To-Lead 💰",
         "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:digExWebToCaseForm",
+          "id" : "9035219b-2d60-4092-9987-f59a145f6eef",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "e2c14eb9-ff72-43f8-a063-25e557501797",
+        "regionLabel" : "Web-To-Case❓",
+        "regionName" : "4e5c5",
         "renditionMap" : { },
         "type" : "region"
       }, {

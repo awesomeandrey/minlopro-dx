@@ -1,0 +1,38 @@
+<template>
+    <c-dig-ex-re-captcha-form onformsubmit={handleFormSubmit} submit-label="Submit" lwc:ref="reCaptchaForm">
+        <input type="hidden" name="orgid" value="${SF_INSTANCE_ID}" />
+        <input type="hidden" name="retURL" value="" />
+        <div class="slds-form-element">
+            <label class="slds-form-element__label" for="name"> <abbr class="slds-required" title="required">* </abbr>Name</label>
+            <div class="slds-form-element__control">
+                <input id="name" maxlength="80" name="name" size="20" type="text" class="slds-input" required />
+            </div>
+        </div>
+        <div class="slds-form-element slds-m-top_x-small">
+            <label class="slds-form-element__label" for="email">Email</label>
+            <div class="slds-form-element__control">
+                <input id="email" maxlength="80" name="email" size="20" type="email" class="slds-input" />
+            </div>
+        </div>
+        <div class="slds-form-element slds-m-top_x-small">
+            <label class="slds-form-element__label" for="subject">
+                <abbr class="slds-required" title="required">* </abbr>Subject</label
+            >
+            <div class="slds-form-element__control">
+                <input id="subject" maxlength="255" name="subject" size="20" type="text" class="slds-input" required />
+            </div>
+        </div>
+        <div class="slds-form-element slds-m-top_x-small">
+            <label class="slds-form-element__label" for="description">Description</label>
+            <div class="slds-form-element__control">
+                <textarea
+                    id="description"
+                    name="description"
+                    rows="5"
+                    class="slds-textarea"
+                    placeholder="Describe your issue..."
+                ></textarea>
+            </div>
+        </div>
+    </c-dig-ex-re-captcha-form>
+</template>

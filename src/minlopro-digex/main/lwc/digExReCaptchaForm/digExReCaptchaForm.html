@@ -1,0 +1,20 @@
+<template lwc:render-mode="light">
+    <div class="slds-box slds-box_small" lwc:ref="container">
+        <div lwc:if={submitted} class="slds-align_absolute-center" style="min-height: inherit">
+            <p class="slds-text-heading_large">Thanks!</p>
+        </div>
+        <form lwc:ref="form" lwc:if={showForm}>
+            <slot></slot>
+            <c-error-alert value={error}></c-error-alert>
+            <div lwc:ref="reCaptcha" class="g-recaptcha slds-m-top_x-small"></div>
+            <button
+                class="slds-button slds-button_brand slds-m-top_x-small"
+                type="button"
+                onclick={handleSubmit}
+                disabled={disableBtn}
+            >
+                {submitLabel}
+            </button>
+        </form>
+    </div>
+</template>

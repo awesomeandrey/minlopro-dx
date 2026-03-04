@@ -1,9 +1,9 @@
 @IsTest
-private class DigExWebToLeadControllerTest {
+private class DigExReCaptchaControllerTest {
     @IsTest
     static void testVerifyUserToken() {
         System.runAs(TestDataFactory.createDigExGuestUser()) {
-            DigExWebToLeadController.ReCaptchaResponse mockedResponse = new DigExWebToLeadController.ReCaptchaResponse();
+            DigExReCaptchaController.ReCaptchaResponse mockedResponse = new DigExReCaptchaController.ReCaptchaResponse();
             mockedResponse.success = true;
             mockedResponse.hostname = 'sample_hostname';
             mockedResponse.errorCodes = Lists.of('missing-input-response', 'invalid-input-response');
@@ -11,7 +11,7 @@ private class DigExWebToLeadControllerTest {
             factory.mockDefaultRequest().withResponseStatusCode(200).withResponseBody(mockedResponse.toJson());
             factory.mock();
             Test.startTest();
-            DigExWebToLeadController.ReCaptchaResponse reCaptchaResponse = DigExWebToLeadController.verifyUserToken(
+            DigExReCaptchaController.ReCaptchaResponse reCaptchaResponse = DigExReCaptchaController.verifyUserToken(
                 'sample_recaptcha_token'
             );
             Test.stopTest();
@@ -30,7 +30,7 @@ private class DigExWebToLeadControllerTest {
             factory.mock();
             Test.startTest();
             try {
-                DigExWebToLeadController.verifyUserToken('sample_recaptcha_token');
+                DigExReCaptchaController.verifyUserToken('sample_recaptcha_token');
                 Assert.fail();
             } catch (Exception ex) {
                 Assert.isInstanceOfType(ex, AuraHandledException.class);

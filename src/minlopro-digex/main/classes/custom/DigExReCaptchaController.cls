@@ -1,8 +1,8 @@
 /**
- * @description Server-side controller for the Web-to-Lead form.
- * Verifies user tokens using the Google reCAPTCHA v2 (checkbox) flow.
+ * @description Server-side controller for verifying Google reCAPTCHA v2 (checkbox) user tokens.
+ * Used by form components that integrate reCAPTCHA verification.
  */
-public with sharing class DigExWebToLeadController {
+public with sharing class DigExReCaptchaController {
     private static final String ERROR_CODES_KEY = 'error-codes';
 
     @AuraEnabled
