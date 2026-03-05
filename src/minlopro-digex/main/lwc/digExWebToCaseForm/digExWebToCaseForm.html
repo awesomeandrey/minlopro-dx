@@ -1,17 +1,20 @@
 <template>
     <c-dig-ex-re-captcha-form onformsubmit={handleFormSubmit} submit-label="Submit" lwc:ref="reCaptchaForm">
         <input type="hidden" name="orgid" value="${SF_INSTANCE_ID}" />
-        <input type="hidden" name="retURL" value="" />
+        <input type="hidden" name="type" value="Other" />
+        <input type="hidden" name="status" value="New" />
+        <input type="hidden" name="priority" value="Medium" />
+        <input type="hidden" name="origin" value="Web" />
         <div class="slds-form-element">
             <label class="slds-form-element__label" for="name"> <abbr class="slds-required" title="required">* </abbr>Name</label>
             <div class="slds-form-element__control">
-                <input id="name" maxlength="80" name="name" size="20" type="text" class="slds-input" required />
+                <input id="name" maxlength="80" name="name" size="20" type="text" class="slds-input" value={name} required />
             </div>
         </div>
         <div class="slds-form-element slds-m-top_x-small">
             <label class="slds-form-element__label" for="email">Email</label>
             <div class="slds-form-element__control">
-                <input id="email" maxlength="80" name="email" size="20" type="email" class="slds-input" />
+                <input id="email" maxlength="80" name="email" size="20" type="email" class="slds-input" value={email} />
             </div>
         </div>
         <div class="slds-form-element slds-m-top_x-small">
@@ -19,19 +22,22 @@
                 <abbr class="slds-required" title="required">* </abbr>Subject</label
             >
             <div class="slds-form-element__control">
-                <input id="subject" maxlength="255" name="subject" size="20" type="text" class="slds-input" required />
+                <input
+                    id="subject"
+                    maxlength="255"
+                    name="subject"
+                    size="20"
+                    type="text"
+                    class="slds-input"
+                    value={subject}
+                    required
+                />
             </div>
         </div>
         <div class="slds-form-element slds-m-top_x-small">
             <label class="slds-form-element__label" for="description">Description</label>
             <div class="slds-form-element__control">
-                <textarea
-                    id="description"
-                    name="description"
-                    rows="5"
-                    class="slds-textarea"
-                    placeholder="Describe your issue..."
-                ></textarea>
+                <textarea id="description" name="description" rows="5" class="slds-textarea" lwc:ref="description"></textarea>
             </div>
         </div>
     </c-dig-ex-re-captcha-form>

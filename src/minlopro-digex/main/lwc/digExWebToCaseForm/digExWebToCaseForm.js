@@ -1,6 +1,7 @@
-import { LightningElement } from 'lwc';
-import { parseError } from 'c/utilities';
+import { LightningElement, track } from 'lwc';
+import { parseError, capitalize } from 'c/utilities';
 import $Toastify from 'c/toastify';
+import { randomFirstName, randomLastName, randomEmail, randomText } from 'c/digExTestDataFactory';
 
 /**
  * @description Web-to-Case form with Google reCAPTCHA v2 (checkbox) verification.
@@ -10,6 +11,26 @@ import $Toastify from 'c/toastify';
  * Fields collected: contact name, email, subject, description.
  */
 export default class DigExWebToCaseForm extends LightningElement {
+    @track name = '';
+    @track email = '';
+    @track subject = '';
+    @track description = '';
+
+    connectedCallback() {
+        const firstName = randomFirstName();
+        const lastName = randomLastName();
+        this.name = `${firstName} ${lastName}`;
+        this.email = randomEmail(firstName, lastName);
+        this.subject = capitalize(randomText(60));
+    }
+
+    renderedCallback() {
+        if (!this.hasRendered && this.refs.description && !this.refs.description.value) {
+            this.hasRendered = true;
+            this.refs.description.value = capitalize(randomText(200));
+        }
+    }
+
     async handleFormSubmit(event) {
         const { formData } = event.detail;
         try {

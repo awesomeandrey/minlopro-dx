@@ -8,7 +8,7 @@
             <publicGroup>OrgUsers</publicGroup>
         </publicGroups>
     </queueMembers>
-    <queueRoutingConfig>Minlopro_RoutingConfiguration</queueRoutingConfig>
+    <queueRoutingConfig>DigEx_RoutingConfiguration</queueRoutingConfig>
     <queueSobject>
         <sobjectType>MessagingEndUser</sobjectType>
     </queueSobject>
