@@ -7,7 +7,7 @@
         <locationY>0</locationY>
         <actionName>FlowLogger</actionName>
         <actionType>apex</actionType>
-        <flowTransactionModel>Automatic</flowTransactionModel>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>level</name>
             <value>

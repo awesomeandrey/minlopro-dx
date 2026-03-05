@@ -21,7 +21,7 @@ export default class DigExWebToCaseForm extends LightningElement {
         const lastName = randomLastName();
         this.name = `${firstName} ${lastName}`;
         this.email = randomEmail(firstName, lastName);
-        this.subject = capitalize(randomText(60));
+        this.subject = capitalize(randomText(35));
     }
 
     renderedCallback() {

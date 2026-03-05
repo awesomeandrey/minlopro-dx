@@ -1,23 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>RouteToQueue</name>
-        <label>Route To Queue</label>
-        <locationX>176</locationX>
-        <locationY>242</locationY>
+        <name>Capture_Error_And_Log</name>
+        <label>Capture Error &amp; Log</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>FlowLogger</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>level</name>
+            <value>
+                <stringValue>ERROR</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>FlowLogger</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <name>Route_Messaging_Request</name>
+        <label>Route Messaging Request</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <actionName>routeWork</actionName>
         <actionType>routeWork</actionType>
+        <faultConnector>
+            <targetReference>Capture_Error_And_Log</targetReference>
+        </faultConnector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>recordId</name>
             <value>
-                <elementReference>messagingSessionId</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>serviceChannelId</name>
-            <value>
-                <stringValue>${SF_MESSAGING_SERVICE_CHANNEL_ID}</stringValue>
+                <elementReference>recordId</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -39,19 +59,7 @@
             </value>
         </inputParameters>
         <inputParameters>
-            <name>routingConfigId</name>
-        </inputParameters>
-        <inputParameters>
             <name>routingConfigLabel</name>
-        </inputParameters>
-        <inputParameters>
-            <name>queueId</name>
-            <value>
-                <elementReference>FindQueue.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>agentId</name>
         </inputParameters>
         <inputParameters>
             <name>agentLabel</name>
@@ -66,25 +74,13 @@
             <name>skillRequirementsResourceItem</name>
         </inputParameters>
         <inputParameters>
-            <name>botId</name>
-        </inputParameters>
-        <inputParameters>
             <name>botLabel</name>
-        </inputParameters>
-        <inputParameters>
-            <name>externalConversationBotId</name>
         </inputParameters>
         <inputParameters>
             <name>externalConversationBotLabel</name>
         </inputParameters>
         <inputParameters>
-            <name>copilotId</name>
-        </inputParameters>
-        <inputParameters>
             <name>copilotLabel</name>
-        </inputParameters>
-        <inputParameters>
-            <name>agentforceEmployeeAgentId</name>
         </inputParameters>
         <inputParameters>
             <name>agentforceEmployeeAgentLabel</name>
@@ -95,10 +91,42 @@
                 <booleanValue>true</booleanValue>
             </value>
         </inputParameters>
+        <inputParameters>
+            <name>serviceChannelId</name>
+            <value>
+                <setupReference>sfdc_livemessage</setupReference>
+                <setupReferenceType>ServiceChannel</setupReferenceType>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>routingConfigId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>botId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>copilotId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>agentforceEmployeeAgentId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>externalConversationBotId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>queueId</name>
+            <value>
+                <elementReference>FindQueue.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>agentId</name>
+        </inputParameters>
         <nameSegment>routeWork</nameSegment>
         <offset>0</offset>
+        <versionString>2.0.0</versionString>
     </actionCalls>
-    <apiVersion>63.0</apiVersion>
+    <apiVersion>66.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <environments>Default</environments>
     <formulas>
@@ -126,11 +154,11 @@
         <description>Target queue is meant to operate on &apos;Messaging User&apos; and &apos;Messaging Session&apos; entities.</description>
         <name>FindQueue</name>
         <label>Find Queue</label>
-        <locationX>176</locationX>
-        <locationY>134</locationY>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>RouteToQueue</targetReference>
+            <targetReference>Route_Messaging_Request</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -154,7 +182,7 @@
     <runInMode>DefaultMode</runInMode>
     <sourceTemplate>omnichannel_messaging__MsgRouting</sourceTemplate>
     <start>
-        <locationX>50</locationX>
+        <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>FindQueue</targetReference>
