@@ -1,4 +1,4 @@
-# DigEx - Route Messaging Requests
+# Minlopro - Omni 🔱 - Route DigEx Messaging Requests
 
 ## Flow Diagram
 
@@ -11,18 +11,24 @@
 
 flowchart TB
 START(["START"]):::startClass
-click START "#general-information" "1554375562"
+click START "#general-information" "2775120444"
 
-RouteToQueue("⚡ <em></em><br/>Route To Queue"):::actionCalls
-click RouteToQueue "#routetoqueue" "1953844202"
+Capture_Error_And_Log("⚙️ <em></em><br/>Capture Error & Log"):::actionCalls
+click Capture_Error_And_Log "#capture_error_and_log" "3511232908"
+
+Route_Messaging_Request("⚡ <em></em><br/>Route Messaging Request"):::actionCalls
+click Route_Messaging_Request "#route_messaging_request" "1280459259"
 
 FindQueue[("🔍 <em></em><br/>Find Queue")]:::recordLookups
-click FindQueue "#findqueue" "1269512318"
+click FindQueue "#findqueue" "207744127"
 
-RouteToQueue --> END_RouteToQueue
-FindQueue --> RouteToQueue
+Capture_Error_And_Log --> END_Capture_Error_And_Log
+Route_Messaging_Request --> END_Route_Messaging_Request
+Route_Messaging_Request -. Fault .->Capture_Error_And_Log
+FindQueue --> Route_Messaging_Request
 START -->  FindQueue
-END_RouteToQueue(( END )):::endClass
+END_Capture_Error_And_Log(( END )):::endClass
+END_Route_Messaging_Request(( END )):::endClass
 
 
 classDef actionCalls fill:#D4E4FC,color:black,text-decoration:none,max-height:100px
@@ -51,11 +57,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Process Type| Routing Flow|
-|Label|DigEx - Route Messaging Requests|
+|Label|Minlopro - Omni 🔱 - Route DigEx Messaging Requests|
 |Status|Active|
-|Description|Routes each message to an agent or queue based on conditions that you define.|
 |Environments|Default|
-|Interview Label|DigEx - Route Messaging Requests {!$Flow.CurrentDateTime}|
+|Interview Label|Minlopro - Omni - Route DigEx Messaging Requests {!$Flow.CurrentDateTime}|
 |Run In Mode| Default Mode|
 |Source Template|omnichannel_messaging__MsgRouting|
 | Builder Type (PM)|LightningFlowBuilder|
@@ -81,39 +86,56 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 ## Flow Nodes Details
 
-### RouteToQueue
+### Capture_Error_And_Log
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Action Call|
-|Label|Route To Queue|
+|Label|Capture Error & Log|
+|Action Type|Apex|
+|Action Name|FlowLogger|
+|Flow Transaction Model|CurrentTransaction|
+|Name Segment|FlowLogger|
+|Offset|0|
+|Level (input)|ERROR|
+|Message (input)|$Flow.FaultMessage|
+
+
+### Route_Messaging_Request
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Action Call|
+|Label|Route Messaging Request|
 |Action Type|Route Work|
 |Action Name|routeWork|
+|Fault Connector|[Capture_Error_And_Log](#capture_error_and_log)|
 |Flow Transaction Model|CurrentTransaction|
 |Name Segment|routeWork|
 |Offset|0|
-|Record Id (input)|messagingSessionId|
-|Service Channel Id (input)|${SF_MESSAGING_SERVICE_CHANNEL_ID}|
+|Version String|2.0.0|
+|Record Id (input)|recordId|
 |Service Channel Label (input)|Messaging|
 |Service Channel Dev Name (input)|sfdc_livemessage|
 |Routing Type (input)|QueueBased|
-|Routing Config Id (input)|<!-- -->|
 |Routing Config Label (input)|<!-- -->|
-|Queue Id (input)|FindQueue.Id|
-|Agent Id (input)|<!-- -->|
 |Agent Label (input)|<!-- -->|
 |Queue Label (input)|<!-- -->|
 |Skill Option (input)|<!-- -->|
 |Skill Requirements Resource Item (input)|<!-- -->|
-|Bot Id (input)|<!-- -->|
 |Bot Label (input)|<!-- -->|
-|External Conversation Bot Id (input)|<!-- -->|
 |External Conversation Bot Label (input)|<!-- -->|
-|Copilot Id (input)|<!-- -->|
 |Copilot Label (input)|<!-- -->|
-|Agentforce Employee Agent Id (input)|<!-- -->|
 |Agentforce Employee Agent Label (input)|<!-- -->|
 |Is Queue Variable (input)|✅|
+|Service Channel Id (input)|setupReference: sfdc_livemessage<br/>setupReferenceType: ServiceChannel<br/>|
+|Routing Config Id (input)|<!-- -->|
+|Bot Id (input)|<!-- -->|
+|Copilot Id (input)|<!-- -->|
+|Agentforce Employee Agent Id (input)|<!-- -->|
+|External Conversation Bot Id (input)|<!-- -->|
+|Queue Id (input)|FindQueue.Id|
+|Agent Id (input)|<!-- -->|
 
 
 ### FindQueue
@@ -127,7 +149,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Assign Null Values If No Records Found|⬜|
 |Get First Record Only|✅|
 |Store Output Automatically|✅|
-|Connector|[RouteToQueue](#routetoqueue)|
+|Connector|[Route_Messaging_Request](#route_messaging_request)|
 
 
 #### Filters (logic: **and**)
