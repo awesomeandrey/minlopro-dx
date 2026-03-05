@@ -24,6 +24,115 @@
         <offset>0</offset>
     </actionCalls>
     <actionCalls>
+        <name>Check_Availability_for_Cases_Routing</name>
+        <label>Check Availability for Cases Routing</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>checkAvailabilityForRouting</actionName>
+        <actionType>checkAvailabilityForRouting</actionType>
+        <connector>
+            <targetReference>Log_Availability_Output</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Capture_Error_And_Log</targetReference>
+        </faultConnector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>routingType</name>
+            <value>
+                <stringValue>QueueBased</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>serviceChannelLabel</name>
+            <value>
+                <stringValue>Cases</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>isQueueVariable</name>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>skillOption</name>
+        </inputParameters>
+        <inputParameters>
+            <name>selectedOutputs</name>
+            <value>
+                <stringValue>GET_ALL</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>skillRequirementsResourceItem</name>
+        </inputParameters>
+        <inputParameters>
+            <name>serviceChannelId</name>
+            <value>
+                <setupReference>Cases</setupReference>
+                <setupReferenceType>ServiceChannel</setupReferenceType>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>agentId</name>
+        </inputParameters>
+        <inputParameters>
+            <name>queueId</name>
+            <value>
+                <elementReference>Critical_Cases_Queue.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>serviceChannelDevName</name>
+            <value>
+                <stringValue>Cases</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>queueLabel</name>
+        </inputParameters>
+        <inputParameters>
+            <name>agentLabel</name>
+        </inputParameters>
+        <nameSegment>checkAvailabilityForRouting</nameSegment>
+        <offset>0</offset>
+        <outputParameters>
+            <assignToReference>queuedWorkItemsNum</assignToReference>
+            <name>queueSize</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>onlineAgentsNum</assignToReference>
+            <name>onlineAgentsCount</name>
+        </outputParameters>
+        <outputParameters>
+            <assignToReference>estimatedWaitTime</assignToReference>
+            <name>estimatedWaitTime</name>
+        </outputParameters>
+        <versionString>2.0.0</versionString>
+    </actionCalls>
+    <actionCalls>
+        <name>Log_Availability_Output</name>
+        <label>Log Availability Output</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>FlowLogger</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Route_Critical_Case</targetReference>
+        </connector>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <elementReference>availabilityLog</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>FlowLogger</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
         <name>Route_Critical_Case</name>
         <label>Route Critical Case</label>
         <locationX>0</locationX>
@@ -116,7 +225,7 @@
         <inputParameters>
             <name>queueId</name>
             <value>
-                <elementReference>Critical_Work_Items_Queue.Id</elementReference>
+                <elementReference>Critical_Cases_Queue.Id</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -152,16 +261,21 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Case_Service_Channel</targetReference>
+                <targetReference>Critical_Cases_Queue</targetReference>
             </connector>
             <label>Critical Case Detected</label>
         </rules>
     </decisions>
     <environments>Default</environments>
     <formulas>
+        <name>availabilityLog</name>
+        <dataType>String</dataType>
+        <expression>&apos;Estimated Wait Time # = &apos; + TEXT({!estimatedWaitTime}) + &apos; | Online Agents # = &apos; + TEXT({!onlineAgentsNum}) + &apos; | Queued Work Items # = &apos; + TEXT({!queuedWorkItemsNum})</expression>
+    </formulas>
+    <formulas>
         <name>isCriticalCase</name>
         <dataType>Boolean</dataType>
-        <expression>CONTAINS(LOWER({!Target_Case.Subject}),&apos;critical&apos;)</expression>
+        <expression>CONTAINS(LOWER({!Target_Case.Subject}), &apos;critical&apos;) || CONTAINS(LOWER({!Target_Case.Subject}), &apos;asap&apos;)</expression>
     </formulas>
     <interviewLabel>Minlopro_Omni_RouteCriticalCases {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Omni 🔱 - Route Critical Cases</label>
@@ -185,34 +299,13 @@
     </processMetadataValues>
     <processType>RoutingFlow</processType>
     <recordLookups>
-        <name>Case_Service_Channel</name>
-        <label>Case Service Channel</label>
+        <name>Critical_Cases_Queue</name>
+        <label>Critical Cases Queue</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Critical_Work_Items_Queue</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>DeveloperName</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Cases</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>ServiceChannel</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>Critical_Work_Items_Queue</name>
-        <label>Critical Work Items Queue</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Route_Critical_Case</targetReference>
+            <targetReference>Check_Availability_for_Cases_Routing</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -262,6 +355,39 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>estimatedWaitTime</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+        <value>
+            <numberValue>-1.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>onlineAgentsNum</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+        <value>
+            <numberValue>-1.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <name>queuedWorkItemsNum</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>2</scale>
+        <value>
+            <numberValue>-1.0</numberValue>
+        </value>
+    </variables>
     <variables>
         <description>Case Record ID</description>
         <name>recordId</name>

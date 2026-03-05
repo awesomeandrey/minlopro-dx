@@ -1,7 +1,7 @@
 @SuppressWarnings('PMD')
 public without sharing class LoggerCleanupBatch implements Schedulable, Database.Batchable<LogEntry__c>, Database.RaisesPlatformEvents {
     private static final String JOB_NAME = 'Minlopro - Logger Cleanup Batch';
-    private static final String CRON_EXP = '0 0 10 * * ?'; // Runs everyday at 10 AM;
+    private static final String CRON_DAILY_10AM = '0 0 10 * * ?'; // Runs everyday at 10 AM;
 
     private final Integer maxLogsThreshold;
 
@@ -17,7 +17,7 @@ public without sharing class LoggerCleanupBatch implements Schedulable, Database
         AsyncApexJob nextJob = this.selectNextJob();
         if (nextJob == null) {
             String jobName = Test.isRunningTest() ? JOB_NAME + System.now() : JOB_NAME;
-            System.schedule(jobName, CRON_EXP, this);
+            System.schedule(jobName, CRON_DAILY_10AM, this);
             return this.selectNextJob(); // Should return newly enqueued job;
         }
         return nextJob;

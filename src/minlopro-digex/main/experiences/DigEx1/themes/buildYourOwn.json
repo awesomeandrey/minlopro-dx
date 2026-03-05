@@ -192,6 +192,28 @@
       "id" : "f4054269-b9fe-4c2d-94a5-732c0bbe190c",
       "regionName" : "navBar",
       "type" : "region"
+    }, {
+      "id" : "9aef5761-d3b0-4b28-895c-51343004d8ee",
+      "regionName" : "systemRegion",
+      "type" : "region"
+    }, {
+      "components" : [ {
+        "componentAttributes" : {
+          "clientVersion" : "WebV1",
+          "deploymentName" : "Minlopro_DigExMessagingESD",
+          "hideChatButtonOnLoad" : "Default",
+          "isExpSiteAuthMode" : false,
+          "scrtUrl" : "https://${SF_SITE_DOMAIN_NAME}.my.salesforce-scrt.com",
+          "siteEndpoint" : "${SF_SITE_URL}/eswminloprodigexmessaging"
+        },
+        "componentName" : "experience_messaging:embeddedMessaging",
+        "id" : "627bebf7-414f-4585-bc67-63b98ed4e783",
+        "renditionMap" : { },
+        "type" : "component"
+      } ],
+      "id" : "eba67248-c51b-4556-aefa-7f37259cf61d",
+      "regionName" : "hiddenRegion",
+      "type" : "region"
     } ],
     "type" : "view"
   } ]
