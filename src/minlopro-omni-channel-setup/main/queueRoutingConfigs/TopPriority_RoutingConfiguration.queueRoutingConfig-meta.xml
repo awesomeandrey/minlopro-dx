@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QueueRoutingConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <capacityPercentage>50.0</capacityPercentage>
     <capacityType>INHERITED</capacityType>
-    <capacityWeight>2.0</capacityWeight>
     <isAttributeBased>false</isAttributeBased>
-    <label>Minlopro - Routing Configuration</label>
+    <label>[1] Top Priority Routing Configuration (DigEx &amp; Critical Cases)</label>
     <pushTimeout>60</pushTimeout>
     <routingModel>MOST_AVAILABLE</routingModel>
     <routingPriority>1</routingPriority>

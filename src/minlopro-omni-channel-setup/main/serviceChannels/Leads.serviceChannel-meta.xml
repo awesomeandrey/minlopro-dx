@@ -3,7 +3,7 @@
     <capacityModel>STATUS_BASED</capacityModel>
     <doesCheckCapOnOwnerChange>false</doesCheckCapOnOwnerChange>
     <doesCheckCapOnStatusChange>false</doesCheckCapOnStatusChange>
-    <doesMinimizeWidgetOnAccept>false</doesMinimizeWidgetOnAccept>
+    <doesMinimizeWidgetOnAccept>true</doesMinimizeWidgetOnAccept>
     <hasAutoAcceptEnabled>false</hasAutoAcceptEnabled>
     <isInterruptible>false</isInterruptible>
     <label>Leads</label>

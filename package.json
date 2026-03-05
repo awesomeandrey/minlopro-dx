@@ -2,7 +2,7 @@
     "name": "minlopro",
     "type": "module",
     "private": true,
-    "version": "4.0.1",
+    "version": "4.0.2",
     "engines": {
         "node": ">=20.x",
         "npm": ">=10.x"

@@ -73,6 +73,17 @@ sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$SCRATCH
 inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
 bash ./scripts/util/data-seeding/migrate_knowledge_articles.sh < $inputsFile
 
+# Import 'LightningLogger' event log files into CRM Analytics dataset
+bash scripts/util/event-monitoring/elf.sh \
+  --source-org-alias "$DEV_HUB_ALIAS" \
+  --event-type "LightningLogger" \
+  --mode "download-and-upload-to-dataset" \
+  --api-version 65.0 \
+  --folder "MinloproEventMonitoring" \
+  --elf-limit 50 \
+  --metadata "scripts/util/event-monitoring/event-metadata-json/LightningLogger-v65.0.json" \
+  --target-org-alias "$SCRATCH_ORG_ALIAS" && sleep 100
+
 # List CRM Analytics assets via Salesforce CLI plugin
 sf analytics app list --target-org "$SCRATCH_ORG_ALIAS"; echo
 sf analytics dashboard list --target-org "$SCRATCH_ORG_ALIAS"; echo

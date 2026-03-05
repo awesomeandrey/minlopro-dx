@@ -3,6 +3,6 @@
     <content xsi:nil="true"/>
     <application>WAVE_PUBLIC_DATAFLOWS</application>
     <dataflowType>RecipeV3</dataflowType>
-    <description>Recipe rcp_LwcWorkspaceStats_recipe</description>
-    <masterLabel>rcp_LwcWorkspaceStats_recipe</masterLabel>
+    <description>Recipe LWC Workspace Stats_recipe</description>
+    <masterLabel>LWC Workspace Stats_recipe</masterLabel>
 </WaveDataflow>

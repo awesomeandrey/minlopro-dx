@@ -20,3 +20,5 @@ sf project retrieve start \
   --source-dir "$METADATA_FOLDER_PATH" \
   --ignore-conflicts \
   --wait 10
+
+git add . && git status

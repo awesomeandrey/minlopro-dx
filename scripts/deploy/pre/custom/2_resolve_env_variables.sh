@@ -45,7 +45,6 @@ add_or_update_env_var "SF_ADMIN_USERNAME" "$(echo "$userInfoJson" | jq -r '.resu
 add_or_update_env_var "SF_AXIOM_JIT_HANDLER_ID" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_axiom_jit_handler_id.sh)"
 add_or_update_env_var "SF_INSTANCE_ID" "$(echo "$orgInfoJson" | jq -r '.result.id')"
 add_or_update_env_var "SF_INSTANCE_URL" "$(echo "$orgInfoJson" | jq -r '.result.instanceUrl')"
-add_or_update_env_var "SF_MESSAGING_SERVICE_CHANNEL_ID" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_messaging_service_channel_id.sh)"
 add_or_update_env_var "SF_MINLOPRO_CERT_ID" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_minlopro_cert_id.sh)"
 add_or_update_env_var "SF_MINLOPRO_CERT_BASE64_VALUE" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_minlopro_cert_base64_value.sh)"
 add_or_update_env_var "SF_SITE_DOMAIN_NAME" "$(echo "$TARGET_ORG_ALIAS" | bash ./scripts/deploy/pre/env-var-scripts/get_site_domain_name.sh)"

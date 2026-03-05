@@ -24,9 +24,9 @@ Required:
   -M, --mode STR              One of: download | download-and-upload-to-dataset
 
 Optional:
-  -l, --elf-limit INT         Limit of EventLogFile records to process (default: 90)
+  -l, --elf-limit INT         Limit of EventLogFile records to process (default: 150)
   -v, --api-version NUM       Salesforce API version (default: 65.0)
-  -t, --target-org-alias STR  Target Salesforce org alias to upload dataset to (defaults to --org-alias parameter)
+  -t, --target-org-alias STR  Target Salesforce org alias to upload dataset to (defaults to --source-org-alias parameter)
   -f, --folder STR            Target CRM Analytics folder (Id or Name) to upload dataset to
   -m, --metadata PATH         Path to metadata JSON file specifying uploaded dataset schema
   -h, --help                  Show this help and exit
@@ -36,7 +36,7 @@ EOF
 # ---- Defaults ----
 SOURCE_ORG_ALIAS=""
 EVENT_TYPE=""
-ELF_LIMIT="90"
+ELF_LIMIT="150"
 API_VERSION="65.0"
 TARGET_ORG_ALIAS=""
 FOLDER_ID_OR_NAME=""
@@ -113,7 +113,7 @@ create_insights_external_data_record(){
   ied_flags_dir=$(mktemp -d) && trap 'rm -rf $ied_flags_dir' EXIT
   touch "$ied_flags_dir/values"; fieldValues=""
   fieldValues+="EdgemartLabel='ELF - $EVENT_TYPE (v$API_VERSION)' "
-  fieldValues+="EdgemartAlias='elf_${EVENT_TYPE}_v${API_VERSION%.0}' "
+  fieldValues+="EdgemartAlias='ds_elf_${EVENT_TYPE}_v${API_VERSION%.0}' "
   fieldValues+="Format=Csv "
   fieldValues+="Operation=Overwrite "
   fieldValues+="Action=None "
@@ -121,10 +121,10 @@ create_insights_external_data_record(){
     fieldValues+="EdgemartContainer=$FOLDER_ID_OR_NAME "
   fi
   if [ -n "$METADATA_JSON_FILE" ]; then
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-      fieldValues+="MetadataJson=$(base64 -w 0 "$METADATA_JSON_FILE") "
-    else
+    if [[ "$OSTYPE" == "darwin"* ]]; then
       fieldValues+="MetadataJson=$(base64 -i "$METADATA_JSON_FILE") "
+    else
+      fieldValues+="MetadataJson=$(base64 -w 0 "$METADATA_JSON_FILE") "
     fi
   fi
   echo "$fieldValues" > "$ied_flags_dir/values"
@@ -173,18 +173,14 @@ upload_elf_to_dataset(){
 
   # Remove header row from CSV file if not the 1st chunk
   if [[ $DATA_PART_COUNTER -ne 1 ]]; then
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-      sed -i '1d' "$csv_filename"
-    else
-      sed -i '' '1d' "$csv_filename"
-    fi
+    tail -n +2 "$csv_filename" > "$csv_filename.tmp" && mv "$csv_filename.tmp" "$csv_filename"
   fi
 
   # Compress CSV file
   gzip --keep "$csv_filename"
 
-  # Split into chunks 9MB each with 2-digits suffix
-  split -b 9M -d -a 2 "$csv_filename.gz" "$csv_filename.gz-"
+  # Split into chunks 10MB each with 2-digits suffix
+  split -b 10M -d -a 2 "$csv_filename.gz" "$csv_filename.gz-"
 
   # Iterate through chunks and upload each as 'InsightsExternalDataPart' record
   for gz_csv_filename in "$csv_filename".gz-*; do

@@ -30,4 +30,6 @@ Agent's Omni-Channel Widget
 
 Omni-channel setup that handles work items of different sobject types (Leads, In-App Messaging, Cases etc.):
 
-![Omni_Channel_Widget.png](../../assets/demo/omni-channel-setup/Omni_Channel_Widget.png)
+| Standard Omni-Channel Widget                                                                               | Enhanced Omni-Channel Widget                                                                               |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| ![Standard_Omni_Channel_Widget.png](../../assets/demo/omni-channel-setup/Standard_Omni_Channel_Widget.png) | ![Enhanced_Omni_Channel_Widget.png](../../assets/demo/omni-channel-setup/Enhanced_Omni_Channel_Widget.png) |

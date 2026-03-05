@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Log_Transaction_Details</name>
+        <label>Log Transaction Details</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <actionName>FlowLogger</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Route_Critical_Case</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <stringValue>Entry Point &apos;Case&apos; record-triggered flow</stringValue>
+            </value>
+        </inputParameters>
+        <nameSegment>FlowLogger</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <apiVersion>66.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Captures critical Case creation and routes to special queue!</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>hasCriticalSubject</name>
+        <dataType>Boolean</dataType>
+        <expression>CONTAINS(LOWER({!$Record.Subject}),&apos;critical&apos;)</expression>
+    </formulas>
+    <interviewLabel>Minlopro_Case_AfterCreate {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Minlopro - Case - After Create</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Log_Transaction_Details</targetReference>
+        </connector>
+        <object>Case</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>Route_Critical_Case</name>
+        <label>Route Critical Case</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <flowName>Minlopro_Omni_RouteCriticalCases</flowName>
+        <inputAssignments>
+            <name>recordId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

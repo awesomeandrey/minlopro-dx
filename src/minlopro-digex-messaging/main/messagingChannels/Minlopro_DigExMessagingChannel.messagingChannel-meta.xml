@@ -29,7 +29,7 @@
         <keywordType>Help</keywordType>
         <language>en_US</language>
     </messagingKeywords>
-    <sessionHandlerFlow>DigEx_RouteMessagingRequests</sessionHandlerFlow>
+    <sessionHandlerFlow>Minlopro_Omni_RouteDigExMessagingRequests</sessionHandlerFlow>
     <sessionHandlerQueue>DigEx_SiteMessagingRequests</sessionHandlerQueue>
     <sessionHandlerType>Flow</sessionHandlerType>
 </MessagingChannel>

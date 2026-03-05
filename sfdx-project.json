@@ -74,11 +74,6 @@
         },
         {
             "glob": "src/**",
-            "stringToReplace": "${SF_MESSAGING_SERVICE_CHANNEL_ID}",
-            "replaceWithEnv": "SF_MESSAGING_SERVICE_CHANNEL_ID"
-        },
-        {
-            "glob": "src/**",
             "stringToReplace": "${SF_MINLOPRO_CERT_ID}",
             "replaceWithEnv": "SF_MINLOPRO_CERT_ID"
         },

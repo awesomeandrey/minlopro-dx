@@ -17,5 +17,7 @@
     <enableRequestSound>true</enableRequestSound>
     <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
     <label>Minlopro - Agent Presence Configuration</label>
+    <presenceStatusOnDecline>Available</presenceStatusOnDecline>
+    <presenceStatusOnPushTimeout>Away</presenceStatusOnPushTimeout>
     <userDisplayName>Agent {!User_FirstName}</userDisplayName>
 </PresenceUserConfig>

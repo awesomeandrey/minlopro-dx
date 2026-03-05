@@ -21,7 +21,7 @@ The following files leverage SFDX Replacements in scope of deployments:
 
 - Site > [ESW_Minlopro_DigExMessaging Site](src/minlopro-digex-messaging/main/sites/ESW_Minlopro_DigExMessaging.site-meta.xml)
 - Site Page > [DigEx Home Page](src/minlopro-digex/main/experiences/DigEx1/views/home.json)
-- Omni-Channel Flow > [DigEx - Route Messaging Requests](src/minlopro-digex-messaging/main/flows/DigEx_RouteMessagingRequests.flow-meta.xml)
+- Omni-Channel Flow > [Minlopro - Omni - Route DigEx Messaging Requests](src/minlopro-digex-messaging/main/flows/Minlopro_Omni_RouteDigExMessagingRequests.flow-meta.xml)
 
 ### Troubleshooting
 

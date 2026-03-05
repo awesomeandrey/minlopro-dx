@@ -4,8 +4,11 @@
     <deploymentFeature>EmbeddedMessaging</deploymentFeature>
     <deploymentType>Web</deploymentType>
     <embeddedServiceMessagingChannel>
-        <businessHours>Ukraine (Default)</businessHours>
+        <isChatInvitationCustomizable>false</isChatInvitationCustomizable>
         <isEnabled>true</isEnabled>
+        <isInvitationEnabled>false</isInvitationEnabled>
+        <isSendInvtAllowedAfterAccept>false</isSendInvtAllowedAfterAccept>
+        <isSendInvtAllowedAfterReject>false</isSendInvtAllowedAfterReject>
         <messagingChannel>Minlopro_DigExMessagingChannel</messagingChannel>
         <shouldShowDeliveryReceipts>false</shouldShowDeliveryReceipts>
         <shouldShowEmojiSelection>false</shouldShowEmojiSelection>

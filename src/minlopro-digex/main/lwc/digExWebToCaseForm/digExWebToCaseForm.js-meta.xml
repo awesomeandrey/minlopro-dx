@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description
+        >Custom component that wraps the Salesforce Web-to-Case form with Google reCAPTCHA v2 verification. Collects contact name,
+        email, subject, and description.</description
+    >
+    <isExposed>true</isExposed>
+    <masterLabel>DigEx Web-To-Case Form</masterLabel>
+    <targets>
+        <target>lightningCommunity__Page</target>
+    </targets>
+</LightningComponentBundle>
