@@ -9,5 +9,13 @@
         <members>DigExWebToLeadControllerTest</members>
         <name>ApexClass</name>
     </types>
+<!--    <types>-->
+<!--        <members>DigEx_RouteMessagingRequests</members>-->
+<!--        <name>Flow</name>-->
+<!--    </types>-->
+    <types>
+        <members>Minlopro_RoutingConfiguration</members>
+        <name>QueueRoutingConfig</name>
+    </types>
     <version>65.0</version>
 </Package>

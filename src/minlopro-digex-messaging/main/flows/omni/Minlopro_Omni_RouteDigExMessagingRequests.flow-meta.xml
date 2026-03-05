@@ -100,7 +100,6 @@
     </actionCalls>
     <apiVersion>63.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
-    <description>Routes each message to an agent or queue based on conditions that you define.</description>
     <environments>Default</environments>
     <formulas>
         <description>Normalized Messaging Session record ID.</description>
@@ -108,8 +107,8 @@
         <dataType>String</dataType>
         <expression>BLANKVALUE({!recordId}, {!input_record.Id})</expression>
     </formulas>
-    <interviewLabel>DigEx - Route Messaging Requests {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>DigEx - Route Messaging Requests</label>
+    <interviewLabel>Minlopro - Omni - Route DigEx Messaging Requests {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Minlopro - Omni 🔱 - Route DigEx Messaging Requests</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>

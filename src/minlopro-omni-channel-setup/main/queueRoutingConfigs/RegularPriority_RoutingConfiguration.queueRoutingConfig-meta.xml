@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QueueRoutingConfig xmlns="http://soap.sforce.com/2006/04/metadata">
-    <capacityPercentage>50.0</capacityPercentage>
     <capacityType>INHERITED</capacityType>
+    <capacityWeight>2.0</capacityWeight>
     <isAttributeBased>false</isAttributeBased>
-    <label>DigEx - Routing Configuration</label>
-    <pushTimeout>60</pushTimeout>
+    <label>[2] Regular Priority Routing Configuration</label>
     <routingModel>MOST_AVAILABLE</routingModel>
-    <routingPriority>1</routingPriority>
+    <routingPriority>2</routingPriority>
 </QueueRoutingConfig>

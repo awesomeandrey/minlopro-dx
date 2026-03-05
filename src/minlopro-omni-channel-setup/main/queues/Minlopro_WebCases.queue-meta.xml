@@ -9,7 +9,7 @@
             <publicGroup>OrgUsers</publicGroup>
         </publicGroups>
     </queueMembers>
-    <queueRoutingConfig>Minlopro_RoutingConfiguration</queueRoutingConfig>
+    <queueRoutingConfig>RegularPriority_RoutingConfiguration</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
