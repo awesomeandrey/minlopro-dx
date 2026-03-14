@@ -1,21 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
-    <types>
-        <members>Salesforce_Adoption_Dashboard_Admin</members>
-        <name>PermissionSet</name>
-    </types>
-    <types>
-        <members>DigExWebToLeadController</members>
-        <members>DigExWebToLeadControllerTest</members>
-        <name>ApexClass</name>
-    </types>
-<!--    <types>-->
-<!--        <members>DigEx_RouteMessagingRequests</members>-->
-<!--        <name>Flow</name>-->
-<!--    </types>-->
-    <types>
-        <members>Minlopro_RoutingConfiguration</members>
-        <name>QueueRoutingConfig</name>
-    </types>
     <version>65.0</version>
 </Package>

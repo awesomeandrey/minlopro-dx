@@ -1,4 +1,6 @@
 <aura:component implements="forceCommunity:themeLayout">
+    <!--Custom Regions-->
+    <aura:attribute name="hiddenRegion" type="Aura.Component[]" description="Custom region for system/service components" />
     <!--Attributes-->
     <aura:attribute name="menuApiName" type="String" required="true" />
     <!--Main Content Area-->
@@ -20,6 +22,7 @@
             </div>
             <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
                 <c:digExRunningUserInfo />
+                <div class="slds-m-vertical_small">{!v.hiddenRegion}</div>
             </div>
         </div>
     </div>
