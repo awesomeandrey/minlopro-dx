@@ -16,28 +16,33 @@ click START "#general-information" "2359866923"
 Capture_Error_And_Log("⚙️ <em></em><br/>Capture Error & Log"):::actionCalls
 click Capture_Error_And_Log "#capture_error_and_log" "3511232908"
 
+Check_Availability_for_Cases_Routing("⚡ <em></em><br/>Check Availability for Cases Routing"):::actionCalls
+click Check_Availability_for_Cases_Routing "#check_availability_for_cases_routing" "22922813"
+
+Log_Availability_Output("⚙️ <em></em><br/>Log Availability Output"):::actionCalls
+click Log_Availability_Output "#log_availability_output" "908502605"
+
 Route_Critical_Case("⚡ <em></em><br/>Route Critical Case"):::actionCalls
-click Route_Critical_Case "#route_critical_case" "409400335"
+click Route_Critical_Case "#route_critical_case" "2365181630"
 
 Check_Case_Criticality{"🔀 <em></em><br/>Check Case Criticality"}:::decisions
-click Check_Case_Criticality "#check_case_criticality" "3013322321"
+click Check_Case_Criticality "#check_case_criticality" "996673248"
 
-Case_Service_Channel[("🔍 <em></em><br/>Case Service Channel")]:::recordLookups
-click Case_Service_Channel "#case_service_channel" "4171189694"
-
-Critical_Work_Items_Queue[("🔍 <em></em><br/>Critical Work Items Queue")]:::recordLookups
-click Critical_Work_Items_Queue "#critical_work_items_queue" "1857027672"
+Critical_Cases_Queue[("🔍 <em></em><br/>Critical Cases Queue")]:::recordLookups
+click Critical_Cases_Queue "#critical_cases_queue" "371970367"
 
 Target_Case[("🔍 <em></em><br/>Target Case")]:::recordLookups
 click Target_Case "#target_case" "1250900342"
 
 Capture_Error_And_Log --> END_Capture_Error_And_Log
+Check_Availability_for_Cases_Routing --> Log_Availability_Output
+Check_Availability_for_Cases_Routing -. Fault .->Capture_Error_And_Log
+Log_Availability_Output --> Route_Critical_Case
 Route_Critical_Case --> END_Route_Critical_Case
 Route_Critical_Case -. Fault .->Capture_Error_And_Log
-Check_Case_Criticality --> |"Critical Case Detected"| Case_Service_Channel
+Check_Case_Criticality --> |"Critical Case Detected"| Critical_Cases_Queue
 Check_Case_Criticality --> |"Default Outcome"| END_Check_Case_Criticality
-Case_Service_Channel --> Critical_Work_Items_Queue
-Critical_Work_Items_Queue --> Route_Critical_Case
+Critical_Cases_Queue --> Check_Availability_for_Cases_Routing
 Target_Case --> Check_Case_Criticality
 START -->  Target_Case
 END_Capture_Error_And_Log(( END )):::endClass
@@ -86,6 +91,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
+|estimatedWaitTime|Number|⬜|⬜|⬜|<!-- -->|<!-- -->|
+|onlineAgentsNum|Number|⬜|⬜|⬜|<!-- -->|<!-- -->|
+|queuedWorkItemsNum|Number|⬜|⬜|⬜|<!-- -->|<!-- -->|
 |recordId|String|⬜|✅|⬜|<!-- -->|Case Record ID|
 
 
@@ -93,7 +101,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Name|Data Type|Expression|Description|
 |:-- |:--:|:-- |:--  |
-|isCriticalCase|Boolean|CONTAINS(LOWER({!Target_Case.Subject}),'critical')|<!-- -->|
+|availabilityLog|String|'Estimated Wait Time # = ' + TEXT({!estimatedWaitTime}) + ' | Online Agents # = ' + TEXT({!onlineAgentsNum}) + ' | Queued Work Items # = ' + TEXT({!queuedWorkItemsNum})|<!-- -->|
+|isCriticalCase|Boolean|CONTAINS(LOWER({!Target_Case.Subject}), 'critical') || CONTAINS(LOWER({!Target_Case.Subject}), 'asap')|<!-- -->|
 
 
 ## Flow Nodes Details
@@ -111,6 +120,50 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Offset|0|
 |Level (input)|ERROR|
 |Message (input)|$Flow.FaultMessage|
+
+
+### Check_Availability_for_Cases_Routing
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Action Call|
+|Label|Check Availability for Cases Routing|
+|Action Type|Check Availability For Routing|
+|Action Name|checkAvailabilityForRouting|
+|Fault Connector|isGoTo: true<br/>targetReference: Capture_Error_And_Log<br/>|
+|Flow Transaction Model|CurrentTransaction|
+|Name Segment|checkAvailabilityForRouting|
+|Offset|0|
+|Output Parameters|- assignToReference: queuedWorkItemsNum<br/>&nbsp;&nbsp;name: queueSize<br/>- assignToReference: onlineAgentsNum<br/>&nbsp;&nbsp;name: onlineAgentsCount<br/>- assignToReference: estimatedWaitTime<br/>&nbsp;&nbsp;name: estimatedWaitTime<br/>|
+|Version String|2.0.0|
+|Routing Type (input)|QueueBased|
+|Service Channel Label (input)|Cases|
+|Is Queue Variable (input)|✅|
+|Skill Option (input)|<!-- -->|
+|Selected Outputs (input)|GET_ALL|
+|Skill Requirements Resource Item (input)|<!-- -->|
+|Service Channel Id (input)|setupReference: Cases<br/>setupReferenceType: ServiceChannel<br/>|
+|Agent Id (input)|<!-- -->|
+|Queue Id (input)|Critical_Cases_Queue.Id|
+|Service Channel Dev Name (input)|Cases|
+|Queue Label (input)|<!-- -->|
+|Agent Label (input)|<!-- -->|
+|Connector|[Log_Availability_Output](#log_availability_output)|
+
+
+### Log_Availability_Output
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Action Call|
+|Label|Log Availability Output|
+|Action Type|Apex|
+|Action Name|FlowLogger|
+|Flow Transaction Model|CurrentTransaction|
+|Name Segment|FlowLogger|
+|Offset|0|
+|Message (input)|availabilityLog|
+|Connector|[Route_Critical_Case](#route_critical_case)|
 
 
 ### Route_Critical_Case
@@ -146,7 +199,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Copilot Id (input)|<!-- -->|
 |Agentforce Employee Agent Id (input)|<!-- -->|
 |External Conversation Bot Id (input)|<!-- -->|
-|Queue Id (input)|Critical_Work_Items_Queue.Id|
+|Queue Id (input)|Critical_Cases_Queue.Id|
 |Agent Id (input)|<!-- -->|
 
 
@@ -163,7 +216,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Connector|[Case_Service_Channel](#case_service_channel)|
+|Connector|[Critical_Cases_Queue](#critical_cases_queue)|
 |Condition Logic|and|
 
 
@@ -177,39 +230,17 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 
 
-### Case_Service_Channel
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Type|Record Lookup|
-|Object|ServiceChannel|
-|Label|Case Service Channel|
-|Assign Null Values If No Records Found|⬜|
-|Get First Record Only|✅|
-|Store Output Automatically|✅|
-|Connector|[Critical_Work_Items_Queue](#critical_work_items_queue)|
-
-
-#### Filters (logic: **and**)
-
-|Filter Id|Field|Operator|Value|
-|:-- |:-- |:--:|:--: |
-|1|DeveloperName| Equal To|Cases|
-
-
-
-
-### Critical_Work_Items_Queue
+### Critical_Cases_Queue
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Record Lookup|
 |Object|Group|
-|Label|Critical Work Items Queue|
+|Label|Critical Cases Queue|
 |Assign Null Values If No Records Found|⬜|
 |Get First Record Only|✅|
 |Store Output Automatically|✅|
-|Connector|[Route_Critical_Case](#route_critical_case)|
+|Connector|[Check_Availability_for_Cases_Routing](#check_availability_for_cases_routing)|
 
 
 #### Filters (logic: **and**)
