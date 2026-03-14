@@ -2,17 +2,18 @@
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
     <assignments>
         <profiles>
-            <profile>minlopro user</profile>
+            <profile>admin</profile>
         </profiles>
     </assignments>
-    <capacity>5</capacity>
+    <capacity>10</capacity>
+    <declineReasons>BlacklistedCustomer</declineReasons>
+    <declineReasons>Other</declineReasons>
     <enableAutoAccept>false</enableAutoAccept>
-    <enableDecline>false</enableDecline>
-    <enableDeclineReason>false</enableDeclineReason>
+    <enableDecline>true</enableDecline>
+    <enableDeclineReason>true</enableDeclineReason>
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
     <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
-    <label>Minlopro - Agent Presence Configuration</label>
-    <presenceStatusOnPushTimeout>Away</presenceStatusOnPushTimeout>
-    <userDisplayName>Agent {!User_FirstName}</userDisplayName>
+    <label>Minlopro - Admin Presence Configuration</label>
+    <presenceStatusOnDecline>Away</presenceStatusOnDecline>
 </PresenceUserConfig>

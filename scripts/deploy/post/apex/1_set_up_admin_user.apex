@@ -20,7 +20,8 @@ public without sharing class ScriptWorker {
             FederationIdentifier = UserInfo.getUserName(),
             ExternalId__c = UserInfo.getUserName(),
             UserPreferencesHasSentWarningEmail = true,
-            UserPermissionsKnowledgeUser = true
+            UserPermissionsKnowledgeUser = true,
+            UserPermissionsSupportUser = true // Enables 'Service Cloud User' flag
         );
         User adminUser = [
             SELECT

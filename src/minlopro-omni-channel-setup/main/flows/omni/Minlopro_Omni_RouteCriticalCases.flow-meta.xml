@@ -266,6 +266,7 @@
             <label>Critical Case Detected</label>
         </rules>
     </decisions>
+    <description>Checks if Case is critical and if so routes it to specific queue.</description>
     <environments>Default</environments>
     <formulas>
         <name>availabilityLog</name>
@@ -319,7 +320,7 @@
             <field>DeveloperName</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Minlopro_CriticalWorkItems</stringValue>
+                <stringValue>Minlopro_CriticalCases</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
