@@ -20,10 +20,7 @@ sf sfdmu run \
   --sourceusername "$SOURCE_ORG_ALIAS" \
   --targetusername "$TARGET_ORG_ALIAS" \
   --path "$configFolder" \
-  --canmodify \
-  --noprompt \
-  --verbose \
-  --usesf "true"
+  --noprompt
 
 # Step 3 - publish all migrated KAVs
 sf apex run --target-org "$TARGET_ORG_ALIAS" --file "scripts/util/apex/publish_all_knowledge_articles.apex"
