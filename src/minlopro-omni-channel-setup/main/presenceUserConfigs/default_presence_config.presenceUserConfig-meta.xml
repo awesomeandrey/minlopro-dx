@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PresenceUserConfig xmlns="http://soap.sforce.com/2006/04/metadata">
-    <assignments>
-        <profiles>
-            <profile>minlopro user</profile>
-        </profiles>
-    </assignments>
-    <capacity>5</capacity>
+    <capacity>1</capacity>
     <enableAutoAccept>false</enableAutoAccept>
     <enableDecline>false</enableDecline>
     <enableDeclineReason>false</enableDeclineReason>
     <enableDisconnectSound>true</enableDisconnectSound>
     <enableRequestSound>true</enableRequestSound>
     <hasAfterConvoWorkTimer>false</hasAfterConvoWorkTimer>
-    <label>Minlopro - Agent Presence Configuration</label>
-    <presenceStatusOnPushTimeout>Away</presenceStatusOnPushTimeout>
-    <userDisplayName>Agent {!User_FirstName}</userDisplayName>
+    <label>Default Presence Configuration</label>
 </PresenceUserConfig>
