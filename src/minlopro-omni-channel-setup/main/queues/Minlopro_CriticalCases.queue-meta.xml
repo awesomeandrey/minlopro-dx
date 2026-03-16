@@ -3,7 +3,7 @@
     <description>Items are routed here via custom omni-channel flow.</description>
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <email>${SF_ADMIN_EMAIL}</email>
-    <name>Minlopro - Critical Work Items 🚨</name>
+    <name>Minlopro - Critical Cases 💼</name>
     <queueMembers>
         <publicGroups>
             <publicGroup>OrgAdmins</publicGroup>
@@ -12,14 +12,5 @@
     <queueRoutingConfig>TopPriority_RoutingConfiguration</queueRoutingConfig>
     <queueSobject>
         <sobjectType>Case</sobjectType>
-    </queueSobject>
-    <queueSobject>
-        <sobjectType>Lead</sobjectType>
-    </queueSobject>
-    <queueSobject>
-        <sobjectType>MessagingEndUser</sobjectType>
-    </queueSobject>
-    <queueSobject>
-        <sobjectType>MessagingSession</sobjectType>
     </queueSobject>
 </Queue>

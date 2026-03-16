@@ -16,7 +16,8 @@ update new User(
     UserRoleId = qaUserRole.Id,
     Profile = new Profile(Name = 'Minlopro User'),
     UserPermissionsKnowledgeUser = true,
-    UserPreferencesUserDebugModePref = true
+    UserPreferencesUserDebugModePref = true,
+    UserPermissionsSupportUser = true // Enables 'Service Cloud User' flag
 );
 
 // Add user to public groups;
