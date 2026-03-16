@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START"]):::startClass
-click START "#general-information" "2359866923"
+click START "#general-information" "1982279216"
 
 Capture_Error_And_Log("⚙️ <em></em><br/>Capture Error & Log"):::actionCalls
 click Capture_Error_And_Log "#capture_error_and_log" "3511232908"
@@ -29,7 +29,7 @@ Check_Case_Criticality{"🔀 <em></em><br/>Check Case Criticality"}:::decisions
 click Check_Case_Criticality "#check_case_criticality" "996673248"
 
 Critical_Cases_Queue[("🔍 <em></em><br/>Critical Cases Queue")]:::recordLookups
-click Critical_Cases_Queue "#critical_cases_queue" "371970367"
+click Critical_Cases_Queue "#critical_cases_queue" "457847010"
 
 Target_Case[("🔍 <em></em><br/>Target Case")]:::recordLookups
 click Target_Case "#target_case" "1250900342"
@@ -78,6 +78,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Process Type| Routing Flow|
 |Label|Minlopro - Omni 🔱 - Route Critical Cases|
 |Status|Active|
+|Description|Checks if Case is critical and if so routes it to specific queue.|
 |Environments|Default|
 |Interview Label|Minlopro_Omni_RouteCriticalCases {!$Flow.CurrentDateTime}|
 | Builder Type (PM)|LightningFlowBuilder|
@@ -248,7 +249,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
 |1|Type| Equal To|Queue|
-|2|DeveloperName| Equal To|Minlopro_CriticalWorkItems|
+|2|DeveloperName| Equal To|Minlopro_CriticalCases|
 
 
 
