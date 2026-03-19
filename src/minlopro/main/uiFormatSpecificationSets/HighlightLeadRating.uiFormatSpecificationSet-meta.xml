@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UiFormatSpecificationSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <field>Lead.Rating</field>
+    <formatType>ICON</formatType>
+    <masterLabel>HighlightLeadRating</masterLabel>
+    <sobjectType>Lead</sobjectType>
+    <uiFormatSpecifications>
+        <formatProperties>{&quot;icon&quot;:&quot;neutral_face&quot;,&quot;iconColor&quot;:&quot;orange&quot;}</formatProperties>
+        <formatType>ICON</formatType>
+        <order>1</order>
+        <visibilityRule>
+            <booleanFilter>1 AND 2 AND 3</booleanFilter>
+            <criteria>
+                <leftValue>{!Record.Rating}</leftValue>
+                <operator>NE</operator>
+                <rightValue>Hot</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!Record.Rating}</leftValue>
+                <operator>NE</operator>
+                <rightValue>Warm</rightValue>
+            </criteria>
+            <criteria>
+                <leftValue>{!Record.Rating}</leftValue>
+                <operator>NE</operator>
+                <rightValue>Cold</rightValue>
+            </criteria>
+        </visibilityRule>
+    </uiFormatSpecifications>
+</UiFormatSpecificationSet>
