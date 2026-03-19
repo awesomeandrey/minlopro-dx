@@ -5,7 +5,7 @@
             <profile>admin</profile>
         </profiles>
     </assignments>
-    <capacity>10</capacity>
+    <capacity>3</capacity>
     <declineReasons>BlacklistedCustomer</declineReasons>
     <declineReasons>Other</declineReasons>
     <enableAutoAccept>false</enableAutoAccept>
