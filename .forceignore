@@ -10,11 +10,11 @@ src/**/unpackaged
 **/__tests__/**
 
 # Added by Illuminated Cloud
-.illuminatedCloud/
-**/*.ts
-**/*.tsbuildinfo
-**/tsconfig*.json
-**/jsconfig.json
-**/eslint.config.mjs
 **/.eslintrc.json
+**/eslint.config.mjs
 **/graphql.config.yml
+**/jsconfig.json
+**/tsconfig*.json
+**/*.tsbuildinfo
+**/*.ts
+.illuminatedCloud/

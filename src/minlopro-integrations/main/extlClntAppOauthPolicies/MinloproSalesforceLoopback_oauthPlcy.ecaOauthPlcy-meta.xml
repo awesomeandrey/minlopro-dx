@@ -10,7 +10,7 @@
     <label>MinloproSalesforceLoopback_oauthPlcy</label>
     <permittedUsersPolicyType>AdminApprovedPreAuthorized</permittedUsersPolicyType>
     <refreshTokenPolicyType>SpecificLifetime</refreshTokenPolicyType>
-    <refreshTokenValidityPeriod>1</refreshTokenValidityPeriod>
+    <refreshTokenValidityPeriod>3</refreshTokenValidityPeriod>
     <refreshTokenValidityUnit>Days</refreshTokenValidityUnit>
     <requiredSessionLevel>STANDARD</requiredSessionLevel>
 </ExtlClntAppOauthConfigurablePolicies>
