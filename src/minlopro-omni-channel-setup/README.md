@@ -36,6 +36,10 @@ Routing & Priority
   queue — it does not move items across queues. Cross-queue overflow requires explicit automation.
 - **Routing Configuration is 1-to-1 with queues.** One queue, one Routing Configuration — no sharing across queues.
 
+Routing Models Explanation
+
+![Omni_Channel_Routing_Models_Explanation.png](../../assets/demo/omni-channel-setup/Omni_Channel_Routing_Models_Explanation.png)
+
 Service Channels
 
 - **One Service Channel per object, hard limit.**
