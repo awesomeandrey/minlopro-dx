@@ -5,7 +5,7 @@
             <profile>minlopro user</profile>
         </profiles>
     </assignments>
-    <capacity>5</capacity>
+    <capacity>2</capacity>
     <enableAutoAccept>false</enableAutoAccept>
     <enableDecline>false</enableDecline>
     <enableDeclineReason>false</enableDeclineReason>

@@ -26,7 +26,9 @@
     <permissionSets>Minlopro_SsoUser</permissionSets>
     <permissionSets>Minlopro_TesseractJsOcr</permissionSets>
     <permissionSets>Minlopro_User</permissionSets>
+    <permissionSets>Profile2PermSet__Profiles_to_Perm_Set_App_Access</permissionSets>
     <permissionSets>dlrs__LookupRollupSummariesFull</permissionSets>
     <permissionSets>dlrs__LookupRollupSummariesReadOnly</permissionSets>
+    <permissionSets>orgcheck__OrgCheck_Users_PS</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
