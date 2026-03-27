@@ -59,6 +59,7 @@ classDef loops fill:#FDEAF6,color:black,text-decoration:none,max-height:100px
 classDef recordCreates fill:#FFF8C9,color:black,text-decoration:none,max-height:100px
 classDef recordDeletes fill:#FFF8C9,color:black,text-decoration:none,max-height:100px
 classDef recordLookups fill:#EDEAFF,color:black,text-decoration:none,max-height:100px
+classDef recordRollbacks fill:#FFF8C9,color:black,text-decoration:none,max-height:100px
 classDef recordUpdates fill:#FFF8C9,color:black,text-decoration:none,max-height:100px
 classDef screens fill:#DFF6FF,color:black,text-decoration:none,max-height:100px
 classDef subflows fill:#D4E4FC,color:black,text-decoration:none,max-height:100px
