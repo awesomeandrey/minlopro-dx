@@ -1,6 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
-import { cloneObject, isNotEmpty, parseError, uniqueId } from 'c/utilities';
+import { isNotEmpty, parseError, uniqueId } from 'c/utilities';
 import { PageReference } from 'c/digExUtil';
 import toastify from 'c/toastify';
 
