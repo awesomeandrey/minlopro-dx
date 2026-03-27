@@ -1,6 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
-import { isNotEmpty, parseError } from 'c/utilities';
+import { cloneObject, isNotEmpty, parseError, uniqueId } from 'c/utilities';
 import { PageReference } from 'c/digExUtil';
 import toastify from 'c/toastify';
 
@@ -15,9 +15,21 @@ import $BasePath from '@salesforce/community/basePath';
 export default class DigExNavigationBar extends NavigationMixin(LightningElement) {
     @api menuApiName;
 
-    @track currentUrlPath = '/';
     @track siteState = 'Draft';
     @track navigationItems = undefined;
+    @track currentPageRef = null;
+
+    get currentPageType() {
+        return this.currentPageRef?.type;
+    }
+
+    get currentPageApiName() {
+        return this.currentPageRef?.attributes?.name;
+    }
+
+    get currentPageUrlPath() {
+        return window.location.pathname.replace($BasePath, '');
+    }
 
     get hasLoaded() {
         return this.navigationItems !== undefined;
@@ -40,21 +52,21 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
             .filter(({ accessRestriction = '' }) => {
                 if (accessRestriction === 'None') {
                     return true;
-                } else if (accessRestriction === 'LoginRequired' && !$IsGuestUser) {
+                } else if (accessRestriction === 'LoginRequired' && !this.isGuestUser) {
                     return true;
                 }
                 return false;
             })
-            .map((_) => {
-                const selected = (() => {
-                    if (_.target === '/') {
-                        // Exception for HOME page;
-                        return this.currentUrlPath === '/';
-                    }
-                    return this.currentUrlPath.includes(`/${_.target}`);
-                })();
+            .map((navItem) => {
+                const { type, name, target } = navItem;
+                /**
+                 * Couldn't find mechanism to compute mapping between 'NavigationMenuItem' and 'PageRef' at runtime.
+                 * Therefore rely on page API name for 'InternalLink' types and substring matching in URL path.
+                 */
+                const selected =
+                    type === 'InternalLink' ? name === this.currentPageApiName : this.currentPageUrlPath.includes(`/${target}`);
                 return {
-                    ..._,
+                    ...navItem,
                     selected,
                     className: `slds-context-bar__item ${selected ? 'slds-is-active' : 'slds-is-relative'}`
                 };
@@ -63,14 +75,11 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
 
     @wire(CurrentPageReference)
     wireCurrentPageReference(currentPageReference) {
+        // Capture current page reference
+        this.currentPageRef = currentPageReference;
+        // Get site state
         const app = currentPageReference?.state?.app;
-        if (app === 'commeditor') {
-            this.siteState = 'Draft';
-        } else {
-            this.siteState = 'Live';
-        }
-        // Update current URL path;
-        this.currentUrlPath = window.location.pathname.replace($BasePath, '');
+        this.siteState = app === 'commeditor' ? 'Draft' : 'Live';
     }
 
     @wire(getNavigationMenuItemsApex, {
@@ -84,16 +93,18 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
             return;
         }
         this.navigationItems = (data || []).map((_) => ({
-            id: `${_.Target}:${_.Type}`,
+            id: uniqueId(),
             label: _.Label,
+            name: _.Label, // Use 'Label' as custom 'name' attribute
             target: _.Target,
-            type: _.Type,
-            accessRestriction: _.AccessRestriction,
+            type: _.Type, // InternalLink | SalesforceObject | ...
+            accessRestriction: _.AccessRestriction, // None | LoginRequired
             defaultListViewId: _.DefaultListViewId,
-            status: _.Status,
+            status: _.Status, // Live | Draft | ...
             parentId: _.ParentId,
             targetPrefs: _.TargetPrefs
         }));
+        // console.table(cloneObject(this.navigationItems));
     }
 
     handleNavigate(event) {
@@ -101,16 +112,16 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
         const navigationItemId = event.target.dataset.id;
         const navigationItem = this.navigationItems.find(({ id }) => id === navigationItemId);
         if (navigationItem) {
-            this.navigate(navigationItem);
+            // Exclusion for 'Home' page solely
+            navigationItem.target === '/' && navigationItem.type === 'InternalLink'
+                ? this.handleNavigateHome(event)
+                : this.navigate(navigationItem);
         }
     }
 
     handleNavigateHome(event) {
         event.preventDefault();
-        const homeNavItem = this.navigationItems.find(({ target }) => target === '/');
-        if (homeNavItem) {
-            this.navigate(homeNavItem);
-        }
+        this[NavigationMixin.Navigate](PageReference.Home);
     }
 
     handleNavigateLogin(event) {

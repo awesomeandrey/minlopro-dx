@@ -12,5 +12,10 @@
                 <value>digex-site</value>
             </criteriaItems>
         </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Minlopro_Leads</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>OR(NOT(ISBLANK(Phone)), NOT(ISBLANK(MobilePhone)))</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>
