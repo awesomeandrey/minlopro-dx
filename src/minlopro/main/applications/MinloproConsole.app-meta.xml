@@ -77,7 +77,7 @@
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
-    <description>Playground console application tailored for POCs and Salesforce experimentation.</description>
+    <description>🔵 Playground console application tailored for POCs and Salesforce experimentation.</description>
     <formFactors>Small</formFactors>
     <formFactors>Large</formFactors>
     <isNavAutoTempTabsDisabled>true</isNavAutoTempTabsDisabled>
