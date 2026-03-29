@@ -157,7 +157,7 @@ public class TestDataFactory {
             customer.PersonTitle = Lists.getRandomString(Lists.of('Sr. Surgeon', 'Top Banker', 'DevOps'));
             customer.FirstName = String.format('F{0}-{1}', Lists.of(i.toString(), TestDataFactory.generateRandomString(5)));
             customer.LastName = String.format('L{0}-{1}', Lists.of(i.toString(), TestDataFactory.generateRandomString(5)));
-            customer.PersonEmail = String.format('{0}@apex.test', Lists.of(customer.LastName));
+            customer.PersonEmail = generateRandomEmail();
             customer.PersonHasOptedOutOfEmail = false;
             customer.Industry = Lists.getRandomString(Lists.of('Healthcare', 'Finance', 'Technology'));
             customer.Site = generateRandomWebsite();
@@ -180,7 +180,7 @@ public class TestDataFactory {
                     AccountId = accountId,
                     FirstName = 'TestFirstName' + i,
                     LastName = 'TestLastName' + i,
-                    Email = 'test' + i + '@example.com',
+                    Email = generateRandomEmail(),
                     Phone = generateRandomPhone(),
                     MobilePhone = generateRandomPhone(),
                     Description = generateRandomString(100)
@@ -216,13 +216,13 @@ public class TestDataFactory {
                 new Lead(
                     Company = 'Company #' + i,
                     AnnualRevenue = 100 * Math.random(),
-                    Email = 'lead_' + i + '@edu.com',
+                    Email = generateRandomEmail(),
                     GenderIdentity = Lists.getRandomString(Lists.of('Male', 'Female')),
                     LeadSource = Lists.getRandomString(Lists.of('Web', 'Partner', 'Other')),
                     Status = 'New',
                     FirstName = 'FN #' + i,
                     LastName = 'LN #' + i,
-                    Title = 'Test Lead Data',
+                    Title = 'Test',
                     Phone = generateRandomPhone(),
                     MobilePhone = generateRandomPhone(),
                     Description = generateRandomString(100),
@@ -282,6 +282,17 @@ public class TestDataFactory {
         String siteName = generateRandomString(5);
         String siteDomain = Lists.getRandomString(Lists.of('com', 'me', 'io'));
         return String.format('https://apextest.{0}.{1}', Lists.of(siteName, siteDomain));
+    }
+
+    public static String generateRandomEmail() {
+        return String.format(
+            '{0}@{1}.{2}',
+            Lists.of(
+                ('test-' + generateRandomString(7)).toLowerCase(),
+                Lists.getRandomString(Lists.of('gmail', 'apex', 'salesforce')),
+                Lists.getRandomString(Lists.of('com', 'org', 'io'))
+            )
+        );
     }
 
     private static SObject selectAllFieldsById(SObjectType objType, Id recordId) {

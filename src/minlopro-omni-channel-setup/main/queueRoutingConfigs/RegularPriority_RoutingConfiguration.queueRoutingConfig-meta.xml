@@ -3,7 +3,7 @@
     <capacityType>INHERITED</capacityType>
     <capacityWeight>1.0</capacityWeight>
     <isAttributeBased>false</isAttributeBased>
-    <label>2️⃣ Regular Priority RC (Cases)</label>
-    <routingModel>MOST_AVAILABLE</routingModel>
+    <label>2️⃣ Regular Priority RC (Cases &amp; Leads)</label>
+    <routingModel>LEAST_ACTIVE</routingModel>
     <routingPriority>2</routingPriority>
 </QueueRoutingConfig>
