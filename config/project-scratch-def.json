@@ -1,7 +1,7 @@
 {
     "country": "US",
     "description": "Minlopro DX Scratch Org",
-    "edition": "Developer",
+    "edition": "developer",
     "features": [
         "API",
         "AnalyticsAdminPerms",

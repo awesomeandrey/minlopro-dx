@@ -3,6 +3,7 @@
         <input type="hidden" name="oid" value="${SF_INSTANCE_ID}" />
         <!-- Lead custom fields can be passed by field API name as a hidden form parameter -->
         <input type="hidden" name="SrcCode__c" value="digex-site" />
+        <input type="hidden" name="PreferredLanguage__c" value={preferredLanguage} />
         <input type="hidden" name="lead_source" value="Web" />
         <!--  ----------------------------------------------------------------------  -->
         <!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
@@ -50,6 +51,12 @@
                 <input id="email" maxlength="40" name="email" size="20" type="email" class="slds-input" value={email} />
             </div>
         </div>
+        <c-combobox
+            label="Preferred Language"
+            value={preferredLanguage}
+            options={languageOptions}
+            onchange={handleChangePreferredLanguage}
+        ></c-combobox>
         <div class="slds-form-element">
             <label class="slds-form-element__label" for="company">Company</label>
             <div class="slds-form-element__control">
@@ -57,4 +64,5 @@
             </div>
         </div>
     </c-dig-ex-re-captcha-form>
+    <c-error-alert value={errorObj}></c-error-alert>
 </template>

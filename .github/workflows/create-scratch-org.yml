@@ -107,7 +107,7 @@ jobs:
         with:
           name: minlopro-scratch-org-credentials
           path: |
-            build/*-SO.json
+            build/scratch-org-credentials.txt
             build/.env
           if-no-files-found: error
           include-hidden-files: true

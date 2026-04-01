@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Applies Single-Sign On setting to user(s).</description>
+    <description>Applies Single-Sign On setting to user(s). Turn on 'IsSsoEnabled' to play with SSO/Axiom.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - Single Sign-On User</label>
     <userPermissions>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <name>IsSsoEnabled</name>
     </userPermissions>
 </PermissionSet>

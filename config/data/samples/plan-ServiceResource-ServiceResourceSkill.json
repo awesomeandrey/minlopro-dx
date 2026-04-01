@@ -1,0 +1,10 @@
+[
+    {
+        "sobject": "ServiceResource",
+        "files": ["sample-ServiceResource.json"]
+    },
+    {
+        "sobject": "ServiceResourceSkill",
+        "files": ["sample-ServiceResourceSkill.json"]
+    }
+]

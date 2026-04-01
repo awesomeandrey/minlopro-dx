@@ -70,6 +70,12 @@ User Setup
 
 ---
 
+### Skill-Based Routing
+
+https://medium.com/@shirley_peng/salesforce-omni-channel-how-skills-based-routing-really-works-54326fafbdc8
+
+---
+
 ### Demo
 
 Omni-channel setup that handles work items of different sobject types (Leads, In-App Messaging, Cases etc.):

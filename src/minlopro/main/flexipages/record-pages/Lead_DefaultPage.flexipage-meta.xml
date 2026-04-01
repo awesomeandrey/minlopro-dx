@@ -131,6 +131,12 @@
                 <identifier>RecordProducts_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.PreferredLanguage__c</fieldItem>
+                <identifier>RecordPreferredLanguage__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-605cfa56-50f3-4745-ba99-581ff22bfd68</name>
         <type>Facet</type>
     </flexiPageRegions>

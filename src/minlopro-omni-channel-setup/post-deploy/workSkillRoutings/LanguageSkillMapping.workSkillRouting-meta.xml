@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WorkSkillRouting xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isActive>true</isActive>
+    <masterLabel>Language Skill Mapping</masterLabel>
+    <relatedEntity>Lead</relatedEntity>
+    <workSkillRoutingAttributes>
+        <field>Lead.PreferredLanguage__c</field>
+        <isAdditionalSkill>true</isAdditionalSkill>
+        <skill>Ukrainian</skill>
+        <skillLevel>5</skillLevel>
+        <skillPriority>1</skillPriority>
+        <value>Ukrainian</value>
+    </workSkillRoutingAttributes>
+    <workSkillRoutingAttributes>
+        <field>Lead.PreferredLanguage__c</field>
+        <isAdditionalSkill>true</isAdditionalSkill>
+        <skill>English</skill>
+        <skillLevel>5</skillLevel>
+        <skillPriority>1</skillPriority>
+        <value>English</value>
+    </workSkillRoutingAttributes>
+</WorkSkillRouting>
