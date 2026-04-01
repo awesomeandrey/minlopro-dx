@@ -98,6 +98,7 @@ public class OAuthWebServerWithPkceAuthProviderPlugin extends Auth.AuthProviderP
     }
 
     public Auth.UserData getUserInfo(Map<String, String> authProviderConfiguration, Auth.AuthProviderTokenResponse response) {
+        AuthProviderSettings authSettings = AuthProviderSettings.build(authProviderConfiguration);
         // Simply return running user details;
         return new Auth.UserData(
             UserInfo.getUserName(),
@@ -107,8 +108,8 @@ public class OAuthWebServerWithPkceAuthProviderPlugin extends Auth.AuthProviderP
             UserInfo.getUserEmail(),
             null,
             UserInfo.getUserName(),
-            null,
-            null,
+            UserInfo.getLocale(),
+            authSettings.auth_provider_name,
             null,
             null
         );
