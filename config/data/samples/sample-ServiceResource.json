@@ -1,0 +1,14 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "ServiceResource",
+                "referenceId": "ServiceResourceRef1"
+            },
+            "Name": "Admin",
+            "RelatedRecordId": "ADMIN_USER_ID",
+            "Description": "Service resource representation for Admin user.",
+            "ResourceType": "A"
+        }
+    ]
+}

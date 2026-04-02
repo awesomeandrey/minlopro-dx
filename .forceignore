@@ -3,8 +3,9 @@
 **/profilePasswordPolicies
 **/profileSessionSettings
 
-# Intentionally excluded metadata (i.e. problematic or managed package metadata)
+# Intentionally excluded metadata (i.e. problematic or managed package or post-deploy metadata)
 src/**/unpackaged
+src/**/post-deploy
 
 # LWC Jest Tests
 **/__tests__/**

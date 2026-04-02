@@ -9,6 +9,11 @@
         <visible>true</visible>
     </applicationVisibilities>
     <description>Grants proper access to Omni-Channel functionality.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Lead.PreferredLanguage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - Omni-Channel Agent</label>
     <objectPermissions>

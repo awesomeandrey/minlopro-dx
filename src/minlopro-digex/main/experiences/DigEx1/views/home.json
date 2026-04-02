@@ -55,19 +55,12 @@
             "tabKey" : "4e5c5",
             "tabName" : "Web-To-Case❓"
           }, {
-            "UUID" : "578368a5-3ef7-44fa-88b8-c45bbaa5f45e",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "2",
-            "tabName" : "Download Running User Info (VF)"
-          }, {
             "UUID" : "d9ac2986-0384-4e44-8f79-c2e5729821c8",
             "allowGuestUser" : true,
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "4becd",
-            "tabName" : "Download Running User Info (LWC)"
+            "tabName" : "My User Details 👤"
           } ],
           "useOverflowMenu" : true
         }
@@ -119,23 +112,16 @@
       }, {
         "components" : [ {
           "componentAttributes" : {
-            "height" : "600",
+            "height" : "500",
             "pageName" : "digex_RunningUserInfoAsPdf",
             "recordId" : "{!recordId}"
           },
           "componentName" : "forceCommunity:visualforcePage",
-          "id" : "a2463df7-2409-46ee-937b-23243c0ea26a",
+          "id" : "7d3da208-fae9-416c-8887-02760d9ff582",
           "renderPriority" : "NEUTRAL",
           "renditionMap" : { },
           "type" : "component"
-        } ],
-        "id" : "578368a5-3ef7-44fa-88b8-c45bbaa5f45e",
-        "regionLabel" : "Download Running User Info (VF)",
-        "regionName" : "2",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
+        }, {
           "componentAttributes" : { },
           "componentName" : "c:runningUserInfoGenerator",
           "id" : "67408ae3-8fb1-45c7-9e99-fa1b1d346a87",
@@ -144,7 +130,7 @@
           "type" : "component"
         } ],
         "id" : "d9ac2986-0384-4e44-8f79-c2e5729821c8",
-        "regionLabel" : "Download Running User Info (LWC)",
+        "regionLabel" : "My User Details 👤",
         "regionName" : "4becd",
         "renditionMap" : { },
         "type" : "region"

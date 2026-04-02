@@ -37,11 +37,10 @@ sf org generate password --target-org "$SCRATCH_ORG_ALIAS"
 
 # Capture scratch org credentials
 mkdir -p "build"
-orgCredentialsFile="build/$ADMIN_EMAIL-SO.json"
+orgCredentialsFile="build/scratch-org-credentials.txt"
 touch "$orgCredentialsFile"
 echo "📜 Scratch Org Credentials"
-sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose --json > "$orgCredentialsFile"
-sf org display --target-org "$SCRATCH_ORG_ALIAS"
+sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose | tee "$orgCredentialsFile"
 
 # Install packages from DevHub
 inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
@@ -106,5 +105,8 @@ invoke_recipes(){
   fi
 }
 invoke_recipes "$(sf analytics recipe list --target-org "$SCRATCH_ORG_ALIAS" --json)"
+
+# Check 'build' folder content
+tree "build" -L 1
 
 echo "✅ Done!"

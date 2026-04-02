@@ -4,7 +4,7 @@
     <columns>FULL_NAME</columns>
     <columns>LEAD.EMAIL</columns>
     <columns>LEAD.COMPANY</columns>
-    <columns>LEAD.STATE_CODE</columns>
+    <columns>PreferredLanguage__c</columns>
     <columns>LEAD.STATUS</columns>
     <columns>LEAD.UNREAD</columns>
     <columns>LEAD.CREATED_DATE</columns>

@@ -1,0 +1,26 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "ServiceResourceSkill",
+                "referenceId": "ServiceResourceSkillRef1"
+            },
+            "EffectiveStartDate": "2026-04-01T19:00:00.000+0000",
+            "SkillLevel": 10,
+            "SkillId": "ENGLISH_SKILL_ID",
+            "SkillNumber": "SRS-01",
+            "ServiceResourceId": "@ServiceResourceRef1"
+        },
+        {
+            "attributes": {
+                "type": "ServiceResourceSkill",
+                "referenceId": "ServiceResourceSkillRef2"
+            },
+            "EffectiveStartDate": "2026-04-01T19:00:00.000+0000",
+            "SkillLevel": 10,
+            "SkillId": "UKRAINIAN_SKILL_ID",
+            "SkillNumber": "SRS-02",
+            "ServiceResourceId": "@ServiceResourceRef1"
+        }
+    ]
+}

@@ -20,7 +20,11 @@ public without sharing class DigExOptInController {
             Logger.debug('Found Account Name = {0}', Lists.of(foundAccount.Name));
             Savepoint sp = Database.setSavepoint();
             Database.SaveResult saveResult = Database.update(
-                new Account(Id = foundAccount.Id, AnnualRevenue = foundAccount.AnnualRevenue + 1),
+                new Account(
+                    Id = foundAccount.Id,
+                    AnnualRevenue = foundAccount.AnnualRevenue + 1,
+                    Description = '✅ OPT-IN CONSENT CONFIRMED ✅'
+                ),
                 false,
                 AccessLevel.SYSTEM_MODE
             );

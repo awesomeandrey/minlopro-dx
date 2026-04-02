@@ -3,6 +3,6 @@
     <enableOmniAutoLoginPrompt>true</enableOmniAutoLoginPrompt>
     <enableOmniChannel>true</enableOmniChannel>
     <enableOmniSecondaryRoutingPriority>true</enableOmniSecondaryRoutingPriority>
-    <enableOmniSkillsRouting>false</enableOmniSkillsRouting>
+    <enableOmniSkillsRouting>true</enableOmniSkillsRouting>
     <enableOmniStatusCapModel>true</enableOmniStatusCapModel>
 </OmniChannelSettings>

@@ -1885,7 +1885,7 @@ rules:
                 - JavaScript
                 - TypeScript
         'no-unused-vars':
-            severity: 2
+            severity: 3
             tags:
                 - Recommended
                 - ErrorProne
