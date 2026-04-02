@@ -101,9 +101,12 @@ import_service_resources() {
   planJsonCopy="build/$(basename "$planJson")"
   cp "$planJson" "$planJsonCopy"
 
+  # Note: service resources can only be deactivated, not deleted.
+  # To deactivate a service resource, deselect Active on the service resource detail page.
   sf data import tree \
     --target-org "$TARGET_ORG_ALIAS" \
-    --plan "$planJsonCopy"
+    --plan "$planJsonCopy" 2> /dev/null
+  return 0
 }
 
 import_sample_records

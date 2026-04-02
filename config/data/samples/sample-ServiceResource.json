@@ -8,6 +8,7 @@
             "Name": "Admin",
             "RelatedRecordId": "ADMIN_USER_ID",
             "Description": "Service resource representation for Admin user.",
+            "IsActive": true,
             "ResourceType": "A"
         }
     ]
