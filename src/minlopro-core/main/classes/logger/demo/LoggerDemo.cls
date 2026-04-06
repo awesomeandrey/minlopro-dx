@@ -1,4 +1,5 @@
-public with sharing class LoggerDemo implements Database.Batchable<Integer> {
+@SuppressWarnings('PMD')
+public with sharing class LoggerDemo implements Database.Batchable<Integer>, Database.AllowsCallouts {
     @AuraEnabled
     public static void run() {
         // Invoke this method to generate logs from different contexts;
