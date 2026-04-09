@@ -1,12 +1,12 @@
 import { LightningElement, track, wire } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
-import { cloneObject, isNotEmpty } from 'c/utilities';
+import { cloneObject, isNotEmpty, isEmpty } from 'c/utilities';
 import $Toastify from 'c/toastify';
 
 import $USER_ID from '@salesforce/user/Id';
 
 // Apex Controller Methods;
-import queryOrCreateFolderIfNotExistsApex from '@salesforce/apex/FilesManagementController.queryOrCreateFolderIfNotExists';
+import selectSampleFilesWorkspaceApex from '@salesforce/apex/FilesManagementController.selectSampleFilesWorkspace';
 import getAllFilesApex from '@salesforce/apex/FilesManagementController.getAllFiles';
 import addFilesToFolderApex from '@salesforce/apex/FilesManagementController.addFilesToFolder';
 import deleteFilesByIdsApex from '@salesforce/apex/FilesManagementController.deleteFilesByIds';
@@ -189,7 +189,10 @@ export default class FilesManagerTab extends LightningElement {
     async connectedCallback() {
         this.loading = true;
         try {
-            this.contentWorkspace = cloneObject(await queryOrCreateFolderIfNotExistsApex());
+            this.contentWorkspace = cloneObject(await selectSampleFilesWorkspaceApex());
+            if (isEmpty(this.contentWorkspace)) {
+                throw new Error(`No ContentWorkspace created!`);
+            }
         } catch (error) {
             this.errorObject = cloneObject(error);
         } finally {

@@ -1,6 +1,6 @@
 @SuppressWarnings('PMD')
 public with sharing class FilesManagementController {
-    private static final String FOLDER_NAME = 'Minlopro_SampleFiles';
+    private static final String SAMPLE_FILES_WORKSPACE_NAME = 'Minlopro_SampleFiles';
     private static final ContentDocumentSelector documentSelector = (ContentDocumentSelector) Application.Selector.newInstance(
         ContentDocument.SObjectType
     );
@@ -20,32 +20,11 @@ public with sharing class FilesManagementController {
         ContentVersion.SObjectType
     );
 
-    @AuraEnabled
-    public static ContentWorkspace queryOrCreateFolderIfNotExists() {
+    @AuraEnabled(Cacheable=true)
+    public static ContentWorkspace selectSampleFilesWorkspace() {
         try {
-            List<ContentWorkspace> existingWorkspaceFolders = workspaceSelector.selectByDeveloperNames(Lists.of(FOLDER_NAME));
-            if (existingWorkspaceFolders.isEmpty()) {
-                Logger.debug('Creating new workspace folder...');
-                // Create new folder;
-                ContentWorkspace workspaceFolder = new ContentWorkspace();
-                workspaceFolder.Name = 'Minlopro - Sample Files';
-                workspaceFolder.DeveloperName = FOLDER_NAME;
-                workspaceFolder.Description = 'Folder with sample files.';
-                // Update 'Admin' permission/role by enabling content delivery'
-                // https://salesforce.stackexchange.com/questions/312172/content-distribution-records-are-not-getting-created
-                final String adminPermissionType = 'Admin';
-                ContentWorkspacePermission adminPermission = workspacePermissionSelector.selectByType(adminPermissionType)[0];
-                Logger.debug('Found workspace admin permission: {0}', Lists.of(JSON.serialize(adminPermission)));
-                adminPermission.PermissionsDeliverContent = true;
-                // Commit the changes;
-                fflib_ISObjectUnitOfWork uow = Application.UnitOfWork.newInstance();
-                uow.registerNew(workspaceFolder);
-                uow.registerUpsert(adminPermission);
-                uow.commitWork();
-                return ((List<ContentWorkspace>) workspaceSelector.selectSObjectsById(Sets.of(workspaceFolder.Id)))[0];
-            } else {
-                return existingWorkspaceFolders[0];
-            }
+            List<ContentWorkspace> workspaces = workspaceSelector.selectByDeveloperNames(Lists.of(SAMPLE_FILES_WORKSPACE_NAME));
+            return workspaces.isEmpty() ? null : workspaces[0];
         } catch (Exception ex) {
             Logger.error(ex);
             throw new AuraHandledException(ex.getMessage());
@@ -55,7 +34,7 @@ public with sharing class FilesManagementController {
     @AuraEnabled(Cacheable=true)
     public static List<ContentDocument> getAllFiles() {
         try {
-            ContentWorkspace customWorkspace = queryOrCreateFolderIfNotExists();
+            ContentWorkspace customWorkspace = selectSampleFilesWorkspace();
             ContentWorkspace standardAssetsWorkspace = workspaceSelector.selectByDeveloperNames(
                 Lists.of(Constants.Files.StandardAssetsLibraryApiName)
             )[0];
@@ -74,7 +53,7 @@ public with sharing class FilesManagementController {
     @AuraEnabled
     public static List<ContentDocumentLink> addFilesToFolder(List<Id> contentDocumentIds) {
         try {
-            ContentWorkspace workspaceFolder = queryOrCreateFolderIfNotExists();
+            ContentWorkspace workspaceFolder = selectSampleFilesWorkspace();
             List<ContentDocumentLink> linksToInsert = new List<ContentDocumentLink>();
             for (Id documentId : contentDocumentIds) {
                 linksToInsert.add(new ContentDocumentLink(ContentDocumentId = documentId, LinkedEntityId = workspaceFolder.Id));
@@ -154,6 +133,43 @@ public with sharing class FilesManagementController {
         }
     }
 
+    public class Document {
+        @AuraEnabled
+        public String id { get; set; }
+        @AuraEnabled
+        public String name { get; set; }
+        @AuraEnabled
+        public String type { get; set; }
+        @AuraEnabled
+        public String base64EncodedContent { get; set; }
+    }
+
+    // Note: method should be run in separate Apex transaction!
+    public static void setupContentWorkspace() {
+        if (selectSampleFilesWorkspace() != null) {
+            Logger.debug('{0} workspace already exists.', Lists.of(SAMPLE_FILES_WORKSPACE_NAME));
+            return;
+        }
+        // Create new folder;
+        ContentWorkspace workspaceFolder = new ContentWorkspace();
+        workspaceFolder.Name = 'Minlopro - Sample Files';
+        workspaceFolder.DeveloperName = SAMPLE_FILES_WORKSPACE_NAME;
+        workspaceFolder.Description = 'Folder with sample files.';
+        // Update 'Admin' permission/role by enabling content delivery'
+        // https://salesforce.stackexchange.com/questions/312172/content-distribution-records-are-not-getting-created
+        final String adminPermissionType = 'Admin';
+        ContentWorkspacePermission adminPermission = workspacePermissionSelector.selectByType(adminPermissionType)[0];
+        Logger.debug('Found workspace admin permission: {0}', Lists.of(JSON.serialize(adminPermission)));
+        adminPermission.PermissionsDeleteContent = true;
+        adminPermission.PermissionsDeliverContent = true;
+        // Commit the changes;
+        fflib_ISObjectUnitOfWork uow = Application.UnitOfWork.newInstance();
+        uow.registerNew(workspaceFolder);
+        uow.registerUpsert(adminPermission);
+        uow.commitWork();
+        Logger.debug('{0} workspace has been created: {1}', Lists.of(SAMPLE_FILES_WORKSPACE_NAME, workspaceFolder.Id));
+    }
+
     /**
      * Used to cleanup content documents with content workspace (aka folder).
      */
@@ -176,16 +192,5 @@ public with sharing class FilesManagementController {
             Logger.debug('Purging recycle bin => {0}', Lists.of(itemsToPurge.size().toString()));
             Database.emptyRecycleBin(itemsToPurge);
         }
-    }
-
-    public class Document {
-        @AuraEnabled
-        public String id { get; set; }
-        @AuraEnabled
-        public String name { get; set; }
-        @AuraEnabled
-        public String type { get; set; }
-        @AuraEnabled
-        public String base64EncodedContent { get; set; }
     }
 }

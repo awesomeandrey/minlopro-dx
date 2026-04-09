@@ -7,6 +7,7 @@
  *
  * Sample: Database.executeBatch(new DetectDuplicatesBatch(ruleId, soqlClause), 50);
  */
+@SuppressWarnings('PMD')
 public without sharing class DetectDuplicatesBatch implements Database.Batchable<SObject>, Database.Stateful, Database.RaisesPlatformEvents {
     private DuplicateRule rule;
     private String soqlClause;
@@ -94,9 +95,23 @@ public without sharing class DetectDuplicatesBatch implements Database.Batchable
             'DetectDuplicatesBatch finished. SObjectType: {0} | Records processed: {1} | DuplicateRecordSet records created: {2}',
             Lists.of(this.rule.SobjectType, this.totalRecordsProcessed.toString(), this.totalDrsCreated.toString())
         );
+        DebugTableFormatter formatter = new DebugTableFormatter(
+            Lists.of('Metric', 'Value'),
+            new List<Map<String, String>>{
+                new Map<String, String>{
+                    'Metric' => 'Total Records Processed',
+                    'Value' => this.totalRecordsProcessed.toString()
+                },
+                new Map<String, String>{ 'Metric' => 'Total DRS Created', 'Value' => this.totalDrsCreated.toString() }
+            }
+        );
+        SystemAlert.Builder alert = new SystemAlert.Builder()
+            .withTitle(String.format('"{0}.cls" Apex Batch Completed ✔️', Lists.of(DetectDuplicatesBatch.class.getName())))
+            .withBody(formatter.log('=== Batch Stats ==='))
+            .withRecipients(SystemInfoController.getAdminIds())
+            .saveAsFile(true);
+        SystemAlert.send(alert);
     }
-
-    // ---
 
     private DuplicateRule selectAndValidateDuplicateRule(Id ruleId) {
         List<DuplicateRule> rules = [
@@ -120,7 +135,7 @@ public without sharing class DetectDuplicatesBatch implements Database.Batchable
         List<Datacloud.FindDuplicatesResult> findResults
     ) {
         List<DetectDuplicatesBatch.RecordSet> recordSets = new List<DetectDuplicatesBatch.RecordSet>();
-        Set<Id> allRecordIds = new Set<Id>();
+        Set<Id> allDupeRecordIds = new Set<Id>();
         for (Integer i = 0; i < findResults.size(); i++) {
             Datacloud.FindDuplicatesResult findResult = findResults[i];
             Id sourceRecordId = records[i].Id;
@@ -135,10 +150,10 @@ public without sharing class DetectDuplicatesBatch implements Database.Batchable
                     continue;
                 }
                 // Guardrail to prevent adding {B,A,C} record set when {A,B,C} is already there
-                if (allRecordIds.containsAll(recordSetEntry.dupeRecordIds)) {
+                if (allDupeRecordIds.containsAll(recordSetEntry.dupeRecordIds)) {
                     continue;
                 }
-                allRecordIds.addAll(recordSetEntry.dupeRecordIds);
+                allDupeRecordIds.addAll(recordSetEntry.dupeRecordIds);
                 recordSets.add(recordSetEntry);
             }
         }

@@ -1,8 +1,9 @@
+@SuppressWarnings('PMD')
 public without sharing class DebugTableFormatter {
     private final String delimiter = ' ︱ ';
-    private final Integer maxColumnWidth = 60;
     private final List<String> fieldNames;
     private final List<Map<String, String>> records;
+    private Integer maxColumnWidth = 60;
 
     private final Map<String, Integer> columnWidths {
         get {
@@ -38,12 +39,16 @@ public without sharing class DebugTableFormatter {
         this.records = this.cast(records);
     }
 
-    public void log() {
-        this.log(null);
+    public void setMaxColumWidth(Integer columnWidth) {
+        this.maxColumnWidth = Math.max(60, columnWidth);
     }
 
-    public void log(String title) {
-        String log = '\n\n';
+    public String log() {
+        return this.log(null);
+    }
+
+    public String log(String title) {
+        String log = '';
         // Title;
         if (String.isNotBlank(title)) {
             log += title + '\n';
@@ -67,7 +72,8 @@ public without sharing class DebugTableFormatter {
             rows += row + '\n';
         }
         log += rows;
-        System.debug(log);
+        System.debug('\n\n' + log);
+        return log;
     }
 
     private List<Map<String, String>> cast(List<SObject> sObjects) {

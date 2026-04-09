@@ -5,6 +5,7 @@
  *
  * Sample: Database.executeBatch(new MergeDuplicatesBatch(ruleId, fieldSetApiName, soqlClause), 1);
  */
+@SuppressWarnings('PMD')
 public without sharing class MergeDuplicatesBatch implements Database.Batchable<SObject>, Database.Stateful, Database.RaisesPlatformEvents {
     private DuplicateRule rule;
     private String mergeFieldsSetName;
@@ -14,6 +15,7 @@ public without sharing class MergeDuplicatesBatch implements Database.Batchable<
     private Integer totalDrsSkipped = 0;
     private Integer totalMergesSucceeded = 0;
     private Integer totalMergesFailed = 0;
+    private Set<String> commonFailedMergeLogs = new Set<String>();
 
     public MergeDuplicatesBatch(Id duplicateRuleId, String mergeFieldsSetApiName, String soqlClause) {
         this.rule = this.selectAndValidateDuplicateRule(duplicateRuleId);
@@ -82,9 +84,21 @@ public without sharing class MergeDuplicatesBatch implements Database.Batchable<
             }
             delete [SELECT Id FROM DuplicateRecordSet WHERE Id = :drs.Id];
             this.totalMergesSucceeded += 1;
+        } catch (DmlException dmlEx) {
+            this.totalMergesFailed += 1;
+            Logger.error(dmlEx);
+            // Typically validation rule violations should go here
+            for (Integer i = 0; i < dmlEx.getNumDml(); i++) {
+                System.StatusCode code = dmlEx.getDmlType(i);
+                String message = dmlEx.getDmlMessage(i);
+                this.commonFailedMergeLogs.add(
+                    String.format('{0} -> {1} -> {2}', Lists.of(dmlEx.getTypeName(), code.toString(), message))
+                );
+            }
         } catch (Exception ex) {
             this.totalMergesFailed += 1;
             Logger.error(ex);
+            this.commonFailedMergeLogs.add(String.format('{0} -> {1}', Lists.of(ex.getTypeName(), ex.getStackTraceString())));
         }
     }
 
@@ -99,9 +113,36 @@ public without sharing class MergeDuplicatesBatch implements Database.Batchable<
                 this.totalMergesFailed
             }
         );
+        DebugTableFormatter mainLogsFormatter = new DebugTableFormatter(
+            Lists.of('Metric', 'Value'),
+            new List<Map<String, String>>{
+                new Map<String, String>{ 'Metric' => 'Total DRS Processed', 'Value' => this.totalDrsProcessed.toString() },
+                new Map<String, String>{ 'Metric' => 'Total DRS Skipped', 'Value' => this.totalDrsSkipped.toString() },
+                new Map<String, String>{ 'Metric' => 'Total Merge Succeeded', 'Value' => this.totalMergesSucceeded.toString() },
+                new Map<String, String>{ 'Metric' => 'Total Merge Failed', 'Value' => this.totalMergesFailed.toString() }
+            }
+        );
+        List<Map<String, String>> failedLogRows = new List<Map<String, String>>();
+        for (String log : this.commonFailedMergeLogs) {
+            failedLogRows.add(new Map<String, String>{ 'Log' => log });
+        }
+        DebugTableFormatter failedLogsFormatter = new DebugTableFormatter(Lists.of('Log'), failedLogRows);
+        failedLogsFormatter.setMaxColumWidth(400);
+        SystemAlert.Builder alert = new SystemAlert.Builder()
+            .withTitle(String.format('"{0}.cls" Apex Batch Completed ✔️', Lists.of(MergeDuplicatesBatch.class.getName())))
+            .withBody(
+                String.format(
+                    '{0}\n{1}',
+                    Lists.of(
+                        mainLogsFormatter.log('=== Batch Stats ==='),
+                        failedLogsFormatter.log('=== Common Failed Merge Logs ===')
+                    )
+                )
+            )
+            .withRecipients(SystemInfoController.getAdminIds())
+            .saveAsFile(true);
+        SystemAlert.send(alert);
     }
-
-    // ---
 
     private DuplicateRule selectAndValidateDuplicateRule(Id ruleId) {
         List<DuplicateRule> rules = [
