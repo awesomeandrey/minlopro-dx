@@ -1,118 +1,103 @@
+/**
+ * Batch job that merges duplicate records for a given DuplicateRule.
+ *
+ * IMPORTANT: This batch MUST be invoked with a scope of exactly 1 record.
+ *
+ * Sample: Database.executeBatch(new MergeDuplicatesBatch(ruleId, fieldSetApiName, soqlClause), 1);
+ */
 public without sharing class MergeDuplicatesBatch implements Database.Batchable<SObject>, Database.Stateful, Database.RaisesPlatformEvents {
     private DuplicateRule rule;
-    private Schema.FieldSet mergeFieldsSet;
-    private String soqlCondition;
+    private String mergeFieldsSetName;
+    private String soqlClause;
 
     private Integer totalDrsProcessed = 0;
+    private Integer totalDrsSkipped = 0;
     private Integer totalMergesSucceeded = 0;
     private Integer totalMergesFailed = 0;
 
-    public MergeDuplicatesBatch(Id duplicateRuleId, String mergeFieldsSetApiName, String soqlCondition) {
+    public MergeDuplicatesBatch(Id duplicateRuleId, String mergeFieldsSetApiName, String soqlClause) {
         this.rule = this.selectAndValidateDuplicateRule(duplicateRuleId);
-        this.mergeFieldsSet = this.selectAndValidateFieldSet(mergeFieldsSetApiName);
-        this.soqlCondition = soqlCondition;
+        this.mergeFieldsSetName = this.selectAndValidateFieldSetName(mergeFieldsSetApiName).getName();
+        this.soqlClause = soqlClause;
         Logger.debug(
             'MergeDuplicatesBatch initialised. Rule: {0}, SObjectType: {1}, FieldSet Name: {2}',
-            Lists.of(this.rule.DeveloperName, this.rule.SobjectType, this.mergeFieldsSet.getName())
+            Lists.of(this.rule.DeveloperName, this.rule.SobjectType, this.mergeFieldsSetName)
         );
     }
 
     public Database.QueryLocator start(Database.BatchableContext context) {
-        String query = String.format(
-            'SELECT Id FROM DuplicateRecordSet WHERE DuplicateRuleId = \'{0}\' AND RecordCount > 1',
-            new List<String>{ this.rule.Id }
-        );
-        if (String.isNotBlank(this.soqlCondition)) {
-            query += ' WHERE ' + this.soqlCondition;
+        String query = 'SELECT Id FROM DuplicateRecordSet WHERE DuplicateRuleId = \'' + this.rule.Id + '\' AND RecordCount > 1 ';
+        if (String.isNotBlank(this.soqlClause)) {
+            query += this.soqlClause;
         }
+        Logger.debug(query);
         return Database.getQueryLocator(query);
     }
 
     public void execute(Database.BatchableContext context, List<SObject> records) {
-        //        this.totalDrsProcessed++;
-        //        Id drsId = records[0].Id;
-        //
-        //        // --- Step 1: Load DuplicateRecordItem children to get target record IDs ---
-        //        List<DuplicateRecordItem> driRecords = [
-        //            SELECT RecordId
-        //            FROM DuplicateRecordItem
-        //            WHERE DuplicateRecordSetId = :drsId
-        //        ];
-        //        if (driRecords.size() < 2) {
-        //            Logger.debug('DRS {0} has fewer than 2 items, skipping.', new List<Object>{ drsId });
-        //            return;
-        //        }
-        //
-        //        Set<Id> recordIds = new Set<Id>();
-        //        for (DuplicateRecordItem dri : driRecords) {
-        //            recordIds.add(dri.RecordId);
-        //        }
-        //
-        //        // --- Step 2: Query target SObjects with all updateable fields, oldest first ---
-        //        String soql =
-        //            'SELECT Id, LastModifiedDate, ' +
-        //            String.join(this.updateableFieldNames, ', ') +
-        //            ' FROM ' +
-        //            sObjectTypeName +
-        //            ' WHERE Id IN :recordIds ORDER BY LastModifiedDate ASC';
-        //        List<SObject> sObjects = Security.stripInaccessible(AccessType.UPDATABLE, Database.query(soql)).getRecords();
-        //
-        //        if (sObjects.size() < 2) {
-        //            Logger.debug('DRS {0}: fewer than 2 live records found, skipping.', new List<Object>{ drsId });
-        //            return;
-        //        }
-        //
-        //        // --- Step 3: Master = oldest record; fill blank fields from each duplicate ---
-        //        SObject masterRecord = sObjects[0];
-        //        for (Integer i = 1; i < sObjects.size(); i++) {
-        //            masterRecord = this.resolveMergeFields(masterRecord, sObjects[i]);
-        //        }
-        //
-        //        // --- Step 4: Merge duplicates into master in chunks of 2 (platform limit) ---
-        //        List<Id> dupeIds = new List<Id>();
-        //        for (Integer i = 1; i < sObjects.size(); i++) {
-        //            dupeIds.add(sObjects[i].Id);
-        //        }
-        //
-        //        TriggerDispatcher.bypass(Account.SObjectType, 'TH_Account_Sample2');
-        //
-        //        Boolean mergeSucceeded = true;
-        //        Integer chunkStart = 0;
-        //        while (chunkStart < dupeIds.size()) {
-        //            List<Id> chunk = new List<Id>();
-        //            for (Integer i = chunkStart; i < Math.min(chunkStart + 2, dupeIds.size()); i++) {
-        //                chunk.add(dupeIds[i]);
-        //            }
-        //            List<Database.MergeResult> mergeResults = Database.merge(masterRecord, chunk, false);
-        //            for (Database.MergeResult mr : mergeResults) {
-        //                if (!mr.isSuccess()) {
-        //                    Logger.error(
-        //                        'Merge failed for DRS {0}, master {1}: {2}',
-        //                        new List<Object>{ drsId, masterRecord.Id, JSON.serialize(mr.getErrors()) }
-        //                    );
-        //                    mergeSucceeded = false;
-        //                }
-        //            }
-        //            if (!mergeSucceeded) {
-        //                break;
-        //            }
-        //            chunkStart += 2;
-        //        }
-        //
-        //        // --- Step 5: On full success, clean up DRS + DRI records ---
-        //        if (mergeSucceeded) {
-        //            this.totalMergesSucceeded++;
-        //            delete driRecords;
-        //            delete records[0];
-        //        } else {
-        //            this.totalMergesFailed++;
-        //        }
+        // Enforce limit of 1 record because 'merge' DML will consume transaction limits
+        final Integer BATCH_SCOPE_LIMIT = 1;
+        if (records.size() > BATCH_SCOPE_LIMIT) {
+            IllegalArgumentException ex = new IllegalArgumentException(
+                String.format(
+                    'Batch scope of {0} exceeds the hard limit of {1} imposed by "merge" DML load. Chunk skipped.',
+                    new List<Object>{ records.size(), BATCH_SCOPE_LIMIT }
+                )
+            );
+            Logger.error(ex);
+            throw ex;
+        }
+
+        this.totalDrsProcessed += records.size();
+
+        // Prepare runtime
+        final DuplicateRecordSet drs = (DuplicateRecordSet) records[0];
+        final Schema.SObjectType objectType = Schema.getGlobalDescribe().get(this.rule.SobjectType);
+        final Schema.FieldSet mergeFieldSetDef = this.selectAndValidateFieldSetName(this.mergeFieldsSetName);
+        final List<SObjectField> fieldDefs = this.collectMergeFieldDefs(mergeFieldSetDef);
+        final List<String> fieldApiNames = this.collectFieldApiNames(fieldDefs);
+        final String fieldApiNamesAsSoqlClause = String.join(fieldApiNames, ', ');
+        // Logger.debug('objectType = {0} | fieldApiNames = {1}', Lists.of(objectType.toString(), fieldApiNames.size().toString()));
+
+        // Collect DRI records making sure the entities are not deleted
+        String query = 'SELECT ' + fieldApiNamesAsSoqlClause + ' FROM ' + objectType.getDescribe().getName();
+        query += ' WHERE Id IN (SELECT RecordId FROM DuplicateRecordItem WHERE DuplicateRecordSetId = \'' + drs.Id + '\')';
+        query += ' AND IsDeleted = FALSE';
+        query += ' ORDER BY LastModifiedDate DESC';
+        // Logger.debug('query = {0}', Lists.of(query));
+        List<SObject> recordsToMerge = Security.stripInaccessible(AccessType.UPDATABLE, Database.query(query)).getRecords();
+        Logger.debug('recordsToMerge = {0}', Lists.of(recordsToMerge.size().toString()));
+        if (recordsToMerge.size() < 2) {
+            this.totalDrsSkipped += 1;
+            return;
+        }
+
+        // Run merge DML operation
+        try {
+            SObject masterRecord = recordsToMerge[0];
+            for (Integer i = 1; i < recordsToMerge.size(); i++) {
+                SObject mergeRecord = recordsToMerge[i];
+                masterRecord = this.cloneMergeFieldValues(masterRecord, mergeRecord, fieldDefs);
+                Database.merge(masterRecord, new List<SObject>{ mergeRecord }, true);
+            }
+            delete [SELECT Id FROM DuplicateRecordSet WHERE Id = :drs.Id];
+            this.totalMergesSucceeded += 1;
+        } catch (Exception ex) {
+            this.totalMergesFailed += 1;
+            Logger.error(ex);
+        }
     }
 
     public void finish(Database.BatchableContext context) {
         Logger.debug(
-            'MergeDuplicatesBatch finished. SObjectType: {0} | DRS processed: {1} | Merges succeeded: {2} | Merges failed: {3}',
-            new List<Object>{ this.rule.SobjectType, this.totalDrsProcessed, this.totalMergesSucceeded, this.totalMergesFailed }
+            'MergeDuplicatesBatch finished. SObjectType: {0} | DRS processed: {1} | DRS skipped: {2} | Merges succeeded: {3} | Merges failed: {4}',
+            new List<Object>{
+                this.rule.SobjectType,
+                this.totalDrsProcessed,
+                this.totalDrsSkipped,
+                this.totalMergesSucceeded,
+                this.totalMergesFailed
+            }
         );
     }
 
@@ -131,7 +116,7 @@ public without sharing class MergeDuplicatesBatch implements Database.Batchable<
         return rules[0];
     }
 
-    private Schema.FieldSet selectAndValidateFieldSet(String fsApiName) {
+    private Schema.FieldSet selectAndValidateFieldSetName(String fsApiName) {
         String objectName = this.rule.SobjectType;
         DescribeSObjectResult objectDescribe = Schema.getGlobalDescribe().get(objectName).getDescribe();
         if (!objectDescribe.fieldSets.getMap().containsKey(fsApiName)) {
@@ -142,16 +127,39 @@ public without sharing class MergeDuplicatesBatch implements Database.Batchable<
         return objectDescribe.fieldSets.getMap().get(fsApiName);
     }
 
-    private List<SObjectField> collectMergeFieldDefs() {
+    private List<SObjectField> collectMergeFieldDefs(Schema.FieldSet fieldSetDef) {
         List<SObjectField> fieldDefs = new List<SObjectField>();
-        for (Schema.FieldSetMember fieldItem : this.mergeFieldsSet.getFields()) {
+        for (Schema.FieldSetMember fieldItem : fieldSetDef.getFields()) {
+            if (!fieldItem.getSObjectField().getDescribe().isUpdateable()) {
+                continue;
+            }
+            if (fieldItem.getSObjectField().getDescribe().isIdLookup()) {
+                continue;
+            }
+            if (fieldItem.getSObjectField().getDescribe().isCalculated()) {
+                continue;
+            }
+            if (fieldItem.getSObjectField().getDescribe().isAggregatable()) {
+                continue;
+            }
+            if (fieldItem.getSObjectField().getDescribe().isAutoNumber()) {
+                continue;
+            }
             fieldDefs.add(fieldItem.getSObjectField());
         }
         return fieldDefs;
     }
 
-    private SObject cloneMergeFieldValue(SObject masterRecord, SObject mergeRecord) {
-        for (SObjectField fieldDef : this.collectMergeFieldDefs()) {
+    private List<String> collectFieldApiNames(List<SObjectField> fieldDefs) {
+        List<String> fieldApiNames = new List<String>();
+        for (SObjectField fieldDef : fieldDefs) {
+            fieldApiNames.add(fieldDef.getDescribe().getName());
+        }
+        return fieldApiNames;
+    }
+
+    private SObject cloneMergeFieldValues(SObject masterRecord, SObject mergeRecord, List<SObjectField> fieldDefs) {
+        for (SObjectField fieldDef : fieldDefs) {
             if (masterRecord.get(fieldDef) != null) {
                 masterRecord.put(fieldDef, mergeRecord.get(fieldDef));
             }

@@ -5,22 +5,18 @@
  * IMPORTANT: This batch MUST be invoked with a scope of exactly 50 records to comply
  * with the hard platform limit of Datacloud.FindDuplicates.findDuplicates():
  *
- * Sample: Database.executeBatch(new DetectDuplicatesBatch(ruleId), 50);
- */
-
-/**
- * TODO - handle errors; ideally send email with data stats?
+ * Sample: Database.executeBatch(new DetectDuplicatesBatch(ruleId, soqlClause), 50);
  */
 public without sharing class DetectDuplicatesBatch implements Database.Batchable<SObject>, Database.Stateful, Database.RaisesPlatformEvents {
     private DuplicateRule rule;
-    private String soqlCondition;
+    private String soqlClause;
 
     private Integer totalRecordsProcessed = 0;
     private Integer totalDrsCreated = 0;
 
-    public DetectDuplicatesBatch(Id duplicateRuleId, String soqlCondition) {
+    public DetectDuplicatesBatch(Id duplicateRuleId, String soqlClause) {
         this.rule = this.selectAndValidateDuplicateRule(duplicateRuleId);
-        this.soqlCondition = soqlCondition;
+        this.soqlClause = soqlClause;
         Logger.debug(
             'DetectDuplicatesBatch initialised. Rule: {0}, SObjectType: {1}',
             Lists.of(this.rule.DeveloperName, this.rule.SobjectType)
@@ -28,10 +24,11 @@ public without sharing class DetectDuplicatesBatch implements Database.Batchable
     }
 
     public Database.QueryLocator start(Database.BatchableContext context) {
-        String query = 'SELECT Id FROM ' + this.rule.SobjectType;
-        if (String.isNotBlank(this.soqlCondition)) {
-            query += ' WHERE ' + this.soqlCondition;
+        String query = 'SELECT Id FROM ' + this.rule.SobjectType + ' ';
+        if (String.isNotBlank(this.soqlClause)) {
+            query += this.soqlClause;
         }
+        Logger.debug(query);
         return Database.getQueryLocator(query);
     }
 
