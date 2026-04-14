@@ -15,10 +15,20 @@
             <lightning-layout-item size="6" padding="horizontal-small">
                 <iframe lwc:ref="ocrIframe" src="/apex/TesseractOCR" style="display: none"></iframe>
                 <c-pdf-to-png-converter lwc:ref="pdfConverter"></c-pdf-to-png-converter>
-                <div class="slds-m-top_medium">
+                <div class="slds-m-vertical_small">
                     <c-stats label="Stats" icon-name="standard:employee_asset" value={stats}></c-stats>
                 </div>
-                <div class="slds-m-vertical_medium">
+                <div class="slds-m-vertical_small">
+                    <c-combobox
+                        label="Tesseract Supported Language(s)"
+                        value={selectedLanguagesAsStr}
+                        options={languageOptions}
+                        multi-select
+                        required
+                        onchange={handleSelectLanguage}
+                    ></c-combobox>
+                </div>
+                <div class="slds-m-vertical_small">
                     <c-error-alert value={error}></c-error-alert>
                 </div>
                 <c-result-set-overview

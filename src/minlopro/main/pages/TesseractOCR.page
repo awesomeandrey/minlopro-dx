@@ -10,8 +10,8 @@
             return str.length > maxLength ? str.slice(0, maxLength) + '…' : str;
         }
 
-        async function recognizeText(fileAsBlob) {
-            const worker = await Tesseract.createWorker('eng');
+        async function recognizeText(fileAsBlob, languages = ['eng']) {
+            const worker = await Tesseract.createWorker(languages.join('+'));
             let ocrResult = { status: null, text: null };
             try {
                 const result = await worker.recognize(fileAsBlob);
@@ -46,8 +46,8 @@
                 return;
             }
             // Parse event payload and start processing;
-            const { id, blob } = event.data;
-            const ocrResult = await recognizeText(blob);
+            const { id, blob, languages = [] } = event.data;
+            const ocrResult = await recognizeText(blob, languages);
             // Notify origin;
             window.parent.postMessage({ id, ...ocrResult }, referrerOrigin);
         });
