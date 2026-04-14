@@ -1,6 +1,6 @@
 RecordTypeId,FirstName,LastName,Industry,Site,Type,PersonEmail,Phone
 PERSON_ACCOUNT_RT_ID,Luke,Martinez,Healthcare,http://weather.com,Partner,christian.oconnor@example.co,302-657-8934
-PERSON_ACCOUNT_RT_ID,Chris,Martinez,Technology,http://mail.ru,Customer,chris.patel@example.io,872-345-6789
+PERSON_ACCOUNT_RT_ID,Chris,Martinez,Technology,http://mail.ua,Customer,chris.patel@example.io,872-345-6789
 PERSON_ACCOUNT_RT_ID,Luke,Johnson,Healthcare,https://bizjournals.com,Partner,mike.johnson@example.net,302-657-8934
 PERSON_ACCOUNT_RT_ID,Mike,Johnson,Healthcare,https://prlog.org,Customer,mike.johnson@example.net,302-657-8934
 PERSON_ACCOUNT_RT_ID,Chris,Patel,Technology,http://rakuten.co.jp,Customer,mike.johnson@example.net,872-345-6789
@@ -8,7 +8,7 @@ PERSON_ACCOUNT_RT_ID,Christian,O'Connor,Technology,http://bbb.org,Partner,chris.
 PERSON_ACCOUNT_RT_ID,John,Smith,Technology,http://boston.com,Partner,john.smith@example.com,872-345-6789
 PERSON_ACCOUNT_RT_ID,John,O'Connor,Healthcare,http://fotki.com,Partner,chris.patel@example.io,302-657-8934
 PERSON_ACCOUNT_RT_ID,Chris,O'Connor,Healthcare,http://is.gd,Customer,christian.oconnor@example.co,628-439-2150
-PERSON_ACCOUNT_RT_ID,John,Johnson,Healthcare,http://google.ru,Customer,luke.martinez@example.org,872-345-6789
+PERSON_ACCOUNT_RT_ID,John,Johnson,Healthcare,http://google.ua,Customer,luke.martinez@example.org,872-345-6789
 PERSON_ACCOUNT_RT_ID,Chris,Smith,Technology,http://auda.org.au,Partner,chris.patel@example.io,731-820-6743
 PERSON_ACCOUNT_RT_ID,John,O'Connor,Healthcare,http://nps.gov,Customer,mike.johnson@example.net,731-820-6743
 PERSON_ACCOUNT_RT_ID,John,Martinez,Finance,http://ehow.com,Partner,christian.oconnor@example.co,872-345-6789
@@ -68,4 +68,4 @@ PERSON_ACCOUNT_RT_ID,John,Johnson,Technology,https://goo.ne.jp,Partner,luke.mart
 PERSON_ACCOUNT_RT_ID,Chris,Johnson,Technology,https://webmd.com,Partner,john.smith@example.com,415-908-7621
 PERSON_ACCOUNT_RT_ID,John,Smith,Finance,https://ezinearticles.com,Customer,john.smith@example.com,628-439-2150
 PERSON_ACCOUNT_RT_ID,Chris,Johnson,Technology,http://mtv.com,Partner,luke.martinez@example.org,302-657-8934
-PERSON_ACCOUNT_RT_ID,John,Patel,Healthcare,https://yandex.ru,Customer,luke.martinez@example.org,415-908-7621
+PERSON_ACCOUNT_RT_ID,John,Patel,Healthcare,https://yandex.ua,Customer,luke.martinez@example.org,415-908-7621

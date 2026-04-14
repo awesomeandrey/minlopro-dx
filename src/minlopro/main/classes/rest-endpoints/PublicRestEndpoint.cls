@@ -54,21 +54,13 @@ global without sharing class PublicRestEndpoint {
         RestResponse res = RestContext.response;
         try {
             Logger.debug('Entering Public REST Endpoint (POST)');
-
-            // Process request;
             Logger.debug('Request Body = {0}', Lists.of(req.requestBody.toString()));
             Logger.debug('Request Params = {0}', Lists.of(req.params.toString()));
-
-            Messaging.CustomNotification notification = new Messaging.CustomNotification();
-            notification.setNotificationTypeId(Constants.CustomNotificationsTypes.Minlopro.Id);
-            notification.setTitle('New Host Detected');
-            notification.setBody('Body = ' + req.requestBody.toString());
-            notification.setTargetId(UserInfo.getUserId());
-            Set<String> usernames = new Set<String>();
-            for (Id userId : SystemInfoController.getAdminIds()) {
-                usernames.add(String.valueOf(userId));
-            }
-            notification.send(usernames);
+            SystemAlert.Builder alert = new SystemAlert.Builder()
+                .withTitle('New Host Detected')
+                .withBody('Body = ' + req.requestBody.toString())
+                .withRecipients(SystemInfoController.getAdminIds());
+            SystemAlert.send(alert);
         } catch (Exception ex) {
             Logger.error(ex);
             res.statusCode = 500;
