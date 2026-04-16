@@ -3,22 +3,78 @@
     <apiVersion>63.0</apiVersion>
     <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
     <assignments>
-        <name>AssignForceLogout</name>
-        <label>Assign Force Logout</label>
-        <locationX>440</locationX>
-        <locationY>350</locationY>
+        <name>Resolve_Variables</name>
+        <label>Resolve Variables</label>
+        <locationX>50</locationX>
+        <locationY>674</locationY>
         <assignmentItems>
-            <assignToReference>LoginFlow_ForceLogout</assignToReference>
+            <assignToReference>isOmniEligibleUser</assignToReference>
             <operator>Assign</operator>
             <value>
                 <booleanValue>true</booleanValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>LoginFlow_FinishLocation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>/lightning/n/OmniWidgetLogin</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>UserDetailsScreen</targetReference>
+        </connector>
     </assignments>
-    <description>Customizes login experience for Minlopro users.</description>
+    <decisions>
+        <name>Is_User_Omni_Eligible</name>
+        <label>Is User Omni-Eligible?</label>
+        <locationX>182</locationX>
+        <locationY>566</locationY>
+        <defaultConnector>
+            <targetReference>UserDetailsScreen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Omni_Eligible_User</name>
+            <conditionLogic>1 AND 2 AND (3 OR 4)</conditionLogic>
+            <conditions>
+                <leftValueReference>GetRunningUser.UserPermissionsSupportUser</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Service_Presence_Statuses</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Presence_Configuration_For_User</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Presence_Configuration_For_Profile</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Resolve_Variables</targetReference>
+            </connector>
+            <label>Omni-Eligible User</label>
+        </rules>
+    </decisions>
+    <description>Automatically log current user into Omni-Channel widget.</description>
     <environments>Default</environments>
-    <interviewLabel>Minlopro - Default Login Flow {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Minlopro - Default Login Flow</label>
+    <interviewLabel>Minlopro - Omni Login {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Minlopro - Omni 🔱 - Auto-Login</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -39,17 +95,69 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
+        <name>Get_Presence_Configuration_For_Profile</name>
+        <label>Get Presence Configuration For Profile</label>
+        <locationX>182</locationX>
+        <locationY>458</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_User_Omni_Eligible</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ProfileId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetRunningUser.ProfileId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>PresenceUserConfigProfile</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Presence_Configuration_For_User</name>
+        <label>Get Presence Configuration For User</label>
+        <locationX>182</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Presence_Configuration_For_Profile</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>UserId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetRunningUser.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>PresenceUserConfigUser</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Service_Presence_Statuses</name>
+        <label>Get Service Presence Statuses</label>
+        <locationX>182</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Presence_Configuration_For_User</targetReference>
+        </connector>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>ServicePresenceStatus</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>GetRunningUser</name>
         <label>Get Running User</label>
-        <locationX>176</locationX>
+        <locationX>182</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>UserDetailsScreen</targetReference>
+            <targetReference>Get_Service_Presence_Statuses</targetReference>
         </connector>
-        <faultConnector>
-            <targetReference>UnknownUserScreen</targetReference>
-        </faultConnector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
@@ -62,23 +170,109 @@
         <object>User</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <runInMode>SystemModeWithSharing</runInMode>
     <screens>
-        <name>UnknownUserScreen</name>
-        <label>Unknown User Screen</label>
-        <locationX>440</locationX>
-        <locationY>242</locationY>
+        <name>UserDetailsScreen</name>
+        <label>User Details Screen</label>
+        <locationX>182</locationX>
+        <locationY>866</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
-        <connector>
-            <targetReference>AssignForceLogout</targetReference>
-        </connector>
         <fields>
-            <name>HelpText</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;em style=&quot;color: rgb(199, 74,
-                16);&quot;&gt;{!$Flow.FaultMessage}&lt;/em&gt;&lt;/p&gt;&lt;p style=&quot;text-align:
-                center;&quot;&gt;&lt;em&gt;Force logout...&lt;/em&gt;&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
+            <name>UserInfo</name>
+            <fieldText>User Info</fieldText>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>UserInfo_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>FullName</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>GetRunningUser.Name</elementReference>
+                    </defaultValue>
+                    <fieldText>Full Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isReadOnly>
+                        <booleanValue>true</booleanValue>
+                    </isReadOnly>
+                    <isRequired>false</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <fields>
+                    <name>Is_Omni_Eligible_User</name>
+                    <dataType>Boolean</dataType>
+                    <defaultValue>
+                        <elementReference>isOmniEligibleUser</elementReference>
+                    </defaultValue>
+                    <fieldText>Is Omni-Eligible User?</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isDisabled>
+                        <booleanValue>true</booleanValue>
+                    </isDisabled>
+                    <isRequired>true</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>UserInfo_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Username</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>GetRunningUser.Username</elementReference>
+                    </defaultValue>
+                    <fieldText>Username</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isReadOnly>
+                        <booleanValue>true</booleanValue>
+                    </isReadOnly>
+                    <isRequired>false</isRequired>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithHeader</regionContainerType>
             <styleProperties>
                 <verticalAlignment>
                     <stringValue>top</stringValue>
@@ -88,18 +282,6 @@
                 </width>
             </styleProperties>
         </fields>
-        <nextOrFinishButtonLabel>Force Logout</nextOrFinishButtonLabel>
-        <showFooter>true</showFooter>
-        <showHeader>true</showHeader>
-    </screens>
-    <screens>
-        <name>UserDetailsScreen</name>
-        <label>User Details Screen</label>
-        <locationX>176</locationX>
-        <locationY>242</locationY>
-        <allowBack>false</allowBack>
-        <allowFinish>true</allowFinish>
-        <allowPause>false</allowPause>
         <fields>
             <name>FlowInputVariables</name>
             <fieldText>Flow Input Variables</fieldText>
@@ -336,87 +518,6 @@
             </styleProperties>
         </fields>
         <fields>
-            <name>UserInfo</name>
-            <fieldText>User Info</fieldText>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>UserInfo_Column1</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>FullName</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>GetRunningUser.Name</elementReference>
-                    </defaultValue>
-                    <fieldText>Full Name</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isReadOnly>
-                        <booleanValue>true</booleanValue>
-                    </isReadOnly>
-                    <isRequired>false</isRequired>
-                    <styleProperties>
-                        <verticalAlignment>
-                            <stringValue>top</stringValue>
-                        </verticalAlignment>
-                        <width>
-                            <stringValue>12</stringValue>
-                        </width>
-                    </styleProperties>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>UserInfo_Column2</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>Username</name>
-                    <dataType>String</dataType>
-                    <defaultValue>
-                        <elementReference>GetRunningUser.Username</elementReference>
-                    </defaultValue>
-                    <fieldText>Username</fieldText>
-                    <fieldType>InputField</fieldType>
-                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
-                    <isReadOnly>
-                        <booleanValue>true</booleanValue>
-                    </isReadOnly>
-                    <isRequired>false</isRequired>
-                    <styleProperties>
-                        <verticalAlignment>
-                            <stringValue>top</stringValue>
-                        </verticalAlignment>
-                        <width>
-                            <stringValue>12</stringValue>
-                        </width>
-                    </styleProperties>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>6</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithHeader</regionContainerType>
-            <styleProperties>
-                <verticalAlignment>
-                    <stringValue>top</stringValue>
-                </verticalAlignment>
-                <width>
-                    <stringValue>12</stringValue>
-                </width>
-            </styleProperties>
-        </fields>
-        <fields>
             <name>FlowOutputVariables</name>
             <fieldText>Flow Output Variables</fieldText>
             <fieldType>RegionContainer</fieldType>
@@ -496,13 +597,23 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>50</locationX>
+        <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>GetRunningUser</targetReference>
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>isOmniEligibleUser</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
     <variables>
         <name>LoginFlow_Application</name>
         <dataType>String</dataType>

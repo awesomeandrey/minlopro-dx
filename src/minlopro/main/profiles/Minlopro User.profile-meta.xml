@@ -79,7 +79,7 @@
         <layout>User-User Layout</layout>
     </layoutAssignments>
     <loginFlows>
-        <flow>Minlopro_DefaultLoginFlow</flow>
+        <flow>Minlopro_OmniAutoLogin</flow>
         <flowType>UI</flowType>
         <friendlyName>Minlopro - User Flow</friendlyName>
         <uiLoginFlowType>VisualWorkflow</uiLoginFlowType>

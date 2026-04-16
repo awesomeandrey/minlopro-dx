@@ -83,3 +83,9 @@ Omni-channel setup that handles work items of different sobject types (Leads, In
 | Standard Omni-Channel Widget                                                                               | Enhanced Omni-Channel Widget                                                                               |
 | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
 | ![Standard_Omni_Channel_Widget.png](../../assets/demo/omni-channel-setup/Standard_Omni_Channel_Widget.png) | ![Enhanced_Omni_Channel_Widget.png](../../assets/demo/omni-channel-setup/Enhanced_Omni_Channel_Widget.png) |
+
+---
+
+### Auto-Login into Omni-Widget
+
+![Omni_Auto_Login_Architecture.png](../../assets/demo/omni-channel-setup/Omni_Auto_Login_Architecture.png)
