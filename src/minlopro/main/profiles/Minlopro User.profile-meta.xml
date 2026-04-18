@@ -15,10 +15,6 @@
         <recordType>Account.Company</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Account-Account Layout</layout>
-        <recordType>Account.IndividualEntrepreneur</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>AuthProviderSetting__mdt-Auth%2E Provider Setting Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -66,10 +62,6 @@
         <recordType>PersonAccount.Customer</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>PersonAccount-Person Account Layout</layout>
-        <recordType>PersonAccount.PersonAccount</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Task-Task Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -79,7 +71,7 @@
         <layout>User-User Layout</layout>
     </layoutAssignments>
     <loginFlows>
-        <flow>Minlopro_OmniAutoLogin</flow>
+        <flow>Minlopro_Omni_AutoLogin</flow>
         <flowType>UI</flowType>
         <friendlyName>Minlopro - User Flow</friendlyName>
         <uiLoginFlowType>VisualWorkflow</uiLoginFlowType>

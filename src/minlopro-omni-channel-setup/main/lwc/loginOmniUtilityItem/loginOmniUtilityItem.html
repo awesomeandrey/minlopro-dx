@@ -1,7 +1,7 @@
 <template>
-    <lightning-card title="Omni Login Widget" icon-name="standard:omni_channel">
+    <lightning-card title="Login Omni-Channel Widget" icon-name="standard:omni_channel">
         <lightning-button-group slot="actions">
-            <lightning-button lwc:if={isDebugMode} label="Login" onclick={handleLoginBtn} disabled={loading}></lightning-button>
+            <lightning-button lwc:if={isDebugMode} label="Debug" onclick={handleDebugBtn} disabled={loading}></lightning-button>
         </lightning-button-group>
         <div class="slds-m-horizontal_medium slds-p-vertical_medium">
             <template lwc:if={loading}>

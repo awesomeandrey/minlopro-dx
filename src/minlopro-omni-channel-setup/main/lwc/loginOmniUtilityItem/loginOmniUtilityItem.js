@@ -58,11 +58,14 @@ export default class LoginOmniUtilityItem extends NavigationMixin(LightningEleme
     wirePageReference(pageRef) {
         this.isDebugMode = isNotEmpty(pageRef?.state?.c__debug);
         if (!this.isDebugMode) {
-            this.loginOmni();
+            // Intentionally break event loop
+            setTimeout(() => {
+                this.loginOmni();
+            }, 700);
         }
     }
 
-    async handleLoginBtn(event) {
+    async handleDebugBtn(event) {
         event.preventDefault();
         await this.loginOmni();
     }
