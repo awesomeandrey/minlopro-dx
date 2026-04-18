@@ -1,4 +1,4 @@
-# Minlopro - Default Login Flow
+# Minlopro - Omni 🔱 - Auto-Login
 
 ## Flow Diagram
 
@@ -11,27 +11,38 @@
 
 flowchart TB
 START(["START<br/><b>Screen Flow</b>"]):::startClass
-click START "#general-information" "2955944414"
+click START "#general-information" "2152412506"
 
-AssignForceLogout[\"🟰 <em></em><br/>Assign Force Logout"/]:::assignments
-click AssignForceLogout "#assignforcelogout" "322814333"
+Resolve_Variables[\"🟰 <em></em><br/>Resolve Variables"/]:::assignments
+click Resolve_Variables "#resolve_variables" "2417108779"
+
+Is_User_Omni_Eligible{"🔀 <em></em><br/>Is User Omni-Eligible?"}:::decisions
+click Is_User_Omni_Eligible "#is_user_omni_eligible" "2034021279"
+
+Get_Presence_Configuration_For_Profile[("🔍 <em></em><br/>Get Presence Configuration For Profile")]:::recordLookups
+click Get_Presence_Configuration_For_Profile "#get_presence_configuration_for_profile" "3476266908"
+
+Get_Presence_Configuration_For_User[("🔍 <em></em><br/>Get Presence Configuration For User")]:::recordLookups
+click Get_Presence_Configuration_For_User "#get_presence_configuration_for_user" "3876796918"
+
+Get_Service_Presence_Statuses[("🔍 <em></em><br/>Get Service Presence Statuses")]:::recordLookups
+click Get_Service_Presence_Statuses "#get_service_presence_statuses" "2828504483"
 
 GetRunningUser[("🔍 <em></em><br/>Get Running User")]:::recordLookups
-click GetRunningUser "#getrunninguser" "115952168"
-
-UnknownUserScreen(["💻 <em></em><br/>Unknown User Screen"]):::screens
-click UnknownUserScreen "#unknownuserscreen" "670867256"
+click GetRunningUser "#getrunninguser" "580323359"
 
 UserDetailsScreen(["💻 <em></em><br/>User Details Screen"]):::screens
-click UserDetailsScreen "#userdetailsscreen" "3246323013"
+click UserDetailsScreen "#userdetailsscreen" "3307476139"
 
-AssignForceLogout --> END_AssignForceLogout
-GetRunningUser --> UserDetailsScreen
-GetRunningUser -. Fault .->UnknownUserScreen
-UnknownUserScreen --> AssignForceLogout
+Resolve_Variables --> UserDetailsScreen
+Is_User_Omni_Eligible --> |"Omni-Eligible User"| Resolve_Variables
+Is_User_Omni_Eligible --> |"Default Outcome"| UserDetailsScreen
+Get_Presence_Configuration_For_Profile --> Is_User_Omni_Eligible
+Get_Presence_Configuration_For_User --> Get_Presence_Configuration_For_Profile
+Get_Service_Presence_Statuses --> Get_Presence_Configuration_For_User
+GetRunningUser --> Get_Service_Presence_Statuses
 UserDetailsScreen --> END_UserDetailsScreen
 START -->  GetRunningUser
-END_AssignForceLogout(( END )):::endClass
 END_UserDetailsScreen(( END )):::endClass
 
 
@@ -62,11 +73,12 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Process Type| Flow|
-|Label|Minlopro - Default Login Flow|
+|Label|Minlopro - Omni 🔱 - Auto-Login|
 |Status|Active|
-|Description|Customizes login experience for Minlopro users.|
+|Description|Automatically log current user into Omni-Channel widget.|
 |Environments|Default|
-|Interview Label|Minlopro - Default Login Flow {!$Flow.CurrentDateTime}|
+|Interview Label|Minlopro - Omni Login {!$Flow.CurrentDateTime}|
+|Run In Mode| System Mode With Sharing|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
 | Origin Builder Type (PM)|LightningFlowBuilder|
@@ -78,6 +90,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
+|isOmniEligibleUser|Boolean|⬜|⬜|⬜|<!-- -->|<!-- -->|
 |LoginFlow_Application|String|⬜|✅|⬜|<!-- -->|<!-- -->|
 |LoginFlow_Community|String|⬜|✅|⬜|<!-- -->|<!-- -->|
 |LoginFlow_FinishLocation|String|⬜|⬜|✅|<!-- -->|This variable determines where to send the user when the flow is completed.|
@@ -93,21 +106,110 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 ## Flow Nodes Details
 
-### AssignForceLogout
+### Resolve_Variables
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Assignment|
-|Label|Assign Force Logout|
+|Label|Resolve Variables|
+|Connector|[UserDetailsScreen](#userdetailsscreen)|
 
 
 #### Assignments
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|LoginFlow_ForceLogout| Assign|✅|
+|isOmniEligibleUser| Assign|✅|
+|LoginFlow_FinishLocation| Assign|/lightning/n/OmniWidgetLogin|
 
 
+
+
+### Is_User_Omni_Eligible
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Decision|
+|Label|Is User Omni-Eligible?|
+|Default Connector|[UserDetailsScreen](#userdetailsscreen)|
+|Default Connector Label|Default Outcome|
+
+
+#### Rule Omni_Eligible_User (Omni-Eligible User)
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Connector|[Resolve_Variables](#resolve_variables)|
+|Condition Logic|1 AND 2 AND (3 OR 4)|
+
+
+
+
+|Condition Id|Left Value Reference|Operator|Right Value|
+|:-- |:-- |:--:|:--: |
+|1|GetRunningUser.UserPermissionsSupportUser| Equal To|✅|
+|2|[Get_Service_Presence_Statuses](#get_service_presence_statuses)| Is Empty|⬜|
+|3|[Get_Presence_Configuration_For_User](#get_presence_configuration_for_user)| Is Empty|⬜|
+|4|[Get_Presence_Configuration_For_Profile](#get_presence_configuration_for_profile)| Is Empty|⬜|
+
+
+
+
+### Get_Presence_Configuration_For_Profile
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Record Lookup|
+|Object|PresenceUserConfigProfile|
+|Label|Get Presence Configuration For Profile|
+|Assign Null Values If No Records Found|⬜|
+|Get First Record Only|⬜|
+|Store Output Automatically|✅|
+|Connector|[Is_User_Omni_Eligible](#is_user_omni_eligible)|
+
+
+#### Filters (logic: **and**)
+
+|Filter Id|Field|Operator|Value|
+|:-- |:-- |:--:|:--: |
+|1|ProfileId| Equal To|GetRunningUser.ProfileId|
+
+
+
+
+### Get_Presence_Configuration_For_User
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Record Lookup|
+|Object|PresenceUserConfigUser|
+|Label|Get Presence Configuration For User|
+|Assign Null Values If No Records Found|⬜|
+|Get First Record Only|⬜|
+|Store Output Automatically|✅|
+|Connector|[Get_Presence_Configuration_For_Profile](#get_presence_configuration_for_profile)|
+
+
+#### Filters (logic: **and**)
+
+|Filter Id|Field|Operator|Value|
+|:-- |:-- |:--:|:--: |
+|1|UserId| Equal To|GetRunningUser.Id|
+
+
+
+
+### Get_Service_Presence_Statuses
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Type|Record Lookup|
+|Object|ServicePresenceStatus|
+|Label|Get Service Presence Statuses|
+|Assign Null Values If No Records Found|⬜|
+|Get First Record Only|⬜|
+|Store Output Automatically|✅|
+|Connector|[Get_Presence_Configuration_For_User](#get_presence_configuration_for_user)|
 
 
 ### GetRunningUser
@@ -118,10 +220,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Object|User|
 |Label|Get Running User|
 |Assign Null Values If No Records Found|⬜|
-|Fault Connector|[UnknownUserScreen](#unknownuserscreen)|
 |Get First Record Only|✅|
 |Store Output Automatically|✅|
-|Connector|[UserDetailsScreen](#userdetailsscreen)|
+|Connector|[Get_Service_Presence_Statuses](#get_service_presence_statuses)|
 
 
 #### Filters (logic: **and**)
@@ -129,32 +230,6 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
 |1|Id| Equal To|LoginFlow_UserId|
-
-
-
-
-### UnknownUserScreen
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Type|Screen|
-|Label|Unknown User Screen|
-|Allow Back|⬜|
-|Allow Finish|✅|
-|Allow Pause|⬜|
-|Next Or Finish Button Label|Force Logout|
-|Show Footer|✅|
-|Show Header|✅|
-|Connector|[AssignForceLogout](#assignforcelogout)|
-
-
-#### HelpText
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Field Text|<p style="text-align: center;"><em style="color: rgb(199, 74,<br/>                16);">{!$Flow.FaultMessage}</em></p><p style="text-align:<br/>                center;"><em>Force logout...</em></p>|
-|Field Type| Display Text|
-|Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 
 
@@ -171,6 +246,94 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Next Or Finish Button Label|Take me to Minlopro!|
 |Show Footer|✅|
 |Show Header|✅|
+
+
+#### FullName
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Data Type|String|
+|Default Value|GetRunningUser.Name|
+|Field Text|Full Name|
+|Field Type| Input Field|
+|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Is Read Only|true|
+|Is Required|⬜|
+|Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
+|Parent Field|[UserInfo_Column1](#userinfo_column1)|
+
+
+
+
+#### Is_Omni_Eligible_User
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Data Type|Boolean|
+|Default Value|isOmniEligibleUser|
+|Field Text|Is Omni-Eligible User?|
+|Field Type| Input Field|
+|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Is Disabled|true|
+|Is Required|✅|
+|Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
+|Parent Field|[UserInfo_Column1](#userinfo_column1)|
+
+
+
+
+#### UserInfo_Column1
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Field Type| Region|
+|Is Required|⬜|
+|Parent Field|[UserInfo](#userinfo)|
+|Width (input)|6|
+
+
+
+
+#### Username
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Data Type|String|
+|Default Value|GetRunningUser.Username|
+|Field Text|Username|
+|Field Type| Input Field|
+|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Is Read Only|true|
+|Is Required|⬜|
+|Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
+|Parent Field|[UserInfo_Column2](#userinfo_column2)|
+
+
+
+
+#### UserInfo_Column2
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Field Type| Region|
+|Is Required|⬜|
+|Parent Field|[UserInfo](#userinfo)|
+|Width (input)|6|
+
+
+
+
+#### UserInfo
+
+|<!-- -->|<!-- -->|
+|:---|:---|
+|Field Text|User Info|
+|Field Type| Region Container|
+|Is Required|⬜|
+|Region Container Type| Section With Header|
+|Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
+
+
 
 
 #### LoginType
@@ -355,77 +518,6 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|Flow Input Variables|
-|Field Type| Region Container|
-|Is Required|⬜|
-|Region Container Type| Section With Header|
-|Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
-
-
-
-
-#### FullName
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Data Type|String|
-|Default Value|GetRunningUser.Name|
-|Field Text|Full Name|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
-|Is Read Only|true|
-|Is Required|⬜|
-|Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
-|Parent Field|[UserInfo_Column1](#userinfo_column1)|
-
-
-
-
-#### UserInfo_Column1
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Field Type| Region|
-|Is Required|⬜|
-|Parent Field|[UserInfo](#userinfo)|
-|Width (input)|6|
-
-
-
-
-#### Username
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Data Type|String|
-|Default Value|GetRunningUser.Username|
-|Field Text|Username|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
-|Is Read Only|true|
-|Is Required|⬜|
-|Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
-|Parent Field|[UserInfo_Column2](#userinfo_column2)|
-
-
-
-
-#### UserInfo_Column2
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Field Type| Region|
-|Is Required|⬜|
-|Parent Field|[UserInfo](#userinfo)|
-|Width (input)|6|
-
-
-
-
-#### UserInfo
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Field Text|User Info|
 |Field Type| Region Container|
 |Is Required|⬜|
 |Region Container Type| Section With Header|
