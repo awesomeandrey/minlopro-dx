@@ -1,0 +1,53 @@
+<aura:component implements="force:lightningQuickActionWithoutHeader" controller="LogsMonitorPanelController">
+    <aura:attribute name="status" type="String" default="loading" />
+    <aura:attribute name="errorMessage" type="String" default="" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div style="min-height: 150px">
+        <lightning:layout horizontalAlign="center" verticalAlign="center">
+            <lightning:layoutItem flexibility="auto" padding="around-medium">
+                <!-- Loading -->
+                <aura:if isTrue="{!v.status == 'loading'}">
+                    <lightning:layout verticalAlign="center" horizontalAlign="center">
+                        <lightning:layoutItem>
+                            <lightning:spinner alternativeText="Enabling logs..." size="medium" />
+                        </lightning:layoutItem>
+                        <lightning:layoutItem padding="horizontal-small">
+                            <p class="slds-text-body_regular">Enabling logs&hellip;</p>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </aura:if>
+
+                <!-- Success -->
+                <aura:if isTrue="{!v.status == 'success'}">
+                    <lightning:layout verticalAlign="center" horizontalAlign="center">
+                        <lightning:layoutItem>
+                            <lightning:icon
+                                iconName="utility:success"
+                                variant="success"
+                                size="medium"
+                                alternativeText="Success"
+                            />
+                        </lightning:layoutItem>
+                        <lightning:layoutItem padding="horizontal-small">
+                            <p class="slds-text-body_regular slds-text-color_success">Logs have been enabled successfully.</p>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </aura:if>
+
+                <!-- Error -->
+                <aura:if isTrue="{!v.status == 'error'}">
+                    <lightning:layout verticalAlign="center" horizontalAlign="center">
+                        <lightning:layoutItem>
+                            <lightning:icon iconName="utility:error" variant="error" size="medium" alternativeText="Error" />
+                        </lightning:layoutItem>
+                        <lightning:layoutItem padding="horizontal-small">
+                            <p class="slds-text-body_regular slds-text-color_error">{!v.errorMessage}</p>
+                        </lightning:layoutItem>
+                    </lightning:layout>
+                </aura:if>
+            </lightning:layoutItem>
+        </lightning:layout>
+    </div>
+</aura:component>

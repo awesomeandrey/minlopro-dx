@@ -8,6 +8,10 @@
         <application>standard__LightningService</application>
         <visible>true</visible>
     </applicationVisibilities>
+    <classAccesses>
+        <apexClass>OmniChannelController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Grants proper access to Omni-Channel functionality.</description>
     <fieldPermissions>
         <editable>true</editable>
@@ -68,6 +72,10 @@
         <enabled>true</enabled>
         <servicePresenceStatus>Busy</servicePresenceStatus>
     </servicePresenceStatusAccesses>
+    <tabSettings>
+        <tab>OmniWidgetLogin</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>standard-Case</tab>
         <visibility>Visible</visibility>

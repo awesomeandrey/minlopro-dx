@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Omni Login Widget" icon-name="standard:omni_channel">
+        <lightning-button-group slot="actions">
+            <lightning-button lwc:if={isDebugMode} label="Login" onclick={handleLoginBtn} disabled={loading}></lightning-button>
+        </lightning-button-group>
+        <div class="slds-m-horizontal_medium slds-p-vertical_medium">
+            <template lwc:if={loading}>
+                <lightning-spinner alternative-text="Loading" size="x-small" variant="brand"></lightning-spinner>
+            </template>
+            <lightning-progress-indicator current-step={currentStepName} type="base" has-error={hasError} variant="base">
+                <lightning-progress-step
+                    for:each={progressSteps}
+                    for:item="step"
+                    key={step.name}
+                    label={step.label}
+                    value={step.name}
+                ></lightning-progress-step>
+            </lightning-progress-indicator>
+            <lightning-layout horizontal-align="center">
+                <lightning-layout-item size="8">
+                    <div class="slds-text-align_center slds-p-vertical_medium">
+                        <p class="slds-text-color_weak slds-text-title_caps">{currentProgressStep.label}</p>
+                        <p lwc:if={hasError} class="slds-text-color_error slds-m-top_small">{errorMessage}</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </div>
+    </lightning-card>
+</template>

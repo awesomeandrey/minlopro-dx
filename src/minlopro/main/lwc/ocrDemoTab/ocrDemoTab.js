@@ -9,6 +9,8 @@ export default class OcrDemoTab extends LightningElement {
     @track filesMap = new Map();
     @track processQueue = new Set();
     @track messageListenerFunc = this.handleTesseractPageResponse.bind(this);
+    @track selectedLanguagesAsStr = 'eng';
+    @track selectedLanguages = ['eng'];
     @track loading = false;
     @track error = null;
 
@@ -21,7 +23,7 @@ export default class OcrDemoTab extends LightningElement {
     }
 
     get doDisableBtn() {
-        return this.filesMap.size === 0 || isNotEmpty(this.error);
+        return this.filesMap.size === 0 || isNotEmpty(this.error) || isEmpty(this.selectedLanguagesAsStr);
     }
 
     get isProcessing() {
@@ -63,6 +65,13 @@ export default class OcrDemoTab extends LightningElement {
         };
     }
 
+    get languageOptions() {
+        return [
+            { label: 'English', value: 'eng' },
+            { label: 'Ukrainian', value: 'ukr' }
+        ];
+    }
+
     get $ocrIframe() {
         return this.refs.ocrIframe;
     }
@@ -84,6 +93,12 @@ export default class OcrDemoTab extends LightningElement {
 
     // Event Handlers;
 
+    handleSelectLanguage(event) {
+        const { value, selectedOptions = [] } = event.detail;
+        this.selectedLanguagesAsStr = value;
+        this.selectedLanguages = selectedOptions.map(({ value }) => value);
+    }
+
     async handleRecognizeText() {
         this.loading = true;
         this.processQueue = new Set();
@@ -92,7 +107,7 @@ export default class OcrDemoTab extends LightningElement {
                 // Convert file to Blob representation;
                 const fileAsBlob = await readFileAsBlob(file);
                 // Notify Visualforce Page;
-                this.$ocrIframe.contentWindow.postMessage({ id, blob: fileAsBlob }, '*');
+                this.$ocrIframe.contentWindow.postMessage({ id, blob: fileAsBlob, languages: this.selectedLanguages }, '*');
                 // Append to process queue;
                 this.processQueue.add(id);
             }

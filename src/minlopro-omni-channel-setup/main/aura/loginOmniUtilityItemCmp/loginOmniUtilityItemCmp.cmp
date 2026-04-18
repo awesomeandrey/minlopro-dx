@@ -1,0 +1,15 @@
+<aura:component implements="flexipage:availableForAllPageTypes,lightning:availableForFlowScreens,force:appHostable">
+    <aura:attribute name="omniToolkitApi" type="Object" />
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <lightning:omniToolkitAPI aura:id="omniToolkit" />
+
+    <lightning:layout horizontalAlign="center">
+        <lightning:layoutItem size="8" smallDeviceSize="12" mediumDeviceSize="8" largeDeviceSize="6">
+            <aura:if isTrue="{!v.omniToolkitApi}">
+                <c:loginOmniUtilityItem omniToolkit="{!v.omniToolkitApi}"></c:loginOmniUtilityItem>
+            </aura:if>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>
