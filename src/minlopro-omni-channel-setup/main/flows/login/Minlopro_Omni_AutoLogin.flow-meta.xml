@@ -73,7 +73,7 @@
     </decisions>
     <description>Automatically log current user into Omni-Channel widget.</description>
     <environments>Default</environments>
-    <interviewLabel>Minlopro - Omni Login {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Minlopro - Omni 🔱 - Auto-Login {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Minlopro - Omni 🔱 - Auto-Login</label>
     <processMetadataValues>
         <name>BuilderType</name>

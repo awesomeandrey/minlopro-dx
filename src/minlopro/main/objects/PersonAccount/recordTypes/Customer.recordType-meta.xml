@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Customer</fullName>
     <active>true</active>
-    <description>Person account record type</description>
+    <description>Personal Line (PL) customer. &apos;Person Account&apos; record type.</description>
     <label>Customer</label>
     <picklistValues>
         <picklist>Industry</picklist>
