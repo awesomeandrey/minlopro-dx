@@ -11,7 +11,7 @@
 
 flowchart TB
 START(["START<br/><b>Screen Flow</b>"]):::startClass
-click START "#general-information" "2152412506"
+click START "#general-information" "618202272"
 
 Resolve_Variables[\"🟰 <em></em><br/>Resolve Variables"/]:::assignments
 click Resolve_Variables "#resolve_variables" "2417108779"
@@ -77,7 +77,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Status|Active|
 |Description|Automatically log current user into Omni-Channel widget.|
 |Environments|Default|
-|Interview Label|Minlopro - Omni Login {!$Flow.CurrentDateTime}|
+|Interview Label|Minlopro - Omni 🔱 - Auto-Login {!$Flow.CurrentDateTime}|
 |Run In Mode| System Mode With Sharing|
 | Builder Type (PM)|LightningFlowBuilder|
 | Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
