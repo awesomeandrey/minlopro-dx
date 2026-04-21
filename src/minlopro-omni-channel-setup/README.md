@@ -11,9 +11,9 @@ assignment rules handle ownership; Omni-Channel handles _delivery_ to the right 
 ### Routing Flow
 
 ```
-Record Created / Updated
+Record Created / Updated (aka 'work item')
         ↓
-Assignment Rule
+Assignment Rule (pushes work item to omni-enabled queue)
         ↓
 Queue (holds the work item)
         ↓
@@ -30,12 +30,6 @@ Agent's Omni-Channel Widget
 
 ### Key Considerations/Limitations To Know
 
-Routing & Priority
-
-- **Priority is intra-queue only.** Routing priority determines which work item gets pushed to an agent first within a
-  queue — it does not move items across queues. Cross-queue overflow requires explicit automation.
-- **Routing Configuration is 1-to-1 with queues.** One queue, one Routing Configuration — no sharing across queues.
-
 Routing Models Explanation
 
 ![Omni_Channel_Routing_Models_Explanation.png](../../assets/demo/omni-channel-setup/Omni_Channel_Routing_Models_Explanation.png)
@@ -49,8 +43,7 @@ Service Channels
 Presence Configuration
 
 - **Profiles/Users only — no groups or roles.** Presence Configuration membership must be maintained per individual
-  user, which
-  might create manual overhead during onboarding/offboarding.
+  user, which might create manual overhead during onboarding/offboarding.
 - **One Presence Configuration per user, silently enforced.** Adding a user to a second Presence Configuration
   automatically removes them from their existing one — no warning shown.
 
