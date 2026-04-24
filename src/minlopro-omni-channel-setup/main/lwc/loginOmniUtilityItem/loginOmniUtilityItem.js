@@ -1,6 +1,6 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
-import { IsConsoleNavigation, getFocusedTabInfo, closeTab } from 'lightning/platformWorkspaceApi';
+import { IsConsoleNavigation, getFocusedTabInfo, closeTab, setTabLabel, setTabIcon } from 'lightning/platformWorkspaceApi';
 import { cloneObject, isEmpty, isNotEmpty, parseError } from 'c/utilities';
 import Toastify from 'c/toastify';
 
@@ -56,13 +56,26 @@ export default class LoginOmniUtilityItem extends NavigationMixin(LightningEleme
 
     @wire(CurrentPageReference)
     wirePageReference(pageRef) {
-        this.isDebugMode = isNotEmpty(pageRef?.state?.c__debug);
-        if (!this.isDebugMode) {
-            // Intentionally break event loop
-            setTimeout(() => {
-                this.loginOmni();
-            }, 700);
-        }
+        (async () => {
+            this.isDebugMode = isNotEmpty(pageRef?.state?.c__debug);
+            if (!this.isConsoleNavigation) {
+                Toastify.error({ message: 'The component should be opened in the app with console navigation only' });
+                await this.navigateHomeAndCloseTab();
+                return;
+            }
+            if (!this.isDebugMode) {
+                // Intentionally break event loop
+                setTimeout(() => {
+                    this.loginOmni();
+                }, 700);
+            }
+            // Set tab label & icon
+            const { tabId } = await getFocusedTabInfo();
+            Promise.all([
+                setTabLabel(tabId, 'OMNI AUTO-LOGIN'),
+                setTabIcon(tabId, 'utility:omni_channel', { iconAlt: 'Omni-Channel Widget' })
+            ]);
+        })();
     }
 
     async handleDebugBtn(event) {
@@ -99,20 +112,24 @@ export default class LoginOmniUtilityItem extends NavigationMixin(LightningEleme
                     await this.omniToolkit.login({ statusId });
                     Toastify.success({ message: 'Logged in Omni-Widget' });
                 } else if (stepName === STEPS.STEP_4_NAVIGATE_HOME) {
-                    const { tabId } = await getFocusedTabInfo();
-                    this[NavigationMixin.Navigate]({
-                        type: 'standard__namedPage',
-                        attributes: { pageName: 'home' }
-                    });
-                    if (!this.isDebugMode) {
-                        await closeTab(tabId);
-                    }
+                    await this.navigateHomeAndCloseTab();
                 }
             }
         } catch (error) {
             this.errorMessage = parseError(error).message;
         } finally {
             this.loading = false;
+        }
+    }
+
+    async navigateHomeAndCloseTab() {
+        const { tabId } = await getFocusedTabInfo();
+        this[NavigationMixin.Navigate]({
+            type: 'standard__namedPage',
+            attributes: { pageName: 'home' }
+        });
+        if (!this.isDebugMode) {
+            await closeTab(tabId);
         }
     }
 }
