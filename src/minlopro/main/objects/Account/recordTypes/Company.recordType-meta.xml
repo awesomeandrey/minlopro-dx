@@ -6,6 +6,21 @@
     <description>Business Line (BL) customer.</description>
     <label>Company</label>
     <picklistValues>
+        <picklist>DncRegistryStatus__c</picklist>
+        <values>
+            <fullName>DoNotCall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EligibleToCall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Industry</picklist>
         <values>
             <fullName>Agriculture</fullName>

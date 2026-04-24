@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DncRegistryStatus__c</fullName>
+    <description>Indicates whether &apos;Phone&apos; field is on Do-Not-Call Registry or not.</description>
+    <inlineHelpText>Indicates whether &apos;Phone&apos; field is on Do-Not-Call Registry or not.</inlineHelpText>
+    <label>DNC Registry Status</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>true</default>
+                <label>🔘 Unknown</label>
+            </value>
+            <value>
+                <fullName>EligibleToCall</fullName>
+                <default>false</default>
+                <label>🔹 Verified: Eligible To Call</label>
+            </value>
+            <value>
+                <fullName>DoNotCall</fullName>
+                <default>false</default>
+                <label>🔺 Verified: Do Not Call</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
