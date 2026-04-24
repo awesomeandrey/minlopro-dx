@@ -10,8 +10,8 @@ public inherited sharing class TH_Account_CalculateDncStatus extends BasicTrigge
     }
 
     public override void beforeUpdate(Map<Id, SObject> oldMap, Map<Id, SObject> newMap) {
-        for (SObject record : newMap.values()) {
-            Account accountRec = (Account) record;
+        for (SObject newRecord : newMap.values()) {
+            Account accountRec = (Account) newRecord;
             if (String.isBlank(accountRec.Phone)) {
                 accountRec.DncRegistryStatus__c = 'Unknown';
             }
@@ -19,6 +19,10 @@ public inherited sharing class TH_Account_CalculateDncStatus extends BasicTrigge
     }
 
     public override void afterInsert(List<SObject> newRecords) {
+        if (!AccountDncUtils.isFeatureEnabled() || AccountDncUtils.hasExceededRateLimit()) {
+            Logger.debug('DNC feature is disabled/suspended.');
+            return;
+        }
         List<Account> accountsToCheck = new List<Account>();
         for (SObject record : newRecords) {
             Account accountRec = (Account) record;
@@ -26,13 +30,20 @@ public inherited sharing class TH_Account_CalculateDncStatus extends BasicTrigge
                 accountsToCheck.add(accountRec);
             }
         }
-        if (!accountsToCheck.isEmpty() && AccountDncUtils.isFeatureEnabled()) {
-            Logger.debug('Enqueued {0} accounts to check for DNC status.', Lists.of(accountsToCheck.size().toString()));
-            System.enqueueJob(new AccountDncStatusSynchronizer(accountsToCheck));
+        if (!accountsToCheck.isEmpty()) {
+            Id jobId = System.enqueueJob(new AccountDncStatusSynchronizer(accountsToCheck));
+            Logger.debug(
+                '{0} | Enqueued {1} accounts to check for DNC status.',
+                Lists.of(jobId, accountsToCheck.size().toString())
+            );
         }
     }
 
     public override void afterUpdate(Map<Id, SObject> oldMap, Map<Id, SObject> newMap) {
+        if (!AccountDncUtils.isFeatureEnabled() || AccountDncUtils.hasExceededRateLimit()) {
+            Logger.debug('DNC feature is disabled/suspended.');
+            return;
+        }
         List<Account> accountsToCheck = new List<Account>();
         for (Id recordId : oldMap.keySet()) {
             Account oldAccount = (Account) oldMap.get(recordId);
@@ -41,9 +52,12 @@ public inherited sharing class TH_Account_CalculateDncStatus extends BasicTrigge
                 accountsToCheck.add(newAccount);
             }
         }
-        if (!accountsToCheck.isEmpty() && AccountDncUtils.isFeatureEnabled()) {
-            Logger.debug('Enqueued {0} accounts to check for DNC status.', Lists.of(accountsToCheck.size().toString()));
-            System.enqueueJob(new AccountDncStatusSynchronizer(accountsToCheck));
+        if (!accountsToCheck.isEmpty()) {
+            Id jobId = System.enqueueJob(new AccountDncStatusSynchronizer(accountsToCheck));
+            Logger.debug(
+                '{0} | Enqueued {1} accounts to check for DNC status.',
+                Lists.of(jobId, accountsToCheck.size().toString())
+            );
         }
     }
 }

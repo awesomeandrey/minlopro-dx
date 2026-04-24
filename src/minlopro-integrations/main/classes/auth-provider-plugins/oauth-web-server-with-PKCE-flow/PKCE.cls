@@ -1,16 +1,16 @@
 public without sharing class PKCE {
-    private final static Cache.OrgPartition PARTITION = Cache.Org.getPartition('local.PKCE'); // Org Cache;
+    private final static Cache.OrgPartition DEFAULT_PARTITION = SystemInfoController.getDefaultCachePartition();
 
     public static State generate(String cacheKey) {
         // Step 1 - Invoke public Salesforce endpoint to get PKCE state;
         State pkceState = Test.isRunningTest() ? generateRandom() : generate();
         // Step 2 - Save state in Platform Cache;
-        PARTITION.put(cacheKey, pkceState, 300);
+        DEFAULT_PARTITION.put(cacheKey, pkceState, 300);
         return pkceState;
     }
 
     public static State get(String cacheKey) {
-        return (State) PARTITION.get(cacheKey);
+        return (State) DEFAULT_PARTITION.get(cacheKey);
     }
 
     private static State generate() {

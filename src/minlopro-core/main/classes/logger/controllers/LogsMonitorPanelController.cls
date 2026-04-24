@@ -1,25 +1,25 @@
 @SuppressWarnings('PMD')
 public with sharing class LogsMonitorPanelController {
-    private final static Cache.OrgPartition LOGS_PARTITION = Cache.Org.getPartition('local.LogsMonitor');
+    private final static Cache.OrgPartition DEFAULT_PARTITION = SystemInfoController.getDefaultCachePartition();
     private final static String RATIO_KEY = 'leftDivRatio';
     private final static Integer DEFAULT_RATIO = 75;
 
     @AuraEnabled
     public static Boolean hasPartitionDefined() {
-        return LOGS_PARTITION != null;
+        return DEFAULT_PARTITION != null;
     }
 
     @AuraEnabled
     public static Integer getRatio() {
-        if (!LOGS_PARTITION.contains(RATIO_KEY)) {
+        if (!DEFAULT_PARTITION.contains(RATIO_KEY)) {
             return DEFAULT_RATIO;
         }
-        return (Integer) LOGS_PARTITION.get(RATIO_KEY);
+        return (Integer) DEFAULT_PARTITION.get(RATIO_KEY);
     }
 
     @AuraEnabled
     public static void setRatio(Integer ratio) {
-        LOGS_PARTITION.put(RATIO_KEY, ratio);
+        DEFAULT_PARTITION.put(RATIO_KEY, ratio);
     }
 
     @AuraEnabled

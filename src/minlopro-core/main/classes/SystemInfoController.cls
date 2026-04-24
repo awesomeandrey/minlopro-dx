@@ -122,4 +122,8 @@ public without sharing class SystemInfoController {
          */
         return System.DomainCreator.getOrgMyDomainHostname();
     }
+
+    public static Cache.OrgPartition getDefaultCachePartition() {
+        return Cache.Org.getPartition('local.MinloproCache');
+    }
 }
