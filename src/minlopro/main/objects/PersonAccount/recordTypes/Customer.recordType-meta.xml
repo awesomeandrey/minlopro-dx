@@ -5,6 +5,21 @@
     <description>Personal Line (PL) customer. &apos;Person Account&apos; record type.</description>
     <label>Customer</label>
     <picklistValues>
+        <picklist>DncRegistryStatus__c</picklist>
+        <values>
+            <fullName>DoNotCall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EligibleToCall</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>true</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Industry</picklist>
         <values>
             <fullName>Agriculture</fullName>

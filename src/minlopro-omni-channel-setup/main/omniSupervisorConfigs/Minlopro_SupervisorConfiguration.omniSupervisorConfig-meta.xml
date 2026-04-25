@@ -5,9 +5,6 @@
     <omniSupervisorConfigGroup>
         <group>OrgAdmins</group>
     </omniSupervisorConfigGroup>
-    <omniSupervisorConfigGroup>
-        <group>OrgUsers</group>
-    </omniSupervisorConfigGroup>
     <omniSupervisorConfigProfile>
         <profile>admin</profile>
     </omniSupervisorConfigProfile>
@@ -18,21 +15,25 @@
         <queue>DigEx_WebLeads</queue>
     </omniSupervisorConfigQueue>
     <omniSupervisorConfigQueue>
-        <queue>Minlopro_CriticalWorkItems</queue>
+        <queue>Minlopro_CriticalCases</queue>
     </omniSupervisorConfigQueue>
     <omniSupervisorConfigQueue>
         <queue>Minlopro_EmailCases</queue>
     </omniSupervisorConfigQueue>
     <omniSupervisorConfigQueue>
+        <queue>Minlopro_Leads</queue>
+    </omniSupervisorConfigQueue>
+    <omniSupervisorConfigQueue>
         <queue>Minlopro_WebCases</queue>
     </omniSupervisorConfigQueue>
+    <!-- Settings below are valid when Enhanced Omni-Channel is enabled
     <omniSupervisorConfigTab>
         <displayOrder>0</displayOrder>
-        <tabType>Wallboard</tabType>
+        <tabType>Agents</tabType>
     </omniSupervisorConfigTab>
     <omniSupervisorConfigTab>
         <displayOrder>1</displayOrder>
-        <tabType>Agents</tabType>
+        <tabType>AssignedWork</tabType>
     </omniSupervisorConfigTab>
     <omniSupervisorConfigTab>
         <displayOrder>2</displayOrder>
@@ -40,24 +41,17 @@
     </omniSupervisorConfigTab>
     <omniSupervisorConfigTab>
         <displayOrder>3</displayOrder>
-        <tabType>AssignedWork</tabType>
+        <tabType>Wallboard</tabType>
     </omniSupervisorConfigTab>
     <omniSupervisorConfigTab>
         <displayOrder>4</displayOrder>
-        <tabType>SkillsBacklog</tabType>
+        <flexiPage>MinloproOmniSupervisorBoard</flexiPage>
+        <tabType>FlexipageType</tabType>
     </omniSupervisorConfigTab>
     <omniSupervisorConfigTab>
         <displayOrder>5</displayOrder>
         <tabType>Reports</tabType>
     </omniSupervisorConfigTab>
-    <omniSupervisorConfigTab>
-        <displayOrder>6</displayOrder>
-        <tabType>Alerts</tabType>
-    </omniSupervisorConfigTab>
-    <omniSupervisorConfigTab>
-        <displayOrder>7</displayOrder>
-        <flexiPage>MinloproOmniSupervisorBoard</flexiPage>
-        <tabType>FlexipageType</tabType>
-    </omniSupervisorConfigTab>
+    -->
     <skillVisibility>AllSkills</skillVisibility>
 </OmniSupervisorConfig>
