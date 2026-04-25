@@ -79,6 +79,9 @@ private class Account_TH_DemoTest {
     static void testLoopCount() {
         // Enable 'debug' mode within trigger module;
         TriggerDispatcher.debugModeEnabled = true;
+        // Focus on 2 handlers only
+        TriggerDispatcher.enableObjectHandler(Account.SObjectType, TH_Account_Sample1.class.getName());
+        TriggerDispatcher.enableObjectHandler(Account.SObjectType, TH_Account_Sample2.class.getName());
         // Synthetically enforce max loop count for trigger handler;
         TH_Account_Sample2.MAX_LOOP_COUNT = 2;
         // Insert test Accounts and run 'update' DML;
