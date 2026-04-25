@@ -59,12 +59,15 @@ public inherited sharing class AccountDncStatusSynchronizer implements Queueable
 
     private void processChunk(List<Account> accounts) {
         List<Account> accountsToUpdate = new List<Account>();
-        for (Account accountToCheck : accounts) {
+        for (Account accountToCheck : [SELECT Id FROM Account WHERE Id IN :accounts AND IsDeleted = FALSE]) {
             // Simulate API call to external DNC service
             HttpRequest dncRequest = new HttpRequest();
             dncRequest.setMethod('GET');
             dncRequest.setEndpoint(String.format('{0}/{1}', Lists.of('${SF_INSTANCE_URL}', '/services/apexrest/echo')));
-            new Http().send(dncRequest);
+            if (!Test.isRunningTest()) {
+                // Overcome 'Methods defined as TestMethod do not support web service callouts' issue
+                new Http().send(dncRequest);
+            }
 
             // Set 'DncRegistryStatus__c' on Account
             accountsToUpdate.add(
