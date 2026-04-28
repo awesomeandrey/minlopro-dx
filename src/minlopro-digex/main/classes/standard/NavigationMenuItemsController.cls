@@ -10,7 +10,7 @@ public with sharing class NavigationMenuItemsController {
      *
      * Cacheable = true allows this function to be wired.
      */
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled(Cacheable=true Scope='global')
     public static List<NavigationMenuItem> getNavigationMenuItems(String menuApiName, String siteState) {
         if (String.isEmpty(menuApiName)) {
             return new List<NavigationMenuItem>();

@@ -1,0 +1,130 @@
+{
+  "fileFormat": {
+    "charsetName": "UTF-8",
+    "fieldsEnclosedBy": "\"",
+    "fieldsDelimitedBy": ",",
+    "linesTerminatedBy": "\n",
+    "numberOfLinesToIgnore": 1
+  },
+  "objects": [
+    {
+      "connector": "API",
+      "description": "ConcurrentLongRunningApexLimit",
+      "fullyQualifiedName": "ConcurrentLongRunningApexLimit",
+      "label": "ConcurrentLongRunningApexLimit",
+      "name": "ConcurrentLongRunningApexLimit",
+      "fields": [
+          {
+              "type": "Text",
+              "name": "EVENT_TYPE",
+              "description": "EVENT_TYPE",
+              "fullyQualifiedName": "EVENT_TYPE",
+              "label": "EVENT_TYPE",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "precision": 255,
+              "defaultValue": "",
+              "isMultiValue": false
+          },
+          {
+              "type": "Text",
+              "name": "TIMESTAMP",
+              "description": "TIMESTAMP",
+              "fullyQualifiedName": "TIMESTAMP",
+              "label": "TIMESTAMP",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "precision": 255,
+              "defaultValue": "",
+              "isMultiValue": false
+          },
+          {
+              "type": "Text",
+              "name": "REQUEST_ID",
+              "description": "REQUEST_ID",
+              "fullyQualifiedName": "REQUEST_ID",
+              "label": "REQUEST_ID",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "precision": 255,
+              "defaultValue": "",
+              "isMultiValue": false
+          },
+          {
+              "type": "Numeric",
+              "name": "NUMBER_REQUESTS",
+              "description": "NUMBER_REQUESTS",
+              "fullyQualifiedName": "NUMBER_REQUESTS",
+              "label": "NUMBER_REQUESTS",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "scale": 3,
+              "precision": 18,
+              "defaultValue": "0",
+              "isMultiValue": false
+          },
+          {
+              "type": "Numeric",
+              "name": "REQUESTS_LIMIT",
+              "description": "REQUESTS_LIMIT",
+              "fullyQualifiedName": "REQUESTS_LIMIT",
+              "label": "REQUESTS_LIMIT",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "scale": 3,
+              "precision": 18,
+              "defaultValue": "0",
+              "isMultiValue": false
+          },
+          {
+              "type": "Text",
+              "name": "ORGANIZATION_ID",
+              "description": "ORGANIZATION_ID",
+              "fullyQualifiedName": "ORGANIZATION_ID",
+              "label": "ORGANIZATION_ID",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "precision": 255,
+              "defaultValue": "",
+              "isMultiValue": false
+          },
+          {
+              "type": "Text",
+              "name": "USER_ID",
+              "description": "USER_ID",
+              "fullyQualifiedName": "USER_ID",
+              "label": "USER_ID",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "precision": 255,
+              "defaultValue": "",
+              "isMultiValue": false
+          },
+          {
+              "type": "Text",
+              "name": "REQUEST_URI",
+              "description": "REQUEST_URI",
+              "fullyQualifiedName": "REQUEST_URI",
+              "label": "REQUEST_URI",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "precision": 4000,
+              "defaultValue": "",
+              "isMultiValue": false
+          },
+          {
+              "type": "Date",
+              "name": "TIMESTAMP_DERIVED",
+              "description": "TIMESTAMP_DERIVED",
+              "fullyQualifiedName": "TIMESTAMP_DERIVED",
+              "label": "TIMESTAMP_DERIVED",
+              "isSystemField": false,
+              "isUniqueId": false,
+              "defaultValue": "",
+              "isMultiValue": false,
+              "format": "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+          }
+      ]
+    }
+  ]
+}
