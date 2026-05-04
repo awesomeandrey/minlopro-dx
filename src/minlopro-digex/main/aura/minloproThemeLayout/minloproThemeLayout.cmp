@@ -4,9 +4,9 @@
     <!--Attributes-->
     <aura:attribute name="menuApiName" type="String" required="true" />
     <!--Main Content Area-->
-    <div class="slds-container_x-large slds-container_center slds-p-around_medium">
-        <div class="slds-grid slds-wrap slds-gutters">
-            <div class="slds-col slds-size_1-of-1 slds-large-size_9-of-12">
+    <div class="minlopro-container slds-container_x-large slds-container_center slds-p-around_medium slds-card">
+        <lightning:layout multipleRows="true" pullToBoundary="small">
+            <lightning:layoutItem size="12" largeDeviceSize="9" padding="around-small">
                 <div class="slds-p-vertical_medium">
                     <c:digExNavigationBar menuApiName="{!v.menuApiName}" />
                 </div>
@@ -19,11 +19,11 @@
                     class="slds-p-around_medium minlopro-bg"
                     style="{!'background-image: url(' + $Resource.CommonsAssets + '/wallpapers/slds-v2-bg-2.jpg' + ');'}"
                 ></div>
-            </div>
-            <div class="slds-col slds-size_1-of-1 slds-large-size_3-of-12">
+            </lightning:layoutItem>
+            <lightning:layoutItem size="12" largeDeviceSize="3" padding="around-small">
                 <c:digExRunningUserInfo />
                 <div class="slds-m-vertical_small">{!v.hiddenRegion}</div>
-            </div>
-        </div>
+            </lightning:layoutItem>
+        </lightning:layout>
     </div>
 </aura:component>

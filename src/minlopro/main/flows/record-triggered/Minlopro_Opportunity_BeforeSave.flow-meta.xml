@@ -22,7 +22,7 @@
         <name>nextCloseDateDaysLimit</name>
         <dataType>Number</dataType>
         <value>
-            <numberValue>95.0</numberValue>
+            <numberValue>365.0</numberValue>
         </value>
     </constants>
     <customErrors>
@@ -65,7 +65,7 @@
     <description>RTF for Opportunity object that handles BEFORE INSERT and/or BEFORE UPDATE phases.</description>
     <environments>Default</environments>
     <formulas>
-        <description>Ensures the CloseDate is on or before N days from today (N = 20 days).</description>
+        <description>Ensures the CloseDate is in valid range.</description>
         <name>isCloseDateWithinNDays</name>
         <dataType>Boolean</dataType>
         <expression>TODAY() + {!nextCloseDateDaysLimit} &gt;= {!normalizedCloseDate}</expression>
