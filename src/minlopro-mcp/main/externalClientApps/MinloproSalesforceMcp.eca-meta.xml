@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalClientApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <contactEmail>${SF_ADMIN_EMAIL}</contactEmail>
+    <description>ECA that brokers secure OAuth 2.0 access between this Salesforce org and an external AI tool (e.g., Claude). Governs API scopes for the integration.</description>
+    <distributionState>Local</distributionState>
+    <isProtected>false</isProtected>
+    <label>Minlopro (Salesforce MCP) 🤖</label>
+</ExternalClientApplication>

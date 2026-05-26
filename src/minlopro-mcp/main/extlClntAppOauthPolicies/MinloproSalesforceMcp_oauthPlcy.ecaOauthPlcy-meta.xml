@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtlClntAppOauthConfigurablePolicies xmlns="http://soap.sforce.com/2006/04/metadata">
+    <commaSeparatedPermissionSet>Minlopro_AiUser</commaSeparatedPermissionSet>
+    <externalClientApplication>MinloproSalesforceMcp</externalClientApplication>
+    <ipRelaxationPolicyType>Enforce</ipRelaxationPolicyType>
+    <isClientCredentialsFlowEnabled>false</isClientCredentialsFlowEnabled>
+    <isGuestCodeCredFlowEnabled>false</isGuestCodeCredFlowEnabled>
+    <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
+    <label>MinloproSalesforceMcp_oauthPlcy</label>
+    <namedUserJwtSessionTimeoutType>UserSession</namedUserJwtSessionTimeoutType>
+    <permittedUsersPolicyType>AdminApprovedPreAuthorized</permittedUsersPolicyType>
+    <refreshTokenPolicyType>SpecificLifetime</refreshTokenPolicyType>
+    <refreshTokenValidityPeriod>1</refreshTokenValidityPeriod>
+    <refreshTokenValidityUnit>Months</refreshTokenValidityUnit>
+    <requiredSessionLevel>STANDARD</requiredSessionLevel>
+</ExtlClntAppOauthConfigurablePolicies>

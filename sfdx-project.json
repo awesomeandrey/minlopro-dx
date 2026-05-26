@@ -1,20 +1,21 @@
 {
     "packageDirectories": [
-        { "path": "src/minlopro-default", "default": true },
-        { "path": "src/minlopro-core" },
         { "path": "src/minlopro" },
-        { "path": "src/minlopro-integrations" },
+        { "path": "src/minlopro-core" },
+        { "path": "src/minlopro-crm-analytics" },
+        { "path": "src/minlopro-default", "default": true },
         { "path": "src/minlopro-digex" },
         { "path": "src/minlopro-digex-messaging" },
         { "path": "src/minlopro-dlrs" },
         { "path": "src/minlopro-in-app-guidance" },
-        { "path": "src/minlopro-omni-channel-setup" },
-        { "path": "src/minlopro-crm-analytics" }
+        { "path": "src/minlopro-integrations" },
+        { "path": "src/minlopro-mcp" },
+        { "path": "src/minlopro-omni-channel-setup" }
     ],
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "65.0",
+    "sourceApiVersion": "66.0",
     "replacements": [
         {
             "glob": "src/**/staticresources/**",

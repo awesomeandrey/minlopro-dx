@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExternalServiceRegistration xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Named Query API provides you with programmatic access to REST APIs that return a defined set of data based on pre-defined SOQL queries and filter values passed as input.</description>
+    <label>Event Log File Counts by Month and Type</label>
+    <operations>
+        <active>true</active>
+        <name>eventlogfilecountsbymonthandtype</name>
+    </operations>
+    <registrationProviderAsset>EventLogFileCountsByMonthAndType</registrationProviderAsset>
+    <registrationProviderType>NamedQuery</registrationProviderType>
+    <schema>{
+  &quot;openapi&quot; : &quot;3.0.1&quot;,
+  &quot;info&quot; : {
+    &quot;title&quot; : &quot;Lightning Platform REST API&quot;,
+    &quot;description&quot; : &quot;Named Query API provides you with programmatic access to REST APIs that return a defined set of data based on pre-defined SOQL queries and filter values passed as input.&quot;,
+    &quot;version&quot; : &quot;66.0&quot;
+  },
+  &quot;servers&quot; : [ {
+    &quot;url&quot; : &quot;https://drive-platform-5609-dev-ed.scratch.my.salesforce.com/services/data/v66.0&quot;
+  } ],
+  &quot;security&quot; : [ {
+    &quot;bearerAuth&quot; : [ ]
+  }, {
+    &quot;oAuth2&quot; : [ ]
+  }, {
+    &quot;openIDConnectDiscovery&quot; : [ ]
+  } ],
+  &quot;paths&quot; : {
+    &quot;/named/query/EventLogFileCountsByMonthAndType&quot; : {
+      &quot;get&quot; : {
+        &quot;description&quot; : &quot;Returns the number of Event Log Files in the org aggregated by calendar year, calendar month, and event type, ordered chronologically. Useful for monitoring event-monitoring data availability and volume trends before downloading or ingesting logs.&quot;,
+        &quot;operationId&quot; : &quot;EventLogFileCountsByMonthAndType&quot;,
+        &quot;responses&quot; : {
+          &quot;400&quot; : {
+            &quot;description&quot; : &quot;Status Code 400&quot;,
+            &quot;content&quot; : {
+              &quot;application/json&quot; : {
+                &quot;schema&quot; : {
+                  &quot;type&quot; : &quot;array&quot;,
+                  &quot;items&quot; : {
+                    &quot;$ref&quot; : &quot;#/components/schemas/ErrorInfo&quot;
+                  }
+                }
+              }
+            }
+          },
+          &quot;401&quot; : {
+            &quot;description&quot; : &quot;Status Code 401&quot;,
+            &quot;content&quot; : {
+              &quot;application/json&quot; : {
+                &quot;schema&quot; : {
+                  &quot;type&quot; : &quot;array&quot;,
+                  &quot;items&quot; : {
+                    &quot;$ref&quot; : &quot;#/components/schemas/ErrorInfo&quot;
+                  }
+                }
+              }
+            }
+          },
+          &quot;403&quot; : {
+            &quot;description&quot; : &quot;Status Code 403&quot;,
+            &quot;content&quot; : {
+              &quot;application/json&quot; : {
+                &quot;schema&quot; : {
+                  &quot;type&quot; : &quot;array&quot;,
+                  &quot;items&quot; : {
+                    &quot;$ref&quot; : &quot;#/components/schemas/RestApiError&quot;
+                  }
+                }
+              }
+            }
+          },
+          &quot;404&quot; : {
+            &quot;description&quot; : &quot;Status Code 404&quot;,
+            &quot;content&quot; : {
+              &quot;application/json&quot; : {
+                &quot;schema&quot; : {
+                  &quot;type&quot; : &quot;array&quot;,
+                  &quot;items&quot; : {
+                    &quot;$ref&quot; : &quot;#/components/schemas/RestApiError&quot;
+                  }
+                }
+              }
+            }
+          },
+          &quot;500&quot; : {
+            &quot;description&quot; : &quot;Status Code 500&quot;,
+            &quot;content&quot; : {
+              &quot;application/json&quot; : {
+                &quot;schema&quot; : {
+                  &quot;type&quot; : &quot;array&quot;,
+                  &quot;items&quot; : {
+                    &quot;$ref&quot; : &quot;#/components/schemas/ErrorInfo&quot;
+                  }
+                }
+              }
+            }
+          },
+          &quot;405&quot; : {
+            &quot;description&quot; : &quot;Status Code 405&quot;,
+            &quot;content&quot; : {
+              &quot;application/json&quot; : {
+                &quot;schema&quot; : {
+                  &quot;type&quot; : &quot;array&quot;,
+                  &quot;items&quot; : {
+                    &quot;$ref&quot; : &quot;#/components/schemas/RestApiError&quot;
+                  }
+                }
+              }
+            }
+          },
+          &quot;503&quot; : {
+            &quot;description&quot; : &quot;Status Code 503&quot;,
+            &quot;content&quot; : {
+              &quot;application/json&quot; : {
+                &quot;schema&quot; : {
+                  &quot;type&quot; : &quot;array&quot;,
+                  &quot;items&quot; : {
+                    &quot;$ref&quot; : &quot;#/components/schemas/RestApiError&quot;
+                  }
+                }
+              }
+            }
+          },
+          &quot;200&quot; : {
+            &quot;description&quot; : &quot;Status Code 200&quot;,
+            &quot;content&quot; : {
+              &quot;application/json&quot; : {
+                &quot;schema&quot; : {
+                  &quot;type&quot; : &quot;object&quot;,
+                  &quot;properties&quot; : {
+                    &quot;totalSize&quot; : {
+                      &quot;type&quot; : &quot;integer&quot;,
+                      &quot;format&quot; : &quot;int32&quot;
+                    },
+                    &quot;done&quot; : {
+                      &quot;type&quot; : &quot;boolean&quot;
+                    },
+                    &quot;nextRecordsUrl&quot; : {
+                      &quot;type&quot; : &quot;string&quot;
+                    },
+                    &quot;records&quot; : {
+                      &quot;type&quot; : &quot;array&quot;,
+                      &quot;items&quot; : {
+                        &quot;type&quot; : &quot;object&quot;,
+                        &quot;properties&quot; : {
+                          &quot;EventType&quot; : {
+                            &quot;type&quot; : &quot;string&quot;,
+                            &quot;description&quot; : &quot;The event type—API, Login, Report, URI, and so forth. Use to determine which files were generated for your org. For the corresponding LogFile schema, see EventLogFile Supported Event Types.&quot;,
+                            &quot;readOnly&quot; : true
+                          },
+                          &quot;attributes&quot; : {
+                            &quot;type&quot; : &quot;object&quot;,
+                            &quot;properties&quot; : {
+                              &quot;type&quot; : {
+                                &quot;type&quot; : &quot;string&quot;
+                              },
+                              &quot;url&quot; : {
+                                &quot;type&quot; : &quot;string&quot;
+                              },
+                              &quot;etag&quot; : {
+                                &quot;type&quot; : &quot;string&quot;
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      &quot;x-sfdc&quot; : {
+        &quot;api-domain&quot; : &quot;Platform&quot;,
+        &quot;api-sub-domain&quot; : &quot;NamedQueryApi&quot;
+      }
+    }
+  },
+  &quot;components&quot; : {
+    &quot;schemas&quot; : {
+      &quot;ErrorInfo&quot; : {
+        &quot;type&quot; : &quot;object&quot;,
+        &quot;properties&quot; : {
+          &quot;message&quot; : {
+            &quot;type&quot; : &quot;string&quot;
+          },
+          &quot;errorCode&quot; : {
+            &quot;type&quot; : &quot;string&quot;
+          },
+          &quot;fields&quot; : {
+            &quot;type&quot; : &quot;array&quot;,
+            &quot;items&quot; : {
+              &quot;type&quot; : &quot;string&quot;
+            }
+          },
+          &quot;extendedErrorDetails&quot; : {
+            &quot;type&quot; : &quot;array&quot;,
+            &quot;items&quot; : {
+              &quot;type&quot; : &quot;object&quot;,
+              &quot;properties&quot; : {
+                &quot;extendedErrorCode&quot; : {
+                  &quot;type&quot; : &quot;string&quot;
+                }
+              }
+            }
+          }
+        }
+      },
+      &quot;RestApiError&quot; : {
+        &quot;type&quot; : &quot;object&quot;,
+        &quot;properties&quot; : {
+          &quot;errorCode&quot; : {
+            &quot;type&quot; : &quot;string&quot;
+          },
+          &quot;message&quot; : {
+            &quot;type&quot; : &quot;string&quot;
+          }
+        }
+      }
+    },
+    &quot;securitySchemes&quot; : {
+      &quot;openIDConnectDiscovery&quot; : {
+        &quot;type&quot; : &quot;openIdConnect&quot;,
+        &quot;openIdConnectUrl&quot; : &quot;https://test.salesforce.com/.well-known/openid-configuration&quot;
+      },
+      &quot;bearerAuth&quot; : {
+        &quot;type&quot; : &quot;http&quot;,
+        &quot;description&quot; : &quot;Use Session Id or Access Token as valid bearer token to authenticate with Salesforce. Access Token could be retrieved via any supported OAuth2 flows listed or not listed here (e.g. JWT Bearer Token Flow).To obtain a session ID, you can use the SOAP API login() call or through the Salesforce CLI.&quot;,
+        &quot;scheme&quot; : &quot;bearer&quot;
+      },
+      &quot;oAuth2&quot; : {
+        &quot;type&quot; : &quot;oauth2&quot;,
+        &quot;description&quot; : &quot;For more information on all supported OAuth Flows, please see &apos;https://help.salesforce.com/articleView?id=remoteaccess_oauth_flows.htm&amp;type=5&apos;. For more information on all available scope options, please see &apos;https://help.salesforce.com/articleView?id=remoteaccess_oauth_tokens_scopes.htm&amp;type=5#oauth_scopes&apos;. &quot;,
+        &quot;flows&quot; : {
+          &quot;implicit&quot; : {
+            &quot;authorizationUrl&quot; : &quot;https://test.salesforce.com/services/oauth2/authorize&quot;,
+            &quot;scopes&quot; : {
+              &quot;visualforce&quot; : &quot;Allows access to customer-created Visualforce pages only. This scope doesn’t allow access to standard Salesforce UIs.&quot;,
+              &quot;address&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;custom_permissions&quot; : &quot;Allows access to the custom permissions in an org associated with the connected app. This scope also shows whether the current user has each permission enabled.&quot;,
+              &quot;openid&quot; : &quot;Allows access to the current, logged in user’s unique identifier for OpenID Connect apps. In the OAuth 2.0 user-agent flow and the OAuth 2.0 web server flow, use the openid scope. In addition to the access token, this scope enables you to receive a signed ID token that conforms to the OpenID Connect specifications.&quot;,
+              &quot;profile&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;refresh_token&quot; : &quot;Allows a refresh token to be returned when the requesting client is eligible to receive one. With a refresh token, the app can interact with the user’s data while the user is offline. This token is synonymous with requesting offline_access.&quot;,
+              &quot;wave_api&quot; : &quot;Access and manage your Wave data.&quot;,
+              &quot;web&quot; : &quot;Allows use of the access_token on the web. This scope also includes visualforce, allowing access to customer-created Visualforce pages.&quot;,
+              &quot;phone&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;offline_access&quot; : &quot;Allows a refresh token to be returned when the requesting client is eligible to receive one. With a refresh token, the app can interact with the user’s data while the user is offline. This token is synonymous with requesting offline_access.&quot;,
+              &quot;chatter_api&quot; : &quot;Allows access to Connect REST API resources on behalf of the user.&quot;,
+              &quot;id&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;api&quot; : &quot;Allows access to the current, logged-in user’s account using APIs, such as REST API and Bulk API. This scope also includes chatter_api, which allows access to Connect REST API resources.&quot;,
+              &quot;eclair_api&quot; : &quot;Access and manage your Eclair data.&quot;,
+              &quot;email&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;pardot_api&quot; : &quot;Allows access to Pardot API services on behalf of the user. Manage the full extent of accessible services in Pardot.&quot;,
+              &quot;full&quot; : &quot;Allows access to all data accessible by the logged-in user, and encompasses all other scopes. full doesn’t return a refresh token. You must explicitly request the refresh_token scope to get a refresh token.&quot;
+            }
+          },
+          &quot;password&quot; : {
+            &quot;tokenUrl&quot; : &quot;https://test.salesforce.com/services/oauth2/token&quot;,
+            &quot;scopes&quot; : {
+              &quot;api&quot; : &quot;Allows access to the current, logged-in user’s account using APIs, such as REST API and Bulk API. This scope also includes chatter_api, which allows access to Connect REST API resources.&quot;
+            }
+          },
+          &quot;authorizationCode&quot; : {
+            &quot;authorizationUrl&quot; : &quot;https://test.salesforce.com/services/oauth2/authorize&quot;,
+            &quot;tokenUrl&quot; : &quot;https://test.salesforce.com/services/oauth2/token&quot;,
+            &quot;scopes&quot; : {
+              &quot;visualforce&quot; : &quot;Allows access to customer-created Visualforce pages only. This scope doesn’t allow access to standard Salesforce UIs.&quot;,
+              &quot;address&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;custom_permissions&quot; : &quot;Allows access to the custom permissions in an org associated with the connected app. This scope also shows whether the current user has each permission enabled.&quot;,
+              &quot;openid&quot; : &quot;Allows access to the current, logged in user’s unique identifier for OpenID Connect apps. In the OAuth 2.0 user-agent flow and the OAuth 2.0 web server flow, use the openid scope. In addition to the access token, this scope enables you to receive a signed ID token that conforms to the OpenID Connect specifications.&quot;,
+              &quot;profile&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;refresh_token&quot; : &quot;Allows a refresh token to be returned when the requesting client is eligible to receive one. With a refresh token, the app can interact with the user’s data while the user is offline. This token is synonymous with requesting offline_access.&quot;,
+              &quot;wave_api&quot; : &quot;Access and manage your Wave data.&quot;,
+              &quot;web&quot; : &quot;Allows use of the access_token on the web. This scope also includes visualforce, allowing access to customer-created Visualforce pages.&quot;,
+              &quot;phone&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;offline_access&quot; : &quot;Allows a refresh token to be returned when the requesting client is eligible to receive one. With a refresh token, the app can interact with the user’s data while the user is offline. This token is synonymous with requesting offline_access.&quot;,
+              &quot;chatter_api&quot; : &quot;Allows access to Connect REST API resources on behalf of the user.&quot;,
+              &quot;id&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;api&quot; : &quot;Allows access to the current, logged-in user’s account using APIs, such as REST API and Bulk API. This scope also includes chatter_api, which allows access to Connect REST API resources.&quot;,
+              &quot;eclair_api&quot; : &quot;Access and manage your Eclair data.&quot;,
+              &quot;email&quot; : &quot;Allows access to the identity URL service. You can request profile, email, address, or phone individually to get the same result as using id; they are all synonymous.&quot;,
+              &quot;pardot_api&quot; : &quot;Allows access to Pardot API services on behalf of the user. Manage the full extent of accessible services in Pardot.&quot;,
+              &quot;full&quot; : &quot;Allows access to all data accessible by the logged-in user, and encompasses all other scopes. full doesn’t return a refresh token. You must explicitly request the refresh_token scope to get a refresh token.&quot;
+            }
+          }
+        }
+      }
+    }
+  }
+}</schema>
+    <schemaType>OpenApi3</schemaType>
+    <serviceBinding>{&quot;host&quot;:&quot;drive-platform-5609-dev-ed.scratch.my.salesforce.com&quot;,&quot;basePath&quot;:&quot;/services/data/v66.0&quot;,&quot;allowedSchemes&quot;:[&quot;HTTPS&quot;],&quot;requestMediaTypes&quot;:[],&quot;responseMediaTypes&quot;:[],&quot;compatibleMediaTypes&quot;:{},&quot;extensions&quot;:{}}</serviceBinding>
+    <status>Complete</status>
+    <systemVersion>8</systemVersion>
+</ExternalServiceRegistration>

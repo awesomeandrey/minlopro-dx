@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApiNamedQuery xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>65.0</apiVersion>
+    <body2>SELECT CALENDAR_YEAR(CreatedDate) YEAR, CALENDAR_MONTH(CreatedDate) MONTH, EventType, COUNT(Id) FilesCount 
+FROM EventLogFile GROUP BY CALENDAR_YEAR(CreatedDate), CALENDAR_MONTH(CreatedDate), EventType
+ORDER BY CALENDAR_YEAR(CreatedDate) ASC, CALENDAR_MONTH(CreatedDate) ASC, EventType ASC</body2>
+    <description>Returns the number of Event Log Files in the org aggregated by calendar year, calendar month, and event type, ordered chronologically. Useful for monitoring event-monitoring data availability and volume trends before downloading or ingesting logs.</description>
+    <masterLabel>Event Log File Counts by Month and Type</masterLabel>
+</ApiNamedQuery>
