@@ -72,6 +72,50 @@ private class LmBusinessHoursDemoTest {
         Assert.areNotEqual('Sunday', dayOfWeek, 'Result should not be on Sunday');
     }
 
+    @IsTest
+    static void calculateFutureBusinessDatetime_sameMinuteDifferentSeconds_shouldReturnCachedResult() {
+        // Arrange - two datetimes within the same minute (differ by 30 seconds)
+        Date testDate = Date.today().addDays(1);
+        Datetime firstCall = Datetime.newInstance(testDate, Time.newInstance(10, 15, 0, 0));
+        Datetime secondCall = Datetime.newInstance(testDate, Time.newInstance(10, 15, 30, 0));
+
+        // Act
+        Test.startTest();
+        Datetime firstResult = LmBusinessHoursDemo.calculateFutureBusinessDatetime(firstCall);
+        Datetime secondResult = LmBusinessHoursDemo.calculateFutureBusinessDatetime(secondCall);
+        Test.stopTest();
+
+        // Assert - both inputs truncate to the same minute key, so results must be identical
+        Assert.areEqual(firstResult, secondResult, 'Calls within the same minute should return the same cached result');
+        // Cache should hold exactly one entry since both inputs map to the same minute key
+        Assert.areEqual(
+            1,
+            LmBusinessHoursDemo.memoCache.size(),
+            'Memo cache should contain exactly one entry for same-minute inputs'
+        );
+    }
+
+    @IsTest
+    static void calculateFutureBusinessDatetime_differentMinutes_shouldCacheEachDistinctly() {
+        // Arrange - two datetimes in different minutes
+        Date testDate = Date.today().addDays(1);
+        Datetime firstCall = Datetime.newInstance(testDate, Time.newInstance(10, 15, 0, 0));
+        Datetime secondCall = Datetime.newInstance(testDate, Time.newInstance(10, 20, 0, 0));
+
+        // Act
+        Test.startTest();
+        LmBusinessHoursDemo.calculateFutureBusinessDatetime(firstCall);
+        LmBusinessHoursDemo.calculateFutureBusinessDatetime(secondCall);
+        Test.stopTest();
+
+        // Assert - two distinct minute keys produce two cache entries
+        Assert.areEqual(
+            2,
+            LmBusinessHoursDemo.memoCache.size(),
+            'Memo cache should contain two entries for different-minute inputs'
+        );
+    }
+
     private static Date findNextSaturday(Date startDate) {
         Integer dayOfWeek = Math.mod(Date.newInstance(1900, 1, 7).daysBetween(startDate), 7);
         Integer daysUntilSaturday = Math.mod(6 - dayOfWeek, 7);

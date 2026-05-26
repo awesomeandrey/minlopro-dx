@@ -1,6 +1,6 @@
 import { LightningElement, api, wire, track } from 'lwc';
 import { CurrentPageReference, NavigationMixin } from 'lightning/navigation';
-import { IsConsoleNavigation, getFocusedTabInfo, closeTab, setTabLabel, setTabIcon } from 'lightning/platformWorkspaceApi';
+import { EnclosingTabId, IsConsoleNavigation, closeTab, setTabLabel, setTabIcon } from 'lightning/platformWorkspaceApi';
 import { cloneObject, isEmpty, isNotEmpty, parseError } from 'c/utilities';
 import Toastify from 'c/toastify';
 
@@ -54,15 +54,13 @@ export default class LoginOmniUtilityItem extends NavigationMixin(LightningEleme
     @wire(IsConsoleNavigation)
     isConsoleNavigation = false;
 
+    @wire(EnclosingTabId)
+    enclosingTabId = null;
+
     @wire(CurrentPageReference)
     wirePageReference(pageRef) {
         (async () => {
             this.isDebugMode = isNotEmpty(pageRef?.state?.c__debug);
-            if (!this.isConsoleNavigation) {
-                Toastify.error({ message: 'The component should be opened in the app with console navigation only' });
-                await this.navigateHomeAndCloseTab();
-                return;
-            }
             if (!this.isDebugMode) {
                 // Intentionally break event loop
                 setTimeout(() => {
@@ -70,10 +68,9 @@ export default class LoginOmniUtilityItem extends NavigationMixin(LightningEleme
                 }, 700);
             }
             // Set tab label & icon
-            const { tabId } = await getFocusedTabInfo();
             Promise.all([
-                setTabLabel(tabId, 'OMNI AUTO-LOGIN'),
-                setTabIcon(tabId, 'utility:omni_channel', { iconAlt: 'Omni-Channel Widget' })
+                setTabLabel(this.enclosingTabId, 'OMNI AUTO-LOGIN'),
+                setTabIcon(this.enclosingTabId, 'utility:omni_channel', { iconAlt: 'Omni-Channel Widget' })
             ]);
         })();
     }
@@ -83,9 +80,14 @@ export default class LoginOmniUtilityItem extends NavigationMixin(LightningEleme
         await this.loginOmni();
     }
 
+    async handleCloseBtn(event) {
+        event.preventDefault();
+        await this.navigateHomeAndCloseTab();
+    }
+
     async loginOmni() {
         this.loading = true;
-        this.errorObj = null;
+        this.errorMessage = null;
         try {
             for (const { name: stepName } of this.progressSteps) {
                 this.currentStepName = stepName;
@@ -96,7 +98,7 @@ export default class LoginOmniUtilityItem extends NavigationMixin(LightningEleme
                     }
                 } else if (stepName === STEPS.STEP_2_INIT_OMNI_TOOLKIT_API) {
                     if (!this.isConsoleNavigation) {
-                        throw new Error('Omni Toolkit API is available in Console-navigation application only.');
+                        throw new Error('Omni Toolkit API is available in apps with console navigation only.');
                     }
                     if (isEmpty(this.omniToolkit)) {
                         throw new Error('Omni Toolkit API is not defined/available.');
@@ -117,19 +119,19 @@ export default class LoginOmniUtilityItem extends NavigationMixin(LightningEleme
             }
         } catch (error) {
             this.errorMessage = parseError(error).message;
+            Toastify.error({ message: this.errorMessage });
         } finally {
             this.loading = false;
         }
     }
 
     async navigateHomeAndCloseTab() {
-        const { tabId } = await getFocusedTabInfo();
         this[NavigationMixin.Navigate]({
             type: 'standard__namedPage',
             attributes: { pageName: 'home' }
         });
         if (!this.isDebugMode) {
-            await closeTab(tabId);
+            await closeTab(this.enclosingTabId);
         }
     }
 }

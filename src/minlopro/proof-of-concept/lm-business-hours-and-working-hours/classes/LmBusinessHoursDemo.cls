@@ -5,6 +5,8 @@ public without sharing class LmBusinessHoursDemo {
     private static final Integer WORKING_HOURS_END = 18;
     @TestVisible
     private static final Long DEFAULT_DELAY_HOURS = 48;
+    @TestVisible
+    private static Map<Datetime, Datetime> memoCache = new Map<Datetime, Datetime>();
 
     public static Schema.BusinessHours companyBusinessHours {
         get {
@@ -22,6 +24,10 @@ public without sharing class LmBusinessHoursDemo {
     }
 
     public static Datetime calculateFutureBusinessDatetime(Datetime startTime) {
+        Datetime cacheKey = truncateToMinute(startTime);
+        if (memoCache.containsKey(cacheKey)) {
+            return memoCache.get(cacheKey);
+        }
         /*
         Note: 'BusinessHours.add()' method adds an interval of time from a start Datetime traversing business hours only
         Long delayMs = DEFAULT_DELAY_HOURS * 60 * 60 * 1000;
@@ -32,10 +38,18 @@ public without sharing class LmBusinessHoursDemo {
             // Move clock 1 hour ahead
             nextBusinessDatetime = nextBusinessDatetime.addHours(1);
         }
+        memoCache.put(cacheKey, nextBusinessDatetime);
         return nextBusinessDatetime;
     }
 
-    private static Boolean isValid(Datetime datetimeStamp) {
+    // Floors dt to the nearest minute using integer division on epoch ms — sub-minute remainder is discarded.
+    // e.g. 10:15:37.842 → getTime()=X → (X/60000)*60000 → 10:15:00.000
+    public static Datetime truncateToMinute(Datetime dt) {
+        Long truncatedMs = (dt.getTime() / 60000) * 60000;
+        return Datetime.newInstance(truncatedMs);
+    }
+
+    public static Boolean isValid(Datetime datetimeStamp) {
         // Double-check for holidays
         Boolean isWithinBusinessHours = System.BusinessHours.isWithin(companyBusinessHours.Id, datetimeStamp);
         // Working hours check
