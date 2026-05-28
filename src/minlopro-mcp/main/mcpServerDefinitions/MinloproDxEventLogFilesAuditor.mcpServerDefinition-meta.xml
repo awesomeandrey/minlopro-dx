@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<McpServerDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Exposes read-only event-monitoring tools for the Minlopro DX org.</description>
+    <masterLabel>Minlopro DX - Event Log Files Auditor</masterLabel>
+</McpServerDefinition>

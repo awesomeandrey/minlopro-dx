@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Marker permission set used to flag admins enabled for AI tool (e.g., Claude) integration.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Minlopro - AI User</label>
+    <license>Salesforce</license>
+</PermissionSet>

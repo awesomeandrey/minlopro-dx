@@ -11,6 +11,7 @@
         <isSendInvtAllowedAfterAccept>false</isSendInvtAllowedAfterAccept>
         <isSendInvtAllowedAfterReject>false</isSendInvtAllowedAfterReject>
         <messagingChannel>Minlopro_DigExMessagingChannel</messagingChannel>
+        <shouldShowAgentforceTagline>false</shouldShowAgentforceTagline>
         <shouldShowDeliveryReceipts>false</shouldShowDeliveryReceipts>
         <shouldShowEmojiSelection>false</shouldShowEmojiSelection>
         <shouldShowReadReceipts>false</shouldShowReadReceipts>
