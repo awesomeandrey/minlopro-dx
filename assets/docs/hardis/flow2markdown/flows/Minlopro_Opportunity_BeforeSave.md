@@ -77,7 +77,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Name|Data Type|Expression|Description|
 |:-- |:--:|:-- |:--  |
-|isCloseDateWithinNDays|Boolean|TODAY() + {!nextCloseDateDaysLimit} >= {!normalizedCloseDate}|Ensures the CloseDate is on or before N days from today (N = 20 days).|
+|isCloseDateWithinNDays|Boolean|TODAY() + {!nextCloseDateDaysLimit} >= {!normalizedCloseDate}|Ensures the CloseDate is in valid range.|
 |normalizedCloseDate|Date|IF(ISBLANK({!$Record.CloseDate}), {!$Flow.CurrentDate} + 5, {!$Record.CloseDate})|Defaults 'CloseDate' to 5 days from now if not set.|
 
 
@@ -85,7 +85,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Name|Data Type|Value|Description|
 |:-- |:--:|:--:|:--  |
-|nextCloseDateDaysLimit|Number|95|<!-- -->|
+|nextCloseDateDaysLimit|Number|365|<!-- -->|
 
 
 ## Flow Nodes Details
