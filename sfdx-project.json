@@ -75,6 +75,11 @@
         },
         {
             "glob": "src/**",
+            "stringToReplace": "${SF_INSTANCE_HOST}",
+            "replaceWithEnv": "SF_INSTANCE_HOST"
+        },
+        {
+            "glob": "src/**",
             "stringToReplace": "${SF_MINLOPRO_CERT_ID}",
             "replaceWithEnv": "SF_MINLOPRO_CERT_ID"
         },
