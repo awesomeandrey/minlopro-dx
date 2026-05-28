@@ -31,5 +31,6 @@
     <permissionSets>dlrs__LookupRollupSummariesFull</permissionSets>
     <permissionSets>dlrs__LookupRollupSummariesReadOnly</permissionSets>
     <permissionSets>orgcheck__OrgCheck_Users_PS</permissionSets>
+    <permissionSets>smon__Streaming_Monitor</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
