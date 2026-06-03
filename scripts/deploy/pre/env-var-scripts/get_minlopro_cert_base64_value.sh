@@ -13,7 +13,7 @@ read -r -p "🔶 Enter target org alias: " targetOrgAlias
 
 orgInfoJson=$(sf org display --target-org="$targetOrgAlias" --json)
 instanceUrl=$(echo "$orgInfoJson" | jq -r '.result.instanceUrl')
-accessToken=$(echo "$orgInfoJson" | jq -r '.result.accessToken')
+accessToken=$(sf org auth show-access-token --target-org="$targetOrgAlias" --json| jq -r '.result.accessToken')
 
 downloadUrl=$(
   sf data query \
