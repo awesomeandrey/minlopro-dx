@@ -67,9 +67,9 @@ jobs:
           scratchOrgAlias="${{ env.SCRATCH_ORG_ALIAS }}"
           scratchOrgInfo="$(sf org display --target-org "$scratchOrgAlias" --json --verbose)"
           scratchOrgInstanceUrl="$(echo "$scratchOrgInfo" | jq -r '.result.instanceUrl')"
-          scratchOrgSfdxUrl="$(sf org auth show-sfdx-auth-url --target-org '$scratchOrgAlias' --json | jq -r '.result.sfdxAuthUrl')"
+          scratchOrgSfdxUrl="$(sf org auth show-sfdx-auth-url --target-org "$scratchOrgAlias" --json | jq -r '.result.sfdxAuthUrl')"
           scratchOrgBase64EncodedSfdxUrl="$(echo "$scratchOrgSfdxUrl" | base64)"
-          scratchOrgPassword="$(sf org auth show-user-password --target-org '$scratchOrgAlias' --json | jq -r '.result.password')"
+          scratchOrgPassword="$(sf org auth show-user-password --target-org "$scratchOrgAlias" --json | jq -r '.result.password')"
           
           # Append custom snippet to workflow summary
           cat > $GITHUB_STEP_SUMMARY << EOF
