@@ -1,12 +1,12 @@
 {
     "packageDirectories": [
         { "path": "src/minlopro" },
-        { "path": "src/minlopro-3rd-party-apps" },
         { "path": "src/minlopro-core" },
         { "path": "src/minlopro-crm-analytics" },
         { "path": "src/minlopro-default", "default": true },
         { "path": "src/minlopro-digex" },
         { "path": "src/minlopro-digex-messaging" },
+        { "path": "src/minlopro-installed-packages" },
         { "path": "src/minlopro-integrations" },
         { "path": "src/minlopro-mcp" },
         { "path": "src/minlopro-omni-channel-setup" }
