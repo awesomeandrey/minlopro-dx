@@ -63,6 +63,13 @@ export default class NamedCredentialsTab extends NavigationMixin(LightningElemen
         /**
          * Inspired by https://www.jamessimone.net/blog/joys-of-apex/implementing-oauth-browser-flows-properly.
          * Works when authenticating External Credentials only!
+         *
+         * Flow:
+         *  1. Main tab: user clicks "Authenticate" → window.open(authenticationUrl) opens a popup.
+         *  2. Popup: OAuth completes, Salesforce redirects back to this same Salesforce page.
+         *  3. Popup: this component mounts again; window.opener points to the main tab (non-null).
+         *  4. Popup: detects it was opened by another window and closes itself automatically.
+         * On the main tab window.opener is always null, so this block is never entered there.
          */
         const popupContext = window.opener;
         if (popupContext) {
