@@ -5,7 +5,8 @@
         <lightning-button-group slot="actions">
             <lightning-button label="Celebrate!" onclick={handleCelebrateWithConfetti}></lightning-button>
         </lightning-button-group>
-        <div class="slds-box">
+
+        <div class="slds-box slds-m-vertical_small">
             <p>Formatted UTC: <b>{formattedDateTimeStamp}</b></p>
             <p>
                 Past Date: <b><lightning-relative-date-time value={pastDate}></lightning-relative-date-time></b>
@@ -17,7 +18,8 @@
             <p class="slds-text-color_destructive slds-text-title_bold">slds-text-color_destructive</p>
             <p class="slds-text-color_error slds-text-title_bold">slds-text-color_error</p>
         </div>
-        <div class="slds-box slds-m-top_medium">
+
+        <div class="slds-box slds-m-vertical_small">
             <lightning-layout horizontal-align="center" vertical-align="start">
                 <lightning-layout-item
                     for:each={quickReplies}

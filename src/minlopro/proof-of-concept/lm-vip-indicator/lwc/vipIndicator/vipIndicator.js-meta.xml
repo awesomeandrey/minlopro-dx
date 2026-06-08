@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>64.0</apiVersion>
+    <description>Displays a banner when account holder is identified as Board of Directors member.</description>
+    <isExposed>true</isExposed>
+    <masterLabel>VIP Indicator</masterLabel>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>Account</object>
+            </objects>
+            <property
+                name="debugMode"
+                type="Boolean"
+                default="false"
+                label="Debug Mode"
+                description="When enabled, the VIP banner renders unconditionally, bypassing all visibility rules and feature toggle. For troubleshooting only."
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>
