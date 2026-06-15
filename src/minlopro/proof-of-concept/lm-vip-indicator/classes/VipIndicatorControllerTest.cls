@@ -13,25 +13,25 @@ private class VipIndicatorControllerTest {
     }
 
     @IsTest
-    static void checkVipStatus_SingleMatchVip() {
+    static void computeBanner_SingleMatchVip() {
         Account vipAccount = selectStubAccount('$VIP$');
 
         Test.startTest();
         VipIndicatorController.service = new VipIndicatorControllerTest.PartyApiServiceStub();
-        VipIndicatorController.Banner banner = VipIndicatorController.checkVipStatus(vipAccount.Id);
+        VipIndicatorController.Banner banner = VipIndicatorController.computeBanner(vipAccount.Id);
         Test.stopTest();
 
         Assert.isTrue(banner.isVip);
     }
 
     @IsTest
-    static void checkVipStatus_SingleMatchNotVip() {
+    static void computeBanner_SingleMatchNotVip() {
         Account randomAccount = createPersonAccount();
         insert randomAccount;
 
         Test.startTest();
         VipIndicatorController.service = new VipIndicatorControllerTest.PartyApiServiceStub();
-        VipIndicatorController.Banner banner = VipIndicatorController.checkVipStatus(randomAccount.Id);
+        VipIndicatorController.Banner banner = VipIndicatorController.computeBanner(randomAccount.Id);
         Test.stopTest();
 
         Assert.isFalse(banner.isVip);
@@ -39,12 +39,12 @@ private class VipIndicatorControllerTest {
     }
 
     @IsTest
-    static void checkVipStatus_MultiMatch() {
+    static void computeBanner_MultiMatch() {
         Account multiMatchAccount = selectStubAccount('$Multi-Match$');
 
         Test.startTest();
         VipIndicatorController.service = new VipIndicatorControllerTest.PartyApiServiceStub();
-        VipIndicatorController.Banner banner = VipIndicatorController.checkVipStatus(multiMatchAccount.Id);
+        VipIndicatorController.Banner banner = VipIndicatorController.computeBanner(multiMatchAccount.Id);
         Test.stopTest();
 
         Assert.isFalse(banner.isVip);
@@ -52,12 +52,12 @@ private class VipIndicatorControllerTest {
     }
 
     @IsTest
-    static void checkVipStatus_ServerError() {
+    static void computeBanner_ServerError() {
         Account errorAccount = selectStubAccount('$Error$');
 
         try {
             VipIndicatorController.service = new VipIndicatorControllerTest.PartyApiServiceStub();
-            VipIndicatorController.checkVipStatus(errorAccount.Id);
+            VipIndicatorController.computeBanner(errorAccount.Id);
             Assert.fail('Exception should have been caught.');
         } catch (Exception ex) {
             Assert.isInstanceOfType(ex, AuraHandledException.class);

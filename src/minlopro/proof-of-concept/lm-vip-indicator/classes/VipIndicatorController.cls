@@ -5,7 +5,7 @@ public with sharing class VipIndicatorController {
         : new PartyApiService();
 
     @AuraEnabled(Cacheable=true)
-    public static Banner checkVipStatus(Id accountId) {
+    public static Banner computeBanner(Id accountId) {
         try {
             Account primaryAccount = selectAccounts(new List<Id>{ accountId })[0];
             if (!primaryAccount.IsPersonAccount) {
