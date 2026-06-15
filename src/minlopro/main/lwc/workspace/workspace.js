@@ -1,6 +1,8 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, track, wire } from 'lwc';
+import { CurrentPageReference } from 'lightning/navigation';
+import { EnclosingTabId, setTabLabel, setTabIcon } from 'lightning/platformWorkspaceApi';
 import { log as $Log } from 'lightning/logger';
-import { cloneObject, isEmpty } from 'c/utilities';
+import { cloneObject, isEmpty, isNotEmpty } from 'c/utilities';
 
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
@@ -12,6 +14,19 @@ export default class Workspace extends LightningElement {
     @track doCollapseTabs = this.lc_doCollapseTabs;
     @track componentConstructor = null;
     @track error = null;
+
+    @wire(EnclosingTabId)
+    enclosingTabId = null;
+
+    @wire(CurrentPageReference)
+    wirePageReference() {
+        if (isNotEmpty(this.enclosingTabId)) {
+            Promise.all([
+                setTabLabel(this.enclosingTabId, 'LWC Workspace'),
+                setTabIcon(this.enclosingTabId, 'utility:duration_downscale', { iconAlt: 'LWC Workspace' })
+            ]);
+        }
+    }
 
     get tabs() {
         // 'name' property corresponds to LWC component API name;

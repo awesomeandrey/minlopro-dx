@@ -158,11 +158,19 @@ public class TestDataFactory {
             customer.FirstName = String.format('F{0}-{1}', Lists.of(i.toString(), TestDataFactory.generateRandomString(5)));
             customer.LastName = String.format('L{0}-{1}', Lists.of(i.toString(), TestDataFactory.generateRandomString(5)));
             customer.PersonEmail = generateRandomEmail();
+            customer.PersonBirthdate = Date.today().addYears(-30);
             customer.PersonHasOptedOutOfEmail = false;
             customer.Industry = Lists.getRandomString(Lists.of('Healthcare', 'Finance', 'Technology'));
             customer.Site = generateRandomWebsite();
             customer.Type = Lists.getRandomString(Lists.of('Partner', 'Customer'));
             customer.Phone = generateRandomPhone();
+            /*
+            customer.PersonMailingStreet = Lists.getRandomString(Lists.of('415 Mission Street', '13 Main Dr', '7 Indy apt'));
+            customer.PersonMailingCity = Lists.getRandomString(Lists.of('Los Angeles', 'New York', 'San Francisco'));
+            customer.PersonMailingState = Lists.getRandomString(Lists.of('CA', 'AR', 'MA'));
+            customer.PersonMailingPostalCode = generateRandomDecimal(1000, 9000).toString().substringBefore('.');
+            customer.PersonMailingCountry = 'US';
+             */
             customerAccounts.add(customer);
         }
         return customerAccounts;

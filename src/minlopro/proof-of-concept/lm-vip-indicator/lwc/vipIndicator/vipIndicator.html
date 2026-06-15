@@ -1,0 +1,16 @@
+<template>
+    <div lwc:if={showBanner} class={themeClassName} role="alert">
+        <span class="slds-icon_container slds-m-right_x-small">
+            <lightning-icon
+                alternative-text={bannerText}
+                icon-name={themeIconName}
+                size="small"
+                variant={themeIconVariant}
+            ></lightning-icon>
+        </span>
+        <h2>
+            <span>{bannerText}</span>
+            <a lwc:if={debugMode} class="slds-p-horizontal_x-small" onclick={handleRefresh}>Refresh</a>
+        </h2>
+    </div>
+</template>
