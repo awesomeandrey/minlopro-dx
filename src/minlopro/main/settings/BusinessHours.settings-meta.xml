@@ -58,7 +58,7 @@
         <name>Ukraine</name>
         <thursdayEndTime>18:00:00.000Z</thursdayEndTime>
         <thursdayStartTime>09:00:00.000Z</thursdayStartTime>
-        <timeZoneId>Europe/Kiev</timeZoneId>
+        <timeZoneId>Europe/Kyiv</timeZoneId>
         <tuesdayEndTime>18:00:00.000Z</tuesdayEndTime>
         <tuesdayStartTime>09:00:00.000Z</tuesdayStartTime>
         <wednesdayEndTime>18:00:00.000Z</wednesdayEndTime>
@@ -74,7 +74,7 @@
         <name>Ukraine | SMS 📧 | 24/7 Weekdays</name>
         <thursdayEndTime>00:00:00.000Z</thursdayEndTime>
         <thursdayStartTime>00:00:00.000Z</thursdayStartTime>
-        <timeZoneId>Europe/Kiev</timeZoneId>
+        <timeZoneId>Europe/Kyiv</timeZoneId>
         <tuesdayEndTime>00:00:00.000Z</tuesdayEndTime>
         <tuesdayStartTime>00:00:00.000Z</tuesdayStartTime>
         <wednesdayEndTime>00:00:00.000Z</wednesdayEndTime>
