@@ -116,6 +116,14 @@
                     <fieldText>&lt;p&gt;&lt;strong&gt;Account
                         Name:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetAccount.Name}&lt;/em&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -133,6 +141,14 @@
                     <fieldText>&lt;p&gt;&lt;strong&gt;Recipient
                         Email:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetAccount.PersonEmail}&lt;/em&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -150,6 +166,14 @@
                     <fieldText>&lt;p&gt;&lt;strong&gt;Email
                         Template:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;em&gt;{!GetEmailTemplate.Name}&lt;/em&gt;&lt;/p&gt;</fieldText>
                     <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -161,11 +185,131 @@
             </fields>
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <fields>
-            <name>EmailText</name>
-            <fieldText>&lt;p&gt;&lt;strong&gt;Email Text:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;{!GetEmailTemplate.Body}&lt;/p&gt;</fieldText>
-            <fieldType>DisplayText</fieldType>
+            <name>EmailPreviewScreen_Section2</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>EmailPreviewScreen_Section2_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>EmailText</name>
+                    <fieldText>&lt;p&gt;&lt;strong&gt;Email Text:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;{!GetEmailTemplate.Body}&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>EmailPreviewScreen_Section2_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>OptInEmailPreviewMsg</name>
+                    <extensionName>flowruntime:message</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>messageType</name>
+                        <value>
+                            <stringValue>info</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>messageContent</name>
+                        <value>
+                            <stringValue>Shown below is a preview image of the outgoing letter. In the final version, the relevant fields will be filled in and updated accordingly.</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <fields>
+                    <name>OptInEmailPreview</name>
+                    <extensionName>flowruntime:image</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>imageName</name>
+                        <value>
+                            <stringValue>OptInEmailPreview</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>imageHeight</name>
+                        <value>
+                            <stringValue>300</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>horizontalAlignment</name>
+                        <value>
+                            <stringValue>Center</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>imageAlt</name>
+                        <value>
+                            <stringValue>Email Preview</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <styleProperties>
+                        <verticalAlignment>
+                            <stringValue>top</stringValue>
+                        </verticalAlignment>
+                        <width>
+                            <stringValue>12</stringValue>
+                        </width>
+                    </styleProperties>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Send Opt-In Email</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>
@@ -184,6 +328,14 @@
             <fieldText>&lt;p&gt;&lt;em style=&quot;color: rgb(228, 79,
                 102);&quot;&gt;{!$Flow.FaultMessage}&lt;/em&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+            <styleProperties>
+                <verticalAlignment>
+                    <stringValue>top</stringValue>
+                </verticalAlignment>
+                <width>
+                    <stringValue>12</stringValue>
+                </width>
+            </styleProperties>
         </fields>
         <nextOrFinishButtonLabel>Close</nextOrFinishButtonLabel>
         <showFooter>true</showFooter>

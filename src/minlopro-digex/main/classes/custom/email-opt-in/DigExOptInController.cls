@@ -23,7 +23,7 @@ public without sharing class DigExOptInController {
                 new Account(
                     Id = foundAccount.Id,
                     AnnualRevenue = foundAccount.AnnualRevenue + 1,
-                    Description = '✅ OPT-IN CONSENT CONFIRMED ✅'
+                    Description = '✅ DIGEX OPT-IN CONSENT CONFIRMED ✅'
                 ),
                 false,
                 AccessLevel.SYSTEM_MODE
