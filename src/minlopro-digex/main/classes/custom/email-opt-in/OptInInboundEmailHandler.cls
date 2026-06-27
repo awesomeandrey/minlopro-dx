@@ -18,7 +18,7 @@ public class OptInInboundEmailHandler implements Messaging.InboundEmailHandler {
         try {
             final String fromAddress = envelope.fromAddress;
             List<Account> foundPersonAccounts = [
-                SELECT Id, Name, PersonHasOptedOutOfEmail, PersonTitle, OwnerId
+                SELECT Id, Name, PersonHasOptedOutOfEmail, OwnerId, Description
                 FROM Account
                 WHERE PersonEmail = :fromAddress AND IsPersonAccount = TRUE
                 LIMIT 1
@@ -32,25 +32,25 @@ public class OptInInboundEmailHandler implements Messaging.InboundEmailHandler {
             // Process matched Contact record;
             Account customer = foundPersonAccounts[0];
             if (this.hasOptedIn(email.plainTextBody)) {
-                customer.PersonTitle = 'OPT-IN';
+                customer.Description = 'Got OPT-IN based on e-mail reply.';
                 customer.PersonHasOptedOutOfEmail = false;
                 result.message = String.format('Dear {0}, thank you for Opt-In!', Lists.of(customer.Name));
             } else if (this.hasOptedOut(email.plainTextBody)) {
-                customer.PersonTitle = 'OPT-OUT';
+                customer.Description = 'Got OPT-OUT based on e-mail reply.';
                 customer.PersonHasOptedOutOfEmail = true;
                 result.message = String.format(
                     '{0}, we got it! Thank you for your time! You opted out.',
                     Lists.of(customer.Name)
                 );
             } else {
-                customer.PersonTitle = 'PENDING';
+                customer.Description = 'Could not understand opt-in/out keyword based on e-mail reply.';
                 customer.PersonHasOptedOutOfEmail = false;
                 result.message = String.format('{0}, we could not understand your intentions...', Lists.of(customer.Name));
             }
             // Update particular field only;
             update new Account(
                 Id = customer.Id,
-                PersonTitle = customer.PersonTitle,
+                Description = customer.Description,
                 PersonHasOptedOutOfEmail = customer.PersonHasOptedOutOfEmail
             );
 
