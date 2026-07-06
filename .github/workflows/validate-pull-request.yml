@@ -6,6 +6,10 @@ on:
     branches:
       - develop
 
+env:
+  SF_NEW_VERSION_CHECK_FREQ: ${{ vars.SF_NEW_VERSION_CHECK_FREQ }}
+  SF_NEW_VERSION_CHECK_FREQ_UNIT: ${{ vars.SF_NEW_VERSION_CHECK_FREQ_UNIT }}
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true

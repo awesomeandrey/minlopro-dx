@@ -7,7 +7,7 @@
 read -r -p "🔶 Enter target org alias: " TARGET_ORG_ALIAS
 npx cowsay -W 100 "📗 Running POST-Deploy Scripts against [$TARGET_ORG_ALIAS] organization..."
 
-# Step 1: Run Custom Apex Scripts;
+# Step 1: Run Custom Apex Scripts
 apexFilesDir="./scripts/deploy/post/apex"
 if [ -d "$apexFilesDir" ]; then
     for file in "$apexFilesDir"/*.apex; do
@@ -19,7 +19,7 @@ if [ -d "$apexFilesDir" ]; then
     done
 fi
 
-# Step 2: Run Custom Shell Scripts;
+# Step 2: Run Custom Shell Scripts
 customScriptsDir="./scripts/deploy/post/custom"
 if [ -d "$customScriptsDir" ]; then
     for file in "$customScriptsDir"/*.sh; do
