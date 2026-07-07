@@ -1,20 +1,16 @@
 public virtual inherited sharing class PartyApiService {
     public virtual SearchResult search(Account personAccount) {
         PartyFilter partyFilter = new PartyFilter();
-        if (personAccount?.PersonBirthdate != null) {
-            partyFilter.birthDate = String.valueOf(personAccount.PersonBirthdate);
-        }
+        partyFilter.setBirthDate(personAccount.PersonBirthdate);
         partyFilter.emailAddress = personAccount.PersonEmail;
         partyFilter.givenName = personAccount.FirstName;
         partyFilter.surName = personAccount.LastName;
-        String normalizedPhoneNumber = personAccount?.Phone?.replaceAll('\\D', '')?.right(10);
-        if (String.isNotBlank(normalizedPhoneNumber) && Pattern.matches('^\\d{10}$', normalizedPhoneNumber)) {
-            partyFilter.phoneNumber = normalizedPhoneNumber;
-        }
+        partyFilter.setPhoneNumber(personAccount?.Phone);
         partyFilter.addressLine1 = personAccount.PersonMailingStreet;
         partyFilter.addressLine2 = personAccount.BillingStreet;
         partyFilter.postalCode = personAccount.PersonMailingPostalCode;
         partyFilter.stateOrProvinceCode = personAccount.PersonMailingStateCode;
+        partyFilter.normalizeAddressParams();
 
         if (!partyFilter.isValid()) {
             // Skip API callout; return empty response payload intentionally
@@ -118,15 +114,37 @@ public virtual inherited sharing class PartyApiService {
         public String stateOrProvinceCode;
         public String driverLicenseNumber;
 
+        public void setBirthDate(Date birthDate) {
+            if (birthDate != null) {
+                this.birthDate = String.valueOf(birthDate);
+            }
+        }
+
+        public void setPhoneNumber(String phoneNumber) {
+            String normalizedPhoneNumber = phoneNumber?.replaceAll('\\D', '')?.right(10);
+            if (String.isNotBlank(normalizedPhoneNumber) && Pattern.matches('^\\d{10}$', normalizedPhoneNumber)) {
+                this.phoneNumber = normalizedPhoneNumber;
+            }
+        }
+
+        public void normalizeAddressParams() {
+            /**
+             * Exclude known incompatible search parameters/combinations that cause a 400 (Bad Request) response:
+             * - 'Address Line 1 search is not allowed without First Name, Last Name and Zip'
+             * - 'Address Line 2 search is not allowed without Address Line 1, First Name, Last Name and Zip'
+             */
+            Boolean hasAnyAddressLine = String.isNotBlank(this.addressLine1) || String.isNotBlank(this.addressLine2);
+            if (hasAnyAddressLine && String.isBlank(this.postalCode)) {
+                this.addressLine1 = this.addressLine2 = null;
+            } else if (String.isBlank(this.addressLine1) && String.isNotBlank(this.addressLine2)) {
+                this.addressLine1 = this.addressLine2;
+                this.addressLine2 = null;
+            }
+        }
+
         public Boolean isValid() {
             if (String.isBlank(this.givenName) || String.isBlank(this.surName)) {
                 // Check for mandatory fields first
-                return false;
-            }
-            if (
-                String.isBlank(this.postalCode) && (String.isNotBlank(this.addressLine1) || String.isNotBlank(this.addressLine2))
-            ) {
-                // Eliminate 'Address Line 1/2 search requires Given Name, Sur Name and Zip' 400 (Bad Request) scenario
                 return false;
             }
             // Enforce minimum filters threshold to avoid vague search result sets

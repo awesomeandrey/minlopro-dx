@@ -59,7 +59,8 @@ export default class Workspace extends LightningElement {
             { label: 'WYSIWYG Editor', name: 'wysiwygTab', iconName: 'utility:edit_gpt', visible: true },
             { label: 'UNABLE_TO_LOCK_ROW Demo', name: 'unableToLockRowTab', iconName: 'utility:error', visible: true },
             { label: 'Business Hours Demo', name: 'businessHoursDemoTab', iconName: 'utility:clock', visible: true },
-            { label: 'Printable LWC Demo', name: 'lwcToPdfTab', iconName: 'utility:print', visible: true }
+            { label: 'Printable LWC Demo', name: 'lwcToPdfTab', iconName: 'utility:print', visible: true },
+            { label: 'Workspace API Demo', name: 'workspaceApiTab', iconName: 'utility:desktop_console', visible: true }
         ];
         return componentTabs
             .sort(({ label: l1 }, { label: l2 }) => {

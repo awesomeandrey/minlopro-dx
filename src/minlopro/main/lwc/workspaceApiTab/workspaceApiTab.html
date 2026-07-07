@@ -1,0 +1,33 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-workspace-api-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Generate Account URL" onclick={handleGenerateAccountUrl}></lightning-button>
+            <lightning-button label="Open Tab" disabled={disableTabOpen} onclick={handleOpenTab}></lightning-button>
+            <lightning-button label="Open Sub-Tab" disabled={disableSubTabOpen} onclick={handleOpenSubTab}></lightning-button>
+            <lightning-button label="Reset" onclick={handleReset}></lightning-button>
+        </lightning-button-group>
+        <lightning-layout>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <c-datatable
+                    key-field={datatableKeyFieldName}
+                    columns={sampleColumns}
+                    data={sampleData}
+                    hide-checkbox-column
+                    show-row-number-column
+                    onclick={handleDatatableClick}
+                ></c-datatable>
+                <c-error-alert value={errorObj}></c-error-alert>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="horizontal-small">
+                <c-stats label="Stats" icon-name="standard:dynamic_highlights_panel" value={stats}></c-stats>
+                <div class="slds-m-vertical_small">
+                    <p>Slash & ID URL: <lightning-formatted-url value={slashRecordUrl}></lightning-formatted-url></p>
+                    <p lwc:if={generatedAccountUrl}>
+                        Generated URL: <lightning-formatted-url value={generatedAccountUrl}></lightning-formatted-url>
+                    </p>
+                </div>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

@@ -54,19 +54,22 @@ private class PartyApiServiceTest {
 
     @IsTest
     static void validate_PartyFilter_DTO() {
-        PartyApiService.PartyFilter validFilter = buildValidPartyFilter();
-        Assert.isTrue(validFilter.isValid());
-        Assert.areEqual(10, validFilter.populatedParametersCount());
+        PartyApiService.PartyFilter validFilter1 = buildValidPartyFilter();
+        validFilter1.normalizeAddressParams();
+        Assert.isTrue(validFilter1.isValid());
+        Assert.areEqual(10, validFilter1.populatedParametersCount());
 
-        PartyApiService.PartyFilter invalidFilter = validFilter.clone();
-        Assert.isTrue(String.isNotBlank(invalidFilter.addressLine1));
-        invalidFilter.addressLine2 = null;
-        invalidFilter.postalCode = null;
-        Assert.isFalse(invalidFilter.isValid());
-        Assert.areEqual(8, invalidFilter.populatedParametersCount());
+        PartyApiService.PartyFilter validFilter2 = validFilter1.clone();
+        validFilter2.postalCode = null;
+        Assert.isTrue(String.isNotBlank(validFilter2.addressLine1));
+        validFilter2.normalizeAddressParams(); // Should cleanup address lines
+        Assert.isTrue(String.isBlank(validFilter2.addressLine1));
+        Assert.isTrue(String.isBlank(validFilter2.addressLine2));
+        Assert.isTrue(validFilter2.isValid());
+        Assert.areEqual(7, validFilter2.populatedParametersCount());
 
+        PartyApiService.PartyFilter invalidFilter = validFilter2.clone();
         invalidFilter.phoneNumber = null;
-        invalidFilter.addressLine1 = null;
         invalidFilter.stateOrProvinceCode = null;
         invalidFilter.driverLicenseNumber = null;
         Assert.isFalse(invalidFilter.isValid());
