@@ -20,19 +20,38 @@ permissions:
   pull-requests: write
 
 jobs:
+  elf-setup:
+    runs-on: ubuntu-22.04
+    outputs:
+      environments: ${{ steps.set.outputs.environments }}
+    steps:
+      - name: "Compose Environments List"
+        id: set
+        run: |
+          if [ "${{ github.event_name }}" = "scheduled" ]; then
+            # Cron: both environments (must be valid JSON, quoted)
+            echo 'environments=["Minlopro Prod","Minlopro DevHub"]' >> "$GITHUB_OUTPUT"
+          else
+            # Manual: only the selected input, as a single-element array
+            echo 'environments=["${{ inputs.environment }}"]' >> "$GITHUB_OUTPUT"
+          fi
+      - name: "Log Resolved List"
+        run: echo "Resolved environments list → ${{ steps.set.outputs.environments }}"
   elf-download-and-upload:
+    needs: [ elf-setup ]
+    runs-on: ubuntu-22.04
     timeout-minutes: 30
-    environment: ${{ inputs.environment && inputs.environment || 'Minlopro DevHub' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: ${{ fromJSON(needs.elf-setup.outputs.environments) }}
+        event_type: [ LightningLogger, LightningPageView ]
+        api_version: [ "66.0", "67.0" ]
+    environment: ${{ matrix.environment }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_AUTH_URL_SCRATCH: ${{ secrets.SF_AUTH_URL_SCRATCH }}
       SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-    runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
-      matrix:
-        event_type: [ LightningLogger, LightningPageView ]
-        api_version: [ "65.0", "66.0", "67.0" ]
     steps:
       - uses: actions/checkout@v4
         with:
