@@ -14,7 +14,7 @@
     "name": "minlopro-dx",
     "namespace": "",
     "sfdcLoginUrl": "https://login.salesforce.com",
-    "sourceApiVersion": "66.0",
+    "sourceApiVersion": "67.0",
     "replacements": [
         {
             "glob": "src/**/staticresources/**",
@@ -98,6 +98,12 @@
             "glob": "src/**",
             "stringToReplace": "${SF_SAMPLE_ACCOUNT_ID}",
             "replaceWithEnv": "SF_SAMPLE_ACCOUNT_ID",
+            "allowUnsetEnvVariable": true
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_SAMPLE_PERSON_ACCOUNT_ID}",
+            "replaceWithEnv": "SF_SAMPLE_PERSON_ACCOUNT_ID",
             "allowUnsetEnvVariable": true
         },
         {

@@ -1,7 +1,8 @@
 import { LightningElement, api, track, wire } from 'lwc';
+import { getRecord } from 'lightning/uiRecordApi';
 import { log } from 'lightning/logger';
 import { refreshApex } from '@salesforce/apex';
-import { parseError, debounce } from 'c/utilities';
+import { parseError } from 'c/utilities';
 
 import isFeatureActiveApex from '@salesforce/apex/FeatureToggle.isActive';
 import computeBannerApex from '@salesforce/apex/VipIndicatorController.computeBanner';
@@ -13,8 +14,6 @@ export default class VipIndicator extends LightningElement {
     @track isFeatureEnabled = false;
     @track accountId = undefined;
     @track wiredBanner = {};
-
-    @track debouncedRefresh = debounce(this.handleRefresh.bind(this), 700);
 
     get showBanner() {
         return this.normalizedBanner.doShow;
@@ -36,8 +35,9 @@ export default class VipIndicator extends LightningElement {
             logMessage: null,
             style: null
         };
-        if (this.wiredBanner.data) {
-            const { showBanner, isVip, message, logMessage } = this.wiredBanner.data;
+        const { data, error } = this.wiredBanner;
+        if (data) {
+            const { showBanner, isVip, message, logMessage } = data;
             banner.doShow = this.debugMode || showBanner;
             banner.isVip = isVip;
             banner.message = message;
@@ -47,8 +47,8 @@ export default class VipIndicator extends LightningElement {
                 if (showBanner) return 'warning';
                 return null;
             })();
-        } else if (this.wiredBanner.error) {
-            const { message: errorMessage } = parseError(this.wiredBanner.error);
+        } else if (error) {
+            const { message: errorMessage } = parseError(error);
             banner.doShow = true;
             banner.isVip = false;
             banner.message = errorMessage;
@@ -83,22 +83,32 @@ export default class VipIndicator extends LightningElement {
         return this.theme.iconVariant;
     }
 
+    @wire(getRecord, { recordId: '$recordId', layoutTypes: ['Full'] })
+    wireRecord({ data }) {
+        // Handle manual record field updates & re-trigger banner calculation logic
+        if (!!data && (this.isFeatureEnabled || this.debugMode)) {
+            this.handleRefresh();
+        }
+    }
+
     @wire(isFeatureActiveApex, { featureName: 'EnableVipIndicator' })
     wireFeatureToggle({ data }) {
         this.isFeatureEnabled = data === true;
         if (this.isFeatureEnabled || this.debugMode) {
-            this.accountId = this.recordId; // Entry point for Apex 'wire' below
+            this.accountId = this.recordId; // Entry point for Apex-driven 'wire'
         }
     }
 
     @wire(computeBannerApex, { accountId: '$accountId' })
     wireComputeBannerApex(wiredBanner) {
-        // Store reference for cache refresh
+        // Hold on to the provisioned value so we can refresh it later
         this.wiredBanner = wiredBanner;
+
         const { data, error } = wiredBanner;
         if (data === undefined && error === undefined) {
-            return;
+            return; // Return upon 'cold start'
         }
+
         if (error) {
             console.error('VipIndicator.js', JSON.stringify(error));
         }

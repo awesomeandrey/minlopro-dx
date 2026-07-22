@@ -20,41 +20,82 @@ permissions:
   pull-requests: write
 
 jobs:
-#  run-code-analyzer-delta:
-#    if: github.base_ref != ''
-#    uses: ./.github/workflows/run-code-analyzer.yml
-#    with:
-#      base-ref: ${{ github.base_ref }}
-#  run-code-analyzer-essential:
-#    uses: ./.github/workflows/run-code-analyzer.yml
-  playground-run:
-    timeout-minutes: 15
-    environment: ${{ inputs.environment && inputs.environment ||  'Minlopro DevHub' }}
+  elf-setup:
+    runs-on: ubuntu-22.04
+    outputs:
+      environments: ${{ steps.set.outputs.environments }}
+    steps:
+      - name: "Compose Environments List"
+        id: set
+        run: |
+          if [ "${{ github.event_name }}" = "scheduled" ]; then
+            # Cron: both environments (must be valid JSON, quoted)
+            echo 'environments=["Minlopro Prod","Minlopro DevHub"]' >> "$GITHUB_OUTPUT"
+          else
+            # Manual: only the selected input, as a single-element array
+            echo 'environments=["${{ inputs.environment }}"]' >> "$GITHUB_OUTPUT"
+          fi
+      - name: "Log Resolved List"
+        run: echo "Resolved environments list → ${{ steps.set.outputs.environments }}"
+  elf-download-and-upload:
+    needs: [ elf-setup ]
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: ${{ fromJSON(needs.elf-setup.outputs.environments) }}
+        event_type: [ LightningLogger, LightningPageView ]
+        api_version: [ "66.0", "67.0" ]
+    environment: ${{ matrix.environment }}
     env:
       SF_AUTH_URL: ${{ secrets.SF_AUTH_URL }}
       SF_AUTH_URL_SCRATCH: ${{ secrets.SF_AUTH_URL_SCRATCH }}
       SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-      GHA_WORKFLOW_RUN_LINK: "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: "Announce Matrix Job 📣"
+        shell: bash
+        run: |
+          echo "::notice::Starting ELF job — event_type=${{ matrix.event_type }}, api_version=v${{ matrix.api_version }}"
+          echo "::debug::Matrix combination: event_type=${{ matrix.event_type }} | api_version=${{ matrix.api_version }}"
       - name: "Build Environment 🚜"
         uses: ./.github/actions/build-env
         env:
           SF_CLI_VERSION: ${{ vars.SF_CLI_VERSION }}
-      - name: "Bash Playground"
+      - name: "Auth Source Org (DevHub) 🎫"
+        id: auth-source-org
+        uses: ./.github/actions/auth-salesforce-org
+        with:
+          sfdx-auth-url: ${{ env.SF_AUTH_URL }}
+          target-org-alias: source-devhub
+      - name: "Auth Target Org (Scratch) 🎫"
+        id: auth-target-org
+        uses: ./.github/actions/auth-salesforce-org
+        with:
+          sfdx-auth-url: ${{ env.SF_AUTH_URL_SCRATCH }}
+          target-org-alias: target-scratch
+      - name: "Confirm Auth ✅"
         shell: bash
         run: |
-          echo "::group::This is GHA custom group!"
-          
-          echo "::debug::Hello world! -> This is my custom debug GHA message"
-          
-          echo "::notice file=src/minlopro/main/lwc/dragAndDropTab/dragAndDropTab.js,line=20,col=5,endColumn=7::Notice message"
-          
-          echo "::warning file=src/minlopro/main/lwc/dragAndDropTab/dragAndDropTab.js,line=21,col=5,endColumn=7,title=CUSTOM-TITLE::Warning message"
-          
-          echo "::error file=src/minlopro/main/lwc/dragAndDropTab/dragAndDropTab.js,line=22,col=5,endColumn=7,title=CUSTOM-TITLE::Error message"
-          
-          echo "::endgroup::"
+          echo "::notice::Source org (DevHub) alias: ${{ steps.auth-source-org.outputs.target-org-alias }}"
+          echo "::debug::Source org instance URL: ${{ steps.auth-source-org.outputs.target-org-instance-url }}"
+          echo "::notice::Target org (Scratch) alias: ${{ steps.auth-target-org.outputs.target-org-alias }}"
+          echo "::debug::Target org instance URL: ${{ steps.auth-target-org.outputs.target-org-instance-url }}"
+      - name: "Download & Upload ELFs to CRM Analytics Dataset 📊"
+        shell: bash
+        run: |
+          METADATA_PATH="scripts/util/event-monitoring/event-metadata-json/${{ matrix.event_type }}-v${{ matrix.api_version }}.json"
+          echo "::debug::Metadata file: $METADATA_PATH"
+          echo "::notice::Invoking elf.sh — mode=download-and-upload-to-dataset, folder=MinloproEventMonitoring, metadata=$METADATA_PATH"
+          bash ./scripts/util/event-monitoring/elf.sh \
+            --source-org-alias "${{ steps.auth-source-org.outputs.target-org-alias }}" \
+            --target-org-alias "${{ steps.auth-target-org.outputs.target-org-alias }}" \
+            --event-type "${{ matrix.event_type }}" \
+            --api-version "${{ matrix.api_version }}" \
+            --mode "download-and-upload-to-dataset" \
+            --folder "MinloproEventMonitoring" \
+            --metadata "$METADATA_PATH"
+          echo "::notice::elf.sh completed — event_type=${{ matrix.event_type }}, api_version=v${{ matrix.api_version }}"

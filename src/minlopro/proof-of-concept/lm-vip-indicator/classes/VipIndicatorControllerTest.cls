@@ -17,7 +17,10 @@ private class VipIndicatorControllerTest {
         Account vipAccount = selectStubAccount('$VIP$');
 
         Test.startTest();
-        VipIndicatorController.service = new VipIndicatorControllerTest.PartyApiServiceStub();
+        VipIndicatorController.service = (PartyApiService) Test.createStub(
+            PartyApiService.class,
+            new VipIndicatorControllerTest.PartyApiServiceStubProvider()
+        );
         VipIndicatorController.Banner banner = VipIndicatorController.computeBanner(vipAccount.Id);
         Test.stopTest();
 
@@ -30,7 +33,10 @@ private class VipIndicatorControllerTest {
         insert randomAccount;
 
         Test.startTest();
-        VipIndicatorController.service = new VipIndicatorControllerTest.PartyApiServiceStub();
+        VipIndicatorController.service = (PartyApiService) Test.createStub(
+            PartyApiService.class,
+            new VipIndicatorControllerTest.PartyApiServiceStubProvider()
+        );
         VipIndicatorController.Banner banner = VipIndicatorController.computeBanner(randomAccount.Id);
         Test.stopTest();
 
@@ -43,7 +49,10 @@ private class VipIndicatorControllerTest {
         Account multiMatchAccount = selectStubAccount('$Multi-Match$');
 
         Test.startTest();
-        VipIndicatorController.service = new VipIndicatorControllerTest.PartyApiServiceStub();
+        VipIndicatorController.service = (PartyApiService) Test.createStub(
+            PartyApiService.class,
+            new VipIndicatorControllerTest.PartyApiServiceStubProvider()
+        );
         VipIndicatorController.Banner banner = VipIndicatorController.computeBanner(multiMatchAccount.Id);
         Test.stopTest();
 
@@ -56,7 +65,10 @@ private class VipIndicatorControllerTest {
         Account errorAccount = selectStubAccount('$Error$');
 
         try {
-            VipIndicatorController.service = new VipIndicatorControllerTest.PartyApiServiceStub();
+            VipIndicatorController.service = (PartyApiService) Test.createStub(
+                PartyApiService.class,
+                new VipIndicatorControllerTest.PartyApiServiceStubProvider()
+            );
             VipIndicatorController.computeBanner(errorAccount.Id);
             Assert.fail('Exception should have been caught.');
         } catch (Exception ex) {
@@ -87,30 +99,38 @@ private class VipIndicatorControllerTest {
         return resultMap;
     }
 
-    private class PartyApiServiceStub extends PartyApiService {
-        public override SearchResult search(Account personAccount) {
+    private class PartyApiServiceStubProvider implements System.StubProvider {
+        public Object handleMethodCall(
+            Object stubbedObject,
+            String stubbedMethodName,
+            Type returnType,
+            List<Type> listOfParamTypes,
+            List<String> listOfParamNames,
+            List<Object> listOfArgs
+        ) {
+            if (stubbedMethodName == 'search' && !listOfParamTypes.isEmpty() && listOfParamTypes[0] == Account.class) {
+                return this.buildSearchResult((Account) listOfArgs[0]);
+            }
+            return null;
+        }
+
+        private PartyApiService.SearchResult buildSearchResult(Account personAccount) {
             PartyApiService.SearchResult result = new PartyApiService.SearchResult();
             result.logMessage = 'STUB';
             if (personAccount.LastName == '$VIP$') {
-                // Single VIP match
                 PartyApiService.Party party = new PartyApiService.Party();
                 party.vipIndicator = 'true';
                 result.party = new List<PartyApiService.Party>{ party };
-                return result;
             } else if (personAccount.LastName == '$Multi-Match$') {
-                // Two non-matches
                 PartyApiService.Party party1 = new PartyApiService.Party();
                 party1.vipIndicator = 'false';
                 PartyApiService.Party party2 = new PartyApiService.Party();
                 party2.vipIndicator = 'false';
                 result.party = new List<PartyApiService.Party>{ party1, party2 };
-                return result;
             } else if (personAccount.LastName == '$Error$') {
                 throw new IllegalArgumentException('Simulated error response from Party API.');
-            } else {
-                // Empty result set
-                return result;
             }
+            return result;
         }
     }
 }

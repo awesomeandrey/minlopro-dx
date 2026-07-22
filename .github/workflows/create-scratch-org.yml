@@ -28,6 +28,8 @@ on:
 env:
   DEV_HUB_ORG_ALIAS: "minlopro-dx-dev-hub"
   SCRATCH_ORG_ALIAS: "minlopro-dx-scratch-org"
+  SF_NEW_VERSION_CHECK_FREQ: ${{ vars.SF_NEW_VERSION_CHECK_FREQ }}
+  SF_NEW_VERSION_CHECK_FREQ_UNIT: ${{ vars.SF_NEW_VERSION_CHECK_FREQ_UNIT }}
 
 jobs:
   spin-up-scratch-org:

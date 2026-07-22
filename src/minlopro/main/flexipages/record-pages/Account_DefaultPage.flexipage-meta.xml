@@ -37,6 +37,10 @@
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>hideSlackAction</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>numVisibleActions</name>
                     <value>5</value>
                 </componentInstanceProperties>
@@ -85,6 +89,16 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>workspaceApiTab</componentName>
+                <identifier>c_workspaceApiTab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-05029bff-3da2-4a4f-a58e-113b7e2fbc6b</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>active</name>
                     <value>false</value>
@@ -117,6 +131,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>detailTab</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-05029bff-3da2-4a4f-a58e-113b7e2fbc6b</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>🚧 LWC Playground 🚧</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

@@ -43,8 +43,10 @@ echo "📜 Scratch Org Credentials"
 sf org display --target-org "$SCRATCH_ORG_ALIAS" --verbose | tee "$orgCredentialsFile"
 
 # Install packages from DevHub
-inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
-bash ./scripts/automations/install_packages.sh < $inputsFile
+bash ./scripts/automations/install_packages.sh <<EOF
+$DEV_HUB_ALIAS
+$SCRATCH_ORG_ALIAS
+EOF
 
 # Run PRE-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
@@ -69,8 +71,10 @@ sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS" || true
 sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$SCRATCH_ORG_ALIAS" || true
 
 # Import & publish Knowledge Articles from DevHub org (leveraging SFDMU plugin)
-inputsFile="build/inputs.txt"; touch $inputsFile; echo "$DEV_HUB_ALIAS" > $inputsFile; echo "$SCRATCH_ORG_ALIAS" >> $inputsFile
-bash ./scripts/util/data-seeding/migrate_knowledge_articles.sh < $inputsFile
+bash ./scripts/util/data-seeding/migrate_knowledge_articles.sh <<EOF
+$DEV_HUB_ALIAS
+$SCRATCH_ORG_ALIAS
+EOF
 
 # Import 'LightningLogger' event log files into CRM Analytics dataset
 bash scripts/util/event-monitoring/elf.sh \
