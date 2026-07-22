@@ -5,7 +5,7 @@ public with sharing class KeysetPaginationController {
     @AuraEnabled
     public static Integer getTotalContactsCount() {
         try {
-            return Database.countQuery('SELECT COUNT() FROM Contact');
+            return Database.countQuery('SELECT COUNT() FROM Contact ALL ROWS');
         } catch (Exception rootException) {
             Logger.error(rootException);
             AuraHandledException ex = new AuraHandledException(rootException.getMessage());
@@ -144,6 +144,7 @@ public with sharing class KeysetPaginationController {
         private List<Contact> fetch() {
             fflib_QueryFactory factory = new fflib_QueryFactory(Contact.SObjectType);
             factory.selectFields(this.fieldApiNames);
+            factory.setAllRows();
             factory.setLimit(this.pageSize);
 
             // Cast raw ordering value to FFLIB counterpart object;
