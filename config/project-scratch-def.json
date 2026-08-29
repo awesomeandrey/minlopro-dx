@@ -8,6 +8,7 @@
         "AuthorApex",
         "Communities",
         "ContactsToMultipleAccounts",
+        "Chatbot",
         "DebugApex",
         "DefaultWorkflowUser",
         "DevelopmentWave",
@@ -42,6 +43,9 @@
             "enableCompileOnDeploy": false,
             "enableDisableParallelApexTesting": true
         },
+        "botSettings": {
+            "enableBots": true
+        },
         "communitiesSettings": {
             "enableNetworksEnabled": true
         },
@@ -68,6 +72,9 @@
             "enableS1DesktopEnabled": true,
             "enableLightningPreviewPref": true,
             "enableUsersAreLightningOnly": false
+        },
+        "liveAgentSettings": {
+            "enableLiveAgent": true
         },
         "liveMessageSettings": {
             "enableLiveMessage": true
