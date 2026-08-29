@@ -1,4 +1,4 @@
-## Messaging for In-App and Web for Digital Experience Sites
+## Messaging for In-App and Web (MIAW) for Digital Experience Sites
 
 Originally inspired by the following articles:
 
