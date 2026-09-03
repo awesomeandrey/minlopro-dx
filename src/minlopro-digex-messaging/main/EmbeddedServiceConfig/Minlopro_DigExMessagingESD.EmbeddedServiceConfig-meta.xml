@@ -12,10 +12,10 @@
         <isSendInvtAllowedAfterReject>false</isSendInvtAllowedAfterReject>
         <messagingChannel>Minlopro_DigExMessagingChannel</messagingChannel>
         <shouldShowAgentforceTagline>false</shouldShowAgentforceTagline>
-        <shouldShowDeliveryReceipts>false</shouldShowDeliveryReceipts>
-        <shouldShowEmojiSelection>false</shouldShowEmojiSelection>
-        <shouldShowReadReceipts>false</shouldShowReadReceipts>
-        <shouldShowTypingIndicators>false</shouldShowTypingIndicators>
+        <shouldShowDeliveryReceipts>true</shouldShowDeliveryReceipts>
+        <shouldShowEmojiSelection>true</shouldShowEmojiSelection>
+        <shouldShowReadReceipts>true</shouldShowReadReceipts>
+        <shouldShowTypingIndicators>true</shouldShowTypingIndicators>
         <shouldStartNewLineOnEnter>false</shouldStartNewLineOnEnter>
     </embeddedServiceMessagingChannel>
     <isEnabled>true</isEnabled>

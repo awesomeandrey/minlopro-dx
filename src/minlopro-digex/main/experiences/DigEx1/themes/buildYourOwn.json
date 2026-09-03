@@ -199,8 +199,8 @@
     }, {
       "components" : [ {
         "componentAttributes" : {
-          "clientVersion" : "WebV1",
-          "deploymentName" : "Minlopro_DigExMessagingESD",
+          "clientVersion" : "WebV2",
+          "deploymentName" : "Minlopro_BotMessagingESD",
           "hideChatButtonOnLoad" : "Default",
           "isExpSiteAuthMode" : false,
           "scrtUrl" : "https://${SF_SITE_DOMAIN_NAME}.my.salesforce-scrt.com",

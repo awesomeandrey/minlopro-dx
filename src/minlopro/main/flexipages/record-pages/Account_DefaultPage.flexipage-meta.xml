@@ -247,16 +247,57 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>decorate</name>
+                    <name>allowClose</name>
                     <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>richTextValue</name>
-                    <value>&lt;p&gt;&lt;strong&gt;Alert:&lt;/strong&gt; This account has been marked as &lt;em&gt;Email
-                        Opt-Out&lt;/em&gt;.&lt;/p&gt;&lt;p&gt;You can no longer send emails to this person.&lt;/p&gt;</value>
+                    <name>buttonLabel</name>
                 </componentInstanceProperties>
-                <componentName>flexipage:richText</componentName>
-                <identifier>flexipage_richText</identifier>
+                <componentInstanceProperties>
+                    <name>iconAlternativeText</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>iconName</name>
+                    <value>utility:sender_email</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>iconSize</name>
+                    <value>medium</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>iconVariant</name>
+                    <value>inverse</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>illustrationName</name>
+                    <value>fishing</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>messageBody</name>
+                    <value>This account has been marked as Email Opt-Out.  You can no longer send emails to this person.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>messageTitle</name>
+                    <value>Warning</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>messageType</name>
+                    <value>inline</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>messageVariant</name>
+                    <value>warning</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showIcon</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showMessage</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>ltngmu:lwcMessagingUtility</componentName>
+                <identifier>ltngmu_lwcMessagingUtility</identifier>
                 <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.PersonHasOptedOutOfEmail}</leftValue>

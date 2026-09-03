@@ -4,6 +4,8 @@ run-name: "Playground Workflow Run 🐚"
 on:
 #  pull_request:
 #    types: [ opened, synchronize, reopened ]
+  schedule:
+    - cron: "0 11 * * 3"
   workflow_dispatch:
     inputs:
       environment:
@@ -28,7 +30,7 @@ jobs:
       - name: "Compose Environments List"
         id: set
         run: |
-          if [ "${{ github.event_name }}" = "scheduled" ]; then
+          if [ "${{ github.event_name }}" = "schedule" ]; then
             # Cron: both environments (must be valid JSON, quoted)
             echo 'environments=["Minlopro Prod","Minlopro DevHub"]' >> "$GITHUB_OUTPUT"
           else

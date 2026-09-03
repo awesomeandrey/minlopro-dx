@@ -29,6 +29,7 @@ on:
           - "NoTestRun"
           - "RunLocalTests"
           - "RunAllTestsInOrg"
+          - "RunRelevantTests"
       do-publish-sites:
         description: "Publish Experience Sites?"
         required: false
