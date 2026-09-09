@@ -25,7 +25,7 @@ Required:
 
 Optional:
   -l, --elf-limit INT         Limit of EventLogFile records to process (default: 150)
-  -v, --api-version NUM       Salesforce API version (default: 65.0)
+  -v, --api-version NN.N      Salesforce API version, must include the decimal (e.g. 65.0, 67.0) (default: 65.0)
   -t, --target-org-alias STR  Target Salesforce org alias to upload dataset to (defaults to --source-org-alias parameter)
   -f, --folder STR            Target CRM Analytics folder (Id or Name) to upload dataset to
   -m, --metadata PATH         Path to metadata JSON file specifying uploaded dataset schema
@@ -93,6 +93,9 @@ done
   || die "--elf-limit must be an integer (got: '$ELF_LIMIT')"
 [[ "$API_VERSION" =~ ^[0-9]+(\.[0-9]+)?$ ]] \
   || die "--api-version must be a number like 65 or 65.0 (got: '$API_VERSION')"
+
+# Normalize to NN.N format (Salesforce REST endpoints reject bare integers like 'v67')
+[[ "$API_VERSION" == *.* ]] || API_VERSION="${API_VERSION}.0"
 
 # Metadata JSON file check (only if provided and not empty)
 if [[ -n "$METADATA_JSON_FILE" ]]; then
