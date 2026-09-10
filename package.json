@@ -2,9 +2,9 @@
     "name": "minlopro-dx",
     "type": "module",
     "private": true,
-    "version": "5.0.3",
+    "version": "5.0.5",
     "engines": {
-        "node": ">=20.x",
+        "node": ">=22.x",
         "npm": ">=10.x"
     },
     "description": "Minlopro DX",

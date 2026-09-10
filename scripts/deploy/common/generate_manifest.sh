@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 # How to use
 print_usage() {
@@ -122,8 +122,12 @@ echo "🔵 Generating [$PACKAGE_XML] deployment manifest..."
 # Exclude CRM Analytics metadata if target Salesforce org is not CRMA-eligible
 soqlQuery="SELECT COUNT(Id) FROM PermissionSetLicense WHERE DeveloperName = 'EinsteinAnalyticsPlusPsl'"
 crmAnalyticsLicensesCount=$(sf data query --target-org "$TARGET_ORG" --query "$soqlQuery" --json | jq -r '.result.records[0].expr0')
-echo "CRM Analytics Licenses Count = $crmAnalyticsLicensesCount"
 trap 'git restore .forceignore' EXIT
+if ! [[ "$crmAnalyticsLicensesCount" =~ ^[0-9]+$ ]]; then
+  echo "❌ Error: CRM Analytics license count returned a non-integer value ('$crmAnalyticsLicensesCount')."
+  exit 1
+fi
+echo "CRM Analytics Licenses Count = $crmAnalyticsLicensesCount"
 if [ "$crmAnalyticsLicensesCount" -eq 0 ]; then
   {
     echo

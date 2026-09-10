@@ -29,6 +29,7 @@ on:
           - "NoTestRun"
           - "RunLocalTests"
           - "RunAllTestsInOrg"
+          - "RunRelevantTests"
       do-publish-sites:
         description: "Publish Experience Sites?"
         required: false
@@ -91,6 +92,7 @@ jobs:
           targetOrgAlias="${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
           sf community publish --name "DigEx" --target-org "$targetOrgAlias" || true
           sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$targetOrgAlias" || true
+          sf community publish --name "ESW_Minlopro_BotMessaging" --target-org "$targetOrgAlias" || true
   run-apex-tests:
     if: ${{ inputs.mode != 'Dry-Run' }}
     needs: [ run-deployment ]

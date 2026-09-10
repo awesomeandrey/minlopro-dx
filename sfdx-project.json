@@ -5,6 +5,7 @@
         { "path": "src/minlopro-crm-analytics" },
         { "path": "src/minlopro-default", "default": true },
         { "path": "src/minlopro-digex" },
+        { "path": "src/minlopro-digex-bot" },
         { "path": "src/minlopro-digex-messaging" },
         { "path": "src/minlopro-installed-packages" },
         { "path": "src/minlopro-integrations" },

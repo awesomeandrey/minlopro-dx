@@ -70,6 +70,9 @@ sf community publish --name "DigEx" --target-org "$SCRATCH_ORG_ALIAS" || true
 # Publish Experience Site for Enhanced Messaging for In-App & Web Experience
 sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$SCRATCH_ORG_ALIAS" || true
 
+# Publish Experience Site for Einstein Bot
+sf community publish --name "ESW_Minlopro_BotMessaging" --target-org "$SCRATCH_ORG_ALIAS" || true
+
 # Import & publish Knowledge Articles from DevHub org (leveraging SFDMU plugin)
 bash ./scripts/util/data-seeding/migrate_knowledge_articles.sh <<EOF
 $DEV_HUB_ALIAS

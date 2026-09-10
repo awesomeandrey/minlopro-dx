@@ -4,7 +4,7 @@ public with sharing class DatatableContactsController {
     @AuraEnabled(Cacheable=true)
     public static Integer getContactsCount() {
         try {
-            Integer totalCount = [SELECT COUNT() FROM Contact];
+            Integer totalCount = [SELECT COUNT() FROM Contact ALL ROWS];
             return totalCount;
         } catch (Exception ex) {
             Logger.error(ex.getMessage());
@@ -20,6 +20,7 @@ public with sharing class DatatableContactsController {
             factory.setOffset(query.offsetValue);
             factory.setLimit(query.limitValue);
             factory.setOrdering(Contact.IsPersonAccount, fflib_QueryFactory.SortOrder.ASCENDING);
+            factory.setAllRows();
             return repository.query(factory.toSOQL());
         } catch (Exception ex) {
             Logger.error(ex.getMessage());
