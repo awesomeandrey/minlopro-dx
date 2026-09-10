@@ -193,6 +193,59 @@
     </botDialogs>
     <botDialogs>
         <botSteps>
+            <botVariableOperation>
+                <botInvocation>
+                    <invocationActionName>OmniChannelController</invocationActionName>
+                    <invocationActionType>apex</invocationActionType>
+                    <invocationMappings>
+                        <parameterName>statusMessage</parameterName>
+                        <type>Output</type>
+                        <variableName>onlineAgentsStatusMessage</variableName>
+                        <variableType>ConversationVariable</variableType>
+                    </invocationMappings>
+                    <invocationMappings>
+                        <parameterName>count</parameterName>
+                        <type>Output</type>
+                        <variableName>onlineAgentsCount</variableName>
+                        <variableType>ConversationVariable</variableType>
+                    </invocationMappings>
+                </botInvocation>
+                <type>Set</type>
+                <variableOperationIdentifier>b9eea90b-8cbb-4bbe-b4ef-d88420b37a4e</variableOperationIdentifier>
+            </botVariableOperation>
+            <stepIdentifier>d661459e-4f26-488d-a549-b17429d1b3ff</stepIdentifier>
+            <type>VariableOperation</type>
+        </botSteps>
+        <botSteps>
+            <botMessages>
+                <message>{!onlineAgentsStatusMessage}</message>
+                <messageIdentifier>80608c02-c7fb-526d-0b66-b30b2f0937e4</messageIdentifier>
+            </botMessages>
+            <stepIdentifier>987277b5-ac35-481c-8e44-7f350dbfbd38</stepIdentifier>
+            <type>Message</type>
+        </botSteps>
+        <botSteps>
+            <botStepConditions>
+                <leftOperandName>onlineAgentsCount</leftOperandName>
+                <leftOperandType>ConversationVariable</leftOperandType>
+                <operatorType>Equals</operatorType>
+                <rightOperandValue>0</rightOperandValue>
+            </botStepConditions>
+            <botSteps>
+                <botNavigation>
+                    <botNavigationLinks>
+                        <targetBotDialog>Main_Menu</targetBotDialog>
+                    </botNavigationLinks>
+                    <type>Redirect</type>
+                </botNavigation>
+                <stepIdentifier>03545df9-cdfe-4d2d-852b-ef2fab25f34c</stepIdentifier>
+                <type>Navigation</type>
+            </botSteps>
+            <conditionLogicType>And</conditionLogicType>
+            <stepIdentifier>c9077aac-0b14-4dd5-81b0-6dd8b8a6122c</stepIdentifier>
+            <type>Group</type>
+        </botSteps>
+        <botSteps>
             <conversationSystemMessage>
                 <type>Transfer</type>
             </conversationSystemMessage>
@@ -314,6 +367,18 @@
         <includeInPrompt>false</includeInPrompt>
         <label>Echo Message</label>
     </conversationVariables>
+    <conversationVariables>
+        <dataType>Number</dataType>
+        <developerName>onlineAgentsCount</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Online Agents Count</label>
+    </conversationVariables>
+    <conversationVariables>
+        <dataType>Text</dataType>
+        <developerName>onlineAgentsStatusMessage</developerName>
+        <includeInPrompt>false</includeInPrompt>
+        <label>Online Agents Status Message</label>
+    </conversationVariables>
     <defaultStdObjForContactIdFltrEnabled>false</defaultStdObjForContactIdFltrEnabled>
     <entryDialog>Welcome</entryDialog>
     <intentDisambiguationEnabled>false</intentDisambiguationEnabled>
@@ -331,4 +396,5 @@
     <stopRecPrompts>false</stopRecPrompts>
     <stopWelcomePrompts>false</stopWelcomePrompts>
     <surfacesEnabled>false</surfacesEnabled>
+    <toneType>Casual</toneType>
 </BotVersion>
