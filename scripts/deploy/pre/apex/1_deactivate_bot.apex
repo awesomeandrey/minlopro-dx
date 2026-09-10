@@ -5,7 +5,7 @@ List<BotVersion> versions = [
     LIMIT 1
 ];
 if (versions.isEmpty()) {
-    Logger.debug('Einstein Bot version not found.');
+    System.debug('Einstein Bot version not found.');
     return;
 }
 BotVersion osamaBotVersion1 = versions[0];
@@ -14,4 +14,9 @@ ConnectApi.BotVersionActivationInfo deactivationInfo = ConnectApi.BotVersionActi
     ConnectApi.BotVersionActivationStatus.Inactive,
     null
 );
-Logger.debug('Deactivating Einstein Bot version with Id = {0}. {1}', Lists.of(osamaBotVersion1.Id, deactivationInfo.toString()));
+System.debug(
+    String.format(
+        'Deactivating Einstein Bot version with Id = {0}. {1}',
+        new List<String>{ osamaBotVersion1.Id, deactivationInfo.toString() }
+    )
+);
