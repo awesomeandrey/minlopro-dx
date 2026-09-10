@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -65,15 +65,15 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Flow|
+|Process Type|Flow|
 |Label|Minlopro - Send Opt-In Email To Account|
 |Status|Active|
 |Description|Used to POC outbound & inbound email sends from/to Account record.|
 |Environments|Default|
 |Interview Label|Minlopro - Send Opt-In Email To Account {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[GetAccount](#getaccount)|
 |Next Node|[GetAccount](#getaccount)|
 
@@ -100,8 +100,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Name Segment|SendOptInEmailAction|
 |Offset|0|
 |Store Output Automatically|✅|
-|Account Id (input)|GetAccount.Id|
-|Template Id (input)|GetEmailTemplate.Id|
+|accountId (input)|GetAccount.Id|
+|templateId (input)|GetEmailTemplate.Id|
 
 
 ### GetAccount
@@ -121,7 +121,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|Id| Equal To|recordId|
+|1|Id|Equal To|recordId|
 
 
 
@@ -143,7 +143,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|DeveloperName| Equal To|OptInConfirmationWithLetterhead|
+|1|DeveloperName|Equal To|OptInConfirmationWithLetterhead|
 
 
 
@@ -168,7 +168,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p><strong>Account<br/>                        Name:</strong></p><p><em>{!GetAccount.Name}</em></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[EmailPreviewScreen_Section1_Column1](#emailpreviewscreen_section1_column1)|
 
@@ -179,10 +179,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[EmailPreviewScreen_Section1](#emailpreviewscreen_section1)|
-|Width (input)|4|
+|width (input)|4|
 
 
 
@@ -192,7 +192,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p><strong>Recipient<br/>                        Email:</strong></p><p><em>{!GetAccount.PersonEmail}</em></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[EmailPreviewScreen_Section1_Column2](#emailpreviewscreen_section1_column2)|
 
@@ -203,10 +203,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[EmailPreviewScreen_Section1](#emailpreviewscreen_section1)|
-|Width (input)|4|
+|width (input)|4|
 
 
 
@@ -216,7 +216,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p><strong>Email<br/>                        Template:</strong></p><p><em>{!GetEmailTemplate.Name}</em></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[EmailPreviewScreen_Section1_Column3](#emailpreviewscreen_section1_column3)|
 
@@ -227,10 +227,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[EmailPreviewScreen_Section1](#emailpreviewscreen_section1)|
-|Width (input)|4|
+|width (input)|4|
 
 
 
@@ -239,9 +239,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region Container|
+|Field Type|Region Container|
 |Is Required|⬜|
-|Region Container Type| Section Without Header|
+|Region Container Type|Section Without Header|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 
@@ -252,7 +252,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p><strong>Email Text:</strong></p><p>{!GetEmailTemplate.Body}</p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[EmailPreviewScreen_Section2_Column1](#emailpreviewscreen_section2_column1)|
 
@@ -263,10 +263,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[EmailPreviewScreen_Section2](#emailpreviewscreen_section2)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -276,14 +276,14 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Extension Name|flowruntime:message|
-|Field Type| Component Instance|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Component Instance|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Required|✅|
 |Store Output Automatically|✅|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[EmailPreviewScreen_Section2_Column2](#emailpreviewscreen_section2_column2)|
-|Message Type (input)|info|
-|Message Content (input)|Shown below is a preview image of the outgoing letter. In the final version, the relevant fields will be filled in and updated accordingly.|
+|messageType (input)|info|
+|messageContent (input)|Shown below is a preview image of the outgoing letter. In the final version, the relevant fields will be filled in and updated accordingly.|
 
 
 
@@ -293,16 +293,16 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Extension Name|flowruntime:image|
-|Field Type| Component Instance|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Component Instance|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Required|✅|
 |Store Output Automatically|✅|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[EmailPreviewScreen_Section2_Column2](#emailpreviewscreen_section2_column2)|
-|Image Name (input)|OptInEmailPreview|
-|Image Height (input)|300|
-|Horizontal Alignment (input)|Center|
-|Image Alt (input)|Email Preview|
+|imageName (input)|OptInEmailPreview|
+|imageHeight (input)|300|
+|horizontalAlignment (input)|Center|
+|imageAlt (input)|Email Preview|
 
 
 
@@ -311,10 +311,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[EmailPreviewScreen_Section2](#emailpreviewscreen_section2)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -323,9 +323,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region Container|
+|Field Type|Region Container|
 |Is Required|⬜|
-|Region Container Type| Section Without Header|
+|Region Container Type|Section Without Header|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 
@@ -350,7 +350,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p><em style="color: rgb(228, 79,<br/>                102);">{!$Flow.FaultMessage}</em></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 

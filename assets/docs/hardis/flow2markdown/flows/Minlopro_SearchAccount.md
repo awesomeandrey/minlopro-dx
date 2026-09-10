@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -78,15 +78,15 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Flow|
+|Process Type|Flow|
 |Label|Minlopro - Search Account|
 |Status|Active|
 |Description|Screen Flow that searches for Account records through SOSL query.|
 |Environments|Default|
 |Interview Label|Minlopro - Search Account {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Search_Keyword_Screen](#search_keyword_screen)|
 |Next Node|[Search_Keyword_Screen](#search_keyword_screen)|
 
@@ -122,7 +122,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Name Segment|MinloproSearchAccount.Search Accounts|
 |Offset|0|
 |Output Parameters|assignToReference: foundAccounts<br/>name: 2XX<br/>|
-|Q (input)|soslQuery|
+|q (input)|soslQuery|
 |Connector|[Compute_Found_Accounts_Size](#compute_found_accounts_size)|
 
 
@@ -139,7 +139,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|foundAccountsSize| Assign Count|foundAccounts.searchRecords|
+|foundAccountsSize|Assign Count|foundAccounts.searchRecords|
 
 
 
@@ -165,7 +165,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|selectedAccount.Id| Is Null|✅|
+|1|selectedAccount.Id|Is Null|✅|
 
 
 
@@ -189,7 +189,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><span style="font-size: 14px; color: rgb(195, 32, 32);">HTTP callout failed with </span><strong style="font-size: 14px; color: rgb(195, 32, 32);">{!$Flow.FaultMessage}</strong><span style="font-size: 14px; color: rgb(195, 32, 32);"> error.</span></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 
 
 
@@ -214,7 +214,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><span style="font-size: 14px; color: rgb(176, 117, 14);">Looks like you forgot to choose the Account.﻿</span></p><p style="text-align: center;"><span style="font-size: 14px; color: rgb(176, 117, 14);">Please, go back to the previous screen and make your selection.</span></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 
 
 
@@ -240,7 +240,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><em style="font-size: 14px;">No Accounts were found by '</em><strong style="font-size: 14px;"><em>{!Account_Search_Keyword}</em></strong><em style="font-size: 14px;">' search keyword. Try another one!</em></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Visibility Rule|conditionLogic: and<br/>conditions:<br/>&nbsp;&nbsp;leftValueReference: foundAccountsSize<br/>&nbsp;&nbsp;operator: EqualTo<br/>&nbsp;&nbsp;rightValue:<br/>&nbsp;&nbsp;&nbsp;&nbsp;numberValue: 0<br/>|
 
 
@@ -252,18 +252,18 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |:---|:---|
 |Data Type Mappings|typeName: T<br/>typeValue: Account<br/>|
 |Extension Name|flowruntime:datatable|
-|Field Type| Component Instance|
-|Inputs On Next Nav To Assoc Scrn| Reset Values|
+|Field Type|Component Instance|
+|Inputs On Next Nav To Assoc Scrn|Reset Values|
 |Is Required|✅|
 |Output Parameters|assignToReference: selectedAccount<br/>name: firstSelectedRow<br/>|
 |Visibility Rule|conditionLogic: and<br/>conditions:<br/>&nbsp;&nbsp;leftValueReference: foundAccountsSize<br/>&nbsp;&nbsp;operator: GreaterThan<br/>&nbsp;&nbsp;rightValue:<br/>&nbsp;&nbsp;&nbsp;&nbsp;numberValue: 0<br/>|
-|Label (input)|Found Accounts|
-|Selection Mode (input)|SINGLE_SELECT|
-|Min Row Selection (input)|numberValue: 0<br/>|
-|Should Display Label (input)|✅|
-|Table Data (input)|[Cast_Search_Results_To_Accounts](#cast_search_results_to_accounts)|
-|Columns (input)|[{"apiName":"Name","guid":"column-ffa0","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":0,"label":"Account Name","type":"text"},{"apiName":"Id","guid":"column-2c6b","editable":false,"hasCustomHeaderLabel":true,"customHeaderLabel":"Record ID","wrapText":true,"order":1,"label":"Account ID","type":"text"},{"apiName":"Description","guid":"column-5a4b","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":2,"label":"Account Description","type":"text"}]|
-|Max Row Selection (input)|1|
+|label (input)|Found Accounts|
+|selectionMode (input)|SINGLE_SELECT|
+|minRowSelection (input)|numberValue: 0<br/>|
+|shouldDisplayLabel (input)|✅|
+|tableData (input)|[Cast_Search_Results_To_Accounts](#cast_search_results_to_accounts)|
+|columns (input)|[{"apiName":"Name","guid":"column-ffa0","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":0,"label":"Account Name","type":"text"},{"apiName":"Id","guid":"column-2c6b","editable":false,"hasCustomHeaderLabel":true,"customHeaderLabel":"Record ID","wrapText":true,"order":1,"label":"Account ID","type":"text"},{"apiName":"Description","guid":"column-5a4b","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":2,"label":"Account Description","type":"text"}]|
+|maxRowSelection (input)|1|
 
 
 
@@ -289,9 +289,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |:---|:---|
 |Data Type|String|
 |Field Text|Account Search Keyword|
-|Field Type| Input Field|
+|Field Type|Input Field|
 |Help Text|<p>Type in keyword to search for Account(s)</p>|
-|Inputs On Next Nav To Assoc Scrn| Reset Values|
+|Inputs On Next Nav To Assoc Scrn|Reset Values|
 |Is Required|✅|
 |Validation Rule|errorMessage: <p>Keyword should be 2 characters at least</p><br/>formulaExpression: LEN({!Account_Search_Keyword}) >= 2<br/>|
 

@@ -6,11 +6,11 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
-START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b> Record After Save</b>"]):::startClass
+START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b>Record After Save</b>"]):::startClass
 click START "#general-information" "1572747232"
 
 Alert_Opportunity_Owner("⚡ <em></em><br/>Alert Opportunity Owner"):::actionCalls
@@ -70,17 +70,17 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Object|Opportunity|
-|Process Type| Auto Launched Flow|
-|Trigger Type| Record After Save|
-|Record Trigger Type| Create And Update|
+|Process Type|Auto Launched Flow|
+|Trigger Type|Record After Save|
+|Record Trigger Type|Create And Update|
 |Label|Minlopro - Opportunity - Auto-Close|
 |Status|Active|
 |Description|Monitors Opportunities by CloseDate. Alerts the Opportunity Owner 1 day before closure. On CloseDate, updates the stage to 'Auto-Closed' to keep the pipeline clean and up to date.|
 |Environments|Default|
 |Interview Label|Minlopro - Opportunity - Auto Close {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 
 
 #### Scheduled Paths
@@ -119,11 +119,11 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Flow Transaction Model|CurrentTransaction|
 |Name Segment|customNotificationAction|
 |Offset|0|
-|Custom Notif Type Id (input)|Get_Notification_Type.Id|
-|Recipient Ids (input)|autocloseOppNotificationRecipientIds|
-|Title (input)|autocloseOppNotificationTitle|
-|Body (input)|autocloseOppNotificationBody|
-|Target Id (input)|$Record.Id|
+|customNotifTypeId (input)|Get_Notification_Type.Id|
+|recipientIds (input)|autocloseOppNotificationRecipientIds|
+|title (input)|autocloseOppNotificationTitle|
+|body (input)|autocloseOppNotificationBody|
+|targetId (input)|$Record.Id|
 
 
 ### Collect_Recipient_IDs
@@ -139,7 +139,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|autocloseOppNotificationRecipientIds| Add|$Record.OwnerId|
+|autocloseOppNotificationRecipientIds|Add|$Record.OwnerId|
 
 
 
@@ -165,7 +165,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|$Record.IsClosed| Equal To|✅|
+|1|$Record.IsClosed|Equal To|✅|
 
 
 
@@ -191,7 +191,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|$Record.IsClosed| Equal To|✅|
+|1|$Record.IsClosed|Equal To|✅|
 
 
 
@@ -213,7 +213,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|DeveloperName| Equal To|Minlopro|
+|1|DeveloperName|Equal To|Minlopro|
 
 
 

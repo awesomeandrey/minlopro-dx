@@ -6,11 +6,11 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
-START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b> Record After Save</b>"]):::startClass
+START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b>Record After Save</b>"]):::startClass
 click START "#general-information" "3735637331"
 
 Log_Transaction_Details("⚙️ <em></em><br/>Log Transaction Details"):::actionCalls
@@ -52,17 +52,17 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Object|Case|
-|Process Type| Auto Launched Flow|
-|Trigger Type| Record After Save|
-|Record Trigger Type| Create|
+|Process Type|Auto Launched Flow|
+|Trigger Type|Record After Save|
+|Record Trigger Type|Create|
 |Label|Minlopro - Case - After Create|
 |Status|Active|
 |Description|Captures critical Case creation and routes to special queue!|
 |Environments|Default|
 |Interview Label|Minlopro_Case_AfterCreate {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Log_Transaction_Details](#log_transaction_details)|
 |Next Node|[Log_Transaction_Details](#log_transaction_details)|
 
@@ -87,7 +87,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Flow Transaction Model|Automatic|
 |Name Segment|FlowLogger|
 |Offset|0|
-|Message (input)|Entry Point 'Case' record-triggered flow|
+|message (input)|Entry Point 'Case' record-triggered flow|
 |Connector|[Route_Critical_Case](#route_critical_case)|
 
 

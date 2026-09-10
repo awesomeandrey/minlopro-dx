@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -76,15 +76,15 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Routing Flow|
+|Process Type|Routing Flow|
 |Label|Minlopro - Omni 🔱 - Route Critical Cases|
 |Status|Active|
 |Description|Checks if Case is critical and if so routes it to specific queue.|
 |Environments|Default|
 |Interview Label|Minlopro_Omni_RouteCriticalCases {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Target_Case](#target_case)|
 |Next Node|[Target_Case](#target_case)|
 
@@ -120,8 +120,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Flow Transaction Model|CurrentTransaction|
 |Name Segment|FlowLogger|
 |Offset|0|
-|Level (input)|ERROR|
-|Message (input)|$Flow.FaultMessage|
+|level (input)|ERROR|
+|message (input)|$Flow.FaultMessage|
 
 
 ### Check_Availability_for_Cases_Routing
@@ -138,18 +138,18 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Offset|0|
 |Output Parameters|- assignToReference: queuedWorkItemsNum<br/>&nbsp;&nbsp;name: queueSize<br/>- assignToReference: onlineAgentsNum<br/>&nbsp;&nbsp;name: onlineAgentsCount<br/>- assignToReference: estimatedWaitTime<br/>&nbsp;&nbsp;name: estimatedWaitTime<br/>|
 |Version String|2.0.0|
-|Routing Type (input)|QueueBased|
-|Service Channel Label (input)|Cases|
-|Is Queue Variable (input)|✅|
-|Skill Option (input)|<!-- -->|
-|Selected Outputs (input)|GET_ALL|
-|Skill Requirements Resource Item (input)|<!-- -->|
-|Service Channel Id (input)|setupReference: Cases<br/>setupReferenceType: ServiceChannel<br/>|
-|Agent Id (input)|<!-- -->|
-|Queue Id (input)|Critical_Cases_Queue.Id|
-|Service Channel Dev Name (input)|Cases|
-|Queue Label (input)|<!-- -->|
-|Agent Label (input)|<!-- -->|
+|routingType (input)|QueueBased|
+|serviceChannelLabel (input)|Cases|
+|isQueueVariable (input)|✅|
+|skillOption (input)|<!-- -->|
+|selectedOutputs (input)|GET_ALL|
+|skillRequirementsResourceItem (input)|<!-- -->|
+|serviceChannelId (input)|setupReference: Cases<br/>setupReferenceType: ServiceChannel<br/>|
+|agentId (input)|<!-- -->|
+|queueId (input)|Critical_Cases_Queue.Id|
+|serviceChannelDevName (input)|Cases|
+|queueLabel (input)|<!-- -->|
+|agentLabel (input)|<!-- -->|
 |Connector|[Log_Availability_Output](#log_availability_output)|
 
 
@@ -164,7 +164,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Flow Transaction Model|CurrentTransaction|
 |Name Segment|FlowLogger|
 |Offset|0|
-|Message (input)|availabilityLog|
+|message (input)|availabilityLog|
 |Connector|[Route_Critical_Case](#route_critical_case)|
 
 
@@ -181,28 +181,28 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Name Segment|routeWork|
 |Offset|0|
 |Version String|2.0.0|
-|Record Id (input)|Target_Case.Id|
-|Service Channel Label (input)|Cases|
-|Service Channel Dev Name (input)|Cases|
-|Routing Type (input)|QueueBased|
-|Routing Config Label (input)|<!-- -->|
-|Agent Label (input)|<!-- -->|
-|Queue Label (input)|<!-- -->|
-|Skill Option (input)|<!-- -->|
-|Skill Requirements Resource Item (input)|<!-- -->|
-|Bot Label (input)|<!-- -->|
-|External Conversation Bot Label (input)|<!-- -->|
-|Copilot Label (input)|<!-- -->|
-|Agentforce Employee Agent Label (input)|<!-- -->|
-|Is Queue Variable (input)|✅|
-|Service Channel Id (input)|setupReference: Cases<br/>setupReferenceType: ServiceChannel<br/>|
-|Routing Config Id (input)|<!-- -->|
-|Bot Id (input)|<!-- -->|
-|Copilot Id (input)|<!-- -->|
-|Agentforce Employee Agent Id (input)|<!-- -->|
-|External Conversation Bot Id (input)|<!-- -->|
-|Queue Id (input)|Critical_Cases_Queue.Id|
-|Agent Id (input)|<!-- -->|
+|recordId (input)|Target_Case.Id|
+|serviceChannelLabel (input)|Cases|
+|serviceChannelDevName (input)|Cases|
+|routingType (input)|QueueBased|
+|routingConfigLabel (input)|<!-- -->|
+|agentLabel (input)|<!-- -->|
+|queueLabel (input)|<!-- -->|
+|skillOption (input)|<!-- -->|
+|skillRequirementsResourceItem (input)|<!-- -->|
+|botLabel (input)|<!-- -->|
+|externalConversationBotLabel (input)|<!-- -->|
+|copilotLabel (input)|<!-- -->|
+|agentforceEmployeeAgentLabel (input)|<!-- -->|
+|isQueueVariable (input)|✅|
+|serviceChannelId (input)|setupReference: Cases<br/>setupReferenceType: ServiceChannel<br/>|
+|routingConfigId (input)|<!-- -->|
+|botId (input)|<!-- -->|
+|copilotId (input)|<!-- -->|
+|agentforceEmployeeAgentId (input)|<!-- -->|
+|externalConversationBotId (input)|<!-- -->|
+|queueId (input)|Critical_Cases_Queue.Id|
+|agentId (input)|<!-- -->|
 
 
 ### Check_Case_Criticality
@@ -226,8 +226,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|[Target_Case](#target_case)| Is Null|⬜|
-|2|isCriticalCase| Equal To|✅|
+|1|[Target_Case](#target_case)|Is Null|⬜|
+|2|isCriticalCase|Equal To|✅|
 
 
 
@@ -249,8 +249,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|Type| Equal To|Queue|
-|2|DeveloperName| Equal To|Minlopro_CriticalCases|
+|1|Type|Equal To|Queue|
+|2|DeveloperName|Equal To|Minlopro_CriticalCases|
 
 
 
@@ -272,7 +272,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|Id| Equal To|recordId|
+|1|Id|Equal To|recordId|
 
 
 

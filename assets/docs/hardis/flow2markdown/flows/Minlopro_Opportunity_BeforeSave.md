@@ -6,11 +6,11 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
-START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b> Record Before Save</b>"]):::startClass
+START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b>Record Before Save</b>"]):::startClass
 click START "#general-information" "977758777"
 
 Set_Default_Close_Date[\"🟰 <em></em><br/>Set Default Close Date"/]:::assignments
@@ -58,17 +58,17 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Object|Opportunity|
-|Process Type| Auto Launched Flow|
-|Trigger Type| Record Before Save|
-|Record Trigger Type| Create And Update|
+|Process Type|Auto Launched Flow|
+|Trigger Type|Record Before Save|
+|Record Trigger Type|Create And Update|
 |Label|Minlopro - Opportunity - Before Save|
 |Status|Active|
 |Description|RTF for Opportunity object that handles BEFORE INSERT and/or BEFORE UPDATE phases.|
 |Environments|Default|
 |Interview Label|Minlopro - Opportunity - Before Save {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Set_Default_Close_Date](#set_default_close_date)|
 |Next Node|[Set_Default_Close_Date](#set_default_close_date)|
 
@@ -103,7 +103,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|$Record.CloseDate| Assign|normalizedCloseDate|
+|$Record.CloseDate|Assign|normalizedCloseDate|
 
 
 
@@ -138,7 +138,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|isCloseDateWithinNDays| Equal To|⬜|
+|1|isCloseDateWithinNDays|Equal To|⬜|
 
 
 

@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -51,16 +51,16 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Auto Launched Flow|
+|Process Type|Auto Launched Flow|
 |Label|Minlopro - Send GitHub Webhook Notification|
 |Status|Active|
 |Description|Intended to be launched on behalf of site guest user, but executed in system mode with permission to send custom<br/>        notifications.|
 |Environments|Default|
 |Interview Label|Minlopro - Send GitHub Webhook Notification {!$Flow.CurrentDateTime}|
-|Run In Mode| System Mode Without Sharing|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|Run In Mode|System Mode Without Sharing|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Get_Custom_Notification_Type](#get_custom_notification_type)|
 |Next Node|[Get_Custom_Notification_Type](#get_custom_notification_type)|
 
@@ -95,11 +95,11 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Flow Transaction Model|CurrentTransaction|
 |Name Segment|customNotificationAction|
 |Version Segment|1|
-|Custom Notif Type Id (input)|Get_Custom_Notification_Type.Id|
-|Recipient Ids (input)|recipientIds|
-|Title (input)|title|
-|Body (input)|message|
-|Target Page Ref (input)|targetPageRef|
+|customNotifTypeId (input)|Get_Custom_Notification_Type.Id|
+|recipientIds (input)|recipientIds|
+|title (input)|title|
+|body (input)|message|
+|targetPageRef (input)|targetPageRef|
 
 
 ### Get_Custom_Notification_Type
@@ -120,7 +120,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|DeveloperName| Equal To|customNotificationTypeName|
+|1|DeveloperName|Equal To|customNotificationTypeName|
 
 
 

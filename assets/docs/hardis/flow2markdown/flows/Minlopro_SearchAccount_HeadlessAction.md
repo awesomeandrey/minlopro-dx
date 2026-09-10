@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -61,15 +61,15 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Auto Launched Flow|
+|Process Type|Auto Launched Flow|
 |Label|Minlopro - Search Account (Headless Action)|
 |Status|Active|
 |Description|Headless auto-launched flow that searches for Account records via SOSL query.|
 |Environments|Default|
 |Interview Label|Minlopro - Search {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Search_Accounts_via_HTTP_GET](#search_accounts_via_http_get)|
 |Next Node|[Search_Accounts_via_HTTP_GET](#search_accounts_via_http_get)|
 
@@ -107,7 +107,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Name Segment|MinloproSearchAccount.Search Accounts|
 |Offset|0|
 |Output Parameters|assignToReference: foundAccountsAsJson<br/>name: 2XX<br/>|
-|Q (input)|soslQuery|
+|q (input)|soslQuery|
 |Connector|[Cast_Search_Results_To_Account_SObjects](#cast_search_results_to_account_sobjects)|
 
 
@@ -123,7 +123,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|errorMessage| Assign|$Flow.FaultMessage|
+|errorMessage|Assign|$Flow.FaultMessage|
 
 
 
@@ -140,8 +140,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|foundAccounts| Assign|[Cast_Search_Results_To_Account_SObjects](#cast_search_results_to_account_sobjects)|
-|foundAccountsSize| Assign Count|foundAccounts|
+|foundAccounts|Assign|[Cast_Search_Results_To_Account_SObjects](#cast_search_results_to_account_sobjects)|
+|foundAccountsSize|Assign Count|foundAccounts|
 
 
 

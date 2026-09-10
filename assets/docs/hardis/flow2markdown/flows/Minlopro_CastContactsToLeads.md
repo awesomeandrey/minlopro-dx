@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -104,16 +104,16 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Flow|
+|Process Type|Flow|
 |Label|Minlopro - Cast Contacts To Leads|
 |Status|Active|
 |Description|Casts user-selected Contacts to Leads via standard Salesforce REST API. Processes records 1-by-1 consuming callout per record.|
 |Environments|Default|
 |Interview Label|Minlopro - Cast Contacts To Leads {!$Flow.CurrentDateTime}|
-|Run In Mode| System Mode Without Sharing|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|Run In Mode|System Mode Without Sharing|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Select_Contacts](#select_contacts)|
 |Next Node|[Select_Contacts](#select_contacts)|
 
@@ -141,7 +141,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Name Segment|MinloproCreateLeadsApiSingle.Create Lead|
 |Offset|0|
 |Store Output Automatically|✅|
-|Body (input)|[Transform_Contact_To_Lead_Payload](#transform_contact_to_lead_payload)|
+|body (input)|[Transform_Contact_To_Lead_Payload](#transform_contact_to_lead_payload)|
 |Connector|[Update_Contact_Fields](#update_contact_fields)|
 
 
@@ -158,7 +158,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|contactsSize| Assign Count|[Select_Contacts](#select_contacts)|
+|contactsSize|Assign Count|[Select_Contacts](#select_contacts)|
 
 
 
@@ -177,7 +177,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|Iterate_Through_Contacts.IsCastToLead__c| Assign|✅|
+|Iterate_Through_Contacts.IsCastToLead__c|Assign|✅|
 
 
 
@@ -204,8 +204,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|contactsSize| Equal To|numberValue: 0<br/>|
-|2|$Permission.IsLeadManager| Equal To|⬜|
+|1|contactsSize|Equal To|numberValue: 0<br/>|
+|2|$Permission.IsLeadManager|Equal To|⬜|
 
 
 
@@ -240,8 +240,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|Id| In|ids|
-|2|IsCastToLead__c| Equal To|⬜|
+|1|Id|In|ids|
+|2|IsCastToLead__c|Equal To|⬜|
 
 
 
@@ -264,8 +264,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|Id| In|ids|
-|2|IsCastToLead__c| Equal To|⬜|
+|1|Id|In|ids|
+|2|IsCastToLead__c|Equal To|⬜|
 
 
 
@@ -301,7 +301,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><span style="color: rgb(199, 40, 40);">Failed to cast Contact to Lead.</span></p><p style="text-align: center;"><span style="color: rgb(199, 40, 40);">HTTP Response Status = </span><strong style="background-color: rgb(255, 255, 255); color: rgb(199, 40, 40);">{!$Flow.FaultMessage}</strong></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 
 
 
@@ -311,7 +311,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p><span style="font-family: verdana;">{!Transform_Contact_To_Lead_Payload}</span></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Parent Field|[Lead_Payload_Column1](#lead_payload_column1)|
 
 
@@ -321,10 +321,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[Lead_Payload](#lead_payload)|
-|Width (input)|12|
+|width (input)|12|
 
 
 
@@ -334,9 +334,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|Lead Payload|
-|Field Type| Region Container|
+|Field Type|Region Container|
 |Is Required|⬜|
-|Region Container Type| Section With Header|
+|Region Container Type|Section With Header|
 
 
 
@@ -361,7 +361,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><span style="color: rgb(189, 37, 37);">{!Iterate_Through_Contacts.Name} could not be marked as 'cast' due to</span></p><p style="text-align: center;"><strong style="color: rgb(189, 37, 37);">{!$Flow.FaultMessage}</strong></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 
 
 
@@ -387,7 +387,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><span style="font-size: 14px;">You're about to cast </span><strong style="font-size: 14px;">{!contactsSize}</strong><span style="font-size: 14px;"> Contacts to Leads via Loopback Connected App leveraging Salesforce REST API.</span></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 
 
 
@@ -398,17 +398,17 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |:---|:---|
 |Data Type Mappings|typeName: T<br/>typeValue: Contact<br/>|
 |Extension Name|flowruntime:datatable|
-|Field Type| Component Instance|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Component Instance|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Required|✅|
 |Store Output Automatically|✅|
-|Label (input)|Contacts to Cast|
-|Selection Mode (input)|NO_SELECTION|
-|Min Row Selection (input)|numberValue: 0<br/>|
-|Table Data (input)|[Select_Contacts](#select_contacts)|
-|Should Display Label (input)|✅|
-|Columns (input)|[{"apiName":"Name","guid":"column-a951","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":0,"label":"Full Name","type":"text"},{"apiName":"Title","guid":"column-6a6e","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":1,"label":"Title","type":"text"},{"apiName":"Email","guid":"column-9ba6","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":2,"label":"Email","type":"email"},{"apiName":"MobilePhone","guid":"column-88e4","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":3,"label":"Mobile Phone","type":"phone"},{"apiName":"IsCastToLead__c","guid":"column-34b8","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":4,"label":"Cast To Lead?","type":"boolean"}]|
-|Max Row Selection (input)|numberValue: 0<br/>|
+|label (input)|Contacts to Cast|
+|selectionMode (input)|NO_SELECTION|
+|minRowSelection (input)|numberValue: 0<br/>|
+|tableData (input)|[Select_Contacts](#select_contacts)|
+|shouldDisplayLabel (input)|✅|
+|columns (input)|[{"apiName":"Name","guid":"column-a951","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":0,"label":"Full Name","type":"text"},{"apiName":"Title","guid":"column-6a6e","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":1,"label":"Title","type":"text"},{"apiName":"Email","guid":"column-9ba6","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":2,"label":"Email","type":"email"},{"apiName":"MobilePhone","guid":"column-88e4","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":3,"label":"Mobile Phone","type":"phone"},{"apiName":"IsCastToLead__c","guid":"column-34b8","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":4,"label":"Cast To Lead?","type":"boolean"}]|
+|maxRowSelection (input)|numberValue: 0<br/>|
 
 
 
@@ -432,7 +432,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><em style="font-size: 14px;">Yaahoo! All Contacts were cast to Leads via Salesforce REST API!</em></p><p style="text-align: center;"><strong style="font-size: 14px; color: rgb(21, 182, 75);">Success</strong><span style="font-size: 14px;"> </span><span style="font-size: 14px; background-color: rgb(246, 248, 250); font-family: -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, &quot;Noto Sans&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; color: rgb(31, 35, 40);">✅</span></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Visibility Rule|conditionLogic: and<br/>conditions:<br/>&nbsp;&nbsp;leftValueReference: $Flow.FaultMessage<br/>&nbsp;&nbsp;operator: IsNull<br/>&nbsp;&nbsp;rightValue:<br/>&nbsp;&nbsp;&nbsp;&nbsp;booleanValue: true<br/>|
 
 
@@ -443,7 +443,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><em style="font-size: 14px; color: rgb(176, 32, 32);">Some Contact records failed to cast to Leads via Salesforce REST API. </em></p><p style="text-align: center;"><strong style="font-size: 14px; color: rgb(176, 32, 32);">{!$Flow.FaultMessage}</strong></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Visibility Rule|conditionLogic: and<br/>conditions:<br/>&nbsp;&nbsp;leftValueReference: $Flow.FaultMessage<br/>&nbsp;&nbsp;operator: NotEqualTo<br/>&nbsp;&nbsp;rightValue:<br/>&nbsp;&nbsp;&nbsp;&nbsp;stringValue: ''<br/>|
 
 
@@ -455,18 +455,18 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |:---|:---|
 |Data Type Mappings|typeName: T<br/>typeValue: Contact<br/>|
 |Extension Name|flowruntime:datatable|
-|Field Type| Component Instance|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Component Instance|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Required|✅|
 |Store Output Automatically|✅|
 |Visibility Rule|conditionLogic: and<br/>conditions:<br/>&nbsp;&nbsp;leftValueReference: $Flow.FaultMessage<br/>&nbsp;&nbsp;operator: NotEqualTo<br/>|
-|Label (input)|Failed Contacts|
-|Selection Mode (input)|NO_SELECTION|
-|Min Row Selection (input)|numberValue: 0<br/>|
-|Should Display Label (input)|✅|
-|Table Data (input)|[Select_Failed_Contacts](#select_failed_contacts)|
-|Max Row Selection (input)|numberValue: 0<br/>|
-|Columns (input)|[{"apiName":"Name","guid":"column-62ab","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":0,"label":"Full Name","type":"text"},{"apiName":"Title","guid":"column-3a8d","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":1,"label":"Title","type":"text"},{"apiName":"Email","guid":"column-463b","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":2,"label":"Email","type":"email"},{"apiName":"MobilePhone","guid":"column-ad1e","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":3,"label":"Mobile Phone","type":"phone"},{"apiName":"IsCastToLead__c","guid":"column-8099","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":4,"label":"Cast To Lead?","type":"boolean"}]|
+|label (input)|Failed Contacts|
+|selectionMode (input)|NO_SELECTION|
+|minRowSelection (input)|numberValue: 0<br/>|
+|shouldDisplayLabel (input)|✅|
+|tableData (input)|[Select_Failed_Contacts](#select_failed_contacts)|
+|maxRowSelection (input)|numberValue: 0<br/>|
+|columns (input)|[{"apiName":"Name","guid":"column-62ab","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":0,"label":"Full Name","type":"text"},{"apiName":"Title","guid":"column-3a8d","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":1,"label":"Title","type":"text"},{"apiName":"Email","guid":"column-463b","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":2,"label":"Email","type":"email"},{"apiName":"MobilePhone","guid":"column-ad1e","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":3,"label":"Mobile Phone","type":"phone"},{"apiName":"IsCastToLead__c","guid":"column-8099","editable":false,"hasCustomHeaderLabel":false,"customHeaderLabel":"","wrapText":true,"order":4,"label":"Cast To Lead?","type":"boolean"}]|
 
 
 
@@ -490,7 +490,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><em style="font-size: 14px;">You can't proceed: either there are no eligible Contacts selected OR you don't have necessary access level. </em></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 
 
 

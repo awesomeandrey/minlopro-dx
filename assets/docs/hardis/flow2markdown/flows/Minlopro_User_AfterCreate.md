@@ -6,11 +6,11 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
-START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b> Record After Save</b>"]):::startClass
+START(["START<br/><b>AutoLaunched Flow</b></br>Type: <b>Record After Save</b>"]):::startClass
 click START "#general-information" "1458920534"
 
 Create_PSA_Prototype[\"🟰 <em></em><br/>Create PSA Prototype"/]:::assignments
@@ -62,17 +62,17 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Object|User|
-|Process Type| Auto Launched Flow|
-|Trigger Type| Record After Save|
-|Record Trigger Type| Create|
+|Process Type|Auto Launched Flow|
+|Trigger Type|Record After Save|
+|Record Trigger Type|Create|
 |Label|Minlopro - User - After Create|
 |Status|Active|
 |Description|RTF for User object that handles AFTER INSERT phase along with Async path.|
 |Environments|Default|
 |Interview Label|Minlopro - User - After Create {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 
 
 #### Scheduled Paths
@@ -104,8 +104,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|digExUserPsa.AssigneeId| Assign|$Record.Id|
-|digExUserPsa.PermissionSetGroupId| Assign|Find_Minlopro_DigEx_PSG.Id|
+|digExUserPsa.AssigneeId|Assign|$Record.Id|
+|digExUserPsa.PermissionSetGroupId|Assign|Find_Minlopro_DigEx_PSG.Id|
 
 
 
@@ -131,7 +131,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|$Record.Profile.Name| Equal To|DigEx Partner|
+|1|$Record.Profile.Name|Equal To|DigEx Partner|
 
 
 
@@ -162,7 +162,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|DeveloperName| Equal To|Minlopro_PSG_DigExUser|
+|1|DeveloperName|Equal To|Minlopro_PSG_DigExUser|
 
 
 

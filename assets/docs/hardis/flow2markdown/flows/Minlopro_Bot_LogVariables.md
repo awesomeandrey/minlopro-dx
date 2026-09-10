@@ -1,4 +1,4 @@
-# PolicyCondition_BlockLogsReportExports
+# Minlopro - Bot 🤖 - Log Variables
 
 ## Flow Diagram
 
@@ -10,25 +10,15 @@
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
-START(["START"]):::startClass
-click START "#general-information" "1213287078"
+START(["START<br/><b>AutoLaunched Flow</b></br>"]):::startClass
+click START "#general-information" "3759719070"
 
-START --> myDecision
-EvaluationOutcomeAssignment[\"🟰 <em></em><br/>EvaluationOutcomeAssignment"/]:::assignments
-click EvaluationOutcomeAssignment "#evaluationoutcomeassignment" "2371366659"
+Log_To_Output_Variable[\"🟰 <em></em><br/>Log To Output Variable"/]:::assignments
+click Log_To_Output_Variable "#log_to_output_variable" "3865384891"
 
-EvaluationOutcomeAssignmentFalse[\"🟰 <em></em><br/>EvaluationOutcomeAssignmentFalse"/]:::assignments
-click EvaluationOutcomeAssignmentFalse "#evaluationoutcomeassignmentfalse" "2773223783"
-
-myDecision{"🔀 <em></em><br/>myDecision"}:::decisions
-click myDecision "#mydecision" "2570881858"
-
-EvaluationOutcomeAssignment --> END_EvaluationOutcomeAssignment
-EvaluationOutcomeAssignmentFalse --> END_EvaluationOutcomeAssignmentFalse
-myDecision --> |""| EvaluationOutcomeAssignment
-myDecision --> |"default"| EvaluationOutcomeAssignmentFalse
-END_EvaluationOutcomeAssignment(( END )):::endClass
-END_EvaluationOutcomeAssignmentFalse(( END )):::endClass
+Log_To_Output_Variable --> END_Log_To_Output_Variable
+START -->  Log_To_Output_Variable
+END_Log_To_Output_Variable(( END )):::endClass
 
 
 classDef actionCalls fill:#D4E4FC,color:black,text-decoration:none,max-height:100px
@@ -57,81 +47,56 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type|Transaction Security Flow|
-|Label|PolicyCondition_BlockLogsReportExports|
-|Status|⚠️ Draft|
-|Interview Label|PolicyCondition_BlockLogsReportExports|
-|Start Element Reference|[myDecision](#mydecision)|
+|Process Type|Auto Launched Flow|
+|Label|Minlopro - Bot 🤖 - Log Variables|
+|Status|Active|
+|Description|Sample flow invoked from Einstein Bot context.|
+|Environments|Default|
+|Interview Label|Minlopro_Bot_LogVariables {!$Flow.CurrentDateTime}|
+|Run In Mode|Default Mode|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
+|Connector|[Log_To_Output_Variable](#log_to_output_variable)|
+|Next Node|[Log_To_Output_Variable](#log_to_output_variable)|
 
 
 ## Variables
 
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
-|EvaluationOutcome|Boolean|⬜|⬜|✅|<!-- -->|<!-- -->|
-|myVariable_myEvent|SObject|⬜|✅|⬜|ReportEvent|<!-- -->|
+|botVariables|String|✅|⬜|⬜|<!-- -->|<!-- -->|
+|context_ChannelType|String|⬜|✅|⬜|<!-- -->|<!-- -->|
+|context_ContactId|String|⬜|✅|⬜|<!-- -->|<!-- -->|
+|context_EchoMessage|String|⬜|✅|⬜|<!-- -->|<!-- -->|
+|context_EndUserId|String|⬜|✅|⬜|<!-- -->|<!-- -->|
+|outputText|String|⬜|⬜|✅|<!-- -->|<!-- -->|
+|system_CurrentConversationLanguage|String|⬜|✅|⬜|<!-- -->|<!-- -->|
+|system_LastCustomerInput|String|⬜|✅|⬜|<!-- -->|<!-- -->|
+
+
+## Formulas
+
+|Name|Data Type|Expression|Description|
+|:-- |:--:|:-- |:--  |
+|outputTextFormula|String|'(context_EchoMessage=' + {!context_EchoMessage} + '), ' +<br/>'(context_EndUserId=' + {!context_EndUserId} + '), ' +<br/>'(context_ChannelType=' + {!context_ChannelType} + '), ' +<br/>'(context_ContactId=' + {!context_ContactId} + '), ' +<br/>'(system_LastCustomerInput=' + {!system_LastCustomerInput} + '), ' +<br/>'(system_CurrentConversationLanguage=' + {!system_CurrentConversationLanguage} + ')'|<!-- -->|
 
 
 ## Flow Nodes Details
 
-### EvaluationOutcomeAssignment
+### Log_To_Output_Variable
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Assignment|
-|Label|[EvaluationOutcomeAssignment](#evaluationoutcomeassignment)|
+|Label|Log To Output Variable|
 
 
 #### Assignments
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|EvaluationOutcome|Assign|myRule|
-
-
-
-
-### EvaluationOutcomeAssignmentFalse
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Type|Assignment|
-|Label|[EvaluationOutcomeAssignmentFalse](#evaluationoutcomeassignmentfalse)|
-
-
-#### Assignments
-
-|Assign To Reference|Operator|Value|
-|:-- |:--:|:--: |
-|EvaluationOutcome|Assign|myRule|
-
-
-
-
-### myDecision
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Type|Decision|
-|Label|[myDecision](#mydecision)|
-|Default Connector|[EvaluationOutcomeAssignmentFalse](#evaluationoutcomeassignmentfalse)|
-|Default Connector Label|default|
-
-
-#### Rule myRule ()
-
-|<!-- -->|<!-- -->|
-|:---|:---|
-|Connector|[EvaluationOutcomeAssignment](#evaluationoutcomeassignment)|
-|Condition Logic|and|
-
-
-
-
-|Condition Id|Left Value Reference|Operator|Right Value|
-|:-- |:-- |:--:|:--: |
-|1|myVariable_myEvent.Name|Equal To|Logs By Transaction|
-|2|myVariable_myEvent.Operation|Equal To|ReportExported|
+|outputText|Assign|outputTextFormula|
 
 
 

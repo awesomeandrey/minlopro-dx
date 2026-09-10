@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -61,15 +61,15 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Flow|
+|Process Type|Flow|
 |Label|Minlopro - CRMA - Preview Account Details|
 |Status|Active|
 |Description|Sample Screen Flow embedded into CRM Analytics dashboard. The flow aims to show Account record details of the Opportunity selected in the dashboard.|
 |Environments|Default|
 |Interview Label|Minlopro - CRMA - Preview Account Details {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Select_Account](#select_account)|
 |Next Node|[Select_Account](#select_account)|
 
@@ -105,7 +105,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|Select_Account.Name| Is Null|⬜|
+|1|Select_Account.Name|Is Null|⬜|
 
 
 
@@ -127,7 +127,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|Id| Equal To|selectedAccountId|
+|1|Id|Equal To|selectedAccountId|
 
 
 
@@ -151,7 +151,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p>Record ID: <strong>{!selectedAccountId}</strong></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[Account_Details_Screen_Section1_Column1](#account_details_screen_section1_column1)|
 
@@ -163,7 +163,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p>Name: <strong>{!Select_Account.Name}</strong></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[Account_Details_Screen_Section1_Column1](#account_details_screen_section1_column1)|
 
@@ -174,10 +174,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[Account_Details_Screen_Section1](#account_details_screen_section1)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -187,7 +187,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p>Industry: <strong>{!Select_Account.Industry}</strong></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[Account_Details_Screen_Section1_Column2](#account_details_screen_section1_column2)|
 
@@ -198,10 +198,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[Account_Details_Screen_Section1](#account_details_screen_section1)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -210,9 +210,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region Container|
+|Field Type|Region Container|
 |Is Required|⬜|
-|Region Container Type| Section Without Header|
+|Region Container Type|Section Without Header|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 
@@ -237,7 +237,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><strong style="font-size: 14px; color: rgb(124, 22, 22);">Account ID was not provided!</strong></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 

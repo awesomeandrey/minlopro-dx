@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -60,16 +60,16 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Auto Launched Flow|
+|Process Type|Auto Launched Flow|
 |Label|Minlopro - Create Account With Contacts|
 |Status|Active|
 |Description|A sample auto-launched flow that can be invoked through the Salesforce REST API.|
 |Environments|Default|
 |Interview Label|Minlopro - Create Account With Contacts {!$Flow.CurrentDateTime}|
-|Run In Mode| Default Mode|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|Run In Mode|Default Mode|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[Insert_Parent_Account](#insert_parent_account)|
 |Next Node|[Insert_Parent_Account](#insert_parent_account)|
 
@@ -98,8 +98,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|Iterate_Through_Contacts.AccountId| Assign|parentAccount.Id|
-|contactsToInsert| Add|[Iterate_Through_Contacts](#iterate_through_contacts)|
+|Iterate_Through_Contacts.AccountId|Assign|parentAccount.Id|
+|contactsToInsert|Add|[Iterate_Through_Contacts](#iterate_through_contacts)|
 
 
 

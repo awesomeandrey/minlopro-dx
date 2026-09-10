@@ -1,4 +1,4 @@
-# Minlopro - Omni 🔱 - Route DigEx Messaging Requests
+# Minlopro - Omni 🔱 - Route To Bot (Inbound)
 
 ## Flow Diagram
 
@@ -11,24 +11,24 @@
 
 flowchart TB
 START(["START"]):::startClass
-click START "#general-information" "2775120444"
+click START "#general-information" "1454237146"
 
-Capture_Error_And_Log("⚙️ <em></em><br/>Capture Error & Log"):::actionCalls
-click Capture_Error_And_Log "#capture_error_and_log" "3511232908"
+Capture_Error_Log("⚙️ <em></em><br/>Capture Error & Log"):::actionCalls
+click Capture_Error_Log "#capture_error_log" "2029947761"
 
-Route_Messaging_Request("⚡ <em></em><br/>Route Messaging Request"):::actionCalls
-click Route_Messaging_Request "#route_messaging_request" "1280459259"
+RoutingAction("⚡ <em></em><br/>Route to Osama"):::actionCalls
+click RoutingAction "#routingaction" "1391290176"
 
-FindQueue[("🔍 <em></em><br/>Find Queue")]:::recordLookups
-click FindQueue "#findqueue" "207744127"
+Find_Fallback_Queue[("🔍 <em></em><br/>Find Fallback Queue")]:::recordLookups
+click Find_Fallback_Queue "#find_fallback_queue" "2357930503"
 
-Capture_Error_And_Log --> END_Capture_Error_And_Log
-Route_Messaging_Request --> END_Route_Messaging_Request
-Route_Messaging_Request -. Fault .->Capture_Error_And_Log
-FindQueue --> Route_Messaging_Request
-START -->  FindQueue
-END_Capture_Error_And_Log(( END )):::endClass
-END_Route_Messaging_Request(( END )):::endClass
+Capture_Error_Log --> END_Capture_Error_Log
+RoutingAction --> END_RoutingAction
+RoutingAction -. Fault .->Capture_Error_Log
+Find_Fallback_Queue --> RoutingAction
+START -->  Find_Fallback_Queue
+END_Capture_Error_Log(( END )):::endClass
+END_RoutingAction(( END )):::endClass
 
 
 classDef actionCalls fill:#D4E4FC,color:black,text-decoration:none,max-height:100px
@@ -58,36 +58,28 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Process Type|Routing Flow|
-|Label|Minlopro - Omni 🔱 - Route DigEx Messaging Requests|
+|Label|Minlopro - Omni 🔱 - Route To Bot (Inbound)|
 |Status|Active|
+|Description|TODO|
 |Environments|Default|
-|Interview Label|Minlopro - Omni - Route DigEx Messaging Requests {!$Flow.CurrentDateTime}|
-|Run In Mode|Default Mode|
-|Source Template|omnichannel_messaging__MsgRouting|
+|Interview Label|Minlopro_Omni_RouteToBot (Inbound) {!$Flow.CurrentDateTime}|
 |BuilderType (PM)|LightningFlowBuilder|
 |CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
-|Connector|[FindQueue](#findqueue)|
-|Next Node|[FindQueue](#findqueue)|
+|OriginBuilderType (PM)|LightningFlowBuilder|
+|Connector|[Find_Fallback_Queue](#find_fallback_queue)|
+|Next Node|[Find_Fallback_Queue](#find_fallback_queue)|
 
 
 ## Variables
 
 |Name|Data Type|Is Collection|Is Input|Is Output|Object Type|Description|
 |:-- |:--:|:--:|:--:|:--:|:--:|:--  |
-|input_record|SObject|⬜|✅|⬜|MessagingSession|The messaging session record that is being inputted into the flow. Necessary for the flow to run.|
-|recordId|String|⬜|✅|⬜|<!-- -->|The ID of the record being inputted into the flow. Necessary for the flow to run. It's a 'MessagingSession' record ID.|
-
-
-## Formulas
-
-|Name|Data Type|Expression|Description|
-|:-- |:--:|:-- |:--  |
-|messagingSessionId|String|BLANKVALUE({!recordId}, {!input_record.Id})|Normalized Messaging Session record ID.|
+|recordId|String|⬜|✅|⬜|<!-- -->|<!-- -->|
 
 
 ## Flow Nodes Details
 
-### Capture_Error_And_Log
+### Capture_Error_Log
 
 |<!-- -->|<!-- -->|
 |:---|:---|
@@ -95,22 +87,23 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Label|Capture Error & Log|
 |Action Type|Apex|
 |Action Name|FlowLogger|
-|Flow Transaction Model|CurrentTransaction|
+|Flow Transaction Model|Automatic|
 |Name Segment|FlowLogger|
 |Offset|0|
-|level (input)|ERROR|
-|message (input)|$Flow.FaultMessage|
+|level (input)|inputConfiguratorMode: Resource<br/>stringValue: ERROR<br/>|
+|message (input)|elementReference: $Flow.FaultMessage<br/>inputConfiguratorMode: Resource<br/>|
 
 
-### Route_Messaging_Request
+### RoutingAction
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Action Call|
-|Label|Route Messaging Request|
+|Label|Route to Osama|
 |Action Type|Route Work|
 |Action Name|routeWork|
-|Fault Connector|[Capture_Error_And_Log](#capture_error_and_log)|
+|Description|Routes all messages to your enhanced bot.|
+|Fault Connector|[Capture_Error_Log](#capture_error_log)|
 |Flow Transaction Model|CurrentTransaction|
 |Name Segment|routeWork|
 |Offset|0|
@@ -118,39 +111,41 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |recordId (input)|recordId|
 |serviceChannelLabel (input)|Messaging|
 |serviceChannelDevName (input)|sfdc_livemessage|
-|routingType (input)|QueueBased|
+|routingType (input)|Bot|
 |routingConfigLabel (input)|<!-- -->|
 |agentLabel (input)|<!-- -->|
 |queueLabel (input)|<!-- -->|
 |skillOption (input)|<!-- -->|
 |skillRequirementsResourceItem (input)|<!-- -->|
-|botLabel (input)|<!-- -->|
+|botLabel (input)|Osama|
 |externalConversationBotLabel (input)|<!-- -->|
 |copilotLabel (input)|<!-- -->|
 |agentforceEmployeeAgentLabel (input)|<!-- -->|
+|digitalWorkerLabel (input)|<!-- -->|
 |isQueueVariable (input)|✅|
+|routingStartOption (input)|<!-- -->|
 |serviceChannelId (input)|setupReference: sfdc_livemessage<br/>setupReferenceType: ServiceChannel<br/>|
 |routingConfigId (input)|<!-- -->|
-|botId (input)|<!-- -->|
+|botId (input)|setupReference: Osama<br/>setupReferenceType: BotDefinition<br/>|
 |copilotId (input)|<!-- -->|
 |agentforceEmployeeAgentId (input)|<!-- -->|
 |externalConversationBotId (input)|<!-- -->|
-|queueId (input)|FindQueue.Id|
+|digitalWorkerId (input)|<!-- -->|
+|queueId (input)|Find_Fallback_Queue.Id|
 |agentId (input)|<!-- -->|
 
 
-### FindQueue
+### Find_Fallback_Queue
 
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Type|Record Lookup|
 |Object|Group|
-|Label|Find Queue|
-|Description|Target queue is meant to operate on 'Messaging User' and 'Messaging Session' entities.|
+|Label|Find Fallback Queue|
 |Assign Null Values If No Records Found|⬜|
 |Get First Record Only|✅|
 |Store Output Automatically|✅|
-|Connector|[Route_Messaging_Request](#route_messaging_request)|
+|Connector|[RoutingAction](#routingaction)|
 
 
 #### Filters (logic: **and**)

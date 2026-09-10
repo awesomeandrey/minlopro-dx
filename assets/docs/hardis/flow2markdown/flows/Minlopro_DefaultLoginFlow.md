@@ -6,7 +6,7 @@
 %% If you read this, your Markdown visualizer does not handle MermaidJS syntax.
 %% - If you are in VS Code, install extension `Markdown Preview Mermaid Support` at https://marketplace.visualstudio.com/items?itemName=bierner.markdown-mermaid
 %% - If you are using sfdx-hardis, try to define env variable `MERMAID_MODES=cli,docker` ,then run again the command to regenerate markdown with SVG images.
-%% - If you are within mkdocs-material, define mermaid plugin in `mkdocs.yml` as described in https://squidfunk.github.io/mkdocs-material/extensions/mermaid/
+%% - If you are within a Zensical site, define the mermaid custom fence in `mkdocs.yml` as described in https://zensical.org/docs/
 %% - As a last resort, you can copy-paste this MermaidJS code into https://mermaid.live/ to see the flow diagram
 
 flowchart TB
@@ -61,15 +61,15 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Process Type| Flow|
+|Process Type|Flow|
 |Label|Minlopro - Default Login Flow|
 |Status|Active|
 |Description|Customizes login experience for Minlopro users.|
 |Environments|Default|
 |Interview Label|Minlopro - Default Login Flow {!$Flow.CurrentDateTime}|
-| Builder Type (PM)|LightningFlowBuilder|
-| Canvas Mode (PM)|AUTO_LAYOUT_CANVAS|
-| Origin Builder Type (PM)|LightningFlowBuilder|
+|BuilderType (PM)|LightningFlowBuilder|
+|CanvasMode (PM)|AUTO_LAYOUT_CANVAS|
+|OriginBuilderType (PM)|LightningFlowBuilder|
 |Connector|[GetRunningUser](#getrunninguser)|
 |Next Node|[GetRunningUser](#getrunninguser)|
 
@@ -105,7 +105,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Assign To Reference|Operator|Value|
 |:-- |:--:|:--: |
-|LoginFlow_ForceLogout| Assign|✅|
+|LoginFlow_ForceLogout|Assign|✅|
 
 
 
@@ -128,7 +128,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Filter Id|Field|Operator|Value|
 |:-- |:-- |:--:|:--: |
-|1|Id| Equal To|LoginFlow_UserId|
+|1|Id|Equal To|LoginFlow_UserId|
 
 
 
@@ -153,7 +153,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|<p style="text-align: center;"><em style="color: rgb(199, 74,<br/>                16);">{!$Flow.FaultMessage}</em></p><p style="text-align:<br/>                center;"><em>Force logout...</em></p>|
-|Field Type| Display Text|
+|Field Type|Display Text|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 
@@ -180,8 +180,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_LoginType|
 |Field Text|Login Type|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -197,8 +197,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_LoginSubType|
 |Field Text|Login SubType|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -214,8 +214,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_IpAddress|
 |Field Text|IP Address|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -231,8 +231,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_Community|
 |Field Text|Community|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -248,8 +248,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_SessionLevel|
 |Field Text|Session Level|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -262,10 +262,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[FlowInputVariables](#flowinputvariables)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -277,8 +277,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_UserAgent|
 |Field Text|User Agent|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -294,8 +294,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_Platform|
 |Field Text|Platform|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -311,8 +311,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_Application|
 |Field Text|Application|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -328,8 +328,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_UserId|
 |Field Text|User ID|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -342,10 +342,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[FlowInputVariables](#flowinputvariables)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -355,9 +355,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|Flow Input Variables|
-|Field Type| Region Container|
+|Field Type|Region Container|
 |Is Required|⬜|
-|Region Container Type| Section With Header|
+|Region Container Type|Section With Header|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 
@@ -370,8 +370,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|GetRunningUser.Name|
 |Field Text|Full Name|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -384,10 +384,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[UserInfo](#userinfo)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -399,8 +399,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|GetRunningUser.Username|
 |Field Text|Username|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Read Only|true|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
@@ -413,10 +413,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[UserInfo](#userinfo)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -426,9 +426,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|User Info|
-|Field Type| Region Container|
+|Field Type|Region Container|
 |Is Required|⬜|
-|Region Container Type| Section With Header|
+|Region Container Type|Section With Header|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 
@@ -441,8 +441,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|String|
 |Default Value|LoginFlow_FinishLocation|
 |Field Text|Finish Location|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Required|⬜|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[FlowOutputVariables_Column1](#flowoutputvariables_column1)|
@@ -457,8 +457,8 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |Data Type|Boolean|
 |Default Value|LoginFlow_ForceLogout|
 |Field Text|Force Logout?|
-|Field Type| Input Field|
-|Inputs On Next Nav To Assoc Scrn| Use Stored Values|
+|Field Type|Input Field|
+|Inputs On Next Nav To Assoc Scrn|Use Stored Values|
 |Is Required|✅|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 |Parent Field|[FlowOutputVariables_Column1](#flowoutputvariables_column1)|
@@ -470,10 +470,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[FlowOutputVariables](#flowoutputvariables)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -482,10 +482,10 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |<!-- -->|<!-- -->|
 |:---|:---|
-|Field Type| Region|
+|Field Type|Region|
 |Is Required|⬜|
 |Parent Field|[FlowOutputVariables](#flowoutputvariables)|
-|Width (input)|6|
+|width (input)|6|
 
 
 
@@ -495,9 +495,9 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 |<!-- -->|<!-- -->|
 |:---|:---|
 |Field Text|Flow Output Variables|
-|Field Type| Region Container|
+|Field Type|Region Container|
 |Is Required|⬜|
-|Region Container Type| Section With Header|
+|Region Container Type|Section With Header|
 |Style Properties|verticalAlignment:<br/>&nbsp;&nbsp;stringValue: top<br/>width:<br/>&nbsp;&nbsp;stringValue: 12<br/>|
 
 
