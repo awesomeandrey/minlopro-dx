@@ -90,9 +90,8 @@ jobs:
         shell: bash
         run: |
           targetOrgAlias="${{ steps.auth-salesforce-org.outputs.target-org-alias }}"
-          sf community publish --name "DigEx" --target-org "$targetOrgAlias" || true
-          sf community publish --name "ESW_Minlopro_DigExMessaging" --target-org "$targetOrgAlias" || true
-          sf community publish --name "ESW_Minlopro_BotMessaging" --target-org "$targetOrgAlias" || true
+          echo "$targetOrgAlias" | bash ./scripts/deploy/common/publish_experience_sites.sh
+
   run-apex-tests:
     if: ${{ inputs.mode != 'Dry-Run' }}
     needs: [ run-deployment ]

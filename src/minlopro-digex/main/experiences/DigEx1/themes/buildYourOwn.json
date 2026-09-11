@@ -204,10 +204,10 @@
           "hideChatButtonOnLoad" : "Default",
           "isExpSiteAuthMode" : false,
           "scrtUrl" : "https://${SF_SITE_DOMAIN_NAME}.my.salesforce-scrt.com",
-          "siteEndpoint" : "${SF_SITE_URL}/eswminloprodigexmessaging"
+          "siteEndpoint" : "${SF_SITE_URL}/eswminloprobotmessaging"
         },
         "componentName" : "experience_messaging:embeddedMessaging",
-        "id" : "627bebf7-414f-4585-bc67-63b98ed4e783",
+        "id" : "549f2718-c9ba-41af-bbea-a6fe83208875",
         "renditionMap" : { },
         "type" : "component"
       } ],
