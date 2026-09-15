@@ -13,9 +13,9 @@
         <isSendInvtAllowedAfterReject>false</isSendInvtAllowedAfterReject>
         <messagingChannel>Minlopro_BotMessagingChannel</messagingChannel>
         <shouldShowAgentforceTagline>true</shouldShowAgentforceTagline>
-        <shouldShowDeliveryReceipts>false</shouldShowDeliveryReceipts>
+        <shouldShowDeliveryReceipts>true</shouldShowDeliveryReceipts>
         <shouldShowEmojiSelection>false</shouldShowEmojiSelection>
-        <shouldShowReadReceipts>false</shouldShowReadReceipts>
+        <shouldShowReadReceipts>true</shouldShowReadReceipts>
         <shouldShowTypingIndicators>false</shouldShowTypingIndicators>
         <shouldStartNewLineOnEnter>false</shouldStartNewLineOnEnter>
     </embeddedServiceMessagingChannel>
