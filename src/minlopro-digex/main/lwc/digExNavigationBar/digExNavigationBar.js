@@ -8,6 +8,9 @@ import toastify from 'c/toastify';
 // import getLogoutUrl from '@salesforce/apex/applauncher.IdentityHeaderController.getLogoutUrl';
 import getNavigationMenuItemsApex from '@salesforce/apex/NavigationMenuItemsController.getNavigationMenuItems';
 
+// Static Resources;
+import $LogoResource from '@salesforce/resourceUrl/MinloproAppLogo';
+
 // Constants;
 import $IsGuestUser from '@salesforce/user/isGuest';
 import $BasePath from '@salesforce/community/basePath';
@@ -18,6 +21,10 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
     @track siteState = 'Draft';
     @track navigationItems = undefined;
     @track currentPageRef = null;
+
+    get logoUrl() {
+        return $LogoResource;
+    }
 
     get currentPageType() {
         return this.currentPageRef?.type;
@@ -68,7 +75,8 @@ export default class DigExNavigationBar extends NavigationMixin(LightningElement
                 return {
                     ...navItem,
                     selected,
-                    className: `slds-context-bar__item ${selected ? 'slds-is-active' : 'slds-is-relative'}`
+                    ariaCurrent: selected ? 'page' : undefined,
+                    className: `slds-context-bar__item minlopro-nav-item${selected ? ' slds-is-active' : ''}`
                 };
             });
     }

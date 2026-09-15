@@ -7,6 +7,34 @@ export default class Stats extends LightningElement {
     @api value = {};
     @api iconName = 'standard:setup_modal';
 
+    _isExpanded = true;
+
+    @api
+    get expanded() {
+        return this._isExpanded;
+    }
+
+    set expanded(value) {
+        this._isExpanded = value;
+    }
+
+    get isExpanded() {
+        return this._isExpanded;
+    }
+
+    get toggleIconName() {
+        return this._isExpanded ? 'utility:chevrondown' : 'utility:chevronright';
+    }
+
+    get toggleAlternativeText() {
+        return this._isExpanded ? 'Collapse' : 'Expand';
+    }
+
+    handleToggleExpanded(event) {
+        event.preventDefault();
+        this._isExpanded = !this._isExpanded;
+    }
+
     get statsAsUniqueEntries() {
         return Object.entries(cloneObject(this.value || {}))
             .map(([key, value]) => {

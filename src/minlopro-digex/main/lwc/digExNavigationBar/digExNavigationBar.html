@@ -1,33 +1,47 @@
 <template>
-    <div class="slds-context-bar" style="background-color: transparent">
-        <div class="slds-context-bar__primary slds-is-hovered" onclick={handleNavigateHome}>
-            <div class="slds-context-bar__item">
+    <div class="slds-context-bar slds-theme_inverse">
+        <div class="slds-context-bar__primary">
+            <div class="slds-context-bar__item slds-no-hover" role="presentation">
                 <div class="slds-context-bar__icon-action">
-                    <lightning-icon icon-name="standard:agent_home" size="small"></lightning-icon>
+                    <img src={logoUrl} alt="Minlopro DX logo" class="minlopro-nav-logo" />
                 </div>
                 <span class="slds-context-bar__label-action slds-context-bar__app-name">
-                    <span class="slds-truncate" title="App Name">Minlopro DX</span>
+                    <span class="slds-truncate" title="Minlopro DX">Minlopro DX</span>
                 </span>
             </div>
         </div>
-        <nav class="slds-context-bar__secondary" role="navigation">
-            <ul class="slds-grid">
+        <nav class="slds-context-bar__secondary" role="navigation" aria-label="Site navigation">
+            <ul class="slds-grid slds-container_fluid">
                 <template for:each={visibleNavigationItems} for:item="item">
-                    <li data-id={item.id} key={item.id} class={item.className} onclick={handleNavigate}>
-                        <a data-id={item.id} href="javascript:void(0)" class="slds-context-bar__label-action">
-                            <span data-id={item.id} class="slds-truncate">{item.label}</span>
+                    <li key={item.id} class={item.className}>
+                        <a
+                            data-id={item.id}
+                            href="javascript:void(0)"
+                            class="slds-context-bar__label-action"
+                            title={item.label}
+                            aria-current={item.ariaCurrent}
+                            onclick={handleNavigate}
+                        >
+                            <template lwc:if={item.selected}>
+                                <span class="slds-assistive-text">Current Page:</span>
+                            </template>
+                            <span data-id={item.id} class="slds-truncate" title={item.label}>{item.label}</span>
                         </a>
                     </li>
                 </template>
             </ul>
         </nav>
-        <div class="slds-align_absolute-center">
-            <template lwc:if={isGuestUser}>
-                <a href="javascript:void(0)" onclick={handleNavigateLogin}>Login</a>
-            </template>
-            <template lwc:else>
-                <a href="javascript:void(0)" onclick={handleNavigateLogout}>Logout</a>
-            </template>
+        <div class="slds-context-bar__tertiary">
+            <div class="slds-context-bar__item minlopro-nav-item">
+                <template lwc:if={isGuestUser}>
+                    <a href="javascript:void(0)" onclick={handleNavigateLogin} class="slds-context-bar__label-action">🔒 Login</a>
+                </template>
+                <template lwc:else>
+                    <a href="javascript:void(0)" onclick={handleNavigateLogout} class="slds-context-bar__label-action"
+                        >🔓 Logout</a
+                    >
+                </template>
+            </div>
         </div>
     </div>
 </template>

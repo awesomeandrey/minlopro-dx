@@ -5,30 +5,11 @@
   "id" : "4524c642-fc12-46c3-a850-f1494e4393d8",
   "label" : "Home",
   "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<p style=\"text-align: center;\"><strong style=\"font-size: 20px;\">Hi there! Welcome to my first Experience Cloud implementation!</strong></p>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "6053d20c-67fd-447e-b288-a98911079bc0",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
     "id" : "b461b045-bc8c-48c5-a289-ef04d3197668",
     "regionName" : "header",
     "type" : "region"
   }, {
     "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<p style=\"text-align: center;\"><em style=\"font-size: 10px;\">Use chat button at the bottom right corner for support</em></p><p style=\"text-align: center;\"><em style=\"font-size: 10px;\">OR</em></p><p style=\"text-align: center;\"><em style=\"font-size: 10px;\">Submit lead form below</em></p>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "007af66c-ed1d-4440-ac28-a3ab1ad871de",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
       "componentAttributes" : {
         "tabsetConfig" : {
           "UUID" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
@@ -53,7 +34,7 @@
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "4e5c5",
-            "tabName" : "Web-To-Case❓"
+            "tabName" : "Web-To-Case 🙋"
           }, {
             "UUID" : "d9ac2986-0384-4e44-8f79-c2e5729821c8",
             "allowGuestUser" : true,
@@ -105,7 +86,7 @@
           "type" : "component"
         } ],
         "id" : "e2c14eb9-ff72-43f8-a063-25e557501797",
-        "regionLabel" : "Web-To-Case❓",
+        "regionLabel" : "Web-To-Case 🙋",
         "regionName" : "4e5c5",
         "renditionMap" : { },
         "type" : "region"
