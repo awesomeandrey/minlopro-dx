@@ -8,11 +8,7 @@
         <div class="slds-shrink-none">
             <c:digExNavigationBar menuApiName="{!v.menuApiName}" />
         </div>
-        <lightning:layout
-            multipleRows="true"
-            pullToBoundary="small"
-            class="slds-grow slds-p-horizontal_medium slds-p-vertical_medium"
-        >
+        <lightning:layout multipleRows="true" pullToBoundary="small" class="slds-grow slds-p-horizontal_medium">
             <lightning:layoutItem size="12" largeDeviceSize="9" padding="around-small">
                 <div
                     class="slds-p-around_medium minlopro-bg minlopro-hero slds-grid slds-grid_align-center slds-grid_vertical-align-center"

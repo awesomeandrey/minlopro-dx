@@ -1,15 +1,17 @@
 SELECT
-        Id,
-        Name,
-        RelatedRecordId,
-        Description,
-        ResourceType,
-        (
-                SELECT
-                        EffectiveStartDate,
-                        SkillLevel,
-                        SkillId,
-                        SkillNumber
-                FROM ServiceResourceSkills
-        )
-FROM ServiceResource
+    Id,
+    Name,
+    RelatedRecordId,
+    Description,
+    ResourceType,
+    (
+        SELECT
+            EffectiveStartDate,
+            SkillLevel,
+            SkillId,
+            SkillNumber
+        FROM
+            ServiceResourceSkills
+    )
+FROM
+    ServiceResource

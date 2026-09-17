@@ -16,17 +16,17 @@
         <members>*</members>
         <name>WaveLens</name>
     </types>
-<!--    <types>-->
-<!--        <members>*</members>-->
-<!--        <name>WaveRecipe</name>-->
-<!--    </types>-->
-<!--    <types>-->
-<!--        <members>*</members>-->
-<!--        <name>WaveDataflow</name>-->
-<!--    </types>-->
+    <types>
+        <members>*</members>
+        <name>WaveRecipe</name>
+    </types>
+    <types>
+        <members>*</members>
+        <name>WaveDataflow</name>
+    </types>
     <types>
         <members>*</members>
         <name>WaveXmd</name>
     </types>
-    <version>60.0</version>
+    <version>67.0</version>
 </Package>
