@@ -1,15 +1,26 @@
 <template>
-    <div class="slds-box slds-box_x-small slds-theme_default">
+    <div class="slds-box slds-box_x-small slds-theme_default minlopro-session-card">
         <template lwc:if={loading}>
             <c-stencil-skeleton short-lines="0" repeat="3"></c-stencil-skeleton>
         </template>
         <template lwc:else>
+            <p class="slds-text-heading_small slds-m-bottom_small">{greeting}</p>
             <lightning-layout multiple-rows>
                 <lightning-layout-item size="12" class="slds-m-bottom_small">
-                    <c-stats label="Running User Info" value={userInfoStats} icon-name="standard:customer_portal_users"></c-stats>
+                    <c-stats
+                        label="Your Details"
+                        value={userInfoStats}
+                        icon-name="standard:customer_portal_users"
+                        expanded={sectionsExpanded}
+                    ></c-stats>
                 </lightning-layout-item>
                 <lightning-layout-item size="12">
-                    <c-stats label="Portal Info" value={communityInfoStats} icon-name="standard:portal"></c-stats>
+                    <c-stats
+                        label="Portal Settings"
+                        value={communityInfoStats}
+                        icon-name="standard:portal"
+                        expanded={sectionsExpanded}
+                    ></c-stats>
                 </lightning-layout-item>
             </lightning-layout>
         </template>

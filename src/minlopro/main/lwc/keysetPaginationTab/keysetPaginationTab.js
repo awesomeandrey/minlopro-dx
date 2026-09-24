@@ -24,7 +24,8 @@ export default class KeysetPaginationTab extends LightningElement {
     get stats() {
         return {
             'Total Contacts Count': this.totalContactsCount,
-            'Sort Order': this.sortedDirection.toUpperCase(),
+            'Sorted By': this.sortedBy,
+            'Sorted Order': this.sortedDirection.toUpperCase(),
             'Current Page Number': this.pageNumber,
             'Total Pages #': this.totalPagesAmount,
             'Page Size': this.pageSize

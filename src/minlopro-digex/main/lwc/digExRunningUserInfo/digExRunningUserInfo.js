@@ -1,4 +1,4 @@
-import { LightningElement, track } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import { cloneObject, isEmpty, isNotEmpty, parseError, to } from 'c/utilities';
 import { AuthConfig, getAuthConfigs } from 'c/digExUtil';
 import toastify from 'c/toastify';
@@ -11,11 +11,22 @@ import $UserId from '@salesforce/user/Id';
 import $IsGuest from '@salesforce/user/isGuest';
 
 export default class DigExRunningUserInfo extends LightningElement {
+    @api collapsed = false;
+
     @track userInfoItems = [];
     @track communityInfoItems = [];
+    @track userName = '';
 
     get loading() {
         return isEmpty(this.userInfoItems) || isEmpty(this.communityInfoItems);
+    }
+
+    get greeting() {
+        return $IsGuest ? "Hi there, you're browsing as a guest." : `Welcome back, ${this.userName}!`;
+    }
+
+    get sectionsExpanded() {
+        return !this.collapsed;
     }
 
     get userInfoStats() {
@@ -59,15 +70,12 @@ export default class DigExRunningUserInfo extends LightningElement {
     // Service Methods;
 
     async composeUserInfo(userInfo) {
+        this.userName = userInfo.Name;
         this.userInfoItems = [
             { name: 'Name', value: userInfo.Name },
-            { name: 'Username', value: userInfo.Username },
             { name: 'Email', value: userInfo.Email },
             { name: 'Profile', value: userInfo?.Profile?.Name },
-            { name: 'User Type', value: userInfo?.UserType },
-            { name: 'Is Guest', value: $IsGuest },
-            { name: 'Is Portal Enabled', value: userInfo.IsPortalEnabled },
-            { name: 'Profile User License', value: userInfo?.Profile?.UserLicense?.Name }
+            { name: 'User Type', value: userInfo?.UserType }
         ];
     }
 

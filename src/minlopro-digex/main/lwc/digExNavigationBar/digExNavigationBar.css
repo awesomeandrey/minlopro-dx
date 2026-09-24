@@ -1,0 +1,14 @@
+.slds-context-bar {
+    border-bottom: 3px solid var(--slds-g-color-brand-base-50, #2574a9);
+}
+
+.minlopro-nav-logo {
+    height: 2rem;
+    width: auto;
+    display: block;
+}
+
+.minlopro-nav-item:hover,
+.minlopro-nav-item:focus-within {
+    background-color: var(--slds-g-color-on-accent-1, rgba(255, 255, 255, 0.12));
+}

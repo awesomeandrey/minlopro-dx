@@ -1,39 +1,62 @@
 <template>
-    <lightning-tile label={label} href="javascript:void(0)" type="media">
-        <lightning-icon slot="media" icon-name={iconName} alternative-text="Stats"></lightning-icon>
-        <div class="grid-container">
-            <template for:each={statsAsUniqueEntries} for:item="entryItem">
-                <div key={entryItem.id} class="grid-item">
-                    <template lwc:if={entryItem.isKey}>
-                        <p class="slds-truncate" title={entryItem.content}>{entryItem.content}</p>
-                    </template>
-                    <template lwc:if={entryItem.isValue}>
-                        <template lwc:if={entryItem.isBoolean}>
-                            <div class="slds-checkbox">
-                                <input lwc:if={entryItem.content} type="checkbox" checked disabled />
-                                <input lwc:else type="checkbox" disabled />
-                                <label class="slds-checkbox__label">
-                                    <span class="slds-checkbox_faux"></span>
-                                </label>
-                            </div>
+    <div class="slds-tile slds-media">
+        <div class="slds-media__figure">
+            <lightning-icon icon-name={iconName} alternative-text="Stats" size="small"></lightning-icon>
+        </div>
+        <div class="slds-media__body">
+            <h3 class="slds-tile__title slds-truncate" title={label}>
+                <a href="javascript:void(0)" onclick={handleToggleExpanded} class="slds-text-link">{label}</a>
+                <lightning-button-icon
+                    icon-name={toggleIconName}
+                    variant="bare"
+                    size="x-small"
+                    alternative-text={toggleAlternativeText}
+                    onclick={handleToggleExpanded}
+                    class="slds-m-left_xx-small"
+                ></lightning-button-icon>
+            </h3>
+            <template lwc:if={isExpanded}>
+                <div class="slds-tile__detail slds-text-body_small">
+                    <dl class="slds-dl_horizontal slds-wrap">
+                        <template for:each={statsAsUniqueEntries} for:item="entryItem">
+                            <template lwc:if={entryItem.isKey}>
+                                <dt key={entryItem.id} class="slds-dl_horizontal__label slds-truncate" title={entryItem.content}>
+                                    {entryItem.content}
+                                </dt>
+                            </template>
+                            <template lwc:if={entryItem.isValue}>
+                                <dd key={entryItem.id} class="slds-dl_horizontal__detail slds-truncate stats-detail">
+                                    <template lwc:if={entryItem.isBoolean}>
+                                        <div class="slds-checkbox">
+                                            <input lwc:if={entryItem.content} type="checkbox" checked disabled />
+                                            <input lwc:else type="checkbox" disabled />
+                                            <label class="slds-checkbox__label">
+                                                <span class="slds-checkbox_faux"></span>
+                                            </label>
+                                        </div>
+                                    </template>
+                                    <template lwc:elseif={entryItem.isUrl}>
+                                        <span class="slds-truncate slds-text-link" title={entryItem.content}
+                                            >{entryItem.content}</span
+                                        >
+                                    </template>
+                                    <template lwc:else>
+                                        <span class="slds-truncate" title={entryItem.content}>{entryItem.content}</span>
+                                    </template>
+                                    <a
+                                        lwc:if={entryItem.canCopy}
+                                        href="javascript:void(0)"
+                                        class="slds-text-link stats-copy-link"
+                                        data-value={entryItem.content}
+                                        onclick={handleCopy}
+                                        >Copy</a
+                                    >
+                                </dd>
+                            </template>
                         </template>
-                        <template lwc:elseif={entryItem.isUrl}>
-                            <span class="slds-truncate slds-text-link" title={entryItem.content}>{entryItem.content}</span>
-                        </template>
-                        <template lwc:else>
-                            <span class="slds-truncate" title={entryItem.content}>{entryItem.content}</span>
-                        </template>
-                        <a
-                            lwc:if={entryItem.canCopy}
-                            href="javascript:void(0)"
-                            class="slds-text-link"
-                            data-value={entryItem.content}
-                            onclick={handleCopy}
-                            >Copy</a
-                        >
-                    </template>
+                    </dl>
                 </div>
             </template>
         </div>
-    </lightning-tile>
+    </div>
 </template>

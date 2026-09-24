@@ -7,16 +7,23 @@
     justify-content: center;
     padding: 1.5rem;
     animation: colorCycle 3s infinite alternate;
-    background-color: #d8e6fe;
-    border-radius: 0.5rem;
+    background-color: var(--slds-g-color-brand-base-95, #d8e6fe);
+    border-radius: var(--slds-g-radius-border-2, 0.5rem);
 }
 
 @keyframes colorCycle {
     0% {
-        background-color: #d8e6fe;
+        background-color: var(--slds-g-color-brand-base-95, #d8e6fe);
     }
     100% {
-        background-color: #f3f3f3;
+        background-color: var(--slds-g-color-neutral-base-95, #f3f3f3);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .container {
+        animation: none;
+        background-color: var(--slds-g-color-brand-base-95, #d8e6fe);
     }
 }
 
@@ -33,5 +40,5 @@
 
 .description {
     font-size: 0.875rem;
-    color: #444;
+    color: var(--slds-g-color-neutral-base-30, #444);
 }

@@ -1,9 +1,43 @@
 .THIS.minlopro-container {
     background-color: aliceblue;
+    box-sizing: border-box;
+    min-height: 100vh;
 }
 
 .THIS .minlopro-bg {
     background-size: cover;
     background-position: top;
     border-radius: var(--slds-g-radius-border-2, 0.25rem);
+}
+
+.THIS .minlopro-hero {
+    position: relative;
+    min-height: 8rem;
+    overflow: hidden;
+}
+
+.THIS .minlopro-hero-scrim {
+    position: relative;
+    z-index: 1;
+    border-radius: var(--slds-g-radius-border-2, 0.25rem);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.15));
+}
+
+.THIS .minlopro-hero-scrim p {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    margin: 0;
+}
+
+.THIS .minlopro-hero-scrim .minlopro-hero-title {
+    margin-bottom: 0.25rem;
+}
+
+.THIS .minlopro-footer {
+    border-top: 3px solid var(--slds-g-color-brand-base-50, #2574a9);
+}
+
+.THIS .minlopro-footer-logo {
+    height: 2rem;
+    width: auto;
+    display: block;
 }

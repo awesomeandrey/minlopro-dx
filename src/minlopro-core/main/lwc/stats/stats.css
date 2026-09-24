@@ -1,21 +1,13 @@
-.grid-container {
-    width: 100%;
-    display: grid;
-    grid-template-columns: minmax(auto, 30%) minmax(30%, max-content);
-    gap: 0 0.25rem;
+.slds-tile__title {
+    display: flex;
+    align-items: center;
+}
 
-    & .grid-item {
-        white-space: nowrap;
-        overflow: hidden;
-        display: flex;
-    }
+.stats-detail .stats-copy-link {
+    visibility: hidden;
+    padding-left: 0.25rem;
+}
 
-    & .grid-item a {
-        visibility: hidden;
-        padding-left: 0.25rem;
-    }
-
-    & .grid-item:hover a {
-        visibility: visible;
-    }
+.stats-detail:hover .stats-copy-link {
+    visibility: visible;
 }

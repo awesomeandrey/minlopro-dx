@@ -22,7 +22,7 @@ export default class CdtInput extends DatatableEditableCdt {
 
     connectedCallback() {
         wait(() => {
-            this.refs.input.focus();
+            this.refs.input?.focus();
         }, 100);
     }
 
