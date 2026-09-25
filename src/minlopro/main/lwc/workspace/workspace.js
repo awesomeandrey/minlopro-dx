@@ -4,6 +4,8 @@ import { EnclosingTabId, setTabLabel, setTabIcon } from 'lightning/platformWorks
 import { log as $Log } from 'lightning/logger';
 import { cloneObject, isEmpty, isNotEmpty } from 'c/utilities';
 
+import FORM_FACTOR from '@salesforce/client/formFactor';
+
 // Custom Permissions;
 import IS_FILES_MANAGER from '@salesforce/customPermission/IsFilesManager';
 import IS_LEADS_MANAGER from '@salesforce/customPermission/IsLeadManager';
@@ -26,6 +28,18 @@ export default class Workspace extends LightningElement {
                 setTabIcon(this.enclosingTabId, 'utility:duration_downscale', { iconAlt: 'LWC Workspace' })
             ]);
         }
+    }
+
+    get isDesktop() {
+        return FORM_FACTOR === 'Large';
+    }
+
+    get unsupportedFormFactorTitle() {
+        return `😕 ${this.componentConstructor?.name}`;
+    }
+
+    get unsupportedFormFactorMsg() {
+        return 'Unsupported form factor detected.';
     }
 
     get tabs() {
