@@ -12,6 +12,7 @@
   export SF_PLUGIN_ANALYTICS=true;
   export SF_PLUGIN_CODE_ANALYZER=true;
   export SF_PLUGIN_LIGHTNING_DEV=true;
+  export SF_PLUGIN_LWC_DEV_MOBILE=true;
   bash ./scripts/deploy/common/build.sh
 }
 '
@@ -62,6 +63,9 @@ echo "Installing Salesforce CLI Plugins..."
 
 # https://developer.salesforce.com/docs/platform/lwc/guide/get-started-test-components.html
 [ "${SF_PLUGIN_LIGHTNING_DEV:-false}" = "true" ] && install_sf_plugin "@salesforce/plugin-lightning-dev@latest"
+
+# https://developer.salesforce.com/docs/platform/mobile-offline/guide/mobile-extensions-setup.html
+[ "${SF_PLUGIN_LWC_DEV_MOBILE:-false}" = "true" ] && install_sf_plugin "@salesforce/lwc-dev-mobile"
 
 # Install the rest of dependencies via NPM
 npm ci --silent; echo
