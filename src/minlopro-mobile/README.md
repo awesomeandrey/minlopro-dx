@@ -34,3 +34,12 @@ Test the Salesforce mobile experience directly on a physical personal or approve
 This approach leverages authentication and passkey configurations already present on the device.
 macOS and iOS users can also use iPhone Mirroring to interact with and display the mobile screen
 directly on their computer ([video reference](https://www.youtube.com/watch?v=f3REBdDPd58)).
+
+---
+
+## 🔐 Mobile App Security
+
+Per [Salesforce Ben's guide](https://www.salesforceben.com/how-to-secure-your-salesforce-mobile-app/):
+
+- **App access** — controlled via Profiles/Permission Sets, same as Lightning Experience.
+- **In-app behavior** — controlled via **Custom Attributes** (Setup → Salesforce Mobile App), which can enable/disable features like biometric lock, offline access, or specific in-app actions per user.

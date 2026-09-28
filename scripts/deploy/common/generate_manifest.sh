@@ -133,6 +133,7 @@ if [ "$crmAnalyticsLicensesCount" -eq 0 ]; then
     echo
     echo "# CRM Analytics"
     echo "**/minlopro-crm-analytics"
+    echo "**/wave"
   } >> "$FORCEIGNORE"
   echo "Excluded CRM Analytics metadata from deployment bundle."
 else

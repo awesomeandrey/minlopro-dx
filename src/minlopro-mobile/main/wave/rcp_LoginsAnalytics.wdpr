@@ -1,0 +1,96 @@
+{
+  "version" : "67.0",
+  "nodes" : {
+    "LOAD_DATASET1" : {
+      "action" : "load",
+      "sources" : [ ],
+      "parameters" : {
+        "fields" : [ "CLIENT_IP", "EVENT_TYPE", "BROWSER_TYPE", "CIPHER_SUITE", "USER_ID", "REQUEST_ID", "API_TYPE", "URI", "ORGANIZATION_ID", "LOGIN_SUB_TYPE", "HTTP_REFERER", "AUTHENTICATION_SERVICE_ID", "SOURCE_IP", "TIMESTAMP", "AUTHENTICATION_CONTEXT_CLASS_REFERENCE", "USER_ID_DERIVED", "SESSION_KEY", "LOGIN_URL", "TLS_PROTOCOL", "API_VERSION", "USER_NAME", "REQUEST_STATUS", "URI_ID_DERIVED", "LOGIN_TYPE", "TIMESTAMP_DERIVED", "FORWARDED_FOR_IP", "LOGIN_STATUS", "USER_TYPE", "AUTHENTICATION_METHOD_REFERENCE", "LOGIN_KEY", "USE_API_TOKEN", "COUNTRY_CODE", "CPU_TIME", "RUN_TIME", "DB_TOTAL_TIME" ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "ELF - Login (v67.0)",
+          "name" : "ds_elf_Login_v67"
+        },
+        "sampleDetails" : {
+          "type" : "TopN",
+          "sortBy" : [ ]
+        },
+        "preserveCurrencyFields" : [ ]
+      }
+    },
+    "OUTPUT0" : {
+      "action" : "save",
+      "sources" : [ "FORMULA0" ],
+      "parameters" : {
+        "fields" : [ ],
+        "dataset" : {
+          "type" : "analyticsDataset",
+          "label" : "ds_LoginAnalytics",
+          "name" : "ds_LoginAnalytics",
+          "folderName" : "MinloproEventMonitoring"
+        },
+        "measuresToCurrencies" : [ ]
+      }
+    },
+    "FORMULA0" : {
+      "action" : "formula",
+      "sources" : [ "LOAD_DATASET1" ],
+      "parameters" : {
+        "expressionType" : "SQL",
+        "fields" : [ {
+          "type" : "TEXT",
+          "name" : "FormFactor",
+          "label" : "Form Factor",
+          "formulaExpression" : "case\n    when startsWith(BROWSER_TYPE, 'SalesforceMobileSDK')\n    then 'Small'\n    when contains(BROWSER_TYPE, 'Mozilla')\n    then 'Large'\n    else 'Unknown'\nend",
+          "precision" : 15,
+          "defaultValue" : ""
+        } ]
+      }
+    }
+  },
+  "ui" : {
+    "nodes" : {
+      "LOAD_DATASET1" : {
+        "label" : "ELF - Login (v67.0)",
+        "type" : "LOAD_DATASET",
+        "top" : 112,
+        "left" : 112,
+        "parameters" : {
+          "sampleSize" : 2000
+        }
+      },
+      "OUTPUT0" : {
+        "label" : "ds_LoginAnalytics",
+        "description" : "",
+        "type" : "OUTPUT",
+        "top" : 112,
+        "left" : 392
+      },
+      "TRANSFORM0" : {
+        "label" : "Translate Columns",
+        "description" : "",
+        "type" : "TRANSFORM",
+        "top" : 112,
+        "left" : 252,
+        "graph" : {
+          "FORMULA0" : {
+            "parameters" : {
+              "type" : "BASE_FORMULA_UI"
+            },
+            "label" : "Form Factor"
+          }
+        },
+        "connectors" : [ ]
+      }
+    },
+    "connectors" : [ {
+      "source" : "TRANSFORM0",
+      "target" : "OUTPUT0"
+    }, {
+      "source" : "LOAD_DATASET1",
+      "target" : "TRANSFORM0"
+    } ],
+    "hiddenColumns" : [ ]
+  },
+  "runMode" : "full"
+}

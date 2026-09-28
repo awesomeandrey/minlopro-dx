@@ -18,6 +18,8 @@ if [ -z "$DEV_HUB_ALIAS" ] || [ -z "$SCRATCH_ORG_ALIAS" ] || [ -z "$ADMIN_EMAIL"
   read -r -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
 fi
 
+API_VERSION=$(bash ./scripts/util/get_project_api_version.sh)
+
 echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
 
 # Create a brand new scratch org AND set it as a DEFAULT ORG!
@@ -73,16 +75,21 @@ $DEV_HUB_ALIAS
 $SCRATCH_ORG_ALIAS
 EOF
 
-# Import 'LightningLogger' event log files into CRM Analytics dataset
-bash scripts/util/event-monitoring/elf.sh \
-  --source-org-alias "$DEV_HUB_ALIAS" \
-  --event-type "LightningLogger" \
-  --mode "download-and-upload-to-dataset" \
-  --api-version 65.0 \
-  --folder "MinloproEventMonitoring" \
-  --elf-limit 50 \
-  --metadata "scripts/util/event-monitoring/event-metadata-json/LightningLogger-v65.0.json" \
-  --target-org-alias "$SCRATCH_ORG_ALIAS" && sleep 100
+# Import event log files into CRM Analytics datasets (add more event types here as needed)
+EVENT_TYPES=("LightningLogger" "Login")
+
+for EVENT_TYPE in "${EVENT_TYPES[@]}"; do
+  bash scripts/util/event-monitoring/elf.sh \
+    --source-org-alias "$DEV_HUB_ALIAS" \
+    --target-org-alias "$SCRATCH_ORG_ALIAS" \
+    --event-type "$EVENT_TYPE" \
+    --mode "download-and-upload-to-dataset" \
+    --api-version "$API_VERSION" \
+    --folder "MinloproEventMonitoring" \
+    --elf-limit 30 \
+    --metadata "scripts/util/event-monitoring/event-metadata-json/${EVENT_TYPE}-v${API_VERSION}.json"
+done
+sleep 60
 
 # List CRM Analytics assets via Salesforce CLI plugin
 sf analytics app list --target-org "$SCRATCH_ORG_ALIAS"; echo
