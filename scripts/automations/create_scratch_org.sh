@@ -18,8 +18,6 @@ if [ -z "$DEV_HUB_ALIAS" ] || [ -z "$SCRATCH_ORG_ALIAS" ] || [ -z "$ADMIN_EMAIL"
   read -r -p "🔶 Enter Admin Email Address: " ADMIN_EMAIL
 fi
 
-API_VERSION=$(bash ./scripts/util/get_project_api_version.sh)
-
 echo "🔵 Spinning up scratch org [$SCRATCH_ORG_ALIAS] for [$ADMIN_EMAIL] under [$DEV_HUB_ALIAS] dev hub org..."
 
 # Create a brand new scratch org AND set it as a DEFAULT ORG!
@@ -75,44 +73,8 @@ $DEV_HUB_ALIAS
 $SCRATCH_ORG_ALIAS
 EOF
 
-# Import event log files into CRM Analytics datasets (add more event types here as needed)
-EVENT_TYPES=("LightningLogger" "Login")
-
-for EVENT_TYPE in "${EVENT_TYPES[@]}"; do
-  bash scripts/util/event-monitoring/elf.sh \
-    --source-org-alias "$DEV_HUB_ALIAS" \
-    --target-org-alias "$SCRATCH_ORG_ALIAS" \
-    --event-type "$EVENT_TYPE" \
-    --mode "download-and-upload-to-dataset" \
-    --api-version "$API_VERSION" \
-    --folder "MinloproEventMonitoring" \
-    --elf-limit 30 \
-    --metadata "scripts/util/event-monitoring/event-metadata-json/${EVENT_TYPE}-v${API_VERSION}.json"
-done
-sleep 60
-
-# List CRM Analytics assets via Salesforce CLI plugin
-sf analytics app list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics dashboard list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics dataflow list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics dataset list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics lens list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics recipe list --target-org "$SCRATCH_ORG_ALIAS"
-
-# Invoke CRM Analytics recipes
-invoke_recipes(){
-  local json_input="$1"
-  if echo "$json_input" | jq -e ".result" > /dev/null; then
-    array_length=$(echo "$json_input" | jq ".result | length")
-    if (( array_length > 0 )); then
-      echo "$json_input" | jq -c ".result[]" | while read -r record; do
-        recipe_id=$(echo "$record" | jq -r '.recipeid')
-        sf analytics recipe start -i "$recipe_id" -o "$SCRATCH_ORG_ALIAS" || true
-      done
-    fi
-  fi
-}
-invoke_recipes "$(sf analytics recipe list --target-org "$SCRATCH_ORG_ALIAS" --json)"
+# Configure CRM Analytics (import ELFs, list assets, invoke recipes)
+bash ./scripts/deploy/common/configure_crm_analytics.sh "$DEV_HUB_ALIAS" "$SCRATCH_ORG_ALIAS"
 
 # Check 'build' folder content
 tree "build" -L 1
