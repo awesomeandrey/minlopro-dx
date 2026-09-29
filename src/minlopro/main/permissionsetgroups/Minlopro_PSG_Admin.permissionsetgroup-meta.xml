@@ -22,6 +22,7 @@
     <permissionSets>Minlopro_KnowledgeUser</permissionSets>
     <permissionSets>Minlopro_LeadsManager</permissionSets>
     <permissionSets>Minlopro_Logger</permissionSets>
+    <permissionSets>Minlopro_MobileUser</permissionSets>
     <permissionSets>Minlopro_OmniChannelAgent</permissionSets>
     <permissionSets>Minlopro_SalesforceConnectCustomAdapter</permissionSets>
     <permissionSets>Minlopro_SsoUser</permissionSets>

@@ -23,7 +23,14 @@
                 </lightning-vertical-navigation>
             </div>
             <div class="slds-box slds-box_x-small slds-m-top_medium slds-m-horizontal_small">
-                <lwc:component lwc:if={componentConstructor} lwc:is={componentConstructor}></lwc:component>
+                <template lwc:if={isDesktop}>
+                    <lwc:component lwc:if={componentConstructor} lwc:is={componentConstructor}></lwc:component>
+                </template>
+                <template lwc:else>
+                    <lightning-empty-state illustration-name="cart:noitems" title={unsupportedFormFactorTitle}>
+                        <p slot="description">{unsupportedFormFactorMsg}</p>
+                    </lightning-empty-state>
+                </template>
                 <c-error-alert value={error}></c-error-alert>
             </div>
         </div>
