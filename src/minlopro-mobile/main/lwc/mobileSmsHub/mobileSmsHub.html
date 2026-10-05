@@ -1,0 +1,79 @@
+<template>
+    <template lwc:if={isPhone}>
+        <div class="slds-theme_default">
+            <template lwc:if={isListView}>
+                <h2 class="slds-text-heading_small slds-text-align_center slds-p-around_small">Conversations</h2>
+                <ul>
+                    <template for:each={conversations} for:item="conversation">
+                        <li key={conversation.id} class="slds-border_bottom">
+                            <div
+                                class="slds-media slds-media_center slds-p-around_small"
+                                data-id={conversation.id}
+                                onclick={handleSelectConversation}
+                            >
+                                <div class="slds-media__figure">
+                                    <lightning-avatar
+                                        initials={conversation.customerInitials}
+                                        alternative-text={conversation.customerName}
+                                        fallback-icon-name="standard:contact"
+                                    ></lightning-avatar>
+                                </div>
+                                <div class="slds-media__body">
+                                    <p class="slds-text-heading_small">{conversation.customerName}</p>
+                                    <lightning-formatted-date-time
+                                        value={conversation.lastMessageDateTime}
+                                        year="numeric"
+                                        month="short"
+                                        day="2-digit"
+                                        hour="2-digit"
+                                        minute="2-digit"
+                                    ></lightning-formatted-date-time>
+                                </div>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+            <template lwc:else>
+                <div class="slds-grid slds-grid_vertical-align-center slds-p-around_small">
+                    <lightning-button-icon
+                        icon-name="utility:back"
+                        alternative-text="Back"
+                        variant="bare"
+                        onclick={handleBack}
+                    ></lightning-button-icon>
+                    <h2 class="slds-text-heading_small slds-m-left_small">{selectedConversationName}</h2>
+                </div>
+                <div class="slds-p-vertical_small">
+                    <section role="log" class="slds-chat">
+                        <ul class="slds-chat-list">
+                            <template for:each={messageEntries} for:item="message">
+                                <li key={message.id} class={message.listItemCssClass}>
+                                    <div class="slds-chat-message">
+                                        <div class="slds-chat-message__body">
+                                            <div class={message.textCssClass}>
+                                                <p>{message.body}</p>
+                                            </div>
+                                            <p class="slds-chat-message__meta">
+                                                <lightning-formatted-date-time
+                                                    value={message.timestamp}
+                                                    hour="2-digit"
+                                                    minute="2-digit"
+                                                ></lightning-formatted-date-time>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </section>
+                </div>
+            </template>
+        </div>
+    </template>
+    <template lwc:else>
+        <lightning-empty-state illustration-name="cart:noitems" title={unsupportedFormFactorTitle}>
+            <p slot="description">{unsupportedFormFactorMsg}</p>
+        </lightning-empty-state>
+    </template>
+</template>

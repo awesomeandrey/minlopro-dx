@@ -43,3 +43,21 @@ Per [Salesforce Ben's guide](https://www.salesforceben.com/how-to-secure-your-sa
 
 - **App access** — controlled via Profiles/Permission Sets, same as Lightning Experience.
 - **In-app behavior** — controlled via **Custom Attributes** (Setup → Salesforce Mobile App), which can enable/disable features like biometric lock, offline access, or specific in-app actions per user.
+
+---
+
+## 🧩 Building Mobile-Friendly LWCs
+
+Findings from building form-factor-aware components (e.g. `mobileSmsHub`) for this package:
+
+| Page Type                 | Form Factor support                                                                                                                                                                                                                          |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Lightning Record Page** | Can be configured **per form factor** — a Record Page can have two separate variants, one tuned for **Desktop** (`Large`) and one for **Phone** (`Small`). This assignment is saved at the **app definition** level, not on the page itself. |
+| **Lightning App Page**    | **Not** form-factor-specific — only one App Page applies across every form factor, so its content must adapt internally (e.g. via `FORM_FACTOR` / `supportedFormFactors`) rather than relying on a separate mobile variant.                  |
+
+> 🙈 **Fully hiding a component** on a Lightning Record Page or Lightning App Page, depending on form factor, can be done two ways:
+>
+> 1. The `supportedFormFactors` tag in the component's `.js-meta.xml` (declarative, metadata-level).
+> 2. Component visibility rules configured in App Builder (page-level).
+
+> 🚫 **Navigation Items tabs cannot be hidden per form factor** — a tab is either visible on both **Desktop** and **Phone**, or on neither. The only option is to keep the tab visible everywhere and have its _content_ adapt to the form factor.

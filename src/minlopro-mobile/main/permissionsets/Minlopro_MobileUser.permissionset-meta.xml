@@ -3,4 +3,8 @@
     <description>Grants access to Salesforce Mobile App.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Minlopro - Mobile User</label>
+    <tabSettings>
+        <tab>SmsHub</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>
