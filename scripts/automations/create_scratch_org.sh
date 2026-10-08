@@ -73,39 +73,8 @@ $DEV_HUB_ALIAS
 $SCRATCH_ORG_ALIAS
 EOF
 
-# Import 'LightningLogger' event log files into CRM Analytics dataset
-bash scripts/util/event-monitoring/elf.sh \
-  --source-org-alias "$DEV_HUB_ALIAS" \
-  --event-type "LightningLogger" \
-  --mode "download-and-upload-to-dataset" \
-  --api-version 65.0 \
-  --folder "MinloproEventMonitoring" \
-  --elf-limit 50 \
-  --metadata "scripts/util/event-monitoring/event-metadata-json/LightningLogger-v65.0.json" \
-  --target-org-alias "$SCRATCH_ORG_ALIAS" && sleep 100
-
-# List CRM Analytics assets via Salesforce CLI plugin
-sf analytics app list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics dashboard list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics dataflow list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics dataset list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics lens list --target-org "$SCRATCH_ORG_ALIAS"; echo
-sf analytics recipe list --target-org "$SCRATCH_ORG_ALIAS"
-
-# Invoke CRM Analytics recipes
-invoke_recipes(){
-  local json_input="$1"
-  if echo "$json_input" | jq -e ".result" > /dev/null; then
-    array_length=$(echo "$json_input" | jq ".result | length")
-    if (( array_length > 0 )); then
-      echo "$json_input" | jq -c ".result[]" | while read -r record; do
-        recipe_id=$(echo "$record" | jq -r '.recipeid')
-        sf analytics recipe start -i "$recipe_id" -o "$SCRATCH_ORG_ALIAS" || true
-      done
-    fi
-  fi
-}
-invoke_recipes "$(sf analytics recipe list --target-org "$SCRATCH_ORG_ALIAS" --json)"
+# Configure CRM Analytics (import ELFs, list assets, invoke recipes)
+bash ./scripts/deploy/common/configure_crm_analytics.sh "$DEV_HUB_ALIAS" "$SCRATCH_ORG_ALIAS"
 
 # Check 'build' folder content
 tree "build" -L 1
