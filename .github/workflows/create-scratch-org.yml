@@ -69,6 +69,7 @@ jobs:
           scratchOrgAlias="${{ env.SCRATCH_ORG_ALIAS }}"
           scratchOrgInfo="$(sf org display --target-org "$scratchOrgAlias" --json --verbose)"
           scratchOrgInstanceUrl="$(echo "$scratchOrgInfo" | jq -r '.result.instanceUrl')"
+          scratchOrgFrontdoorUrl="$(echo "$scratchOrgAlias" | bash ./scripts/util/get_frontdoor_url.sh)"
           scratchOrgSfdxUrl="$(sf org auth show-sfdx-auth-url --target-org "$scratchOrgAlias" --json | jq -r '.result.sfdxAuthUrl')"
           scratchOrgBase64EncodedSfdxUrl="$(echo "$scratchOrgSfdxUrl" | base64)"
           scratchOrgPassword="$(sf org auth show-user-password --target-org "$scratchOrgAlias" --json | jq -r '.result.password')"
@@ -78,12 +79,14 @@ jobs:
           ### Scratch Org Admin Credentials 🔑
           
           \`\`\`bash
-          $scratchOrgAdminEmail ↔️ $scratchOrgPassword
-          \`\`\`
+          Instance URL: $scratchOrgInstanceUrl
+          Username: $scratchOrgAdminEmail
+          Password: $scratchOrgPassword
+          \`\`\`\
+          
+          **[One-Time-Frontdoor-Login-URL 🔗]($scratchOrgFrontdoorUrl)**
           
           ### Scratch Org Authentication Shortcut 💥
-          
-          **$scratchOrgInstanceUrl** 🔗
           
           To quickly authenticate with your scratch org, use this command in the Bash terminal:
           
@@ -93,7 +96,7 @@ jobs:
             sf org login sfdx-url --alias "\$scratchOrgAlias" --sfdx-url-stdin --set-default && \\
             sf config set target-org "\$scratchOrgAlias" && \\
             sf project reset tracking --target-org "\$scratchOrgAlias" --no-prompt && \\
-            sf org list && sf org display --target-org "\$scratchOrgAlias"
+            sf org display --target-org "\$scratchOrgAlias"
           \`\`\`
           EOF
       - name: "Run Apex Tests 🚇"
