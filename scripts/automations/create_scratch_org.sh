@@ -51,8 +51,10 @@ EOF
 # Run PRE-deploy scripts
 echo "$SCRATCH_ORG_ALIAS" | bash ./scripts/deploy/pre/run_pre.sh
 
-# Generate project manifest and initiate full deploy to scratch org (this automatically creates Digital Experience Site)
+# Generate project manifest
 npm run sf:manifest:create:full
+
+# Initiate full deploy to scratch org
 bash ./scripts/deploy/deploy.sh "$SCRATCH_ORG_ALIAS" "hard"
 
 # Create QA user
