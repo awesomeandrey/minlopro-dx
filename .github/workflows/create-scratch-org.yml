@@ -69,6 +69,7 @@ jobs:
           scratchOrgAlias="${{ env.SCRATCH_ORG_ALIAS }}"
           scratchOrgInfo="$(sf org display --target-org "$scratchOrgAlias" --json --verbose)"
           scratchOrgInstanceUrl="$(echo "$scratchOrgInfo" | jq -r '.result.instanceUrl')"
+          scratchOrgUsername="$(echo "$scratchOrgInfo" | jq -r '.result.username')"
           scratchOrgFrontdoorUrl="$(echo "$scratchOrgAlias" | bash ./scripts/util/get_frontdoor_url.sh)"
           scratchOrgSfdxUrl="$(sf org auth show-sfdx-auth-url --target-org "$scratchOrgAlias" --json | jq -r '.result.sfdxAuthUrl')"
           scratchOrgBase64EncodedSfdxUrl="$(echo "$scratchOrgSfdxUrl" | base64)"
@@ -79,9 +80,10 @@ jobs:
           ### Scratch Org Admin Credentials 🔑
           
           \`\`\`bash
-          Instance URL: $scratchOrgInstanceUrl
-          Username: $scratchOrgAdminEmail
+          Email: $scratchOrgAdminEmail
+          Username: $scratchOrgUsername
           Password: $scratchOrgPassword
+          Instance URL: $scratchOrgInstanceUrl
           \`\`\`\
           
           **[One-Time-Frontdoor-Login-URL 🔗]($scratchOrgFrontdoorUrl)**
