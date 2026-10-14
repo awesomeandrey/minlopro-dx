@@ -58,6 +58,9 @@
         "emailAdministrationSettings": {
             "enableEnhancedEmailEnabled": true
         },
+        "emailAuthorizationSettings": {
+            "enableSubstituteFromAddress": true
+        },
         "experienceBundleSettings": {
             "enableExperienceBundleMetadata": true
         },
