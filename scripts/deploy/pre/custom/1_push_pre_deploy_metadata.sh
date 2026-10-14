@@ -12,7 +12,7 @@ echo "🔵 Pushing PRE-DEPLOY metadata to [$TARGET_ORG_ALIAS] organization..."
 sf project generate manifest \
   --name "manifests/package.xml" \
   --metadata "Certificate:Minlopro" \
-  --metadata "ApexClass:AxiomSamlJitHandlerStub"
+  --metadata "ApexClass:MinloproSamlJitHandlerStub"
 
 npx dotenv -e "scripts/.env.manifest" -- sf project deploy start \
   --target-org "$TARGET_ORG_ALIAS" \

@@ -11,14 +11,14 @@ read -r -p "🔶 Enter target org alias: " targetOrgAlias
 
 stubApexClassId=$(
   sf data query \
-    --query "SELECT Id, Name FROM ApexClass WHERE Name = 'AxiomSamlJitHandlerStub' LIMIT 1" \
+    --query "SELECT Id, Name FROM ApexClass WHERE Name = 'MinloproSamlJitHandlerStub' LIMIT 1" \
     --target-org "$targetOrgAlias" \
     --json | jq -r '.result.records[0].Id'
 )
 
 apexClassId=$(
   sf data query \
-  --query "SELECT Id, Name FROM ApexClass WHERE Name = 'AxiomSamlJitHandler' LIMIT 1" \
+  --query "SELECT Id, Name FROM ApexClass WHERE Name = 'MinloproSamlJitHandler' LIMIT 1" \
   --target-org "$targetOrgAlias" \
   --json | jq -r '.result.records[0].Id'
 )

@@ -2,7 +2,7 @@
  * Used as a stub Apex Class during pre-deployment stage.
  */
 @SuppressWarnings('PMD')
-global without sharing class AxiomSamlJitHandlerStub implements Auth.SamlJitHandler {
+global without sharing class MinloproSamlJitHandlerStub implements Auth.SamlJitHandler {
     global User createUser(
         Id samlSsoProviderId,
         Id communityId,

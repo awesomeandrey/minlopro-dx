@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SamlSsoConfig xmlns="http://soap.sforce.com/2006/04/metadata">
+    <executionUserId>${SF_ADMIN_ID}</executionUserId>
+    <identityLocation>SubjectNameId</identityLocation>
+    <identityMapping>FederationId</identityMapping>
+    <issuer>https://portal.sso.eu-north-1.amazonaws.com/saml/assertion/Njg1OTE2NDk3ODMyX2lucy02NTA4MzM5MTljZTc3OTU4</issuer>
+    <loginUrl>https://portal.sso.eu-north-1.amazonaws.com/saml/assertion/Njg1OTE2NDk3ODMyX2lucy02NTA4MzM5MTljZTc3OTU4</loginUrl>
+    <name>AWS IAM Identity Center</name>
+    <oauthTokenEndpoint>${SF_INSTANCE_URL}/services/oauth2/token</oauthTokenEndpoint>
+    <redirectBinding>true</redirectBinding>
+    <requestSignatureMethod>1</requestSignatureMethod>
+    <requestSigningCertId>${SF_MINLOPRO_CERT_ID}</requestSigningCertId>
+    <salesforceLoginUrl>${SF_INSTANCE_URL}</salesforceLoginUrl>
+    <samlEntityId>${SF_INSTANCE_URL}</samlEntityId>
+    <samlJitHandlerId>${SF_MINLOPRO_JIT_HANDLER_ID}</samlJitHandlerId>
+    <samlVersion>SAML2_0</samlVersion>
+    <useConfigRequestMethod>true</useConfigRequestMethod>
+    <useSameDigestAlgoForSigning>true</useSameDigestAlgoForSigning>
+    <userProvisioning>true</userProvisioning>
+    <!--AWS IAM Identity Center Identity Provider Certificate-->
+    <validationCert>MIIDBzCCAe+gAwIBAgIFAJP5B0UwDQYJKoZIhvcNAQELBQAwRTEWMBQGA1UEAwwNYW1hem9uYXdzLmNvbTENMAsGA1UECwwESURBUzEPMA0GA1UECgwGQW1hem9uMQswCQYDVQQGEwJVUzAeFw0yNjEwMTQxNDIxMDBaFw0zMTEwMTQxNDIxMDBaMEUxFjAUBgNVBAMMDWFtYXpvbmF3cy5jb20xDTALBgNVBAsMBElEQVMxDzANBgNVBAoMBkFtYXpvbjELMAkGA1UEBhMCVVMwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDjyhnonccj1Z2NjQizCSJfABRPsgxTTrzFMvDEYbVUAGS4FJjL4GjDxFBJnrKsj8z0HnTo/ZO3wvYV/T9SWSzoAW1/aZYhjHjOrYku4Q7O1nE7EbaHprzH/cSmygXABBIRSMmLVJb3Sx9A3kAHkFYHD+YejkXY/mo5bUq3nNs8roboVT3qvASxhfO6fZlHwwlCUswMzyai9G2KEk6vBlSKJct7i+fZQH57qCOCj1tbAkuR2kYGR0lZvwVffaMWSJ9qetLpc8PQwMI5T+r1xIpUpUvHfIYVQ49pAyV3kFyF46ZGOwa7v3OfRAONPaoN3ZwBy7OfbXFfixZPeRymW++hAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAG22DQTXppCAZ+BCv8jI84rLsa5DSam7sEhEe+8YvV2HUoU1prnpI7C/WrLoydiYnPzuWGnJMMITSCZEIc6KdHT0q8ZM8e837JfA2CBrWf6yX0KUgIF0P7EhE2vGDumxVVn2fYQKeNrqaQ1+x9HFfM4bCjU3AXI6uB1zB2kbei6cCLbS6p5U6dSl1VUX2c26JeSoaDvKlNORkk7fajRv8WnWNx1u5Bm28CO0UR8cKtVHp674F0tcT+6KVWkmszWsjVp+nNI1da3jpMiMfFTGQLtxksyv8fuRcmYkGOg81gpJmEvai6a0fTSt67DEeU3At4Cs/Xv8EwbnoqcvhYYZfXY=</validationCert>
+</SamlSsoConfig>

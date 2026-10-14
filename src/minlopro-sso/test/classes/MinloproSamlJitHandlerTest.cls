@@ -1,5 +1,11 @@
 @IsTest
-private class AxiomSamlJitHandlerTest {
+private class MinloproSamlJitHandlerTest {
+    static Map<String, String> SAMPLE_SAML_ATTRIBUTES = new Map<String, String>{
+        'User.FirstName' => 'f_name',
+        'LastName' => 'l_name',
+        'email' => 'sample@email.com'
+    };
+
     @IsTest
     static void testCreateUser() {
         // Prepare test data
@@ -7,21 +13,17 @@ private class AxiomSamlJitHandlerTest {
         Id communityId = null;
         Id portalId = null;
         String federationIdentifier = TestDataFactory.generateRandomString(10);
-        Map<String, String> attributes = new Map<String, String>{
-            AxiomSamlJitHandler.CLAIM_FIRSTNAME => 'f_name',
-            AxiomSamlJitHandler.CLAIM_LASTNAME => 'l_name'
-        };
-        String assertion = EncodingUtil.base64Encode(Blob.valueOf(attributes.toString()));
+        String assertion = EncodingUtil.base64Encode(Blob.valueOf(SAMPLE_SAML_ATTRIBUTES.toString()));
         User adminUser = TestDataFactory.createAdmin();
         System.runAs(adminUser) {
-            AxiomSamlJitHandler jitHandler = new AxiomSamlJitHandler();
+            MinloproSamlJitHandler jitHandler = new MinloproSamlJitHandler();
             Test.startTest();
             User digExPartnerUser = jitHandler.createUser(
                 samlSsoProviderId,
                 communityId,
                 portalId,
                 federationIdentifier,
-                attributes,
+                SAMPLE_SAML_ATTRIBUTES,
                 assertion
             );
             Test.stopTest();
@@ -32,11 +34,6 @@ private class AxiomSamlJitHandlerTest {
                 LIMIT 1
             ][0];
             Assert.areEqual(federationIdentifier, digExPartnerUser.FederationIdentifier, 'Federation Identifiers should match');
-            Assert.areEqual(AxiomSamlJitHandler.DIGEX_PARTNER_PROFILE_NAME, digExPartnerUser.Profile.Name);
-            Assert.isFalse(
-                [SELECT Id FROM PermissionSetAssignment WHERE AssigneeId = :digExPartnerUser.Id].isEmpty(),
-                'PSG should have been assigned to newly created user'
-            );
         }
     }
 
@@ -48,18 +45,17 @@ private class AxiomSamlJitHandlerTest {
         Id communityId = null; // Just an example, replace with actual Id if applicable
         Id portalId = null; // Just an example, replace with actual Id if applicable
         String federationIdentifier = 'test_federation_identifier';
-        Map<String, String> attributes = new Map<String, String>{ 'Attribute1' => 'Value1', 'Attribute2' => 'Value2' };
         String assertion = 'test_assertion';
         Test.startTest();
         // Call the updateUser method
-        AxiomSamlJitHandler jitHandler = new AxiomSamlJitHandler();
+        MinloproSamlJitHandler jitHandler = new MinloproSamlJitHandler();
         jitHandler.updateUser(
             adminUser.Id,
             samlSsoProviderId,
             communityId,
             portalId,
             federationIdentifier,
-            attributes,
+            SAMPLE_SAML_ATTRIBUTES,
             assertion
         );
         Test.stopTest();

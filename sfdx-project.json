@@ -11,7 +11,8 @@
         { "path": "src/minlopro-integrations" },
         { "path": "src/minlopro-mcp" },
         { "path": "src/minlopro-mobile" },
-        { "path": "src/minlopro-omni-channel-setup" }
+        { "path": "src/minlopro-omni-channel-setup" },
+        { "path": "src/minlopro-sso" }
     ],
     "name": "minlopro-dx",
     "namespace": "",
@@ -41,8 +42,8 @@
         },
         {
             "glob": "src/**",
-            "stringToReplace": "${SF_AXIOM_JIT_HANDLER_ID}",
-            "replaceWithEnv": "SF_AXIOM_JIT_HANDLER_ID"
+            "stringToReplace": "${SF_MINLOPRO_JIT_HANDLER_ID}",
+            "replaceWithEnv": "SF_MINLOPRO_JIT_HANDLER_ID"
         },
         {
             "glob": "src/**",
