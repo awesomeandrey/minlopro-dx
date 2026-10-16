@@ -6,9 +6,79 @@
   "label" : "Login",
   "regions" : [ {
     "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "c:digExLoginForm",
-      "id" : "ffd4fac1-4f43-4c0e-a977-b4c860621526",
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "0070857b-4caf-40f2-aa25-c326af74de52",
+          "activeTab" : "",
+          "tabs" : [ {
+            "UUID" : "29613588-b694-4a4b-ab4d-ce014fe28ddb",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "1",
+            "tabName" : "Custom Login"
+          }, {
+            "UUID" : "ca35e7a8-7d1a-427e-a4a4-65708203b1d9",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "2",
+            "tabName" : "Standard Login"
+          } ],
+          "useOverflowMenu" : true
+        }
+      },
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "0070857b-4caf-40f2-aa25-c326af74de52",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : { },
+          "componentName" : "c:digExLoginForm",
+          "id" : "ffd4fac1-4f43-4c0e-a977-b4c860621526",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "29613588-b694-4a4b-ab4d-ce014fe28ddb",
+        "regionLabel" : "Custom Login",
+        "regionName" : "1",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "forgotPasswordLabel" : "Forgot your password?",
+            "forgotPasswordUrl" : "/ForgotPassword",
+            "loginButtonLabel" : "Log in",
+            "passwordLabel" : "Password",
+            "selfRegisterLabel" : "Not a member?",
+            "selfRegisterUrl" : "/SelfRegister",
+            "startUrl" : "",
+            "usernameLabel" : "Username"
+          },
+          "componentName" : "salesforceIdentity:loginForm2",
+          "id" : "3d5dc0f0-213f-4829-971c-38f1da387467",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        }, {
+          "componentAttributes" : {
+            "headerText" : "",
+            "showHeader" : false,
+            "useCommunityDomainSso" : true
+          },
+          "componentName" : "salesforceIdentity:socialLogin2",
+          "id" : "554562d6-3a66-4b69-ba42-710cdf3f67a7",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "ca35e7a8-7d1a-427e-a4a4-65708203b1d9",
+        "regionLabel" : "Standard Login",
+        "regionName" : "2",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
