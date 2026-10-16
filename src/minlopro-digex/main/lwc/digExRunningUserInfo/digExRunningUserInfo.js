@@ -3,10 +3,9 @@ import { cloneObject, isEmpty, isNotEmpty, parseError, to } from 'c/utilities';
 import { AuthConfig, getAuthConfigs } from 'c/digExUtil';
 import toastify from 'c/toastify';
 
-// Apex;
 import getUserInfoByIdApex from '@salesforce/apex/SystemInfoController.getUserInfoById';
+import getRunningUserInfoAsPdfApex from '@salesforce/apex/SystemInfoController.getRunningUserInfoAsPdf';
 
-// Props;
 import $UserId from '@salesforce/user/Id';
 import $IsGuest from '@salesforce/user/isGuest';
 
@@ -75,7 +74,8 @@ export default class DigExRunningUserInfo extends LightningElement {
             { name: 'Name', value: userInfo.Name },
             { name: 'Email', value: userInfo.Email },
             { name: 'Profile', value: userInfo?.Profile?.Name },
-            { name: 'User Type', value: userInfo?.UserType }
+            { name: 'User Type', value: userInfo?.UserType },
+            { name: 'Title', value: userInfo?.Title }
         ];
     }
 
@@ -86,5 +86,20 @@ export default class DigExRunningUserInfo extends LightningElement {
             { name: 'Self Registration URL', value: authConfigs[AuthConfig.SelfRegistrationUrl] },
             { name: 'Forgot Password URL', value: authConfigs[AuthConfig.ForgotPasswordUrl] }
         ];
+    }
+
+    async handleDownloadUserInfo(event) {
+        event.preventDefault();
+        const [error, encodedBlob] = await to(getRunningUserInfoAsPdfApex());
+        if (isNotEmpty(error)) {
+            const { message } = parseError(error);
+            toastify.error({ message }, this);
+            return;
+        }
+        const finalUrl = `data:application/pdf;base64,${encodedBlob}`;
+        const linkElement = this.refs.downloadLink;
+        linkElement.href = finalUrl;
+        linkElement.download = 'Minlopro DigEx User Info.pdf';
+        linkElement.click();
     }
 }

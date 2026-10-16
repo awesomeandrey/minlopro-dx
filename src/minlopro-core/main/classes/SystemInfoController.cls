@@ -34,6 +34,7 @@ public without sharing class SystemInfoController {
                     Email,
                     Username,
                     UserType,
+                    Title,
                     IsPortalEnabled,
                     ProfileId,
                     Profile.Name,

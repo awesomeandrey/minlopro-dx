@@ -16,14 +16,14 @@
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "1",
-            "tabName" : "Custom (LWC)"
+            "tabName" : "Custom Registration"
           }, {
             "UUID" : "e28aacde-5dc7-4005-98f7-bd2aa5e44847",
             "allowGuestUser" : true,
             "locked" : false,
             "seedComponents" : [ ],
             "tabKey" : "2",
-            "tabName" : "Out-Of-Box (Aura)"
+            "tabName" : "Standard Registration"
           } ],
           "useOverflowMenu" : true
         }
@@ -40,7 +40,7 @@
           "type" : "component"
         } ],
         "id" : "c5295efc-7127-4df3-9dde-2e8509fa2a35",
-        "regionLabel" : "Custom (LWC)",
+        "regionLabel" : "Custom Registration",
         "regionName" : "1",
         "renditionMap" : { },
         "type" : "region"
@@ -65,7 +65,7 @@
           "type" : "component"
         } ],
         "id" : "e28aacde-5dc7-4005-98f7-bd2aa5e44847",
-        "regionLabel" : "Out-Of-Box (Aura)",
+        "regionLabel" : "Standard Registration",
         "regionName" : "2",
         "renditionMap" : { },
         "type" : "region"

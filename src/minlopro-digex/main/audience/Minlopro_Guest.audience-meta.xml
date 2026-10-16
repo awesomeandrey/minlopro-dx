@@ -16,4 +16,12 @@
     </criteria>
     <formulaFilterType>AllCriteriaMatch</formulaFilterType>
     <isDefaultAudience>false</isDefaultAudience>
+    <targets>
+        <target>
+            <groupName>4524c642-fc12-46c3-a850-f1494e4393d8$#$19a50a30-3a60-497a-90ce-f0afe584b3cf</groupName>
+            <priority>1</priority>
+            <targetType>ExperienceVariation</targetType>
+            <targetValue>Home_Tab_Layout_New_Component</targetValue>
+        </target>
+    </targets>
 </Audience>
