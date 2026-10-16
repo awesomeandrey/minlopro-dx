@@ -10,18 +10,18 @@
     "type" : "region"
   }, {
     "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "c:digExWelcome",
+      "id" : "256aa31b-6ec4-4dcb-94b3-8dde98bec4ee",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    }, {
       "componentAttributes" : {
         "tabsetConfig" : {
           "UUID" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
           "activeTab" : "",
           "tabs" : [ {
-            "UUID" : "5dbb890a-cbeb-4650-97e5-269d8afef1a2",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "bbfe8",
-            "tabName" : "Welcome 👋"
-          }, {
             "UUID" : "c4fb8407-94c2-455b-841b-f31f32bfcd88",
             "allowGuestUser" : true,
             "locked" : false,
@@ -42,20 +42,6 @@
       "componentName" : "forceCommunity:tabLayout",
       "id" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
       "regions" : [ {
-        "components" : [ {
-          "componentAttributes" : { },
-          "componentName" : "c:digExWelcome",
-          "id" : "1ddba420-1995-491f-b447-76e7f5b59720",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "5dbb890a-cbeb-4650-97e5-269d8afef1a2",
-        "regionLabel" : "Welcome 👋",
-        "regionName" : "bbfe8",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
         "components" : [ {
           "componentAttributes" : { },
           "componentName" : "c:digExWebToLeadForm",

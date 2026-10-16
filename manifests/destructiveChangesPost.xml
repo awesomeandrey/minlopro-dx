@@ -10,8 +10,51 @@
         <name>ApexClass</name>
     </types>
     <types>
+        <members>Minlopro_Google_Maps_User</members>
+        <name>Audience</name>
+    </types>
+    <types>
         <members>MinloproLoopback</members>
         <name>AuthProvider</name>
+    </types>
+    <types>
+        <members>DigEx</members>
+        <name>BrandingSet</name>
+    </types>
+    <types>
+        <members>DigEx</members>
+        <name>CommunityTemplateDefinition</name>
+    </types>
+    <types>
+        <members>DigEx</members>
+        <name>CommunityThemeDefinition</name>
+    </types>
+    <types>
+        <members>DigEx_Canvasapp_Page</members>
+        <members>DigEx_Check_Password</members>
+        <members>DigEx_Create_Record</members>
+        <members>DigEx_Error</members>
+        <members>DigEx_Forgot_Password</members>
+        <members>DigEx_Home</members>
+        <members>DigEx_Login</members>
+        <members>DigEx_Login_Error</members>
+        <members>DigEx_Record_Detail</members>
+        <members>DigEx_Record_List</members>
+        <members>DigEx_Register</members>
+        <members>DigEx_Related_Record_List</members>
+        <members>DigEx_Search</members>
+        <members>DigEx_Service_Not_Available</members>
+        <members>DigEx_Sfdc_Page</members>
+        <members>DigEx_themeLayout_Default</members>
+        <members>DigEx_themeLayout_Login</members>
+        <members>DigEx_themeLayout_Minlopro_Theme</members>
+        <members>DigEx_themeLayout_ServiceNotAvailable</members>
+        <members>DigEx_Too_Many_Requests</members>
+        <name>FlexiPage</name>
+    </types>
+    <types>
+        <members>runningUserInfoGenerator</members>
+        <name>LightningComponentBundle</name>
     </types>
     <types>
         <members>Axiom2</members>
