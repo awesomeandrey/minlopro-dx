@@ -35,13 +35,6 @@
             "seedComponents" : [ ],
             "tabKey" : "4e5c5",
             "tabName" : "Web-To-Case 🙋"
-          }, {
-            "UUID" : "d9ac2986-0384-4e44-8f79-c2e5729821c8",
-            "allowGuestUser" : true,
-            "locked" : false,
-            "seedComponents" : [ ],
-            "tabKey" : "4becd",
-            "tabName" : "My User Details 👤"
           } ],
           "useOverflowMenu" : true
         }
@@ -88,31 +81,6 @@
         "id" : "e2c14eb9-ff72-43f8-a063-25e557501797",
         "regionLabel" : "Web-To-Case 🙋",
         "regionName" : "4e5c5",
-        "renditionMap" : { },
-        "type" : "region"
-      }, {
-        "components" : [ {
-          "componentAttributes" : {
-            "height" : "500",
-            "pageName" : "digex_RunningUserInfoAsPdf",
-            "recordId" : "{!recordId}"
-          },
-          "componentName" : "forceCommunity:visualforcePage",
-          "id" : "7d3da208-fae9-416c-8887-02760d9ff582",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        }, {
-          "componentAttributes" : { },
-          "componentName" : "c:runningUserInfoGenerator",
-          "id" : "67408ae3-8fb1-45c7-9e99-fa1b1d346a87",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "d9ac2986-0384-4e44-8f79-c2e5729821c8",
-        "regionLabel" : "My User Details 👤",
-        "regionName" : "4becd",
         "renditionMap" : { },
         "type" : "region"
       } ],
