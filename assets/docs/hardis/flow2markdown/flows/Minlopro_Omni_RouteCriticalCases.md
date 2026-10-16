@@ -229,7 +229,7 @@ classDef transforms fill:#FDEAF6,color:black,text-decoration:none,max-height:100
 
 |Condition Id|Left Value Reference|Operator|Right Value|
 |:-- |:-- |:--:|:--: |
-|1|[Target_Case](#target_case)|Is Null|⬜|
+|1|[Target_Case](#target_case)|Is Null|False|
 |2|isCriticalCase|Equal To|✅|
 
 
