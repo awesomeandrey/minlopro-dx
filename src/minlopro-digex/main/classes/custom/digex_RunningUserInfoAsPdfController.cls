@@ -6,14 +6,17 @@ public with sharing class digex_RunningUserInfoAsPdfController {
         this.userInfoItems = new List<UserInfoItem>();
 
         // Specify the name for the PDF file generated;
-        ApexPages.currentPage().getHeaders().put('Content-Disposition', 'inline; filename=Minlopro_DigEx_UserInfo_VF.pdf');
+        ApexPages.currentPage().getHeaders().put('Content-Disposition', 'inline; filename=Minlopro DigEx User Info (VF).pdf');
     }
 
     public void doLoadCurrentUserInfo() {
         this.currentUser = SystemInfoController.getUserInfoById(UserInfo.getUserId());
-        List<String> userFieldNames = new List<String>{ 'Name', 'ProfileId', 'Email', 'Username', 'UserType' };
-        for (String fieldName : userFieldNames) {
-            this.userInfoItems.add(new UserInfoItem(fieldName, (String) this.currentUser.get(fieldName)));
+        Map<String, Object> fieldsAsMap = this.currentUser.getPopulatedFieldsAsMap();
+        for (String fieldName : fieldsAsMap.keySet()) {
+            Object fieldValue = fieldsAsMap.get(fieldName);
+            if (fieldValue != null) {
+                this.userInfoItems.add(new UserInfoItem(fieldName, fieldValue.toString()));
+            }
         }
     }
 

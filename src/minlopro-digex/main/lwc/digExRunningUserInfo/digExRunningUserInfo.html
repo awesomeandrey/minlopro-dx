@@ -13,14 +13,12 @@
                         icon-name="standard:customer_portal_users"
                         expanded={sectionsExpanded}
                     >
-                        <div class="slds-p-top_x-small">
-                            <a class="slds-hidden" target="_blank" lwc:ref="downloadLink"></a>
-                            <lightning-button
-                                label="Download"
-                                icon-name="utility:download"
-                                onclick={handleDownloadUserInfo}
-                            ></lightning-button>
-                        </div>
+                        <a class="slds-hidden" target="_blank" lwc:ref="downloadLink"></a>
+                        <lightning-button
+                            label="Download"
+                            icon-name="utility:download"
+                            onclick={handleDownloadUserInfo}
+                        ></lightning-button>
                     </c-stats>
                 </lightning-layout-item>
                 <lightning-layout-item size="12">

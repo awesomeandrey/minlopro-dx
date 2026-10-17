@@ -16,7 +16,7 @@
                 ></lightning-button-icon>
             </h3>
             <template lwc:if={isExpanded}>
-                <div class="slds-tile__detail slds-text-body_small">
+                <div class="slds-tile__detail slds-text-body_small slds-p-vertical_x-small">
                     <dl class="slds-dl_horizontal slds-wrap">
                         <template for:each={statsAsUniqueEntries} for:item="entryItem">
                             <template lwc:if={entryItem.isKey}>
