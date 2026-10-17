@@ -72,10 +72,15 @@ export default class DigExRunningUserInfo extends LightningElement {
         this.userName = userInfo.Name;
         this.userInfoItems = [
             { name: 'Name', value: userInfo.Name },
+            { name: 'Username', value: userInfo.Username },
             { name: 'Email', value: userInfo.Email },
             { name: 'Profile', value: userInfo?.Profile?.Name },
+            { name: 'Title', value: userInfo?.Title },
+            { name: 'Portal Enabled?', value: userInfo?.IsPortalEnabled },
             { name: 'User Type', value: userInfo?.UserType },
-            { name: 'Title', value: userInfo?.Title }
+            { name: 'User Role', value: userInfo?.UserRole?.Name },
+            { name: 'Account ID', value: userInfo?.AccountId },
+            { name: 'Contact ID', value: userInfo?.ContactId }
         ];
     }
 

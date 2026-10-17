@@ -13,4 +13,4 @@ if (sitesList.isEmpty()) {
 final User guestUser = sitesList[0].GuestUser;
 
 PermissionSetService service = PermissionSetService.getInstance();
-service.assign(guestUser.Id, Sets.of('Minlopro_PSG_DigExUser'));
+service.assign(guestUser.Id, Sets.of('Minlopro_DigExGuestUser', 'Minlopro_PSG_DigExUser'));
