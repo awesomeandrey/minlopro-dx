@@ -13,7 +13,7 @@ public without sharing class ScriptWorker {
             Id = adminUserId,
             UserRoleId = adminRole.Id,
             FirstName = 'Minlopro',
-            LastName = 'Admin',
+            LastName = 'Admin 👨🏻‍💻',
             Title = 'Administrator',
             UserPreferencesUserDebugModePref = true,
             Country = 'United States',
