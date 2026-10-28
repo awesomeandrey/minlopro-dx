@@ -63,8 +63,8 @@
           "type" : "component"
         }, {
           "componentAttributes" : {
-            "headerText" : "",
-            "showHeader" : false,
+            "headerText" : "Single Sign-On",
+            "showHeader" : true,
             "useCommunityDomainSso" : true
           },
           "componentName" : "salesforceIdentity:socialLogin2",
