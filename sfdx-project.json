@@ -130,6 +130,16 @@
             "glob": "src/**",
             "stringToReplace": "${SF_SITE_URL}",
             "replaceWithEnv": "SF_SITE_URL"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_SSO__AWS_ISSUER_OR_LOGIN_URL}",
+            "replaceWithEnv": "SF_SSO__AWS_ISSUER_OR_LOGIN_URL"
+        },
+        {
+            "glob": "src/**",
+            "stringToReplace": "${SF_SSO__AWS_VALIDATION_CERT_BASE64_VALUE}",
+            "replaceWithEnv": "SF_SSO__AWS_VALIDATION_CERT_BASE64_VALUE"
         }
     ]
 }
