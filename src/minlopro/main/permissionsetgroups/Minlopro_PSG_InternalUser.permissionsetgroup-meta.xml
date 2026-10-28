@@ -2,7 +2,7 @@
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>PSG for internal users only.</description>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Minlopro - PSG - Internal User</label>
+    <label>Minlopro - PSG - Internal User 👤</label>
     <mutingPermissionSets>InternalUser_MutedPermissions</mutingPermissionSets>
     <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_ApprovalProcessBreakdown</permissionSets>

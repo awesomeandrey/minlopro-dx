@@ -21,7 +21,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="slds-m-vertical_medium slds-theme_shade">{!v.body}</div>
+                <div class="slds-p-vertical_small slds-m-vertical_small slds-theme_shade">{!v.body}</div>
                 <div
                     class="slds-p-around_medium minlopro-bg"
                     style="{!'background-image: url(' + $Resource.CommonsAssets + '/wallpapers/slds-v2-bg-2.jpg' + ');'}"

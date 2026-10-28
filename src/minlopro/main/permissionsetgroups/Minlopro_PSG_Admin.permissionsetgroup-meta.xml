@@ -2,7 +2,7 @@
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>PSG for admin users only.</description>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Minlopro - PSG - Admin</label>
+    <label>Minlopro - PSG - Admin ⭐</label>
     <mutingPermissionSets>AdminUser_MutedPermissions</mutingPermissionSets>
     <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_Admin</permissionSets>

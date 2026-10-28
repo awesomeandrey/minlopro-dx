@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EndDate__c</fullName>
+    <defaultValue>TODAY() + 2</defaultValue>
+    <description>Leave request end date.</description>
+    <inlineHelpText>Leave request end date.</inlineHelpText>
+    <label>End Date</label>
+    <required>true</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Submitter__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Person initiating the leave request.</description>
+    <inlineHelpText>Person initiating the leave request.</inlineHelpText>
+    <label>Submitter</label>
+    <referenceTo>User</referenceTo>
+    <relationshipName>LeaveRequests</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

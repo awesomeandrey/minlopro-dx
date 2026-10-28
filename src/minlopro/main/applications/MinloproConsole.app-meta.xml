@@ -20,6 +20,24 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>LeaveRequest_DefaultPage</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>LeaveRequest__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>LeaveRequest_DefaultPage</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>LeaveRequest__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Account_DefaultPage</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
@@ -151,6 +169,7 @@
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
     <tabs>standard-Opportunity</tabs>
+    <tabs>LeaveRequest__c</tabs>
     <tabs>SmsHub</tabs>
     <tabs>SalesforceContact__x</tabs>
     <tabs>standard-Case</tabs>
@@ -175,13 +194,16 @@
             <tab>Knowledge__kav</tab>
         </mappings>
         <mappings>
+            <tab>LeaveRequest__c</tab>
+        </mappings>
+        <mappings>
             <tab>LogsMonitor</tab>
         </mappings>
         <mappings>
-            <tab>SmsHub</tab>
+            <tab>SalesforceContact__x</tab>
         </mappings>
         <mappings>
-            <tab>SalesforceContact__x</tab>
+            <tab>SmsHub</tab>
         </mappings>
         <mappings>
             <tab>Workspace</tab>
