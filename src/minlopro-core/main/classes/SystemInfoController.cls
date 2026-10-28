@@ -21,7 +21,7 @@ public without sharing class SystemInfoController {
         }
     }
 
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled(cacheable=true)
     public static User getUserInfoById(Id userId) {
         if (String.isBlank(userId)) {
             userId = UserInfo.getUserId();
@@ -40,7 +40,11 @@ public without sharing class SystemInfoController {
                     Profile.Name,
                     Profile.UserLicense.Name,
                     UserRoleId,
-                    UserRole.Name
+                    UserRole.Name,
+                    AccountId,
+                    Account.Name,
+                    ContactId,
+                    Contact.Name
                 FROM User
                 WHERE Id = :userId
                 LIMIT 1
@@ -65,7 +69,7 @@ public without sharing class SystemInfoController {
         }
     }
 
-    @AuraEnabled(Cacheable=true)
+    @AuraEnabled(cacheable=true)
     public static Boolean isSandbox() {
         try {
             Organization org = [SELECT IsSandbox, OrganizationType, InstanceName FROM Organization LIMIT 1];

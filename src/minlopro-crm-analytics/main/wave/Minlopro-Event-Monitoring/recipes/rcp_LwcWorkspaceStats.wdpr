@@ -1,5 +1,5 @@
 {
-  "version" : "66.0",
+  "version" : "68.0",
   "nodes" : {
     "OUTPUT0" : {
       "action" : "save",
@@ -35,7 +35,7 @@
     },
     "JOIN0" : {
       "action" : "join",
-      "sources" : [ "LOAD_DATASET2", "LOAD_DATASET1" ],
+      "sources" : [ "LOAD_DATASET3", "LOAD_DATASET1" ],
       "schema" : {
         "fields" : [ ],
         "slice" : {
@@ -135,15 +135,15 @@
         } ]
       }
     },
-    "LOAD_DATASET2" : {
+    "LOAD_DATASET3" : {
       "action" : "load",
       "sources" : [ ],
       "parameters" : {
         "fields" : [ "CLIENT_IP", "SDK_APP_VERSION", "CONNECTION_TYPE", "EVENT_TYPE", "APP_NAME", "USER_ID", "OS_NAME", "REQUEST_ID", "CLIENT_GEO", "UI_EVENT_RELATIVE_TIMESTAMP", "ORGANIZATION_ID", "MESSAGE", "CLIENT_ID", "BROWSER_VERSION", "DEVICE_PLATFORM", "SDK_VERSION", "TIMESTAMP", "DEVICE_MODEL", "UI_ROOT_ACTIVITY_ID", "USER_ID_DERIVED", "PAGE_ENTITY_TYPE", "SESSION_KEY", "PAGE_CONTEXT", "DEVICE_SESSION_ID", "PAGE_URL", "TIMESTAMP_DERIVED", "PAGE_ENTITY_ID", "USER_TYPE", "BROWSER_NAME", "OS_VERSION", "LOGIN_KEY", "SDK_APP_TYPE", "UI_EVENT_TIMESTAMP" ],
         "dataset" : {
           "type" : "analyticsDataset",
-          "label" : "ELF - LightningLogger (v65.0)",
-          "name" : "ds_elf_LightningLogger_v65"
+          "label" : "ELF - LightningLogger (v68.0)",
+          "name" : "ds_elf_LightningLogger_v68"
         },
         "sampleDetails" : {
           "type" : "TopN",
@@ -216,8 +216,8 @@
         "top" : 112,
         "left" : 392
       },
-      "LOAD_DATASET2" : {
-        "label" : "ELF - LightningLogger (v65.0)",
+      "LOAD_DATASET3" : {
+        "label" : "ELF - LightningLogger (v68.0)",
         "type" : "LOAD_DATASET",
         "top" : 252,
         "left" : 112,
@@ -227,7 +227,7 @@
       }
     },
     "connectors" : [ {
-      "source" : "LOAD_DATASET2",
+      "source" : "LOAD_DATASET3",
       "target" : "JOIN0"
     }, {
       "source" : "TRANSFORM0",

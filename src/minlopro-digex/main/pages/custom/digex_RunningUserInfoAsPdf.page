@@ -25,9 +25,8 @@
     </head>
     <body class="slds-scope">
         <div class="slds-text-heading_medium slds-text-align_center">
-            Hi, <span class="slds-text-color_success">{!currentUser.Name}</span>
+            Hi, <b><span class="slds-text-color_success">{!currentUser.Name}</span></b>
         </div>
-        <p>Ukrainian: Українска Мова</p>
         <apex:dataTable
             value="{!userInfoItems}"
             var="infoItem"
@@ -39,11 +38,11 @@
                 <div class="slds-text-title_caps slds-m-vertical_x-small slds-text-align_center">Your Information</div>
             </apex:facet>
             <apex:column>
-                <apex:facet name="header">Field Name</apex:facet>
+                <apex:facet name="header"><b>Field Name</b></apex:facet>
                 <apex:outputText value="{!infoItem.field}" />
             </apex:column>
             <apex:column>
-                <apex:facet name="header">Field value</apex:facet>
+                <apex:facet name="header"><b>Field Value</b></apex:facet>
                 <apex:outputText value="{!infoItem.value}" />
             </apex:column>
         </apex:dataTable>
