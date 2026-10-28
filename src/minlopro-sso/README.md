@@ -86,3 +86,16 @@ itself, not declared anywhere in `SamlSsoConfig` metadata. See
 `MinloproSamlJitHandler.DigExPartnerUserBuilder.validate()`, which throws if `FirstName`,
 `LastName`, or `Email` weren't resolved from the incoming attributes — so changing what's
 mandatory means editing the handler, not the SSO config.
+
+### 🚫 Emojis in the SAML assertion silently break the transaction
+
+When using **AWS IAM Identity Center** as the IdP and a Salesforce **Experience Site** as the SP,
+the SAML assertion markup must not contain emoji characters anywhere in its XML (e.g. in an
+attribute value). If it does, the login transaction fails on the Salesforce side — but the
+failure is **not** surfaced in debug logs, making the root cause effectively invisible from the
+Salesforce side alone.
+
+This was identified empirically using the Axiom IdP simulator combined with manual SAML markup
+generation — by hand-crafting assertions with and without emoji content and comparing outcomes.
+If an SSO transaction is failing with no corresponding error in debug logs, check the assertion
+payload for emoji characters before investigating further.

@@ -104,7 +104,7 @@ global without sharing class MinloproSamlJitHandler implements Auth.SamlJitHandl
         public RuntimeContext withSamlSsoProviderId(Id samlSsoProviderId) {
             // The ID of the SamlSsoConfig standard object
             List<SamlSsoConfig> configs = [
-                SELECT DeveloperName, IdentityLocation, IdentityMapping, Issuer
+                SELECT MasterLabel, DeveloperName, IdentityLocation, IdentityMapping, Issuer
                 FROM SamlSsoConfig
                 WHERE Id = :samlSsoProviderId
                 LIMIT 1
@@ -170,6 +170,7 @@ global without sharing class MinloproSamlJitHandler implements Auth.SamlJitHandl
             this.user = new User();
             this.user.Profile = new Profile(Name = 'DigEx Partner');
             this.user.IsActive = true;
+            this.user.Department = String.format('Origin = {0}', Lists.of(ctx.samlSsoProvider.MasterLabel));
             this.withFirstName(ctx.getAttribute('User.FirstName'))
                 .withFirstName(ctx.getAttribute('FirstName'))
                 .withFirstName(ctx.getAttribute('firstName'))
