@@ -99,3 +99,12 @@ This was identified empirically using the Axiom IdP simulator combined with manu
 generation — by hand-crafting assertions with and without emoji content and comparing outcomes.
 If an SSO transaction is failing with no corresponding error in debug logs, check the assertion
 payload for emoji characters before investigating further.
+
+### 🆔 Verify the JIT handler ID resolves to the real class, not the stub
+
+This package ships **two** `Auth.SamlJitHandler` implementations: `MinloproSamlJitHandlerStub`,
+deployed first as a pre-deploy step purely so `SamlSsoConfig.samlJitHandlerId` has _some_ valid
+Apex class to reference before the real logic exists, and `MinloproSamlJitHandler`, the real
+implementation, deployed afterward. The `${SF_MINLOPRO_JIT_HANDLER_ID}` replacement variable is
+resolved once via `scripts/deploy/pre/env-var-scripts/get_jit_handler_id.sh`, which looks up
+`MinloproSamlJitHandler` and only falls back to the stub's Id if the real class can't be found yet.

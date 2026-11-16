@@ -245,7 +245,10 @@ global without sharing class MinloproSamlJitHandler implements Auth.SamlJitHandl
             // Computed fields
             this.user.Username = String.format(
                 '{0}{1}@partner.digex.edu',
-                Lists.of(this.user.FirstName.toLowerCase(), this.user.LastName.toLowerCase())
+                Lists.of(
+                    this.user.FirstName.toLowerCase().deleteWhitespace(),
+                    this.user.LastName.toLowerCase().deleteWhitespace()
+                )
             );
             this.user.CommunityNickname = this.user.Username;
             this.user.Alias = (this.user.FirstName + '.' + this.user.LastName).toLowerCase().substring(0, 8);
