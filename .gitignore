@@ -38,6 +38,7 @@ manifests/package.xml
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+**/snippets*
 
 # Default SFDX folder for pulled metadata
 **/minlopro-default/default/
@@ -53,3 +54,7 @@ hardis-report/
 # Claude MCP Produce
 .claude/hook-logs/
 .*-mcp/
+
+# Python (AWS Lambda code)
+**/__pycache__/
+.pytest_cache/

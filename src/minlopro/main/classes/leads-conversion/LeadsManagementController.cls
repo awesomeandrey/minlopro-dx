@@ -40,9 +40,6 @@ public with sharing class LeadsManagementController {
             return JSON.serialize(convertResult);
         } catch (Exception ex) {
             Logger.error(ex);
-            Logger.error(ex.getMessage());
-            Logger.error(ex.getStackTraceString());
-            Logger.error(ex.getTypeName());
             throw new AuraHandledException(ex.getMessage());
         }
     }

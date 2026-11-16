@@ -5,6 +5,10 @@
         <visible>true</visible>
     </applicationVisibilities>
     <classAccesses>
+        <apexClass>AwsSentimentAnalysisController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>DatatableContactsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -21,6 +25,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <description>Grants access to Minlopro app and its features.</description>
+    <externalCredentialPrincipalAccesses>
+        <enabled>true</enabled>
+        <externalCredentialPrincipal>AwsCognito-USER</externalCredentialPrincipal>
+    </externalCredentialPrincipalAccesses>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.AccountNumber</field>

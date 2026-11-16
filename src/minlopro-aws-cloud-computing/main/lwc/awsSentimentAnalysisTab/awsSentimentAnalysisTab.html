@@ -1,0 +1,76 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-aws-sentiment-analysis-tab</code></span>
+        <lightning-button-group slot="actions">
+            <lightning-button label="Detect" disabled={disableDetectBtn} onclick={handleDetect}></lightning-button>
+            <lightning-button label="Reset" onclick={handleReset}></lightning-button>
+        </lightning-button-group>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+        <lightning-layout horizontal-align="center">
+            <lightning-layout-item size="12" small-device-size="10" medium-device-size="8" large-device-size="6">
+                <lightning-textarea
+                    lwc:ref="text"
+                    label="Text to detect sentiment for"
+                    value={text}
+                    placeholder="Type in sentence(s) with positive/negative/neutral sentiment"
+                    required
+                    min-length="20"
+                    max-length="300"
+                    message-when-bad-input="Bad input detected."
+                    message-when-value-missing="Text field is mandatory."
+                    message-when-too-long="A maximum of 300 characters are allowed in a tweet."
+                    onchange={handleTextChange}
+                ></lightning-textarea>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout horizontal-align="center">
+            <lightning-layout-item flexibility="no-grow" padding="around-small">
+                <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_x-small">Try an example:</p>
+                <template for:each={templates} for:item="template">
+                    <lightning-button
+                        key={template.id}
+                        data-id={template.id}
+                        label={template.buttonLabel}
+                        variant={template.variant}
+                        icon-name={template.iconName}
+                        class="slds-m-horizontal_xx-small"
+                        onclick={handleSelectTemplate}
+                    ></lightning-button>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout lwc:if={sentimentResult} horizontal-align="center">
+            <lightning-layout-item
+                size="12"
+                small-device-size="10"
+                medium-device-size="8"
+                large-device-size="6"
+                padding="around-small"
+            >
+                <div class="slds-align_absolute-center slds-p-bottom_small">
+                    <lightning-icon
+                        icon-name={sentimentResult.iconName}
+                        variant={sentimentResult.iconVariant}
+                        size="small"
+                        class="slds-m-right_x-small"
+                    ></lightning-icon>
+                    <lightning-badge label={sentimentResult.label} class={sentimentResult.badgeClass}></lightning-badge>
+                </div>
+                <template for:each={sentimentResult.scores} for:item="score">
+                    <div key={score.key} class="slds-p-vertical_xx-small">
+                        <div class="slds-grid slds-grid_align-spread">
+                            <span class="slds-text-body_small">{score.label}</span>
+                            <span class="slds-text-body_small slds-text-color_weak">{score.percent}%</span>
+                        </div>
+                        <lightning-progress-bar value={score.percent} size="small"></lightning-progress-bar>
+                    </div>
+                </template>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout horizontal-align="center">
+            <lightning-layout-item flexibility="no-grow">
+                <c-error-alert value={error}></c-error-alert>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>
