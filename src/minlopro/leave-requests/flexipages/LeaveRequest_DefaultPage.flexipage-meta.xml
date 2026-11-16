@@ -4,16 +4,37 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Edit</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>LeaveRequest__c.SubmitForApproval</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Status__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Draft</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Delete</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>collapsed</name>
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsConfiguration</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>enableActionsInNative</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>hideChatterActions</name>
@@ -25,7 +46,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>numVisibleActions</name>
-                    <value>1</value>
+                    <value>2</value>
                 </componentInstanceProperties>
                 <componentName>force:highlightsPanel</componentName>
                 <identifier>force_highlightsPanel</identifier>
@@ -35,7 +56,7 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>hideUpdateButton</name>
-                    <value>false</value>
+                    <value>true</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>variant</name>
@@ -50,6 +71,12 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentName>runtime_approvals:approvalTrace</componentName>
+                <identifier>runtime_approvals_approvalTrace</identifier>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -142,14 +169,32 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>runtime_approvals:approvalTrace</componentName>
-                <identifier>runtime_approvals_approvalTrace</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentName>itsm_employee_service:approvalTrace</componentName>
-                <identifier>itsm_employee_service_approvalTrace</identifier>
+                <componentInstanceProperties>
+                    <name>componentLabel</name>
+                    <value>Work Guide</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isHiddenWhenEmpty</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isRunNameDisplayed</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isStageNameDisplayed</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>isStepNameDisplayed</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>prioritizationCriteria</name>
+                    <value>Last Modified Date (Ascending)</value>
+                </componentInstanceProperties>
+                <componentName>interaction_orchestrator:workGuide</componentName>
+                <identifier>interaction_orchestrator_workGuide</identifier>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

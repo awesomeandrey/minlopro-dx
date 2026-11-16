@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <description>Utility flow referenced in Flow Approval Process.</description>
+    <environments>Default</environments>
+    <interviewLabel>Minlopro - Leave Request - Update Record {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Minlopro - Leave Request - Update Record</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Leave_Request</name>
+        <label>Update Leave Request</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>StatusComment__c</field>
+            <value>
+                <elementReference>statusComment</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <elementReference>status</elementReference>
+            </value>
+        </inputAssignments>
+        <object>LeaveRequest__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_Leave_Request</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <description>Leave Request record ID.</description>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Value to apply for Leave Request record &apos;Status&apos; field.</description>
+        <name>status</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <description>Value to apply for Leave Request record &apos;Status Comment&apos; field.</description>
+        <name>statusComment</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

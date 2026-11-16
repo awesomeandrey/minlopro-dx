@@ -4,5 +4,6 @@
     <active>true</active>
     <description>Check start/end dates validity.</description>
     <errorConditionFormula>EndDate__c &lt;  StartDate__c</errorConditionFormula>
+    <errorDisplayField>EndDate__c</errorDisplayField>
     <errorMessage>End date must be future date relatively to start date.</errorMessage>
 </ValidationRule>

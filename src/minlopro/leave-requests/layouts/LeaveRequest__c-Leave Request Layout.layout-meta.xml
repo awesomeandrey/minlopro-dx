@@ -22,7 +22,7 @@
                 <field>Name</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>Submitter__c</field>
             </layoutItems>
             <layoutItems>
@@ -61,7 +61,7 @@
                 <field>LastModifiedById</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>OwnerId</field>
             </layoutItems>
         </layoutColumns>
@@ -95,8 +95,8 @@
             <sortOrder>0</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Submit</actionName>
-            <actionType>StandardButton</actionType>
+            <actionName>LeaveRequest__c.SubmitForApproval</actionName>
+            <actionType>QuickAction</actionType>
             <sortOrder>1</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
@@ -105,6 +105,17 @@
             <sortOrder>2</sortOrder>
         </platformActionListItems>
     </platformActionList>
+    <relatedLists>
+        <relatedList>RelatedEntityHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>CreatedDate</fields>
+        <fields>StepStatus</fields>
+        <fields>OriginalActor</fields>
+        <fields>Actor</fields>
+        <fields>Comments</fields>
+        <relatedList>RelatedProcessHistoryList</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

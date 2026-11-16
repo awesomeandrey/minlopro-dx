@@ -5,9 +5,9 @@
     <externalId>false</externalId>
     <inlineHelpText>Stores complementary information for &apos;Status&apos; field used in approval flow.</inlineHelpText>
     <label>Status Comment</label>
-    <length>150</length>
+    <length>255</length>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <trackTrending>false</trackTrending>
     <type>Text</type>
     <unique>false</unique>

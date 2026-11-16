@@ -162,7 +162,18 @@
         <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Leave Requests</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
+        <excludedStandardButtons>NewFromDocument</excludedStandardButtons>
+        <excludedStandardButtons>ImeDistributionAction</excludedStandardButtons>
+        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>Import</excludedStandardButtons>
+        <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
+        <excludedStandardButtons>PrintableListView</excludedStandardButtons>
+        <excludedStandardButtons>MassAssignRecordLabel</excludedStandardButtons>
+        <excludedStandardButtons>OmniChannelMassRouteWork</excludedStandardButtons>
+        <massQuickActions>SubmitForApproval</massQuickActions>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
