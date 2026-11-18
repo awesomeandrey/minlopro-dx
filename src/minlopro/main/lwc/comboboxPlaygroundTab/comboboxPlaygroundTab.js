@@ -39,7 +39,17 @@ export default class ComboboxPlaygroundTab extends LightningElement {
             { label: 'Single Select #3', columnsSize: 5, name: 'single_3' },
             { label: 'Multi Select #1', columnsSize: 3, name: 'multi_1', multiSelect: true },
             { label: 'Multi Select #2', columnsSize: 4, name: 'multi_2', multiSelect: true },
-            { label: 'Multi Select #3', columnsSize: 5, name: 'multi_3', multiSelect: true }
+            { label: 'Multi Select #3', columnsSize: 5, name: 'multi_3', multiSelect: true },
+            { label: 'Multi Select w/ Pills #1', columnsSize: 3, name: 'multi_pills_1', multiSelect: true, showPills: true },
+            { label: 'Multi Select w/ Pills #2', columnsSize: 4, name: 'multi_pills_2', multiSelect: true, showPills: true },
+            {
+                label: 'Multi Select w/ Pills #3 (Disabled)',
+                columnsSize: 5,
+                name: 'multi_pills_3',
+                multiSelect: true,
+                showPills: true,
+                disabled: true
+            }
         ];
     }
 

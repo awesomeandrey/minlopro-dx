@@ -83,6 +83,10 @@
                 </div>
             </div>
         </div>
+        <!--SELECTED PILLS-->
+        <div lwc:if={hasPills} class="slds-m-top_xx-small">
+            <lightning-pill-container items={pillItems} onitemremove={handlePillRemove}></lightning-pill-container>
+        </div>
         <!--ERROR MESSAGE-->
         <div class="slds-form-element__help">{normalizedErrorMessage}</div>
     </div>

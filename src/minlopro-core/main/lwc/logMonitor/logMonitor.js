@@ -78,21 +78,6 @@ export default class LogMonitor extends LightningElement {
             .join(MULTI_PICKLIST_SEPARATOR);
     }
 
-    get selectedLogOwnersAsPills() {
-        return this.logOwners
-            .filter(({ ownerId }) => {
-                return this.selectedLogOwnerIds.includes(ownerId);
-            })
-            .map(({ name, ownerId, type }) => {
-                return {
-                    type: 'avatar',
-                    label: name,
-                    name: ownerId,
-                    fallbackIconName: type === 'user' ? 'standard:user' : 'standard:individual'
-                };
-            });
-    }
-
     get comboboxPlaceholder() {
         if (isEmptyArray(this.logOwners)) {
             return '- There are no Log Owners configured -';
@@ -339,11 +324,6 @@ export default class LogMonitor extends LightningElement {
     handleSelectLogOwner(event) {
         const { selectedOptions = [] } = event.detail;
         this.selectedLogOwnerIds = cloneObject(selectedOptions.map(({ value }) => value));
-    }
-
-    handleRemoveLogOwner(event) {
-        const ownerIdToRemove = event.detail.item.name;
-        this.selectedLogOwnerIds = this.selectedLogOwnerIds.filter((_) => _ !== ownerIdToRemove);
     }
 
     handleToggleMode() {

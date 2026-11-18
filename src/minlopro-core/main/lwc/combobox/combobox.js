@@ -93,6 +93,14 @@ export default class Combobox extends LightningElement {
     @api wrapText = false;
 
     /**
+     * Renders removable pills for each selected option below the input.
+     * Only takes effect when 'multiSelect' is also true; has no effect when
+     * the component is disabled or read-only.
+     * @type {boolean}
+     */
+    @api showPills = false;
+
+    /**
      * Gets the selected value(s) as a string joined by a separator.
      * For multi-select, values are joined by `MULTI_PICKLIST_SEPARATOR`.
      * For single-select, it returns the selected value.
@@ -219,6 +227,19 @@ export default class Combobox extends LightningElement {
 
     get selectedOptions() {
         return this.normalizedOptions.filter(({ selected = false }) => selected);
+    }
+
+    get hasPills() {
+        return this.multiSelect && this.showPills && this.selectedOptions.length > 0;
+    }
+
+    get pillItems() {
+        return this.selectedOptions.map((option) => ({
+            type: option.iconName ? 'icon' : undefined,
+            label: option.label,
+            name: option.value,
+            iconName: option.iconName || undefined
+        }));
     }
 
     get hasError() {
@@ -362,7 +383,7 @@ export default class Combobox extends LightningElement {
         if (this.multiSelect) {
             if (this.selectedValues.includes(value)) {
                 // De-select option item;
-                this.selectedValues = this.selectedValues.filter((_) => _ !== value);
+                this.deselect(value);
             } else {
                 // Select option item;
                 this.selectedValues = [...this.selectedValues, value];
@@ -374,7 +395,16 @@ export default class Combobox extends LightningElement {
         this.notify();
     }
 
+    handlePillRemove(event) {
+        this.deselect(event.detail.item.name);
+        this.notify();
+    }
+
     // Service Methods;
+
+    deselect(value) {
+        this.selectedValues = this.selectedValues.filter((_) => _ !== value);
+    }
 
     hideDropdown() {
         this.log(this.hideDropdown, `${this.name}`);
