@@ -20,6 +20,24 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>LeaveRequest_DefaultPage</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>LeaveRequest__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>LeaveRequest_DefaultPage</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>LeaveRequest__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
         <content>Account_DefaultPage</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
@@ -34,6 +52,24 @@
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
         <pageOrSobjectType>Account</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>ApprovalWorkItem_DefaultPage</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>ApprovalWorkItem</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>ApprovalWorkItem_DefaultPage</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>ApprovalWorkItem</pageOrSobjectType>
     </actionOverrides>
     <actionOverrides>
         <actionName>View</actionName>
@@ -151,16 +187,19 @@
     <tabs>standard-Account</tabs>
     <tabs>standard-Contact</tabs>
     <tabs>standard-Opportunity</tabs>
-    <tabs>SmsHub</tabs>
-    <tabs>SalesforceContact__x</tabs>
     <tabs>standard-Case</tabs>
+    <tabs>Knowledge__kav</tabs>
+    <tabs>LeaveRequest__c</tabs>
+    <tabs>SalesforceContact__x</tabs>
     <tabs>Car__c</tabs>
-    <tabs>GoogleMapsApiPlayground</tabs>
+    <tabs>SmsHub</tabs>
     <tabs>standard-Dashboard</tabs>
     <tabs>standard-report</tabs>
-    <tabs>Knowledge__kav</tabs>
-    <tabs>standard-DuplicateRecordSet</tabs>
+    <tabs>standard-ApprovalsHome</tabs>
+    <tabs>standard-ApprovalWorkItem</tabs>
     <tabs>standard-OmniSupervisorLightning</tabs>
+    <tabs>standard-DuplicateRecordSet</tabs>
+    <tabs>GoogleMapsApiPlayground</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>MinloproConsole_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -175,19 +214,28 @@
             <tab>Knowledge__kav</tab>
         </mappings>
         <mappings>
+            <tab>LeaveRequest__c</tab>
+        </mappings>
+        <mappings>
             <tab>LogsMonitor</tab>
         </mappings>
         <mappings>
-            <tab>SmsHub</tab>
+            <tab>SalesforceContact__x</tab>
         </mappings>
         <mappings>
-            <tab>SalesforceContact__x</tab>
+            <tab>SmsHub</tab>
         </mappings>
         <mappings>
             <tab>Workspace</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-ApprovalWorkItem</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-ApprovalsHome</tab>
         </mappings>
         <mappings>
             <tab>standard-Case</tab>

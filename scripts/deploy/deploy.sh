@@ -60,5 +60,5 @@ npx dotenv -e ".env" -- sf project deploy start \
   --ignore-conflicts \
   --ignore-warnings \
   --test-level "$TEST_LEVEL" \
-  --wait 30 \
+  --wait 15 \
   --flags-dir "$FLAGS_DIR"

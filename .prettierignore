@@ -48,3 +48,6 @@ assets/
 .forceignore
 .gitignore
 .prettierignore
+
+# Prettier has no viable Python support
+**/*.py

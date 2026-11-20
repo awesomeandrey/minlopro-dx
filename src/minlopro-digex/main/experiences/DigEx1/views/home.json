@@ -5,10 +5,6 @@
   "id" : "4524c642-fc12-46c3-a850-f1494e4393d8",
   "label" : "Home",
   "regions" : [ {
-    "id" : "b461b045-bc8c-48c5-a289-ef04d3197668",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
     "components" : [ {
       "componentAttributes" : { },
       "componentName" : "c:digExWelcome",
@@ -16,12 +12,24 @@
       "renderPriority" : "NEUTRAL",
       "renditionMap" : { },
       "type" : "component"
-    }, {
+    } ],
+    "id" : "b461b045-bc8c-48c5-a289-ef04d3197668",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
       "componentAttributes" : {
         "tabsetConfig" : {
           "UUID" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
           "activeTab" : "",
           "tabs" : [ {
+            "UUID" : "8492067f-14d0-433f-b751-d1a342d01e8d",
+            "allowGuestUser" : true,
+            "locked" : false,
+            "seedComponents" : [ ],
+            "tabKey" : "d9f77",
+            "tabName" : "Help"
+          }, {
             "UUID" : "c4fb8407-94c2-455b-841b-f31f32bfcd88",
             "allowGuestUser" : true,
             "locked" : false,
@@ -42,6 +50,22 @@
       "componentName" : "forceCommunity:tabLayout",
       "id" : "19a50a30-3a60-497a-90ce-f0afe584b3cf",
       "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "richTextValue" : "<h4><br></h4><h4>&nbsp;Need help with something?</h4><p><br></p><p>Go to the relevant tab and submit lead/case to:</p><ul><li>🐞 Report a problem or issue</li><li>❓ Ask a question about an existing product, order, or account</li><li>📦 Request support or follow up on a service</li></ul><p>&nbsp;</p>"
+          },
+          "componentName" : "forceCommunity:richTextInline",
+          "id" : "2fab9a70-2676-4c0d-b2fe-fe412bacb39c",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "8492067f-14d0-433f-b751-d1a342d01e8d",
+        "regionLabel" : "Help",
+        "regionName" : "d9f77",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
         "components" : [ {
           "componentAttributes" : { },
           "componentName" : "c:digExWebToLeadForm",

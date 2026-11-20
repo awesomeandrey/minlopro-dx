@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Assigned_ApprovalWorkItems</fullName>
+    <columns>Name</columns>
+    <columns>RelatedRecord</columns>
+    <columns>ApprovalConditionName</columns>
+    <columns>CreatedDate</columns>
+    <columns>Status</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status</field>
+        <operation>equals</operation>
+        <value>AS</value>
+    </filters>
+    <label>Assigned Approval Work Items</label>
+</ListView>

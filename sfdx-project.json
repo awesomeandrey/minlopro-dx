@@ -1,6 +1,7 @@
 {
     "packageDirectories": [
         { "path": "src/minlopro" },
+        { "path": "src/minlopro-aws-cloud-computing" },
         { "path": "src/minlopro-core" },
         { "path": "src/minlopro-crm-analytics" },
         { "path": "src/minlopro-default", "default": true },
