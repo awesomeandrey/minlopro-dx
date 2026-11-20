@@ -1,5 +1,5 @@
 {
-  "version" : "64.0",
+  "version" : "68.0",
   "nodes" : {
     "LOAD_DATASET0" : {
       "action" : "load",
@@ -15,7 +15,8 @@
         "sampleDetails" : {
           "type" : "TopN",
           "sortBy" : [ ]
-        }
+        },
+        "preserveCurrencyFields" : [ ]
       }
     },
     "LOAD_DATASET1" : {
@@ -32,7 +33,8 @@
         "sampleDetails" : {
           "type" : "TopN",
           "sortBy" : [ ]
-        }
+        },
+        "preserveCurrencyFields" : [ ]
       }
     },
     "JOIN0" : {
@@ -244,10 +246,8 @@
           "label" : "Amount Bucket",
           "type" : "TEXT",
           "bucketsSetup" : {
-            "defaultBucketValue" : null,
             "nullBucketValue" : "N/A",
             "isPassthroughEnabled" : false,
-            "algorithm" : null,
             "sourceField" : {
               "name" : "Amount",
               "type" : "NUMBER"
@@ -307,7 +307,8 @@
         "sampleDetails" : {
           "type" : "TopN",
           "sortBy" : [ ]
-        }
+        },
+        "preserveCurrencyFields" : [ ]
       }
     },
     "FILTER0" : {
@@ -395,8 +396,8 @@
         "label" : "Normalize & Calculate Fields",
         "description" : "",
         "type" : "TRANSFORM",
-        "top" : 112.4,
-        "left" : 672.2,
+        "top" : 112,
+        "left" : 672,
         "graph" : {
           "EDIT_ATTRIBUTES0" : {
             "label" : "Edit Attributes"
@@ -477,14 +478,14 @@
         "label" : "ds_OpportunitiesAnalytics",
         "description" : "",
         "type" : "OUTPUT",
-        "top" : 112.19999999999999,
-        "left" : 812.1
+        "top" : 112,
+        "left" : 812
       },
       "LOAD_DATASET2" : {
         "label" : "Profile",
         "type" : "LOAD_DATASET",
-        "top" : 392,
-        "left" : 112,
+        "top" : 252,
+        "left" : 252,
         "parameters" : {
           "sampleSize" : 2000
         }
@@ -493,15 +494,15 @@
         "label" : "System Admin Profile",
         "description" : "",
         "type" : "FILTER",
-        "top" : 392,
-        "left" : 252
+        "top" : 252,
+        "left" : 392
       },
       "TRANSFORM1" : {
         "label" : "Admin Profile Stub",
         "description" : "",
         "type" : "TRANSFORM",
-        "top" : 112.19999999999999,
-        "left" : 391.9,
+        "top" : 112,
+        "left" : 392,
         "graph" : {
           "FORMULA0" : {
             "parameters" : {
@@ -525,7 +526,7 @@
         "label" : "Opportunities with Admin Profile ID",
         "description" : "",
         "type" : "UPDATE",
-        "top" : 112.19999999999999,
+        "top" : 112,
         "left" : 532
       }
     },
