@@ -65,15 +65,13 @@
             data={normalizedData}
             onrowaction={handleRowAction}
             hide-checkbox-column
-        ></lightning-tree-grid>
+        >
+            <c-custom-data-types-provider slot="customdatatypes"></c-custom-data-types-provider>
+        </lightning-tree-grid>
     </div>
     <div if:false={hasLogs} class="slds-theme_default slds-p-around_small">
-        <div class="slds-illustration">
-            <img src={backgroundSvgUrl} alt="NoDataFound" />
-            <div class="slds-text-longform slds-m-top_small">
-                <h3 class="slds-text-heading_medium">{labels.noLogsYetLbl}</h3>
-                <p class="slds-text-body_regular">{labels.enableLoggingLbl}</p>
-            </div>
-        </div>
+        <lightning-empty-state illustration-name="noresults:unknown" title={labels.noLogsYetLbl} size="medium">
+            <p slot="description">{labels.enableLoggingLbl}</p>
+        </lightning-empty-state>
     </div>
 </template>

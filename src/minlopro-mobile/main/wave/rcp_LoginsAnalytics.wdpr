@@ -1,5 +1,5 @@
 {
-  "version" : "67.0",
+  "version" : "68.0",
   "nodes" : {
     "LOAD_DATASET1" : {
       "action" : "load",
@@ -25,11 +25,10 @@
         "fields" : [ ],
         "dataset" : {
           "type" : "analyticsDataset",
-          "label" : "ds_LoginAnalytics",
+          "label" : "Login Analytics",
           "name" : "ds_LoginAnalytics",
           "folderName" : "MinloproEventMonitoring"
-        },
-        "measuresToCurrencies" : [ ]
+        }
       }
     },
     "FORMULA0" : {

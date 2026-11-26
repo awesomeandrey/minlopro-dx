@@ -13,9 +13,6 @@ import getLoggerSettingsBySetupOwnersApex from '@salesforce/apex/LogsMonitorPane
 import runDemoApex from '@salesforce/apex/LoggerDemo.run';
 import isFeatureActiveApex from '@salesforce/apex/FeatureToggle.isActive';
 
-// Static Resources;
-import COMMONS_ASSETS from '@salesforce/resourceUrl/CommonsAssets';
-
 // Custom Labels:
 import errorLbl from '@salesforce/label/c.Commons_Msg_Error';
 import muteLbl from '@salesforce/label/c.Logger_Btn_Mute';
@@ -119,10 +116,6 @@ export default class LogMonitor extends LightningElement {
         return isNotEmpty(this.logsByTransactionId);
     }
 
-    get backgroundSvgUrl() {
-        return `${COMMONS_ASSETS}/svg/background1.svg`;
-    }
-
     get disableButtons() {
         return this.hasError || !this.hasLogs;
     }
@@ -156,22 +149,24 @@ export default class LogMonitor extends LightningElement {
             {
                 fieldName: 'data.Quiddity',
                 label: 'Quiddity',
+                type: 'customCodeSnippet',
                 initialWidth: 150,
                 visible: this.isDetailedMode
             },
             {
-                fieldName: this.isCompactMode ? 'unknownFieldName' : 'debugLevel',
+                fieldName: 'debugLevel',
                 label: 'Level',
-                initialWidth: 100,
-                cellAttributes: {
-                    iconName: { fieldName: 'iconName' },
-                    iconPosition: 'left'
+                type: 'customBadge',
+                typeAttributes: {
+                    variant: { fieldName: 'debugLevelBadgeVariant' }
                 },
+                initialWidth: 100,
                 visible: true
             },
             {
                 fieldName: 'stacktrace',
-                label: 'Class > Method > Line',
+                label: 'Stacktrace',
+                type: 'customCodeSnippet',
                 wrapText: true,
                 visible: true
             },
@@ -395,11 +390,9 @@ export default class LogMonitor extends LightningElement {
             });
 
             // Custom attributes;
-            logItem.stacktrace = (() => {
-                let dto = JSON.parse(data['StackTrace']) || {};
-                return dto['toString'];
-            })();
-            logItem.iconName = debugLevel === 'ERROR' ? 'utility:bug' : 'utility:info';
+            const stackTraceDto = JSON.parse(data['StackTrace']) || {};
+            logItem.stacktrace = stackTraceDto['toString'];
+            logItem.debugLevelBadgeVariant = debugLevel === 'ERROR' ? 'error' : 'info';
             logItem.logOwnerIds = matchedLogOwners.map(({ ownerId }) => ownerId);
 
             // Extract log author;
@@ -410,7 +403,7 @@ export default class LogMonitor extends LightningElement {
             const currentTimestamp = new Date(createdDate).getTime();
             const lastTimestamp = this.lastTimestampByTransactionId[transactionId] || currentTimestamp;
             logItem.elapsed = currentTimestamp - lastTimestamp;
-            this.lastTimestampByTransactionId[transactionId] = lastTimestamp;
+            this.lastTimestampByTransactionId[transactionId] = currentTimestamp;
 
             // Push log item into the store;
             const existingLogs = this.logsByTransactionId[transactionId] || [];

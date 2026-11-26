@@ -2,6 +2,6 @@
 <WaveDataset xmlns="http://soap.sforce.com/2006/04/metadata">
     <application>MinloproEventMonitoring</application>
     <description>Created from the Login Analytics recipe.</description>
-    <masterLabel>ds_LoginAnalytics</masterLabel>
+    <masterLabel>Login Analytics</masterLabel>
     <type>default</type>
 </WaveDataset>

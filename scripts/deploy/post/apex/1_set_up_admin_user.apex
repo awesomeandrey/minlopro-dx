@@ -41,7 +41,11 @@ public without sharing class ScriptWorker {
 
         // Add user to public groups
         List<GroupMember> gMembers = new List<GroupMember>();
-        for (Group targetGroup : [SELECT Id FROM Group WHERE DeveloperName IN ('OrgAdmins', 'OrgUsers', 'LogsViewers')]) {
+        for (Group targetGroup : [
+            SELECT Id
+            FROM Group
+            WHERE DeveloperName IN ('OrgAdmins', 'OrgUsers', 'LogsViewers', 'HumanResources')
+        ]) {
             gMembers.add(new GroupMember(GroupId = targetGroup.Id, UserOrGroupId = adminUserId));
         }
         Database.insert(gMembers, false);

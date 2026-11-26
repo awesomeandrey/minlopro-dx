@@ -5,7 +5,9 @@ on:
 #  pull_request:
 #    types: [ opened, synchronize, reopened ]
   schedule:
+    # Runs at 11:00 Europe/Kyiv time every Wednesday (DST handled automatically)
     - cron: "0 11 * * 3"
+      timezone: "Europe/Kyiv"
   workflow_dispatch:
     inputs:
       environment:

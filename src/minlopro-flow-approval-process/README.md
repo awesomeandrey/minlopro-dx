@@ -24,17 +24,17 @@ Replicate a typical HR **two-stage leave request approval**: Stage 1 goes to a *
 also a member, which is what makes the two UI variations below comparable side by side. Either
 rejection (or any fault) routes to a shared Fault/Rejection stage.
 
-|                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------- |
-| **Stage 1 — assigned to a specific User**                                                                                        |
-| ![Stage 1 approval assigned directly to a user](../../../assets/demo/flow-approval-processes/Leave_Request_Approval_Stage_1.png) |
-| **Stage 2 — assigned to a Public Group**                                                                                         |
-| ![Stage 2 approval assigned to a public group](../../../assets/demo/flow-approval-processes/Leave_Request_Approval_Stage_2.png)  |
+|                                                                                                                               |
+| ----------------------------------------------------------------------------------------------------------------------------- |
+| **Stage 1 — assigned to a specific User**                                                                                     |
+| ![Stage 1 approval assigned directly to a user](../../assets/demo/flow-approval-processes/Leave_Request_Approval_Stage_1.png) |
+| **Stage 2 — assigned to a Public Group**                                                                                      |
+| ![Stage 2 approval assigned to a public group](../../assets/demo/flow-approval-processes/Leave_Request_Approval_Stage_2.png)  |
 
 ## ⚠️ Notes / Gaps Found
 
 - The approval step assignee is **hard-coded metadata**, so the Line Manager assignee is injected
-  at deploy time through the `${SF_ADMIN_USERNAME}` `replacements` entry in `sfdx-project.json`
+  at deploy time through the `${SF_ADMIN_USERNAME}` `replacements` entry in `../../sfdx-project.json`
   (see `.env`) rather than being resolved dynamically from the submitter's manager.
 - The orchestration runs in `SystemModeWithoutSharing`, which is why the background steps can
   update a record that the approval steps have locked.

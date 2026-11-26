@@ -5,6 +5,8 @@
 - `bridge.js` - used for communication between components (based off of LMS)
 - `c-combobox` - custom LWC that extends base `lightning-combobox` LWC
 - `c-datatable` - extension of base `lightning-datatable` LWC that supports editable lookups & picklists
+- `customDataTypes.js` - shared custom data type definitions (combobox, lookup, picklist, input, badge, code snippet), consumed by `c-datatable` via its `customTypes` static property
+- `c-custom-data-types-provider` - slots the same `customDataTypes.js` definitions into any **unextended** base `lightning-datatable`/`lightning-tree-grid` via its `customdatatypes` slot (no subclassing required); see `c-log-monitor`'s "Level" column for a working example. Note: extending `lightning-tree-grid` directly (the `lightning-datatable` pattern) does not work as of this writing — `lightning/treeGrid` does not expose a subclassable class in this org, so the slot-provider approach is the only working route for tree-grid custom types
 - `c-stencil-skeleton` - UI LWC that improves UX while component is loading
 - `toastify.js` - utility module that facades API around toast notifications
 - `utilities.js` - boilerplate JS functions
