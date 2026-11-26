@@ -9,33 +9,48 @@ export default class OrgLimits extends LightningElement {
     @track rawOrgLimits = [];
     @track showAllLimits = false;
     @track errorObj = {};
+    @track sortedBy = 'value';
+    @track sortedDirection = 'desc';
 
     get orgLimitsColumns() {
         return [
             {
                 fieldName: 'name',
-                label: 'Name'
+                label: 'Name',
+                sortable: true
             },
             {
                 fieldName: 'value',
                 label: 'Consumed',
-                type: 'number'
+                type: 'number',
+                sortable: true
             },
             {
                 fieldName: 'limit',
                 label: 'Limit',
-                type: 'number'
+                type: 'number',
+                sortable: true
             }
         ];
     }
 
-    get orgLimitsData() {
+    get filteredOrgLimits() {
         return this.rawOrgLimits.filter(({ value: consumed }) => {
             if (this.showAllLimits) {
                 return true;
             } else {
                 return Number(consumed) > 0;
             }
+        });
+    }
+
+    get orgLimitsData() {
+        const { sortedBy, sortedDirection } = this;
+        const multiplier = sortedDirection === 'asc' ? 1 : -1;
+        return [...this.filteredOrgLimits].sort((a, b) => {
+            const valueA = a[sortedBy];
+            const valueB = b[sortedBy];
+            return (valueA > valueB ? 1 : valueA < valueB ? -1 : 0) * multiplier;
         });
     }
 
@@ -71,6 +86,12 @@ export default class OrgLimits extends LightningElement {
 
     async handleToggleFilter() {
         this.showAllLimits = !this.showAllLimits;
+    }
+
+    handleSort(event) {
+        const { fieldName: sortedBy, sortDirection: sortedDirection } = event.detail;
+        this.sortedBy = sortedBy;
+        this.sortedDirection = sortedDirection;
     }
 
     async fetchOrgLimits() {

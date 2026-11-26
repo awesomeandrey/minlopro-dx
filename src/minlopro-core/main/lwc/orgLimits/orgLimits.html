@@ -32,6 +32,9 @@
                 key-field="uid"
                 columns={orgLimitsColumns}
                 data={orgLimitsData}
+                sorted-by={sortedBy}
+                sorted-direction={sortedDirection}
+                onsort={handleSort}
                 show-row-number-column
                 hide-checkbox-column
             ></lightning-datatable>
