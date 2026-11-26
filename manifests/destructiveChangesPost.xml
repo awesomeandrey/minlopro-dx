@@ -1,4 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <types>
+        <members>Log__e</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>TH_Log_CaptureAndPersist</members>
+        <members>TH_Log_CaptureAndPersistTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>LogTrigger</members>
+        <name>ApexTrigger</name>
+    </types>
+    <types>
+        <members>Car__c.Brand__c</members>
+        <members>Car__c.Contact__c</members>
+        <members>Log__e.AuthorId__c</members>
+        <members>Log__e.AuthorProfileId__c</members>
+        <members>Log__e.Data__c</members>
+        <members>Log__e.Level__c</members>
+        <members>Log__e.TransactionId__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>TriggerHandler.Log_CaptureAndPersist</members>
+        <name>CustomMetadata</name>
+    </types>
+    <types>
+        <members>Minlopro_Car</members>
+        <name>PermissionSet</name>
+    </types>
+    <types>
+        <members>LogTriggerSubscriberConfig</members>
+        <name>PlatformEventSubscriberConfig</name>
+    </types>
     <version>67.0</version>
 </Package>

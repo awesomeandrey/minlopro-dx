@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QuantitySold__c</fullName>
+    <description>Number of units sold in this transaction. Subtracted from the matching Car__c.QuantityAvailable__c; a value exceeding current stock trips the QuantityAvailable_Cannot_Be_Negative validation rule.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Units being sold. Selling more than is in stock is the deliberate failure scenario this exercise is built around.</inlineHelpText>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Quantity Sold</label>
+    <precision>18</precision>
+    <required>true</required>
+    <scale>0</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

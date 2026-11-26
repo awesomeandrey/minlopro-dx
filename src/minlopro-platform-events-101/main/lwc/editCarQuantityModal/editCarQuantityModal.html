@@ -1,0 +1,25 @@
+<template>
+    <lightning-modal-header label={modalLabel}></lightning-modal-header>
+    <lightning-modal-body>
+        <div class="slds-is-relative">
+            <lightning-spinner lwc:if={loading} alternative-text="Loading" size="small" variant="brand"></lightning-spinner>
+            <lightning-input
+                lwc:ref="quantityInput"
+                type="number"
+                label="Quantity Available"
+                required
+                min="0"
+                step="1"
+                value={quantity}
+                onchange={handleChange}
+            ></lightning-input>
+            <c-error-alert value={error}></c-error-alert>
+        </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+        <lightning-button-group>
+            <lightning-button label="Save" variant="brand" disabled={loading} onclick={handleSave}></lightning-button>
+            <lightning-button label="Cancel" disabled={loading} onclick={handleCancel}></lightning-button>
+        </lightning-button-group>
+    </lightning-modal-footer>
+</template>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SetCheckpoint__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Marks this event as a resume checkpoint. When true, the trigger handler calls EventBus.TriggerContext.currentContext().setResumeCheckpoint() after successfully processing this event, so a later failure in the same batch retries only the events after it instead of the whole batch.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check to mark this row as a checkpoint - a retry triggered by a later failure in the same batch will skip everything up to and including this event.</inlineHelpText>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Set Checkpoint</label>
+    <type>Checkbox</type>
+</CustomField>

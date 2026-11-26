@@ -1,0 +1,60 @@
+{
+    "records": [
+        {
+            "attributes": {
+                "type": "Car__c",
+                "referenceId": "CarRef1"
+            },
+            "Model__c": "Toyota Corolla",
+            "QuantityAvailable__c": 10
+        },
+        {
+            "attributes": {
+                "type": "Car__c",
+                "referenceId": "CarRef2"
+            },
+            "Model__c": "Honda Civic",
+            "QuantityAvailable__c": 5
+        },
+        {
+            "attributes": {
+                "type": "Car__c",
+                "referenceId": "CarRef3"
+            },
+            "Model__c": "Ford Mustang",
+            "QuantityAvailable__c": 0
+        },
+        {
+            "attributes": {
+                "type": "Car__c",
+                "referenceId": "CarRef4"
+            },
+            "Model__c": "Tesla Model 3",
+            "QuantityAvailable__c": 3
+        },
+        {
+            "attributes": {
+                "type": "Car__c",
+                "referenceId": "CarRef5"
+            },
+            "Model__c": "BMW X5",
+            "QuantityAvailable__c": 7
+        },
+        {
+            "attributes": {
+                "type": "Car__c",
+                "referenceId": "CarRef6"
+            },
+            "Model__c": "Mazda CX-5",
+            "QuantityAvailable__c": 8
+        },
+        {
+            "attributes": {
+                "type": "Car__c",
+                "referenceId": "CarRef7"
+            },
+            "Model__c": "Subaru Outback",
+            "QuantityAvailable__c": 2
+        }
+    ]
+}

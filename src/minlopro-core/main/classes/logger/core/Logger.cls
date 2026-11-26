@@ -20,7 +20,7 @@ public without sharing class Logger {
     private static final Pattern STACK_LINE = Pattern.compile(
         '^(?:Class\\.)?([^.]+)\\.?([^\\.\\:]+)?[\\.\\:]?([^\\.\\:]*): line (\\d+), column (\\d+)$'
     );
-    private static Log__e log = null;
+    private static LogEvent__e log = null;
     private static Integer checkpointCounter = 1;
 
     public static void debug() {
@@ -165,7 +165,7 @@ public without sharing class Logger {
     }
 
     private static Boolean isEnabled() {
-        fflib_SObjectDescribe objectDescribe = fflib_SObjectDescribe.getDescribe(Log__e.SObjectType);
+        fflib_SObjectDescribe objectDescribe = fflib_SObjectDescribe.getDescribe(LogEvent__e.SObjectType);
         if (!objectDescribe.getDescribe().isCreateable()) {
             return false;
         }
@@ -179,7 +179,7 @@ public without sharing class Logger {
     }
 
     @TestVisible
-    private static Log__e currentEvent() {
+    private static LogEvent__e currentEvent() {
         return log;
     }
 }

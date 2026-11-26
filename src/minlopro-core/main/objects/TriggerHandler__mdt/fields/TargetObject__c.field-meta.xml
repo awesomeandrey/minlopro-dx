@@ -35,6 +35,16 @@
                 <label>BatchApexErrorEvent (Platform Event)</label>
             </value>
             <value>
+                <fullName>Car__c</fullName>
+                <default>false</default>
+                <label>Car</label>
+            </value>
+            <value>
+                <fullName>CarSaleEvent__e</fullName>
+                <default>false</default>
+                <label>Car Sale Event (Platform Event)</label>
+            </value>
+            <value>
                 <fullName>Contact</fullName>
                 <default>false</default>
                 <label>Contact</label>
@@ -50,9 +60,9 @@
                 <label>Lead</label>
             </value>
             <value>
-                <fullName>Log__e</fullName>
+                <fullName>LogEvent__e</fullName>
                 <default>false</default>
-                <label>Log (Platform Event)</label>
+                <label>Log Event (Platform Event)</label>
             </value>
             <value>
                 <fullName>LogEntry__c</fullName>

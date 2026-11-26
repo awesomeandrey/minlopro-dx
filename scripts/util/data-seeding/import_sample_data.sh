@@ -24,6 +24,11 @@ import_sample_records() {
   sf data import tree \
     --target-org "$TARGET_ORG_ALIAS" \
     --files "config/data/samples/sample-Leads.json"
+
+  # Import Cars (by file) - used by the Platform Events 101 exercise
+  sf data import tree \
+    --target-org "$TARGET_ORG_ALIAS" \
+    --files "config/data/samples/sample-Car__c.json"
 }
 
 import_duplicate_person_accounts() {

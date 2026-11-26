@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ThrowException__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Explicitly tells the trigger handler to throw an exception while processing this event, regardless of whether the Car__c match/decrement would otherwise succeed - a deliberate way to exercise the retryable-exception scenario on demand.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Check to force the handler to throw while processing this row, even if it would otherwise succeed.</inlineHelpText>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Throw Exception</label>
+    <type>Checkbox</type>
+</CustomField>

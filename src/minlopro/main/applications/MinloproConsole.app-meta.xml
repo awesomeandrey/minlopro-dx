@@ -204,7 +204,6 @@
     <utilityBar>MinloproConsole_UtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
-            <fieldName>Contact__c</fieldName>
             <tab>Car__c</tab>
         </mappings>
         <mappings>
