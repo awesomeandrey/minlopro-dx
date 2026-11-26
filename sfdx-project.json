@@ -7,7 +7,7 @@
         { "path": "src/minlopro-default", "default": true },
         { "path": "src/minlopro-digex" },
         { "path": "src/minlopro-digex-einstein-bot" },
-        { "path": "src/minlopro-digex-messaging" },
+        { "path": "src/minlopro-digex-messaging-in-web-app" },
         { "path": "src/minlopro-flow-approval-process" },
         { "path": "src/minlopro-installed-packages" },
         { "path": "src/minlopro-integrations" },
