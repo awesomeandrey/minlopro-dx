@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QuantityAvailable_Cannot_Be_Negative</fullName>
+    <active>true</active>
+    <description>Prevents a Car&apos;s available quantity from going negative. Deliberate &quot;oversell&quot; failure path for the Platform Events 101 exercise, exercised by the CarSaleEvent__e trigger.</description>
+    <errorConditionFormula>QuantityAvailable__c &lt; 0</errorConditionFormula>
+    <errorDisplayField>QuantityAvailable__c</errorDisplayField>
+    <errorMessage>There isn&apos;t enough stock available to complete this sale.</errorMessage>
+</ValidationRule>

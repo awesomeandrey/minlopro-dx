@@ -21,29 +21,35 @@
                     disabled={disableButtons}
                 ></lightning-button>
                 <lightning-button
-                    label={labels.expandAllLbl}
-                    onclick={handleExpandAll}
-                    icon-name="utility:expand_all"
-                    disabled={disableButtons}
-                ></lightning-button>
-                <lightning-button
-                    label={labels.collapseAllLbl}
-                    onclick={handleCollapseAll}
-                    icon-name="utility:collapse_all"
-                    disabled={disableButtons}
-                ></lightning-button>
-                <lightning-button
                     lwc:if={isTestButtonActive}
                     label="Test"
                     onclick={handleTest}
                     icon-name="utility:check"
                     disabled={loading}
                 ></lightning-button>
-                <lightning-button-icon-stateful
-                    icon-name="utility:filter_criteria_rule"
-                    selected={isCompactMode}
+                <lightning-button
+                    label="Switch View Mode"
                     onclick={handleToggleMode}
-                ></lightning-button-icon-stateful>
+                    icon-name="utility:summarydetail"
+                ></lightning-button>
+                <lightning-button-menu
+                    alternative-text="More Actions"
+                    icon-name="utility:chevrondown"
+                    menu-alignment="right"
+                    disabled={disableButtons}
+                    onselect={handleMenuSelect}
+                >
+                    <lightning-menu-item
+                        value="expandAll"
+                        label={labels.expandAllLbl}
+                        icon-name="utility:expand_all"
+                    ></lightning-menu-item>
+                    <lightning-menu-item
+                        value="collapseAll"
+                        label={labels.collapseAllLbl}
+                        icon-name="utility:collapse_all"
+                    ></lightning-menu-item>
+                </lightning-button-menu>
             </lightning-button-group>
         </div>
     </div>

@@ -168,7 +168,7 @@ export default class LogMonitor extends LightningElement {
                 label: 'Stacktrace',
                 type: 'customCodeSnippet',
                 wrapText: true,
-                visible: true
+                visible: this.isDetailedMode
             },
             {
                 fieldName: 'data.Message',
@@ -297,6 +297,15 @@ export default class LogMonitor extends LightningElement {
         this.$treeGrid.collapseAll();
     }
 
+    handleMenuSelect(event) {
+        const { value } = event.detail;
+        if (value === 'expandAll') {
+            this.handleExpandAll();
+        } else if (value === 'collapseAll') {
+            this.handleCollapseAll();
+        }
+    }
+
     async handleRowAction(event) {
         const { action, row } = event.detail;
         if (action.name === 'viewDetails') {
@@ -339,7 +348,7 @@ export default class LogMonitor extends LightningElement {
             // Control EMP API debug mode;
             EMP.setDebugFlag(true);
             // Subscribe to PE channel;
-            const channel = '/event/Log__e';
+            const channel = '/event/LogEvent__e';
             // Store 'subscription';
             this.subscription = await EMP.subscribe(channel, -1, this.handleLogEvent.bind(this));
             // Add error handler;

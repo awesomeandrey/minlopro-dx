@@ -7,7 +7,7 @@ private class LoggerTest {
         // Execute
         Logger.debug('{0}=={1}:{2}', new List<Object>{ 1, '2', false });
         // Verify
-        Log__e logEvent = Logger.currentEvent();
+        LogEvent__e logEvent = Logger.currentEvent();
         LogData logData = new LogData(logEvent);
         System.assertEquals(UserInfo.getUserId(), logData.authorId);
         System.assertEquals(LoggingLevel.DEBUG, logData.level);

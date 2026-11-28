@@ -1,0 +1,88 @@
+<template>
+    <lightning-card>
+        <span slot="title" class="slds-text-title_caps"><code>c-platform-events101-tab</code></span>
+        <lightning-spinner lwc:if={loading} alternative-text="Loading" size="x-small"></lightning-spinner>
+        <lightning-layout multiple-rows>
+            <lightning-layout-item size="12" medium-device-size="6" padding="around-small" class="slds-border_right">
+                <lightning-card title="Car Sale Event Payloads">
+                    <lightning-button-group slot="actions">
+                        <lightning-button label="Add Row" icon-name="utility:add" onclick={handleAddRow}></lightning-button>
+                        <lightning-button label="Clear" icon-name="utility:clear" onclick={handleClear}></lightning-button>
+                        <lightning-button
+                            label="Publish All"
+                            variant="brand"
+                            icon-name="utility:upload"
+                            disabled={doDisablePublish}
+                            onclick={handlePublishAll}
+                        ></lightning-button>
+                    </lightning-button-group>
+                    <c-datatable
+                        key-field="key"
+                        data={draftEvents}
+                        columns={columns}
+                        draft-values={draftValues}
+                        errors={errors}
+                        show-row-number-column
+                        hide-checkbox-column
+                        oncellchange={handleCellChange}
+                        oncellerror={handleCellError}
+                        onsave={handleSave}
+                        oncancel={handleCancel}
+                        onrowaction={handleRowAction}
+                    ></c-datatable>
+                </lightning-card>
+                <c-error-alert value={error}></c-error-alert>
+                <lightning-card title="Car Inventory">
+                    <lightning-button
+                        slot="actions"
+                        label="Refresh All"
+                        icon-name="utility:refresh"
+                        onclick={handleRefreshAll}
+                    ></lightning-button>
+                    <lightning-layout multiple-rows>
+                        <template for:each={cars} for:item="car">
+                            <lightning-layout-item
+                                key={car.Id}
+                                size="12"
+                                small-device-size="6"
+                                medium-device-size="4"
+                                padding="around-small"
+                            >
+                                <div class="slds-box slds-box_small slds-grid slds-grid_align-spread">
+                                    <div class="slds-media">
+                                        <div class="slds-media__figure">
+                                            <lightning-icon icon-name="utility:travel_and_places" size="small"></lightning-icon>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <p class="slds-text-body_small slds-text-color_weak">Model</p>
+                                            <p class="slds-m-bottom_x-small">
+                                                <strong>{car.Model__c}</strong>
+                                            </p>
+                                            <p class="slds-text-body_small slds-text-color_weak">Quantity Available</p>
+                                            <p><strong>{car.QuantityAvailable__c}</strong></p>
+                                        </div>
+                                    </div>
+                                    <lightning-button-icon
+                                        icon-name="utility:edit"
+                                        variant="border-filled"
+                                        size="x-small"
+                                        alternative-text="Edit Quantity Available"
+                                        data-id={car.Id}
+                                        data-model={car.Model__c}
+                                        data-quantity={car.QuantityAvailable__c}
+                                        onclick={handleEditQuantity}
+                                    ></lightning-button-icon>
+                                </div>
+                            </lightning-layout-item>
+                        </template>
+                    </lightning-layout>
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="12" medium-device-size="6" padding="around-small">
+                <lightning-card title="Live Log Monitor">
+                    <c-log-monitor mode="compact"></c-log-monitor>
+                </lightning-card>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

@@ -80,6 +80,12 @@ export default class Workspace extends LightningElement {
                 name: 'awsSentimentAnalysisTab',
                 iconName: 'utility:sentiment_neutral',
                 visible: true
+            },
+            {
+                label: 'Platform Events 101',
+                name: 'platformEvents101Tab',
+                iconName: 'utility:topic',
+                visible: true
             }
         ];
         return componentTabs

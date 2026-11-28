@@ -143,7 +143,7 @@
     <allowInChatterGroups>false</allowInChatterGroups>
     <compactLayoutAssignment>ShortInfo</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
-    <description>Used to capture and persist logs from &apos;Log__e&apos; platform events.</description>
+    <description>Used to capture and persist logs from &apos;LogEvent__e&apos; platform events.</description>
     <enableActivities>false</enableActivities>
     <enableBulkApi>true</enableBulkApi>
     <enableFeeds>false</enableFeeds>

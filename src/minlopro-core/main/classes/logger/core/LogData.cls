@@ -49,7 +49,7 @@ public class LogData {
     }
 
     // See 'TH_Log_CaptureAndPersist.cls';
-    public LogData(Log__e logEvent) {
+    public LogData(LogEvent__e logEvent) {
         this();
         // Extract field values from Platform Event;
         this.authorId = logEvent.AuthorId__c;
@@ -84,8 +84,8 @@ public class LogData {
         return this.data.get(key);
     }
 
-    public Log__e castToEvent() {
-        return new Log__e(
+    public LogEvent__e castToEvent() {
+        return new LogEvent__e(
             AuthorId__c = this.authorId,
             AuthorProfileId__c = authorProfileId,
             TransactionId__c = this.transactionId,

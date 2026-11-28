@@ -6,7 +6,7 @@
     <mutingPermissionSets>InternalUser_MutedPermissions</mutingPermissionSets>
     <permissionSets>Minlopro_AccessPublicRestEndpoint</permissionSets>
     <permissionSets>Minlopro_ApprovalProcessBreakdown</permissionSets>
-    <permissionSets>Minlopro_Car</permissionSets>
+    <permissionSets>Minlopro_CarsManager</permissionSets>
     <permissionSets>Minlopro_Core</permissionSets>
     <permissionSets>Minlopro_CurrencyManagement</permissionSets>
     <permissionSets>Minlopro_CustomAuthProviderAndNC</permissionSets>
